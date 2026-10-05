@@ -1,7 +1,7 @@
 """Build the site: one HTML file per chapter, an index, a sources page.
 
-Run from anywhere:  python3 vss-commercial/_build/build.py
-Writes into vss-commercial/. The site needs nothing from this folder to run;
+Run from anywhere:  python3 docs/the-method/_build/build.py
+Writes into docs/the-method/. The site needs nothing from this folder to run;
 the generator exists so the chapter list stays identical on every page.
 """
 

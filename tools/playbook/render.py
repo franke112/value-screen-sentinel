@@ -12,7 +12,7 @@ from html import escape as esc
 
 SITE = "The decision playbook"
 
-CSS = """/* The decision playbook -- shares its palette with docs/vss-commercial/style.css.
+CSS = """/* The decision playbook -- shares its palette with docs/the-method/style.css.
    Colour is meaning: value blue, price amber, pass green, fail orange,
    missing grey, owner mauve. */
 :root {
