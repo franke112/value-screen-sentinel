@@ -105,6 +105,14 @@ run time.
   ruling since, with its date and reason, in
   [`reference/FRAMEWORK-EDITS.md`](reference/FRAMEWORK-EDITS.md).
 
+## Questions?
+
+**Shared as-is. I don't take issues or pull requests.** I built this for
+myself and had fun doing it; take what's useful. If you have questions,
+open the repository in [Claude Code](https://claude.com/claude-code) and ask
+it -- `CLAUDE.md` tells it how the project works, and it can explain any
+part of it for as long as you like.
+
 ---
 
 *Built by Veljko Radan, with Claude. MIT licence — use it, change it, share it; just keep the credit. See [`LICENSE`](LICENSE).*
