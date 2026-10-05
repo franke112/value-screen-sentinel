@@ -630,3 +630,13 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   details.fold { break-inside: avoid; }
   details.fold[open] .inner, details.fold .inner { display: block; }
 }
+
+/* Language switch (2026-10-05): English <-> Swedish, same chapter. */
+.top .lang {
+  color: var(--ink);
+  font-size: 0.9em;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  text-underline-offset: 3px;
+}

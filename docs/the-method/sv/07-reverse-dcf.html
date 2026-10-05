@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Den omvända DCF:en · Den långsamma vägen, gjord uthärdlig</title>
+<meta name="description" content="Fråga inte vad ett företag är värt. Fråga vad priset förutsätter, och om du tror på det. Samma räkning, körd baklänges, och en annan sorts fråga kommer ut.">
+<link rel="alternate" hreflang="en" href="../07-reverse-dcf.html">
+<link rel="alternate" hreflang="sv" href="07-reverse-dcf.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-page="07-reverse-dcf" data-title="Den omvända DCF:en">
+<a class="skip" href="#main">Hoppa till innehållet</a>
+<header class="top">
+<a class="brand" href="index.html">Den långsamma vägen, gjord uthärdlig</a>
+<span class="where">Kapitel 7 av 23</span>
+<a class="lang" href="../07-reverse-dcf.html" hreflang="en" lang="en">English</a>
+</header>
+<div class="frame">
+<div class="chapters"><input type="checkbox" id="menu-toggle" class="menu-toggle"><label for="menu-toggle" class="menu-label">Innehåll</label><nav aria-label="Kapitel" id="contents"><ol><li class="home"><a href="index.html"><span class="n">&nbsp;</span>Börja här: kartan</a></li><li class="part">Del ett · Metoden</li><li><a href="01-the-problem.html"><span class="n">1</span><span>Problemet</span><span class="short">tiominutersvägen</span></a></li><li><a href="02-value.html"><span class="n">2</span><span>Vad värdeinvestering är</span><span class="short">tiominutersvägen</span></a></li><li><a href="03-this-project.html"><span class="n">3</span><span>Det här projektets särdrag</span></a></li><li><a href="04-the-screen.html"><span class="n">4</span><span>Screenern: från tvåtusen till en handfull</span></a></li><li><a href="05-refusal.html"><span class="n">5</span><span>Varför ett namn får nej, och varför det är det normala utfallet</span></a></li><li><a href="06-what-gets-read.html"><span class="n">6</span><span>Vad som läses</span></a></li><li><a href="07-reverse-dcf.html" aria-current="page"><span class="n">7</span><span>Den omvända DCF:en</span><span class="short">tiominutersvägen</span></a></li><li><a href="08-pre-registration.html"><span class="n">8</span><span>Förregistrering: skriv ned tron innan du ser talet</span><span class="short">tiominutersvägen</span></a></li><li><a href="09-three-outcomes.html"><span class="n">9</span><span>De tre utfallen</span></a></li><li><a href="10-the-funnel.html"><span class="n">10</span><span>Tratten: sex statusar</span></a></li><li><a href="11-the-decision.html"><span class="n">11</span><span>Beslutet</span></a></li><li><a href="12-shadow-book.html"><span class="n">12</span><span>Skuggboken</span></a></li><li class="part">Del två · Maskinen</li><li><a href="13-why-a-machine.html"><span class="n">13</span><span>Varför metoden behövde en maskin</span><span class="short">tiominutersvägen</span></a></li><li><a href="14-the-pieces.html"><span class="n">14</span><span>Hur programmet är uppbyggt</span></a></li><li><a href="15-the-record.html"><span class="n">15</span><span>Var datan bor och hur den hålls ärlig</span></a></li><li><a href="16-the-rules-file.html"><span class="n">16</span><span>Regelfilen</span><span class="short">tiominutersvägen</span></a></li><li><a href="17-the-nightly-run.html"><span class="n">17</span><span>Nattkörningen</span></a></li><li><a href="18-dead-mans-switch.html"><span class="n">18</span><span>Dödmansgreppet</span><span class="short">tiominutersvägen</span></a></li><li><a href="19-the-phone.html"><span class="n">19</span><span>Telefonproblemet</span></a></li><li><a href="20-the-boundary.html"><span class="n">20</span><span>Gränsen</span></a></li><li><a href="21-the-page.html"><span class="n">21</span><span>Sidan som kommer fram</span></a></li><li><a href="22-limits.html"><span class="n">22</span><span>Vad den inte gör</span></a></li><li><a href="23-close.html"><span class="n">23</span><span>Den långsamma vägen, gjord uthärdlig</span><span class="short">tiominutersvägen</span></a></li><li class="part">Bilaga</li><li><a href="sources.html"><span class="n">&nbsp;</span>Alla källor</a></li></ol></nav></div>
+<main id="main">
+<div class="article">
+<p class="crumb"><a href="index.html">Kartan</a> · Del ett · Metoden · Kapitel 7 av 23</p><h1>Den omvända DCF:en</h1><p class="lede">Fråga inte vad ett företag är värt. Fråga vad priset förutsätter, och om du tror på det. Samma räkning, körd baklänges, och en annan sorts fråga kommer ut. <span class="time">Ungefär 10 minuter · på tiominutersvägen.</span></p>
+<p>Så här brukar man värdera ett företag. Du gissar hur snabbt dess kassaflöde kommer att växa. Du lägger ihop kassan du räknar med att det ger ifrån sig de kommande tio åren, diskonterad eftersom pengar senare är värda mindre än pengar nu, och lägger till något för åren därefter. Ut kommer ett tal. Du jämför talet med priset. Det förfarandet har ett namn, <dfn>diskonterat kassaflöde</dfn>, vanligen förkortat DCF.</p>
+
+<p>Det har ett välkänt problem. Talet som kommer ut beror nästan helt på den tillväxt du gissade, och den tillväxt du gissade beror, om du är ärlig, på vad du redan ville att svaret skulle bli. "Vad är det värt?" är en fråga som bjuder in dig att lura dig själv, eftersom vilket svar som helst kan nås genom valet av gissning.</p>
+
+<h2>Omvändningen</h2>
+<p>Kör nu samma räkning baklänges. Utgå från den kurs marknaden anger i dag. Fråga: vilken tillväxttakt skulle företaget behöva under de kommande tio åren för att kursen ska vara precis rättvis? Räkningen är identisk; du löser bara ut en annan okänd. Ut kommer inte ett värde utan ett antagande: den tillväxt som marknaden för närvarande satsar på.</p>
+
+<p>Det talet går att bedöma. "Kommer det här företaget att växa sitt kassaflöde med 14 procent om året i ett decennium?" är en fråga som den som har läst rapporterna kan ha en åsikt om. Den har en form. Du kan titta på vad bolaget har gjort de senaste tio åren, vad dess marknad gör, vad det skulle behöva sälja för att komma dit, och säga: det tror jag inte på. Eller: jag tror på mer än så. "Vad är det värt?" går inte att besvara. "Tror jag på det?" är en bedömning, och bedömningar är vad människor finns till för.</p>
+
+<figure class="fig" id="f-inv"><svg viewBox="0 0 480 240" role="img" aria-labelledby="f-inv-t f-inv-d" font-size="13" fill="#1B1B1B"><title id="f-inv-t">En vanlig värdering mot en omvänd</title><desc id="f-inv-d">Övre raden: en tillväxt du antar går in i uträkningen och ett värde kommer ut, att jämföra med kursen. Nedre raden: den noterade kursen går in i samma uträkning körd baklänges, och tillväxten som kursen antar kommer ut.</desc><defs>
+<pattern id="f-inv-hatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+<rect width="6" height="6" fill="#E6E6E6"/><line x1="0" y1="0" x2="0" y2="6" stroke="#767676" stroke-width="1.6"/></pattern>
+<marker id="f-inv-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#1B1B1B"/></marker>
+<marker id="f-inv-arr-pass" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#00714F"/></marker>
+<marker id="f-inv-arr-fail" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#A34500"/></marker>
+<marker id="f-inv-arr-owner" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#8B4A70"/></marker>
+</defs><text x="20" y="30" text-anchor="start" font-size="13" fill="#5A5A5A" font-weight="600">vanliga vägen</text><rect x="20" y="40" width="126" height="56" rx="5" fill="#F6E7EF" stroke="#8B4A70" stroke-width="2"/><text x="83.0" y="63.2" text-anchor="middle" font-size="12" fill="#1B1B1B">en tillväxt</text><text x="83.0" y="78.2" text-anchor="middle" font-size="12" fill="#1B1B1B">du antar</text><line x1="148" y1="68" x2="172" y2="68" stroke="#1B1B1B" stroke-width="2" marker-end="url(#f-inv-arr)"/><rect x="174" y="40" width="126" height="56" rx="5" fill="#F1EFE9" stroke="#1B1B1B" stroke-width="2"/><text x="237.0" y="70.7" text-anchor="middle" font-size="12" fill="#1B1B1B">uträkningen</text><line x1="302" y1="68" x2="326" y2="68" stroke="#1B1B1B" stroke-width="2" marker-end="url(#f-inv-arr)"/><rect x="328" y="40" width="132" height="56" rx="5" fill="#D1E6F1" stroke="#0072B2" stroke-width="2"/><text x="394.0" y="63.775" text-anchor="middle" font-size="11.5" fill="#1B1B1B">ett värde, sedan</text><text x="394.0" y="77.775" text-anchor="middle" font-size="11.5" fill="#1B1B1B">jämför med kursen</text><text x="240" y="118" text-anchor="middle" font-size="11" fill="#5A5A5A">&quot;vad är det värt?&quot; — din gissning in, ett tal ut</text><text x="20" y="150" text-anchor="start" font-size="13" fill="#5A5A5A" font-weight="600">det omvända</text><rect x="20" y="160" width="126" height="56" rx="5" fill="#FAEED1" stroke="#8A5A00" stroke-width="2"/><text x="83.0" y="183.2" text-anchor="middle" font-size="12" fill="#1B1B1B">kursen</text><text x="83.0" y="198.2" text-anchor="middle" font-size="12" fill="#1B1B1B">som noteras i dag</text><line x1="148" y1="188" x2="172" y2="188" stroke="#1B1B1B" stroke-width="2" marker-end="url(#f-inv-arr)"/><rect x="174" y="160" width="126" height="56" rx="5" fill="#F1EFE9" stroke="#1B1B1B" stroke-width="2"/><text x="237.0" y="183.775" text-anchor="middle" font-size="11.5" fill="#1B1B1B">samma uträkning,</text><text x="237.0" y="197.775" text-anchor="middle" font-size="11.5" fill="#1B1B1B">körd baklänges</text><line x1="302" y1="188" x2="326" y2="188" stroke="#1B1B1B" stroke-width="2" marker-end="url(#f-inv-arr)"/><rect x="328" y="160" width="132" height="56" rx="5" fill="#D1E6F1" stroke="#0072B2" stroke-width="2"/><text x="394.0" y="183.775" text-anchor="middle" font-size="11.5" fill="#1B1B1B">tillväxten som</text><text x="394.0" y="197.775" text-anchor="middle" font-size="11.5" fill="#1B1B1B">kursen antar</text><text x="240" y="236" text-anchor="middle" font-size="11" fill="#5A5A5A">&quot;tror jag på det?&quot; — ett tal in, en fråga du kan bedöma ut</text></svg><figcaption>Samma uträkning, motsatt riktning. Det vanliga sättet stoppar in din gissning och får ett tal ut. Det omvända stoppar in marknadens tal och får marknadens gissning ut, som du sedan kan bedöma.</figcaption></figure>
+
+<h2>En analogi</h2>
+<p>En begagnad bil annonseras till ett pris. Du kan försöka räkna ut vad bilen är "värd", och du skulle upptäcka att svaret beror på hur många år av problemfri körning du antar. Eller så kan du ställa den andra frågan: till det här priset, hur många år av problemfri körning ber säljaren mig tro på? Om priset bara är rimligt om bilen går tolv år till utan reparation, och den har 200 000 kilometer på mätaren, då har du ditt svar, och du fick det utan att någonsin behöva veta vad bilen är "värd".</p>
+
+<h2>Prova själv</h2>
+<p>BOLAG A producerar 10 per aktie i överskottskassa om året. Fastställ räkningen så som det här projektet fastställer den: tio års tillväxt, därefter en slutlig tillväxt på 2,5 procent om året, allt diskonterat med 9,5 procent. Det enda fria talet är tillväxttakten. Så här ser det ut för olika priser och vad de förutsätter.</p>
+
+<div class="tbl"><table>
+<thead><tr><th class="num">Kurs per aktie</th><th class="num">Tillväxt som kursen förutsätter, per år i tio år</th></tr></thead>
+<tbody><tr><td class="num">100</td><td class="num">-2.7%</td></tr><tr><td class="num">130</td><td class="num">0.9%</td></tr><tr><td class="num">160</td><td class="num">3.7%</td></tr><tr><td class="num">200</td><td class="num">6.7%</td></tr><tr><td class="num">250</td><td class="num">9.7%</td></tr><tr><td class="num">320</td><td class="num">13.0%</td></tr></tbody>
+</table></div>
+
+<div class="explore js-only" id="rdcf-explore" hidden>
+<label for="rdcf-price">Flytta kursen och se hur antagandet flyttar sig</label>
+<input type="range" id="rdcf-price" min="80" max="400" step="5" value="160">
+<output id="rdcf-price-out" for="rdcf-price"></output>
+<output id="rdcf-out" aria-live="polite"></output>
+<p class="hint">Samma räkning som i tabellen. Utan skript är tabellen siffran.</p>
+</div>
+
+<p>Läs tabellen från höger. Vid 100 förutsätter kursen att kassan knappt växer. Vid 250 förutsätter den en tillväxt som mycket få företag klarar i ett decennium. Metoden talar inte om vilket som stämmer. Den talar om vad du skulle behöva tro, och lämnar tillbaka trodden till dig.</p>
+
+<h2>Hur det här projektet fastställer räkningen, och vad det medger</h2>
+<p>Indata är tolvmånaders överskottskassa från rapporterna, bolagets nettoskuld och ett antal aktier som bolaget har angett. Horisonten är tio år, tillväxten därefter 2,5 procent. Diskonteringsräntan är 9,5 procent, och metoden är ovanligt öppen med vad det talet är: inte en uppskattning av vad marknaden kräver, utan ägarens eget avkastningskrav, satt till vad en indexfond förväntas ge på lång sikt plus två till tre punkter för risken att äga ett enda bolag. Den är densamma för alla bolag, vilket medvetet kräver lite mer av ett svenskt företag än av ett amerikanskt, och rapporten skriver ut skevheten i stället för att dölja den. Med beslutets egna ord "kommer räntan aldrig att verifieras mot något. Den är en preferens och säger det."<a class="noteref" href="#n1" id="r1" aria-label="note 1">1</a><span class="note" id="n1" role="note"><span class="nn">1</span>Beslut E29. Motorn: vss/valuation.py. Varje köpkurs skrivs ut tillsammans med sitt värde vid en ränta en halv punkt lägre och en halv punkt högre, så att läsaren ser hur mycket talet lutar sig mot preferensen.</span></p>
+
+
+<h2>Var idén kommer ifrån</h2>
+<p>Att läsa den tillväxt som ligger inbäddad i ett pris, i stället för att prognostisera tillväxt för att hitta ett pris, utarbetades och populariserades av Alfred Rappaport och Michael Mauboussin i <em>Expectations Investing</em>, först utgiven 2001. Deras sammanfattning av metoden är två steg: läs priset, förutse sedan revideringen.<a class="noteref" href="#n2" id="r2" aria-label="note 2">2</a><span class="note" id="n2" role="note"><span class="nn">2</span>Rappaport och Mauboussin, Expectations Investing (Harvard Business School Press 2001; reviderad upplaga Columbia 2021). Deras webbplats anger metoden som 'Read the price. Then anticipate the revision.'</span> Aswath Damodaran lär ut samma omvändning under namnet implicit tillväxt. Det här projektet lånar omvändningen i sin helhet. Där det avviker är i vad som händer härnäst: Rappaport och Mauboussin jämför marknadens antagande med analytikerns; det här projektet kräver att analytikerns bedömning ligger i registret innan marknadens tal ens har beräknats. Det är nästa kapitel.</p>
+
+
+<details class="fold"><summary>Den exakta regeln</summary><div class="inner">
+<p>Ramverket §5 såsom ombyggt genom besluten E28 och E29: den omvända DCF:en är den enda motorn; två äldre metoder, jämförelse med tidigare multiplar och med jämförbara bolag, visas bredvid som sammanhang och vägs aldrig in i medelvärdet. Indata: rapporterat fritt kassaflöde för tolv månader, nettoskuld, ett angivet antal aktier. Horisont tio år, slutlig tillväxt 2,5 procent, avkastningskrav 9,5 procent, löst genom bisektion för den tillväxt som gör att eget kapital per aktie är lika med kursen. Kod: <code>vss/valuation.py</code>, funktionen <code>implied_growth</code>.</p>
+</div></details>
+<section class="sources"><h2>Källor för det här kapitlet</h2><ol><li>Rappaport och Mauboussin, Expectations Investing (bokens webbplats)<br><a href="https://www.expectationsinvesting.com/" rel="noopener">https://www.expectationsinvesting.com/</a></li><li>Den omvända DCF-motorn och avkastningskravet <span class="how">— läst ur det här repot: vss/valuation.py; reference/FRAMEWORK-EDITS.md E28, E29</span></li></ol></section><nav class="pager" aria-label="Föregående och nästa kapitel"><a class="prev" href="06-what-gets-read.html" rel="prev"><span class="lab">Föregående · 6</span>Vad som läses</a><a class="next" href="08-pre-registration.html" rel="next"><span class="lab">Nästa · 8</span>Förregistrering: skriv ned tron innan du ser talet</a><a class="short-next" href="08-pre-registration.html"><span class="lab">Nästa på tiominutersvägen · 8</span>Förregistrering: skriv ned tron innan du ser talet</a><span class="keys" hidden>Tangentbord: ← föregående kapitel, → nästa kapitel.</span></nav><p class="foot">Den långsamma vägen, gjord uthärdlig. Byggd 2026-09-13 ur repot som det såg ut den dagen. BOLAG A och BOLAG B är påhittade; inget bolag, ingen kurs och inget innehav förekommer på den här sajten. Inte finansiell rådgivning: en privatinvesterares metod, delad som den är.</p>
+</div>
+</main>
+</div>
+<script src="site.js"></script>
+</body>
+</html>

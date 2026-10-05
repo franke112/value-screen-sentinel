@@ -15,6 +15,7 @@ it keeps the record of what you decided and why.
 
 > **The full story -- how the method works and why, in 23 short chapters:**
 > **[franke112.github.io/value-screen-sentinel/the-method/](https://franke112.github.io/value-screen-sentinel/the-method/)**
+> *(På svenska: [https://franke112.github.io/value-screen-sentinel/the-method/sv/](https://franke112.github.io/value-screen-sentinel/the-method/sv/))*
 
 ## Four habits it enforces
 
