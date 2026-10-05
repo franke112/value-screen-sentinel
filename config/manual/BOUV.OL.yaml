@@ -1,0 +1,846 @@
+# BOUV.OL -- Bouvet ASA, hand-read from the issuer's own periodic reports.
+# WRITTEN 2026-09-08 at INTAKE (E111): the name is READ, NOT WATCHED. No
+# section 5 run, no fv_base, no tier, no mbp, no growth view, and no entry
+# on the watchlist.
+#
+# DOCUMENTS. All five are PRIMARY under `sources/manifest.json`, origin
+# `euronext-oslo-newsweb` -- taken from Euronext Oslo's NewsWeb, the
+# Norwegian Officially Appointed Mechanism, and not from bouvet.no:
+#   1. Q3 report 2025 (msg 659260, 2025-11-11)
+#      sources/BOUV.OL_2025-Q3_half-year-financial-report_2025-11-11_en_a1.pdf
+#   2. Q4 report 2025 (msg 665740, 2026-02-13)
+#      sources/BOUV.OL_2025-Q4_half-year-financial-report_2026-02-13_en_a0.pdf
+#   3. Annual Report 2025, AUDITED (msg 670820, 2026-04-16)
+#      sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf
+#   4. Q1 report 2026 (msg 673265, 2026-05-13)
+#      sources/BOUV.OL_2026-Q1_half-year-financial-report_2026-05-13_en_a0.pdf
+#   5. Q2 report 2026 (msg 680129, 2026-08-19)
+#      sources/BOUV.OL_2026-Q2_half-year-financial-report_2026-08-19_en_a0.pdf
+# The ESEF/iXBRL package (msg 670820 attachment 1,
+# bouvetasa-2025-12-31-1-no.zip) exists and was NOT fetched: it is the
+# Norwegian-language tagged copy of document 3 and nothing here reads it.
+# Every filing is also on NewsWeb in a Norwegian edition, as a separate
+# message; the English edition was taken, and `--language en` on the
+# download is the OWNER'S LABEL, not a field the feed carries.
+#
+# EXTRACTION: THE PDF PATH, everything UNVERIFIED (E40). Figures were read
+# from each PDF's text layer (pypdf) into this file. NO READ-BACK against a
+# rendered page has happened, so nothing here is VERIFIED and section 5 is
+# gated until the owner reads back what E108's floor says matters.
+#
+# UNITS. money_unit: THOUSANDS -- every statement in all five documents is
+# headed `NOK 1 000`. The narrative and the highlights table on p.2 of each
+# quarterly speak in NOK million and are NOT the source of any figure here
+# (E53: one scale per file). share_unit: WHOLE -- the key-figures table
+# prints whole shares (`Weighted average diluted shares outstanding
+# 103 372 896`).
+#
+# BASIS: E19's twelve-month window is 2025-Q3 + 2025-Q4 + 2026-Q1 + 2026-Q2,
+# ending 2026-06-30. Every quarter is a STANDALONE calendar quarter column
+# printed in its own report (Jul-Sep, Oct-Dec, Jan-Mar, Apr-Jun).
+#
+# THE ISSUER'S OWN R12M COLUMN CONFIRMS THE STITCH. The Q2 2026 report's
+# highlights table (p.2) prints a `Jul 2025-Jun 2026` column, and every sum
+# of the four quarters entered below lands on it:
+#   revenue   870 474 + 998 435 + 1 037 016 + 974 968 = 3 880 893  (3 880.9)
+#   EBIT       91 592 + 103 362 +   127 037 + 122 310 =   444 301  (444.3)
+#   profit     70 085 +  71 853 +    97 228 +  92 908 =   332 074  (332.1)
+#   OCF        12 144 + 363 443 -    48 547 -  54 600 =   272 440  (272.4)
+# Four independent documents, one column, four agreements. That is the
+# strongest check this store gets and it was free.
+#
+# E34 -- WHERE THE INTEREST SITS, AND IT IS PROVED RATHER THAN ASSUMED.
+# `interest_in_ocf: no`. The cash flow statement presents interest RECEIVED
+# under INVESTING (`Received interest`) and every interest PAID under
+# FINANCING (`Payments interests on lease liabilities`, `Interest
+# payments`), with `Net cash flow from operating activities` struck above
+# all three. The operating section carries one reversal line, `Interest
+# income and interest expenses`, and on its face that line removes only the
+# interest income and the NON-LEASE interest expense: FY2025 -23 942 +
+# 1 093 = -22 849, exactly the printed figure, and the same identity holds
+# in all four quarters. Read literally that would leave the lease interest
+# (FY2025: 24 386) charged inside operating AND paid again in financing.
+# IT CANNOT BE. The three sections sum to `Net changes in liquid assets`
+# -162 037, and the balance sheet moves 834 341 -> 672 304, the same
+# 162 037. A double charge of 24 386 would break that tie by 24 386 and it
+# does not break. So the add-back is inside `Changes in other accruals`
+# (-7 542), unnamed but necessarily present, and the operating total is
+# stated BEFORE all interest. Nothing is added back to FCF0, and
+# `net_interest_paid` is therefore not read at all.
+#
+# E70 -- THE LEASES IN THE FLOW. IFRS 16 filer: the principal is a
+# financing flow (IFRS 16.50(b)) and the statement prints it there
+# (`Payments on lease liabilities`), so `operating_leases_in_ocf: no` and
+# nothing is added back. `lease_payments_capital` is entered as E70's MEMO
+# so a reader can see the size of what the bridge charges.
+#
+# E23 -- CAPEX IS SPLIT, in every one of the five documents: `Purchase of
+# fixed assets` and `Purchase of intangible assets` are two printed lines,
+# so `capex_ppe` and `capex_intangibles` are used and `capex_combined`
+# stays blank. Q3 2025 prints the intangibles line as a literal 0.
+#
+# E14 / E35 -- THE DEBT LEGS. Bouvet has NO BORROWINGS AND SAYS SO, in
+# every document: *"The group has no interest-bearing debt"* (Q3 2025 p.8,
+# Q4 2025 p.8, Q1 2026 p.5, Q2 2026 p.5) and, in the audited annual report,
+# *"the group had no interest-bearing liabilities other than lease
+# liabilities recognised under IFRS 16"* (p.10, directors' report) and
+# *"Bouvet had no interest-bearing liabilities as at the end of 2025"*
+# (p.10, interest-rate risk). Note 17 lists the group's financial
+# instruments exhaustively -- work in progress, trade receivables, liquid
+# assets, lease liabilities, trade payables -- and no borrowing is among
+# them. E25 `note` on both borrowing fields, every quarter. The `Loan from
+# group company 40 000` in the AR's PARENT-company balance sheet (p.170) is
+# Bouvet ASA's payable to Bouvet Norge AS, eliminated on consolidation and
+# not group debt; named here so a reader who greps for "loan" sees it was
+# read. The unutilised NOK 100.0m overdraft facility is a facility, not a
+# drawing.
+#
+# E35.1 -- PENSION. ZERO, on the issuer's own sentence: note 06 (p.134),
+# *"The Group's pension schemes satisfy the requirements of this law, and
+# represents a defined contribution plan"*, with the whole NOK 128 395
+# thousand of 2025 pension cost being paid contributions and the
+# commitment *"fully met when paid"*. No defined-benefit obligation exists
+# and no balance sheet in any of the five documents presents a pension
+# caption. E25 `note`.
+#
+# E68.1 -- ASSET RETIREMENT OBLIGATION. ZERO. Bouvet is an IT consultancy
+# that LEASES 17 offices and owns no plant requiring decommissioning: it is
+# on none of E68.1's refuse-until-read lists. The quarterly balance sheets
+# carry `Other provisions for obligations` as a literal 0 at 31.12.2025,
+# 31.03.2026 and 30.06.2026 -- an E25 CAPTION at nil -- and the annual
+# report contains not one occurrence of `asset retirement`, `decommission`,
+# `dismantl`, `restoration`, `make good`, `dilapidation`, `reinstatement`
+# or `environmental provision` (E107 search, recorded on the field).
+#
+# THE ONE BALANCE-SHEET ITEM NO DOCUMENT EXPLAINS. `Other provisions for
+# obligations` stood at 5 545 at 30.09.2025 (and 5 545 at 31.12.2024),
+# inside LONG-TERM DEBT, and went to 0 in Q4 2025. The annual report's
+# balance sheet points it at note 14 (Intangible assets) and note 14 never
+# mentions it; the words `contingent`, `earn-out` and `conditional
+# consideration` do not occur in the report at all. IT DOES NOT REACH THE
+# BASIS -- net debt is a stock at 2026-06-30, where the caption is zero --
+# but it is an open question about the accounts and is reported as one.
+#
+# E81 -- PREPAID DELIVERY OBLIGATION. ZERO, with the deferred revenue
+# NAMED. The balance sheets carry `Deferred revenue` (6 014 / 6 478 /
+# 6 314 / 5 346 across the four quarter-ends) and note 02 explains it as
+# ordinary billings in advance of a time-and-materials consultancy. E81's
+# own exclusion, in its own words: *"NOT this leg: the ordinary contract
+# liabilities of a subscription or services business, customer deposits,
+# billings in advance -- working capital the flow already carries."*
+#
+# E105 -- DIVIDENDS TO NON-CONTROLLING INTERESTS. ZERO, and Bouvet has no
+# minority to pay. The group's last NCI was extinguished in 2024: the
+# FY2025 statement of changes in equity carries an NCI column that reads
+# 5 074 at 01.01.2024, `Change non-controlling interests -5 074`, and 0 at
+# 31.12.2024 and 31.12.2025; the FY2025 cash flow prints `Purchase from
+# non-controlling interests 0` (2024: -4 917); and every income statement
+# in the window assigns the WHOLE profit to `Shareholders in parent
+# company`. The Q1 and Q2 2026 reports contain no occurrence of any NCI
+# term at all.
+#
+# E88 / E91 -- THE DIVISOR. Bouvet prints a per-quarter weighted-average
+# DILUTED count in the key-figures table of every quarterly report, for all
+# four calendar quarters of the window, so E91 governs and the divisor is
+# the code's day-weighted average of the four stated counts -- not E88's
+# annual fall-back. The FY2025 annual average (103 788 395, note 11) is on
+# the annual entry below; the window-end count is entered as E80's stated
+# ISSUED / TREASURY pair and stays MEMO (E88: never promoted).
+#
+# WHAT NONE OF THE FIVE DOCUMENTS STATES, and is therefore absent here and
+# never derived:
+#   * GROSS PROFIT. Bouvet presents operating expenses BY NATURE and prints
+#     no gross-profit line in any document. DATA MISSING, not zero -- E6's
+#     quality leg has no numerator for this name.
+#   * A NET DEBT figure and a FREE CASH FLOW reconciled to the statements.
+#     `Net free cash flow` IS printed in the key figures and IS an APM the
+#     issuer defines (`net cash flow from operations plus net cash flow
+#     from investing activities`); it is entered as an E103 REFERENCE
+#     figure only, never in a basis. No net-debt figure is stated anywhere.
+#   * INTEREST PAID as one line. It is split across two financing lines
+#     (lease interest and other interest), so `finance_costs_paid` stays
+#     blank; the income statement's `Net financial items` IS printed and is
+#     entered as `net_finance_costs`.
+#
+# TWO THINGS THE ISSUER'S OWN ARITHMETIC DISAGREES WITH ITSELF ABOUT,
+# found by reading the four reports whole and reported rather than fixed:
+#   1. **The Q1 2026 report's EBITDA is on a different definition from the
+#      Q2 2026 report's and from the annual's.** Q1 2026 prints EBITDA
+#      134 659 against EBIT 127 037 -- a difference of 7 622, which is
+#      `Depreciation fixed assets 5 426` + `Amortisation 2 196` and
+#      EXCLUDES `Depreciation of right-of-use assets 17 849`. The same
+#      report's own definition table says *"EBITDA Operating profit +
+#      depreciation fixed assets and intangible assets"*, and the Q2 2026
+#      report's Jan-Jun 2026 EBITDA of 300 361 against EBIT 249 347 gives
+#      51 014 = 25 471 + 25 543, which DOES include right-of-use
+#      depreciation in both quarters. On the later report's basis Q1 2026
+#      EBITDA is 300 361 - 147 853 = 152 508, not 134 659. The two
+#      documents disagree, so `ebitda` for 2026-Q1 is DATA MISSING with
+#      both figures named rather than a figure picked between them (E104's
+#      posture). FY2025's 572 623 and the other three quarters reconcile
+#      exactly and are entered.
+#   2. **`Ordinary profit before tax` differs by a few thousand between
+#      the income statement and the cash flow statement in three of the
+#      five documents** -- Q4 2025: 102 121 vs 102 117; Q1 2026: 125 660
+#      vs 125 654; Q3 2025 Jan-Sep: 370 423 vs 370 427. Nothing entered
+#      here reads that line, so nothing turns on it; recorded because a
+#      later reader will meet it.
+
+ticker: BOUV.OL
+name: Bouvet ASA
+reporting_currency: NOK
+money_unit: thousands   # declared 2026-09-08: every statement is headed `NOK 1 000`
+share_unit: whole       # declared 2026-09-08: counts printed as whole shares
+quote_currency: NOK
+sector: Technology   # the screener's own source-list string (config/universe/nordic-mid-2026-08-31.csv, ranked 2026-09-05) -- not from these documents
+reporting_frequency: quarterly
+origin: manual
+
+interest_in_ocf:
+  value: no
+  source: "Bouvet Q2 Report 2026, sources/BOUV.OL_2026-Q2_half-year-financial-report_2026-08-19_en_a0.pdf, and the audited Annual Report 2025, sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf"
+  page: "Q2 2026 p.24 and AR 2025 p.126, consolidated statement of cash flows: 'Net cash flow from operating activities' is struck ABOVE every interest line. Interest RECEIVED is in INVESTING ('Received interest 3 950' / AR 'Received interest payments 23 942'); interest PAID is in FINANCING ('Payments interests on lease liabilities -5 968' / AR -24 386, and 'Interest payments -218' / AR -1 093). The operating section's reversal line 'Interest income and interest expenses' equals -(interest income) + (non-lease interest expense) in every period (FY2025: -23 942 + 1 093 = -22 849; Q2 2026: -3 950 + 218 = -3 732), which read literally would leave the LEASE interest charged in operating and paid again in financing. It cannot: the three sections sum to 'Net changes in liquid assets -162 037' and the balance sheet's liquid assets move 834 341 -> 672 304, the same 162 037, so a 24 386 double charge would break the tie and does not. The lease-interest add-back is inside 'Changes in other accruals'. The operating total is stated before ALL interest"
+  interest_source: cash_flow_statement
+
+operating_leases_in_ocf:
+  value: no
+  source: "FRAMEWORK-EDITS E70, applied 2026-09-08 to an IFRS 16 filer"
+  page: "IFRS 16.50(b): a lessee classifies cash payments for the principal portion of the lease liability within FINANCING, and Bouvet prints it there -- 'Payments on lease liabilities' (Q2 2026 p.24: -17 187; AR 2025 p.126: -57 412), below the operating total. The operating cash flow never bore the principal, so nothing is added back; the lease is counted once, in net debt (E35, E65)"
+
+periods:
+  - period: 2025-Q3
+    period_end: 2025-09-30
+    period_basis: calendar
+    document: "Bouvet Q3 report 2025 (NewsWeb message 659260, 2025-11-11), condensed consolidated interim statements (unaudited), 'Jul-Sep 2025' column"
+    url: "sources/BOUV.OL_2025-Q3_half-year-financial-report_2025-11-11_en_a1.pdf"
+    figures:
+      free_cash_flow_reported:
+        value: 11363
+        source: "E103 reference figure, hand-read from the issuer's own key-figures table"
+        page: "E103 REFERENCE FIGURE -- compared against section 5's own construction and NEVER used to build one; the section 5 gate refuses if it ever reaches a basis. Bouvet's OWN APM, defined on p.32 of the same report: 'Net free cash flow is calculated as net cash flow from operations plus net cash flow from investing activities', and on p.34: 'Net cash flow operations - Net cash flow investments'. It is NOT E34's construction: it deducts no share-based compensation, adds back no interest, and carries interest RECEIVED inside the investing half. HAND-READ 2026-09-08 off the page named -- E103's automatic model route could not run on this host (no VSS_OPENROUTER_KEY), and a page read by eye is stronger provenance than the route it replaces, not weaker. p.33, Key figures Group, Jul-Sep 2025 column: 'Net free cash flow 11 363' (Jul-Sep 2024: 135 341)"
+        status: UNVERIFIED
+      revenue:
+        value: 870474
+        page: "p.20, consolidated income statement, 'Unaudited Jul-Sep 2025' column: 'Revenue 870 474' (Jul-Sep 2024: 878 522)"
+        status: UNVERIFIED
+      operating_income:
+        value: 91592
+        page: "p.20: 'Operating profit 91 592' -- the operating line as the statement presents it (E5: the EBITDA beside it is never a substitute)"
+        status: UNVERIFIED
+      op_margin:
+        value: 0.105
+        page: "p.33, Key figures Group, 'EBIT-margin 10.5%' for Jul-Sep 2025. E79: the check compares at the precision the issuer printed; 91 592 / 870 474 = 10.52%"
+        status: UNVERIFIED
+      revenue_yoy:
+        value: -0.009
+        page: "p.20, income statement 'Change %' column on Revenue: -0.9% (870 474 against 878 522)"
+        status: UNVERIFIED
+      total_assets:
+        value: 1655421
+        page: "p.22, consolidated balance sheet at 30.09.2025: 'TOTAL ASSETS 1 655 421'"
+        status: UNVERIFIED
+      net_ppe:
+        value: 73568
+        page: "E69 hand read, every part named. p.22, balance sheet at 30.09.2025, the OWNED fixed assets: 'Office equipment 45 732' + 'Office machines and vehicles 6 333' + 'IT equipment 21 503' = 73 568. The printed 'Total fixed assets 394 946' is NOT this figure -- it adds 'Right-of-use assets 321 378', a leased asset and not property owned, and the lease it belongs to is already a leg of net debt"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 12144
+        page: "p.24, consolidated statement of cash flows, 'Unaudited Jul-Sep 2025': 'Net cash flow from operating activities 12 144'. AFTER tax -- 'Paid tax -101' is inside the operating section -- and BEFORE all interest (see interest_in_ocf)"
+        status: UNVERIFIED
+      capex_ppe:
+        value: -7000
+        page: "p.24, investing activities: 'Purchase of fixed assets -7 000'. E23: the statement prints the split, so this and capex_intangibles are used and capex_combined stays blank"
+        status: UNVERIFIED
+      capex_intangibles:
+        value: 0
+        zero_basis: caption
+        page: "p.24, investing activities: 'Purchase of intangible assets 3 0' -- the line is PRINTED and its value is a literal 0 for Jul-Sep 2025 (Jul-Sep 2024: -1 575). An E25 caption zero, not an absence"
+        status: UNVERIFIED
+      proceeds_from_disposals_ppe:
+        value: 22
+        page: "p.24, investing activities: 'Sale of fixed assets 22'"
+        status: UNVERIFIED
+      lease_payments_capital:
+        value: -15058
+        page: "p.24, financing activities: 'Payments on lease liabilities -15 058'. E70 MEMO: FCF0 does not deduct it -- the lease is charged once, in net debt"
+        status: UNVERIFIED
+      lease_interest_paid:
+        value: 6211
+        page: "BOUV.OL_2025-Q3_half-year-financial-report_2025-11-11_en_a1.pdf p.24, financing: 'Payments interests on lease liabilities' -6,211 (Jul-Sep 2025). E117: deducted beside the principal"
+        status: VERIFIED
+        verified_kind: same_page
+      sbc:
+        value: 4792
+        page: "p.24, operating activities: 'Share based payments 4 792' -- the non-cash add-back for the all-employee share scheme (AR 2025 note 08, equity as the contra entry). E36 subtracts it from FCF0"
+        status: UNVERIFIED
+      nci_dividends_paid:
+        value: 0
+        zero_basis: searched
+        source: "E105 leg; E107 searched absence"
+        page: "E107 SEARCHED ABSENCE. Document: sources/BOUV.OL_2025-Q3_half-year-financial-report_2025-11-11_en_a1.pdf (63,844 characters of extracted text). Searched 2026-09-08 for 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- four hits, ALL of them the 2024 comparative: the income statement's 'Non-controlling interests 0 -15 0 -707 0' (Jul-Sep 2025 nil) and the equity statement's NCI column, 5 074 at 01.01.2024 and 0 at 30.09.2025. THE AUDITED ANNUAL REPORT WAS SEARCHED TOO (sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf, 411,867 characters, the same day): two hits, the FY2025 cash flow's 'Purchase from non-controlling interests 0 -4 917' and the equity statement's 'Change non-controlling interests 0 157 157 -5 074 -4 917', which takes the NCI column to 0 at 31.12.2024 and leaves it there. No minority exists in any period of this basis; nothing to distribute to. A determined zero"
+        status: UNVERIFIED
+      cash_and_equivalents:
+        value: 373419
+        page: "p.22, balance sheet at 30.09.2025: 'Liquid assets 373 419'. AR 2025 note 20 says the caption includes RESTRICTED employee-withheld-tax funds (92 420 at 31.12.2025); the quarterly narrative (p.8) puts 'the account for employee tax deductions' at 60.4 million at this quarter-end. The balance-sheet line is entered as presented"
+        status: UNVERIFIED
+      financial_liabilities_current:
+        value: 0
+        zero_basis: note
+        page: "p.8, Liquidity and solvency: 'The group has no interest-bearing debt, and bank deposits totalled 373.4 million at quarter-end'. The balance sheet (p.23) enumerates its short-term debt -- current lease liabilities, trade accounts payable, income tax payable, public duties payable, deferred revenue, other short-term debt -- and carries no borrowing caption. E14: leases are held apart in lease_liabilities"
+        status: UNVERIFIED
+      financial_liabilities_noncurrent:
+        value: 0
+        zero_basis: note
+        page: "p.8, as above; the balance sheet's long-term debt (p.23) is 'Lease liabilities 262 563' and 'Other provisions for obligations 5 545' and nothing else. The audited AR 2025 states it twice more: p.10, 'the group had no interest-bearing liabilities other than lease liabilities recognised under IFRS 16', and p.10 interest-rate risk, 'Bouvet had no interest-bearing liabilities as at the end of 2025'; note 17's exhaustive list of financial liabilities is lease liabilities and trade accounts payable"
+        status: UNVERIFIED
+      lease_liabilities:
+        value: 347023
+        page: "E69 hand read, both stated parts named. p.23, balance sheet at 30.09.2025: long-term 'Lease liabilities 262 563' + short-term 'Current lease liabilities 84 460' = 347 023. E14: held apart from the two borrowing fields and additive with them"
+        status: UNVERIFIED
+      pension_deficit:
+        value: 0
+        zero_basis: note
+        page: "AR 2025 note 06 Pensions, p.134: 'The Group's pension schemes satisfy the requirements of this law, and represents a defined contribution plan' -- the whole NOK 128 395 thousand of 2025 pension cost is paid contributions and 'The Group's commitment is fully met when paid'. No defined-benefit obligation exists. The 30.09.2025 balance sheet (p.23) enumerates its liabilities and presents no pension caption; the quarterly reports contain no occurrence of 'pension', 'defined benefit' or 'defined-benefit' at all (searched 2026-09-08). E35.1 / E25 note"
+        status: UNVERIFIED
+      asset_retirement_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E68.1: an IT consultancy leasing 17 offices, on none of the refuse-until-read lists. p.23, balance sheet at 30.09.2025, long-term debt: 'Other provisions for obligations 5 545' is the only provision caption and it is NOT a decommissioning or restoration provision -- the AR 2025 balance sheet points it at note 14 (Intangible assets) and note 14 never mentions it (see the header: an open question, and it is 0 at the basis end). E107 SEARCH, 2026-09-08, of the audited annual report (sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf, 411,867 characters) for 'asset retirement', 'decommission', 'dismantl', 'restoration', 'make good', 'make-good', 'dilapidation', 'reinstatement', 'environmental provision': ZERO occurrences of any of the nine. Note 16 Leases describes the office leases and their extension options and states no restoration obligation"
+        status: UNVERIFIED
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81, with the deferred revenue NAMED. p.23, balance sheet at 30.09.2025, short-term debt: 'Deferred revenue 6 014'. Note 02 (Revenue from contracts with customers) explains it as ordinary billings on a time-and-materials consultancy, beside 'Work in progress 52 229' of delivered-but-uninvoiced services. E81's own exclusion: the ordinary contract liabilities of a services business, billings in advance, working capital the flow already carries -- NOT a streaming, offtake or prepaid-delivery arrangement. The AR 2025 contains no occurrence of 'streaming', 'offtake', 'prepaid delivery', 'advance payments from customers' or 'customer deposit' (searched 2026-09-08). A caption zero with the reading made visible"
+        status: UNVERIFIED
+      net_income:
+        value: 70085
+        page: "p.20: 'Profit for the period 70 085', all of it assigned to 'Shareholders in parent company 70 085'"
+        status: UNVERIFIED
+      ebitda:
+        value: 116146
+        page: "p.33, Key figures Group, 'EBITDA 116 146' for Jul-Sep 2025 -- the issuer's own APM, defined on p.34 as 'Operating profit + depreciation fixed assets and intangible assets'. It reconciles: 116 146 - 91 592 = 24 554 = 22 358 + 2 196, the two printed charges. Bouvet sets no leverage covenant on it -- it has no borrowings"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 24554
+        page: "E69 hand read, both parts named. p.20, income statement: 'Depreciation fixed assets 22 358' (this report presents depreciation as ONE line, right-of-use included) + 'Amortisation intangible assets 2 196' = 24 554. Confirmed by the key figures' EBITDA less EBIT: 116 146 - 91 592 = 24 554"
+        status: UNVERIFIED
+      net_finance_costs:
+        value: 1190
+        page: "p.20, income statement: 'Net financial items -1 190' -- the PRINTED net (interest income 5 336 + financial income 5 - interest expense 6 367 - finance expense 165), entered as a positive magnitude because it is a net COST. E18: where the accounts print the net, the halves stay blank"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 0.68
+        page: "p.20: 'Diluted earnings per share 0.68' (Jul-Sep 2024: 0.75)"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 103413458
+        page: "p.33, Key figures Group, Jul-Sep 2025 column: 'Weighted average diluted shares outstanding 103 413 458'. Defined on p.34 as 'Issued shares adjusted for own shares and share scheme on average'. E91: one of the four stated per-quarter counts the divisor is day-weighted from"
+        status: UNVERIFIED
+
+  - period: 2025-Q4
+    period_end: 2025-12-31
+    period_basis: calendar
+    document: "Bouvet Q4 Report 2025 (NewsWeb message 665740, 2026-02-13), condensed consolidated interim statements (unaudited), 'Oct-Dec 2025' column"
+    url: "sources/BOUV.OL_2025-Q4_half-year-financial-report_2026-02-13_en_a0.pdf"
+    figures:
+      free_cash_flow_reported:
+        value: 361506
+        source: "E103 reference figure, hand-read from the issuer's own key-figures table"
+        page: "E103 REFERENCE FIGURE -- compared against section 5's own construction and NEVER used to build one; the section 5 gate refuses if it ever reaches a basis. Bouvet's OWN APM, defined on p.32 of the same report: 'Net free cash flow is calculated as net cash flow from operations plus net cash flow from investing activities', and on p.34: 'Net cash flow operations - Net cash flow investments'. It is NOT E34's construction: it deducts no share-based compensation, adds back no interest, and carries interest RECEIVED inside the investing half. HAND-READ 2026-09-08 off the page named -- E103's automatic model route could not run on this host (no VSS_OPENROUTER_KEY), and a page read by eye is stronger provenance than the route it replaces, not weaker. p.33, Key figures Group, Oct-Dec 2025 column: 'Net free cash flow 361 506' (Jan-Dec 2025: 343 125)"
+        status: UNVERIFIED
+      revenue:
+        value: 998435
+        page: "p.20, consolidated income statement, 'Unaudited Oct-Dec 2025': 'Revenue 998 435' (Oct-Dec 2024: 1 025 956). The Jan-Dec 2025 column, 3 912 343, is the audited annual figure"
+        status: UNVERIFIED
+      operating_income:
+        value: 103362
+        page: "p.20: 'Operating profit 103 362' (year 2025: 473 430)"
+        status: UNVERIFIED
+      op_margin:
+        value: 0.104
+        page: "p.33, Key figures Group, 'EBIT-margin 10.4%' for Oct-Dec 2025. E79: 103 362 / 998 435 = 10.35%, which prints as 10.4%"
+        status: UNVERIFIED
+      revenue_yoy:
+        value: -0.027
+        page: "p.20, income statement 'Change %' on Revenue: -2.7% (998 435 against 1 025 956)"
+        status: UNVERIFIED
+      total_assets:
+        value: 1728816
+        page: "p.22, consolidated balance sheet at 31.12.2025: 'TOTAL ASSETS 1 728 816'. The audited AR 2025 balance sheet (p.124) prints the same figure"
+        status: UNVERIFIED
+      net_ppe:
+        value: 71629
+        page: "E69 hand read, every part named. p.22, balance sheet at 31.12.2025, the OWNED fixed assets: 'Office equipment 43 953' + 'Office machines and vehicles 6 289' + 'IT equipment 21 387' = 71 629. 'Right-of-use assets 314 846' is excluded -- leased, not owned"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 363443
+        page: "p.24, cash flow statement, 'Unaudited Oct-Dec 2025': 'Net cash flow from operating activities 363 443' (year 2025: 347 111, the audited figure on AR p.126). After tax ('Paid tax -19 177' inside operating), before all interest"
+        status: UNVERIFIED
+      capex_ppe:
+        value: -4120
+        page: "p.24, investing activities: 'Purchase of fixed assets -4 120' (year 2025: -26 257)"
+        status: UNVERIFIED
+      capex_intangibles:
+        value: -63
+        page: "p.24, investing activities: 'Purchase of intangible assets 3 -63' -- the whole of the year's -63 fell in this quarter. AR 2025 p.126 calls the same line 'Payments made to develop software'"
+        status: UNVERIFIED
+      proceeds_from_disposals_ppe:
+        value: 22
+        page: "p.24, investing activities: 'Sale of fixed assets 22'"
+        status: UNVERIFIED
+      lease_payments_capital:
+        value: -15613
+        page: "p.24, financing activities: 'Payments on lease liabilities 4 -15 613' (year 2025: -57 412). E70 MEMO"
+        status: UNVERIFIED
+      lease_interest_paid:
+        value: 6169
+        page: "BOUV.OL_2025-Q4_half-year-financial-report_2026-02-13_en_a0.pdf p.24, financing: 'Payments interests on lease liabilities' -6,169 (Oct-Dec 2025). E117: deducted beside the principal"
+        status: VERIFIED
+        verified_kind: same_page
+      sbc:
+        value: 7447
+        page: "p.24, operating activities: 'Share based payments 7 447'. The four quarters of 2025 sum to the audited year: 14 377 (Jan-Sep) + 7 447 = 21 824 = AR p.126"
+        status: UNVERIFIED
+      nci_dividends_paid:
+        value: 0
+        zero_basis: searched
+        source: "E105 leg; E107 searched absence"
+        page: "E107 SEARCHED ABSENCE. Document: sources/BOUV.OL_2025-Q4_half-year-financial-report_2026-02-13_en_a0.pdf (60,846 characters of extracted text). Searched 2026-09-08 for 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- two hits, both in the equity statement's NCI column, which reads 5 074 at 01.01.2024, 'Change non-controlling interests -5 074' and 0 at 31.12.2024 and 31.12.2025. The income statement assigns the whole 71 853 to 'Shareholders in parent company'. THE AUDITED ANNUAL REPORT WAS SEARCHED TOO (411,867 characters, the same day): two hits, the cash flow's 'Purchase from non-controlling interests 0 -4 917' and the same equity movement. No minority exists; nothing to distribute to. A determined zero"
+        status: UNVERIFIED
+      cash_and_equivalents:
+        value: 672304
+        page: "p.22, balance sheet at 31.12.2025: 'Liquid assets 672 304'. AR 2025 note 20 splits it: 'Liquid assets - unrestricted funds 579 884' and 'Employee withheld taxes - restricted funds 92 420'. The balance-sheet line is entered as presented"
+        status: UNVERIFIED
+      financial_liabilities_current:
+        value: 0
+        zero_basis: note
+        page: "p.8, Liquidity and solvency: 'The group has no interest-bearing debt, and bank deposits totalled 672.3 million at year-end'. The balance sheet (p.23) enumerates its short-term debt and carries no borrowing caption. Confirmed by the audited AR 2025 p.10 and note 17"
+        status: UNVERIFIED
+      financial_liabilities_noncurrent:
+        value: 0
+        zero_basis: note
+        page: "p.23, balance sheet at 31.12.2025, long-term debt: 'Lease liabilities 256 833' and 'Other provisions for obligations 0' -- and nothing else. AR 2025 p.10: 'the group had no interest-bearing liabilities other than lease liabilities recognised under IFRS 16'; note 17's list of financial liabilities is lease liabilities 341 925 and trade accounts payable 74 266"
+        status: UNVERIFIED
+      lease_liabilities:
+        value: 341925
+        page: "E69 hand read, both stated parts named. p.23, balance sheet at 31.12.2025: long-term 'Lease liabilities 256 833' + 'Current lease liabilities 85 092' = 341 925. AR 2025 note 16's roll-forward states the same total directly: 'Total lease liabilities at 31 December 341 924' (a 1 rounding difference against the balance sheet's two parts)"
+        status: UNVERIFIED
+      pension_deficit:
+        value: 0
+        zero_basis: note
+        page: "AR 2025 note 06 Pensions, p.134: the Group's scheme 'represents a defined contribution plan' and its commitment is 'fully met when paid'. No defined-benefit obligation exists and the 31.12.2025 balance sheet presents no pension caption. E35.1 / E25 note"
+        status: UNVERIFIED
+      asset_retirement_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E68.1 and E25 caption. p.23, balance sheet at 31.12.2025, long-term debt: 'Other provisions for obligations 0' -- the caption is printed and its value is a literal zero (31.12.2024: 5 545). E107 SEARCH, 2026-09-08, of the audited annual report (411,867 characters) for 'asset retirement', 'decommission', 'dismantl', 'restoration', 'make good', 'make-good', 'dilapidation', 'reinstatement', 'environmental provision': ZERO occurrences of any of the nine"
+        status: UNVERIFIED
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81, with the deferred revenue NAMED. p.23, balance sheet at 31.12.2025: 'Deferred revenue 6 478'. AR 2025 note 03 shows it beside 'Work in progress 56 332' of delivered-but-uninvoiced services -- ordinary billings in advance of a time-and-materials consultancy, which E81 expressly excludes. No streaming, offtake or prepaid-delivery arrangement exists (searched 2026-09-08)"
+        status: UNVERIFIED
+      net_income:
+        value: 71853
+        page: "p.20: 'Profit for the period 71 853', all assigned to 'Shareholders in parent company'"
+        status: UNVERIFIED
+      ebitda:
+        value: 128803
+        page: "p.33, Key figures Group, 'EBITDA 128 803' for Oct-Dec 2025. Reconciles: 128 803 - 103 362 = 25 441 = 23 245 + 2 196, the two printed charges. The year's 572 623 reconciles the same way against the audited 473 430 (90 411 + 8 782)"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 25441
+        page: "E69 hand read, both parts named. p.20: 'Depreciation fixed assets 23 245' (one line, right-of-use included) + 'Amortisation intangible assets 2 196' = 25 441. Confirmed by EBITDA less EBIT: 128 803 - 103 362 = 25 441"
+        status: UNVERIFIED
+      net_finance_costs:
+        value: 1241
+        page: "p.20: 'Net financial items -1 241' -- the printed net (interest income 4 996 + financial income 709 - interest expense 6 763 - finance expense 183), as a positive magnitude"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 0.69
+        page: "p.20: 'Diluted earnings per share 0.69' (Oct-Dec 2024: 0.93)"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 103841034
+        page: "p.33, Key figures Group, Oct-Dec 2025 column: 'Weighted average diluted shares outstanding 103 841 034'. E91 operand"
+        status: UNVERIFIED
+
+  - period: 2026-Q1
+    period_end: 2026-03-31
+    period_basis: calendar
+    document: "Bouvet Q1 Report 2026 (NewsWeb message 673265, 2026-05-13), condensed consolidated interim statements (unaudited), 'Jan-Mar 2026' column"
+    url: "sources/BOUV.OL_2026-Q1_half-year-financial-report_2026-05-13_en_a0.pdf"
+    figures:
+      free_cash_flow_reported:
+        value: -47410
+        source: "E103 reference figure, hand-read from the issuer's own key-figures table"
+        page: "E103 REFERENCE FIGURE -- compared against section 5's own construction and NEVER used to build one; the section 5 gate refuses if it ever reaches a basis. Bouvet's OWN APM, defined on p.32 of the same report: 'Net free cash flow is calculated as net cash flow from operations plus net cash flow from investing activities', and on p.34: 'Net cash flow operations - Net cash flow investments'. It is NOT E34's construction: it deducts no share-based compensation, adds back no interest, and carries interest RECEIVED inside the investing half. HAND-READ 2026-09-08 off the page named -- E103's automatic model route could not run on this host (no VSS_OPENROUTER_KEY), and a page read by eye is stronger provenance than the route it replaces, not weaker. p.33, Key figures Group, Jan-Mar 2026 column: 'Net free cash flow -47 410' (Jan-Mar 2025: -30 587)"
+        status: UNVERIFIED
+      revenue:
+        value: 1037016
+        page: "p.20, consolidated income statement, 'Unaudited Jan-Mar 2026': 'Revenue 1 037 016' (Jan-Mar 2025: 1 074 727)"
+        status: UNVERIFIED
+      operating_income:
+        value: 127037
+        page: "p.20: 'Operating profit 127 037' (Jan-Mar 2025: 155 234)"
+        status: UNVERIFIED
+      op_margin:
+        value: 0.123
+        page: "p.33, Key figures Group, 'EBIT-margin 12.3%' for Jan-Mar 2026. E79: 127 037 / 1 037 016 = 12.25%, which prints as 12.3%"
+        status: UNVERIFIED
+      revenue_yoy:
+        value: -0.035
+        page: "p.20, income statement 'Change %' on Revenue: -3.5%"
+        status: UNVERIFIED
+      total_assets:
+        value: 1832600
+        page: "p.22, consolidated balance sheet at 31.03.2026: 'TOTAL ASSETS 1 832 600'"
+        status: UNVERIFIED
+      net_ppe:
+        value: 69706
+        page: "E69 hand read, every part named. p.22, balance sheet at 31.03.2026, the OWNED fixed assets: 'Office equipment 42 556' + 'Office machines and vehicles 6 099' + 'IT equipment 21 051' = 69 706. 'Right-of-use assets 311 094' excluded"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: -48547
+        page: "p.24, cash flow statement, 'Unaudited Jan-Mar 2026': 'Net cash flow from operating activities -48 547' (Jan-Mar 2025: -34 592). A NEGATIVE first quarter is this issuer's seasonal shape -- the Q1 2025 comparative is negative too, and Q4 is where the working capital comes back"
+        status: UNVERIFIED
+      capex_ppe:
+        value: -3504
+        page: "p.24, investing activities: 'Purchase of fixed assets -3 504'"
+        status: UNVERIFIED
+      capex_intangibles:
+        value: -909
+        page: "p.24, investing activities: 'Purchase of intangible assets 3 -909'. Q2 2026 note 03 attributes the half-year's 1 646 to 'the development of a new course administration system'"
+        status: UNVERIFIED
+      proceeds_from_disposals_ppe:
+        value: 16
+        page: "p.24, investing activities: 'Sale of fixed assets 16'"
+        status: UNVERIFIED
+      lease_payments_capital:
+        value: -17231
+        page: "p.24, financing activities: 'Payments on lease liabilities 4 -17 231'. E70 MEMO"
+        status: UNVERIFIED
+      lease_interest_paid:
+        value: 6192
+        page: "BOUV.OL_2026-Q1_half-year-financial-report_2026-05-13_en_a0.pdf p.13, financing: 'Payments interests on lease liabilities' -6,192 (Jan-Mar 2026). E117: deducted beside the principal"
+        status: VERIFIED
+        verified_kind: same_page
+      sbc:
+        value: 5191
+        page: "p.24, operating activities: 'Share based payments 5 191'"
+        status: UNVERIFIED
+      nci_dividends_paid:
+        value: 0
+        zero_basis: searched
+        source: "E105 leg; E107 searched absence"
+        page: "E107 SEARCHED ABSENCE. Document: sources/BOUV.OL_2026-Q1_half-year-financial-report_2026-05-13_en_a0.pdf (60,099 characters of extracted text). Searched 2026-09-08 for 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- ZERO occurrences of any of the five: the equity statement no longer carries an NCI column at all, and the income statement assigns the whole 97 228 to 'Shareholders in parent company'. THE AUDITED ANNUAL REPORT WAS SEARCHED TOO (411,867 characters, the same day): two hits, both the 2024 extinguishment, leaving the NCI column at 0 from 31.12.2024. No minority exists; nothing to distribute to. A determined zero"
+        status: UNVERIFIED
+      cash_and_equivalents:
+        value: 551203
+        page: "p.22, balance sheet at 31.03.2026: 'Liquid assets 551 203' (31.03.2025: 741 185)"
+        status: UNVERIFIED
+      financial_liabilities_current:
+        value: 0
+        zero_basis: note
+        page: "p.5, Liquidity and solvency: 'The group has no interest-bearing debt, and bank deposits totalled NOK 551.2 million at quarter-end'. The balance sheet (p.22) enumerates its short-term debt and carries no borrowing caption"
+        status: UNVERIFIED
+      financial_liabilities_noncurrent:
+        value: 0
+        zero_basis: note
+        page: "p.5, as above; the balance sheet's long-term debt at 31.03.2026 is 'Lease liabilities 257 567' and 'Other provisions for obligations 0' and nothing else. Confirmed by the audited AR 2025 p.10 and note 17"
+        status: UNVERIFIED
+      lease_liabilities:
+        value: 339041
+        page: "E69 hand read, both stated parts named. p.22, balance sheet at 31.03.2026: long-term 'Lease liabilities 257 567' + 'Current lease liabilities 81 474' = 339 041"
+        status: UNVERIFIED
+      pension_deficit:
+        value: 0
+        zero_basis: note
+        page: "AR 2025 note 06 Pensions, p.134: the Group's scheme 'represents a defined contribution plan', the commitment 'fully met when paid'. The 31.03.2026 balance sheet presents no pension caption, and this report contains no occurrence of 'pension', 'defined benefit' or 'defined-benefit' (searched 2026-09-08). E35.1 / E25 note"
+        status: UNVERIFIED
+      asset_retirement_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E68.1 and E25 caption. p.22, balance sheet at 31.03.2026, long-term debt: 'Other provisions for obligations 0' -- printed, and a literal zero. E107 SEARCH, 2026-09-08, of the audited annual report (411,867 characters) for 'asset retirement', 'decommission', 'dismantl', 'restoration', 'make good', 'make-good', 'dilapidation', 'reinstatement', 'environmental provision': ZERO occurrences of any of the nine; this report likewise carries none"
+        status: UNVERIFIED
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81, with the deferred revenue NAMED. p.22, balance sheet at 31.03.2026: 'Deferred revenue 6 314', beside 'Work in progress 73 629'. Ordinary billings in advance of a time-and-materials consultancy, which E81 expressly excludes. No streaming, offtake or prepaid-delivery arrangement exists (searched 2026-09-08)"
+        status: UNVERIFIED
+      net_income:
+        value: 97228
+        page: "p.20: 'Profit for the period 97 228', all assigned to 'Shareholders in parent company'"
+        status: UNVERIFIED
+      # ebitda: DATA MISSING for this quarter, and DELIBERATELY. This
+      # report prints 'EBITDA 134 659' (p.33) against 'Operating profit
+      # 127 037' -- a difference of 7 622 = 5 426 + 2 196, which EXCLUDES
+      # 'Depreciation of right-of-use assets 17 849'. Its own definition
+      # table (p.34) says EBITDA is 'Operating profit + depreciation fixed
+      # assets and intangible assets', and the Q2 2026 report's Jan-Jun
+      # 2026 EBITDA of 300 361 against EBIT 249 347 gives 51 014 =
+      # 25 471 + 25 543, INCLUDING right-of-use depreciation in both
+      # quarters -- which puts Q1 2026 at 152 508 on the later report's
+      # basis. Two documents, two answers, 17 849 apart. Neither is
+      # entered: E104's posture is that a figure two readings do not agree
+      # on is withdrawn, not chosen between. Nothing in section 5 reads
+      # `ebitda`; section 5.3's leverage test does, and it has no leverage
+      # to test on an issuer with no borrowings.
+      depreciation_amortisation:
+        value: 25471
+        page: "E69 hand read, every part named. p.20, income statement: 'Depreciation fixed assets 5 426' + 'Depreciation of right-of-use assets 17 849' + 'Amortisation intangible assets 2 196' = 25 471. THIS REPORT SPLITS DEPRECIATION INTO THREE LINES where the Q3 and Q4 2025 reports printed two; the sum is the comparable charge. Confirmed against the Q2 2026 report, whose Jan-Jun 2026 EBITDA less EBIT of 51 014 is this 25 471 plus Q2's 25 543 -- and NOT against this report's own EBITDA line, which excludes the right-of-use limb (see the comment above)"
+        status: UNVERIFIED
+      net_finance_costs:
+        value: 1377
+        page: "p.20: 'Net financial items -1 377' -- the printed net (interest income 5 533 + financial income 248 - interest expense 6 364 - finance expense 794), as a positive magnitude"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 0.93
+        page: "p.20: 'Diluted earnings per share 0.93' (Jan-Mar 2025: 1.16)"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 104160484
+        page: "p.33, Key figures Group, Jan-Mar 2026 column: 'Weighted average diluted shares outstanding 104 160 484'. E91 operand"
+        status: UNVERIFIED
+
+  - period: 2026-Q2
+    period_end: 2026-06-30
+    period_basis: calendar
+    document: "Bouvet Q2 Report 2026 (NewsWeb message 680129, 2026-08-19), condensed consolidated interim statements (unaudited), 'Apr-Jun 2026' column. THE WINDOW END: every stock leg of net debt is read at 30.06.2026 from this document"
+    url: "sources/BOUV.OL_2026-Q2_half-year-financial-report_2026-08-19_en_a0.pdf"
+    figures:
+      free_cash_flow_reported:
+        value: -61008
+        source: "E103 reference figure, hand-read from the issuer's own key-figures table"
+        page: "E103 REFERENCE FIGURE -- compared against section 5's own construction and NEVER used to build one; the section 5 gate refuses if it ever reaches a basis. Bouvet's OWN APM, defined on p.32 of the same report: 'Net free cash flow is calculated as net cash flow from operations plus net cash flow from investing activities', and on p.34: 'Net cash flow operations - Net cash flow investments'. It is NOT E34's construction: it deducts no share-based compensation, adds back no interest, and carries interest RECEIVED inside the investing half. HAND-READ 2026-09-08 off the page named -- E103's automatic model route could not run on this host (no VSS_OPENROUTER_KEY), and a page read by eye is stronger provenance than the route it replaces, not weaker. p.33, Key figures Group, Apr-Jun 2026 column: 'Net free cash flow -61 008' (Jan-Jun 2026: -108 418)"
+        status: UNVERIFIED
+      revenue:
+        value: 974968
+        page: "p.20, consolidated income statement, 'Unaudited Apr-Jun 2026': 'Revenue 2 974 968' -- the leading 2 is the NOTE COLUMN (note 02, Revenue from contracts with customers), not a digit; the figure is 974 968 and the note's own revenue specification (p.27) totals 'Total revenue 974 968' for Apr-Jun 2026. (Jan-Jun 2026: 2 011 984)"
+        status: UNVERIFIED
+      operating_income:
+        value: 122310
+        page: "p.20: 'Operating profit 122 310' (Apr-Jun 2025: 123 242)"
+        status: UNVERIFIED
+      op_margin:
+        value: 0.125
+        page: "p.33, Key figures Group, 'EBIT-margin 12.5%' for Apr-Jun 2026, and the highlights on p.2: 'EBIT margin 12.5 per cent (12.7)'. E79: 122 310 / 974 968 = 12.54%"
+        status: UNVERIFIED
+      revenue_yoy:
+        value: 0.006
+        page: "p.20, income statement 'Change %' on Revenue: 0.6% (974 968 against 968 707)"
+        status: UNVERIFIED
+      total_assets:
+        value: 1409602
+        page: "p.22, consolidated balance sheet at 30.06.2026: 'TOTAL ASSETS 1 409 602'. (The key-figures table on p.33 prints 1 409 601; the balance sheet is taken)"
+        status: UNVERIFIED
+      net_ppe:
+        value: 73814
+        page: "E69 hand read, every part named. p.22, balance sheet at 30.06.2026, the OWNED fixed assets: 'Office equipment 43 977' + 'Office machines and vehicles 6 872' + 'IT equipment 22 965' = 73 814. The printed 'Total fixed assets 367 064' adds 'Right-of-use assets 293 250', which is leased and whose liability is already a leg of net debt"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: -54600
+        page: "p.24, cash flow statement, 'Unaudited Apr-Jun 2026': 'Net cash flow from operating activities -54 600' (Apr-Jun 2025: 6 116). The narrative (p.4) attributes the quarter to a 204.8m fall in current liabilities from 'discontinuation of the tax deduction account for employees' advance tax deductions, which has taken effect in 2026'. The four quarters of the basis sum to 272 440, the issuer's own Jul 2025-Jun 2026 column (p.2: 272.4)"
+        status: UNVERIFIED
+      capex_ppe:
+        value: -9634
+        page: "p.24, investing activities: 'Purchase of fixed assets -9 634' (Jan-Jun 2026: -13 138)"
+        status: UNVERIFIED
+      capex_intangibles:
+        value: -737
+        page: "p.24, investing activities: 'Purchase of intangible assets 3 -737'. Note 03 (p.28): 'Internally developed software 1 646' for the half year, 'mainly relates to the development of a new course administration system'"
+        status: UNVERIFIED
+      proceeds_from_disposals_ppe:
+        value: 13
+        page: "p.24, investing activities: 'Sale of fixed assets 13'"
+        status: UNVERIFIED
+      lease_payments_capital:
+        value: -17187
+        page: "p.24, financing activities: 'Payments on lease liabilities 4 -17 187'. E70 MEMO: the flow is not charged with it; the 321 855 of lease liability in net debt is"
+        status: UNVERIFIED
+      lease_interest_paid:
+        value: 5968
+        page: "BOUV.OL_2026-Q2_half-year-financial-report_2026-08-19_en_a0.pdf p.13, financing: 'Payments interests on lease liabilities' -5,968 (Apr-Jun 2026). E117: deducted beside the principal"
+        status: VERIFIED
+        verified_kind: same_page
+      sbc:
+        value: 5192
+        page: "p.24, operating activities: 'Share based payments 5 192'. AR 2025 note 08 describes the scheme: all employees may subscribe at a 20% discount and receive a matching free share after three years, expensed over a three-year vesting period"
+        status: UNVERIFIED
+      nci_dividends_paid:
+        value: 0
+        zero_basis: searched
+        source: "E105 leg; E107 searched absence"
+        page: "E107 SEARCHED ABSENCE. Document: sources/BOUV.OL_2026-Q2_half-year-financial-report_2026-08-19_en_a0.pdf (64,797 characters of extracted text). Searched 2026-09-08 for 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- ZERO occurrences of any of the five: the equity statement carries no NCI column and the income statement assigns the whole 92 908 to 'Shareholders in parent company'. THE AUDITED ANNUAL REPORT WAS SEARCHED TOO (411,867 characters, the same day): two hits, the FY2025 cash flow's 'Purchase from non-controlling interests 0 -4 917' and the equity statement's 'Change non-controlling interests -5 074', which take the NCI column to 0 at 31.12.2024 and leave it there. No minority exists at the window end or in any period of the window; nothing to distribute to. A determined zero"
+        status: UNVERIFIED
+      cash_and_equivalents:
+        value: 159733
+        page: "p.22, balance sheet at 30.06.2026: 'Liquid assets 159 733' (30.06.2025: 383 481). The fall is explained on p.5: 'discontinuation of the requirement to maintain a dedicated bank account for advance employee tax deductions with effect from 2026. Advance tax deductions are now paid to the Norwegian Tax Administration monthly, compared to six times a year previously.' So the AR 2025 restricted portion (note 20: 92 420 of the 672 304) no longer exists at this date -- this figure is unrestricted"
+        status: UNVERIFIED
+      financial_liabilities_current:
+        value: 0
+        zero_basis: note
+        page: "p.5, Liquidity and solvency: 'The group has no interest-bearing debt, and bank deposits totalled NOK 159.7 million at quarter-end'. The balance sheet (p.23) enumerates its short-term debt -- current lease liabilities, trade accounts payable, income tax payable, public duties payable, deferred revenue, other short-term debt -- and carries no borrowing caption. 'The group had an unutilised overdraft facility of NOK 100.0 million at quarter-end': a facility, not a drawing"
+        status: UNVERIFIED
+      financial_liabilities_noncurrent:
+        value: 0
+        zero_basis: note
+        page: "p.5, as above; the balance sheet's long-term debt at 30.06.2026 is 'Lease liabilities 247 374' and 'Other provisions for obligations 0' and nothing else. The audited AR 2025 says it twice more (p.10: 'no interest-bearing liabilities other than lease liabilities recognised under IFRS 16'; p.10 interest-rate risk) and note 17's exhaustive classification of financial liabilities is lease liabilities and trade accounts payable"
+        status: UNVERIFIED
+      lease_liabilities:
+        value: 321855
+        page: "E69 hand read, both stated parts named. p.23, balance sheet at 30.06.2026: long-term 'Lease liabilities 247 374' + 'Current lease liabilities 74 481' = 321 855. Note 04 (p.29) gives the undiscounted maturity: 'Undiscounted lease liabilities 30.06.2026 408 714' over <1y 76 377, 1-2y 58 931, 2-3y 56 586, 3-4y 55 239, 4-5y 47 935, >5y 113 647. E14: held apart from the borrowing fields, which are zero"
+        status: UNVERIFIED
+      pension_deficit:
+        value: 0
+        zero_basis: note
+        page: "AR 2025 note 06 Pensions, p.134: 'The Group has a defined contribution plan for all employees in Norway and Sweden... The Group's commitment is fully met when paid', and the reconciliation of the year's pension expense shows one line, 'Contribution plan - paid contribution for the year 128 395'. No defined-benefit obligation exists. The 30.06.2026 balance sheet enumerates its liabilities and presents no pension caption; this report contains no occurrence of 'pension', 'defined benefit' or 'defined-benefit' (searched 2026-09-08). E35.1 / E25 note"
+        status: UNVERIFIED
+      asset_retirement_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E68.1 and E25 caption. p.23, balance sheet at 30.06.2026, long-term debt: 'Other provisions for obligations 0' -- the caption is printed and its value is a literal zero (30.06.2025: 5 545). Bouvet is an IT consultancy that LEASES all 17 of its offices and owns no plant requiring decommissioning -- on none of E68.1's refuse-until-read lists. E107 SEARCH, 2026-09-08, of the audited annual report (sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf, 411,867 characters of extracted text) for 'asset retirement', 'decommission', 'dismantl', 'restoration', 'make good', 'make-good', 'dilapidation', 'reinstatement', 'environmental provision': ZERO occurrences of any of the nine. Note 16 Leases describes the office leases, their 1-10 year terms and their extension options and states no restoration or make-good obligation; note 04 of this report likewise"
+        status: UNVERIFIED
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81, with the deferred revenue NAMED. p.23, balance sheet at 30.06.2026: 'Deferred revenue 2 5 346' (note 02). Note 02 (p.27) shows it beside 'Work in progress 72 207' and explains: 'At the balance sheet date, processed but not billed services amounted to NOK 72.21 million... mainly services delivered on running account, invoiced to customers at the beginning of the next month.' Ordinary billings in advance of a time-and-materials consultancy -- E81's own exclusion, in its own words: 'NOT this leg: the ordinary contract liabilities of a subscription or services business, customer deposits, billings in advance -- working capital the flow already carries.' No streaming, offtake or prepaid-delivery arrangement exists in any of the five documents (searched 2026-09-08 for 'streaming', 'offtake', 'prepaid delivery', 'advance payments from customers', 'customer deposit': ZERO occurrences)"
+        status: UNVERIFIED
+      net_income:
+        value: 92908
+        page: "p.20: 'Profit for the period 92 908', all assigned to 'Shareholders in parent company'. The four quarters sum to 332 074, the issuer's own Jul 2025-Jun 2026 column (p.2: 332.1)"
+        status: UNVERIFIED
+      ebitda:
+        value: 147853
+        page: "p.33, Key figures Group, 'EBITDA 147 853' for Apr-Jun 2026 -- the issuer's own APM, defined on p.34 as 'Operating profit + depreciation fixed assets and intangible assets'. It reconciles: 147 853 - 122 310 = 25 543 = 5 525 + 17 825 + 2 193, all three printed charges including right-of-use depreciation. Bouvet sets no leverage covenant on it: it has no borrowings"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 25543
+        page: "E69 hand read, every part named. p.20, income statement: 'Depreciation fixed assets 5 525' + 'Depreciation of right-of-use assets 17 825' + 'Amortisation intangible assets 2 193' = 25 543. Confirmed by EBITDA less EBIT: 147 853 - 122 310 = 25 543"
+        status: UNVERIFIED
+      net_finance_costs:
+        value: 2373
+        page: "p.20: 'Net financial items -2 373' -- the printed net (interest income 3 950 + financial income 76 - interest expense 6 186 - finance expense 213), entered as a positive magnitude because it is a net COST. E18: where the accounts print the net, the halves stay blank"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 0.90
+        page: "p.20: 'Diluted earnings per share 0.90' (Apr-Jun 2025: 0.92). The issuer's own Jul 2025-Jun 2026 column (p.2) prints 3.20 for the twelve months"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 103372896
+        page: "p.33, Key figures Group, Apr-Jun 2026 column: 'Weighted average diluted shares outstanding 103 372 896'. E91: the fourth of the four stated per-quarter counts the divisor is day-weighted from"
+        status: UNVERIFIED
+      shares_issued_period_end:
+        value: 103800637
+        page: "p.33, Key figures Group: 'Number of shares 103 800 637', and note 05 (p.30): 'Ordinary shares issued and fully paid at 30.06 103 801' thousand. E80's issued half; MEMO, never the divisor (E88)"
+        status: UNVERIFIED
+      treasury_shares_period_end:
+        value: 1437585
+        page: "Note 05 (p.30): 'At the end of the period the holding of own shares is 1 437 585 shares'; the same note prints 'Own shares at nominal value -1 438' thousand. E80's treasury half; MEMO, never the divisor (E88)"
+        status: UNVERIFIED
+
+annual:
+  - fiscal_year: 2025
+    period_end: 2025-12-31
+    document: "Bouvet ASA Annual Report 2025, AUDITED (NewsWeb message 670820, 2026-04-16), consolidated financial statements approved by the board 15 April 2026, sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf"
+    figures:
+      free_cash_flow_reported:
+        value: 343125
+        source: "E103 reference figure, hand-read from the issuer's own key-figures table"
+        page: "E103 REFERENCE FIGURE -- compared against section 5's own construction and NEVER used to build one; the section 5 gate refuses if it ever reaches a basis. Bouvet's OWN APM, defined on p.32 of the same report: 'Net free cash flow is calculated as net cash flow from operations plus net cash flow from investing activities', and on p.34: 'Net cash flow operations - Net cash flow investments'. It is NOT E34's construction: it deducts no share-based compensation, adds back no interest, and carries interest RECEIVED inside the investing half. HAND-READ 2026-09-08 off the page named -- E103's automatic model route could not run on this host (no VSS_OPENROUTER_KEY), and a page read by eye is stronger provenance than the route it replaces, not weaker. Q4 2025 report p.33, Key figures Group, Jan-Dec 2025 column: 'Net free cash flow 343 125' (2024: 827 273). It reconciles against the audited statements: OCF 347 111 + investing -3 986 = 343 125"
+        status: UNVERIFIED
+      revenue:
+        value: 3912343
+        page: "p.122, consolidated income statement, 1 January - 31 December, 2025 column: 'Revenue 3 3 912 343' (the leading 3 is the note column; 2024: 3 921 399)"
+        status: UNVERIFIED
+      operating_income:
+        value: 473430
+        page: "p.122: 'Operating profit 473 430' (2024: 490 361)"
+        status: UNVERIFIED
+      op_margin:
+        value: 0.121
+        page: "Q4 2025 report p.33, Key figures Group, Jan-Dec 2025 column: 'EBIT-margin 12.1%'. E79: 473 430 / 3 912 343 = 12.10%"
+        status: UNVERIFIED
+      total_assets:
+        value: 1728816
+        page: "p.124, consolidated balance sheet at 31 December 2025: 'TOTAL ASSETS 1 728 816'"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 347111
+        page: "p.126, consolidated statement of cash flows: 'Net cash flow from operating activities 347 111' (2024: 838 330). After tax ('Taxes paid 10 -117 013' inside operating), before all interest"
+        status: UNVERIFIED
+      capex_ppe:
+        value: -26257
+        page: "p.126, investing activities: 'Purchase of fixed assets 15 -26 257'"
+        status: UNVERIFIED
+      capex_intangibles:
+        value: -63
+        page: "p.126, investing activities: 'Payments made to develop software 14 -63' -- the same line the interims call 'Purchase of intangible assets'"
+        status: UNVERIFIED
+      sbc:
+        value: 21824
+        page: "p.126, operating activities: 'Share based payments 21 824' (2024: 17 775), and note 08 (p.136) states the same figure from the other side: 'Costs related to the share scheme with contra entry in equity is in 2025 recognised with NOK 21 824 thousand'. The 28 190 in note 05's salary breakdown is the scheme INCLUDING employer's tax, which note 08 books as a liability; the equity-settled charge is this one. E36"
+        status: UNVERIFIED
+      net_income:
+        value: 358673
+        page: "p.122: 'Profit for the year 358 673', all assigned to 'Shareholders in parent company'"
+        status: UNVERIFIED
+      ebitda:
+        value: 572623
+        page: "Q4 2025 report p.33, Key figures Group, Jan-Dec 2025: 'EBITDA 572 623'. Reconciles against the audited statements: 572 623 - 473 430 = 99 193 = 'Ordinary depreciation 90 411' + 'Amortisation intangible assets 8 782' (p.122)"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 99193
+        page: "E69 hand read, both parts named. p.122, consolidated income statement: 'Depreciation fixed assets 15, 16 90 411' (one line, of which note 16 shows 67 628 is right-of-use) + 'Amortisation intangible assets 14 8 782' = 99 193"
+        status: UNVERIFIED
+      net_finance_costs:
+        value: 886
+        page: "p.122: 'Net financial items -886' -- the printed net (other interest income 23 942 + other financial income 1 507 - interest expense 25 479 - other finance expense 856), as a positive magnitude because 2025 was a net cost (2024 was a net income of 826)"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 3.46
+        page: "p.122 and note 11 (p.140): 'Diluted earnings per share 11 3.46' (2024: 3.69)"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 103788395
+        page: "Note 11 Earnings per share, p.140: 'Weighted average diluted shares outstanding 103 788 395' = 'Weighted average basic shares outstanding 102 848 136' + 'Dilutive effects from employee share scheme 940 259'. E88's annual fall-back, which E91 SUPERSEDES on this basis because all four quarters state their own; kept on the record so the fall-back is checkable"
+        status: UNVERIFIED
+      cash_and_equivalents:
+        value: 672304
+        page: "p.124, balance sheet at 31 December 2025: 'Liquid assets 20 672 304'. Note 20 (p.153) splits it: unrestricted 579 884, employee-withheld-tax restricted funds 92 420"
+        status: UNVERIFIED
+      lease_liabilities:
+        value: 341925
+        page: "E69 hand read, both stated parts named. p.125, balance sheet at 31 December 2025: long-term 'Lease liabilities 16 256 833' + 'Current lease liabilities 16 85 092' = 341 925. Note 16 (p.149) states the total directly in its roll-forward: 'Total lease liabilities at 31 December 341 924' (a 1 rounding difference)"
+        status: UNVERIFIED
+      pension_deficit:
+        value: 0
+        zero_basis: note
+        page: "Note 06 Pensions, p.134: 'The Group's pension schemes satisfy the requirements of this law, and represents a defined contribution plan'; 'The Group's commitment is fully met when paid'; the reconciliation of the year's pension expense has one line, 'Contribution plan - paid contribution for the year 128 395'. No defined-benefit obligation exists and the balance sheet presents no pension caption. E35.1 / E25 note"
+        status: UNVERIFIED
+      asset_retirement_obligation:
+        value: 0
+        zero_basis: caption
+        page: "p.125, balance sheet at 31 December 2025, long-term debt: 'Other provisions for liabilities 14 0' (2024: 5 545) -- the caption is printed and its 2025 value is a literal zero. E107 SEARCH, 2026-09-08, of this document (411,867 characters of extracted text) for 'asset retirement', 'decommission', 'dismantl', 'restoration', 'make good', 'make-good', 'dilapidation', 'reinstatement', 'environmental provision': ZERO occurrences of any of the nine. Note 16 Leases states no restoration or make-good obligation on the office leases. E68.1: the absence is evidence for this business"
+        status: UNVERIFIED
+      financial_liabilities_current:
+        value: 0
+        zero_basis: note
+        page: "p.10, directors' report: 'As at 31 December 2025, the group had no interest-bearing liabilities other than lease liabilities recognised under IFRS 16, and liquid bank deposits totalling NOK 672.3 million'; p.10, interest-rate risk: 'Bouvet had no interest-bearing liabilities as at the end of 2025'. Note 17 (p.151) classifies the group's financial liabilities exhaustively -- 'Lease liabilities 341 925' and 'Trade accounts payable 74 266' -- and no borrowing is among them. The 'Loan from group company 40 000' on p.170 is in the PARENT-company balance sheet, payable by Bouvet ASA to Bouvet Norge AS and eliminated on consolidation (p.171 lists it under 'Loans from subsidiaries')"
+        status: UNVERIFIED
+      financial_liabilities_noncurrent:
+        value: 0
+        zero_basis: note
+        page: "As above: p.10 twice, note 17's exhaustive classification, and a balance sheet (p.125) whose long-term debt is lease liabilities 256 833 and other provisions 0. The unutilised NOK 100.0 million credit facility (note 20) is a facility, not a drawing"
+        status: UNVERIFIED
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81, with the deferred revenue NAMED. p.125, balance sheet at 31 December 2025: 'Deferred revenue 3, 12 6 478' (2024: 6 177), beside 'Work in progress 3 56 332'. Note 03 (p.132) explains the pair: 'there were a total of MNOK 56.3 in accrued but not yet invoiced services. Services delivered on a running account at the end of the fiscal year 2025 were invoiced to customers at the beginning of January 2026.' Ordinary billings in advance of a time-and-materials consultancy, which E81 expressly excludes. Searched 2026-09-08 for 'streaming', 'offtake', 'prepaid delivery', 'advance payments from customers', 'customer deposit': ZERO occurrences"
+        status: UNVERIFIED
+      nci_dividends_paid:
+        value: 0
+        zero_basis: searched
+        source: "E105 leg; E107 searched absence"
+        page: "E107 SEARCHED ABSENCE. Document: sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf (411,867 characters of extracted text). Searched 2026-09-08 for 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- two occurrences, and neither is a distribution: the cash flow statement's 'Purchase from non-controlling interests 0 -4 917' (2025 nil; the 2024 figure BOUGHT the minority out) and the equity statement's 'Change non-controlling interests 0 157 157 -5 074 -4 917', which takes the NCI column from 5 074 at 01.01.2024 to 0 at 31.12.2024 and leaves it at 0 at 31.12.2025. The income statement assigns the whole 358 673 to 'Shareholders in parent company' with no NCI line beneath it. A determined zero"
+        status: UNVERIFIED

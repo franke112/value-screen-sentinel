@@ -1,0 +1,506 @@
+# config/manual/RMV.L.yaml -- Rightmove plc, hand-read from the documents the
+# issuer filed with the FCA's National Storage Mechanism (sources/manifest.json,
+# origin `fca-nsm`, LEI 2138001JXGCFKBXYB828). Built 2026-08-30. UK-adopted
+# IFRS; year to 31 December; half-yearly reporter (E31 / config.py: periods are
+# YYYY-H1 / YYYY-H2 / YYYY-FY).
+#
+# DOCUMENTS (the two the owner asked for, plus two RNS notices used only to
+# corroborate and to supply a period-end count):
+#   1. "Annual report and accounts 2025" -- NSM disclosure NI-000141952, Direct
+#      Upload PDF, published 2026-03-30, document date 2025-12-31 (audited).
+#      sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf.
+#      The ESEF/iXBRL package NI-000141949 is downloaded beside it (.zip).
+#      UPDATED 2026-08-30: the inline-XBRL report inside it
+#      (reports/2138001JXGCFKBXYB828-2025-12-31-T01.xhtml, 278
+#      ix:nonFraction facts, two units: u-1 GBP and u-2 GBP/shares, no
+#      xbrli:shares unit) was read and compared field by field against the
+#      2025-FY entries below (E40; the AUTO.L ESEF precedent, E58). TWENTY-ONE
+#      fields agree exactly with a tagged fact and carry
+#      `verified_kind: cross_document` citing tag and context inline. Four of
+#      them -- income_tax_paid, capex_ppe, capex_intangibles,
+#      lease_payments_capital -- agree on magnitude with the sign reconciled
+#      by CONVENTION (iXBRL tags an outflow concept as a positive magnitude,
+#      this file signs outflows negative), which is not a discrepancy. No
+#      tagged fact DIFFERS from an entered figure. EIGHT fields have no tag
+#      (no share count of any kind, no APM EPS, no ratio, no prepaid caption)
+#      and were settled under E59 instead, each citing its reconciling note
+#      or section inline: the three period-end share counts (restated in the
+#      Directors' Report and the Remuneration Report), the diluted weighted
+#      average (net_income / diluted_eps to rounding, the AUTO.L shape),
+#      diluted_eps_adjusted (note 1's underlying profit over that count),
+#      op_margin and revenue_yoy (ratios of tagged figures at the printed
+#      precision, E79), and the prepaid_delivery_obligation caption zero
+#      (the tagged liability captions sum exactly to the tagged total). The
+#      2026-H1 entries are outside the package and stay UNVERIFIED.
+#   2. "Half-year Financial Report" -- RNS 0dac321e-e548-4dbf-8e4c-aaba3fa00ef6,
+#      published 2026-07-31 07:00, the condensed consolidated interim statements
+#      for the six months to 30 June 2026 (unaudited).
+#      sources/RMV.L_2026-H1_half-year-financial-report_2026-07-31_xx_a0.html.
+#   3. "Annual Financial Report" final-results RNS 5fd6b503-2f4e-442a-9e18-908be7579695,
+#      2026-02-27 -- the FY2025 results announcement; on file, not read for figures.
+#   4. "Total Voting Rights" RNS 0db60171-bfa5-4b90-b546-5b47ba8a7b9e, 2026-07-01:
+#      the issued and treasury counts at 30 June 2026, which the interim itself
+#      does not print as a count (E75's window-end divisor).
+#
+# READ-BACK. Every FY2025 figure was read from the PDF text layer and then read
+# back against the page rendered as an image (PyMuPDF 1.28.2, 110-120 dpi):
+# printed pages 115, 116, 117 (the three statements), 123 (policies), 128
+# (notes 7-9), 129 (note 10), 130 (notes 12-13), 132 (notes 17-19), 133
+# (notes 19-21), 135 (note 23). Unlike AUTO.L's annual report, this PDF's
+# text layer carries every numeral intact -- no inserted spaces -- and every
+# figure agreed between the two readings. Printed page = PDF page - 2. The
+# interim is an RNS HTML document flattened by vss/source.py's html_to_text;
+# there is no rendered page to read back against, the text IS the filing.
+#
+# STATUS: 2025-FY VERIFIED / cross_document throughout after the ESEF and E59
+# pass of 2026-08-30 (the three caption_statement zeros under E78 stand);
+# 2026-H1 all UNVERIFIED. No section 5 run, no fv_base, no tier, no mbp: no
+# growth view is registered for this name.
+#
+# PERIODS HELD: 2025-FY and 2026-H1. The interim's six-months-to-30-June-2025
+# comparatives are NOT entered: the overlap guard (vss/rules.py
+# overlap_problem) never holds 2025-H1 beside 2025-FY. Under E31 section 5
+# stands on the year as filed (2025-FY) and names 2026-H1 as the newer filed
+# period it passed over. For the record, the interim's H1 2025 column reads:
+# revenue 211,730; operating profit 145,385; net cash from operating
+# activities 120,048; income taxes paid (35,331); PPE (387); intangibles
+# (4,033); share-based payments 4,541; profit 109,908 (all £000).
+#
+# UNITS. money_unit: thousands -- every statement and note is headed "£000".
+# share_unit: whole -- share counts are printed in full (773,281,827), no
+# rounding (E53). Per-share figures are PENCE, as printed, and the quote is
+# GBX (pence), so the two agree without conversion (as AUTO.L).
+#
+# E23 -- CAPEX. The cash flow statement prints TWO lines, 'Acquisition of
+# property, plant and equipment (903)' and 'Acquisition of intangible assets
+# (9,276)', so `capex_ppe` and `capex_intangibles` are entered and
+# `capex_combined` is left blank (the schema reads the pair). The intangible
+# line is the larger: note 13 (p.130) shows additions of 6,509 computer
+# software and 2,767 software development -- internally generated software is
+# capitalised, and the flow deducts it as capex.
+#
+# E34 -- INTEREST. See `interest_in_ocf` below. Mixed placement: interest
+# PAID sits inside operating activities ('Financial expenses paid (535)'),
+# interest RECEIVED sits in investing ('Interest received on cash and cash
+# equivalents 2,435'). `operating_cash_flow` therefore already bears the cost
+# side and excludes the income side.
+#
+# E35 / E35.1 / E65-E68 -- NET DEBT LEGS. No borrowings at all (balance
+# sheet p.116 carries no borrowings caption; the Strategic Report p.59 says
+# "no external debt"): both borrowing fields are named zeros. Lease
+# liabilities 7,184 (note 19 p.132 states the total beside its current and
+# non-current parts -- E65; an IFRS 16 lessee has ONE lease liability, there
+# is no finance/operating split to size, so E73 is not engaged). Pension: a
+# named zero on E35.1's `note` form -- the Group provides defined
+# contribution plans only (p.123). Asset retirement obligation: the
+# dilapidations provision 1,717 (note 20 p.133) is entered under E68 via E69,
+# exactly as AUTO.L's dilapidations 3.7 was (E68.1 applications table):
+# a lessee's obligation to make good leased premises, discounted, unwound
+# through financial expenses (note 8: 'Interest unwind on dilapidations 12').
+# Named beside the legs but NOT a leg: 'Other current liabilities 428', the
+# ringfenced deferred consideration for HomeViews Platform Limited payable
+# February 2026 (note 17 p.132) -- settled in H1 2026 ('Settlement of
+# deferred consideration (400)' in the interim's investing activities).
+#
+# E36 -- SHARE-BASED COMPENSATION. `sbc` is the cash-flow add-back 'Share-based
+# payments 8,539' (p.117), which note 23 (p.135) states as the 'Total
+# share-based payments charge 8,539' -- the IFRS 2 charge across the five
+# equity-settled schemes. The income statement's 'Share-based incentive
+# charge (9,815)' is that charge PLUS 'NI on applicable share-based
+# incentives at 15.0% 1,276', a cash cost the flow already bears; entering
+# 9,815 would deduct the NI twice. Same convention as AUTO.L (charge
+# excluding associated NI). All schemes are equity-settled (policy p.123).
+#
+# E38 / E75 / E75.1 -- DIVISOR. FY2025 states a diluted weighted average
+# (775,356,560, note 10 p.129) for the twelve months, which is E38's
+# divisor on the 2025-FY basis. The interim states a SIX-month diluted
+# average (756,031,940), not a window average for any twelve-month basis;
+# if a TTM basis to 2026-06-30 were ever struck, E75 takes the count at the
+# window end -- no diluted period-end count is printed anywhere, so E75.1
+# falls to the BASIC net count: issued 755,900,469 less treasury 10,490,552
+# less EBT 1,464,961 less SIP 1,500,721 (E16 / E54), which the store forms.
+#
+# E70 -- LEASES IN THE FLOW. IFRS 16 filer: principal in financing
+# ('Payment of principal portion of lease liabilities (3,146)', p.117), so
+# nothing is added back; `lease_payments_capital` is the memo E70 makes it.
+# The interest portion (80, note 19 p.133) sits inside 'Financial expenses
+# paid (535)' in operating activities.
+#
+# NOT PRESENTED, therefore absent (never derived, E22): gross profit (the
+# income statement runs revenue less administrative expenses); EBITDA (the
+# issuer states none -- there is no debt to lever it against); a single
+# depreciation-and-amortisation total (the cash flow statement prints
+# 'Depreciation charges 3,937' and 'Amortisation charges 4,391' as two lines
+# and no note adds them); a free-cash-flow line (p.126 defines an operating
+# cash conversion of 107% but prints no FCF figure).
+
+ticker: RMV.L
+name: Rightmove plc
+reporting_currency: GBP
+money_unit: thousands
+share_unit: whole
+quote_currency: GBX
+sector: Communication Services   # the screener's own source-list string (config/watchlist.yaml, 2026-08-27 PIPELINE entry) -- not from these documents
+reporting_frequency: half_yearly
+origin: manual
+
+interest_in_ocf:
+  value: yes
+  source: "Annual report and accounts 2025 (audited); Half-year Financial Report 2026 (RNS, unaudited)"
+  page: "p.117, consolidated statement of cash flows: 'Financial expenses paid (535)' sits INSIDE cash flows from operating activities, between 'Cash generated from operating activities 308,015' and 'Net cash from operating activities 236,299' (beside 'Income taxes paid (71,181)'); 'Interest received on cash and cash equivalents 2,435' sits in cash flows used in INVESTING activities, outside. So the operating cash flow already bears every finance cost PAID (note 8, p.128: the £557k charge is 'Bank charges 455', 'Interest unwind on lease liabilities 90', 'Interest unwind on dilapidations 12') and does not contain the interest RECEIVED -- the conservative side. The interim keeps the placement: 'Financial expenses paid (272)' in operating, 'Interest received on cash and cash equivalents 1,116' in investing"
+  interest_source: cash_flow_statement
+
+# E70 (2026-08-30): whether this filer's operating cash flow bears its lease
+# principal. Under IFRS 16 it does not, so nothing is added back: the lease
+# is counted once, in net debt (E35, E65); `lease_payments_capital` is a
+# memo the flow never deducted.
+operating_leases_in_ocf:
+  value: no
+  source: "FRAMEWORK-EDITS E70, applied 2026-08-30 to an IFRS 16 filer"
+  page: "IFRS 16.50(b): a lessee classifies cash payments for the principal portion of the lease liability within FINANCING activities; p.117 shows exactly that, 'Payment of principal portion of lease liabilities 19 (3,146)' under cash flows used in financing activities. The interest portion follows the filer's IAS 7 policy, which `interest_in_ocf` records (80 inside 'Financial expenses paid'). The standard leaves no choice on the principal"
+
+periods:
+  - period: 2025-FY
+    period_end: 2025-12-31
+    document: "Annual report and accounts 2025 (audited)"
+    url: "sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf"
+    figures:
+      nci_dividends_paid:
+        value: 0
+        zero_basis: searched
+        source: "E105 leg; E107 searched absence"
+        page: "E107 SEARCHED ABSENCE. Document: RMV.L_2025-FY_final-results_2026-02-27_xx_a0.html (95,600 characters of extracted text). Searched 2026-09-04 for the terms 'non-controlling', 'noncontrolling', 'minority interest', 'minority interests' -- ZERO occurrences of any of them. The group states no non-controlling interest, so it distributes none (E106 clause 5: a determined zero, not an undetermined leg)."
+        status: UNVERIFIED
+      # --- read by the E6 RANKING KEY ---------------------------------
+      revenue:
+        value: 425129
+        page: "p.115, consolidated statement of comprehensive income: 'Revenue 4 425,129' (2024: 389,882); cross-checked against the ESEF/iXBRL package (sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.zip, reports/2138001JXGCFKBXYB828-2025-12-31-T01.xhtml, NSM NI-000141949), tag ifrs-full:Revenue, context c-1 (2025-01-01 to 2025-12-31), unit u-1 GBP, scale 3: 425,129 -- agrees (E40 cross_document; E58 precedent)"
+        status: VERIFIED
+        verified_kind: cross_document
+      # gross_profit: not presented (see header)
+      operating_income:
+        value: 287874
+        page: "p.115, consolidated statement of comprehensive income: 'Operating profit 5 287,874' (2024: 256,330); the statement's own 'Underlying operating profit 297,689' is an APM and is not entered. E79 (2026-08-30): entered beside the issuer's whole-percent margin, which B46 had kept out; cross-checked against the ESEF/iXBRL package, tag ifrs-full:ProfitLossFromOperatingActivities, context c-1, scale 3: 287,874 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      op_margin:
+        value: 0.68
+        page: "p.25, financial review: 'operating profit margin of 68% (2024: 66%)' -- stated to the WHOLE PERCENT; 287,874 / 425,129 = 67.71%, which rounds to 68% (E79, band ±0.5pp). E59 (2026-08-30): the ratio of the ESEF-tagged ifrs-full:ProfitLossFromOperatingActivities 287,874 to ifrs-full:Revenue 425,129 (context c-1) is 67.71%, which is 68% at the whole percent p.25 prints (E79's precision) -- the stated ratio reconciles to two separately-tagged figures; cross_document under E59"
+        status: VERIFIED
+        verified_kind: cross_document
+      total_assets:
+        value: 128181
+        page: "p.116, consolidated statement of financial position: 'Total assets 128,181' (2024: 118,498); cross-checked against the ESEF/iXBRL package, tag ifrs-full:Assets, context c-3 (instant 2025-12-31), scale 3: 128,181 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      net_ppe:
+        value: 9510
+        page: "p.116, consolidated statement of financial position: 'Property, plant and equipment 12 9,510'; note 12, p.130, 'Net book value At 31 December 2025 ... 9,510' (of which right-of-use assets 7,355, note 19 p.132); cross-checked against the ESEF/iXBRL package, tag ifrs-full:PropertyPlantAndEquipment, context c-3, scale 3: 9,510 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      # --- section 5.1 C: the cash the reverse DCF discounts -----------
+      operating_cash_flow:
+        value: 236299
+        page: "p.117, consolidated statement of cash flows: 'Net cash from operating activities 236,299' (2024: 211,270) -- after 'Financial expenses paid (535)' and 'Income taxes paid (71,181)'. operating_cash_flow_pretax is deliberately NOT entered: the statement presents the flow after tax, and its pre-tax subtotal 'Cash generated from operating activities 308,015' is also pre-interest, so pretax-plus-tax would not reproduce this line; cross-checked against the ESEF/iXBRL package, tag ifrs-full:CashFlowsFromUsedInOperatingActivities, context c-1, scale 3: 236,299 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      income_tax_paid:
+        value: -71181
+        page: "p.117: 'Income taxes paid (71,181)' (2024: (65,809)) -- stated as a memo; already inside operating_cash_flow; cross-checked against the ESEF/iXBRL package, tag ifrs-full:IncomeTaxesPaidRefundClassifiedAsOperatingActivities, context c-1, scale 3: 71,181, sign attribute absent -- same magnitude; the concept is inherently an outflow tagged as a positive magnitude by iXBRL convention while this field signs outflows negative, a convention difference and not a discrepancy (E58 precedent). E40 cross_document"
+        status: VERIFIED
+        verified_kind: cross_document
+      capex_ppe:
+        value: -903
+        page: "p.117, cash flows used in investing activities: 'Acquisition of property, plant and equipment 12 (903)'; note 12, p.130: 'Additions ... 903' (leased asset additions 4,159 are separate, non-cash); cross-checked against the ESEF/iXBRL package, tag ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities, context c-1, scale 3: 903, sign attribute absent -- same magnitude, sign by convention (outflow tagged positive; this field signs it negative), not a discrepancy. E40 cross_document"
+        status: VERIFIED
+        verified_kind: cross_document
+      capex_intangibles:
+        value: -9276
+        page: "p.117, cash flows used in investing activities: 'Acquisition of intangible assets 13 (9,276)'; note 13, p.130: 'Additions – 6,509 2,767 – 9,276' (computer software 6,509, software development 2,767); cross-checked against the ESEF/iXBRL package, tag ifrs-full:PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities, context c-1, scale 3: 9,276, sign attribute absent -- same magnitude, sign by convention, not a discrepancy. E40 cross_document"
+        status: VERIFIED
+        verified_kind: cross_document
+      # capex_combined: blank -- the split is printed (E23)
+      lease_payments_capital:
+        value: -3146
+        page: "p.117, cash flows used in financing activities: 'Payment of principal portion of lease liabilities 19 (3,146)'; note 19, p.133, reconciliation of lease liabilities: 'Payment of lease liabilities – capital (3,146)' and '– interest (80)'. A MEMO under E70; cross-checked against the ESEF/iXBRL package, tag ifrs-full:PaymentsOfLeaseLiabilitiesClassifiedAsFinancingActivities, context c-1, scale 3: 3,146, sign attribute absent -- same magnitude, sign by convention, not a discrepancy. E40 cross_document"
+        status: VERIFIED
+        verified_kind: cross_document
+      lease_interest_paid:
+        value: 80
+        page: "RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf pdf p.135, note 19 reconciliation of lease liabilities: 'Payment of lease liabilities - interest (80)' -- CASH PAID (the income statement's expense is 90). Interest is paid within operating 'Financial expenses paid (535)', which E34 adds back, so E117 deducts it here once"
+        status: VERIFIED
+        verified_kind: same_page
+      finance_costs_paid:
+        value: 535
+        page: "p.117, cash flows from OPERATING activities: 'Financial expenses paid (535)' (entered as a positive magnitude); note 8, p.128, shows the charge it settles: bank charges 455, lease interest 90, dilapidations unwind 12 = 557; cross-checked against the ESEF/iXBRL package, tag ifrs-full:FinanceCostsPaidClassifiedAsOperatingActivities, context c-1, scale 3: 535 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      finance_income_received:
+        value: 2435
+        page: "p.117, cash flows used in INVESTING activities: 'Interest received on cash and cash equivalents 2,435' (entered as a positive magnitude); note 7, p.128: financial income 2,634 = interest on cash 2,433 + money market deposits 201 (accrual); note 16 p.132 'Interest receivable 286'; cross-checked against the ESEF/iXBRL package, tag ifrs-full:InterestReceivedClassifiedAsInvestingActivities, context c-1, scale 3: 2,435 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      sbc:
+        value: 8539
+        page: "p.117, adjustments to profit: 'Share-based payments 23 8,539'; note 23, p.135: 'The Group recognised a total share-based payments charge for the year of £8,539,000' -- Sharesave 500, PSP 336, DSP 3,244, SIP 1,606, RSP 2,853 = 'Total share-based payments charge 8,539'; the 'NI on applicable share-based incentives at 15.0% 1,276' that lifts it to the income statement's 9,815 is a cash cost the flow already bears and is excluded (E36; AUTO.L convention). All schemes equity-settled (p.123); cross-checked against the ESEF/iXBRL package, tag ifrs-full:AdjustmentsForSharebasedPayments, context c-1, scale 3: 8,539 -- agrees; the package tags the income-statement line separately as ifrs-full:ExpenseFromSharebasedPaymentTransactionsWithEmployees 9,815, the charge plus NI, which this field deliberately does not enter (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      # free_cash_flow_reported: not printed (see header)
+      # --- section 5.1 C: net debt, the bridge from EV to equity --------
+      cash_and_equivalents:
+        value: 37223
+        page: "p.116, consolidated statement of financial position: 'Cash and cash equivalents 17 37,223'; note 17, p.132, confirms, and names £101,000 restricted under the EBT deeds, £5,598,000 in a 30-day deposit account and £428,000 ringfenced for the HomeViews deferred consideration; cross-checked against the ESEF/iXBRL package, tag ifrs-full:CashAndCashEquivalents, context c-3, scale 3: 37,223 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      other_current_financial_assets:
+        value: 5683
+        page: "p.116: 'Money market deposits 17 5,683'; note 17, p.132: original maturity of more than three months and less than a year, weighted average rate 3.6%. Assumption A1 decides whether it counts as cash; cross-checked against the ESEF/iXBRL package, issuer extension tag rightmoveplc:MoneyMarketDeposits, context c-3, scale 3: 5,683 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      financial_liabilities_current:
+        value: 0
+        zero_basis: caption
+        page: "p.116, current liabilities: 'Trade and other payables 18 (32,568)', 'Lease liabilities 19 (3,562)', 'Contract liabilities 4 (3,485)', 'Income tax payable (501)', 'Other current liabilities 17 (428)' -- no borrowings caption. The 428 is the deferred consideration for HomeViews Platform Limited payable February 2026 (note 17 p.132), NAMED here and not a leg of E35's net debt; p.59 (Investment case): 'no external debt'"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "the Group’s high operating profit margins; significant free cash flow; and no external debt."
+      financial_liabilities_noncurrent:
+        value: 0
+        zero_basis: caption
+        page: "p.116, non-current liabilities: 'Other non-current liabilities 17 –', 'Lease liabilities 19 (3,622)', 'Provisions 20 (1,717)' -- no borrowings caption; there is no borrowings note in the report"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "the Group’s high operating profit margins; significant free cash flow; and no external debt."
+      lease_liabilities:
+        value: 7184
+        page: "note 19, p.132, 'Lease liabilities included in the statement of financial position': 'Current 3,562', 'Non-current 3,622', '7,184' -- the stated total; p.116 carries the two parts as 'Lease liabilities 19 (3,562)' and 'Lease liabilities 19 (3,622)'; note 19 p.133 reconciliation 'Balance as at 31 December 7,184'. E65: one IFRS 16 lessee liability, no finance/operating split exists to size; cross-checked against the ESEF/iXBRL package: no total is tagged, but ifrs-full:CurrentLeaseLiabilities 3,562 and ifrs-full:NoncurrentLeaseLiabilities 3,622 (context c-3, scale 3) sum to 7,184 exactly -- agrees on both stated parts (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      pension_deficit:
+        value: 0
+        zero_basis: note
+        page: "p.123, note 2 material accounting policy information, Employee benefits (i) Pensions: 'The Group provides access to stakeholder pension schemes (defined contribution pension plans). Obligations for contributions to defined contribution pension plans are recognised as an employee benefit expense in the income statement when they are incurred.' No pension caption on p.116; note 6, p.128: 'Pension costs 3,730'. E35.1's note form"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "The Group provides access to stakeholder pension schemes (defined contribution pension plans)."
+      asset_retirement_obligation:
+        value: 1717
+        page: "note 20 PROVISIONS, p.133: 'The dilapidations provision is in respect of any of the Group's leased properties where the Group has obligations to make good dilapidations' -- 'At 1 January 853', 'Charged 852', 'Unwinding of discount 12', 'At 31 December 1,717', 'Current –', 'Non-current 1,717'; p.116 'Provisions 20 (1,717)'. Entered under E68 via E69 on AUTO.L's dilapidations precedent (E68.1 applications table); cross-checked against the ESEF/iXBRL package, tag ifrs-full:NoncurrentProvisions, context c-3, scale 3: 1,717 -- agrees; note 20 states the dilapidations provision is the only provision (Current –, Non-current 1,717), so the tagged caption IS this figure (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81 (2026-08-30): p.116, consolidated statement of financial position at 31 December 2025, liabilities presented: 'Trade and other payables (32,568)', 'Lease liabilities (3,562)', 'Contract liabilities (3,485)', 'Income tax payable (501)', 'Other current liabilities (428)', 'Other non-current liabilities -', 'Lease liabilities (3,622)', 'Provisions (1,717)' -- no streaming, prepaid-offtake or prepaid-delivery caption. 'Contract liabilities 3,485' is subscription revenue billed in advance (note 4), the ordinary contract liability of a property portal, working capital and NOT this leg, named here. A caption zero. Cross-checked against the ESEF/iXBRL package (E59, component sum): the tagged liability captions at context c-3 are TradeAndOtherCurrentPayables 32,568, CurrentLeaseLiabilities 3,562, CurrentContractLiabilities 3,485, CurrentTaxLiabilities 501, OtherCurrentLiabilities 428 (= CurrentLiabilities 40,544 exactly), NoncurrentLeaseLiabilities 3,622, NoncurrentProvisions 1,717, OtherNoncurrentFinancialLiabilities – (= NoncurrentLiabilities 5,339 exactly), Liabilities 45,883 = 40,544 + 5,339 -- the tagged captions exhaust the total, leaving no room for a prepaid-delivery caption. The absence is read a second time from the tagged balance sheet; cross_document"
+        status: VERIFIED
+        verified_kind: cross_document
+      # --- share counts: the divisor on every per-share figure -----------
+      diluted_weighted_average_shares:
+        value: 775356560
+        page: "note 10, p.129, 'Weighted average number of ordinary shares (diluted)': basic 772,382,123 + 'Dilutive impact of share-based incentives outstanding 2,974,437' = 775,356,560 (2024: 792,601,981); p.115 'Diluted 10 28.0' pence reconciles (217,067 / 775,356.56 = 28.0). E59 (2026-08-30), the AUTO.L precedent: the count reconciles to rounding against the separately-prepared primary statement, both of whose inputs are ESEF-tagged -- ifrs-full:ProfitLoss 217,067,000 / ifrs-full:DilutedEarningsLossPerShare 0.280 (u-2 GBP/shares, decimals 3) = 775,239,286 point estimate, 117,274 shares (0.015%) off the stated count, inside the band [773,857,398 to 776,626,118] implied by 28.0p's own half-tenth rounding. No share COUNT is tagged anywhere in the package (units u-1 GBP and u-2 GBP/shares only, no xbrli:shares unit), so this is the only second read available; cross_document under E59"
+        status: VERIFIED
+        verified_kind: cross_document
+      shares_issued_period_end:
+        value: 773281827
+        page: "note 21, p.133, share capital, 'In issue ordinary shares': 'At 1 January 795 794,676,864', 'Purchase and cancellation of shares (21) (21,395,037)', 'At 31 December 774 773,281,827'. E59 (2026-08-30): restated in the separately-prepared Directors' Remuneration Report ('The Company's shares in issue (including 10,753,494 shares held in treasury) as at 31 December 2025 were 773,281,827 ordinary shares of 0.1p each (2024: 794,676,864 ordinary shares of 0.1p each)') and in the Directors' Report under Share capital and shareholder voting rights ('The shares in issue, including 10,753,494 shares of 0.1p held [in treasury]') -- exact digit match in two sections outside note 21. The ESEF package tags no share count (no xbrli:shares unit); cross_document under E59"
+        status: VERIFIED
+        verified_kind: cross_document
+      treasury_shares_period_end:
+        value: 10753494
+        page: "note 21, p.133: 'Included within shares in issue at 31 December 2025 are ... 10,753,494 (2024: 11,168,495) shares held in treasury (Note 22)'. E59 (2026-08-30): restated in the Directors' Remuneration Report ('including 10,753,494 shares held in treasury ... as at 31 December 2025') and the Directors' Report ('10,753,494 shares were held in treasury') -- exact digit match outside note 21; no share count is tagged in the ESEF package; cross_document under E59"
+        status: VERIFIED
+        verified_kind: cross_document
+      employee_trust_shares_period_end:
+        value: 3176680
+        page: "note 21, p.133: '1,617,723 (2024: 1,833,148) shares held by the EBT, 1,558,957 (2024: 1,320,429) shares held by the SIP' -- two stated parts added (E71): note 10, p.129, treats them as one deduction in its own count, 'Issued ordinary shares at 31 December less ordinary shares held by treasury, SIP and the EBT'. Basic EPS excludes both trusts alongside treasury (E54). E59 (2026-08-30): both components restated in the Directors' Report -- 'Shares held in trust: As at 31 December 2025, 1,617,723 shares (2024: 1,833,148)' held by the EBT, and 'As at 31 December 2025, 1,558,957 shares (2024: 1,320,429)' held by the SIP -- and the EBT count again in the Remuneration Report's directors' interests ('1,617,723 ordinary shares of 0.1p each'); 1,617,723 + 1,558,957 = 3,176,680 exactly. No share count is tagged in the ESEF package; cross_document under E59"
+        status: VERIFIED
+        verified_kind: cross_document
+      # --- section 5.1 A and 5.3: earnings, and the leverage that sets tier
+      diluted_eps:
+        value: 28.0
+        page: "p.115, consolidated statement of comprehensive income, 'Earnings per share (pence)': 'Diluted 10 28.0' (2024: 24.3); note 10, p.129, confirms. PENCE; cross-checked against the ESEF/iXBRL package, tag ifrs-full:DilutedEarningsLossPerShare, context c-1, unit u-2 GBP/shares, decimals 3: 0.280 = 28.0 pence -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      diluted_eps_adjusted:
+        value: 29.0
+        page: "note 10, p.129: 'Underlying profit and underlying EPS 1 224,888 29.1 29.0' -- diluted underlying EPS 29.0 pence, a non-GAAP memo (underlying profit excludes the share-based incentive charge and its tax). E59 (2026-08-30): note 1's separately-prepared APM reconciliation (profit 217,067 + share-based incentive charge 9,815 + transaction-related charges + investment fair value loss, less the tax impact (1,994)) closes at 'Underlying profit 224,888'; 224,888,000 / the diluted count 775,356,560 (itself cross_document) = 29.005 pence, which is 29.0 at the printed tenth. Not tagged in the ESEF package (an APM); cross_document under E59"
+        status: VERIFIED
+        verified_kind: cross_document
+      operating_income_adjusted:
+        value: 297689
+        page: "p.115: 'Underlying operating profit 1 297,689' (2024: 273,916) = operating profit 287,874 + share-based incentive charge 9,815; non-GAAP memo; cross-checked against the ESEF/iXBRL package, issuer extension tag rightmoveplc:UnderlyingOperatingProfit, context c-1, scale 3: 297,689 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      net_income:
+        value: 217067
+        page: "p.115: 'Profit for the year being total comprehensive income 217,067' (2024: 192,713), all attributable to equity holders of the Parent; cross-checked against the ESEF/iXBRL package, tag ifrs-full:ProfitLoss, context c-1, scale 3: 217,067 (ifrs-full:ProfitLossAttributableToOwnersOfParent also 217,067) -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      # ebitda / depreciation_amortisation: not stated as one figure (see header)
+      finance_costs_period:
+        value: 557
+        page: "p.115: 'Financial expenses 8 (557)' (entered as a positive magnitude); note 8, p.128: bank charges 455, interest unwind on lease liabilities 90, interest unwind on dilapidations 12; cross-checked against the ESEF/iXBRL package, tag ifrs-full:FinanceCosts, context c-1, scale 3: 557 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      finance_income_period:
+        value: 2634
+        page: "p.115: 'Financial income 7 2,634'; note 7, p.128: interest income on cash and cash equivalents 2,433, on money market deposits 201; cross-checked against the ESEF/iXBRL package, tag ifrs-full:FinanceIncome, context c-1, scale 3: 2,634 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      # net_finance_costs: blank -- both sides printed, the store subtracts (E18); the statement's own 'Net financial income 2,077' is the income side winning
+      # --- ratios: entered so the arithmetic can be checked ----------------
+      op_margin:
+        value: 0.68
+        page: "p.25, financial review, KPI table: 'Operating margin 68% 66%' (2025, 2024); the text on the same page: 'operating profit margin of 68% (2024: 66%)'. 287,874 / 425,129 = 67.7%, which the issuer rounds to 68%. E59 (2026-08-30): the ratio of the ESEF-tagged ifrs-full:ProfitLossFromOperatingActivities 287,874 to ifrs-full:Revenue 425,129 (context c-1) is 67.71%, which is 68% at the whole percent p.25 prints (E79's precision) -- the stated ratio reconciles to two separately-tagged figures; cross_document under E59"
+        status: VERIFIED
+        verified_kind: cross_document
+      revenue_yoy:
+        value: 0.09
+        page: "p.6, Chair's statement / highlights: 'Revenue grew 9% to £425.1m (2024: £389.9m)'; 425,129 / 389,882 - 1 = 9.0%. E59 (2026-08-30): the ESEF-tagged ifrs-full:Revenue is 425,129 at context c-1 (2025) and 389,882 at the 2024 context; 425,129 / 389,882 - 1 = 9.04%, which is 9% at the whole percent p.6 prints -- reconciles to two separately-tagged figures; cross_document under E59"
+        status: VERIFIED
+        verified_kind: cross_document
+
+  - period: 2026-H1
+    period_end: 2026-06-30
+    document: "Half-year Financial Report (RNS 0dac321e-e548-4dbf-8e4c-aaba3fa00ef6, 2026-07-31): condensed consolidated interim financial statements for the six months ended 30 June 2026 (unaudited)"
+    url: "sources/RMV.L_2026-H1_half-year-financial-report_2026-07-31_xx_a0.html"
+    figures:
+      revenue:
+        value: 225848
+        page: "RNS, 'CONDENSED CONSOLIDATED INTERIM STATEMENT OF PROFIT AND LOSS AND OTHER COMPREHENSIVE INCOME': 'Revenue 4 225,848 211,730 425,129' (six months to 30 June 2026, 30 June 2025, year 2025)"
+        status: UNVERIFIED
+      operating_income:
+        value: 148168
+        page: "RNS, condensed interim statement of profit and loss: 'Operating profit 148,168 145,385 287,874' (six months to 30 June 2026, 30 June 2025, year 2025). E79: entered beside the whole-percent margin"
+        status: UNVERIFIED
+      op_margin:
+        value: 0.66
+        page: "RNS, financial summary table: 'Operating margin 66% 69%' (H1 2026, H1 2025) -- stated to the WHOLE PERCENT; 148,168 / 225,848 = 65.60%, which rounds to 66% (E79, band ±0.5pp). 'Underlying operating margin 69%' is the APM and is not entered"
+        status: UNVERIFIED
+      total_assets:
+        value: 124116
+        page: "RNS, 'CONDENSED CONSOLIDATED INTERIM STATEMENT OF FINANCIAL POSITION' at 30 June 2026: 'Total assets 124,116 124,942 128,181'"
+        status: UNVERIFIED
+      net_ppe:
+        value: 7579
+        page: "RNS, condensed interim statement of financial position: 'Property, plant and equipment 7,579 7,664 9,510'"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 123055
+        page: "RNS, 'CONDENSED CONSOLIDATED INTERIM STATEMENT OF CASH FLOWS': 'Net cash from operating activities 123,055 120,048 236,299' -- after 'Financial expenses paid (272)' and 'Income taxes paid (37,386)'"
+        status: UNVERIFIED
+      income_tax_paid:
+        value: -37386
+        page: "RNS, condensed interim statement of cash flows: 'Income taxes paid (37,386) (35,331) (71,181)' -- memo, already inside operating_cash_flow"
+        status: UNVERIFIED
+      capex_ppe:
+        value: -464
+        page: "RNS, condensed interim statement of cash flows, investing: 'Acquisition of property, plant and equipment (464) (387) (903)'"
+        status: UNVERIFIED
+      capex_intangibles:
+        value: -6248
+        page: "RNS, condensed interim statement of cash flows, investing: 'Acquisition of intangible assets 10 (6,248) (4,033) (9,276)'"
+        status: UNVERIFIED
+      lease_payments_capital:
+        value: -1974
+        page: "RNS, condensed interim statement of cash flows, financing: 'Payment of lease liabilities (1,974) (1,539) (3,146)' -- the year column equals the annual report's principal-only line, so this is the principal. A MEMO under E70"
+        status: UNVERIFIED
+      finance_costs_paid:
+        value: 272
+        page: "RNS, condensed interim statement of cash flows, OPERATING: 'Financial expenses paid (272) (303) (535)' (positive magnitude)"
+        status: UNVERIFIED
+      finance_income_received:
+        value: 1116
+        page: "RNS, condensed interim statement of cash flows, INVESTING: 'Interest received on cash and cash equivalents 1,116 1,357 2,435' (positive magnitude)"
+        status: UNVERIFIED
+      sbc:
+        value: 4593
+        page: "RNS, condensed interim statement of cash flows, adjustments: 'Share-based payments 6 4,593 4,541 8,539' -- the IFRS 2 charge; note 6 states the total charge including NI as £4,635,000 (2025: £5,891,000), the NI element excluded as in the annual entry (E36)"
+        status: UNVERIFIED
+      cash_and_equivalents:
+        value: 34345
+        page: "RNS, condensed interim statement of financial position: 'Cash and cash equivalents 34,345 36,817 37,223'"
+        status: UNVERIFIED
+      # other_current_financial_assets: NOT ENTERED at 30 June 2026 -- the
+      # condensed statement prints 'Money-market deposits - 5,588 5,683' (nil at
+      # 30 June 2026; 'Liquidation of money market deposits 5,725' sits in
+      # investing activities), and E25 forbids a zero on this field: absent is
+      # blank. The store reads cash_and_equivalents alone for the period.
+      financial_liabilities_current:
+        value: 0
+        zero_basis: caption
+        page: "RNS, condensed interim statement of financial position, current liabilities: 'Trade and other payables 13 (40,647)', 'Lease liabilities (2,865)', 'Contract liabilities 4 (3,157)', 'Income tax payable (276)', 'Other current liabilities - - (428)' -- no borrowings caption; the deferred consideration was settled ('Settlement of deferred consideration (400)', investing)"
+        status: UNVERIFIED
+      financial_liabilities_noncurrent:
+        value: 0
+        zero_basis: caption
+        page: "RNS, condensed interim statement of financial position, non-current liabilities: 'Lease liabilities (2,496)', 'Provisions (1,724)', 'Other non-current liabilities - (423) -' -- no borrowings caption"
+        status: UNVERIFIED
+      lease_liabilities:
+        value: 5361
+        page: "RNS, condensed interim statement of financial position: 'Lease liabilities (2,865)' (current) and 'Lease liabilities (2,496)' (non-current) -- two stated parts added (E71): no total is printed in the condensed statements, and the narrative's summary balance sheet prints the same liability as one line, 'Lease liabilities (5.3)' £m, which 5,361 rounds to"
+        status: UNVERIFIED
+      pension_deficit:
+        value: 0
+        zero_basis: note
+        page: "RNS, condensed interim statement of financial position carries no pension caption; the policy is unchanged from the annual report p.123 (defined contribution plans only). E35.1's note form, the sentence in the annual report"
+        status: UNVERIFIED
+      asset_retirement_obligation:
+        value: 1724
+        page: "RNS, condensed interim statement of financial position, non-current liabilities: 'Provisions (1,724) (859) (1,717)' -- the same caption the annual report's note 20 (p.133) identifies as the dilapidations provision (its 31 December 2025 column, 1,717, is that note's closing balance); the interim carries no other provision. E68 via E69"
+        status: UNVERIFIED
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81 (2026-08-30): RNS, condensed interim statement of financial position at 30 June 2026: trade and other payables, lease liabilities, 'Contract liabilities (3,157)', income tax payable, other current liabilities, provisions -- no streaming, prepaid-offtake or prepaid-delivery caption; the contract liability is subscription billings, NOT this leg, named. A caption zero"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 756031940
+        page: "RNS, note 7 'Weighted average number of ordinary shares (diluted)': basic 753,445,230 + 'Dilutive impact of share-based incentives outstanding 2,586,710' = 756,031,940 for the SIX MONTHS ended 30 June 2026 (June 2025: 779,865,102; year 2025: 775,356,560). A six-month average, not a twelve-month window average (E38/E75)"
+        status: UNVERIFIED
+      shares_issued_period_end:
+        value: 755900469
+        page: "Total Voting Rights RNS 0db60171-bfa5-4b90-b546-5b47ba8a7b9e, 2026-07-01: 'as at 30 June 2026, the Company's issued share capital consisted of 755,900,469 ordinary shares of 0.1p each (Shares) of which 10,490,552 Shares are held by the Company in treasury'; reconciles to the interim's note 14, 17,381,358 shares bought back and cancelled in the six months (773,281,827 - 17,381,358 = 755,900,469) and to 'Share capital 757' £000 at 0.1p"
+        status: UNVERIFIED
+      treasury_shares_period_end:
+        value: 10490552
+        page: "RNS, note 14, own shares held (number of shares), 'Shares held as at 30 June 2026 1,464,961 1,500,721 10,490,552 13,456,234' -- treasury column 10,490,552; the Total Voting Rights notice of 2026-07-01 states the same 10,490,552"
+        status: UNVERIFIED
+      employee_trust_shares_period_end:
+        value: 2965682
+        page: "RNS, note 14: 'At 30 June 2026, the EBT held 1,464,961 ... ordinary shares' and 'At 30 June 2026 the SIP Trust held 1,500,721 ... ordinary shares' -- two stated parts added (E71), on the annual entry's precedent (note 10 treats treasury, SIP and EBT as one deduction; E54)"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 14.7
+        page: "RNS, condensed interim statement of profit and loss, 'Earnings per share (pence)': 'Diluted 7 14.7 14.1 28.0'. PENCE"
+        status: UNVERIFIED
+      diluted_eps_adjusted:
+        value: 15.5
+        page: "RNS, note 7: 'Underlying profit after tax 117,234 15.6 15.5' -- diluted underlying EPS 15.5 pence, non-GAAP memo"
+        status: UNVERIFIED
+      operating_income_adjusted:
+        value: 155124
+        page: "RNS, condensed interim statement of profit and loss: 'Underlying Operating Profit 1 155,124 151,276 297,689' -- before the share-based incentive charge (4,635) and certain legal & professional costs (2,321); non-GAAP memo"
+        status: UNVERIFIED
+      net_income:
+        value: 111213
+        page: "RNS, condensed interim statement of profit and loss: 'Profit for the period attributable to equity holders of the parent 111,213 109,908 217,067'"
+        status: UNVERIFIED
+      finance_costs_period:
+        value: 245
+        page: "RNS, condensed interim statement of profit and loss: 'Financial expenses (245) (306) (557)' (positive magnitude)"
+        status: UNVERIFIED
+      finance_income_period:
+        value: 1184
+        page: "RNS, condensed interim statement of profit and loss: 'Financial income 1,184 1,459 2,634'"
+        status: UNVERIFIED
+      op_margin:
+        value: 0.66
+        page: "RNS, financial review table: 'Operating margin 66% 69%' (H1 2026, H1 2025); text: 'delivering an operating profit margin of 66% (H1 2025: 69%)'. 148,168 / 225,848 = 65.6%, which the issuer rounds to 66%"
+        status: UNVERIFIED
+      revenue_yoy:
+        value: 0.07
+        page: "RNS, highlights: 'Revenue increased 7% on H1 2025'; 225,848 / 211,730 - 1 = 6.7%, rounded by the issuer to 7%"
+        status: UNVERIFIED
+
+annual: []

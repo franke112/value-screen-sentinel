@@ -1,0 +1,306 @@
+# Universal Music Group N.V. -- hand-entered from the issuer's own reports,
+# 2026-09-25. Every figure UNVERIFIED until the owner reads it back (E21).
+#
+# Sources (sources/manifest.json, origin issuer-ir):
+#   UMG.AS_2025-FY_annual-report_2026-03-26_en_a0.pdf           (audited)
+#   UMG.AS_2026-H1_half-year-financial-report_2026-07-30_en_a0.pdf (unaudited)
+#
+# LEFT OUT ON PURPOSE -- judgements for the owner, not transcription:
+#   * CATALOGUE INVESTMENTS (FY25 (345), H1-26 (46), cash flow statement,
+#     investing). capex_intangibles holds ONLY 'Other intangible assets
+#     investments'. Whether buying catalogue is maintenance spend for this
+#     business is the owner's call; UMG's own FCF definition changed on it
+#     in Q2 2026 (H1 p.15): FY25 FCF 702 on the old basis, 1,497 restated.
+#   * proceeds_from_disposals_ppe: the line printed is 'Proceeds from sales
+#     of property, plant, equipment and intangible assets' (FY25 65) --
+#     PPE and intangibles together, so it is not this field.
+#   * other_current_financial_assets (FY25 43, H1 65): UMG's own net debt
+#     counts only derivative assets (5 / 2) from this line (AR p.57); the
+#     balance-sheet line is not the cash-management figure.
+#   * issued/treasury share counts: stated in WHOLE (AR p.235: 1,834,181,772
+#     issued, 214,235 treasury) and in THOUSANDS (H1 p.22: 1,838,527); this
+#     file's share_unit is millions (the weighted averages). Not rescaled.
+#   * finance_costs/income INCLUDE Spotify/Tencent revaluation (FY25 net
+#     gain 283, AR p.235 fn3; H1-26 net loss 505, H1 p.34 fn3). Entered as
+#     printed; Gate 3's coverage limb reads them.
+
+ticker: UMG.AS
+name: Universal Music Group N.V.
+reporting_currency: EUR
+money_unit: millions
+share_unit: millions
+quote_currency: EUR
+sector: Communication Services   # the screener's own string (data/screener_runs/2026-08-21/ranking-2026-08-22-E6.csv) -- not from these documents
+reporting_frequency: half_yearly
+origin: manual
+
+interest_in_ocf:
+  value: no
+  source: "Annual Report 2025 (audited); Half Year Results 2026 (unaudited)"
+  page: "AR p.194, Consolidated Statements of Cash Flows: 'Interest, net (81)' sits under FINANCING activities; operating activities end at 'Net cash provided by/(used for) operating activities 1,739' with no interest line. H1 p.21 the same: 'Interest, net (93)' under financing."
+  interest_source: cash_flow_statement
+
+operating_leases_in_ocf:
+  value: no
+  source: "FRAMEWORK-EDITS E70, IFRS 16 filer"
+  page: "AR p.194: 'Repayment of lease liabilities (72)' and 'Payment of interest of lease liabilities (21)' under FINANCING; lease liabilities presented apart on AR p.193 ('Long-term lease liabilities 480', 'Short-term lease liabilities 81')."
+
+market:
+  as_of: null
+  enterprise_value: {value: null, source: null, page: null, status: UNVERIFIED}
+  market_cap: {value: null, source: null, page: null, status: UNVERIFIED}
+
+periods:
+  - period: 2025-FY
+    period_end: 2025-12-31
+    period_basis: calendar
+    document: "Annual Report 2025 (audited)"
+    url: "sources/UMG.AS_2025-FY_annual-report_2026-03-26_en_a0.pdf"
+    figures:
+      revenue:
+        value: 12507
+        page: "p.191, Consolidated Statements of Profit or Loss, 2025: 'Revenues 12,507' (2024: 11,834)"
+        status: UNVERIFIED
+      operating_income:
+        value: 1998
+        page: "p.191, 2025: 'Operating profit 1,998' (2024: 1,775)"
+        status: UNVERIFIED
+      income_before_taxes:
+        value: 2086
+        page: "p.191, 2025: 'Profit before income taxes 2,086'"
+        status: UNVERIFIED
+      net_income:
+        value: 1533
+        page: "p.191, 2025: 'Net profit attributable to equity holders of the parent 1,533' (Net profit 1,540)"
+        status: UNVERIFIED
+      total_assets:
+        value: 17456
+        page: "p.193, Consolidated Statements of Financial Position, 31 Dec 2025: 'TOTAL ASSETS 17,456'"
+        status: UNVERIFIED
+      total_equity:
+        value: 4568
+        page: "p.193, 31 Dec 2025: 'Total equity 4,568'"
+        status: UNVERIFIED
+      net_ppe:
+        value: 255
+        page: "p.193, 31 Dec 2025: 'Property, plant and equipment 255'"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 1739
+        page: "p.194, Consolidated Statements of Cash Flows, 2025: 'Net cash provided by/(used for) operating activities 1,739' (after 'Income tax paid (403)'; royalty advances net of recoupments (402) inside it)"
+        status: UNVERIFIED
+      capex_ppe:
+        value: -70
+        page: "p.194, investing, 2025: 'Capital expenditures (70)'"
+        status: UNVERIFIED
+      capex_intangibles:
+        value: -125
+        page: "p.194, investing, 2025: 'Other intangible assets investments (125)'. EXCLUDES 'Catalogue investments (345)' on the line above -- see the file header"
+        status: UNVERIFIED
+      lease_payments_capital:
+        value: -72
+        page: "p.194, financing, 2025: 'Repayment of lease liabilities (72)'"
+        status: UNVERIFIED
+      lease_interest_paid:
+        value: 21
+        page: "p.194, financing, 2025: 'Payment of interest of lease liabilities (21)' (positive magnitude)"
+        status: UNVERIFIED
+      net_interest_paid:
+        value: 81
+        page: "p.194, financing, 2025: 'Interest, net (81)' -- the net is printed; paid and received not shown apart (positive = net paid)"
+        status: UNVERIFIED
+      nci_dividends_paid:
+        value: -6
+        page: "p.194, financing, 2025: 'Dividends paid by consolidated companies to their non-controlling interests (6)'"
+        status: UNVERIFIED
+      sbc:
+        value: 227
+        page: "p.52, Reconciliation of operating profit to adjusted net profit, 2025: 'Non-cash share-based compensation expense 227' (2024: 329); p.53 'decreased to €227 million in 2025'"
+        status: UNVERIFIED
+      cash_and_equivalents:
+        value: 451
+        page: "p.193, 31 Dec 2025: 'Cash and cash equivalents 451'"
+        status: UNVERIFIED
+      financial_liabilities_current:
+        value: 549
+        page: "p.193, 31 Dec 2025: 'Short-term borrowings and other financial liabilities 549' (leases presented apart)"
+        status: UNVERIFIED
+      financial_liabilities_noncurrent:
+        value: 2297
+        page: "p.193, 31 Dec 2025: 'Long-term borrowings and other financial liabilities 2,297' (leases presented apart)"
+        status: UNVERIFIED
+      lease_liabilities:
+        value: 561
+        page: "p.193, 31 Dec 2025: 'Long-term lease liabilities 480' + 'Short-term lease liabilities 81' = 561 -- two stated parts added (E71)"
+        status: UNVERIFIED
+      pension_deficit:
+        value: 164
+        page: "p.237, Note 23, 31 Dec 2025: 'of which ... liabilities for employee benefit plans 164' (2024: 178); the same 164 is 'Post-retirement employee benefits' inside Provisions, Note 22 p.236. The 'assets related to employee benefit plans (12)' is not netted (E35.1)"
+        status: UNVERIFIED
+      asset_retirement_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E68.1/E68.2: balance sheet p.193 read -- no retirement, decommissioning or restoration provision presented; Note 22 p.236 read -- provisions are post-retirement benefits 164, royalty audit claims 102, deferred employee compensation 29, restructuring 51, litigations 20 and 'Other 55' (total 421). A music rights business owning no asset that requires decommissioning; any office dilapidations would sit unquantified inside 'Other 55', a caption with room -- NAMED here so the omission is visible"
+        status: UNVERIFIED
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81: balance sheet p.193 read -- no streaming, prepaid offtake or similar prepayment presented. NAMED and NOT this leg: 'Current contract liabilities 396' inside 'Trade accounts payable and other 6,229' (Note 16 p.230; total current and non-current contract liabilities 403, of which the opening 424 was recognised as revenue within 2025) -- ordinary working capital the flow already carries"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 1853
+        page: "p.219, Note 8 Earnings per share, 2025: 'Diluted weighted average number of shares 1,853' (millions; basic 1,833 + dilutive 20)"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 0.83
+        page: "p.191 and p.219, 2025: 'Diluted earnings per share 0.83'"
+        status: UNVERIFIED
+      diluted_eps_adjusted:
+        value: 1.03
+        page: "p.52, 2025: 'Adjusted net profit per share (in euros) - diluted 1.03' (non-IFRS)"
+        status: UNVERIFIED
+      ebitda:
+        value: 2810
+        page: "p.22, 2025: 'Adjusted EBITDA 2,810' -- the measure UMG guides on (p.83, adjusted EBITDA growth to 2028); IFRS-labelled EBITDA is 2,538 (p.53)"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 446
+        page: "p.226 and p.293, 2025: 'Amortisation and depreciation expense 446'"
+        status: UNVERIFIED
+      finance_costs_period:
+        value: 233
+        page: "p.191, 2025: 'Financial expenses (233)' (positive magnitude)"
+        status: UNVERIFIED
+      finance_income_period:
+        value: 339
+        page: "p.191, 2025: 'Financial income 339' -- includes net revaluation gains on Spotify/TME of 283 (p.235 fn 3)"
+        status: UNVERIFIED
+      free_cash_flow_reported:
+        value: 702
+        page: "p.59, 2025: 'Free Cash Flow 702' on the OLD definition (after all investing). Restated 1,497 on the Q2-2026 definition (FCF fact sheet, UMG.AS_2025-FY_free-cash-flow-fact-sheet_2026-07-30_en_a0.pdf, p.1)"
+        status: UNVERIFIED
+      net_debt_reported:
+        value: 2390
+        page: "p.57, 31 Dec 2025: 'Financial Net Debt (2,390)' -- excludes leases"
+        status: UNVERIFIED
+
+  - period: 2026-H1
+    period_end: 2026-06-30
+    period_basis: calendar
+    document: "Half Year Results 2026: Condensed Consolidated Interim Financial Statements (unaudited)"
+    url: "sources/UMG.AS_2026-H1_half-year-financial-report_2026-07-30_en_a0.pdf"
+    figures:
+      revenue:
+        value: 6194
+        page: "p.18, Condensed Consolidated Interim Statements of Profit or Loss, H1 2026: 'Revenues 6,194' (H1 2025: 5,881)"
+        status: UNVERIFIED
+      operating_income:
+        value: 901
+        page: "p.18, H1 2026: 'Operating profit 901' (H1 2025: 947)"
+        status: UNVERIFIED
+      income_before_taxes:
+        value: 340
+        page: "p.18, H1 2026: 'Profit before income taxes 340'"
+        status: UNVERIFIED
+      net_income:
+        value: 222
+        page: "p.18, H1 2026: 'Net profit attributable to equity holders of the parent 222' (Net profit 223)"
+        status: UNVERIFIED
+      total_assets:
+        value: 18378
+        page: "p.20, 30 Jun 2026: 'TOTAL ASSETS 18,378'"
+        status: UNVERIFIED
+      total_equity:
+        value: 3648
+        page: "p.20, 30 Jun 2026: 'Total equity 3,648'"
+        status: UNVERIFIED
+      net_ppe:
+        value: 286
+        page: "p.20, 30 Jun 2026: 'Property, plant and equipment 286'"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 171
+        page: "p.21, H1 2026: 'Net cash provided by/(used for) operating activities 171' (H1 2025: 252)"
+        status: UNVERIFIED
+      capex_ppe:
+        value: -44
+        page: "p.21, investing, H1 2026: 'Capital expenditures (44)'"
+        status: UNVERIFIED
+      capex_intangibles:
+        value: -61
+        page: "p.21, investing, H1 2026: 'Other intangible assets investments (61)'. EXCLUDES 'Catalogue investments (46)' -- see the file header"
+        status: UNVERIFIED
+      lease_payments_capital:
+        value: -31
+        page: "p.21, financing, H1 2026: 'Repayment of lease liabilities (31)'"
+        status: UNVERIFIED
+      lease_interest_paid:
+        value: 22
+        page: "p.21, financing, H1 2026: 'Payment of interest of lease liabilities (22)' (positive magnitude)"
+        status: UNVERIFIED
+      net_interest_paid:
+        value: 93
+        page: "p.21, financing, H1 2026: 'Interest, net (93)' (positive = net paid)"
+        status: UNVERIFIED
+      nci_dividends_paid:
+        value: -4
+        page: "p.21, financing, H1 2026: 'Dividends paid by consolidated companies to their non-controlling interests (4)'"
+        status: UNVERIFIED
+      sbc:
+        value: 105
+        page: "p.12 and p.31 (Note 8), H1 2026: 'Non-cash share-based compensation expense 105'"
+        status: UNVERIFIED
+      cash_and_equivalents:
+        value: 485
+        page: "p.20, 30 Jun 2026: 'Cash and cash equivalents 485'"
+        status: UNVERIFIED
+      financial_liabilities_current:
+        value: 1814
+        page: "p.20, 30 Jun 2026: 'Short-term borrowings and other financial liabilities 1,814'"
+        status: UNVERIFIED
+      financial_liabilities_noncurrent:
+        value: 2804
+        page: "p.20, 30 Jun 2026: 'Long-term borrowings and other financial liabilities 2,804'"
+        status: UNVERIFIED
+      lease_liabilities:
+        value: 938
+        page: "p.20, 30 Jun 2026: 'Long-term lease liabilities 855' + 'Short-term lease liabilities 83' = 938 -- two stated parts added (E71)"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 1846
+        page: "p.13, Adjusted net profit per share, H1 2026, diluted column: 'Adjusted weighted average number of shares 1,846' (millions; 1,831 + 15). The IFRS EPS note prints no separate diluted count in this interim"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 0.12
+        page: "p.18, H1 2026: 'Earnings ... attributable to equity holders of the parent - diluted 0.12' (H1 2025: 0.77)"
+        status: UNVERIFIED
+      diluted_eps_adjusted:
+        value: 0.47
+        page: "p.13, H1 2026: 'Adjusted net profit per share (in euros)' diluted 0.47 (non-IFRS)"
+        status: UNVERIFIED
+      ebitda:
+        value: 1310
+        page: "p.4, H1 2026: 'Adjusted EBITDA 1,310' (H1 2025: 1,336); IFRS-labelled EBITDA 1,181"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 254
+        page: "p.12 and p.31, H1 2026: 'Amortisation and depreciation expense 254'"
+        status: UNVERIFIED
+      finance_costs_period:
+        value: 627
+        page: "p.18, H1 2026: 'Financial expenses (627)' -- includes net revaluation LOSS on Spotify/TME of 505 (p.34 fn 3)"
+        status: UNVERIFIED
+      finance_income_period:
+        value: 25
+        page: "p.18, H1 2026: 'Financial income 25'"
+        status: UNVERIFIED
+      free_cash_flow_reported:
+        value: 24
+        page: "p.7, H1 2026: 'Free Cash Flow 24' on the NEW Q2-2026 definition (H1 2025 restated: 163)"
+        status: UNVERIFIED
+      net_debt_reported:
+        value: 4131
+        page: "p.6 and p.32 (Note 9), 30 Jun 2026: 'Financial Net Debt (4,131)' -- excludes leases"
+        status: UNVERIFIED
+
+annual: []

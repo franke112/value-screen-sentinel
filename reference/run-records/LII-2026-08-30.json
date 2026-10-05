@@ -1,0 +1,146 @@
+{
+ "ticker": "LII",
+ "currency": "USD",
+ "run_ts": "2026-08-30T03:14:24-04:00",
+ "basis": "annual FY2025",
+ "shares": {
+  "count": 35400000.0,
+  "basis": "weighted-average DILUTED count for annual FY2025, the same window as the flows (E38)",
+  "as_of": "2025-12-31",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole"
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 29100000.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0001069202 (LENNOX INTERNATIONAL INC) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001069202.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+  "net_interest_paid": 40900000.0,
+  "source": "income_statement_net"
+ },
+ "bridge": {
+  "net_debt": 1755200000.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 382300000.0,
+   "pensions": 18700000.0,
+   "asset_retirement_obligations": 0.0,
+   "non_controlling_interests": "no field in this schema (E35)"
+  },
+  "note": "borrowings 244,300,000 + 1,144,100,000 + leases 382,300,000 (E35: always in; finance leases beside operating, E65) + pension deficit 18,700,000 (E35.1) + asset retirement obligations 0 (E68) - cash 34,200,000 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+ },
+ "dates": {
+  "flows_window_end": "2025-12-31",
+  "balance_sheet": "2025-12-31",
+  "share_count": "2025-12-31",
+  "price": "2026-08-28"
+ },
+ "growth": {
+  "base": 0.05,
+  "view_file": "reference/growth-views/LII.md",
+  "view_date": "2026-08-30",
+  "bear": 0.0,
+  "bull": 0.08
+ },
+ "operating_cash_flow": 757600000.0,
+ "capex": -118800000.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_combined",
+   "value": -118800000.0,
+   "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2025-01-01..2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 757600000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-01-01..2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "sbc",
+   "value": 29100000.0,
+   "provenance": "us-gaap:ShareBasedCompensation [2025-01-01..2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "net_finance_costs",
+   "value": 40900000.0,
+   "provenance": "E18: finance_costs_period - finance_income_period, both on annual FY2025",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 35400000.0,
+   "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2025-01-01..2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 244300000.0,
+   "provenance": "E66 -- two stated current-borrowing captions, added: us-gaap:LongTermDebtCurrent [as of 2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 -- E67: tagged EQUAL to `LongTermDebtAndCapitalLeaseObligationsCurrent` 18,300,000, the inclusive caption, so this ex-lease element was tagged INCLUSIVE of its finance lease: 18,300,000 of it is `FinanceLeaseLiabilityCurrent` and E65 does not add that again = 18,300,000 + us-gaap:CommercialPaper [as of 2025-12-31] 10-Q 0001069202-26-000054 filed 2026-04-29 -- CONCEPT: commercial paper outstanding, read as the current borrowing because this filer tags neither a current-maturities nor a short-term-borrowings element at this year end = 226,000,000 = 244,300,000",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 1144100000.0,
+   "provenance": "us-gaap:LongTermDebtAndCapitalLeaseObligations [as of 2025-12-31] 10-Q 0001069202-26-000054 filed 2026-04-29 -- E67: borrowings AND finance leases as one non-current caption, read whole because the filer tags no borrowings-only element; 50,600,000 of it is `FinanceLeaseLiabilityNoncurrent` and E65 does not add that again",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 382300000.0,
+   "provenance": "E65 -- operating and finance lease liabilities: us-gaap:OperatingLeaseLiability [as of 2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = 382,300,000 + us-gaap:FinanceLeaseLiability [as of 2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = 68,900,000, of which 18,300,000 already inside `financial_liabilities_current` (E67) and 50,600,000 already inside `financial_liabilities_noncurrent` (E67), so 0 is added = 382,300,000",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 18700000.0,
+   "provenance": "us-gaap:DefinedBenefitPensionPlanLiabilitiesNoncurrent [as of 2025-12-31] 10-Q 0001069202-26-000054 filed 2026-04-29",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "E68.2: Item 8, Consolidated Balance Sheets as of December 31, 2025, 10-K 0001069202-26-000028 filed 2026-02-17 -- liabilities presented: 'Commercial paper', 'Current maturities of long-term debt', 'Current operating lease liabilities', 'Accounts payable', 'Accrued expenses', 'Income taxes payable', 'Long-term debt', 'Long-term operating lease liabilities', 'Pensions', 'Other liabilities'; no asset retirement or decommissioning caption, and neither term appears anywhere in the filing (full-text search of the primary document, 2026-08-29). NAMED, UNQUANTIFIED: Note 5, Commitments and Contingencies -- Environmental: 'Total environmental accruals are included in Accrued expenses and Other liabilities on the accompanying Consolidated Balance Sheets' and 'we do not believe that any future remediation related to those facilities will be material to our results of operations'; Item 7: 'Environmental liabilities and special litigation charges 10.9' for 2025, which 'relate to estimated remediation costs at some of our facilities and outstanding legal settlements including asbestos. Refer to Note 5' -- a CHARGE, not a balance; no balance-sheet amount is stated anywhere. The accrual sits inside 'Accrued expenses' / 'Other liabilities', captions with room (E25). Zero here BY RULING (E68.2), with the omission named, not because it is nil.",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 34200000.0,
+   "provenance": "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2025-12-31] 10-Q 0001069202-26-000054 filed 2026-04-29",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  }
+ ],
+ "tool_commit": "LII/AOS first strikes, 2026-08-30, 871b861",
+ "notes": "",
+ "money_unit": "whole"
+}

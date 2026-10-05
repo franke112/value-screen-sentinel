@@ -1,0 +1,215 @@
+# MANUALLY ENTERED FUNDAMENTALS -- the third source, beside the quote
+# vendor and SEC XBRL. Copy this file to config/manual/<TICKER>.yaml and
+# fill it in FROM THE COMPANY'S OWN REPORTS.
+#
+# This template is committed EMPTY on purpose. It loads: every figure is
+# DATA MISSING, and `vss manual --ticker TEMPLATE` refuses section 5 and
+# says why. Nothing here is example data, because an example figure in a
+# schema file is a figure somebody will eventually copy.
+#
+# THE RULES THIS FILE IS HELD TO, all of them the SEC path's own:
+#
+#   * A RATIO IS A FRACTION, NEVER A PERCENTAGE. An operating margin of
+#     6.6 per cent is 0.066. A ratio outside its plausible band is a UNIT
+#     ERROR and fails the load -- it is not a value to evaluate.
+#   * ONE UNIT PER FILE. If one report states millions and another states
+#     whole units, do NOT rescale by hand: re-read the odd period from a
+#     document in the same unit. A round thousandfold jump in a stable
+#     line between two periods fails the load.
+#   * ONE FISCAL PERIOD PER RATIO. Every ratio section 5 forms takes both
+#     legs from ONE entry below. A leg absent from that entry makes the
+#     ratio DATA MISSING; it is never borrowed from the period next door.
+#   * AN ABSENT LINE IS NOT A ZERO. Leave `value: null`. A bank presents
+#     no gross profit and a debt-free company no lease liabilities --
+#     those are facts, and neither of them is zero.
+#   * EVERY FIGURE CARRIES A PAGE. A value with no page reference fails
+#     the load. `document:` on the period supplies the default source; a
+#     figure may name its own.
+#   * zero_basis: REQUIRED ON A ZERO in the ten fields where a wrong zero
+#     carries a name through a gate (FRAMEWORK-EDITS E25) -- the debt and
+#     lease lines, the capex lines, the finance-cost lines and their nets.
+#     Name what you SAW: `caption` (the issuer lists the line and shows nil
+#     or a dash), `note` (a sentence says there is none, cited to its page)
+#     or `subtotal` (the components shown sum to the subtotal shown, leaving
+#     no room for the line). IF YOU SIMPLY DID NOT FIND THE LINE, LEAVE THE
+#     FIGURE BLANK: absence in a search is a fact about the search, not
+#     about the company. A zero is refused outright in the share counts, in
+#     a concept the issuer does not present (gross_profit for a bank) and in
+#     the non-GAAP memos.
+#   * status: UNVERIFIED until you have read the figure BACK against the
+#     page named beside it. Section 5 refuses to run while a figure ITS
+#     BASIS READS is still UNVERIFIED (E21) -- the figures a run cannot
+#     reach are named in the report instead, and do not block. The
+#     ranking key is not gated on it at all.
+#   * TWO BLOCKS HOLD FIGURES, and they are not interchangeable.
+#     `periods:` holds one entry per fiscal period at the resolution the
+#     company reports. `annual:` holds what it publishes ONLY ONCE A YEAR
+#     -- diluted EPS, share counts, leverage ratios (FRAMEWORK-EDITS E15).
+#     The annual block is excluded from every trailing window: never
+#     summed, never combined with a period entry, and it never reaches the
+#     ranking key, which reads a trailing twelve months from `periods:`
+#     alone. Where a figure is in BOTH, `periods:` WINS and the annual
+#     entry is ignored -- the load says which ones.
+
+ticker: TEMPLATE               # e.g. PNDORA.CO -- must match the file name
+name: the empty template      # the company's own name
+reporting_currency: ""         # the currency THE ACCOUNTS are in, e.g. DKK
+money_unit: null               # whole | thousands | millions | billions -- the ONE
+                               # scale every money figure below is stated in.
+                               # DECLARE IT: the section 5 run record divides on
+                               # it and is DATA MISSING per share while it is null.
+share_unit: null               # the scale every share COUNT is stated in. It need
+                               # not match money_unit -- DKK millions beside a count
+                               # of 77,189,151 shares is `millions` and `whole`.
+                               # Nothing is rescaled by either line; figures stay
+                               # as the source states them.
+quote_currency: ""             # the currency THE SHARE trades in, e.g. DKK
+sector: ""                     # the source list's own sector string. Financial
+                               # Services and Real Estate are NOT APPLICABLE on
+                               # the ranking key's quality leg (E6).
+reporting_frequency: quarterly # quarterly | half_yearly. A half-yearly reporter
+                               # stores YYYY-H1 / YYYY-H2 / YYYY-FY periods.
+
+# Priced facts, not accounts. They belong to a DATE, not to a fiscal period.
+market:
+  as_of: null                  # YYYY-MM-DD. Required once either figure below
+                               # carries a value.
+  enterprise_value:
+    value: null                # read by the ranking key: EBIT / EV
+    source: null
+    page: null
+    status: UNVERIFIED
+  market_cap:
+    value: null                # read as the bound on the enterprise value:
+                               # a company cannot hold more net cash than
+                               # it holds assets (E6 rule 8)
+    source: null
+    page: null
+    status: UNVERIFIED
+
+# ONE ENTRY PER FISCAL PERIOD, oldest first. No two may cover the same
+# month -- a file holding both 2025-H1 and 2025-FY would count six months
+# twice in every window.
+periods: []
+#
+# - period: 2026-Q2            # YYYY-Qn | YYYY-H1 | YYYY-H2 | YYYY-FY -- and
+#                              # the kind must match reporting_frequency above:
+#                              # a quarterly ticker stores Qn and NOT FY. A full
+#                              # year belongs in `annual:` below, or in periods:
+#                              # only for a half_yearly ticker with no quarters.
+#   period_end: 2026-06-30     # the date the accounts CLOSED. STALE is
+#                              # measured on this, not on the label.
+#   period_basis: calendar     # calendar | fiscal. On `calendar` the end date
+#                              # must fall inside the label's months; a company
+#                              # whose year does not end in December is `fiscal`.
+#   document: ""               # the ONE document every figure below was read
+#                              # from, e.g. "Annual Report 2025 (audited)"
+#   url: ""                    # where that document lives
+#   figures:
+#     # --- read by the E6 RANKING KEY ---------------------------------
+#     revenue:                       {value: null, page: null, status: UNVERIFIED}
+#     gross_profit:                  {value: null, page: null, status: UNVERIFIED}
+#     operating_income:              {value: null, page: null, status: UNVERIFIED}
+#     total_assets:                  {value: null, page: null, status: UNVERIFIED}
+#     net_ppe:                       {value: null, page: null, status: UNVERIFIED}
+#     # --- section 5.1 C: the cash the reverse DCF discounts -----------
+#     operating_cash_flow:           {value: null, page: null, status: UNVERIFIED}
+#     operating_cash_flow_pretax:    {value: null, page: null, status: UNVERIFIED}
+#     income_tax_paid:               {value: null, page: null, status: UNVERIFIED}
+#     capex_ppe:                     {value: null, page: null, status: UNVERIFIED}
+#     capex_intangibles:             {value: null, page: null, status: UNVERIFIED}
+#     # ONE OF THE TWO ABOVE, OR THE ONE BELOW -- never both (E23). An
+#     # issuer that prints a single 'investments in intangibles/tangibles'
+#     # line fills capex_combined and leaves the split blank; an issuer
+#     # that prints the split fills the split and leaves this blank. The
+#     # report names which section 5 read, every time.
+#     capex_combined:                {value: null, page: null, status: UNVERIFIED}
+#     proceeds_from_disposals_ppe:   {value: null, page: null, status: UNVERIFIED}
+#     lease_payments_capital:        {value: null, page: null, status: UNVERIFIED}
+#     net_interest_paid:             {value: null, page: null, status: UNVERIFIED}
+#     free_cash_flow_reported:       {value: null, page: null, status: UNVERIFIED}
+#     # --- section 5.1 C: net debt ------------------------------------
+#     cash_and_equivalents:            {value: null, page: null, status: UNVERIFIED}
+#     other_current_financial_assets:  {value: null, page: null, status: UNVERIFIED}
+#     financial_liabilities_current:   {value: null, page: null, status: UNVERIFIED}
+#     financial_liabilities_noncurrent: {value: null, page: null, status: UNVERIFIED}
+#     lease_liabilities:               {value: null, page: null, status: UNVERIFIED}
+#     noncurrent_derivative_assets_on_debt: {value: null, page: null, status: UNVERIFIED}
+#     # --- share counts ------------------------------------------------
+#     diluted_weighted_average_shares: {value: null, page: null, status: UNVERIFIED}
+#     # THREE SHARE COUNTS, and which you fill depends on what the accounts
+#     # PRINT (FRAMEWORK-EDITS E16). Where they print the NET directly, fill
+#     # shares_outstanding_period_end and leave the other two blank. Where
+#     # they print ISSUED and TREASURY separately -- common, and the case in
+#     # Pandora's note 4.1 -- fill those two and leave the net blank: THE
+#     # STORE SUBTRACTS. An issued count in the net field is wrong against
+#     # that field's definition by the whole treasury holding. Where only
+#     # ONE of the pair is available, all three stay DATA MISSING.
+#     # AND A COUNT IS THE COUNT, AS STATED (FRAMEWORK-EDITS E22): share
+#     # capital divided by a par value is not a count, and a treasury
+#     # holding stated in money is not a count. Neither goes in these
+#     # fields, at any basis. Where the accounts state no count at the
+#     # window's end, all three are DATA MISSING -- the derivation's error
+#     # is usually small, and a small error is still an error.
+#     shares_outstanding_period_end:   {value: null, page: null, status: UNVERIFIED}
+#     # E75.1: the DILUTED count the issuer states AT the period end, where
+#     # it prints one -- the divisor on a TTM basis with no window average.
+#     shares_diluted_period_end:       {value: null, page: null, status: UNVERIFIED}
+#     shares_issued_period_end:        {value: null, page: null, status: UNVERIFIED}
+#     treasury_shares_period_end:      {value: null, page: null, status: UNVERIFIED}
+#     # A FOURTH, OPTIONAL LEG (FRAMEWORK-EDITS E54): shares held by an
+#     # EMPLOYEE BENEFIT TRUST (an ESOT, ESOP or equivalent) that the issuer
+#     # excludes from its OWN earnings-per-share count alongside treasury --
+#     # AUTO.L's note 11 reads "excluding those held in treasury and by the
+#     # Employee Share Option Trust". Fill this ONLY where the accounts
+#     # state such a count SEPARATELY from treasury; do not fold it into
+#     # treasury_shares_period_end, which is a different holding under a
+#     # different name. Its ABSENCE never blocks the subtraction above --
+#     # most issuers carry no such trust, and the net is then issued minus
+#     # treasury alone, exactly as it always was.
+#     employee_trust_shares_period_end: {value: null, page: null, status: UNVERIFIED}
+#     # --- section 5.1 A and 5.3 ---------------------------------------
+#     diluted_eps:                   {value: null, page: null, status: UNVERIFIED}
+#     diluted_eps_adjusted:          {value: null, page: null, status: UNVERIFIED}
+#     operating_income_adjusted:     {value: null, page: null, status: UNVERIFIED}
+#     net_income:                    {value: null, page: null, status: UNVERIFIED}
+#     ebitda:                        {value: null, page: null, status: UNVERIFIED}
+#     depreciation_amortisation:     {value: null, page: null, status: UNVERIFIED}
+#     net_finance_costs:             {value: null, page: null, status: UNVERIFIED}
+#     net_debt_ebitda:               {value: null, page: null, status: UNVERIFIED}
+#     # --- ratios: FRACTIONS, entered so the arithmetic can be checked --
+#     op_margin:                     {value: null, page: null, status: UNVERIFIED}
+#     revenue_yoy:                   {value: null, page: null, status: UNVERIFIED}
+
+# FIGURES THE COMPANY PUBLISHES ONLY ONCE A YEAR (FRAMEWORK-EDITS E15).
+#
+# Same shape as a period entry -- document, url, and per-figure value,
+# source, page and status -- but keyed on the FISCAL YEAR rather than on a
+# period label, because a label is what the overlap guard reasons about and
+# this block must never enter that reasoning. A fiscal year that closes in
+# the NEXT calendar year (a retailer's 2025 ending 2026-01-31) is an
+# ordinary entry here; inside `periods:` it would be a label problem.
+#
+# Any field of the schema may appear here. The ones that usually have to:
+# diluted_eps, diluted_eps_adjusted, diluted_weighted_average_shares,
+# shares_outstanding_period_end, net_debt_ebitda.
+annual: []
+#
+# - fiscal_year: 2025          # the year the company calls it
+#   period_end: 2025-12-31     # the date that year CLOSED
+#   document: "Annual Report 2025 (audited)"
+#   url: ""
+#   figures:
+#     diluted_eps:                     {value: null, page: null, status: UNVERIFIED}
+#     diluted_eps_adjusted:            {value: null, page: null, status: UNVERIFIED}
+#     diluted_weighted_average_shares: {value: null, page: null, status: UNVERIFIED}
+#     shares_outstanding_period_end:   {value: null, page: null, status: UNVERIFIED}
+#     # E75.1: the DILUTED count the issuer states AT the period end, where
+#     # it prints one -- the divisor on a TTM basis with no window average.
+#     shares_diluted_period_end:       {value: null, page: null, status: UNVERIFIED}
+#     shares_issued_period_end:        {value: null, page: null, status: UNVERIFIED}
+#     treasury_shares_period_end:      {value: null, page: null, status: UNVERIFIED}
+#     lease_liabilities:               {value: null, page: null, status: UNVERIFIED}
+#     financial_liabilities_current:   {value: null, page: null, status: UNVERIFIED}
+#     financial_liabilities_noncurrent: {value: null, page: null, status: UNVERIFIED}
+#     net_debt_ebitda:                 {value: null, page: null, status: UNVERIFIED}

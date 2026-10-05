@@ -1,0 +1,170 @@
+{
+ "ticker": "RKT.L",
+ "currency": "GBP",
+ "run_ts": "2026-08-30T19:16:25+02:00",
+ "basis": "2025-FY",
+ "shares": {
+  "count": 681142714.0,
+  "basis": "weighted-average DILUTED count for 2025-FY, the same window as the flows (E38)",
+  "as_of": "2025-12-31",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 101.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "Annual Report and Accounts 2025 (audited); Results for the six months ended 30 June 2026 (unaudited) AR p.136, Group Cash Flow Statement: 'Cash generated from continuing operations 3,501', then 'Interest paid (344)', 'Interest received 41', 'Tax paid (897)', 'Net cash flows attributable to discontinued operations (4)', 'Net cash generated from operating activities 2,297' -- both interest lines INSIDE operating activities. H1 p.22 the same placement: 'Interest paid (152)', 'Interest received 48' above 'Net cash generated from operating activities 614'",
+  "net_interest_paid": 303.0,
+  "source": "cash_flow_statement"
+ },
+ "bridge": {
+  "net_debt": 6695.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 274.0,
+   "pensions": 217.0,
+   "asset_retirement_obligations": 0.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "no field in this schema (E35)"
+  },
+  "note": "borrowings 745 + 7,411 + leases 274 (E35: always in; finance leases beside operating, E65) + pension deficit 217 (E35.1) + asset retirement obligations 0 (E68) + prepaid delivery obligations 0 (E81) - cash 1,952 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: split: capex_ppe + capex_intangibles, as the accounts print them"
+ },
+ "dates": {
+  "flows_window_end": "2025-12-31",
+  "balance_sheet": "2025-12-31",
+  "share_count": "2025-12-31",
+  "price": "2026-08-27"
+ },
+ "growth": {
+  "base": 0.03,
+  "view_file": "reference/growth-views/RKT.L.md",
+  "view_date": "2026-08-30",
+  "bear": 0.0,
+  "bull": 0.05
+ },
+ "operating_cash_flow": 2297.0,
+ "capex": -615.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_ppe",
+   "value": -536.0,
+   "provenance": "p.136, cash flows from investing activities, 2025: 'Purchase of property, plant and equipment (536)' (2024: (370)); cross-checked against the ESEF/iXBRL package, tag ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities, context c-1 (2025-01-01 to 2025-12-31), unit GBP, scale 6: 536 -- same magnitude; the concept is inherently an outflow tagged as a positive magnitude by iXBRL convention while this field signs outflows negative, a convention difference and not a discrepancy (E58 precedent) (E40 cross_document)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "capex_intangibles",
+   "value": -79.0,
+   "provenance": "p.136, cash flows from investing activities, 2025: 'Purchase of intangible assets 9 | (79)' (2024: (95)); cross-checked against the ESEF/iXBRL package, tag ifrs-full:PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities, context c-1 (2025-01-01 to 2025-12-31), unit GBP, scale 6: 79 -- same magnitude; the concept is inherently an outflow tagged as a positive magnitude by iXBRL convention while this field signs outflows negative, a convention difference and not a discrepancy (E58 precedent) (E40 cross_document)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 2297.0,
+   "provenance": "p.136, Group Cash Flow Statement, 2025: 'Net cash generated from operating activities 2,297' (2024: 2,682) -- after interest paid (344), interest received 41, tax paid (897) and discontinued operations (4); cross-checked against the ESEF/iXBRL package, tag ifrs-full:CashFlowsFromUsedInOperatingActivities, context c-1 (2025-01-01 to 2025-12-31), unit GBP, scale 6: 2,297 -- agrees (E40 cross_document)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "sbc",
+   "value": 101.0,
+   "provenance": "p.136, adjustments to operating profit, 2025: 'Share-based payments 25 | 101'; note 25 p.174: 'All awards under these plans are equity settled. The total expense recognised in respect of share-based payments for the year was \u00a3101 million (2024: \u00a385 million).'; note 5 p.147 'Share-based payments 25 | 101' inside employee costs; cross-checked against the ESEF/iXBRL package, tag ifrs-full:AdjustmentsForSharebasedPayments, context c-1 (2025-01-01 to 2025-12-31), unit GBP, scale 6: 101 -- agrees (E40 cross_document)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "net_interest_paid",
+   "value": 303.0,
+   "provenance": "E18: finance_costs_paid - finance_income_received, both on 2025-FY",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 681142714.0,
+   "provenance": "note 8, p.149, Earnings Per Share: 'On a basic basis 679,416,359', 'Dilution for Executive Share Awards 1,480,042', 'Dilution for Employee Sharesave Scheme Options 246,313', 'On a diluted basis 681,142,714' (2024: 701,742,260). E59 (2026-08-30), the AUTO.L shape: the count reconciles to rounding against the separately-prepared income statement, both inputs ESEF-tagged -- ifrs-full:ProfitLossAttributableToOwnersOfParent 3,182,000,000 / ifrs-full:DilutedEarningsLossPerShare 4.672 GBP (decimals 3) = 681,078,767, inside the band [681,005,885 to 681,151,664] implied by 467.2p's half-tenth rounding, and the continuing-operations pair (3,203 - 5 = 3,198,000,000 / ifrs-full:DilutedEarningsLossPerShareFromContinuingOperations 4.695) = 681,150,160, inside [681,077,628 to 681,222,707]; both bands contain 681,142,714. No share count is tagged in the package (units GBP and GBP/shares only, no xbrli:shares unit); cross_document under E59",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 745.0,
+   "provenance": "note 17, p.164, Financial Liabilities - Borrowings, current: 'Bank loans and overdrafts 7' + 'Commercial paper -' + 'Bonds 738' + 'Senior notes -' = 745, the stated parts of 'Total short-term borrowings 810' EXCLUDING 'Lease liabilities 19 | 65' (E14, E71); note 17 p.165 maturity table: 'Within one year or on demand 7', 'Within one year: Bonds 738'. Cross-checked against the ESEF/iXBRL package under E59 (2026-08-30): the package tags only the INCLUSIVE caption, ifrs-full:CurrentBorrowingsAndCurrentPortionOfNoncurrentBorrowings 810 (instant 2025-12-31, scale 6), and no lease liability; 745 + note 19's separately-stated current lease liability 65 = 810 EXACTLY, so note 17's ex-lease parts and note 19's lease split reconcile to the tagged balance-sheet caption; cross_document under E59",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 7411.0,
+   "provenance": "note 17, p.164, non-current: 'Bonds 7,012' + 'Senior notes 393' + 'Other non-current borrowings 6' = 7,411, the stated parts of 'Total long-term borrowings 7,620' EXCLUDING 'Lease liabilities 19 | 209' (E14, E71); p.165 'Gross borrowings (unsecured) 8,156' = 745 + 7,411 exactly, the issuer's own ex-lease total. Cross-checked against the ESEF/iXBRL package under E59 (2026-08-30): the package tags only the inclusive ifrs-full:LongtermBorrowings 7,620 (instant 2025-12-31, scale 6); 7,411 + note 19's non-current lease liability 209 = 7,620 EXACTLY, and 745 + 7,411 = the p.165 'Gross borrowings (unsecured) 8,156' -- two separately-prepared notes reconcile to the tagged caption; cross_document under E59",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 274.0,
+   "provenance": "note 19, p.166: 'Lease liabilities included in the Statement of Financial Position at 31 December 274' -- 'Current 65', 'Non-current 209'; presented inside borrowings on p.134 (E65; one IFRS 16 liability). Cross-checked against the ESEF/iXBRL package under E59 (2026-08-30): no lease liability is tagged, but the tagged inclusive borrowings captions less note 17's ex-lease parts leave exactly note 19's split -- ifrs-full:CurrentBorrowingsAndCurrentPortionOfNoncurrentBorrowings 810 - 745 = 65 and ifrs-full:LongtermBorrowings 7,620 - 7,411 = 209, 65 + 209 = 274 -- so note 19's total reconciles to the tagged balance sheet through a separately-prepared note; cross_document under E59",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 217.0,
+   "provenance": "p.134, non-current liabilities, 31 December 2025: 'Retirement benefit obligations 23 | (217)' (2024: 235) -- the recognised net defined-benefit LIABILITY; the separately presented 'Retirement benefit surplus 23 | 284' is not netted (E35.1); cross-checked against the ESEF/iXBRL package, tag ifrs-full:NoncurrentRecognisedLiabilitiesDefinedBenefitPlan, context c-2 (instant 2025-12-31), unit GBP, scale 6: 217 -- agrees; the surplus is tagged apart as ifrs-full:NoncurrentRecognisedAssetsDefinedBenefitPlan 284 and, as here, is not netted (E40 cross_document)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "note 18, p.165, Provisions for Liabilities and Charges: two columns only, 'Legal provisions' (108 at 31 December 2025) and 'Other provisions' (37), total 145 (current 90, non-current 55); no decommissioning, restoration or dilapidations provision; the balance sheet p.134 presents 'Provisions for liabilities and charges' and nothing of that kind. E68.2, NOT E68.1: note 18 states 'Other provisions include environmental and other obligations throughout the Group, the majority of which are expected to be utilised within five years' -- a remediation accrual inside 'Other provisions 37', UNQUANTIFIED, so the leg is a caption zero with the accrual NAMED (E68.2); no sentence states that no such obligation exists, so E78 does not reach it. Cross-checked against the ESEF/iXBRL package under E59 (2026-08-30, component sum): the tagged provision captions are ifrs-full:CurrentProvisions 90 and ifrs-full:NoncurrentProvisions 55 (instant 2025-12-31), 145 in total, which is EXACTLY note 18's 'Legal provisions 108' + 'Other provisions 37'; no decommissioning or restoration concept is tagged anywhere in the package. The absence is read a second time from the tagged balance sheet; the E68.2 naming of the unquantified environmental obligations inside 'Other provisions' is unchanged; cross_document",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "E81 (2026-08-30): p.134, Group Balance Sheet at 31 December 2025, liabilities presented: short-term borrowings 810, provisions 90 / 55, trade and other payables 5,072, derivative financial instruments 51 / 95, share repurchase liability 101, current tax liabilities 526, long-term borrowings 7,620, deferred tax liabilities 2,565, retirement benefit obligations 217, other non-current liabilities 85 -- no streaming, prepaid-offtake or prepaid-delivery caption; a consumer-health and hygiene manufacturer sells from inventory. A caption zero. Cross-checked against the ESEF/iXBRL package under E59 (2026-08-30, component sum): at instant 2025-12-31 the tagged current liabilities CurrentBorrowingsAndCurrentPortionOfNoncurrentBorrowings 810 + CurrentProvisions 90 + TradeAndOtherCurrentPayables 5,072 + CurrentDerivativeFinancialLiabilities 51 + reckittbenckiser:ShareRepurchaseLiability 101 + CurrentTaxLiabilitiesCurrent 526 = CurrentLiabilities 6,650 EXACTLY, and LongtermBorrowings 7,620 + NoncurrentProvisions 55 + NoncurrentDerivativeFinancialLiabilities 95 + NoncurrentRecognisedLiabilitiesDefinedBenefitPlan 217 + DeferredTaxLiabilities 2,565 + OtherNoncurrentLiabilities 85 = NoncurrentLiabilities 10,637 EXACTLY (Liabilities 17,287 = 6,650 + 10,637) -- the tagged captions exhaust the totals, leaving no room for a prepaid-delivery caption; cross_document",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 1952.0,
+   "provenance": "p.134, 31 December 2025: 'Cash and cash equivalents 16 | 1,952'; note 16 p.164: cash at bank 557 + short-term bank deposits 408 + money market fund investments 987 = 1,952, of which \u00a3182 million restricted but available on demand; cross-checked against the ESEF/iXBRL package, tag ifrs-full:CashAndCashEquivalents, context c-2 (instant 2025-12-31), unit GBP, scale 6: 1,952 -- agrees (E40 cross_document)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  }
+ ],
+ "tool_commit": "RMV.L/RKT.L/PNDORA.CO/DECK first strikes, 2026-08-30, d4425b5",
+ "notes": "",
+ "money_unit": "millions",
+ "lease": {
+  "in_operating_cash_flow": false,
+  "page": "FRAMEWORK-EDITS E70, applied 2026-08-30 to an IFRS 16 filer IFRS 16.50(b): lease principal is a financing flow; Reckitt presents lease liabilities inside borrowings (AR note 17 p.164: 'Lease liabilities 19 | 65' current and '209' non-current within total borrowings) and repays them inside 'Repayment of borrowings' (p.136) with no separate lease line; lease interest 13 is in 'Interest paid' (note 6 p.147 'Interest payable on leases (13)')",
+  "principal_added_back": null,
+  "leg": "none -- IFRS 16.50(b)"
+ }
+}

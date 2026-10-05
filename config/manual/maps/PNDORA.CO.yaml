@@ -1,0 +1,228 @@
+# PNDORA.CO -- which cell of Pandora's figures appendix answers which field
+# of the manual schema. Committed and reviewed; NOT inferred at runtime.
+#
+# Rows are matched on their LABEL, exactly, after stripping surrounding
+# whitespace and nothing else. A row inserted next year does not shift a
+# figure by one -- it stops the run. A footnote marker appended to a label
+# does the same, and should.
+#
+# `section:` is the heading of the period block a row sits under, and is
+# how `Operating profit` in the income statement is told from `Operating
+# profit` in the cash flow statement. `after:` names a label that occurs
+# exactly once above the row meant, and is how the two `Loans and
+# borrowings` lines are told apart.
+#
+# WHY THE MARGIN COMES FROM A DIFFERENT SHEET, deliberately: op_margin is
+# read from 'Cost, GM, EBIT, EBITDA_appendix' while revenue and
+# operating_income come from 'Financial statements_appendix'. That makes
+# config.unit_problem's margin reconciliation a live check, every period,
+# that the two sheets' columns were matched to the SAME quarter. It is the
+# strongest validation this path gets and it is free.
+#
+# Verified against the Q2 2026 appendix (14 columns, Q1 2023 - Q2 2026).
+#
+# REVISED 2026-08-24 for FRAMEWORK-EDITS E14: the two borrowing fields and
+# lease_liabilities are no longer mapped. See the block where they were.
+#
+# THREE LABELS OCCUR TWICE in 'Financial statements_appendix' (measured
+# 2026-08-25 against the Q2 2026 workbook, by reading the sheet through
+# `appendix.read_sheet`):
+#
+#   Operating profit                            rows 8 and 82
+#   Net profit for the period                   rows 13 and 17
+#   Cash flows from operating activities, net   rows 92 and 125
+#
+# THE VALUES ARE IDENTICAL IN EVERY COLUMN TODAY, so no figure in
+# config/manual/PNDORA.CO.yaml is wrong and nothing here needs changing.
+# The record exists because the map matches on LABEL, and how each pair is
+# separated differs:
+#
+#   * Operating profit and Net profit for the period sit under DIFFERENT
+#     section headings -- 'Consolidated income statement' against
+#     'Consolidated cash flow statement' and 'Consolidated statement of
+#     comprehensive income'. `section:` names one and the other cannot be
+#     reached. If the two rows ever diverged the map would still take the
+#     row it names.
+#   * Cash flows from operating activities, net has BOTH rows under
+#     'Consolidated cash flow statement' -- the statement's own subtotal at
+#     92 and the opening line of the free-cash-flow reconciliation at 125.
+#     `section:` cannot separate them, which is why `after: "Income taxes
+#     paid"` is there. `after:` takes the FIRST row below its anchor, so it
+#     resolves to 92 -- deterministically, but by a first-match rule. IF
+#     THOSE TWO ROWS EVER DIVERGED, THE MAP WOULD TAKE 92 WITHOUT
+#     COMPLAINING. That is the one pair worth re-checking when the appendix
+#     changes shape.
+#
+# An ambiguity that neither `section:` nor `after:` resolves is NOT taken as
+# the first row: `appendix.find_row` fails the run and lists the candidates.
+
+ticker: PNDORA.CO
+name: PANDORA
+reporting_currency: DKK
+quote_currency: DKK
+sector: Consumer Cyclical
+reporting_frequency: quarterly
+money_unit: millions           # the appendix states DKK millions; written onto the file as its declaration
+share_unit: whole              # counts as the appendix states them, whole shares
+period_basis: calendar
+document: "Pandora figures appendix, company announcement (xlsx attachment to the interim release)"
+note: >-
+  The appendix states figures in DKK million throughout. Nothing is
+  rescaled: the whole file is in that one unit, which is what the manual
+  loader's one-scale check exists to confirm.
+
+fields:
+
+  # --- read by the E6 ranking key ---------------------------------------
+  revenue:
+    sheet: "Financial statements_appendix"
+    section: "Consolidated income statement"
+    label: "Revenue"
+  gross_profit:
+    sheet: "Financial statements_appendix"
+    section: "Consolidated income statement"
+    label: "Gross profit"
+  operating_income:
+    sheet: "Financial statements_appendix"
+    section: "Consolidated income statement"
+    label: "Operating profit"
+    note: >-
+      The as-presented operating profit. The identical label under
+      'Consolidated cash flow statement' is the same figure used as the
+      cash flow's opening line; `section:` picks the income statement, so
+      the origin of the figure is the statement it is presented in.
+  total_assets:
+    sheet: "Financial statements_appendix"
+    section: "Consolidated balance sheet"
+    label: "Total assets"
+  net_ppe:
+    sheet: "Financial statements_appendix"
+    section: "Consolidated balance sheet"
+    label: "Property, plant and equipment"
+    note: >-
+      The balance-sheet carrying amount, i.e. net. Right-of-use assets are
+      a SEPARATE line and are not added to it -- that would be a figure the
+      sheet does not state.
+
+  # --- section 5.1 C: the cash the reverse DCF discounts ----------------
+  operating_cash_flow:
+    sheet: "Financial statements_appendix"
+    section: "Consolidated cash flow statement"
+    label: "Cash flows from operating activities, net"
+    after: "Income taxes paid"
+    note: >-
+      POST-TAX: 'Income taxes paid' sits inside the cash flow statement
+      above this subtotal. The same label appears again lower down as the
+      opening line of the free-cash-flow reconciliation, so `after:`
+      anchors on the tax line, which occurs once.
+  income_tax_paid:
+    sheet: "Financial statements_appendix"
+    section: "Consolidated cash flow statement"
+    label: "Income taxes paid"
+  capex_ppe:
+    sheet: "Financial statements_appendix"
+    section: "Consolidated cash flow statement"
+    label: "Purchase of property, plant and equipment"
+  capex_intangibles:
+    sheet: "Financial statements_appendix"
+    section: "Consolidated cash flow statement"
+    label: "Purchase of intangible assets"
+  proceeds_from_disposals_ppe:
+    sheet: "Financial statements_appendix"
+    section: "Consolidated cash flow statement"
+    label: "Proceeds from sale of property, plant and equipment"
+  lease_payments_capital:
+    sheet: "Financial statements_appendix"
+    section: "Consolidated cash flow statement"
+    label: "Repayment of lease liabilities"
+    note: >-
+      The financing-section line. 'Repayment of lease commitments', lower
+      in the free-cash-flow reconciliation, is a different label and is not
+      used.
+  free_cash_flow_reported:
+    sheet: "Financial statements_appendix"
+    section: "Consolidated cash flow statement"
+    label: "Free cash flow, including lease payments"
+    note: >-
+      Pandora's OWN free cash flow line, as filed. It deducts lease
+      repayments and net finance costs, so it is basis 3 in the section 5
+      workbook's terms -- recorded so the derived bases can be compared
+      against the figure the company publishes, never as a substitute.
+
+  # --- section 5.1 C: net debt ------------------------------------------
+  cash_and_equivalents:
+    sheet: "Financial statements_appendix"
+    section: "Consolidated balance sheet"
+    label: "Cash"
+    note: >-
+      THE BALANCE SHEET LINE, and this is a real choice. The cash flow
+      statement's 'Cash and cash equivalents, end of period' is a
+      DIFFERENT number -- it is net of overdrafts, which the appendix
+      reconciles a few rows below it. The net-debt bridge is built from
+      the balance sheet, so the balance-sheet figure is the one taken.
+  # --- NOT MAPPED, under FRAMEWORK-EDITS E14 ----------------------------
+  #
+  # financial_liabilities_current, financial_liabilities_noncurrent and
+  # lease_liabilities are DELIBERATELY ABSENT from this map, and this block
+  # is here so their absence reads as a decision rather than an oversight.
+  #
+  # E14 (2026-08-24) settles that the two borrowing fields EXCLUDE lease
+  # liabilities, that lease_liabilities holds the lease portion, and that
+  # the three are ADDITIVE. Until 2026-08-24 this map filled both borrowing
+  # fields from the balance sheet's `Loans and borrowings` -- which under
+  # IFRS 16 CONTAINS the leases, as Pandora states in note 3.3 of the 2025
+  # annual report: "Lease liabilities are recognised in loans and
+  # borrowings." That was the wrong figure for those fields under E14, and
+  # it was measurably wrong: for 2025-Q4 the map put 11,922 / 3,102 where
+  # the split is 7,729 / 1,627 borrowings and 4,193 / 1,475 leases.
+  #
+  # THE SPLIT IS NOT IN THIS WORKBOOK. Searched across all ten sheets on
+  # 2026-08-24: the only balance-sheet liability rows are `Loans and
+  # borrowings` (non-current and current), the consolidated line, and there
+  # is no lease-liability BALANCE row anywhere -- only lease PAYMENTS, in
+  # the cash flow statement and the free-cash-flow reconciliation. The
+  # split exists in the ANNUAL REPORT, note 4.3 (Non-current borrowings /
+  # Current borrowings) and note 3.3 (the lease split), which is a
+  # different document and not one this map reads.
+  #
+  # So under E14 all three fields are DATA MISSING for every period this
+  # workbook covers -- never the consolidated figure in the borrowing
+  # fields, and never zero in lease_liabilities. Section 5's assumption A2
+  # is untestable for PNDORA.CO from this source, which is a fact about
+  # what the appendix discloses and not a value to estimate. The figures
+  # can be entered by hand from the annual report's notes, per period,
+  # where the owner has read them.
+
+  # --- section 5.1 A / 5.3, and the income statement --------------------
+  net_income:
+    sheet: "Financial statements_appendix"
+    section: "Consolidated income statement"
+    label: "Net profit for the period"
+    note: >-
+      The income statement's line. The identical label opens the statement
+      of comprehensive income; `section:` separates them.
+  ebitda:
+    sheet: "Cost, GM, EBIT, EBITDA_appendix"
+    label: "EBITDA"
+    note: >-
+      The line, not the block heading of the same name directly above it:
+      a label row carrying no figure in any period is a heading and is
+      never read.
+  depreciation_amortisation:
+    sheet: "Financial statements_appendix"
+    section: "Consolidated cash flow statement"
+    label: "Depreciation and amortisation"
+    note: >-
+      As stated in the cash flow statement's non-cash adjustments. Kept to
+      reconcile the stated EBITDA against operating profit; nothing here
+      derives either from the other.
+
+  # --- the ratio that checks the arithmetic -----------------------------
+  op_margin:
+    sheet: "Cost, GM, EBIT, EBITDA_appendix"
+    label: "EBIT margin"
+    note: >-
+      ALREADY A FRACTION in the appendix (0.203, not 20.3), which is the
+      unit the schema requires, so nothing is converted. It reconciles
+      operating_income against revenue ACROSS TWO SHEETS -- see the header
+      note.

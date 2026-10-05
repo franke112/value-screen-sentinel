@@ -1,0 +1,160 @@
+# Filter 2 -- coarse quality. THRESHOLDS ARE A PROPOSAL, NOT A DECISION.
+#
+#   status: DECIDED
+#   proposed: 2026-08-22
+#   decided:  2026-08-22  (see FRAMEWORK-EDITS E2 and E3)
+#
+# Nothing here was invented. Every value is lifted from a FRAMEWORK section
+# or a decided FRAMEWORK-EDITS item, cited beside it. Where the framework
+# leaves an analyst to judge, this file says so and proposes the reading that
+# CANNOT reject a name the manual chain would have accepted -- filter 2 feeds
+# review work, so a false negative is a case silently lost, while a false
+# positive costs one manual review.
+#
+# Change a number here and nothing recompiles. That is the point: the
+# mechanism is code, the values are the owner's.
+
+status: DECIDED
+proposed: 2026-08-22
+decided: 2026-08-22
+
+limbs:
+
+  # ---------------------------------------------------------------- FCF ---
+  # FRAMEWORK section 3, Gate 3: "FCF positive in >= 6 of 8 quarters".
+  #
+  # DEVIATION, stated rather than hidden: the gate's own test is not
+  # computable from this source. Quarterly cash-flow history comes back with
+  # 5 to 7 columns for most names and ZERO for some (HSBA.L, A2A.MI in the
+  # probe), so "6 of 8" cannot be evaluated for a material share of the
+  # universe. The proposal is the sign of trailing-twelve-month free cash
+  # flow, which is the coarse form of the same question and is what the
+  # owner's own wording for this phase asks for ("FCF positivt").
+  #
+  # A name passing here has NOT passed Gate 3's FCF limb. It has failed to
+  # fail it, on one year rather than eight quarters. The manual chain still
+  # runs the real test.
+  free_cash_flow:
+    rule: ttm_free_cash_flow_positive
+    min: 0.0
+    unit: reporting_currency
+    framework: "section 3 Gate 3 (FCF positive in >= 6 of 8 quarters), coarsened to TTM sign"
+    on_missing: DATA_MISSING
+
+  # ------------------------------------------------------ net debt/EBITDA ---
+  # FRAMEWORK section 3, Gate 3: "Net debt/EBITDA <= 2.5x (financials
+  # excluded; use sector norms)". The cap is the framework's; no new one is
+  # invented here.
+  #
+  # Two readings were possible:
+  #   2.5x  section 3 Gate 3's cap             <- DECIDED 2026-08-26 (E44)
+  #   3.5x  section 4.2.5's hard kill          <- decided 2026-08-22 (E2),
+  #                                               superseded by E44
+  #
+  # E2 (2026-08-22) chose 3.5x on the principle that a coarse filter must not
+  # lose a name the manual chain would have kept, and cited UNA.AS at
+  # 2.27-2.48x. E44 (2026-08-26, ruled after SCREENER-REVIEW-3 Part 6)
+  # reverses it on the measurement: the screener FEEDS Gate 3, and a name at
+  # 3.3x fails the hand chain regardless -- Gate 3's own cap is 2.5x, so
+  # passing it here only spends review hours on a name the next step
+  # removes. Seventy-two names passed at 3.5x and failed the framework's own
+  # number on 2026-08-26, FGR.PA (2.60x, #1) and AFRY.ST (3.30x, #5) among
+  # them. UNA.AS at 2.48x still passes: the cap is the gate's, inclusive.
+  # See FRAMEWORK-EDITS E44, which amends E2.
+  #
+  # net_debt = totalDebt - totalCash. Both figures and EBITDA come from the
+  # same statement, so the ratio is currency-free and needs no FX source.
+  # The EBITDA leg is the vendor's own construction on its own period
+  # (LIAB.ST read 3.75x here against the issuer's stated 2.70x, report B 6.2),
+  # so the ratio here is a coarse reading of the gate, not the gate.
+  net_debt_to_ebitda:
+    rule: net_debt_over_ebitda_at_most
+    max: 2.5
+    framework: "section 3 Gate 3 (Net debt/EBITDA <= 2.5x)"
+    decided: 2026-08-26
+    amended_by: "FRAMEWORK-EDITS E44 (amends E2)"
+    not_chosen:
+      max: 3.5
+      framework: "section 4.2.5 hard kill (Net debt/EBITDA > 3.5x) -- E2's choice, superseded: a name at 3.3x fails Gate 3 by hand regardless"
+    on_missing: DATA_MISSING
+
+    # Degenerate case the framework does not name, because an analyst would
+    # not need telling: EBITDA at or below zero leaves the ratio undefined.
+    # Proposed reading, and it is a reading, not a citation:
+    #   net debt > 0 and EBITDA <= 0  -> FAIL. Debt with no earnings to
+    #                                    service it is the condition the cap
+    #                                    exists to catch, at its extreme.
+    #   net debt <= 0 and EBITDA <= 0 -> PASS. Net cash: there is no leverage
+    #                                    to measure, so the limb has nothing
+    #                                    to object to.
+    non_positive_ebitda:
+      with_net_debt: FAIL
+      with_net_cash: PASS
+
+    # Gate 3 says "financials excluded". A machine cannot "use sector norms",
+    # so the limb is NOT EVALUATED for them -- NOT APPLICABLE, which is
+    # neither PASS nor FAIL nor DATA MISSING.
+    #
+    # Precedent: FRAMEWORK-EDITS B7, decided 2026-08-21, established exactly
+    # this third outcome for section 4.2.7's inventory limb, with a stated
+    # threshold and worked examples in both directions.
+    #
+    # The discriminator is the source list's own sector string, never a guess
+    # from the name -- the same rule the universe exclusions follow.
+    not_applicable_sectors:
+      - Financial Services
+      - Real Estate
+    not_applicable_reason: >
+      Gate 3 excludes financials from this limb and directs the analyst to
+      sector norms, which a machine has none of. Net debt is not a meaningful
+      construct for a bank, and the source returns no EBITDA for one anyway.
+      Real Estate is included by the owner's decision of 2026-08-22: property
+      is borrowed against asset value rather than EBITDA, the same logic that
+      already exempts financials. Recorded as FRAMEWORK-EDITS E3 in B7's form,
+      not left as a silent line in this file.
+
+  # ------------------------------------------------------ revenue trend ---
+  # FRAMEWORK section 4.2.1 is a HARD KILL: "revenue declining 2+ consecutive
+  # quarters". FRAMEWORK-EDITS E45 (2026-08-26, amends B9) applies it as
+  # written: the last eight QUARTERS of Total Revenue from the vendor's
+  # quarterly statement (build item 8), each against the same quarter a year
+  # earlier; two or more consecutive year-on-year declines counted from the
+  # newest quarter FAIL the name, ON VALUE, with the changes printed.
+  #
+  # Where the quarters are unavailable -- a half-yearly reporter (BUCN.SW),
+  # an empty quarterly endpoint, a hole that leaves fewer than two
+  # comparisons at the newest end (ERIC-B.ST's NaN prior) -- the limb falls
+  # back to the ANNUAL series and there only FLAGS, as B9 had it, and the
+  # detail says which basis was read and why.
+  #
+  # B9's organic carve-out (UNA.AS: four reported declines, organic growth in
+  # all eight quarters) now governs the HAND chain only. The screener cannot
+  # read the organic series, so a name in that shape is removed here on its
+  # reported quarters -- E45 states that cost and the owner pays it
+  # knowingly; an override is entered by hand, as every override is.
+  revenue_trend:
+    rule: quarterly_revenue_yoy_decline
+    action: KILL          # section 4.2.1 as written -- FRAMEWORK-EDITS E45
+    quarters: 8
+    kill_when_consecutive_declines: 2
+    year_ago_window_days: [350, 380]   # a quarter end and the same quarter a year earlier
+    annual_fallback:
+      action: FLAG        # B9's reading, where the vendor has no quarters
+      lookback_years: 4
+      flag_when_consecutive_declines: 2
+    framework: "section 4.2.1 (hard kill on 2+ consecutive quarterly YoY declines), applied as written per FRAMEWORK-EDITS E45"
+    decided: 2026-08-26
+    on_missing: DATA_MISSING
+
+# What happens to a limb with no data. DATA MISSING is a third state: a name
+# that could not be tested has not failed. Filter 2 passes it on, marked, so
+# the manual chain can fetch the figure from the filing.
+#
+#   pass_through  the name survives and is counted as untested on that limb
+#   reject        the name is dropped, counted under "rejected on MISSING
+#                 data", never mixed with the value-based rejections
+# DECIDED 2026-08-22: pass_through. Gate 3's real FCF test is not computable
+# for a material share of the universe, so `reject` would have discarded names
+# on yfinance's coverage rather than on company quality. The count stays
+# visible in the report either way.
+on_missing_action: pass_through

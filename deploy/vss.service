@@ -1,0 +1,51 @@
+[Unit]
+Description=vss -- value-screen sentinel daily watchlist run
+Documentation=file://%h/vss/README.md
+
+# THE DEAD MAN'S SWITCH, leg 2. systemd posts to NTFY_TOPIC the moment this
+# unit exits non-zero or hits its TimeoutStartSec=. Before this, a run that
+# CRASHED and a run with NOTHING TO SAY were both silence on the phone.
+# `%n` is this unit's own name, passed to the notifier as its instance.
+OnFailure=vss-failure@%n.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/vss
+ExecStart=%h/vss/.venv/bin/python -m vss run
+
+# THE DEAD MAN'S SWITCH, leg 4: the OUTSIDE observer (owner, 2026-09-01).
+# ExecStartPost runs ONLY when ExecStart succeeded, which is exactly the
+# semantic wanted: the ping means "the run completed", and healthchecks.io
+# alarms on the ping's ABSENCE. That is the one alarm a dead VPS can still
+# raise, because raising it needs nothing from this machine.
+#
+# The leading `-` is load-bearing: a failed PING must never turn a good run
+# into a failed unit -- that would fire the OnFailure= pointer above over a
+# network blip and teach the reader to ignore it. Unset URL is silence.
+ExecStartPost=-%h/vss/deploy/vss-ping-healthcheck.sh
+
+# E92: the NEEDS OWNER topic, kept OUT of the repository -- the topic is the
+# only secret ntfy has. The leading `-` means a missing file is not an error,
+# so the unit runs unchanged on a machine that has never had one (the mgmt
+# copy). Unset NTFY_TOPIC is silence, never a failure. See deploy/README.md
+# and deploy/vss.env.example.
+EnvironmentFile=-%h/.config/vss/vss.env
+
+# The report is written to reports/YYYY-MM-DD.md regardless. vss also prints
+# it on stdout and logs on stderr; both land in the journal under the "vss"
+# identifier, where they stay distinguishable by priority:
+#   journalctl --user -t vss -p notice   # the report
+#   journalctl --user -t vss -p warning  # problems only
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=vss
+
+# yfinance can hang on a bad network; never let a run wedge the timer.
+TimeoutStartSec=15min
+
+# A daily read-only screen needs none of the system.
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=%h/vss/data %h/vss/reports
+NoNewPrivileges=true

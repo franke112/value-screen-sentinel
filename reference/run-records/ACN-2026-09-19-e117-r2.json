@@ -1,0 +1,199 @@
+{
+ "ticker": "ACN",
+ "currency": "USD",
+ "run_ts": "2026-09-19T19:13:23+02:00",
+ "basis": "annual FY2025",
+ "shares": {
+  "count": 632435108.0,
+  "basis": "weighted-average DILUTED count for annual FY2025, the same window as the flows (E38)",
+  "as_of": "2025-08-31",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 2093878000.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0001467373 (Accenture plc) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001467373.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+  "net_interest_paid": -107769000.0,
+  "source": "income_statement_net"
+ },
+ "bridge": {
+  "net_debt": -4477522000.0,
+  "items": {
+   "short_term_investments": 5945000.0,
+   "current_financial_assets": 5945000.0,
+   "leases": 0.0,
+   "pensions": 1858499000.0,
+   "asset_retirement_obligations": 0.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+  },
+  "note": "borrowings 114,484,000 + 5,034,169,000 + finance leases 0 (E117: the operating lease liability 3,034,213,000 LEAVES net debt, its rent being in the flow; finance leases stay) + pension deficit 1,858,499,000 (E35.1) + asset retirement obligations 0 (E68) + prepaid delivery obligations 0 (E81) - cash 11,478,729,000 - other current financial assets 5,945,000. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+ },
+ "dates": {
+  "flows_window_end": "2025-08-31",
+  "balance_sheet": "2025-08-31",
+  "share_count": "2025-08-31",
+  "price": "2026-09-18"
+ },
+ "growth": {
+  "base": 0.045,
+  "view_file": "reference/growth-views/ACN.md",
+  "view_date": "2026-08-30",
+  "bear": 0.0,
+  "bull": 0.075
+ },
+ "operating_cash_flow": 11474399000.0,
+ "capex": -600039000.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_combined",
+   "value": -600039000.0,
+   "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2024-09-01..2025-08-31] 10-K 0001467373-25-000217 filed 2025-10-10",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 11474399000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2024-09-01..2025-08-31] 10-K 0001467373-25-000217 filed 2025-10-10",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "sbc",
+   "value": 2093878000.0,
+   "provenance": "us-gaap:ShareBasedCompensation [2024-09-01..2025-08-31] 10-K 0001467373-25-000217 filed 2025-10-10",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "net_finance_costs",
+   "value": -107769000.0,
+   "provenance": "E18: finance_costs_period - finance_income_period, both on annual FY2025",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page/tagged)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 632435108.0,
+   "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2024-09-01..2025-08-31] 10-K 0001467373-25-000217 filed 2025-10-10",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 114484000.0,
+   "provenance": "us-gaap:DebtCurrent [as of 2025-08-31] 10-Q 0001467373-26-000032 filed 2026-06-18 -- E66: the taxonomy's SUBTOTAL of current borrowings, read whole; tagged beside it as memo and never added: `CommercialPaper` 99,963,000",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 5034169000.0,
+   "provenance": "E67 / E69: Item 8, Consolidated Balance Sheets, August 31, 2025, 10-K 0001467373-25-000217 filed 2025-10-10, NON-CURRENT LIABILITIES: 'Long-term debt | 5,034,169' (in thousands) -- the caption the filer tags as us-gaap:LongTermDebtAndCapitalLeaseObligations [as of 2025-08-31] = 5,034,169,000, which the tool REFUSED under E67 because no FinanceLeaseLiability element is tagged at this year end. Note 10, Borrowings and Indebtedness, states the composition: 'Senior notes \u2013 3.90% due 2027 | 1,100,000; Senior notes \u2013 4.05% due 2029 | 1,200,000; Senior notes \u2013 4.25% due 2031 | 1,200,000; Senior notes \u2013 4.50% due 2034 | 1,500,000; Total principal amount (3) | 5,000,000; Less: unamortized debt discount and issuance costs | (32,774); Total carrying amount | 4,967,226; Other (2) | 66,943; Total long-term debt | 5,034,169', with footnote '(2) Amounts primarily include finance lease liabilities'; the leases note: 'As of August 31, 2025 and 2024, we had no material finance leases.' THE FINANCE LEASE INSIDE THE CAPTION IS STATED ONLY APPROXIMATELY -- 'primarily' the 'Other' line of 66,943, and 'no material finance leases' -- so under E72 (2026-08-30) the combined caption is the leg, read WHOLE, with the issuer's wording quoted here: senior notes carrying 4,967,226 and 'Other (2) 66,943, primarily finance lease liabilities' both named. No finance-lease element is tagged, so E65 adds nothing to `lease_liabilities` (the operating total alone): every dollar of the caption is in exactly one leg, nothing counted twice and nothing dropped. MATERIALITY, STATED (E72): the 66,943 is 1.3% of the caption and 0.11 USD a share on 632m diluted shares -- the wording does not matter to the outcome. The current leg is read the same way: 'Current portion of long-term debt and bank borrowings | 114,484' = 'Commercial paper (1) 99,963' + 'Other (2) 14,521', tagged us-gaap:DebtCurrent and read whole under E66.",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 3034213000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2025-08-31] 10-K 0001467373-25-000217 filed 2025-10-10",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 1858499000.0,
+   "provenance": "us-gaap:PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent [as of 2025-08-31] 10-Q 0001467373-26-000032 filed 2026-06-18",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "E68.1: Item 8, Consolidated Balance Sheets as of August 31, 2025, 10-K 0001467373-25-000217 filed 2025-10-10 -- CURRENT LIABILITIES presented: 'Current portion of long-term debt and bank borrowings', 'Accounts payable', 'Deferred revenues', 'Accrued payroll and related benefits', 'Income taxes payable', 'Lease liabilities', 'Other accrued liabilities' (1,954,418); NON-CURRENT: 'Long-term debt', 'Deferred revenues', 'Retirement obligation', 'Deferred tax liabilities', 'Income taxes payable', 'Lease liabilities', 'Other non-current liabilities' (1,197,742). No asset retirement or decommissioning caption; 'asset retirement', 'decommission' and 'dilapidation' appear nowhere in the filing and 'restoration' only in the income-tax note (full-text search of the primary document acn-20250831.htm, 2026-08-30). Professional services (SIC 7389) delivered from leased offices, owning nothing that requires decommissioning: the absence is evidence. 'Other accrued liabilities' and 'Other non-current liabilities' are captions with room (E25) and are named here; the filing discloses no remediation or restoration obligation inside them (E68.2 has nothing to name).",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "E81 (2026-08-30): the same Consolidated Balance Sheets as of August 31, 2025 read for `asset_retirement_obligation` above, every liability caption enumerated there -- no streaming, prepaid-offtake or prepaid-delivery caption, and no such arrangement anywhere in the 10-K. 'Deferred revenues' (current and non-current) are billings in advance of consulting and outsourcing services -- working capital the flow already carries, NOT this leg -- and are named here so the reading is visible. A caption zero",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 11478729000.0,
+   "provenance": "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2025-08-31] 10-Q 0001467373-26-000032 filed 2026-06-18",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "other_current_financial_assets",
+   "value": 5945000.0,
+   "provenance": "us-gaap:ShortTermInvestments [2025-08-31] 10-K 0001467373-25-000217 filed 2025-10-10",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_lease_liabilities",
+   "value": 3034213000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2025-08-31] 10-K 0001467373-25-000217 filed 2025-10-10 -- E117: the operating part of `lease_liabilities`, which LEAVES net debt",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  }
+ ],
+ "tool_commit": "E117 re-strike, 2026-09-19, 0a20c99",
+ "notes": "E117 re-strike r2, 2026-09-19: the store gained FY2025 short-term investments (5.9m) after ACN-2026-09-19-e117.json (239.81)",
+ "money_unit": "whole",
+ "nci_dividends_paid": -3492000.0,
+ "undetermined": [],
+ "fcf_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_debt_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_income": {
+  "value": 7678433000.0,
+  "page": "us-gaap:NetIncomeLoss [2024-09-01..2025-08-31] 10-K 0001467373-25-000217 filed 2025-10-10",
+  "verified": true
+ },
+ "lease": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0001467373 (Accenture plc) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001467373.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 842-20-45-5(a): a lessee classifies payments for operating leases within OPERATING activities, so this filer's `operating_cash_flow` already bears them; the stated cash paid is `us-gaap:OperatingLeasePayments`, written as `operating_lease_payments` where tagged. No filer-specific tag states the classification because the standard leaves no choice",
+  "principal_added_back": null,
+  "leg": "none -- the operating cash flow bears the rent (E117)",
+  "rule": "E117",
+  "lease_cash_deducted": null,
+  "principal_paid": null,
+  "interest_paid": null,
+  "liability_excluded": 3034213000.0
+ }
+}

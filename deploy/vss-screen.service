@@ -1,0 +1,57 @@
+[Unit]
+Description=vss -- weekly universe screen, ranking and change pointer (E93)
+Documentation=file://%h/vss/reference/FRAMEWORK-EDITS.md
+
+# THE DEAD MAN'S SWITCH, leg 2. systemd posts to NTFY_TOPIC the moment this
+# unit exits non-zero or hits its TimeoutStartSec=. Before this, a run that
+# CRASHED and a run with NOTHING TO SAY were both silence on the phone.
+# `%n` is this unit's own name, passed to the notifier as its instance.
+OnFailure=vss-failure@%n.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/vss
+
+# E93: --weekly runs snapshot -> fundamentals -> rank -> store -> compare ->
+# report -> prune -> pointer.
+#
+# `--write-pipeline` IS DELIBERATELY ABSENT AND MUST STAY ABSENT. Entering a
+# name as PIPELINE stamps dd_at_entry and peak_date, and E12 FREEZES Gate 1
+# at that moment -- so a timer passing it would freeze a catalyst window on
+# an arbitrary Saturday at whatever the previous close happened to be. Unlike
+# a fair value, that is not undone by re-striking. The run also compares the
+# watchlist's bytes either side of itself and stops if they differ.
+# `--tier A --tier B` (owner, 2026-09-01). Tier A is 1,360 large caps and a
+# large cap rarely dislocates deeply without something being structurally
+# wrong; tier B adds the S&P MidCap 400 and the Oslo/Copenhagen/Helsinki mid
+# caps, 651 instruments. Measured 2026-08-31: the chain goes from ~25 to ~38
+# minutes against the 4h timeout below, with ZERO throttles across 3,495
+# fundamentals requests, and seven of the resulting top twenty were names the
+# old universe could not see. See reports/UNIVERSE-WIDENING-2026-08-31.md.
+#
+# The first widened run diffs against a tier-A baseline. It does NOT need
+# anyone to remember that: `screen_rankings.tiers` records the universe each
+# ranking was struck on, and `basis_mismatches` refuses the comparison and
+# withholds the pointer until two consecutive runs agree.
+ExecStart=%h/vss/.venv/bin/python -m vss screen --weekly --tier A --tier B
+
+# The NEEDS OWNER / change topic, kept out of the repository. The leading `-`
+# means a missing file is not an error.
+EnvironmentFile=-%h/.config/vss/vss.env
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=vss-screen
+
+# The universe snapshot fetches ~1,100 tickers and the fundamentals step goes
+# one at a time with backoff. It is long; it must never wedge the timer.
+TimeoutStartSec=4h
+
+# E93: this writes data/ and reports/ and NOTHING ELSE -- which is exactly
+# what the nightly run already needs, so no widening was required to schedule
+# it. config/ is NOT writable here, and that is the ruling in one line.
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=%h/vss/data %h/vss/reports
+NoNewPrivileges=true

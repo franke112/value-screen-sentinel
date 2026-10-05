@@ -1,0 +1,18 @@
+[Unit]
+Description=Run the vss weekly screen on Saturday morning
+Documentation=file://%h/vss/deploy/README.md
+
+[Timer]
+# Saturday 08:00 -- Friday's settled close, and a pointer to read unhurried.
+OnCalendar=Sat *-*-* 08:00:00
+AccuracySec=5min
+
+# If the machine was asleep or off on Saturday, run at the next opportunity
+# rather than skipping the week entirely. A weekly cadence cannot afford to
+# silently miss one.
+Persistent=true
+
+Unit=vss-screen.service
+
+[Install]
+WantedBy=timers.target

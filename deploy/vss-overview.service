@@ -1,0 +1,41 @@
+[Unit]
+Description=vss -- OVERVIEW.html static server, loopback only
+Documentation=file://%h/vss/deploy/TUNNEL-NOTES.md
+
+# Ruling F1 (owner, 2026-09-13) is the FIRST rule to govern the overview page.
+# No section of FRAMEWORK.md v2.3 and no ruling A1-E114 mentions it -- an
+# earlier comment here cited '4.7' as prohibiting a server and that section
+# does not exist. F1 permits this daemon, narrowly: loopback only, one path,
+# no inbound port. If you are wondering why a server runs: it is ruled, not
+# drift. Read F1 and deploy/TUNNEL-NOTES.md before changing anything here.
+OnFailure=vss-failure@%n.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/caddy run --adapter caddyfile --config /etc/caddy/vss-overview.Caddyfile
+Restart=always
+RestartSec=5s
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=vss-overview
+
+# THE BOUNDARY. /etc/caddy/vss-overview.Caddyfile serves reports/OVERVIEW.html
+# at / and returns 404 for every other path. reports/ held 93 files on
+# 2026-09-13 -- SHADOW-BOOK, CTSH-PREBUY, SALES-RECORD, every daily run.
+# Deleting the `handle { respond 404 }` block serves all of them. Verified by
+# curl on 2026-09-10: / -> 200, /SHADOW-BOOK-2026-09-09.md -> 404.
+#
+# `bind 127.0.0.1` in that same file is load-bearing: without it Caddy binds
+# *:8080 on the public interface (observed 2026-09-10 10:07, corrected 10:10).
+
+# ReadWritePaths= dirs must EXIST before systemd builds the namespace. Omitting
+# the mkdir caused 7 restart loops and 7 ntfy alerts on 2026-09-13 12:06.
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=%h/.local/share/caddy %h/.config/caddy
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target

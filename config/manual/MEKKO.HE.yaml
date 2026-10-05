@@ -1,0 +1,318 @@
+# MEKKO.HE -- Marimekko Oyj, hand-read from the issuer's own periodic
+# reports. WRITTEN 2026-09-08 at INTAKE (E111): the name is READ, NOT
+# WATCHED. No section 5 run, no fv_base, no tier, no mbp, no growth view,
+# and no entry on the watchlist.
+#
+# THE READINESS TABLE CALLED THIS A NAME NEEDING A CIK. It is Finnish and
+# has none: it files with Nasdaq Helsinki, and the route is the SAME Nasdaq
+# Nordic feed that serves PNDORA.CO, BETS-B.ST and ZZ-B.ST. Resolved
+# 2026-09-08 -- `Marimekko Oyj`, Main Market, Helsinki, 189 full-text hits
+# against 5 for the next candidate -- and stored in
+# config/nordic_issuers.yaml.
+#
+# DOCUMENTS (sources/manifest.json, origin `nasdaq-nordic`, all
+# primary_source):
+#   1. Interim report 1 Jan-30 Sept 2025 (id 1397803, 2025-10-31)
+#      sources/MEKKO.HE_2025-Q3_interim-report-q1-and-q3_2025-10-31_en_a0.pdf
+#   2. Financial Statements Bulletin 2025 (id 1419594, 2026-02-12)
+#      sources/MEKKO.HE_2025-Q4_financial-statement-release_2026-02-12_en_a0.pdf
+#   3. Annual report 2025, AUDITED (id 1427103, 2026-03-18)
+#      sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf
+#   4. Interim report 1 Jan-31 Mar 2026 (id 1441800, 2026-05-13)
+#      sources/MEKKO.HE_2026-Q1_interim-report-q1-and-q3_2026-05-13_en_a0.pdf
+#   5. Half-year report 1 Jan-30 June 2026 (id 1458035, 2026-08-13)
+#      sources/MEKKO.HE_2026-Q2_half-year-financial-report_2026-08-13_en_a0.pdf
+# The ESEF/iXBRL package filed beside the annual report (id 1427103,
+# attachment 1) was NOT fetched and nothing here reads it.
+#
+# EXTRACTION: THE PDF PATH, everything UNVERIFIED (E40). Read from each
+# PDF's text layer; no read-back against a rendered page has happened, so
+# section 5 is gated until the owner reads back what E108's floor names.
+#
+# ===================================================================
+# WHY THE BASIS IS ANNUAL FY2025 AND NOT A TTM TO 2026-06-30, WHICH IS
+# THE CENTRAL FINDING OF THIS INTAKE
+# ===================================================================
+#
+# **MARIMEKKO'S CASH FLOW STATEMENT PRINTS NO STANDALONE QUARTER.** Its
+# income statement does -- the Q2 2026 report's columns are `4-6/2026`,
+# `4-6/2025`, `1-6/2026`, `1-6/2025`, `1-12/2025` -- and its balance sheet
+# is a point in time. But the CASH FLOW STATEMENT carries only CUMULATIVE
+# columns: `1-6/2026`, `1-6/2025`, `1-12/2025`. The same is true of all
+# four interim documents.
+#
+# E19's quarterly route needs four consecutive quarters SUMMED, and the
+# operating cash flow of a single quarter is not printed in any of the five
+# documents. It could be reached only by SUBTRACTING one cumulative column
+# from another -- 1-12/2025 less 1-6/2025, plus 1-6/2026, to make the
+# twelve months to 30 June 2026. **That is derivation and this schema does
+# not do it.** E69 permits a hand read that ADDS stated parts, every part
+# named; nothing permits manufacturing a figure by difference, and E108's
+# applied note (a) states the asymmetry directly -- loosening arithmetic is
+# allowed and tightening arithmetic is not.
+#
+# So E19's OTHER route is taken: **the year as filed.** FY2025 ends
+# 2025-12-31, 251 days before today, inside the 550-day limit, and every
+# leg section 5 needs is stated for it in the audited annual report and
+# repeated in the Financial Statements Bulletin. The cost is stated
+# plainly: **the basis is two quarters staler than it would be for a filer
+# that prints quarterly cash flow**, and the two quarters missing from it
+# (H1 2026) are the ones in which net sales in Finland FELL 4%.
+#
+# WHAT THE PDF PATH COULD NOT FILL, in one place:
+#   * a standalone quarterly operating cash flow -- see above. Not
+#     available at any price short of the issuer changing its presentation;
+#   * `net_debt_reported` as a STATED FIGURE. Marimekko states the RATIOS
+#     -- `Net debt / EBITDA -0.17` and `Gearing, % -9.3` -- and defines
+#     both on "Interest-bearing net debt", but never prints that number.
+#     Recovering it from the ratio is derivation, so the field stays empty
+#     and the two ratios are named on `net_debt_ebitda` instead;
+#   * `gross_profit`. Marimekko presents costs BY NATURE and prints no
+#     gross-profit line. DATA MISSING, not zero;
+#   * `net_ppe`. The balance sheet prints `Tangible assets 32.4`, which
+#     under IFRS 16 includes right-of-use assets, and no note read here
+#     splits them. Entered with the caption named and the inclusion
+#     flagged, since it is a ranking-key field and no section 5 leg
+#     divides by it.
+#
+# UNITS. money_unit: MILLIONS -- every statement is headed `(EUR million)`.
+# share_unit: WHOLE -- the per-share key figures print `Share issue
+# adjusted average number of shares 40,571,380`.
+#
+# E34 -- INTEREST IS INSIDE OPERATING, and the statement says so on its
+# face: `Paid interest and payments on other financial expenses -1.3` and
+# `Interest received and payments on other financial income 0.5` sit ABOVE
+# `CASH FLOW FROM OPERATING ACTIVITIES 34.5`, beneath the subtotal `Cash
+# flow from operating activities before financial items and taxes 41.4`.
+# `interest_in_ocf: yes`. The two sides are printed SEPARATELY, so E18
+# applies: `finance_costs_paid` and `finance_income_received` are entered
+# and the store subtracts; `net_interest_paid` stays blank.
+#
+# E70 -- THE LEASES IN THE FLOW. IFRS 16 filer: `Payments of lease
+# liabilities -8.7` is in FINANCING, below the operating total, so
+# `operating_leases_in_ocf: no` and nothing is added back. Entered as E70's
+# MEMO on `lease_payments_capital`.
+#
+# E23 -- CAPEX IS ONE LINE. `Investments in tangible and intangible assets
+# -2.9` is the whole investing section; there is no split anywhere in the
+# five documents. `capex_combined`, and the split fields stay blank.
+#
+# E35 -- THE DEBT LEGS, AND MARIMEKKO'S OWN WORD FOR THEM. The balance
+# sheet's ONLY liabilities are `Lease liabilities` (non-current 21.5,
+# current 8.2) and `Trade and other payables 26.4`. There is no borrowing
+# caption. And the issuer's own five-year key-figure table prints
+# `Interest-bearing liabilities, EUR million 29.7` -- which is 21.5 + 8.2
+# EXACTLY, so what Marimekko calls its interest-bearing liabilities IS the
+# lease, and it has no borrowings at all. The `Short-term loans repaid
+# -0.6` line in the FY2024 comparative went to nil in 2025. E25 `caption`
+# on both borrowing fields.
+#
+# E35.1 -- PENSION. ZERO. `defined benefit` and `defined-benefit` have
+# ZERO occurrences in the 552,801 characters of the audited annual report
+# (searched 2026-09-08); `pension` occurs 24 times and every one is either
+# a Finnish pension INSURANCE COMPANY on the shareholder register
+# (Ilmarinen, Varma, Elo) or the remuneration note's sentence, "Pension
+# benefits include only statutory pension payments. The management does
+# not have additional pension benefits." Finnish statutory TyEL is a
+# contribution arrangement and no defined-benefit obligation exists.
+#
+# E68.1 -- ASSET RETIREMENT OBLIGATION. ZERO. A clothing and homeware
+# designer that leases its stores; on none of E68.1's refuse-until-read
+# lists. E107 search of the annual report for `asset retirement`,
+# `decommission`, `dismantl`, `restoration`, `make good`, `dilapidation`
+# and `restoring` returns two hits and BOTH are sustainability boilerplate
+# -- "the protection and restoration of biodiversity and ecosystems" and
+# "protecting and restoring the environment". The balance sheet presents no
+# provision caption at all: `current provisions` appears only inside the
+# printed FORMULA for net working capital.
+#
+# E81 -- PREPAID DELIVERY OBLIGATION. ZERO, with the advances NAMED. Note
+# 16 splits `Trade payables and other current liabilities`: trade payables
+# 11.3, other payables 5.5, accrued liabilities and deferred income 7.9,
+# and **`Advances received 1.8`**. Customer advances of a retailer are
+# E81's own excluded class -- "customer deposits, billings in advance --
+# working capital the flow already carries". No streaming, offtake or
+# prepaid-delivery arrangement exists.
+#
+# E105 -- NCI. ZERO, and determined. `non-controlling`, `noncontrolling`
+# and `minority interest` have ZERO occurrences in ALL FIVE documents
+# (searched 2026-09-08). Every income statement line reads `Distribution of
+# net result to equity holders of the parent company` for the whole result.
+#
+# E38 -- THE DIVISOR. Note 10 states `Weighted average number of shares,
+# 1,000,000  40.6` and the per-share key-figure table states it exactly:
+# `Share issue adjusted average number of shares 40,571,380`, the same in
+# 2023, 2024 and 2025. Basic and diluted are one count -- the accounting
+# principles say "There are no potential shares outstanding at the moment"
+# -- so the stated basic average IS the diluted one.
+#
+# TWO CHECKS THAT COST NOTHING AND BOTH PASSED:
+#   * the bridge against the issuer's own gearing. Net debt computes to
+#     29.7 - 36.6 = -6.9 (net CASH). Marimekko prints `Gearing, % -9.3`
+#     and defines it as interest-bearing net debt over shareholders'
+#     equity; -9.3% of 74.3 is -6.91. Two routes, one number.
+#   * the same against `Net debt / EBITDA -0.17`, defined on comparable
+#     rolling 12-month EBITDA: -6.9 / 42.3 = -0.163, which prints as -0.17.
+
+ticker: MEKKO.HE
+name: Marimekko Oyj
+reporting_currency: EUR
+money_unit: millions   # declared 2026-09-08: every statement is headed `(EUR million)`
+share_unit: whole      # declared 2026-09-08: `Share issue adjusted average number of shares 40,571,380`
+quote_currency: EUR
+sector: Consumer Cyclical   # the screener's own source-list string (ranked 2026-09-05) -- not from these documents
+reporting_frequency: quarterly
+origin: manual
+
+interest_in_ocf:
+  value: yes
+  source: "Marimekko Financial Statements Bulletin 2025 (Nasdaq release 1419594, 2026-02-12), sources/MEKKO.HE_2025-Q4_financial-statement-release_2026-02-12_en_a0.pdf, and the audited Annual report 2025"
+  page: "p.26, CONSOLIDATED CASH FLOW STATEMENT, 1-12/2025 column: beneath the subtotal 'Cash flow from operating activities before financial items and taxes 41.4' the statement prints 'Paid interest and payments on other financial expenses -1.3', 'Interest received and payments on other financial income 0.5' and 'Taxes paid -6.1', and only then 'CASH FLOW FROM OPERATING ACTIVITIES 34.5'. Both interest sides are INSIDE the operating total, which is struck after them. The two are printed SEPARATELY, so E18 governs: the halves are entered and the store subtracts"
+  interest_source: cash_flow_statement
+
+operating_leases_in_ocf:
+  value: no
+  source: "FRAMEWORK-EDITS E70, applied 2026-09-08 to an IFRS 16 filer"
+  page: "IFRS 16.50(b): a lessee classifies cash payments for the principal portion of the lease liability within FINANCING, and Marimekko prints it there -- p.27 of the same document, CASH FLOW FROM FINANCING ACTIVITIES, 'Payments of lease liabilities -8.7', below the operating total. The operating cash flow never bore the principal, so nothing is added back; the lease is counted once, in net debt (E35, E65)"
+
+annual:
+  - fiscal_year: 2025
+    period_end: 2025-12-31
+    document: "Marimekko Annual report 2025, AUDITED (Nasdaq release 1427103, 2026-03-18), consolidated financial statements, IFRS. Every figure below is also printed in the Financial Statements Bulletin 2025 (release 1419594, 2026-02-12). TWO DOCUMENTS, ONE SET OF FIGURES. PAGE REFERENCES: a figure that has been READ BACK cites the AUDITED annual report, which is what this field names; the figures not yet read back still cite the Bulletin, and each should be re-pointed at the annual report as it is verified. That drift was introduced when the file was written and found by the owner's read-back of 2026-09-08 -- the Bulletin is the same figures but it is the unaudited release, and a page reference must point into the document the entry claims"
+    url: "sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf"
+    figures:
+      revenue:
+        value: 189.6
+        page: "Bulletin p.23, CONSOLIDATED INCOME STATEMENT, 1-12/2025 column: 'NET SALES 189.6' (1-12/2024: 182.6). The annual report's five-year key figures print the same"
+        status: UNVERIFIED
+      operating_income:
+        value: 31.8
+        page: "Bulletin p.23: 'OPERATING PROFIT 31.8' (2024: 31.4). E5: the COMPARABLE operating profit of 32.3 that the issuer leads with is an alternative measure and is NOT entered here -- the as-presented line is"
+        status: UNVERIFIED
+      op_margin:
+        value: 0.168
+        page: "Annual report, Reconciliation of alternative key figures to IFRS: 'Operating profit margin, % 16.8' for 2025 (comparable 17.1). E79: the check compares at the precision the issuer printed; 31.8 / 189.6 = 16.77%"
+        status: UNVERIFIED
+      revenue_yoy:
+        value: 0.04
+        page: "Annual report, Year 2025: 'In 2025, Marimekko's net sales grew by 4 percent and totaled EUR 189.6 million (182.6)'"
+        status: UNVERIFIED
+      total_assets:
+        value: 130.4
+        page: "Bulletin p.24, CONSOLIDATED BALANCE SHEET at 31.12.2025: 'ASSETS, TOTAL 130.4' (31.12.2024: 130.3)"
+        status: UNVERIFIED
+      net_ppe:
+        value: 32.4
+        page: "Bulletin p.24, NON-CURRENT ASSETS: 'Tangible assets 32.4' (2024: 33.3). NAMED CAVEAT: under IFRS 16 this caption INCLUDES right-of-use assets and no note read here splits owned from leased, so it is not a pure owned-property figure. Entered because it is a ranking-key field only (E6's fingerprint) and no section 5 leg divides by it; the lease liability those assets stand against is a separate leg of net debt and is not double-counted"
+        status: UNVERIFIED
+      net_income:
+        value: 24.4
+        page: "Bulletin p.23: 'NET RESULT FOR THE PERIOD 24.4' (2024: 24.4), all of it under 'Distribution of net result to equity holders of the parent company'"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 0.60
+        page: "Bulletin p.23: 'Basic and diluted earnings per share calculated on the result attributable to equity holders of the parent company, EUR 0.60' (2024: 0.60). Annual report note 10 states the same"
+        status: UNVERIFIED
+      ebitda:
+        value: 42.3
+        page: "Annual report, Reconciliation of alternative key figures to IFRS: 'EBITDA 41.9' and 'Comparable EBITDA 42.3' for 2025. THE COMPARABLE FIGURE IS ENTERED, and the FieldSpec asks why: Marimekko's own leverage measure is defined on it -- the formula table states 'Net debt / EBITDA: Interest-bearing net debt / Comparable rolling 12-month EBITDA' -- and the printed ratio of -0.17 reconciles on 42.3 and not on 41.9. The as-reported 41.9 is named here so the choice is visible"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 10.0
+        page: "Bulletin p.23, income statement: 'Depreciation and impairment -10.0' (2024: -9.3), entered as a positive magnitude. The cash flow statement's add-back agrees: p.26, 'Depreciation and impairments 10.0'. E82: the line COMBINES depreciation with impairment and the notes read here do not split them -- entered because the issuer's own EBITDA reconciliation uses the same combined charge (41.9 - 31.8 = 10.1, one rounding step from 10.0)"
+        status: UNVERIFIED
+      net_finance_costs:
+        value: 1.4
+        page: "AUDITED ANNUAL REPORT 2025, PDF page 84 (printed folio 84), 'Consolidated income statement' under 'Consolidated financial statements, IFRS', 2025 column: 'Financial income 7. 0.5 1.2', 'Financial expenses 8. -1.9 -1.6', and beneath them THE UNLABELLED NET, '-1.4 -0.4', above 'RESULT BEFORE TAXES 30.4 31.0'. Marimekko prints no caption on the net row; 0.5 - 1.9 = -1.4. E18 puts the PRINTED net here and leaves the halves blank, and it is entered as a POSITIVE MAGNITUDE because 2025 was a net cost (2024 was a net income of 0.4). NOT THE PARENT COMPANY: PDF page 107 of the same document carries a FAS line 'Financial income and expenses 7. 161,083.54' in euros rather than millions, which is a different statement and a different figure. WHICH LIMB READS IT: not fv_base -- this filer's E34 leg is `net_interest_paid` -- but E25's zero-coverage-denominator limb, which reads `net_finance_costs` DIRECTLY and outside FCF0 (COVERAGE_DENOMINATOR), and E112's Gate 3 coverage ratio, where it is the denominator: 31.8 / 1.4 = 22.71x. That is why E113 does not exempt it. Page reference corrected from the Bulletin at the owner's read-back of 2026-09-08"
+        status: VERIFIED
+        verified_kind: same_page
+      net_debt_ebitda:
+        value: -0.17
+        page: "Annual report, Financial goals and five-year key figures: 'Net debt / EBITDA -0.17' (2024: -0.24; 2023: -0.10), against a stated long-term goal of 'Ratio of net debt to EBITDA at year end max. 2'. As the company states it. NEGATIVE because the company is in net cash"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 34.5
+        page: "AUDITED ANNUAL REPORT 2025, PDF page 86 (printed folio 86), 'Consolidated cash flow statement' under 'Consolidated financial statements, IFRS', 1-12/2025 column: 'CASH FLOW FROM OPERATING ACTIVITIES 34.5 29.1'. AFTER tax ('Taxes paid -6.1' inside the section) and AFTER both interest sides -- the total is struck BELOW 'Paid interest and payments on other financial expenses -1.3' and 'Interest received and payments on other financial income 0.5', which is what interest_in_ocf: yes rests on. SECOND DOCUMENT: the Financial Statements Bulletin 2025, PDF page 26 (printed '26 (35)'), CONSOLIDATED CASH FLOW STATEMENT, prints the same line with the same two figures. The directors' report repeats it per share: 'cash flow from operating activities was EUR 34.5 million (29.1), or EUR 0.85 per share (0.72)'. PAGE REFERENCE CORRECTED 2026-09-08 at the owner's read-back: it named the Bulletin while the entry's `document` and `url` name the audited annual report, and a page reference must point into the document the entry claims"
+        status: VERIFIED
+        verified_kind: cross_document
+      capex_combined:
+        value: -2.9
+        page: "Bulletin p.27, CASH FLOW FROM INVESTING ACTIVITIES: 'Investments in tangible and intangible assets -2.9' -- THE ONE LINE, and the whole of the investing section (2024: -2.3). E23: where the issuer prints one line it is `capex_combined` and the split fields stay blank; no split appears anywhere in the five documents. The annual report's key figures call the same figure 'Gross investments, EUR million 2.9'"
+        status: UNVERIFIED
+      sbc:
+        value: 0.5
+        page: "Bulletin p.26, operating activities, among the adjustments: 'Share-based payments 0.5' (2024: 0.5) -- the non-cash add-back for the Performance share plan. E36 subtracts it from FCF0"
+        status: UNVERIFIED
+      finance_costs_paid:
+        value: 1.3
+        page: "Bulletin p.26, inside operating activities: 'Paid interest and payments on other financial expenses -1.3' (2024: -1.4). A POSITIVE MAGNITUDE here; E18 forms the net with the received half below"
+        status: UNVERIFIED
+      finance_income_received:
+        value: 0.5
+        page: "Bulletin p.26, inside operating activities: 'Interest received and payments on other financial income 0.5' (2024: 0.6). The other half of E18's pair"
+        status: UNVERIFIED
+      lease_payments_capital:
+        value: -8.7
+        page: "Bulletin p.27, CASH FLOW FROM FINANCING ACTIVITIES: 'Payments of lease liabilities -8.7' (2024: -8.0). E70 MEMO: FCF0 does not deduct it -- the lease is charged once, in net debt"
+        status: UNVERIFIED
+      lease_interest_paid:
+        value: 1.0
+        page: "MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf p.96: 'Interest expenses on lease liabilities 1.0' -- the income-statement EXPENSE (IFRS 16.53(b)); interest PAID on leases is not stated separately (p.86 gives only 'Paid interest and payments on other financial expenses -1.3', inside operating, which E34 adds back). ACCRUAL STAND-IN for the cash figure, named as such (E117)"
+        status: VERIFIED
+        verified_kind: same_page
+      nci_dividends_paid:
+        value: 0
+        zero_basis: searched
+        source: "E105 leg; E107 searched absence"
+        page: "E107 SEARCHED ABSENCE. Documents: the audited annual report (sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf, 552,801 characters of extracted text) and all four interim reports. Searched 2026-09-08 for 'non-controlling', 'noncontrolling' and 'minority interest': ZERO occurrences of any of the three in ANY of the five documents. Every income statement assigns the whole result to 'Distribution of net result to equity holders of the parent company' and the balance sheet's equity section is headed 'EQUITY ATTRIBUTABLE TO EQUITY HOLDERS OF THE PARENT COMPANY' with no minority column. No minority exists; nothing to distribute to. A determined zero"
+        status: UNVERIFIED
+      cash_and_equivalents:
+        value: 36.6
+        page: "Bulletin p.24, balance sheet at 31.12.2025, CURRENT ASSETS: 'Cash and cash equivalents 36.6' (31.12.2024: 40.4). The fall is explained in the directors' report: 'In particular, the payment of an extraordinary dividend in April 2025 decreased the Group's cash and cash equivalents'"
+        status: UNVERIFIED
+      financial_liabilities_current:
+        value: 0
+        zero_basis: caption
+        page: "E25 caption. Bulletin p.25, balance sheet at 31.12.2025, CURRENT LIABILITIES: the section is enumerated in full and is 'Trade and other payables 26.4' and 'Lease liabilities 8.2', totalling 34.6. There is no borrowing caption. The FY2024 comparative cash flow carries 'Short-term loans repaid -0.6' and the 2025 column is a dash, so what borrowing there was is gone. E14: the lease is held apart in lease_liabilities"
+        status: UNVERIFIED
+      financial_liabilities_noncurrent:
+        value: 0
+        zero_basis: caption
+        page: "E25 caption. Bulletin p.25, NON-CURRENT LIABILITIES at 31.12.2025: the whole section is 'Lease liabilities 21.5', and the sub-total beneath it is the same 21.5. Nothing else is presented. CONFIRMED BY THE ISSUER'S OWN KEY FIGURE: the annual report's five-year table prints 'Interest-bearing liabilities, EUR million 29.7', which is 21.5 + 8.2 exactly -- so what Marimekko itself calls its interest-bearing liabilities IS the lease, and there are no borrowings beside it. The unused committed credit lines of EUR 22.4 million are a facility, not a drawing"
+        status: UNVERIFIED
+      lease_liabilities:
+        value: 29.7
+        page: "E69 hand read, both stated parts named. Bulletin p.25, balance sheet at 31.12.2025: non-current 'Lease liabilities 21.5' + current 'Lease liabilities 8.2' = 29.7. The annual report's note 15.1 and 15.2 print the same two figures, and its key-figure table states the total directly as 'Interest-bearing liabilities, EUR million 29.7' -- so the sum is confirmed by the issuer against a third statement of it"
+        status: UNVERIFIED
+      pension_deficit:
+        value: 0
+        zero_basis: searched
+        source: "E35.1 leg; E107 searched absence"
+        page: "E107 SEARCHED ABSENCE. Document: sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf (552,801 characters of extracted text), searched 2026-09-08 for 'defined benefit' and 'defined-benefit': ZERO occurrences of either. 'pension' occurs 24 times and every one is either a Finnish pension INSURANCE COMPANY on the shareholder register (Ilmarinen 4.87%, Varma 4.75%, Elo 1.94%) or the remuneration note's sentence, 'Pension benefits include only statutory pension payments. The management does not have additional pension benefits.' Finnish statutory TyEL is a contribution arrangement. No defined-benefit obligation exists and no balance sheet in the five documents presents a pension caption"
+        status: UNVERIFIED
+      asset_retirement_obligation:
+        value: 0
+        zero_basis: searched
+        source: "E68.1 leg; E107 searched absence"
+        page: "E107 SEARCHED ABSENCE. Document: the audited annual report (552,801 characters), searched 2026-09-08 for 'asset retirement', 'decommission', 'dismantl', 'restoration', 'make good', 'dilapidation' and 'restoring': TWO hits across the seven terms and BOTH are sustainability boilerplate -- 'the protection and restoration of biodiversity and ecosystems' (EU taxonomy objectives) and Better Cotton 'protecting and restoring the environment'. Neither is an obligation. E68.1: a clothing and homeware designer that LEASES its stores, on none of the refuse-until-read lists. The balance sheet presents no provision caption at all -- 'current provisions' appears in this report only inside the printed FORMULA for net working capital"
+        status: UNVERIFIED
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81, with the advances NAMED. Annual report note 16, OTHER CURRENT LIABILITIES, 2025: 'Trade payables 11.3', 'Other payables 5.5', 'Accrued liabilities and deferred income 7.9', 'Advances received 1.8', total 26.4. The 1.8 of advances received is a retailer's customer prepayment -- E81's own excluded class, in its own words: 'the ordinary contract liabilities of a subscription or services business, customer deposits, billings in advance -- working capital the flow already carries'. No streaming, offtake or prepaid-delivery arrangement exists in any of the five documents (searched 2026-09-08)"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 40571380
+        page: "AUDITED ANNUAL REPORT 2025, PDF page 31 (printed folio 31), 'Per-share key figures' in the Report of the Board of Directors: 'Share issue adjusted average number of shares 40,571,380 40,571,380 40,571,380' for 2025, 2024 and 2023, with 'Share issue adjusted number of shares at the end of the period' the SAME 40,571,380 -- the average equals the period-end count because no share was issued or cancelled. THE SAME DOCUMENT STATES IT AGAIN AT ITS OWN PRECISION on PDF page 96 (printed folio 96), note 10 EARNINGS PER SHARE, inside the audited consolidated financial statements: 'Net result for the period, EUR million 24.4 24.4 / Weighted average number of shares, 1,000,000 40.6 40.6 / Basic and diluted earnings per share, EUR 0.60 0.60'. BASIC AND DILUTED ARE ONE COUNT (E38), which is why a diluted field takes a figure the report labels only 'average': note 10's own row is headed 'Basic and diluted earnings per share' and the accounting principles state 'There are no potential shares outstanding at the moment', so there is no dilution to add and the stated average IS the diluted average. It reconciles: 24.4 / 40.571 = 0.601, the printed EPS of 0.60. VERIFIED same_page and NOT cross_document -- p.31 and p.96 are two pages of ONE filing, which the owner ruled at the read-back of 2026-09-08. PDF page numbers added at that read-back: the reference named the tables but no page, and a page reference that names no page is weak"
+        status: VERIFIED
+        verified_kind: same_page
+      shares_issued_period_end:
+        value: 40649170
+        page: "AUDITED ANNUAL REPORT 2025, PDF page 24 (printed folio 24), 'Share capital and number of shares' in the Report of the Board of Directors: 'At the end of the financial year, the company's fully paid-up share capital, as recorded in the Trade Register, amounted to EUR 8,040,000 and the number of shares totaled 40,649,170.' STATED TWICE ON THE SAME PAGE: the 'Ownership by size of holding, 31 December 2025' table beneath it totals '38,951 100.00 40,649,170 100.00'. WHICH LIMB READS IT: not the divisor -- E88 keeps a period-end count a MEMO and never promotes one, and the divisor is the weighted average 40,571,380 -- but E54/E80's subtraction rule, whose minuend this is (shares_outstanding_period_end = shares_issued_period_end - treasury_shares_period_end - employee_trust_shares_period_end), read by `share_divisor_on_basis` to print the window-end count beside the divisor. E54: a computed net has no status of its own, its OPERANDS do, and they are what a person checks. That is why E113 does not exempt it. THE NET DOES NOT FORM HERE -- `treasury_shares_period_end` is not in this store -- so this verifies an operand and creates no count. CROSS-CHECK: 40,649,170 issued less the 40,571,380 issue-adjusted count of p.31 is 77,790, the treasury holding at 31.12.2025, consistent with the 167,790 the Q2 2026 report gives at 30.06.2026 after the March buyback and the July transfer. Page reference given a PDF page at the owner's read-back of 2026-09-08"
+        status: VERIFIED
+        verified_kind: same_page
+      free_cash_flow_reported:
+        value: 31.6
+        source: "E103 reference figure, hand-read from the issuer's own directors' report"
+        page: "E103 REFERENCE FIGURE -- compared against section 5's own construction and NEVER used to build one; the section 5 gate refuses if it ever reaches a basis. Annual report, Report of the Board of Directors, Cash flow and financing: 'Cash flow before cash flow from financing activities in the financial year was EUR 31.6 million (26.8).' NAMED EXACTLY BECAUSE IT IS NOT CALLED FREE CASH FLOW: Marimekko publishes no line under that name. The construction is the same one Bouvet calls net free cash flow -- operating cash flow plus investing cash flow, 34.5 - 2.9 = 31.6 -- and it is NOT E34's: it deducts no share-based compensation and adds back no interest, because both interest sides are already inside its operating total. HAND-READ 2026-09-08; E103's automatic model route could not run on this host (no VSS_OPENROUTER_KEY)"
+        status: UNVERIFIED

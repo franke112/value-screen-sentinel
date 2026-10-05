@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What it does not do · The slow way, made survivable</title>
+<meta name="description" content="The security limits, stated as the deployment notes state them. Then the method&#x27;s limits: it cannot tell you a business is good, it cannot make you patient, it cannot stop you overriding it, and it refuses to decide anything for you. The last is deliberate.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="22-limits" data-title="What it does not do">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+<a class="brand" href="index.html">The slow way, made survivable</a>
+<span class="where">Chapter 22 of 23</span>
+</header>
+<div class="frame">
+<div class="chapters"><input type="checkbox" id="menu-toggle" class="menu-toggle"><label for="menu-toggle" class="menu-label">Contents</label><nav aria-label="Chapters" id="contents"><ol><li class="home"><a href="index.html"><span class="n">&nbsp;</span>Start here: the map</a></li><li class="part">Part One · The method</li><li><a href="01-the-problem.html"><span class="n">1</span><span>The problem</span><span class="short">10-min route</span></a></li><li><a href="02-value.html"><span class="n">2</span><span>What value investing is</span><span class="short">10-min route</span></a></li><li><a href="03-this-project.html"><span class="n">3</span><span>This project&#x27;s flavour</span></a></li><li><a href="04-the-screen.html"><span class="n">4</span><span>The screener: two thousand to a handful</span></a></li><li><a href="05-refusal.html"><span class="n">5</span><span>Why a name is refused, and why that is the normal outcome</span></a></li><li><a href="06-what-gets-read.html"><span class="n">6</span><span>What gets read</span></a></li><li><a href="07-reverse-dcf.html"><span class="n">7</span><span>The reverse DCF</span><span class="short">10-min route</span></a></li><li><a href="08-pre-registration.html"><span class="n">8</span><span>Pre-registration: write the belief before you see the number</span><span class="short">10-min route</span></a></li><li><a href="09-three-outcomes.html"><span class="n">9</span><span>The three outcomes</span></a></li><li><a href="10-the-funnel.html"><span class="n">10</span><span>The funnel: six statuses</span></a></li><li><a href="11-the-decision.html"><span class="n">11</span><span>The decision</span></a></li><li><a href="12-shadow-book.html"><span class="n">12</span><span>The shadow book</span></a></li><li class="part">Part Two · The machine</li><li><a href="13-why-a-machine.html"><span class="n">13</span><span>Why the method needed a machine</span><span class="short">10-min route</span></a></li><li><a href="14-the-pieces.html"><span class="n">14</span><span>How the program is put together</span></a></li><li><a href="15-the-record.html"><span class="n">15</span><span>Where the data lives and how it is kept honest</span></a></li><li><a href="16-the-rules-file.html"><span class="n">16</span><span>The rules file</span><span class="short">10-min route</span></a></li><li><a href="17-the-nightly-run.html"><span class="n">17</span><span>The nightly run</span></a></li><li><a href="18-dead-mans-switch.html"><span class="n">18</span><span>The dead man&#x27;s switch</span><span class="short">10-min route</span></a></li><li><a href="19-the-phone.html"><span class="n">19</span><span>The phone problem</span></a></li><li><a href="20-the-boundary.html"><span class="n">20</span><span>The boundary</span></a></li><li><a href="21-the-page.html"><span class="n">21</span><span>The page that arrives</span></a></li><li><a href="22-limits.html" aria-current="page"><span class="n">22</span><span>What it does not do</span></a></li><li><a href="23-close.html"><span class="n">23</span><span>The slow way, made survivable</span><span class="short">10-min route</span></a></li><li class="part">Appendix</li><li><a href="sources.html"><span class="n">&nbsp;</span>All sources</a></li></ol></nav></div>
+<main id="main">
+<div class="article">
+<p class="crumb"><a href="index.html">The map</a> · Part Two · The machine · Chapter 22 of 23</p><h1>What it does not do</h1><p class="lede">The security limits, stated as the deployment notes state them. Then the method&#x27;s limits: it cannot tell you a business is good, it cannot make you patient, it cannot stop you overriding it, and it refuses to decide anything for you. The last is deliberate. <span class="time">About 7 minutes.</span></p>
+<p>This chapter is a list, and the list is not softened. Every item below is written in the project's own records, most of them under a heading that reads "What this does NOT protect against".</p>
+
+<h2>Security</h2>
+<ul class="limits">
+<li><span class="what">The relay operator can read the page.</span><span class="does">Nothing. The ruling calls it not mitigable within this architecture and accepts it as the price of reading the book on a phone from an arbitrary network.</span></li>
+<li><span class="what">The front door is single-factor. Whoever controls the mailbox controls the page.</span><span class="does">Nothing beyond the mailbox's own security. Stated in the ruling.</span></li>
+<li><span class="what">A 24-hour session on an unlocked phone stays open until it expires.</span><span class="does">Nothing. The phone's lock is the control.</span></li>
+<li><span class="what">One bypass rule at the gate provider makes the page public instantly and silently.</span><span class="does">Prohibited by ruling, in bold. No mechanism prevents it.</span></li>
+<li><span class="what">The page's public name appears in certificate logs, so it is discoverable.</span><span class="does">Nothing. "Obscurity is not the control; Access is."</span></li>
+<li><span class="what">The account that controls the domain, the tunnel and the gate is secured by the same mailbox as the front door.</span><span class="does">Nothing yet. Recorded.</span></li>
+<li><span class="what">If the tunnel dies, the phone is not told.</span><span class="does">Nothing. The tunnel runs as a system service that cannot use the failure notifier. The nightly run and its alerting do not depend on it.</span></li>
+<li><span class="what">The page cannot mark itself stale.</span><span class="does">It prints its generation time twice. The requirement to mark itself was withdrawn as unbuildable.</span></li>
+<li><span class="what">The boundary is one configuration block whose removal is silent.</span><span class="does">Named as the boundary; any change is a ruling. A test asks the server for a file it must refuse.</span></li>
+</ul>
+<p>Every line above is taken from the deployment notes and the two rulings on the page.<a class="noteref" href="#n1" id="r1" aria-label="note 1">1</a><span class="note" id="n1" role="note"><span class="nn">1</span>deploy/TUNNEL-NOTES.md, 'What this does NOT protect against'; ruling F1; ruling F2.</span></p>
+
+
+<h2>Monitoring</h2>
+<ul class="limits">
+<li><span class="what">The weekly screen has no outside signal.</span><span class="does">The morning check-in is the only cover.</span></li>
+<li><span class="what">A machine that is up and wrong pings as if it were right.</span><span class="does">Nothing. The observer proves a run finished, not that it was correct.</span></li>
+<li><span class="what">The outside observer can itself be down.</span><span class="does">Nothing.</span></li>
+</ul>
+
+<h2>The method</h2>
+<ul class="limits">
+<li><span class="what">It cannot tell you a business is good.</span><span class="does">It can tell you a business was not faulted on a fixed set of coarse tests, and what growth its price assumes. Whether the business is good is a reading, and the reading is the owner's.</span></li>
+<li><span class="what">One of its five gates has never run.</span><span class="does">Recorded as DATA MISSING for every name, kept, and waiting for the peer figures it needs.</span></li>
+<li><span class="what">Its estimate of value rests on a growth view that will never be verified, and a discount rate that is a preference.</span><span class="does">Both are written down before the price is seen, and the sensitivity to the rate is printed beside every buy price. The ruling says both things in those words.</span></li>
+<li><span class="what">It cannot make you patient.</span><span class="does">It can make the waiting a written number rather than a mood, and report the distance every night. Whether the owner buys at 93 anyway is not the tool's to prevent.</span></li>
+<li><span class="what">It cannot stop you overriding it.</span><span class="does">The owner's file is the owner's. Every status, tier and value in it can be edited by hand, and the tool will faithfully report whatever it finds there. What it will not do is compute a buy price from a value that has no record, or accept one typed in.</span></li>
+<li><span class="what">It refuses to decide anything for you.</span><span class="does">This one is deliberate, and it is the design. See below.</span></li>
+</ul>
+
+<h2>Why the last one is on purpose</h2>
+<p>Everything in this list except the last item is a limit the project would remove if it could. The last is the reason the project exists. A tool that decided would be trusted, and a trusted tool stops being checked, and a tool that is not checked is wrong in ways nobody notices until the money is gone. The tool's refusal to decide is what forces the owner to keep reading, every night, with the unfinished parts of the job named on the page. It is slower than being told. It is the only version of this that can be audited afterwards, by the owner, against a record the owner wrote before the outcome was known.</p>
+<section class="sources"><h2>Sources for this chapter</h2><ol><li>The recorded limits <span class="how">— read from this repository: deploy/TUNNEL-NOTES.md; vss/heartbeat.py (what is not covered); reference/FRAMEWORK-EDITS.md E28, E29, E99, F1, F2</span></li></ol></section><nav class="pager" aria-label="Previous and next chapter"><a class="prev" href="21-the-page.html" rel="prev"><span class="lab">Previous · 21</span>The page that arrives</a><a class="next" href="23-close.html" rel="next"><span class="lab">Next · 23</span>The slow way, made survivable</a><span class="keys" hidden>Keyboard: ← previous chapter, → next chapter.</span></nav><p class="foot">The slow way, made survivable. Built 2026-09-13 from the repository as it stood that day. NAME A and NAME B are fictional; no company, price or holding appears on this site.</p>
+</div>
+</main>
+</div>
+<script src="site.js"></script>
+</body>
+</html>

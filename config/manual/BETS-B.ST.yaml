@@ -1,0 +1,581 @@
+# BETS-B.ST -- Betsson AB (publ), hand-read from the issuer's own reports.
+#
+# THERE IS NO FIGURES APPENDIX. Betsson publishes no xlsx beside its
+# reports -- measured over its last 200 disclosures, every one is a PDF --
+# so every figure below was read off a page by hand and carries that page.
+# `vss appendix` has nothing to run against here and no cell map exists.
+#
+# EVERY FIGURE IS VERIFIED as of 2026-08-25. They were entered from one
+# reading and then READ BACK against the rendered pages by the owner, with
+# zero disagreements and every page citation checked with the figure. The
+# route for 2025-Q4 differs and is recorded in that period's own comment.
+# Section 5 may run on this file (E21); it did not before the read-back.
+# E40 (2026-08-26): every flag here is a read-back against the page the
+# figure was entered from, so its kind is `same_page` -- the parser reads
+# an unstated kind as exactly that, and the report prints it.
+#
+# THE FOUR QUARTERS ARE THE E19 WINDOW: 2025-Q3, 2025-Q4, 2026-Q1 and
+# 2026-Q2, ending 2026-06-30.
+#
+# EVERY FLOW IS THE STANDALONE QUARTER COLUMN -- three months -- and never
+# the cumulative one. Betsson prints both side by side in every report:
+# `Q2 26` beside `Jan-Jun 26`, `Q3 2025` beside `Jan-Sep 2025`, `Q4 25`
+# beside `Jan-Dec 25`. The three-month column is the FIRST of each pair and
+# is what is entered here. The cumulative columns are not entered anywhere.
+#
+# CURRENCY. The accounts are in EUR and the share trades in SEK on Nasdaq
+# Stockholm Large Cap. Both are declared below; nothing here is converted
+# (FRAMEWORK-EDITS E24 governs the price legs, which are not in this file).
+#
+# SIGNS. Outflows are entered as printed, negative: capex, taxes paid,
+# lease payments. `net_finance_costs` follows the schema's own convention
+# and is a POSITIVE MAGNITUDE for a net cost (E18) -- Betsson prints it as
+# a negative net, `Financial income and expenses`, and the sign is flipped
+# here and nowhere else.
+#
+# WHAT IS DELIBERATELY ABSENT, and why:
+#   * capex_ppe / capex_intangibles -- the interims print ONE line,
+#     `Investments in intangibles/tangibles`, and never split it. That line
+#     is entered as `capex_combined` (E23). The annual report splits it;
+#     the quarters do not, and a quarterly basis cannot use the annual
+#     split.
+#   * lease_liabilities -- the balance sheet presents `Lease liabilities`
+#     twice, current and non-current, and states no total. Until E71
+#     (2026-08-30) that was E26's DATA MISSING, both figures named in the
+#     comment beside each period. E71 adds two stated captions the issuer
+#     itself treats as one quantity -- Betsson's evidence is the annual
+#     report's note 30, which presents the lease liability as ONE total at
+#     2025-12-31 (15,359 thousand EUR), and the cash-flow statement's single
+#     `Amortisation of lease liabilities` line -- so the 2026-Q2 entry, the
+#     one stock the basis reads, now carries 18.9 + 4.3 = 23.2 -- the
+#     components the owner read back on 2026-08-25, added under E71 by the
+#     build session on 2026-08-30 and carried `same_page`. The
+#     three older quarters keep their comments only: a stock is taken at
+#     the window's end (E19) and nothing reads theirs.
+#   * net_interest_paid, finance_costs_paid, finance_income_received -- no
+#     interest line appears in the INTERIM cash flows at all. Not zero:
+#     absent. The ANNUAL REPORT discloses both amounts as 'Additional
+#     information' beneath the cash flow statement (p.117), and they are
+#     entered in the annual block below; on this quarterly basis they are
+#     another twelve months (E20) and E41 does not list interest among the
+#     annual-only fields, so FCF0 stays DATA MISSING here until the owner
+#     extends E41's list or the issuer discloses it quarterly.
+#   * finance_costs_period / finance_income_period -- the interims print
+#     only the NET. The net is entered; the operands are not (E18).
+#   * diluted_weighted_average_shares -- defined in every report's
+#     definitions page and printed in none of them. Annual only.
+#   * free_cash_flow_reported, operating_income_adjusted,
+#     diluted_eps_adjusted -- Betsson publishes no such measures. A zero
+#     would claim it reported zero (E25).
+#   * other_current_financial_assets, operating_cash_flow_pretax -- the
+#     concept is not presented and the cash flow is not laid out that way.
+#     A zero there is refused outright (E25).
+#
+# SOURCES, all in sources/ with their provenance in sources/manifest.json:
+#   Q3 2025 interim report      2025-10-24   (Jan-Sep 2025, Q3 column)
+#   year-end report 2025        2026-02-05   (Jan-Dec 2025, Q4 column)
+#   Q1 2026 interim report      2026-04-24   (Jan-Mar 2026, Q1 column)
+#   H1 2026 interim report      2026-07-17   (Jan-Jun 2026, Q2 column)
+#   Annual Report 2025          2026-04-01   (not read for these quarters)
+
+ticker: BETS-B.ST
+name: "Betsson AB (publ)"
+reporting_currency: EUR
+money_unit: millions   # declared 2026-08-26: EUR millions, as the reports print them -- 'EBITDA was EUR 82.5 million' is entered as 82.5
+share_unit: whole      # declared 2026-08-26: 'The total number of shares and votes in Betsson amounts to 142,729,838' entered whole
+quote_currency: SEK
+sector: "Consumer Cyclical"
+reporting_frequency: quarterly
+origin: manual
+
+# E34 (filled 2026-08-26, Build 2 item 7): Betsson books interest INSIDE
+# operating cash flow -- POST-interest. The statement has no interest line
+# of its own; the amounts are the IAS 7.31 disclosure an issuer gives when
+# they sit inside the operating subtotal (REVIEW-4 report A 1.2).
+interest_in_ocf:
+  value: yes
+  source: "Betsson AB (publ) Annual Report 2025 (published 2026-04-01)"
+  page: "p.117, consolidated cash flow statement, 'Additional information' beneath it: 'Interest paid during the year amounted to -15.6' and 'Interest received during the year amounted to 3.5'; the statement itself starts from 'Cash flow from operating activities before changes in working capital 261.5' with no interest line in operating, investing or financing"
+
+# E70 (2026-08-30): whether this filer's operating cash flow bears its
+# lease principal. Under IFRS 16 it does not, so nothing is added back: the
+# lease is counted once, in net debt (E35, E65); `lease_payments_capital`,
+# where entered, is a memo the flow never deducted.
+operating_leases_in_ocf:
+  value: no
+  source: "FRAMEWORK-EDITS E70, applied 2026-08-30 to an IFRS 16 filer"
+  page: "IFRS 16.50(b): a lessee classifies cash payments for the principal portion of the lease liability within FINANCING activities, so this filer's `operating_cash_flow` never bore the principal; the interest portion follows the filer's IAS 7 policy, which `interest_in_ocf` records. The standard leaves no choice on the principal"
+
+periods:
+  # --- 2025-Q3 -------------------------------------------------------------
+  # Source: Betsson AB (publ) interim report January - September 2025,
+  # published 2025-10-24. Every flow below is the `Q3 2025` column, three
+  # months, 1 July - 30 September 2025.
+  # Lease liabilities at 2025-09-30: 5.7 non-current + 4.6 current (p.17),
+  # no total stated -- see the header.
+  - period: 2025-Q3
+    period_end: 2025-09-30
+    period_basis: calendar
+    document: "Betsson AB (publ) interim report January - September 2025 (published 2025-10-24)"
+    figures:
+      # VERIFIED 2026-08-25 -- every figure below was READ BACK against the
+      # RENDERED PAGES of the report named in `document:`, by the owner, and
+      # not by re-reading whatever produced them the first time. Zero
+      # disagreements; every page citation was checked with the figure.
+      revenue:
+        value: 295.8
+        page: "p.16, consolidated income statement, Q3 2025 column (3m)"
+        status: VERIFIED
+      gross_profit:
+        value: 189.8
+        page: "p.16, consolidated income statement, Q3 2025 column (3m)"
+        status: VERIFIED
+      operating_income:
+        value: 66.9
+        page: "p.16, consolidated income statement, Q3 2025 column (3m)"
+        status: VERIFIED
+      depreciation_amortisation:
+        value: -15.7
+        page: "p.16, 'Amortisation and depreciation', Q3 2025 column (3m)"
+        status: VERIFIED
+      net_income:
+        value: 50.1
+        page: "p.16, consolidated income statement, Q3 2025 column (3m)"
+        status: VERIFIED
+      # Printed as the net -2.5; entered as a positive magnitude (E18).
+      net_finance_costs:
+        value: 2.5
+        page: "p.16, 'Financial income and expenses', Q3 2025 column (3m)"
+        status: VERIFIED
+      ebitda:
+        value: 82.5
+        page: "p.1, quarter highlights, 'EBITDA was EUR 82.5 (80.3) million' (3m)"
+        status: VERIFIED
+      operating_cash_flow:
+        value: 64.8
+        page: "p.18, consolidated cash flow statement, Q3 2025 column (3m)"
+        status: VERIFIED
+      income_tax_paid:
+        value: -4.1
+        page: "p.18, 'Taxes paid', Q3 2025 column (3m)"
+        status: VERIFIED
+      capex_combined:
+        value: -12.4
+        page: "p.18, 'Investments in intangibles/tangibles', Q3 2025 column (3m)"
+        status: VERIFIED
+      lease_payments_capital:
+        value: -2.1
+        page: "p.18, 'Lease payments', Q3 2025 column (3m)"
+        status: VERIFIED
+      total_assets:
+        value: 1462.5
+        page: "p.17, consolidated balance sheet at 2025-09-30"
+        status: VERIFIED
+      net_ppe:
+        value: 7.7
+        page: "p.17, 'Property, plant and equipment' at 2025-09-30 (right-of-use assets are a separate line and are not included)"
+        status: VERIFIED
+      cash_and_equivalents:
+        value: 394.2
+        page: "p.17, 'Cash and cash equivalents' at 2025-09-30"
+        status: VERIFIED
+      financial_liabilities_noncurrent:
+        value: 99.1
+        page: "p.17, 'Bond' under non-current liabilities at 2025-09-30"
+        status: VERIFIED
+      # NOT ZERO IN THIS QUARTER: a current bond of 71.0 is on the face of
+      # the balance sheet. The zero in the three later quarters is a
+      # different fact, evidenced separately.
+      financial_liabilities_current:
+        value: 71.0
+        page: "p.17, 'Bond' under current liabilities at 2025-09-30"
+        status: VERIFIED
+      diluted_eps:
+        value: 0.34
+        page: "p.21, KEY RATIOS, 'Diluted earnings per share (EUR)', 2025 Q3 column"
+        status: VERIFIED
+      op_margin:
+        value: 0.226
+        page: "p.21, KEY RATIOS, 'EBIT-margin (% of revenue)' 22.6, 2025 Q3 column"
+        status: VERIFIED
+      net_debt_ebitda:
+        value: -0.7
+        page: "p.21, KEY RATIOS, 'Net debt / EBITDA (Multiple, 12 months)', 2025 Q3 column"
+        status: VERIFIED
+      shares_issued_period_end:
+        value: 142729838
+        page: "p.14, ownership structure, 'The total number of shares and votes in Betsson amounts to 142,729,838'"
+        status: VERIFIED
+      treasury_shares_period_end:
+        value: 4862347
+        page: "p.14, ownership structure, '2,747,433 C-shares and 2,114,914 B-shares at the end of the period'"
+        status: VERIFIED
+
+  # --- 2025-Q4 -------------------------------------------------------------
+  # Source: Betsson AB year-end report 1 January - 31 December 2025,
+  # published 2026-02-05 (Nasdaq category 'Financial Statement Release').
+  # THIS IS THE Q4 DOCUMENT. It prints `Q4 25` beside `Jan-Dec 25`, so the
+  # standalone quarter is read from the report itself and not derived from
+  # the annual report or from any summary table.
+  # Lease liabilities at 2025-12-31: 11.0 non-current + 4.3 current (p.17).
+  - period: 2025-Q4
+    period_end: 2025-12-31
+    period_basis: calendar
+    document: "Betsson AB year-end report 1 January - 31 December 2025 (published 2026-02-05)"
+    figures:
+      # VERIFIED 2026-08-25 BY A DIFFERENT ROUTE, and the route is recorded
+      # because it is not the same evidence as the other three quarters.
+      # Betsson's year-end report is the Q4 document, and the read-back
+      # confirmed it two ways:
+      #   * the income-statement and cash-flow lines appear again in the
+      #     QUARTERLY DATA tables of the Q1 2026 report (p.19) and the H1
+      #     2026 report (p.20), which agree with the year-end report;
+      #   * the three cash-flow lines that appear ONLY in the year-end
+      #     report reconcile exactly against the full-year column less the
+      #     other three quarters: taxes -50.4 - (-35.2) = -15.2, capex
+      #     -64.6 - (-36.8) = -27.8, leases -8.3 - (-6.2) = -2.1.
+      # Arithmetic re-checked here; all three land on the entered figures.
+      revenue:
+        value: 303.9
+        page: "p.16, consolidated income statement, Q4 25 column (3m)"
+        status: VERIFIED
+      gross_profit:
+        value: 183.9
+        page: "p.16, consolidated income statement, Q4 25 column (3m)"
+        status: VERIFIED
+      operating_income:
+        value: 53.2
+        page: "p.16, consolidated income statement, Q4 25 column (3m)"
+        status: VERIFIED
+      depreciation_amortisation:
+        value: -16.1
+        page: "p.16, 'Amortisation and depreciation', Q4 25 column (3m)"
+        status: VERIFIED
+      net_income:
+        value: 35.0
+        page: "p.16, consolidated income statement, Q4 25 column (3m)"
+        status: VERIFIED
+      net_finance_costs:
+        value: 7.6
+        page: "p.16, 'Financial income and expenses' -7.6, Q4 25 column (3m)"
+        status: VERIFIED
+      ebitda:
+        value: 69.3
+        page: "p.1, quarter highlights, 'EBITDA was EUR 69.3 (86.4) million' (3m)"
+        status: VERIFIED
+      operating_cash_flow:
+        value: 23.1
+        page: "p.18, consolidated cash flow statement, Q4 25 column (3m)"
+        status: VERIFIED
+      income_tax_paid:
+        value: -15.2
+        page: "p.18, 'Taxes paid', Q4 25 column (3m)"
+        status: VERIFIED
+      capex_combined:
+        value: -27.8
+        page: "p.18, 'Investments in intangibles/tangibles', Q4 25 column (3m)"
+        status: VERIFIED
+      lease_payments_capital:
+        value: -2.1
+        page: "p.18, 'Lease payments', Q4 25 column (3m)"
+        status: VERIFIED
+      total_assets:
+        value: 1328.0
+        page: "p.17, consolidated balance sheet at 31 Dec 25"
+        status: VERIFIED
+      net_ppe:
+        value: 7.9
+        page: "p.17, 'Property, plant and equipment' at 31 Dec 25"
+        status: VERIFIED
+      cash_and_equivalents:
+        value: 322.7
+        page: "p.17, 'Cash and cash equivalents' at 31 Dec 25"
+        status: VERIFIED
+      financial_liabilities_noncurrent:
+        value: 173.2
+        page: "p.17, 'Bond' under non-current liabilities at 31 Dec 25"
+        status: VERIFIED
+      # E25: zero on the `note` form. p.10 states what the external
+      # financing consisted of, and both bonds mature in 2027 and 2029 --
+      # neither is current. NOT the `subtotal` form: 'Other current
+      # liabilities' is a caption with room in it.
+      financial_liabilities_current:
+        value: 0
+        zero_basis: note
+        page: "p.10, 'External financing': 'The external financing at the end of the period consisted of bonds amounting to EUR 173.2 million', with the bond table showing maturities Sep 2027 and Dec 2029"
+        status: VERIFIED
+      diluted_eps:
+        value: 0.24
+        page: "p.21, KEY RATIOS, 'Diluted earnings per share (EUR)', 2025 Q4 column"
+        status: VERIFIED
+      op_margin:
+        value: 0.175
+        page: "p.21, KEY RATIOS, 'EBIT-margin (% of revenue)' 17.5, 2025 Q4 column"
+        status: VERIFIED
+      net_debt_ebitda:
+        value: -0.5
+        page: "p.21, KEY RATIOS, 'Net debt / EBITDA (Multiple, 12 months)', 2025 Q4 column"
+        status: VERIFIED
+      shares_issued_period_end:
+        value: 142729838
+        page: "p.14, ownership structure, 'The total number of shares and votes in Betsson amounts to 142,729,838'"
+        status: VERIFIED
+      treasury_shares_period_end:
+        value: 5077355
+        page: "p.14, ownership structure, '2,747,433 C-shares and 2,329,922 B-shares at the end of the period'"
+        status: VERIFIED
+
+  # --- 2026-Q1 -------------------------------------------------------------
+  # Source: Betsson AB interim report 1 January - 31 March 2026, published
+  # 2026-04-24. Every flow is the `Q1 26` column, three months.
+  # Lease liabilities at 31 Mar 26: 17.8 non-current + 1.1 current (p.16).
+  - period: 2026-Q1
+    period_end: 2026-03-31
+    period_basis: calendar
+    document: "Betsson AB interim report 1 January - 31 March 2026 (published 2026-04-24)"
+    figures:
+      # VERIFIED 2026-08-25 -- every figure below was READ BACK against the
+      # RENDERED PAGES of the report named in `document:`, by the owner, and
+      # not by re-reading whatever produced them the first time. Zero
+      # disagreements; every page citation was checked with the figure.
+      revenue:
+        value: 285.3
+        page: "p.15, consolidated income statement, Q1 26 column (3m)"
+        status: VERIFIED
+      gross_profit:
+        value: 164.4
+        page: "p.15, consolidated income statement, Q1 26 column (3m)"
+        status: VERIFIED
+      operating_income:
+        value: 34.0
+        page: "p.15, consolidated income statement, Q1 26 column (3m)"
+        status: VERIFIED
+      depreciation_amortisation:
+        value: -15.9
+        page: "p.15, 'Amortisation and depreciation', Q1 26 column (3m)"
+        status: VERIFIED
+      net_income:
+        value: 25.5
+        page: "p.15, consolidated income statement, Q1 26 column (3m)"
+        status: VERIFIED
+      net_finance_costs:
+        value: 1.0
+        page: "p.15, 'Financial income and expenses' -1.0, Q1 26 column (3m)"
+        status: VERIFIED
+      ebitda:
+        value: 50.0
+        page: "p.1, quarter highlights, 'EBITDA was EUR 50.0 (77.7) million' (3m)"
+        status: VERIFIED
+      operating_cash_flow:
+        value: 58.1
+        page: "p.17, consolidated cash flow statement, Q1 26 column (3m)"
+        status: VERIFIED
+      income_tax_paid:
+        value: -9.2
+        page: "p.17, 'Taxes paid', Q1 26 column (3m)"
+        status: VERIFIED
+      capex_combined:
+        value: -14.6
+        page: "p.17, 'Investments in intangibles/tangibles', Q1 26 column (3m)"
+        status: VERIFIED
+      lease_payments_capital:
+        value: -1.9
+        page: "p.17, 'Lease payments', Q1 26 column (3m)"
+        status: VERIFIED
+      total_assets:
+        value: 1352.5
+        page: "p.16, consolidated balance sheet at 31 Mar 26"
+        status: VERIFIED
+      net_ppe:
+        value: 7.6
+        page: "p.16, 'Property, plant and equipment' at 31 Mar 26"
+        status: VERIFIED
+      cash_and_equivalents:
+        value: 341.8
+        page: "p.16, 'Cash and cash equivalents' at 31 Mar 26"
+        status: VERIFIED
+      financial_liabilities_noncurrent:
+        value: 173.4
+        page: "p.16, 'Bond' under non-current liabilities at 31 Mar 26"
+        status: VERIFIED
+      financial_liabilities_current:
+        value: 0
+        zero_basis: note
+        page: "p.10, 'External financing': 'The external financing at the end of the period consisted of bonds amounting to EUR 173.4 million', with the bond table showing maturities Sep 2027 and Dec 2029"
+        status: VERIFIED
+      diluted_eps:
+        value: 0.18
+        page: "p.20, KEY RATIOS, 'Diluted earnings per share (EUR)', 2026 Q1 column"
+        status: VERIFIED
+      op_margin:
+        value: 0.119
+        page: "p.20, KEY RATIOS, 'EBIT-margin (% of revenue)' 11.9, 2026 Q1 column"
+        status: VERIFIED
+      net_debt_ebitda:
+        value: -0.6
+        page: "p.20, KEY RATIOS, 'Net debt / EBITDA (Multiple, 12 months)', 2026 Q1 column"
+        status: VERIFIED
+      shares_issued_period_end:
+        value: 142729838
+        page: "p.14, ownership structure, 'The total number of shares and votes in Betsson amounts to 142,729,838'"
+        status: VERIFIED
+      treasury_shares_period_end:
+        value: 7185355
+        page: "p.14, ownership structure, '2,747,433 C-shares and 4,437,922 B-shares at the end of the period'"
+        status: VERIFIED
+
+  # --- 2026-Q2 -------------------------------------------------------------
+  # Source: Betsson AB interim report January - June 2026, published
+  # 2026-07-17. Every flow is the `Q2 26` column, three months -- the H1
+  # columns beside it are six months and are not entered.
+  # Lease liabilities at 30 Jun 26: 18.9 non-current + 4.3 current (p.17).
+  # The share count fell in the quarter: 3,094,000 class B shares were
+  # cancelled in May 2026 (p.3), which is why the issued count differs from
+  # the three earlier quarters.
+  - period: 2026-Q2
+    period_end: 2026-06-30
+    period_basis: calendar
+    document: "Betsson AB interim report January - June 2026 (published 2026-07-17)"
+    figures:
+      # E35.1 (2026-09-04): the issuer states the plan type IN WORDS, and
+      # the Swedish ITP case is stated with it -- defined-benefit in form,
+      # REPORTED as defined-contribution because Alecta cannot supply the
+      # allocation. Either way no net defined-benefit liability is
+      # recognised, which is what this field holds.
+      pension_deficit:
+        value: 0
+        zero_basis: note
+        source: "E110 sweep 2026-09-04; E25 note basis"
+        page: "sources/BETS-B.ST_2025-FY_annual-financial-report_2026-04-01_en_a1.pdf (Betsson AB (publ) Annual Report 2025, published 2026-04-01; 521,159 characters of extracted text), accounting policies / note 2: the Group has 'only defined-contribution pension plans (except for portions... which are defined-benefit pension plans but which are reported as defined-contribution pension plans, see Note 2)'; 'The ITP pension plan that is secured...' is the Alecta multi-employer arrangement, and the note says it is REPORTED as defined-contribution. E35.1 holds the RECOGNISED net defined-benefit liability, and none is recognised. Searched 2026-09-04: 'post-employment' ZERO occurrences."
+        status: UNVERIFIED
+      asset_retirement_obligation:
+        value: 0
+        zero_basis: searched
+        source: "E110 sweep 2026-09-04; E25 named zero on an E107 search"
+        page: "E107 SEARCHED ABSENCE. Document: sources/BETS-B.ST_2025-FY_annual-financial-report_2026-04-01_en_a1.pdf (Betsson AB (publ) Annual Report 2025, published 2026-04-01; 521,159 characters of extracted text). Searched 2026-09-04 for 'asset retirement', 'restoration', 'dismantl', 'make good' -- ZERO occurrences of any of them ('decommission' appears once and is not about a liability). An online gambling operator has no plant to restore, and no such caption stands on the balance sheet."
+        status: UNVERIFIED
+      # VERIFIED 2026-08-25 -- every figure below was READ BACK against the
+      # RENDERED PAGES of the report named in `document:`, by the owner, and
+      # not by re-reading whatever produced them the first time. Zero
+      # disagreements; every page citation was checked with the figure.
+      revenue:
+        value: 310.2
+        page: "p.16, consolidated income statement, Q2 26 column (3m)"
+        status: VERIFIED
+      gross_profit:
+        value: 177.5
+        page: "p.16, consolidated income statement, Q2 26 column (3m)"
+        status: VERIFIED
+      operating_income:
+        value: 42.2
+        page: "p.16, consolidated income statement, Q2 26 column (3m)"
+        status: VERIFIED
+      depreciation_amortisation:
+        value: -16.3
+        page: "p.16, 'Amortisation and depreciation', Q2 26 column (3m)"
+        status: VERIFIED
+      net_income:
+        value: 30.4
+        page: "p.16, consolidated income statement, Q2 26 column (3m)"
+        status: VERIFIED
+      net_finance_costs:
+        value: 0.8
+        page: "p.16, 'Financial income and expenses' -0.8, Q2 26 column (3m)"
+        status: VERIFIED
+      ebitda:
+        value: 58.5
+        page: "p.1, quarter highlights, 'EBITDA was EUR 58.5 (84.1) million' (3m)"
+        status: VERIFIED
+      operating_cash_flow:
+        value: 60.4
+        page: "p.18, consolidated cash flow statement, Q2 26 column (3m)"
+        status: VERIFIED
+      income_tax_paid:
+        value: -19.0
+        page: "p.18, 'Taxes paid', Q2 26 column (3m)"
+        status: VERIFIED
+      capex_combined:
+        value: -14.2
+        page: "p.18, 'Investments in intangibles/tangibles', Q2 26 column (3m)"
+        status: VERIFIED
+      lease_payments_capital:
+        value: -3.0
+        page: "p.18, 'Lease payments', Q2 26 column (3m)"
+        status: VERIFIED
+      total_assets:
+        value: 1353.7
+        page: "p.17, consolidated balance sheet at 30 Jun 26"
+        status: VERIFIED
+      net_ppe:
+        value: 7.6
+        page: "p.17, 'Property, plant and equipment' at 30 Jun 26"
+        status: VERIFIED
+      cash_and_equivalents:
+        value: 310.0
+        page: "p.17, 'Cash and cash equivalents' at 30 Jun 26"
+        status: VERIFIED
+      financial_liabilities_noncurrent:
+        value: 173.6
+        page: "p.17, 'Bond' under non-current liabilities at 30 Jun 26"
+        status: VERIFIED
+      # E25, the ruled entry: zero on the `note` form, cited to the
+      # external-financing sentence. NOT `subtotal` -- 'Other current
+      # liabilities' is a caption with room in it, so the arithmetic of the
+      # subtotal excludes nothing.
+      financial_liabilities_current:
+        value: 0
+        zero_basis: note
+        page: "p.10, 'External financing': 'The external financing at the end of the period consisted of bonds amounting to EUR 173.6 million'"
+        status: VERIFIED
+      diluted_eps:
+        value: 0.21
+        page: "p.21, KEY RATIOS, 'Diluted earnings per share (EUR)', 2026 Q2 column"
+        status: VERIFIED
+      op_margin:
+        value: 0.136
+        page: "p.21, KEY RATIOS, 'EBIT-margin (% of revenue)' 13.6, 2026 Q2 column"
+        status: VERIFIED
+      net_debt_ebitda:
+        value: -0.5
+        page: "p.21, KEY RATIOS, 'Net debt / EBITDA (Multiple, 12 months)', 2026 Q2 column"
+        status: VERIFIED
+      # E71 (2026-08-30): two stated captions the issuer never totals in the
+      # interim but itself treats as one liability -- added, both named.
+      lease_liabilities:
+        value: 23.2
+        page: "E71: p.17, consolidated balance sheet, 30 Jun 2026: 'Lease liabilities' 18.9 (non-current) + 'Lease liabilities' 4.3 (current) = 23.2 (EUR millions); the interim states no total. The issuer's evidence that they are one quantity: Annual Report 2025 note 30 presents the lease liability as ONE total at 2025-12-31 (15,359 thousand EUR, in the report's own scale), and the cash-flow statement carries a single 'Amortisation of lease liabilities' line. IFRS 16: every lease, one lessee model (E65 adds nothing). The two components are the owner's own reading of p.17, read back against the rendered page on 2026-08-25 and named in the comment above this entry since then; the addition is E71's. Entered 2026-08-30 by the build session -- the weaker component's kind governs (same_page)"
+        status: VERIFIED
+        verified_kind: same_page
+      shares_issued_period_end:
+        value: 139635838
+        page: "p.14, ownership structure, 'The total number of shares and votes in Betsson amounts to 139,635,838'"
+        status: VERIFIED
+      treasury_shares_period_end:
+        value: 4330556
+        page: "p.14, ownership structure, '2,747,433 C-shares and 1,583,123 B-shares at the end of the period'"
+        status: VERIFIED
+
+# E36 / E41 (2026-08-26, Build 2 item 7). The annual report is the only
+# document that states share-based remuneration and the cash interest pair.
+# `sbc` is the EQUITY-SETTLED charge, which is the 1.3 credited to retained
+# earnings in the statement of changes in equity -- NOT the 3.6 added back
+# in the cash flow (note 7), which also carries the social-security accrual
+# the accounting policy books as a LIABILITY (cash-settled, and so already
+# borne by operating cash flow when paid; E36's double-count rule).
+annual:
+  - fiscal_year: 2025
+    period_end: 2025-12-31
+    document: "Betsson AB (publ) Annual Report 2025 (published 2026-04-01), sources/BETS-B.ST_2025-FY_annual-financial-report_2026-04-01_en_a1.pdf"
+    figures:
+      sbc:
+        value: 1.3
+        page: "p.118, consolidated statement of changes in equity, 'Share-based remuneration' 1.3 under retained earnings (2025); the cash flow's 'Share-based remuneration 7 3.6' on p.117 is the add-back INCLUDING social-security charges, which the accounting policy (p.124) books as a liability rather than equity"
+        status: VERIFIED
+      finance_costs_paid:
+        value: 15.6
+        page: "p.117, 'Additional information' beneath the cash flow statement: 'Interest paid during the year amounted to -15.6' (2025 column; 2024: -23.5). A POSITIVE MAGNITUDE here"
+        status: VERIFIED
+      finance_income_received:
+        value: 3.5
+        page: "p.117, 'Additional information' beneath the cash flow statement: 'Interest received during the year amounted to 3.5' (2025 column; 2024: 6.5)"
+        status: VERIFIED

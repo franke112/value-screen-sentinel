@@ -1,0 +1,156 @@
+schema: vss/review v1
+ticker: ACN
+date: '2026-09-19'
+status_at_start: INTAKE
+prepare_report: reports/prepare/ACN-2026-09-19.json
+prepare_waived: null
+steps:
+- step: intake
+  outcome: pipeline
+  text: pipeline — FY2026 annual results land 2026-10-01; FY2025 basis is 13 months
+    old and FY2026 acquisitions (~9bn guided) make the net-cash leg stale. Re-run
+    intake on FY2026 annual. Review g_base 0.045 then against the 3–4% guide.
+  answered_at: '2026-09-19T19:21:05+02:00'
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: gate-1
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: stopped at intake, awaiting FY2026 annual.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: gate-2
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: stopped at intake, awaiting FY2026 annual.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: gate-3
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: stopped at intake, awaiting FY2026 annual.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: gate-4
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: stopped at intake, awaiting FY2026 annual.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: gate-5
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: stopped at intake, awaiting FY2026 annual.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: hard-kills
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: stopped at intake, awaiting FY2026 annual.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: conviction
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: stopped at intake, awaiting FY2026 annual.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: basis
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: stopped at intake, awaiting FY2026 annual.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: flow
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: stopped at intake, awaiting FY2026 annual.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: net-debt
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: stopped at intake, awaiting FY2026 annual.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: divisor
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: stopped at intake, awaiting FY2026 annual.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: growth-view
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: stopped at intake, awaiting FY2026 annual.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: strike
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: stopped at intake, awaiting FY2026 annual.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: tier-mbp
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: stopped at intake, awaiting FY2026 annual.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: verdict
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: stopped at intake, awaiting FY2026 annual.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+growth_view: null
+note: '2026-09-19: intake paused, pipeline. Re-run after FY2026 results 2026-10-01
+  on the FY2026 annual basis. Dated event for Gate 5: 2026-10-01.'

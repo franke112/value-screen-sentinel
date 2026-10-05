@@ -1,0 +1,621 @@
+# config/manual/LUG.ST.yaml -- Lundin Gold Inc., hand-read from the issuer's
+# quarterly filing packages as released on the Nasdaq Stockholm disclosure
+# feed (sources/manifest.json, origin nasdaq-nordic, market "Main Market,
+# Stockholm", company "Lundin Gold Inc."). Built 2026-08-30. IFRS; calendar
+# year; quarterly reporter in US DOLLARS; Toronto-primary (TSX: LUG) with a
+# Stockholm secondary listing quoted in SEK -- so reporting_currency USD and
+# quote_currency SEK, and every price leg needs E24's conversion.
+#
+# WHERE ITS DOCUMENTS ARE. Lundin Gold is on the Nasdaq Stockholm feed: each
+# results release carries the news release AND the full package (MD&A +
+# financial statements) as attachments, which `vss nordic` fetched. The
+# annual report is NOT on the feed (release 1437107 of 2026-04-24 is a
+# two-page notice that it was published at lundingold.com/en/investors/
+# quarterly-and-annual-financial-statements/; the file there is
+# lug_2025_annual_report_final_23apr.pdf) and the AIF is on SEDAR+. The
+# AUDITED annual statements are inside the Q4 package below, as Canadian
+# practice has it, so nothing needed for the figures is missing.
+#   Q3 2025  release 1399286 (2025-11-07), a0 = MD&A + interim FS (48 pp)
+#            sources/LUG.ST_2025-Q3_interim-report-q1-and-q3_2025-11-07_en_a0.pdf
+#   FY 2025  release 1421529 (2026-02-20), a0 = annual MD&A + AUDITED
+#            consolidated statements (81 pp; independent auditor's report p.48)
+#            sources/LUG.ST_2025-Q4_financial-statement-release_2026-02-20_en_a0.pdf
+#   Q1 2026  release 1440378 (2026-05-07), a1 = MD&A + interim FS (43 pp)
+#            sources/LUG.ST_2026-Q1_interim-report-q1-and-q3_2026-05-07_en_a1.pdf
+#   Q2 2026  release 1457227 (2026-08-06), a1 = MD&A + interim FS (48 pp)
+#            sources/LUG.ST_2026-Q2_half-year-financial-report_2026-08-06_en_a1.pdf
+#   (the partner attachment of each release is the 9-11 page news release;
+#   recorded, not read for figures.) No ESEF package exists: a Canadian
+#   issuer filing under NI 51-102, not the Transparency Directive.
+#
+# READ-BACK. Every figure was read from the PDF text layer and then read
+# back against the page rendered as an image (PyMuPDF, 95 dpi): the
+# statements of income and cash flows of every package, the Q2 2026 and
+# FY2025 statements of financial position, Q2 2026 notes 17 and 19, FY2025
+# notes 10-11 and 19, and the MD&A highlights tables (p.2 of each package)
+# and the FY2025 MD&A's quarterly summary (p.21). The text layer carries
+# every numeral intact; every figure agreed. Printed page = PDF page.
+#
+# STATUS: all UNVERIFIED (owner's instruction). No section 5 run, no
+# fv_base, no tier, no mbp; no growth view is registered -- and see THE
+# FLAG below before one is.
+#
+# UNITS: US$ THOUSANDS (money_unit thousands), as every statement is headed;
+# share_unit WHOLE. Per-share figures in US$.
+#
+# THE FOURTH QUARTER IS ONLY PARTLY STATED. Canadian annual statements
+# carry no Q4 column. The FY2025 MD&A states Q4 2025 revenue, income from
+# mining operations, EBITDA, net income, EPS, cash provided by operating
+# activities and free cash flow (highlights table p.2, 'Three months ended
+# December 31, 2025') and the quarterly summary (p.21) adds diluted EPS and
+# the share counts -- those are entered. It states NO Q4 cash capex (the
+# p.21 'Additions to property, plant and equipment 27,331' is the accrual
+# addition, not 'Acquisition and development of property, plant and
+# equipment' paid), NO Q4 depletion and depreciation, NO Q4 interest
+# received. FY less nine months would supply them and is a subtraction the
+# accounts never print (E22), so on the TTM basis FCF0 is DATA MISSING for
+# the capex leg and the interest leg. The FY2025 annual basis is complete.
+#
+# THE FLAG (reported, not decided -- the Norsk Hydro question). Revenue is
+# ounces sold times a gold price the company does not hedge: 'The Company
+# has not hedged the price of any commodity at this time' (FY2025 note 21,
+# p.78; Q2 2026 MD&A p.24). Average realized gold price was $3,634/oz in
+# Q3 2025, $4,299 in Q4 2025, $4,951 in Q1 2026 and $4,359 in Q2 2026
+# (MD&A p.2 of each package), against all-in sustaining costs of $1,036 /
+# $1,193 / $1,114 / $1,176 per oz -- so the TTM cash flow below is the
+# product of a price that moved 36% inside the window and a mine plan for
+# ONE asset (Fruta del Norte, Ecuador; 'dependence on a single mine' is in
+# the issuer's own risk list). Concentrate sales are provisionally priced
+# and marked to forward gold prices until final settlement (Q2 2026 note
+# 3(a): a $23.3 million decrease in receivables in the quarter 'reflecting
+# declining gold prices'). Royalties and Ecuadorian profit sharing scale
+# with price (MD&A: 'For every $100 per oz increase in gold price', cash
+# operating cost and AISC rise), and an Exploitation Agreement sovereign
+# adjustment guarantees Ecuador no less than 50% of cumulative economic
+# benefits over the life of mine (note 20). From 2026 the SILVER STREAM
+# (below) sells 100% of payable silver to LunR for 10% of spot. A ten-year
+# growth rate registered on this cash flow is a gold-price forecast times a
+# reserve life unless it is written as volume with price as a scenario.
+#
+# THE SILVER STREAM OBLIGATION, named for a ruling. On 2026-05-28 Lundin
+# Gold sold a life-of-mine silver stream to LunR Royalties Corp. for
+# 50,505,051 LunR shares, distributed to shareholders in kind on 2026-06-11;
+# the Stream is 'a derivative financial liability, to be measured at fair
+# value' (Q2 2026 note 8, p.37): 'Silver stream obligation 663,990'
+# non-current and 'Current portion of silver stream obligation 26,355' on
+# the balance sheet (p.30), note 19 (p.45) total 690,345 (inception 821,452,
+# less deliveries 4,395, less a derivative gain 126,712). It is settled in
+# silver, not cash, and is NOT a borrowing under E14/E35 as written -- so
+# the borrowing fields below are caption zeros and the Stream is NAMED here
+# and in the report, not entered. Whether a metal-stream obligation is a
+# net-debt leg (E68's reasoning: a measured, discounted, non-optional
+# future outflow) is the owner's ruling; net debt without it reads as
+# $507 million of net cash.
+#
+# E34 -- INTEREST. Interest RECEIVED is inside operating activities: the
+# FY2025 statement prints 'Interest received 22,863' in the working-capital
+# block above 'Net cash provided by operating activities' (p.54), the Q3
+# 2025 statement the same ('Interest received 6,892', p.33); the 2026
+# interim statements dropped the separate line but changed nothing -- the
+# finance income sits in net income with no reclassification, and Q2 2026
+# note 17 (p.42) restates 'Interest received 5,897' for the quarter and
+# 12,240 for the half. Interest PAID, when the company had debt, was a
+# FINANCING line ('Interest paid (3,688)' in 2024, p.54, with the dash for
+# 2025). Nil since the 2024 repayment. So `interest_in_ocf: yes` -- the
+# operating cash flow bears every interest flow the filer has -- and E34's
+# add-back of net interest paid (nil paid less received) REMOVES the
+# interest income from FCF0 where both halves are stated. They are stated
+# for Q3 2025, Q2 2026 and FY2025; NOT for Q4 2025 (no Q4 column) and NOT
+# for Q1 2026 (its note 16, p.39, lists only the cash composition), so on
+# the TTM basis the leg is DATA MISSING and named in the report. Mixed
+# placement (paid outside, received inside) is the same shape RMV.L shows
+# in mirror image -- a class for the owner.
+#
+# E70 -- LEASES. No lease liability caption anywhere in the statements or
+# notes; nothing to add back. `operating_leases_in_ocf: no` under IFRS 16
+# as a matter of standard, with nothing behind it.
+#
+# E35 / E35.1 / E65-E68 -- NET DEBT LEGS at 2026-06-30 (p.30):
+#   * borrowings: ZERO on the caption form -- the balance sheet enumerates
+#     every liability (accounts payable and accrued liabilities, income
+#     taxes payable, other current liabilities, current portion of silver
+#     stream obligation, other non-current liabilities, silver stream
+#     obligation, reclamation provisions, deferred income tax liabilities)
+#     and no borrowing is among them; the FY2025 quarterly summary prints
+#     'Long-term debt -' for every 2025 quarter (p.21); the 2024 debt was
+#     repaid ('Repayments of long-term debt (101,106)', 2024, p.54). The
+#     Stream is named above, not here.
+#   * leases: ZERO on the caption form -- no lease liability line on the
+#     balance sheet; 'Other current/non-current liabilities' are the
+#     cash-settled share units (note 10).
+#   * pension: DATA MISSING. No pension caption and NO SENTENCE anywhere in
+#     the FY2025 notes saying the company has no defined-benefit plan (the
+#     word does not occur in the audited statements). E35.1's note form
+#     needs the sentence; absence of the word is not it. A class for the
+#     owner: filers with no plan and no statement.
+#   * asset retirement obligation: 'Reclamation provisions 8,910' -- the
+#     mine-closure provision, read as E68 requires of an extractive filer
+#     (E68.1's refuse-until-read list), not zeroed; FY2025 note 10 (p.68)
+#     gives the undiscounted, inflated estimate of $29.8 million at a 9.4%
+#     pre-tax discount rate, 8,626 at 31 December 2025.
+#   * cash: 'Cash and cash equivalents 507,130' INCLUDES short-term
+#     investments of 99,986 (note 17, p.42: cash 407,144 + short-term
+#     investments 99,986); no separate current financial asset line, so
+#     `other_current_financial_assets` is blank (E25). Provisionally priced
+#     trade receivables of $134 million are fair-valued, inside receivables.
+#
+# E36 -- SHARE-BASED COMPENSATION. The cash flow line 'Stock-based
+# compensation' (8,583 / 4,100 / (2,911) / 48,460) is dominated by the
+# REVALUATION of cash-settled share units, which are 'recognized as
+# financial liabilities measured at fair value' and paid through 'Share
+# units settled in cash' inside operating cash flow (27,250 in Q1 2026) --
+# so FCF0 already bears them and E36 excludes them. The EQUITY-SETTLED
+# charge is the stock-option expense: $1.0 million for 2025 (FY note 12,
+# p.69: 'expense of $1.0 million (2024 - $1.2 million) related to
+# options'), $0.3 million for Q1 2026 (Q1 note 9, p.35), stated for the
+# nine months ($0.8 million) not the quarter in Q3 2025, and for the half
+# ($0.5 million) not the quarter in Q2 2026. `sbc` is entered where the
+# period's own figure is printed and is DATA MISSING otherwise; the annual
+# 1,000 reaches the TTM basis under E41.
+#
+# E38 / E75 / E75.1 -- DIVISOR. Each statement prints a diluted weighted
+# average for its period; FY2025's 242,510,385 (p.52; note 11 p.68) is
+# E41's annual figure. No period-end share count is printed for 30 June
+# 2026 (note 9 states issuances only); the MD&A's 'As at the date of this
+# MD&A, there were 241,832,730 common shares issued and outstanding' (p.32)
+# is a count on a later day and is entered as the memo `shares_point_in_time`
+# (E38: never the divisor). The window-end count is DATA MISSING; E41's
+# annual average stands, 0.3% from the point-in-time count.
+#
+# E23 -- CAPEX. One line, 'Acquisition and development of property, plant
+# and equipment' -> `capex_combined`; 'VAT paid on investing activities'
+# is a separate line, not capex, named. No intangibles line; mineral
+# properties are depleted, not purchased.
+#
+# NOT PRESENTED: an operating profit line (Canadian format runs income from
+# mining operations, then other expenses, to net income before tax -- E5
+# takes the statement's own presentation, and there is none, so
+# `operating_income` and `op_margin` are absent); a stated revenue growth
+# rate; gross profit is entered as 'Income from mining operations'
+# (revenue less cost of goods sold including depletion), the statement's
+# own subtotal. EBITDA is the MD&A's non-IFRS 'Adjusted EBITDA' (the figure
+# the issuer guides on; for Q2 2026 it excludes the derivative gain and
+# LunR loss that the unadjusted 398,879 carries).
+
+ticker: LUG.ST
+name: Lundin Gold Inc.
+reporting_currency: USD
+money_unit: thousands
+share_unit: whole
+quote_currency: SEK
+sector: Basic Materials   # the screener's own string (data/screener_snapshots/2026-08-29/fundamentals.sqlite, field sector) -- not from these documents
+reporting_frequency: quarterly
+origin: manual
+
+interest_in_ocf:
+  value: yes
+  source: "Consolidated statements of cash flows, years ended December 31, 2025 and 2024 (audited, FY2025 package p.54); Q3 2025 and Q2 2026 packages"
+  page: "FY2025 p.54: 'Interest received 22,863' sits INSIDE operating activities, among the changes in non-cash working capital above 'Net cash provided by operating activities 1,023,029'; 'Interest paid 9 | - | (3,688)' sits in FINANCING activities, a dash for 2025 and 3,688 for 2024 when debt existed. Q3 2025 p.33: 'Interest received 6,892' inside operating, 'Interest paid -' in financing. The 2026 interims print no separate interest line; Q2 2026 note 17 (p.42) restates 'Interest received 5,897' (quarter) and 12,240 (six months) as supplemental cash information. With no debt, the operating cash flow bears every interest flow the company has; where interest paid returns it will be a financing flow"
+  interest_source: cash_flow_statement
+
+operating_leases_in_ocf:
+  value: no
+  source: "FRAMEWORK-EDITS E70, applied 2026-08-30 to an IFRS filer with no lease liability caption"
+  page: "IFRS 16.50(b) would put any lease principal in financing; the statements present no lease liability (balance sheet p.30, every liability enumerated) and no lease payment line, so nothing is added back and `lease_payments_capital` is absent"
+
+periods:
+  - period: 2025-Q3
+    period_end: 2025-09-30
+    document: "Q3 2025 package (Nasdaq Stockholm release 1399286, 2025-11-07): MD&A and condensed consolidated interim financial statements, three months ended September 30, 2025"
+    url: "sources/LUG.ST_2025-Q3_interim-report-q1-and-q3_2025-11-07_en_a0.pdf"
+    figures:
+      free_cash_flow_reported:
+        value: 191148
+        source: "E103 automatic reference extraction (pdf (model-read))"
+        page: "news release page 2 [printed in thousands] -- verbatim: Free cash flow ($’000)1 191,148"
+        status: UNVERIFIED
+      revenue:
+        value: 447119
+        page: "p.31, condensed consolidated interim statements of income, three months ended September 30, 2025: 'Revenues 11 | 447,119' (Q3 2024: 323,087)"
+        status: UNVERIFIED
+      gross_profit:
+        value: 305228
+        page: "p.31, Q3 2025: 'Income from mining operations 305,228' = revenues 447,119 less cost of goods sold 141,891 (operating expenses 81,218, royalty expenses 26,288, depletion and depreciation 34,385) -- the statement's own subtotal"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 34385
+        page: "p.31, Q3 2025, cost of goods sold: 'Depletion and depreciation 34,385'; the cash flow statement p.33 adds back 34,409 including the corporate charge"
+        status: UNVERIFIED
+      ebitda:
+        value: 311680
+        page: "MD&A p.2, operating and financial results summary, three months ended September 30, 2025: 'Adjusted earnings before interest, taxes, depreciation, and amortization ($'000) 311,680' = 'Earnings before interest, taxes, depreciation, and amortization 311,680' this quarter -- the issuer's non-IFRS measure, no adjustments in the quarter"
+        status: UNVERIFIED
+      net_income:
+        value: 207715
+        page: "p.31, Q3 2025: 'Net income for the period 207,715' (Q3 2024: 135,715); no non-controlling interest"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 0.86
+        page: "p.31, Q3 2025, income per common share: 'Diluted 0.86' (basic 0.86); FY2025 MD&A p.21 quarterly summary 'Diluted income per share 0.86'"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 242746896
+        page: "p.31, Q3 2025: 'Weighted-average number of common shares Diluted 242,746,896' (basic 241,285,625). A QUARTERLY average (E41)"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 215533
+        page: "p.33, condensed consolidated interim statements of cash flows, three months ended September 30, 2025: 'Net cash provided by operating activities 215,533' (Q3 2024: 217,873); MD&A p.2 'Cash provided by operating activities ($'000) 215,533'"
+        status: UNVERIFIED
+      finance_costs_paid:
+        value: 0
+        zero_basis: caption
+        page: "p.33, financing activities, Q3 2025: 'Interest paid 8 | - ' -- a dash (2024 nine months: (3,688)); no debt outstanding"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "With the Company in a debt free position, no derivative gains or losses are recognized."
+      finance_income_received:
+        value: 6892
+        page: "p.33, operating activities, Q3 2025: 'Interest received 6,892' (nine months: 16,786) -- inside operating cash flow; equals the income statement's 'Finance income (6,892)'"
+        status: UNVERIFIED
+      capex_combined:
+        value: -20736
+        page: "p.33, investing activities, Q3 2025: 'Acquisition and development of property, plant and equipment (20,736)' -- THE ONE capex line (E23); 'VAT paid on investing activities (3,649)' is a separate line, not entered"
+        status: UNVERIFIED
+      # sbc: DATA MISSING for the quarter -- note 10 (p.40) states the
+      #   equity-settled option expense for the NINE months ('$0.8 million ...
+      #   related to stock options') and not for the three; the cash flow
+      #   line 'Stock-based compensation 8,583' is the cash-settled share-unit
+      #   revaluation E36 excludes (header).
+      finance_income_period:
+        value: 6892
+        page: "p.31, Q3 2025, other expenses (income): 'Finance income (6,892)' -- income, entered positive"
+        status: UNVERIFIED
+      finance_costs_period:
+        value: 0
+        zero_basis: caption
+        page: "p.31, Q3 2025: 'Finance expense 15 | - ' -- a dash (nine months 2024: 266,542, the pre-repayment stream and debt charges); no debt outstanding"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "With the Company in a debt free position, no derivative gains or losses are recognized."
+
+  - period: 2025-Q4
+    period_end: 2025-12-31
+    document: "FY2025 package (Nasdaq Stockholm release 1421529, 2026-02-20): the annual MD&A's fourth-quarter figures (highlights table p.2, quarterly summary p.21) -- the audited annual statements carry no Q4 column; see the header for what the quarter does NOT state"
+    url: "sources/LUG.ST_2025-Q4_financial-statement-release_2026-02-20_en_a0.pdf"
+    figures:
+      free_cash_flow_reported:
+        value: 328197
+        source: "E103 automatic reference extraction (pdf (model-read))"
+        page: "operating and financial results table in news release [printed in thousands] -- verbatim: Free cash flow ($’000)1 328,197"
+        status: UNVERIFIED
+      revenue:
+        value: 526596
+        page: "MD&A p.2, three months ended December 31, 2025: 'Revenues ($'000) 526,596'; p.21 quarterly summary, 2025 Q4: 'Revenues $ 526,596' (Q4 2024: 341,791)"
+        status: UNVERIFIED
+      gross_profit:
+        value: 373402
+        page: "MD&A p.2, Q4 2025: 'Income from mining operations ($'000) 373,402'; p.21 the same"
+        status: UNVERIFIED
+      ebitda:
+        value: 363788
+        page: "MD&A p.2, Q4 2025: 'Adjusted earnings before interest, taxes, depreciation, and amortization ($'000) 363,788' (= unadjusted EBITDA 363,788)"
+        status: UNVERIFIED
+      net_income:
+        value: 234205
+        page: "MD&A p.2, Q4 2025: 'Net income ($'000) 234,205'; p.21 'Net income for the period 234,205'"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 0.96
+        page: "MD&A p.21, quarterly summary, 2025 Q4: 'Diluted income per share 0.96' (basic 0.97)"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 242774352
+        page: "MD&A p.21, quarterly summary, 2025 Q4: 'Weighted-average number of common shares outstanding Diluted 242,774,352' (basic 241,392,452). A QUARTERLY average (E41)"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 358405
+        page: "MD&A p.2, three months ended December 31, 2025: 'Cash provided by operating activities ($'000) 358,405' (Q4 2024: 192,021); free cash flow 328,197"
+        status: UNVERIFIED
+      # depreciation_amortisation, capex_combined, finance_income_received,
+      #   finance_costs_paid, finance_income_period, sbc: DATA MISSING -- no
+      #   Q4 statement of cash flows or income statement exists; the year
+      #   less the nine months is a subtraction the accounts do not print
+      #   (E22). The MD&A's 'Additions to property, plant and equipment
+      #   27,331' (p.21) is the accrual addition, not the cash line.
+
+  - period: 2026-Q1
+    period_end: 2026-03-31
+    document: "Q1 2026 package (Nasdaq Stockholm release 1440378, 2026-05-07): MD&A and condensed consolidated interim financial statements, three months ended March 31, 2026"
+    url: "sources/LUG.ST_2026-Q1_interim-report-q1-and-q3_2026-05-07_en_a1.pdf"
+    figures:
+      free_cash_flow_reported:
+        value: 348510
+        source: "E103 automatic reference extraction (pdf (model-read))"
+        page: "2 [printed in thousands] -- verbatim: Free cash flow ($’000)1 348,510 170,783"
+        status: UNVERIFIED
+      revenue:
+        value: 567380
+        page: "p.28, condensed consolidated interim statements of income, three months ended March 31, 2026: 'Revenues 10 | 567,380' (Q1 2025: 356,345)"
+        status: UNVERIFIED
+      gross_profit:
+        value: 420703
+        page: "p.28, Q1 2026: 'Income from mining operations 420,703' = revenues 567,380 less cost of goods sold 146,677"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 32877
+        page: "p.28, Q1 2026, cost of goods sold: 'Depletion and depreciation 32,877'; p.30 cash flow adds back 32,904"
+        status: UNVERIFIED
+      ebitda:
+        value: 423895
+        page: "MD&A p.2, three months ended March 31, 2026: 'Earnings before interest, taxes, depreciation, and amortization ($'000) 423,895' (no adjusted line printed this quarter; the highlights say 'EBITDA totaled $424 million')"
+        status: UNVERIFIED
+      net_income:
+        value: 273331
+        page: "p.28, Q1 2026: 'Net income for the period 273,331' (Q1 2025: 153,500)"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 1.13
+        page: "p.28, Q1 2026, income per common share: 'Diluted 1.13' (basic 1.13)"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 242815334
+        page: "p.28, Q1 2026: 'Weighted-average number of common shares Diluted 242,815,334' (basic 241,676,994). A QUARTERLY average (E41)"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 369976
+        page: "p.30, condensed consolidated interim statements of cash flows, three months ended March 31, 2026: 'Net cash provided by operating activities 369,976' (Q1 2025: 194,308) -- after 'Share units settled in cash (27,250)'"
+        status: UNVERIFIED
+      capex_combined:
+        value: -19081
+        page: "p.30, investing activities, Q1 2026: 'Acquisition and development of property, plant and equipment (19,081)' -- the one capex line (E23); 'VAT paid on investing activities (2,385)' separate, not entered"
+        status: UNVERIFIED
+      sbc:
+        value: 300
+        page: "note 9, p.35 (Stock-based compensation, i. Stock options): 'During the three months ended March 31, 2026, the Company recorded stock-based compensation expense of $0.3 million (three months ended March 31, 2025 - $0.3 million) related to stock options' -- the equity-settled charge, entered as 300 ($ thousands). The cash flow line 'Stock-based compensation 4,100' (p.30) is mostly the $3.8 million revaluation of cash-settled share units, excluded (E36)"
+        status: UNVERIFIED
+      # finance_income_received / finance_costs_paid: DATA MISSING -- the Q1
+      #   2026 cash flow statement prints no interest line and note 16 (p.39,
+      #   supplemental cash flow information) lists only the composition of
+      #   cash; the income statement's 'Finance income (6,343)' is accrual.
+      finance_income_period:
+        value: 6343
+        page: "p.28, Q1 2026, other expenses (income): 'Finance income (6,343)' -- income, entered positive"
+        status: UNVERIFIED
+      # finance_costs_period: no 'Finance expense' line is printed in the
+      #   2026 statements (none to print); absent, not zero -- the caption
+      #   itself is gone (E25).
+
+  - period: 2026-Q2
+    period_end: 2026-06-30
+    document: "Q2 2026 package (Nasdaq Stockholm release 1457227, 2026-08-06): MD&A and condensed consolidated interim financial statements, three months ended June 30, 2026"
+    url: "sources/LUG.ST_2026-Q2_half-year-financial-report_2026-08-06_en_a1.pdf"
+    figures:
+      free_cash_flow_reported:
+        value: 96028
+        source: "E103 automatic reference extraction (pdf (model-read))"
+        page: "page 2 of the news release [printed in thousands] -- verbatim: Free cash flow ($’000)1 96,028"
+        status: UNVERIFIED
+      # --- read by the E6 RANKING KEY ---------------------------------
+      revenue:
+        value: 477692
+        page: "p.31, condensed consolidated interim statements of income, three months ended June 30, 2026: 'Revenues 11 | 477,692' (Q2 2025: 452,880; six months: 1,045,072); note 11 p.39: dore 137,936 + concentrate 358,103 - provisional pricing loss 18,347"
+        status: UNVERIFIED
+      gross_profit:
+        value: 336690
+        page: "p.31, Q2 2026: 'Income from mining operations 336,690' = revenues 477,692 less cost of goods sold 141,002 (operating expenses 84,645, royalties 27,461, depletion and depreciation 28,896)"
+        status: UNVERIFIED
+      total_assets:
+        value: 1604361
+        page: "p.30, condensed consolidated interim statements of financial position, June 30, 2026: total assets '$ 1,604,361' (December 31, 2025: 1,787,158)"
+        status: UNVERIFIED
+      net_ppe:
+        value: 659709
+        page: "p.30, June 30, 2026: 'Property, plant and equipment 5 | 659,709'; note 5 p.36 net book value 659,709 ('Mineral properties 99,664' is a separate line)"
+        status: UNVERIFIED
+      # --- section 5.1 C: the cash the reverse DCF discounts -----------
+      operating_cash_flow:
+        value: 125187
+        page: "p.33, condensed consolidated interim statements of cash flows, three months ended June 30, 2026: 'Net cash provided by operating activities 125,187' (Q2 2025: 254,782; six months: 495,163) -- after 'Income taxes payable (112,773)', the April tax settlement; MD&A p.2 the same"
+        status: UNVERIFIED
+      finance_income_received:
+        value: 5897
+        page: "note 17, p.42, other supplemental cash information, three months ended June 30, 2026: 'Interest received 5,897' (six months: 12,240) -- inside operating cash flow; equals the income statement's 'Finance income (5,897)'"
+        status: UNVERIFIED
+      # finance_costs_paid: absent -- no 'Interest paid' line is printed in
+      #   the 2026 statements (no debt; the line and its dash left the
+      #   statement), so no caption exists to hang a zero on (E25).
+      income_tax_paid:
+        value: -242799
+        page: "note 17, p.42, three months ended June 30, 2026: 'Taxes and profit sharing paid to the Government of Ecuador 242,799' -- a BROADER caption than income tax (it includes statutory profit sharing); memo, inside operating_cash_flow"
+        status: UNVERIFIED
+      capex_combined:
+        value: -23374
+        page: "p.33, investing activities, Q2 2026: 'Acquisition and development of property, plant and equipment (23,374)' (six months: (42,455)) -- the one capex line (E23); 'VAT paid on investing activities (1,337)' separate, not entered"
+        status: UNVERIFIED
+      # sbc: DATA MISSING for the quarter -- note 10 (p.38) states the
+      #   equity-settled option expense for the SIX months ('$0.5 million')
+      #   and not for the three; the cash flow line 'Stock-based compensation
+      #   (2,911)' is the share-unit revaluation E36 excludes.
+      # --- section 5.1 C: net debt, the bridge from EV to equity --------
+      cash_and_equivalents:
+        value: 507130
+        page: "p.30, June 30, 2026: 'Cash and cash equivalents 17 | 507,130'; note 17 p.42: cash 407,144 + short-term investments 99,986 = 507,130; p.33 'Cash and cash equivalents, end of period 507,130'"
+        status: UNVERIFIED
+      financial_liabilities_current:
+        value: 0
+        zero_basis: caption
+        page: "p.30, current liabilities at June 30, 2026: 'Accounts payable and accrued liabilities 126,025', 'Income taxes payable 178,488', 'Other current liabilities 18,940', 'Current portion of silver stream obligation 26,355' -- no borrowing caption. The silver stream is a derivative financial liability settled in silver (note 8 p.37), NAMED in the header for the owner's ruling and not entered here"
+        status: UNVERIFIED
+      financial_liabilities_noncurrent:
+        value: 0
+        zero_basis: caption
+        page: "p.30, non-current liabilities at June 30, 2026: 'Other non-current liabilities 3,490', 'Silver stream obligation 663,990', 'Reclamation provisions 8,910', 'Deferred income tax liabilities 34,212' -- no borrowing caption; the 2024 long-term debt was repaid in full ('Repayments of long-term debt (101,106)', FY2025 p.54, 2024 column) and the FY2025 MD&A p.21 prints 'Long-term debt -' for 2025. The Stream (690,345 in total, note 19 p.45) is named, not entered"
+        status: UNVERIFIED
+      lease_liabilities:
+        value: 0
+        zero_basis: caption
+        page: "p.30: no lease liability caption among the liabilities enumerated above; 'Other current liabilities' and 'Other non-current liabilities' are the cash-settled share units (note 10). Nothing in the notes sizes a lease"
+        status: UNVERIFIED
+      asset_retirement_obligation:
+        value: 8910
+        page: "p.30, non-current liabilities, June 30, 2026: 'Reclamation provisions 8,910' (December 31, 2025: 8,626) -- the Fruta del Norte closure and rehabilitation provision, discounted at a 9.4% pre-tax rate from an undiscounted $29.8 million (FY2025 note 10, p.68). E68: read, not zeroed, for an extractive filer"
+        status: UNVERIFIED
+      pension_deficit:
+        value: 0
+        zero_basis: caption
+        page: "E35.1 / E68.1 (second application, 2026-08-30): p.30, condensed consolidated interim statement of financial position at June 30, 2026 -- the liabilities enumerated on `financial_liabilities_current` and `_noncurrent` above carry NO pension, post-employment or retirement-benefit caption, and no sentence in the report says there is none. A CAPTION ZERO ON ABSENCE ALONE: an Ecuadorian single-mine operator with no defined-benefit caption is E68.1's case, and this is weaker than an E78 caption_statement because there is nothing to quote. THE WEAKEST ZERO ON THE FILE -- to be revisited if the annual report on lundingold.com carries a post-employment policy note"
+        status: UNVERIFIED
+      prepaid_delivery_obligation:
+        value: 690345
+        page: "p.30, condensed consolidated interim statement of financial position at June 30, 2026: 'Current portion of silver stream obligation 26,355' (current liabilities) + 'Silver stream obligation 663,990' (non-current) = 690,345 -- TWO STATED PARTS ADDED, both named (E66's precedence, E81). Note 8 p.37: on May 28, 2026 the Company sold a life-of-mine silver stream on Fruta del Norte to LunR Royalties Corp. for cash received up front, the Stream being 'a derivative financial liability, to be measured at fair value'; the Company has the money and must deliver the silver. E81 (2026-08-30): a prepaid delivery obligation, a leg of net debt. This is the balance the header had named for the owner's ruling"
+        status: UNVERIFIED
+      # pension_deficit: DATA MISSING -- no caption and no sentence (header).
+      # --- share counts ----------------------------------------------------
+      diluted_weighted_average_shares:
+        value: 242795257
+        page: "p.31, Q2 2026: 'Weighted-average number of common shares outstanding Diluted 242,795,257' (basic 241,821,813; six months diluted 242,805,980). A QUARTERLY average (E41)"
+        status: UNVERIFIED
+      shares_point_in_time:
+        value: 241832730
+        page: "MD&A p.32, Outstanding share data: 'As at the date of this MD&A, there were 241,832,730 common shares issued and outstanding' -- a count on the MD&A date (early August 2026), NOT at 30 June 2026 and NOT the divisor (E38); a MEMO. No count at the period end is printed"
+        status: UNVERIFIED
+      # --- section 5.1 A and 5.3 ---------------------------------------------
+      depreciation_amortisation:
+        value: 28896
+        page: "p.31, Q2 2026, cost of goods sold: 'Depletion and depreciation 28,896'; p.33 cash flow adds back 28,923"
+        status: UNVERIFIED
+      ebitda:
+        value: 346739
+        page: "MD&A p.2, three months ended June 30, 2026: 'Adjusted Earnings before interest, taxes, depreciation, and amortization ($'000) 346,739' -- the issuer's non-IFRS measure; the unadjusted 'Earnings before interest, taxes, depreciation, and amortization 398,879' carries the derivative gain on the Stream (126,712) and the fair value loss on LunR shares (74,572), which the adjusted figure removes"
+        status: UNVERIFIED
+      net_income:
+        value: 219869
+        page: "p.31, Q2 2026: 'Net income for the period 219,869' (Q2 2025: 196,731) -- includes the derivative gain 126,712 and LunR loss (74,572); MD&A p.2 'Adjusted earnings 201,941'"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 0.91
+        page: "p.31, Q2 2026, income per common share: 'Diluted 0.91' (basic 0.91)"
+        status: UNVERIFIED
+      finance_income_period:
+        value: 5897
+        page: "p.31, Q2 2026: 'Finance income (5,897)' -- income, entered positive"
+        status: UNVERIFIED
+
+annual:
+  - fiscal_year: 2025
+    period_end: 2025-12-31
+    document: "FY2025 package (Nasdaq Stockholm release 1421529, 2026-02-20): audited consolidated financial statements for the year ended December 31, 2025 (pp.51-79; auditor's report p.48) and the annual MD&A"
+    url: "sources/LUG.ST_2025-Q4_financial-statement-release_2026-02-20_en_a0.pdf"
+    figures:
+      revenue:
+        value: 1782940
+        page: "p.52, consolidated statements of income, year ended December 31, 2025: 'Revenues 13 | 1,782,940' (2024: 1,193,050)"
+        status: UNVERIFIED
+      gross_profit:
+        value: 1226337
+        page: "p.52, 2025: 'Income from mining operations 1,226,337' = revenues less cost of goods sold 556,603"
+        status: UNVERIFIED
+      total_assets:
+        value: 1787158
+        page: "p.51, consolidated statements of financial position, December 31, 2025: total assets '$ 1,787,158'"
+        status: UNVERIFIED
+      net_ppe:
+        value: 664622
+        page: "p.51, December 31, 2025: 'Property, plant and equipment 6 | 664,622'"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 1023029
+        page: "p.54, consolidated statements of cash flows, 2025: 'Net cash provided by operating activities 1,023,029' (2024: 662,390); MD&A p.2 the same"
+        status: UNVERIFIED
+      finance_costs_paid:
+        value: 0
+        zero_basis: caption
+        page: "p.54, financing activities, 2025: 'Interest paid 9 | - | (3,688)' -- a dash for 2025, 3,688 for 2024; 'Finance charge paid 9 | - | (260,990)' likewise"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "With the Company in a debt free position, no derivative gains or losses are recognized."
+      finance_income_received:
+        value: 22863
+        page: "p.54, operating activities, 2025: 'Interest received 22,863' (2024: 16,289) -- inside operating cash flow; equals the income statement's 'Finance income (22,863)'"
+        status: UNVERIFIED
+      income_tax_paid:
+        value: -312637
+        page: "note 19, p.75, other supplemental cash information, 2025: 'Income taxes paid (1) 312,637' (2024: 136,913) -- memo, inside operating_cash_flow; footnote: includes $70.6 million remitted early against the April 2026 liability"
+        status: UNVERIFIED
+      capex_combined:
+        value: -85977
+        page: "p.54, investing activities, 2025: 'Acquisition and development of property, plant and equipment (85,977)' (2024: (82,398)) -- the one capex line (E23); 'VAT paid on investing activities (11,253)' separate, not entered"
+        status: UNVERIFIED
+      sbc:
+        value: 1000
+        page: "note 12, p.69 (Stock-based compensation, (a) Stock options): 'During the year ended December 31, 2025, the Company recorded stock-based compensation expense of $1.0 million (2024 - $1.2 million) related to options' -- the equity-settled charge, entered as 1,000 ($ thousands). The cash flow line 'Stock-based compensation 48,460' (p.54) is dominated by the cash-settled share-unit revaluation, paid through 'Share units settled in cash (10,941)' inside operating cash flow and excluded (E36)"
+        status: UNVERIFIED
+      cash_and_equivalents:
+        value: 630181
+        page: "p.51, December 31, 2025: 'Cash and cash equivalents 19 | 630,181'; note 19 p.75: cash 410,068 + short-term investments 220,113"
+        status: UNVERIFIED
+      financial_liabilities_current:
+        value: 0
+        zero_basis: caption
+        page: "p.51, current liabilities at December 31, 2025: 'Accounts payable and accrued liabilities 159,667', 'Income taxes payable 204,502', 'Other current liabilities 24,341' -- no borrowing caption"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "With the Company in a debt free position, no derivative gains or losses are recognized."
+      financial_liabilities_noncurrent:
+        value: 0
+        zero_basis: caption
+        page: "p.51, non-current liabilities at December 31, 2025: 'Other non-current liabilities 25,893', 'Reclamation provisions 8,626', 'Deferred income tax liabilities -' -- no borrowing caption; MD&A p.21 'Long-term debt -' for every 2025 quarter; the 2024 debt was repaid (p.54)"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "With the Company in a debt free position, no derivative gains or losses are recognized."
+      lease_liabilities:
+        value: 0
+        zero_basis: caption
+        page: "p.51: no lease liability caption; the word 'lease' does not occur in the audited statements' liabilities"
+        status: UNVERIFIED
+      asset_retirement_obligation:
+        value: 8626
+        page: "note 10, p.68, Reclamation provision: 'Balance, beginning of year 7,866', 'Accretion of liability component of obligations 760', 'Balance, end of year 8,626'; p.51 'Reclamation provisions 10 | 8,626'. Undiscounted and inflated estimate $29.8 million; pre-tax discount rate 9.4%. E68"
+        status: UNVERIFIED
+      pension_deficit:
+        value: 0
+        zero_basis: caption
+        page: "E35.1 / E68.1 (second application, 2026-08-30): p.51, consolidated statements of financial position at December 31, 2025 -- 'Accounts payable and accrued liabilities', 'Income taxes payable', 'Other current liabilities' (cash-settled share units, note 12), 'Other non-current liabilities', 'Reclamation provisions', 'Deferred income tax liabilities' -- NO pension, post-employment or retirement-benefit caption, and no sentence in the audited statements or the MD&A says there is none. A caption zero on absence alone, the weakest zero on the file (see the 2026-Q2 entry)"
+        status: UNVERIFIED
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81 (2026-08-30): p.51, consolidated statements of financial position at December 31, 2025, liabilities presented: 'Accounts payable and accrued liabilities 159,667', 'Income taxes payable 204,502', 'Other current liabilities 24,341', 'Other non-current liabilities 25,893', 'Reclamation provisions 8,626', 'Deferred income tax liabilities -' -- no stream or prepaid-delivery caption at this date: the 2020 stream credit facility and the debt were repaid in full in 2024 ('Repayments of long-term debt (101,106)', p.54, 2024 column; 'Finance charge paid (260,990)'), and the LunR silver stream was sold on May 28, 2026 (the Q1 2026 balance sheet p.27 carries none either). A caption zero"
+        status: UNVERIFIED
+      # pension_deficit: DATA MISSING -- no caption, no sentence (header).
+      diluted_weighted_average_shares:
+        value: 242510385
+        page: "p.52, 2025: 'Weighted-average number of common shares outstanding Diluted 242,510,385'; note 11 p.68: basic 241,033,793 + dilutive stock options 1,476,592 = 242,510,385"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 135041
+        page: "p.52, 2025, cost of goods sold: 'Depletion and depreciation 135,041'; p.54 cash flow adds back 135,131 including the corporate charge"
+        status: UNVERIFIED
+      ebitda:
+        value: 1235810
+        page: "MD&A p.2, year ended December 31, 2025: 'Adjusted earnings before interest, taxes, depreciation, and amortization ($'000) 1,235,810' (= unadjusted 1,235,810 in 2025; 2024 unadjusted 1,021,373 carried the derivative gain)"
+        status: UNVERIFIED
+      net_income:
+        value: 792151
+        page: "p.52, 2025: 'Net income for the year 792,151' (2024: 426,050)"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 3.27
+        page: "p.52, 2025, income per common share: 'Diluted 11 | 3.27' (basic 3.29); note 11 p.68 the same"
+        status: UNVERIFIED
+      finance_income_period:
+        value: 22863
+        page: "p.52, 2025: 'Finance income (22,863)' -- income, entered positive"
+        status: UNVERIFIED
+      finance_costs_period:
+        value: 0
+        zero_basis: caption
+        page: "p.52, 2025: 'Finance expense 17 | - ' -- a dash (2024: 266,542)"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "With the Company in a debt free position, no derivative gains or losses are recognized."

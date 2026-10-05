@@ -1,0 +1,22 @@
+{
+  "list": "stoxx600",
+  "index": "STOXX Europe 600",
+  "source_url": "https://www.ishares.com/ch/professionals/en/products/251931/ishares-stoxx-europe-600-ucits-etf-de-fund/1495092304805.ajax?fileType=csv&fileName=EXSA_holdings&dataType=fund",
+  "source_kind": "physically replicating full-size index ETF holdings (iShares STOXX Europe 600 UCITS ETF (DE), EXSA)",
+  "source_asof_line": "Fund Holdings as of,\"20/Aug/2026\"",
+  "expected_rows": 600,
+  "approximation": false,
+  "instrumenttyp_source": "ishares Asset Class (Equity / Cash / FX / Futures)",
+  "valuta_source": "ishares Market Currency",
+  "listdatum_source": "yahoo firstTradeDate",
+  "note": "Non-equity rows (cash, FX, futures) are written through unchanged so the exclusion step is exercised on real data and shows in the report.",
+  "file": "stoxx600-2026-08-22.csv",
+  "tier": "A",
+  "retrieved": "2026-08-22",
+  "rows": 617,
+  "rows_without_yahoo_mapping": 17,
+  "isin_populated": 0,
+  "isin_note": "No free source checked carries ISIN for these venues; a guessed ISIN would silently merge two companies in dedup. Left empty.",
+  "sha256": "d8ffdf159e6af2d2ff0818bdaf47c03000bd48d1404b235a0091e6ba763f3ea0",
+  "built_by": "tools/build_universe.py"
+}

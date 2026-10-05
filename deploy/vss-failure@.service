@@ -1,0 +1,28 @@
+[Unit]
+Description=vss dead man's switch -- post that %i failed
+Documentation=file://%h/vss/deploy/README.md
+
+# NO OnFailure= HERE, and that is deliberate. A failure notifier that
+# notifies about its own failure is a loop; if this unit cannot run, the
+# fact is in the journal and the check-in timer's staleness leg still
+# catches the missing run within 72 hours.
+
+[Service]
+Type=oneshot
+
+# The topic, kept out of the repository. The leading `-` means a missing
+# file is not an error: on a machine that has never had one, a failed run
+# is silent rather than doubly failed (E92).
+EnvironmentFile=-%h/.config/vss/vss.env
+
+# %I is the instance name UNESCAPED -- the failing unit's own name, which
+# systemd passed as `%n` from its OnFailure=.
+ExecStart=%h/vss/deploy/vss-notify-failure.sh %I
+
+# Deliberately UNSANDBOXED beyond this. It reads the journal and makes one
+# outbound request; a sandbox tight enough to be interesting here is a
+# sandbox that can stop the only leg that pages while an outage is live.
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=vss-failure
+TimeoutStartSec=30s

@@ -1,0 +1,317 @@
+ticker_yahoo,ticker_lokal,isin,namn,marknad,tier,listdatum,valuta,instrumenttyp
+AZN.ST,AZN,,AstraZeneca PLC,Stockholm,A,2000-01-03,SEK,EQUITY
+ABB.ST,ABB,,ABB Ltd,Stockholm,A,2001-05-08,SEK,EQUITY
+INVE-A.ST,INVE-A,,Investor AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+ATCO-A.ST,ATCO-A,,Atlas Copco AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+ATCO-B.ST,ATCO-B,,Atlas Copco AB (publ),Stockholm,A,1999-12-01,SEK,EQUITY
+VOLV-B.ST,VOLV-B,,AB Volvo (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+NDA-SE.ST,NDA-SE,,Nordea Bank Abp,Stockholm,A,2000-01-03,SEK,EQUITY
+NOKIA-SEK.ST,NOKIA-SEK,,Nokia Oyj,Stockholm,A,2007-06-04,SEK,EQUITY
+SAND.ST,SAND,,Sandvik AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SHB-B.ST,SHB-B,,Svenska Handelsbanken AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SEB-C.ST,SEB-C,,Skandinaviska Enskilda Banken AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SEB-A.ST,SEB-A,,Skandinaviska Enskilda Banken AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SWED-A.ST,SWED-A,,Swedbank AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+EQT.ST,EQT,,EQT AB (publ),Stockholm,A,2019-09-24,SEK,EQUITY
+SAAB-B.ST,SAAB-B,,Saab AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+ERIC-A.ST,ERIC-A,,Telefonaktiebolaget LM Ericsson (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+EPI-A.ST,EPI-A,,Epiroc AB (publ),Stockholm,A,2018-06-18,SEK,EQUITY
+ERIC-B.ST,ERIC-B,,Telefonaktiebolaget LM Ericsson (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SHB-A.ST,SHB-A,,Svenska Handelsbanken AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+HM-B.ST,HM-B,,H & M Hennes & Mauritz AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+CORE-D.ST,CORE-D,,Corem Property Group AB (publ),Stockholm,A,2021-06-18,SEK,EQUITY
+SAMPO-SEK.ST,SAMPO-SEK,,Sampo Oyj,Stockholm,A,2026-03-31,SEK,EQUITY
+EPI-B.ST,EPI-B,,Epiroc AB (publ),Stockholm,A,2018-06-18,SEK,EQUITY
+HEXA-B.ST,HEXA-B,,Hexagon AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+ALFA.ST,ALFA,,Alfa Laval AB (publ),Stockholm,A,2002-05-17,SEK,EQUITY
+INDU-A.ST,INDU-A,,AB Industrivärden (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+INDU-C.ST,INDU-C,,AB Industrivärden (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+LUMI.ST,LUMI,,Lundin Mining Corporation,Stockholm,A,2017-06-08,SEK,EQUITY
+8TRA.ST,8TRA,,Traton SE,Stockholm,A,2019-06-28,SEK,EQUITY
+ESSITY-A.ST,ESSITY-A,,Essity AB (publ),Stockholm,A,2017-06-15,SEK,EQUITY
+ESSITY-B.ST,ESSITY-B,,Essity AB (publ),Stockholm,A,2017-06-15,SEK,EQUITY
+TELIA.ST,TELIA,,Telia Company AB (publ),Stockholm,A,2000-06-13,SEK,EQUITY
+LUG.ST,LUG,,Lundin Gold Inc.,Stockholm,A,2014-12-22,SEK,EQUITY
+BOL.ST,BOL,,Boliden AB (publ),Stockholm,A,2001-12-05,SEK,EQUITY
+SOBI.ST,SOBI,,Swedish Orphan Biovitrum AB (publ),Stockholm,A,2006-09-15,SEK,EQUITY
+EVO.ST,EVO,,Evolution AB (publ),Stockholm,A,2015-03-20,SEK,EQUITY
+LIFCO-B.ST,LIFCO-B,,Lifco AB (publ),Stockholm,A,2014-11-21,SEK,EQUITY
+LUND-B.ST,LUND-B,,L E Lundbergföretagen AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+LATO-B.ST,LATO-B,,Investment AB Latour (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SKF-A.ST,SKF-A,,AB SKF (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SKF-B.ST,SKF-B,,AB SKF (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+TEL2-A.ST,TEL2-A,,Tele2 AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+TEL2-B.ST,TEL2-B,,Tele2 AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SKA-B.ST,SKA-B,,Skanska AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SSAB-A.ST,SSAB-A,,SSAB AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+TREL-B.ST,TREL-B,,Trelleborg AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SAVE.ST,SAVE,,Nordnet AB (publ),Stockholm,A,2020-11-25,SEK,EQUITY
+ADDT-B.ST,ADDT-B,,Addtech AB (publ.),Stockholm,A,2000-01-03,SEK,EQUITY
+INDT.ST,INDT,,Indutrade AB (publ),Stockholm,A,2005-10-05,SEK,EQUITY
+STE-R.ST,STE-R,,Stora Enso Oyj,Stockholm,A,2000-01-03,SEK,EQUITY
+STE-A.ST,STE-A,,Stora Enso Oyj,Stockholm,A,2000-01-03,SEK,EQUITY
+ALIV-SDB.ST,ALIV-SDB,,"Autoliv, Inc.",Stockholm,A,2000-01-03,SEK,EQUITY
+NIBE-B.ST,NIBE-B,,NIBE Industrier AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SECU-B.ST,SECU-B,,Securitas AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SAGA-B.ST,SAGA-B,,AB Sagax (publ),Stockholm,A,2013-04-08,SEK,EQUITY
+SAGA-A.ST,SAGA-A,,AB Sagax (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SCA-A.ST,SCA-A,,Svenska Cellulosa Aktiebolaget SCA (publ),Stockholm,A,2000-09-19,SEK,EQUITY
+SCA-B.ST,SCA-B,,Svenska Cellulosa Aktiebolaget SCA (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+GETI-B.ST,GETI-B,,Getinge AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+BEIJ-B.ST,BEIJ-B,,Beijer Ref AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+AZA.ST,AZA,,Avanza Bank Holding AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+BALD-B.ST,BALD-B,,Fastighets AB Balder (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+MYCR.ST,MYCR,,Mycronic AB (publ),Stockholm,A,2000-03-10,SEK,EQUITY
+CAST.ST,CAST,,Castellum AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+VOLCAR-B.ST,VOLCAR-B,,Volvo Car AB (publ.),Stockholm,A,2021-10-29,SEK,EQUITY
+SECT-B.ST,SECT-B,,Sectra AB (publ),Stockholm,A,2004-10-04,SEK,EQUITY
+AXFO.ST,AXFO,,Axfood AB (publ),Stockholm,A,2000-02-21,SEK,EQUITY
+AAK.ST,AAK,,AAK AB (publ.),Stockholm,A,2005-09-29,SEK,EQUITY
+VOLO-PREF.ST,VOLO-PREF,,Volati AB (publ),Stockholm,A,2015-06-08,SEK,EQUITY
+HOLM-A.ST,HOLM-A,,Holmen AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+HOLM-B.ST,HOLM-B,,Holmen AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SWEC-A.ST,SWEC-A,,Sweco AB (publ),Stockholm,A,2000-01-04,SEK,EQUITY
+LAGR-B.ST,LAGR-B,,Lagercrantz Group AB (publ),Stockholm,A,2001-09-04,SEK,EQUITY
+SWEC-B.ST,SWEC-B,,Sweco AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+NOBA.ST,NOBA,,NOBA Bank Group AB,Stockholm,A,2025-09-26,SEK,EQUITY
+CAMX.ST,CAMX,,Camurus AB (publ),Stockholm,A,2015-12-03,SEK,EQUITY
+MCOV-B.ST,MCOV-B,,Medicover AB (publ),Stockholm,A,2017-05-23,SEK,EQUITY
+ASMDEE-B.ST,ASMDEE-B,,Asmodee Group AB (publ),Stockholm,A,2025-02-07,SEK,EQUITY
+LOOMIS.ST,LOOMIS,,Loomis AB (publ),Stockholm,A,2008-12-09,SEK,EQUITY
+PNDX-B.ST,PNDX-B,,Pandox AB (publ),Stockholm,A,2015-06-18,SEK,EQUITY
+MTRS.ST,MTRS,,Munters Group AB (publ),Stockholm,A,2017-05-19,SEK,EQUITY
+SINCH.ST,SINCH,,Sinch AB (publ),Stockholm,A,2015-10-08,SEK,EQUITY
+BIOA-B.ST,BIOA-B,,BioArctic AB (publ),Stockholm,A,2017-10-12,SEK,EQUITY
+ASKER.ST,ASKER,,Asker Healthcare Group AB (publ),Stockholm,A,2025-03-27,SEK,EQUITY
+ALLEI.ST,ALLEI,,Alleima AB (publ),Stockholm,A,2022-08-31,SEK,EQUITY
+CLAS-B.ST,CLAS-B,,Clas Ohlson AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+BRAV.ST,BRAV,,Bravida Holding AB (publ),Stockholm,A,2015-10-16,SEK,EQUITY
+ROKO-B.ST,ROKO-B,,,Stockholm,A,2025-03-11,SEK,EQUITY
+IPCO.ST,IPCO,,International Petroleum Corporation,Stockholm,A,2017-04-24,SEK,EQUITY
+PEAB-B.ST,PEAB-B,,Peab AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+WALL-B.ST,WALL-B,,Wallenstam AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+CATE.ST,CATE,,Catena AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+BUFAB.ST,BUFAB,,Bufab AB (publ),Stockholm,A,2014-02-21,SEK,EQUITY
+HMS.ST,HMS,,HMS Networks AB (publ),Stockholm,A,2007-10-19,SEK,EQUITY
+CORE-PREF.ST,CORE-PREF,,Corem Property Group AB (publ),Stockholm,A,2010-03-09,SEK,EQUITY
+ELUX-B.ST,ELUX-B,,AB Electrolux (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+ELUX-A.ST,ELUX-A,,AB Electrolux (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+WIHL.ST,WIHL,,Wihlborgs Fastigheter AB (publ),Stockholm,A,2002-06-10,SEK,EQUITY
+HACK.ST,HACK,,Hacksaw AB,Stockholm,A,2025-06-25,SEK,EQUITY
+FABG.ST,FABG,,Fabege AB (publ),Stockholm,A,2002-06-10,SEK,EQUITY
+TIETOS.ST,TIETOS,,Tieto Oyj,Stockholm,A,2000-01-03,SEK,EQUITY
+HUFV-A.ST,HUFV-A,,Hufvudstaden AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+OEM-B.ST,OEM-B,,OEM International AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+THULE.ST,THULE,,Thule Group AB (publ),Stockholm,A,2014-11-26,SEK,EQUITY
+BURE.ST,BURE,,Bure Equity AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+HUSQ-B.ST,HUSQ-B,,Husqvarna AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+HUSQ-A.ST,HUSQ-A,,Husqvarna AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+EKTA-B.ST,EKTA-B,,Elekta AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+INTEA-B.ST,INTEA-B,,Intea Fastigheter AB ser. B,Stockholm,A,2024-12-12,SEK,EQUITY
+ALIF-B.ST,ALIF-B,,AddLife AB (publ),Stockholm,A,2016-03-16,SEK,EQUITY
+AQ.ST,AQ,,AQ Group AB (publ),Stockholm,A,2004-10-05,SEK,EQUITY
+ARION-SDB.ST,ARION-SDB,,Arion banki hf.,Stockholm,A,2018-06-15,SEK,EQUITY
+SILEX.ST,SILEX,,Silex Microsystems AB (publ),Stockholm,A,2026-05-07,SEK,EQUITY
+BILL.ST,BILL,,Billerud AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SHOT.ST,SHOT,,Scandic Hotels Group AB (publ),Stockholm,A,2015-12-02,SEK,EQUITY
+GRNG.ST,GRNG,,Gränges AB (publ),Stockholm,A,2014-10-10,SEK,EQUITY
+HOFI.ST,HOFI,,Hoist Finance AB (publ),Stockholm,A,2015-03-25,SEK,EQUITY
+VIMIAN.ST,VIMIAN,,Vimian Group AB (publ),Stockholm,A,2021-06-18,SEK,EQUITY
+STOR-B.ST,STOR-B,,Storskogen Group AB (publ),Stockholm,A,2021-10-06,SEK,EQUITY
+PUBLI.ST,PUBLI,,PPI Public Property Invest AB (publ),Stockholm,A,2026-05-20,SEK,EQUITY
+KINV-A.ST,KINV-A,,Kinnevik AB,Stockholm,A,2000-01-03,SEK,EQUITY
+BEIA-B.ST,BEIA-B,,Beijer Alma AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SYSR.ST,SYSR,,Systemair AB (publ),Stockholm,A,2007-10-12,SEK,EQUITY
+NCC-A.ST,NCC-A,,NCC AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+NCC-B.ST,NCC-B,,NCC AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+ATT.ST,ATT,,Attendo AB (publ),Stockholm,A,2015-11-30,SEK,EQUITY
+EMBRAC-B.ST,EMBRAC-B,,Embracer Group AB (publ),Stockholm,A,2016-11-22,SEK,EQUITY
+SAGA-D.ST,SAGA-D,,AB Sagax (publ),Stockholm,A,2016-11-09,SEK,EQUITY
+ATRLJ-B.ST,ATRLJ-B,,Atrium Ljungberg AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+KINV-B.ST,KINV-B,,Kinnevik AB,Stockholm,A,2000-01-03,SEK,EQUITY
+CLA-B.ST,CLA-B,,Cloetta AB (publ),Stockholm,A,2008-12-08,SEK,EQUITY
+MTG-B.ST,MTG-B,,Modern Times Group MTG AB,Stockholm,A,2000-01-03,SEK,EQUITY
+NP3.ST,NP3,,NP3 Fastigheter AB (publ),Stockholm,A,2014-12-04,SEK,EQUITY
+MTG-A.ST,MTG-A,,Modern Times Group MTG AB,Stockholm,A,2000-01-03,SEK,EQUITY
+PDX.ST,PDX,,Paradox Interactive AB (publ),Stockholm,A,2016-05-31,SEK,EQUITY
+ALTRA.ST,ALTRA,,Altra Fastigheter AB (publ),Stockholm,A,2018-11-23,SEK,EQUITY
+BONEX.ST,BONEX,,Bonesupport Holding AB (publ),Stockholm,A,2017-06-21,SEK,EQUITY
+AMBEA.ST,AMBEA,,Ambea AB (publ),Stockholm,A,2017-03-31,SEK,EQUITY
+ALVO-SDB.ST,ALVO-SDB,,Alvotech SDB,Stockholm,A,2025-05-19,SEK,EQUITY
+NOLA-B.ST,NOLA-B,,Nolato AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+FPAR-D.ST,FPAR-D,,FastPartner AB (publ),Stockholm,A,2019-12-13,SEK,EQUITY
+NCAB.ST,NCAB,,NCAB Group AB (publ),Stockholm,A,2018-06-05,SEK,EQUITY
+NAVIGO-PREF.ST,NAVIGO-PREF,,Navigo Invest AB (publ),Stockholm,A,2015-06-24,SEK,EQUITY
+SKIS-B.ST,SKIS-B,,SkiStar AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+ALIG.ST,ALIG,,Alimak Group AB (publ),Stockholm,A,2015-06-17,SEK,EQUITY
+BILI-A.ST,BILI-A,,Bilia AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+EPRO-B.ST,EPRO-B,,Electrolux Professional AB (publ),Stockholm,A,2020-03-23,SEK,EQUITY
+AVARDA.ST,AVARDA,,Avarda Bank AB (publ),Stockholm,A,2016-06-14,SEK,EQUITY
+BETS-B.ST,BETS-B,,Betsson AB (publ),Stockholm,A,2000-06-26,SEK,EQUITY
+RUSTA.ST,RUSTA,,Rusta AB (publ),Stockholm,A,2023-10-19,SEK,EQUITY
+VITR.ST,VITR,,Vitrolife AB (publ),Stockholm,A,2001-06-28,SEK,EQUITY
+RATO-B.ST,RATO-B,,Ratos AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+RATO-A.ST,RATO-A,,Ratos AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+CRED-A.ST,CRED-A,,Creades AB,Stockholm,A,2012-02-22,SEK,EQUITY
+NEWA-B.ST,NEWA-B,,New Wave Group AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+BIOG-B.ST,BIOG-B,,BioGaia AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+NORION.ST,NORION,,Norion Bank AB (publ),Stockholm,A,2022-08-15,SEK,EQUITY
+CIBUS.ST,CIBUS,,Cibus Real Estate AB (publ),Stockholm,A,2018-03-09,SEK,EQUITY
+AFRY.ST,AFRY,,Afry AB,Stockholm,A,2000-01-03,SEK,EQUITY
+INTRUM.ST,INTRUM,,Intrum AB (publ),Stockholm,A,2002-06-07,SEK,EQUITY
+VPLAY-A.ST,VPLAY-A,,Viaplay Group AB (publ),Stockholm,A,2019-03-28,SEK,EQUITY
+SIVE.ST,SIVE,,Sivers Semiconductors AB (publ),Stockholm,A,2013-02-07,SEK,EQUITY
+PLEJD.ST,PLEJD,,Plejd AB,Stockholm,A,2016-04-11,SEK,EQUITY
+SBB-D.ST,SBB-D,,Samhällsbyggnadsbolaget i Norden AB (publ),Stockholm,A,2018-12-14,SEK,EQUITY
+MER.ST,MER,,Meren Energy Inc.,Stockholm,A,2010-09-30,SEK,EQUITY
+SLP-B.ST,SLP-B,,Swedish Logistic Property AB,Stockholm,A,2022-03-23,SEK,EQUITY
+INWI.ST,INWI,,Inwido AB (publ),Stockholm,A,2014-09-26,SEK,EQUITY
+VIT-B.ST,VIT-B,,Vitec Software Group AB (publ),Stockholm,A,2004-10-04,SEK,EQUITY
+ENGCON-B.ST,ENGCON-B,,engcon AB (publ),Stockholm,A,2022-06-17,SEK,EQUITY
+MIPS.ST,MIPS,,Mips AB (publ),Stockholm,A,2017-03-23,SEK,EQUITY
+INSTAL.ST,INSTAL,,Instalco AB (publ),Stockholm,A,2017-05-11,SEK,EQUITY
+VSURE.ST,VSURE,,Verisure plc,Stockholm,A,,EUR,EQUITY
+MILDEF.ST,MILDEF,,MilDef Group AB (publ),Stockholm,A,2021-06-04,SEK,EQUITY
+LIAB.ST,LIAB,,Lindab International AB (publ),Stockholm,A,2006-12-01,SEK,EQUITY
+SCST.ST,SCST,,Scandi Standard AB (publ),Stockholm,A,2014-06-27,SEK,EQUITY
+INTEA-D.ST,INTEA-D,,Intea Fastigheter AB ser. D,Stockholm,A,2024-12-12,SEK,EQUITY
+SDIP-B.ST,SDIP-B,,Sdiptech AB (publ),Stockholm,A,2017-05-12,SEK,EQUITY
+DIOS.ST,DIOS,,Diös Fastigheter AB (publ),Stockholm,A,2006-05-22,SEK,EQUITY
+ACAD.ST,ACAD,,AcadeMedia AB (publ),Stockholm,A,2016-06-15,SEK,EQUITY
+BOOZT.ST,BOOZT,,Boozt AB (publ),Stockholm,A,2017-05-31,SEK,EQUITY
+XVIVO.ST,XVIVO,,Xvivo Perfusion AB (publ),Stockholm,A,2012-10-08,SEK,EQUITY
+HEM.ST,HEM,,Hemnet Group AB (publ),Stockholm,A,2021-04-27,SEK,EQUITY
+SYNSAM.ST,SYNSAM,,Synsam AB (publ),Stockholm,A,2021-10-29,SEK,EQUITY
+HTRO.ST,HTRO,,Hexatronic Group AB (publ),Stockholm,A,2011-07-05,SEK,EQUITY
+PLAZ-B.ST,PLAZ-B,,Platzer Fastigheter Holding AB (publ),Stockholm,A,2013-11-29,SEK,EQUITY
+TROAX.ST,TROAX,,Troax Group AB (publ),Stockholm,A,2015-03-27,SEK,EQUITY
+MCAP.ST,MCAP,,MedCap AB (publ),Stockholm,A,2007-11-09,SEK,EQUITY
+HANZA.ST,HANZA,,Hanza AB (publ),Stockholm,A,2014-06-19,SEK,EQUITY
+VISC.ST,VISC,,Gruvaktiebolaget Viscaria,Stockholm,A,2007-12-28,SEK,EQUITY
+STORY-B.ST,STORY-B,,Storytel AB (publ),Stockholm,A,2007-12-28,SEK,EQUITY
+FPAR-A.ST,FPAR-A,,FastPartner AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+KAR.ST,KAR,,Karnov Group AB (publ),Stockholm,A,2019-04-11,SEK,EQUITY
+JM.ST,JM,,JM AB (publ),Stockholm,A,2001-05-29,SEK,EQUITY
+VBG-B.ST,VBG-B,,VBG Group AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+DYVOX.ST,DYVOX,,Dynavox Group AB (publ),Stockholm,A,2021-12-09,SEK,EQUITY
+YUBICO.ST,YUBICO,,Yubico AB,Stockholm,A,2021-03-25,SEK,EQUITY
+ARJO-B.ST,ARJO-B,,Arjo AB (publ),Stockholm,A,2017-12-12,SEK,EQUITY
+APOTEA.ST,APOTEA,,Apotea AB,Stockholm,A,2024-12-06,SEK,EQUITY
+DOM.ST,DOM,,Dometic Group AB (publ),Stockholm,A,2015-11-25,SEK,EQUITY
+BERG-B.ST,BERG-B,,Bergman & Beving AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+MMGR-B.ST,MMGR-B,,Momentum Group AB (publ),Stockholm,A,2022-03-31,SEK,EQUITY
+LOGI-B.ST,LOGI-B,,Logistea AB (publ),Stockholm,A,2021-11-22,SEK,EQUITY
+ALLIGO-B.ST,ALLIGO-B,,Alligo AB (publ),Stockholm,A,2017-06-21,SEK,EQUITY
+BETCO.ST,BETCO,,Better Collective A/S,Stockholm,A,2018-06-08,SEK,EQUITY
+EMIL-B.ST,EMIL-B,,Fastighetsbolaget Emilshus AB (publ),Stockholm,A,2022-06-13,SEK,EQUITY
+GOTL-B.ST,GOTL-B,,Rederiaktiebolaget Gotland (publ),Stockholm,A,2022-12-07,SEK,EQUITY
+ACAST.ST,ACAST,,Acast AB (publ),Stockholm,A,2021-06-17,SEK,EQUITY
+GOTL-A.ST,GOTL-A,,Rederiaktiebolaget Gotland (publ),Stockholm,A,2022-12-07,SEK,EQUITY
+TRUE-B.ST,TRUE-B,,Truecaller AB (publ),Stockholm,A,2021-10-08,SEK,EQUITY
+BAHN-B.ST,BAHN-B,,Bahnhof AB (publ),Stockholm,A,2007-12-19,SEK,EQUITY
+ORES.ST,ORES,,Investment AB Öresund (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SBB-B.ST,SBB-B,,Samhällsbyggnadsbolaget i Norden AB (publ),Stockholm,A,2010-04-01,SEK,EQUITY
+SVEAF.ST,SVEAF,,Sveafastigheter AB (publ),Stockholm,A,2024-10-18,SEK,EQUITY
+CYNCA.ST,CYNCA,,Cynca Nordic AB (publ),Stockholm,A,2008-05-19,SEK,EQUITY
+VPLAY-B.ST,VPLAY-B,,Viaplay Group AB (publ),Stockholm,A,2019-03-28,SEK,EQUITY
+STEF-B.ST,STEF-B,,Stendörren Fastigheter AB (publ),Stockholm,A,2011-02-04,SEK,EQUITY
+SVOL-B.ST,SVOL-B,,Svolder AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+RVRC.ST,RVRC,,RVRC Holding AB (publ),Stockholm,A,2021-06-16,SEK,EQUITY
+ANOD-B.ST,ANOD-B,,Addnode Group AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+ZZ-B.ST,ZZ-B,,Zinzino AB (publ),Stockholm,A,2010-09-20,SEK,EQUITY
+RAY-B.ST,RAY-B,,RaySearch Laboratories AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SALIX.ST,SALIX,,Salix Group AB,Stockholm,A,2026-06-15,SEK,EQUITY
+KARNEL-B.ST,KARNEL-B,,Karnell Group AB ser. B,Stockholm,A,2024-03-22,SEK,EQUITY
+NYAB.ST,NYAB,,NYAB AB,Stockholm,A,2024-06-28,SEK,EQUITY
+EPEN.ST,EPEN,,Ependion AB,Stockholm,A,2000-06-08,SEK,EQUITY
+CORE-A.ST,CORE-A,,Corem Property Group AB (publ),Stockholm,A,2007-11-06,SEK,EQUITY
+KAMBI.ST,KAMBI,,Kambi Group plc,Stockholm,A,2014-06-02,SEK,EQUITY
+NMAN.ST,NMAN,,Nederman Holding AB (publ),Stockholm,A,2007-05-16,SEK,EQUITY
+FLAT-B.ST,FLAT-B,,Flat Capital AB (publ),Stockholm,A,2021-10-20,SEK,EQUITY
+COOR.ST,COOR,,Coor Service Management Holding AB,Stockholm,A,2015-06-16,SEK,EQUITY
+GSKR-SDB.ST,GSKR-SDB,,Goldsky Resources Corp.,Stockholm,A,2025-03-21,SEK,EQUITY
+EAST.ST,EAST,,Eastnine AB (publ),Stockholm,A,2007-11-09,SEK,EQUITY
+OVZON.ST,OVZON,,Ovzon AB (publ),Stockholm,A,2018-05-18,SEK,EQUITY
+HAYPP.ST,HAYPP,,Haypp Group AB (publ),Stockholm,A,2021-10-13,SEK,EQUITY
+NOTE.ST,NOTE,,NOTE AB (publ),Stockholm,A,2004-06-23,SEK,EQUITY
+JOMA.ST,JOMA,,John Mattson Fastighetsföretagen AB (publ),Stockholm,A,2019-06-05,SEK,EQUITY
+LINC.ST,LINC,,Linc AB,Stockholm,A,2021-05-28,SEK,EQUITY
+MEKO.ST,MEKO,,Meko AB (publ),Stockholm,A,2000-05-30,SEK,EQUITY
+HNSA.ST,HNSA,,Hansa Biopharma AB (publ),Stockholm,A,2007-10-17,SEK,EQUITY
+PRISMA.ST,PRISMA,,Prisma Properties AB (publ),Stockholm,A,2024-06-18,SEK,EQUITY
+SFAST.ST,SFAST,,Stenhus Fastigheter i Norden AB (publ),Stockholm,A,2020-11-24,SEK,EQUITY
+FMM-B.ST,FMM-B,,FM Mattsson AB (publ),Stockholm,A,2017-04-10,SEK,EQUITY
+COFFEE-B.ST,COFFEE-B,,Coffee Stain Group AB (publ),Stockholm,A,2025-12-11,SEK,EQUITY
+CEVI.ST,CEVI,,CellaVision AB (publ),Stockholm,A,2007-05-28,SEK,EQUITY
+NP3-PREF.ST,NP3-PREF,,NP3 Fastigheter AB (publ),Stockholm,A,2018-03-12,SEK,EQUITY
+ITAB.ST,ITAB,,ITAB Group AB (publ),Stockholm,A,2004-05-28,SEK,EQUITY
+SEYE.ST,SEYE,,Smart Eye AB (publ),Stockholm,A,2016-12-07,SEK,EQUITY
+ENITY.ST,ENITY,,Enity Holding AB,Stockholm,A,2025-06-13,SEK,EQUITY
+HEBA-B.ST,HEBA-B,,Heba Fastighets AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+FOI-B.ST,FOI-B,,Fenix Outdoor International AG,Stockholm,A,2014-06-26,SEK,EQUITY
+TRAC-B.ST,TRAC-B,,AB Traction,Stockholm,A,2000-05-24,SEK,EQUITY
+DUNI.ST,DUNI,,Duni AB (publ),Stockholm,A,2007-11-14,SEK,EQUITY
+REJL-B.ST,REJL-B,,Rejlers AB (publ),Stockholm,A,2006-12-18,SEK,EQUITY
+IDUN-B.ST,IDUN-B,,Idun Industrier AB (publ),Stockholm,A,2021-03-26,SEK,EQUITY
+SF.ST,SF,,Stillfront Group AB (publ),Stockholm,A,2015-12-08,SEK,EQUITY
+KEOC.ST,KEOC,,Keo Capital AB (publ),Stockholm,A,2016-07-29,SEK,EQUITY
+BTS-B.ST,BTS-B,,BTS Group AB (publ),Stockholm,A,2001-06-07,SEK,EQUITY
+SECARE.ST,SECARE,,Swedencare AB (publ),Stockholm,A,2016-06-14,SEK,EQUITY
+BHG.ST,BHG,,BHG Group AB (publ),Stockholm,A,2018-03-27,SEK,EQUITY
+HUM.ST,HUM,,Humana AB (publ),Stockholm,A,2016-03-22,SEK,EQUITY
+VIVA.ST,VIVA,,Viva Wine Group AB,Stockholm,A,2021-12-14,SEK,EQUITY
+NIVI-B.ST,NIVI-B,,Nivika Fastigheter AB (publ),Stockholm,A,2021-12-03,SEK,EQUITY
+EGTX.ST,EGTX,,Egetis Therapeutics AB (publ),Stockholm,A,2011-04-07,SEK,EQUITY
+MORROW.ST,MORROW,,Morrow Bank AB,Stockholm,A,2017-11-10,SEK,EQUITY
+TRIAN-B.ST,TRIAN-B,,Fastighets AB Trianon (publ),Stockholm,A,2017-06-21,SEK,EQUITY
+SNM-SDB.ST,SNM-SDB,,ShaMaran Petroleum Ltd.,Stockholm,A,2026-05-29,SEK,EQUITY
+LIME.ST,LIME,,Lime Technologies AB (publ),Stockholm,A,2018-12-06,SEK,EQUITY
+NREST.ST,NREST,,Nordrest Holding AB (publ),Stockholm,A,2024-05-24,SEK,EQUITY
+BONAV-B.ST,BONAV-B,,Bonava AB (publ),Stockholm,A,2016-06-09,SEK,EQUITY
+SVED-B.ST,SVED-B,,Svedbergs Group AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+PACT.ST,PACT,,Proact IT Group AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+BONAV-A.ST,BONAV-A,,Bonava AB (publ),Stockholm,A,2016-06-09,SEK,EQUITY
+TEQ.ST,TEQ,,Teqnion AB (publ),Stockholm,A,2019-04-04,SEK,EQUITY
+VICO.ST,VICO,,Vicore Pharma Holding AB (publ),Stockholm,A,2015-12-10,SEK,EQUITY
+BESQAB.ST,BESQAB,,Besqab AB (publ),Stockholm,A,2021-06-16,SEK,EQUITY
+BMAX.ST,BMAX,,Byggmax Group AB (publ),Stockholm,A,2010-06-02,SEK,EQUITY
+CORE-B.ST,CORE-B,,Corem Property Group AB (publ),Stockholm,A,2017-12-13,SEK,EQUITY
+FAG.ST,FAG,,Fagerhult Group AB,Stockholm,A,2000-01-03,SEK,EQUITY
+XANO-B.ST,XANO-B,,XANO Industri AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+BRIN-B.ST,BRIN-B,,Brinova Fastigheter AB (publ),Stockholm,A,2016-09-30,SEK,EQUITY
+VER.ST,VER,,Verve Group Media SE,Stockholm,A,2020-10-06,SEK,EQUITY
+ALM-PREF.ST,ALM-PREF,,ALM Equity AB (publ),Stockholm,A,2017-07-21,SEK,EQUITY
+NEOBO.ST,NEOBO,,Neobo Fastigheter AB (publ),Stockholm,A,2023-02-13,SEK,EQUITY
+KFAST-B.ST,KFAST-B,,K-Fast Holding AB (publ),Stockholm,A,2019-11-29,SEK,EQUITY
+KNOW.ST,KNOW,,Knowit AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+SUS.ST,SUS,,Surgical Science Sweden AB (publ),Stockholm,A,2017-06-19,SEK,EQUITY
+VOLO.ST,VOLO,,Volati AB (publ),Stockholm,A,2016-11-30,SEK,EQUITY
+KBC.ST,KBC,,KB Components AB (publ),Stockholm,A,2024-12-11,SEK,EQUITY
+DUST.ST,DUST,,Dustin Group AB (publ),Stockholm,A,2015-02-13,SEK,EQUITY
+HUMBLE.ST,HUMBLE,,Humble Group AB (publ),Stockholm,A,2014-11-12,SEK,EQUITY
+NOBI.ST,NOBI,,Nobia AB (publ),Stockholm,A,2002-06-19,SEK,EQUITY
+AGROUP.ST,AGROUP,,Arlandastad Group AB (publ),Stockholm,A,2021-09-15,SEK,EQUITY
+SMCRT.ST,SMCRT,,SmartCraft Group AB (publ),Stockholm,A,2021-06-28,SEK,EQUITY
+MSON-A.ST,MSON-A,,Midsona AB (publ),Stockholm,A,2000-01-07,SEK,EQUITY
+VNV.ST,VNV,,VNV Global AB (publ),Stockholm,A,2020-06-29,SEK,EQUITY
+ABSO.ST,ABSO,,Absolent Air Care Group AB (publ),Stockholm,A,2014-10-16,SEK,EQUITY
+ELTEL.ST,ELTEL,,Eltel AB (publ),Stockholm,A,2015-02-06,SEK,EQUITY
+KLARA-B.ST,KLARA-B,,KlaraBo Sverige AB (publ),Stockholm,A,2021-12-02,SEK,EQUITY
+STIL.ST,STIL,,Stille AB,Stockholm,A,2005-11-29,SEK,EQUITY
+KABE-B.ST,KABE-B,,KABE Group AB (publ.),Stockholm,A,2000-01-03,SEK,EQUITY
+VSSAB-B.ST,VSSAB-B,,Viking Supply Ships AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+GOMX.ST,GOMX,,GomSpace Group AB (publ),Stockholm,A,2016-06-16,SEK,EQUITY
+VERT-B.ST,VERT-B,,Vertiseit AB (publ),Stockholm,A,2019-05-28,SEK,EQUITY
+ORRON.ST,ORRON,,Orrön Energy AB (publ),Stockholm,A,2001-09-06,SEK,EQUITY
+VEFAB.ST,VEFAB,,VEF AB (publ),Stockholm,A,2021-07-05,SEK,EQUITY
+SFAB.ST,SFAB,,Solid Försäkringsaktiebolag (publ),Stockholm,A,2021-12-01,SEK,EQUITY
+WSG.ST,WSG,,WS WeSports Group AB,Stockholm,A,2025-12-09,SEK,EQUITY
+SVIK.ST,SVIK,,Studsvik AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+ELAN-B.ST,ELAN-B,,Elanders AB (publ),Stockholm,A,2000-01-03,SEK,EQUITY
+GPG.ST,GPG,,Genova Property Group AB (publ),Stockholm,A,2020-06-30,SEK,EQUITY
+CLAV.ST,CLAV,,Clavister Holding AB (publ.),Stockholm,A,2014-05-21,SEK,EQUITY
+CARA.ST,CARA,,Carasent AB (publ),Stockholm,A,2007-12-21,SEK,EQUITY
+EG7.ST,EG7,,Enad Global 7 AB (publ),Stockholm,A,2019-02-04,SEK,EQUITY
+LUC.ST,LUC,,Lucara Diamond Corp.,Stockholm,A,2011-11-25,SEK,EQUITY
+FLERIE.ST,FLERIE,,Flerie AB (publ),Stockholm,A,2016-10-11,SEK,EQUITY
+SANION.ST,SANION,,Saniona AB (publ),Stockholm,A,2014-04-22,SEK,EQUITY

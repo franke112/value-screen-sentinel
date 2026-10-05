@@ -1,0 +1,166 @@
+schema: vss/review v1
+ticker: CTSH
+date: '2026-09-19'
+status_at_start: WATCH-PRICED
+prepare_report: reports/prepare/CTSH-2026-09-19.json
+prepare_waived: null
+started_at: verdict
+resume_reason: struck 2026-08-30 (reference/run-records/CTSH-2026-08-30-e70.json)
+  and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/CTSH-2026-09-19-e117.json,
+  reference/CTSH-STRIKE-2026-09-19-e117.md), the lease treatment the only change;
+  verdict WATCH-PRICED on the entry -- the prepare report of 2026-09-19 resumes at
+  verdict
+steps:
+- step: hard-kills
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: struck 2026-08-30 (reference/run-records/CTSH-2026-08-30-e70.json)
+    and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/CTSH-2026-09-19-e117.json,
+    reference/CTSH-STRIKE-2026-09-19-e117.md), the lease treatment the only change;
+    verdict WATCH-PRICED on the entry -- the prepare report of 2026-09-19 resumes
+    at verdict
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: conviction
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: struck 2026-08-30 (reference/run-records/CTSH-2026-08-30-e70.json)
+    and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/CTSH-2026-09-19-e117.json,
+    reference/CTSH-STRIKE-2026-09-19-e117.md), the lease treatment the only change;
+    verdict WATCH-PRICED on the entry -- the prepare report of 2026-09-19 resumes
+    at verdict
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: basis
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: struck 2026-08-30 (reference/run-records/CTSH-2026-08-30-e70.json)
+    and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/CTSH-2026-09-19-e117.json,
+    reference/CTSH-STRIKE-2026-09-19-e117.md), the lease treatment the only change;
+    verdict WATCH-PRICED on the entry -- the prepare report of 2026-09-19 resumes
+    at verdict
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: flow
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: struck 2026-08-30 (reference/run-records/CTSH-2026-08-30-e70.json)
+    and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/CTSH-2026-09-19-e117.json,
+    reference/CTSH-STRIKE-2026-09-19-e117.md), the lease treatment the only change;
+    verdict WATCH-PRICED on the entry -- the prepare report of 2026-09-19 resumes
+    at verdict
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: net-debt
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: struck 2026-08-30 (reference/run-records/CTSH-2026-08-30-e70.json)
+    and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/CTSH-2026-09-19-e117.json,
+    reference/CTSH-STRIKE-2026-09-19-e117.md), the lease treatment the only change;
+    verdict WATCH-PRICED on the entry -- the prepare report of 2026-09-19 resumes
+    at verdict
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: divisor
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: struck 2026-08-30 (reference/run-records/CTSH-2026-08-30-e70.json)
+    and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/CTSH-2026-09-19-e117.json,
+    reference/CTSH-STRIKE-2026-09-19-e117.md), the lease treatment the only change;
+    verdict WATCH-PRICED on the entry -- the prepare report of 2026-09-19 resumes
+    at verdict
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: growth-view
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: struck 2026-08-30 (reference/run-records/CTSH-2026-08-30-e70.json)
+    and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/CTSH-2026-09-19-e117.json,
+    reference/CTSH-STRIKE-2026-09-19-e117.md), the lease treatment the only change;
+    verdict WATCH-PRICED on the entry -- the prepare report of 2026-09-19 resumes
+    at verdict
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: strike
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: struck 2026-08-30 (reference/run-records/CTSH-2026-08-30-e70.json)
+    and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/CTSH-2026-09-19-e117.json,
+    reference/CTSH-STRIKE-2026-09-19-e117.md), the lease treatment the only change;
+    verdict WATCH-PRICED on the entry -- the prepare report of 2026-09-19 resumes
+    at verdict
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: tier-mbp
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: struck 2026-08-30 (reference/run-records/CTSH-2026-08-30-e70.json)
+    and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/CTSH-2026-09-19-e117.json,
+    reference/CTSH-STRIKE-2026-09-19-e117.md), the lease treatment the only change;
+    verdict WATCH-PRICED on the entry -- the prepare report of 2026-09-19 resumes
+    at verdict
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: verdict
+  outcome: entry
+  text: 'Status: entry. E117 strike fv_base 84.16, bear 63.25, bull 104.66, tier-2
+    max buy 63.12. Close 2026-09-18 59.87, 5.2% below. Growth view 0.04 / 0.00 / 0.07
+    stands. Gate 1 and §5 pass; Gate 3 coverage PASS under E118; leverage PASS under
+    E119, information line 0.20x on 2026-06-30 net debt of 791m. Sensitivity on the
+    June 30 balance sheet and cover share count gives a buy price of 65.45 (60.88
+    at r 10%), so the H1 2026 swing does not remove the signal; sensitivity only,
+    not a strike. Risks: net cash became net debt in H1 2026; revolver and term loan
+    mature October 2027; 1,334m of acquisitions unproven; on the FY2025 strike at
+    r 10% the buy price is 58.91, below the close. Re-strike on Q3 results.'
+  answered_at: '2026-09-19T18:31:43+02:00'
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited:
+  - E117
+  - E118
+  - E119
+  verification: []
+growth_view:
+  base: 0.04
+  bear: 0.0
+  bull: 0.07
+  reasons: 'standing view of 2026-08-27, reference/growth-views/CTSH.md -- owner:
+    "View stands: 0.04 / 0.00 / 0.07, no new information since 08-27."'
+  registered_at: '2026-08-27T00:00:00+02:00'
+note: '2026-09-19: WATCH-PRICED → entry. Re-struck under E117 (rent as operating cost):
+  fv_base 84.16, bear 63.25, bull 104.66, tier-2 MBP 63.12; record CTSH-2026-09-19-e117-r2.json.
+  Close 2026-09-18 59.87, 5.2% below MBP. Growth view 0.04 / 0.00 / 0.07 stands. Gate
+  3 coverage PASS under E118 (net finance income); leverage PASS under E119 (derived
+  EBITDA 3,939m; 0.20x on 2026-06-30 net debt 791m). H1 2026: net cash became net
+  debt after 1,334m acquisitions, 1,607m buybacks, 1,000m revolver draw; debt matures
+  Oct 2027. June 30 sensitivity still below MBP (65.45; 60.88 at r 10%). Thin margin:
+  on the FY2025 strike at r 10% the MBP is 58.91, below the close. Re-strike on Q3
+  results (late Oct).'

@@ -1,0 +1,7 @@
+yfinance
+pandas
+pyyaml
+pypdf[crypto]
+pytest
+openpyxl
+exchange_calendars

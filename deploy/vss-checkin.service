@@ -1,0 +1,33 @@
+[Unit]
+Description=vss dead man's switch -- is a completed run on record, and are the timers alive?
+Documentation=file://%h/vss/deploy/README.md
+
+# The check-in's OWN failure is a finding too: if this cannot run, the leg
+# that watches the other legs is down.
+OnFailure=vss-failure@%n.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/vss
+
+# Silence when healthy. It POSTs only when a completed nightly run is
+# missing, a run started and never finished, or a timer has stopped being
+# enabled and active. A finding exits 0 -- see `vss checkin` -- so the
+# OnFailure= above stays reserved for the check-in ITSELF being broken.
+ExecStart=%h/vss/.venv/bin/python -m vss checkin
+
+EnvironmentFile=-%h/.config/vss/vss.env
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=vss-checkin
+
+TimeoutStartSec=2min
+
+# It reads data/vss.sqlite and calls systemctl. It writes NOTHING, so it
+# gets no ReadWritePaths at all -- the tightest sandbox in this deploy
+# directory, and the one easiest to keep tight.
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+NoNewPrivileges=true

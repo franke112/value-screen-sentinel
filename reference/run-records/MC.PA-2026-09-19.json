@@ -1,0 +1,206 @@
+{
+ "ticker": "MC.PA",
+ "currency": "EUR",
+ "run_ts": "2026-09-19T22:47:16+02:00",
+ "basis": "2025-FY",
+ "shares": {
+  "count": 497976118.0,
+  "basis": "weighted-average DILUTED count for 2025-FY, the same window as the flows (E38)",
+  "as_of": "2025-12-31",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 165.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 28, CONSOLIDATED CASH FLOW STATEMENT, I. OPERATING ACTIVITIES: 'Cost of net financial debt: interest paid (290)', 'Lease liabilities: interest paid (545)' and 'Tax paid (4,656)' all sit above 'Net cash from/(used in) operating activities 18,874'. No interest RECEIVED line is printed: E115 governs, the add-back is interest paid ALONE, a named one-sided proxy",
+  "net_interest_paid": 290.0,
+  "source": "cash_paid_only"
+ },
+ "bridge": {
+  "net_debt": 7482.0,
+  "items": {
+   "short_term_investments": 4708.0,
+   "current_financial_assets": 4708.0,
+   "leases": 0.0,
+   "pensions": 641.0,
+   "asset_retirement_obligations": 0.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+  },
+  "note": "borrowings 7,925 + 12,418 + leases 0 -- the IFRS 16 liability 16,018 LEAVES net debt whole (E117: its cash is in the flow; one lessee model, no split) + pension deficit 641 (E35.1) + asset retirement obligations 0 (E68) + prepaid delivery obligations 0 (E81) - cash 8,794 - other current financial assets 4,708. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+ },
+ "dates": {
+  "flows_window_end": "2025-12-31",
+  "balance_sheet": "2025-12-31",
+  "share_count": "2025-12-31",
+  "price": "2026-09-16"
+ },
+ "growth": {
+  "base": 0.03,
+  "view_file": "reference/growth-views/MC.PA.md",
+  "view_date": "2026-09-19",
+  "bear": 0.0,
+  "bull": 0.06
+ },
+ "operating_cash_flow": 18874.0,
+ "capex": -4567.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_combined",
+   "value": -4567.0,
+   "provenance": "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 28: 'Operating investments (4,567)'",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 18874.0,
+   "provenance": "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 28: 'Net cash from/(used in) operating activities 18,874'",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "sbc",
+   "value": 165.0,
+   "provenance": "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 52: 'Expense for the period 165' (bonus share plans)",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "finance_costs_paid",
+   "value": 290.0,
+   "provenance": "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 28: 'Cost of net financial debt: interest paid (290)' (a positive magnitude)",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 497976118.0,
+   "provenance": "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 24: 'Number of shares on which the calculation is based 497,976,118'",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 7925.0,
+   "provenance": "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 26: 'Short-term borrowings 7,925'",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 12418.0,
+   "provenance": "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 26: 'Long-term borrowings 12,418'",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 16018.0,
+   "provenance": "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 26: 'Non-current lease liabilities 13,384' + 'Current lease liabilities 2,634' = 16,018 (E71: two stated parts of one liability)",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 641.0,
+   "provenance": "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 55: 'Provisions for pensions, medical costs and similar commitments 627' non-current + 14 current = 641 (note 20)",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 34: 'Leasehold rights and property, plant and equipment related to restoration obligations for leased facilities are presented within Right-of-use assets'. A NAMED ZERO (owner, 2026-09-19, MC.PA-E68): restoration obligations sit inside lease accounting, so E117's lease treatment already carries them; deducting again would double-count",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 57, note 22.2: 'Advances and payments on account from customers 1,120' and 'Loyalty programs and gift cards 780' are the two candidates, and NEITHER is E81's leg (owner, 2026-09-19, MC.PA-E81): customer advances are a working-capital item, not a delivery obligation of the kind E81 targets (a stream, a prepaid offtake); loyalty programmes and gift cards are a deferred-revenue liability, not prepaid delivery. E81's second application (EXE's contract liabilities, 2026-08-30) reads the same way. A NAMED ZERO",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 8794.0,
+   "provenance": "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 26: 'Cash and cash equivalents 8,794'",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "other_current_financial_assets",
+   "value": 4708.0,
+   "provenance": "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 47: 'Current available for sale financial assets 4,708' (note 14; inside 'Other current assets' on the face)",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "lease_payments_capital",
+   "value": -2974.0,
+   "provenance": "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 28: 'Repayment of lease liabilities (2,974)'",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "lease_interest_paid",
+   "value": 0.0,
+   "provenance": "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 28: 'Lease liabilities: interest paid (545)' is its OWN line inside OPERATING ACTIVITIES, apart from 'Cost of net financial debt: interest paid (290)', which is the E115 add-back. The operating cash flow therefore still BEARS the lease interest after E34, so E117 deducts nothing further for it: a named zero, the lease cash counted once (the AUTO.L shape)",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  }
+ ],
+ "tool_commit": "MC.PA first strike, 2026-09-19, 3770eee",
+ "notes": "First strike (owner A4, 2026-09-19): store built from LVMH's own FY2025 and H1 reports; growth view registered before any value was struck",
+ "money_unit": "millions",
+ "nci_dividends_paid": -414.0,
+ "undetermined": [],
+ "fcf_reported": {
+  "value": 11333.0,
+  "page": "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 28: 'Operating free cash flow 11,333' (LVMH's own definition, a reference figure)",
+  "verified": true
+ },
+ "net_debt_reported": {
+  "value": 6857.0,
+  "page": "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 20: 'Net financial debt 6,857' (LVMH's definition EXCLUDES lease liabilities, note 1.22)",
+  "verified": true
+ },
+ "net_income": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "lease": {
+  "in_operating_cash_flow": false,
+  "page": "IFRS 16.50(b) sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 28: 'Repayment of lease liabilities (2,974)' sits in financing, below the operating total",
+  "principal_added_back": null,
+  "leg": "`lease_payments_capital` + `lease_interest_paid`, DEDUCTED (E117: the IFRS 16 principal and lease interest)",
+  "rule": "E117",
+  "lease_cash_deducted": 2974.0,
+  "principal_paid": 2974.0,
+  "interest_paid": 0.0,
+  "liability_excluded": 16018.0
+ }
+}

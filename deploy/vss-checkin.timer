@@ -1,0 +1,23 @@
+[Unit]
+Description=Run the vss check-in daily
+Documentation=file://%h/vss/deploy/README.md
+
+[Timer]
+# 09:30, ten and a half hours after the nightly run's 22:30 slot -- late
+# enough that a run still catching up under Persistent=true has finished,
+# early enough to be read over coffee.
+#
+# THIS IS A SEPARATE TIMER FROM vss.timer ON PURPOSE. If the check on the
+# run shared a timer with the run, the failure that stopped the run would
+# stop the check, and the switch would be wired to its own power supply.
+OnCalendar=*-*-* 09:30:00
+AccuracySec=5min
+
+# If the machine was off at 09:30, check in at the next opportunity. A
+# machine that was off is exactly the case worth checking.
+Persistent=true
+
+Unit=vss-checkin.service
+
+[Install]
+WantedBy=timers.target

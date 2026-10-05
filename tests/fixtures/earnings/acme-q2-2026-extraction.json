@@ -1,0 +1,77 @@
+{
+  "period": {
+    "value": "2026-Q2",
+    "sentence": "ACME Industries reports second quarter 2026 results"
+  },
+  "basis": "reported",
+  "accounting": "gaap",
+  "guidance_action": {
+    "value": "cut",
+    "sentence": "The company today lowers its full year 2026 revenue outlook, and now expects organic growth of minus 2 to zero per cent, compared with the previous guidance of plus 1 to plus 3 per cent."
+  },
+  "figures": {
+    "revenue": {
+      "value": 4120.0,
+      "sentence": "Revenue for the second quarter was SEK 4,120 million, a decrease of 3.4 per cent compared with the same quarter last year.",
+      "source_type": "prose",
+      "period_column": null
+    },
+    "revenue_yoy": {
+      "value": -0.034,
+      "sentence": "Revenue for the second quarter was SEK 4,120 million, a decrease of 3.4 per cent compared with the same quarter last year.",
+      "source_type": "prose",
+      "period_column": null
+    },
+    "op_income": {
+      "value": 494.0,
+      "sentence": "Operating income was SEK 494 million, giving an operating margin of 12.0 per cent, compared with 14.1 per cent in the second quarter of 2025.",
+      "source_type": "prose",
+      "period_column": null
+    },
+    "op_margin": {
+      "value": 0.12,
+      "sentence": "Operating income was SEK 494 million, giving an operating margin of 12.0 per cent, compared with 14.1 per cent in the second quarter of 2025.",
+      "source_type": "prose",
+      "period_column": null
+    },
+    "eps": {
+      "value": 2.18,
+      "sentence": "Earnings per share amounted to SEK 2.18.",
+      "source_type": "prose",
+      "period_column": null
+    },
+    "net_debt_ebitda": {
+      "value": 2.1,
+      "sentence": "Net debt in relation to EBITDA was 2.1 times.",
+      "source_type": "prose",
+      "period_column": null
+    },
+    "receivables": {
+      "value": 1980.0,
+      "sentence": "Accounts receivable increased to SEK 1,980 million from SEK 1,610 million.",
+      "source_type": "prose",
+      "period_column": null
+    },
+    "inventory": {
+      "value": 1240.0,
+      "sentence": "Inventories were SEK 1,240 million at the end of the period.",
+      "source_type": "prose",
+      "period_column": null
+    },
+    "class_c_impact": {
+      "value": null,
+      "sentence": null,
+      "source_type": "prose",
+      "period_column": null
+    },
+    "covenant_headroom": {
+      "value": null,
+      "sentence": null,
+      "source_type": "prose",
+      "period_column": null
+    }
+  },
+  "exec_changes": [],
+  "ambiguities": [],
+  "period_basis": "calendar"
+}

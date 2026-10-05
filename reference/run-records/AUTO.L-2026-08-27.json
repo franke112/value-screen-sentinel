@@ -1,0 +1,138 @@
+{
+ "ticker": "AUTO.L",
+ "currency": "GBP",
+ "run_ts": "2026-08-27T22:07:10+01:00",
+ "basis": "2026-FY",
+ "shares": {
+  "count": 862666.25,
+  "basis": "weighted-average DILUTED count for 2026-FY, the same window as the flows (E38)",
+  "as_of": "2026-03-31",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "thousands"
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 9.2,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": false,
+  "page": "Annual Report and Financial Statements 2026 (audited) p.105, consolidated statement of cash flows: 'Payment of interest on borrowings 31 (2.8)' sits inside Cash flows from FINANCING activities, and 'Interest received on cash and cash equivalents 1.3' sits inside Cash flows from INVESTING activities -- both OUTSIDE 'Net cash generated from operating activities 322.8', which is computed from 'Cash generated from operations 418.0' less 'Income taxes paid (95.2)' alone, with no interest line in operating activities at all",
+  "net_interest_paid": null,
+  "source": "cash_flow_statement"
+ },
+ "bridge": {
+  "net_debt": 187.8,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 42.6,
+   "pensions": 0.0,
+   "non_controlling_interests": "no field in this schema (E35)"
+  },
+  "note": "borrowings 0 + 163 + leases 43 (E35: always in) + pension deficit 0 (E35.1) - cash 18 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: split: capex_ppe + capex_intangibles, as the accounts print them"
+ },
+ "dates": {
+  "flows_window_end": "2026-03-31",
+  "balance_sheet": "2026-03-31",
+  "share_count": "2026-03-31",
+  "price": "2026-08-27"
+ },
+ "growth": {
+  "base": 0.03,
+  "view_file": "reference/growth-views/AUTO.L.md",
+  "view_date": "2026-08-27",
+  "bear": 0.0,
+  "bull": 0.06
+ },
+ "operating_cash_flow": 322.8,
+ "capex": -27.400000000000002,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_ppe",
+   "value": -27.3,
+   "provenance": "p.105: 'Purchases of property, plant and equipment (27.3)' -- the PDF text layer extracts this as '(27 .3)'; cross-checked against the ESEF/iXBRL package, tag ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities, context P04_01_2025To03_31_2026, unit Unit_GBP, scale 6: 27.3, sign attribute absent. Not a discrepancy: this concept is inherently an outflow, tagged as a positive magnitude by iXBRL convention, while the printed statement (and this field) sign cash outflows negative. Same \u00a327.3m either way -- the sign was reconciled by convention, not by value.",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "capex_intangibles",
+   "value": -0.1,
+   "provenance": "p.105: 'Purchases of intangible assets (0.1)'; cross-checked against the ESEF/iXBRL package, tag ifrs-full:PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities, context P04_01_2025To03_31_2026, unit Unit_GBP, scale 6: 0.1, sign attribute absent. Not a discrepancy: same convention gap as capex_ppe above -- iXBRL tags the outflow as a positive magnitude, this field signs it negative. Same \u00a30.1m either way.",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 322.8,
+   "provenance": "p.105, consolidated statement of cash flows: 'Net cash generated from operating activities 322.8'; cross-checked against the ESEF/iXBRL package, tag ifrs-full:CashFlowsFromUsedInOperatingActivities, context P04_01_2025To03_31_2026, unit Unit_GBP, scale 6: 322.8",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "sbc",
+   "value": 9.2,
+   "provenance": "note 28, p.126, cash generated from operations reconciliation: 'Share-based payments charge (excluding associated NI) 9.2'; reconciles exactly to note 29, p.126, share-based payments: 'Total charge 9.7' less 'NI and apprenticeship levy on applicable schemes 0.5' = 9.2 -- the same charge decomposed in the separately-prepared remuneration note (FRAMEWORK-EDITS E59)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 862666.25,
+   "provenance": "note 11, p.117, earnings per share: 'Diluted EPS 862,666,250' weighted average number of ordinary shares (entered in thousands, share_unit: E53); reconciles to rounding against p.101, consolidated income statement: net_income 293.9 / diluted_eps 34.07p = 862,635,750 point estimate (30,500 shares off stated, 0.0035%), within the band [862,362,436-862,909,144] implied by both inputs' own printed rounding -- see SHARE COUNT ARITHMETIC CHECKS in the header. A reconciliation against the separately-prepared primary statement, not an exact digit match, per FRAMEWORK-EDITS E59",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 0.0,
+   "provenance": "note 21, p.121, borrowings repayment schedule: 'Less than one year \u2013 \u2013'; reconciles exactly to note 31, p.131, net debt roll-forward: 'Debt due within one year \u2013 \u2013 \u2013 \u2013' -- the same zero balance independently stated in the separately-prepared net debt reconciliation (FRAMEWORK-EDITS E59). EXCLUDES the \u00a35.0m vehicle stocking loan (note 20, p.121) under FRAMEWORK-EDITS E55 -- inventory finance, presented inside trade and other payables, not borrowings",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 163.4,
+   "provenance": "p.103, consolidated balance sheet: 'Borrowings 21 163.4'; note 21, p.121: 'Total borrowings 163.4' (\u00a3165.0m gross of the Syndicated RCF less \u00a31.6m unamortised debt issue costs); cross-checked against the ESEF/iXBRL package, tag ifrs-full:LongtermBorrowings, context PAsOn03_31_2026, unit Unit_GBP, scale 6: 163.4",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 42.6,
+   "provenance": "note 14, p.119, 'Lease liabilities in the balance sheet at 31 March': 'Current 0.6' + 'Non-current 42.0' = 'Total 42.6'; cross-checked against the ESEF/iXBRL package, tags ifrs-full:CurrentLeaseLiabilities (context PAsOn03_31_2026: 0.6) + ifrs-full:NoncurrentLeaseLiabilities (context PAsOn03_31_2026: 42.0), unit Unit_GBP, scale 6: sum 42.6",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 0.0,
+   "provenance": "note 24, p.123-124: the Scheme's buy-in was converted to a full buy-out on 2025-09-12 and accounted for as a Settlement; 'it was not necessary to derive assumptions as at 31 March 2026 since there were no benefits to be valued'; the note's own balance-sheet reconciliation states, for 2026, 'Present value of funded obligations \u2013', 'Fair value of plan assets \u2013', 'Net asset recognised in the Consolidated balance sheet \u2013' -- all nil. The \u00a32,000 IFRIC 14 residual named on the same page is an ASSET, immaterial at this file's \u00a30.1m rounding, and not the LIABILITY E35.1's field is (FRAMEWORK-EDITS E35.1, resolved 2026-08-27 -- see header PENSION DEFICIT note)",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 18.2,
+   "provenance": "p.103, consolidated balance sheet: 'Cash and cash equivalents 19 18.2'; note 19, p.121 confirms; cross-checked against the ESEF/iXBRL package, tag ifrs-full:CashAndCashEquivalents, context PAsOn03_31_2026, unit Unit_GBP, scale 6: 18.2",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  }
+ ],
+ "tool_commit": "AUTO.L first strike, 2026-08-27, d179600",
+ "notes": "",
+ "money_unit": "millions"
+}

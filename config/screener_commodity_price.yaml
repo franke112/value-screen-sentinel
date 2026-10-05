@@ -1,0 +1,109 @@
+# OUTSIDE THE CIRCLE OF COMPETENCE: companies whose REVENUE IS A WORLD PRICE
+# THEY DO NOT SET, multiplied by a volume. Section 5 cannot be run on them:
+# for a price taker the BEAR CASE IS NOT SLOWER GROWTH BUT A HALVED PRICE,
+# which is a different cash flow rather than a lower `g` on the same one, so
+# the three rates E28 makes us pre-register would be three guesses about a
+# commodity market and not three estimates of a business.
+#
+# FRAMEWORK-EDITS E96, ruled by the owner 2026-08-31, in E51's shape and on
+# E51's ground -- the same limit of the METHOD, a different unknowable.
+# Applied at STEP 0, with the reason recorded, REGARDLESS OF SCREENER RANK.
+#
+# THIS IS NOT A JUDGEMENT ABOUT THE INDUSTRY. A gas producer may be an
+# excellent company and a fine investment; it is not one this framework can
+# value, and saying so at step 0 is more honest than printing a fair value
+# whose growth rate nobody can defend.
+#
+# TWO LIMBS AND ONE ESCAPE, exactly as E51:
+#
+#   industries: the VENDOR's industry string, matched exactly. It reaches a
+#               name only where a string has been STORED for it -- and
+#               fundamentals are fetched for the survivors of filter 1
+#               alone, so most of the universe carries no string and this
+#               limb is blind to it. That silence is a fact about the fetch.
+#   tickers:    the owner's own list, which does not depend on the vendor
+#               having classified anything. Checked FIRST and never exempt.
+#   exempt:     a ticker the string limb catches and the owner has ruled
+#               back IN, with the reason. A session NEVER adds a row here;
+#               it flags the name in the run report and stops.
+
+# The vendor's own strings, as stored on 2026-08-29. Every one of these
+# names a business whose selling price is set on a world market.
+industries:
+  # upstream oil and gas, and oilfield services on the rig cycle
+  - Oil & Gas E&P
+  - Oil & Gas Equipment & Services
+  - Oil & Gas Drilling
+  - Thermal Coal
+  - Coking Coal
+  - Uranium
+  # mining and basic metals
+  - Aluminum
+  - Copper
+  - Gold
+  - Silver
+  - Other Precious Metals & Mining
+  - Other Industrial Metals & Mining
+  # steel, pulp and paper
+  - Steel
+  - Paper & Paper Products
+  - Lumber & Wood Production
+  # bulk shipping, where freight rates set revenue
+  - Marine Shipping
+
+# SECTORS ARE EMPTY ON PURPOSE, and this is the same refusal E51 makes of
+# `Healthcare`. `Energy` would take the UTILITIES and RENEWABLES with it --
+# the store carries Utilities - Renewable, Utilities - Regulated Electric,
+# Utilities - Regulated Water -- and those sell a REGULATED OR CONTRACTED
+# revenue base, which is the opposite of the fault this rule names.
+# `Basic Materials` would take SPECIALTY CHEMICALS (ALB, JMAT.L, LYB, DOW,
+# KEMIRA.HE), which sell formulated products at negotiated prices, and
+# BUILDING MATERIALS (CRH, HEI.DE, MLM, VMC), which sell into local markets
+# behind freight moats.
+sectors: []
+
+# EXPRESSLY NOT IN SCOPE, recorded so a later session does not add them
+# thinking they were forgotten:
+#   - Oil & Gas Integrated, Oil & Gas Midstream, Oil & Gas Refining &
+#     Marketing -- refining margins move AGAINST the crude price and
+#     midstream is often a contracted toll on volume. None is in the store
+#     today. Named by E96 for the owner; not yet ruled either way.
+#
+#   - SEMICONDUCTORS, MEMORY INCLUDED: CONSIDERED AND DECLINED BY THE OWNER
+#     ON 2026-08-31 (FRAMEWORK-EDITS E96.1 part 3). NOT AN OVERSIGHT.
+#     MU sat at rank 20 of the 2026-08-29 ranking and the question was put
+#     squarely. The answer is no: a memory maker SETS ITS OWN CAPACITY,
+#     DIFFERENTIATES ON PROCESS NODE and SELLS A MANUFACTURED PRODUCT, while
+#     E96's ground is a halved price on a volume you CANNOT influence -- and
+#     a memory maker can and does cut capacity into a downturn. Memory
+#     pricing is commodity-LIKE; that is not the same fact.
+#     A session finding `Semiconductors` absent here must NOT read it as
+#     forgotten. Re-opening it takes a new dated entry beneath E96.1.
+#
+#   - NO PARTIAL EXEMPTION FOR A SMELTER (E96.1). BOL.ST and NHY.OL stay
+#     IN: downstream or not, the revenue is still the LME price, and a
+#     partial exemption would require ruling HOW MUCH DOWNSTREAM IS ENOUGH
+#     -- exactly the guess this rule exists to refuse. The limb is binary
+#     because the alternative is a fabricated cut-off.
+
+# The owner's own list, for what the string misses or miscalls. EMPTY today.
+tickers: []
+
+# The owner's escape hatch. Both rows below were written BY THE OWNER on
+# 2026-08-31 (FRAMEWORK-EDITS E96.1, parts 1 and 2), on the two names E96's
+# first application flagged. A session NEVER adds a row here.
+exempt:
+  - ticker: TPL
+    reason: >-
+      Texas Pacific Land owns LAND and takes ROYALTIES, operating nothing
+      and carrying no production volume of its own. E96's ground is a world
+      price times a volume the company does not control; a royalty holder
+      has no volume leg at all. Caught by the vendor string 'Oil & Gas
+      E&P', not by E96's mechanism.
+  - ticker: TGS.OL
+    reason: >-
+      TGS ASA LICENSES SEISMIC DATA: a data business whose CUSTOMERS are
+      producers, and which is not one. The string 'Oil & Gas Equipment &
+      Services' describes who buys from it, not what it sells -- the same
+      shape as E51.1's FLERIE.ST, where 'Biotechnology' described the
+      holdings and not the company.

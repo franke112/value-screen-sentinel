@@ -1,0 +1,145 @@
+{
+ "ticker": "CTSH",
+ "currency": "USD",
+ "run_ts": "2026-08-28T04:08:38-04:00",
+ "basis": "annual FY2025",
+ "shares": {
+  "count": 489000000.0,
+  "basis": "weighted-average DILUTED count for annual FY2025, the same window as the flows (E38); `shares_point_in_time` 479,000,000 is on the file as a MEMO and is NOT the divisor (E38)",
+  "as_of": "2025-12-31",
+  "point_in_time": 479000000.0,
+  "point_in_time_as_of": "2025-12-31",
+  "unit": "whole"
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 181000000.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0001058290 (Cognizant Technology Solutions Corporation) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001058290.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+  "net_interest_paid": 37000000.0,
+  "source": "interest_expense_only"
+ },
+ "bridge": {
+  "net_debt": -489000000.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 576000000.0,
+   "pensions": 260000000.0,
+   "non_controlling_interests": "no field in this schema (E35)"
+  },
+  "note": "borrowings 33,000,000 + 543,000,000 + leases 576,000,000 (E35: always in) + pension deficit 260,000,000 (E35.1) - cash 1,901,000,000 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+ },
+ "dates": {
+  "flows_window_end": "2025-12-31",
+  "balance_sheet": "2025-12-31",
+  "share_count": "2025-12-31",
+  "price": "2026-08-27"
+ },
+ "growth": {
+  "base": 0.04,
+  "view_file": "reference/growth-views/CTSH.md",
+  "view_date": "2026-08-27",
+  "bear": 0.0,
+  "bull": 0.07
+ },
+ "operating_cash_flow": 2883000000.0,
+ "capex": -288000000.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_combined",
+   "value": -288000000.0,
+   "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 2883000000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "sbc",
+   "value": 181000000.0,
+   "provenance": "us-gaap:ShareBasedCompensation [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "finance_costs_period",
+   "value": 37000000.0,
+   "provenance": "us-gaap:InterestExpenseNonoperating [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 489000000.0,
+   "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "shares_point_in_time",
+   "value": 479000000.0,
+   "provenance": "us-gaap:CommonStockSharesOutstanding [as of 2025-12-31] 10-Q 0001058290-26-000016 filed 2026-04-29",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 33000000.0,
+   "provenance": "us-gaap:ShortTermBorrowings [as of 2025-12-31] 10-Q 0001058290-26-000016 filed 2026-04-29",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 543000000.0,
+   "provenance": "us-gaap:LongTermDebtNoncurrent [as of 2025-12-31] 10-Q 0001058290-26-000016 filed 2026-04-29",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 576000000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 260000000.0,
+   "provenance": "FRAMEWORK-EDITS E62 (ruled 2026-08-27): the SUM of two defined-benefit plans presented under the SAME note. (1) $55,000,000 -- Note 15, Employee Benefits, 10-K 0001058290-26-000008 filed 2026-02-12: 'Defined Benefit Pension Plans... the net liability recognized on the balance sheet for our pension plans was $55 million'; tagged us-gaap:DefinedBenefitPensionPlanLiabilitiesNoncurrent [as of 2025-12-31]. (2) $205,000,000 -- the same Note 15, 'Other Defined Benefit Plans': 'we offer a gratuity plan in India that is a statutory defined benefit plan... the amount accrued under the gratuity plan was $205 million... which is net of fund assets of $250 million' -- NOT TAGGED under any us-gaap concept in this filer's facts (checked against the full companyfacts JSON); sits inside the balance sheet's 'Other noncurrent liabilities' ($847m) with no reconciling note splitting it out. ONE-OFF NOTED: the India leg was $80 million at 2024-12-31; the note states the $125m increase is driven by 'the Labor Code reforms implemented by the Government of India' in Q4 2025, a $147 million charge 'recognized as a component of other comprehensive income' -- a regulatory reform, not an operating deterioration, and a later-year comparison must read the base effect accordingly, not as debt getting worse.",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 1901000000.0,
+   "provenance": "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2025-12-31] 10-Q 0001058290-26-000016 filed 2026-04-29",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  }
+ ],
+ "tool_commit": "CTSH first strike, 2026-08-28, 729e4a3",
+ "notes": "",
+ "money_unit": "whole"
+}

@@ -1,0 +1,169 @@
+{
+ "ticker": "ULTA",
+ "currency": "USD",
+ "run_ts": "2026-08-30T07:16:17-04:00",
+ "basis": "annual FY2026",
+ "shares": {
+  "count": 44991000.0,
+  "basis": "weighted-average DILUTED count for annual FY2026, the same window as the flows (E38); `shares_point_in_time` 44,166,000 is on the file as a MEMO and is NOT the divisor (E38)",
+  "as_of": "2026-01-31",
+  "point_in_time": 44166000.0,
+  "point_in_time_as_of": "2026-01-31",
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 37426000.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0001403568 (Ulta Beauty, Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001403568.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+  "net_interest_paid": 1787000.0,
+  "source": "income_statement_net"
+ },
+ "bridge": {
+  "net_debt": 1757818000.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 2119774000.0,
+   "pensions": 0.0,
+   "asset_retirement_obligations": 0.0,
+   "non_controlling_interests": "no field in this schema (E35)"
+  },
+  "note": "borrowings 62,287,000 + 0 + leases 2,119,774,000 (E35: always in; finance leases beside operating, E65) + pension deficit 0 (E35.1) + asset retirement obligations 0 (E68) - cash 424,243,000 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+ },
+ "dates": {
+  "flows_window_end": "2026-01-31",
+  "balance_sheet": "2026-01-31",
+  "share_count": "2026-01-31",
+  "price": "2026-08-28"
+ },
+ "growth": {
+  "base": 0.035,
+  "view_file": "reference/growth-views/ULTA.md",
+  "view_date": "2026-08-30",
+  "bear": 0.0,
+  "bull": 0.065
+ },
+ "operating_cash_flow": 1502780000.0,
+ "capex": -434829000.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_combined",
+   "value": -434829000.0,
+   "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2025-02-02..2026-01-31] 10-K 0001104659-26-035243 filed 2026-03-26",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 1502780000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-02-02..2026-01-31] 10-K 0001104659-26-035243 filed 2026-03-26",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "sbc",
+   "value": 37426000.0,
+   "provenance": "us-gaap:ShareBasedCompensation [2025-02-02..2026-01-31] 10-K 0001104659-26-035243 filed 2026-03-26",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "net_finance_costs",
+   "value": 1787000.0,
+   "provenance": "us-gaap:InterestIncomeExpenseNonoperatingNet [2025-02-02..2026-01-31] 10-K 0001104659-26-035243 filed 2026-03-26",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 44991000.0,
+   "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2025-02-02..2026-01-31] 10-K 0001104659-26-035243 filed 2026-03-26",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "shares_point_in_time",
+   "value": 44166000.0,
+   "provenance": "us-gaap:CommonStockSharesOutstanding [as of 2026-01-31] 10-Q 0001104659-26-102442 filed 2026-08-27",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 62287000.0,
+   "provenance": "us-gaap:ShortTermBorrowings [as of 2026-01-31] 10-Q 0001104659-26-102442 filed 2026-08-27",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 0.0,
+   "provenance": "Item 7, Interest expense (income), net, 10-K 0001104659-26-035243 filed 2026-03-26: 'The increase in interest expense was primarily due to increased borrowings on our credit facilities in fiscal 2025. As of January 31, 2026, we had $62.3 million outstanding under our credit facilities.' Consolidated Balance Sheets, January 31, 2026 (in thousands), liabilities presented: 'Accounts payable', 'Accrued liabilities', 'Deferred revenue', 'Current operating lease liabilities', 'Accrued income taxes', 'Short-term debt | 62,287' (the whole of the borrowings, carried on this file as `financial_liabilities_current`, tagged ShortTermBorrowings / LineOfCredit), then 'Non-current operating lease liabilities', 'Deferred income taxes', 'Other long-term liabilities | 59,632' -- no long-term debt caption. Other long-term liabilities hold the non-qualified deferred compensation liability of 42,470 (Note 14), not borrowings. The cash-flow statement's 'Borrowings from short-term debt 2,214,888' and 'Payments on short-term debt (2,182,316)' are the revolver's turnover.",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 2119774000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2026-01-31] 10-K 0001104659-26-035243 filed 2026-03-26",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 0.0,
+   "provenance": "E35.1: Item 8, Note 17, Employee benefit plans, 10-K 0001104659-26-035243 filed 2026-03-26: 'The Company provides a 401(k) retirement plan covering all U.S. associates who qualify as to age and length of service. The plan is funded through employee contributions and a Company match of 100% of the first 3% of eligible compensation and an additional 50% match for the next 2% of eligible compensation.' The filing's only retirement plan; the non-qualified deferred compensation plan (Note 14: liabilities of 42,470 in other long-term liabilities, plan assets of 53,391) is a funded deferral, not a defined-benefit obligation. 'Defined benefit' appears nowhere in the filing (full-text search of ulta-20260131x10k.htm, 2026-08-30); the balance sheet presents no pension caption.",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "E68.1: Item 8, Consolidated Balance Sheets, January 31, 2026, 10-K 0001104659-26-035243 filed 2026-03-26 -- liabilities presented: 'Accounts payable', 'Accrued liabilities' (551,380), 'Deferred revenue', 'Current operating lease liabilities', 'Accrued income taxes', 'Short-term debt'; 'Non-current operating lease liabilities', 'Deferred income taxes', 'Other long-term liabilities' (59,632, of which deferred compensation 42,470). No asset retirement or decommissioning caption; 'asset retirement', 'decommission', 'dilapidation' and 'restoration obligation' appear nowhere in the filing (full-text search, 2026-08-30). A specialty beauty retailer operating from leased stores and distribution centres, owning nothing that requires decommissioning: the absence is evidence. 'Accrued liabilities' and 'Other long-term liabilities' are captions with room (E25) and are named here.",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 424243000.0,
+   "provenance": "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2026-01-31] 10-Q 0001104659-26-102442 filed 2026-08-27",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_lease_payments",
+   "value": 438807000.0,
+   "provenance": "us-gaap:OperatingLeasePayments [2025-02-02..2026-01-31] 10-K 0001104659-26-035243 filed 2026-03-26",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  }
+ ],
+ "tool_commit": "ACN/GDDY/NVR/ULTA first strikes, 2026-08-30, 179f2b4",
+ "notes": "",
+ "money_unit": "whole",
+ "lease": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0001403568 (Ulta Beauty, Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001403568.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 842-20-45-5(a): a lessee classifies payments for operating leases within OPERATING activities, so this filer's `operating_cash_flow` already bears them; the stated cash paid is `us-gaap:OperatingLeasePayments`, written as `operating_lease_payments` where tagged. No filer-specific tag states the classification because the standard leaves no choice",
+  "principal_added_back": 438807000.0,
+  "leg": "`operating_lease_payments` (cash paid for operating leases, the whole payment: principal under E70; its interest component under E34, being inside operating cash flow)"
+ }
+}

@@ -1,0 +1,332 @@
+schema: vss/review v1
+ticker: HRB
+date: 2026-09-17
+status_at_start: PIPELINE
+prepare_report: reports/prepare/HRB-2026-09-17.json
+prepare_waived: null
+steps:
+- step: gate-1
+  outcome: next
+  text: yea it passes i want to deep dive and see where we get with this not because i am confident for
+    this company but i am learning the proccess more like this
+  answered_at: 2026-09-17 10:48:51+02:00
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited: []
+- step: gate-2
+  outcome: next
+  text: well the price fell because the market thinks this whole sector will be overtaken by ai, and looking
+    at the 10k it does not really show that ? -- yea thats my veiw so write b 1. The stock was sold together
+    with its group, not because of something specific to H&R Block. 2. The company's own results were
+    strong despite that.
+  answered_at: 2026-09-17 11:08:24+02:00
+  skipped: false
+  skip_reason: null
+  documents_opened:
+  - 10-K
+  rulings_cited: []
+- step: gate-3
+  outcome: next
+  text: ok well for this company i think it is acceptable for the sector is a question back to you we
+    can put that in the framework if thats the best thing to do -- ok lets go to step 4 then we made explicitly
+    for h and r and we skip the framework
+  answered_at: 2026-09-17 11:15:48+02:00
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited: []
+- step: gate-4
+  outcome: next
+  text: well obviously we cant so next gate
+  answered_at: 2026-09-17 12:54:16+02:00
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited: []
+- step: gate-5
+  outcome: next
+  text: so if i understand things right next as it will come in within 90 days ?
+  answered_at: 2026-09-17 13:12:25+02:00
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited: []
+- step: hard-kills
+  outcome: next
+  text: check 4 the other 2 i overrule and i ok that so for that we are next but if we can get data on
+    check 4 id want it -- nah its ok we go for next here
+  answered_at: 2026-09-17 13:20:48+02:00
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited: []
+- step: conviction
+  outcome: next
+  text: 1a yes pass, b no does not worry me, 3 no, 4 yes, 5 no, 6 yes
+  answered_at: 2026-09-18 14:50:06+02:00
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited: []
+- step: basis
+  outcome: next
+  text: yea next looks ok to me
+  answered_at: 2026-09-18 14:52:00+02:00
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: flow
+  outcome: next
+  text: 'Answer to the options: (c). Before any tag-map change, search the filing for interest or investment
+    income (other-income line, cash-flow supplemental disclosures, debt note) and record the search. If
+    it''s stated, E34 forms and no ruling is needed. If it''s NOT PRESENTED with the search recorded,
+    use 76.7 under a new ruling that names the collision with E34.1''s "never interest paid alone", with
+    the upward bias printed. Do not add InterestExpenseDebt to the tag map on this name''s account.'
+  answered_at: 2026-09-18 15:05:00+02:00
+  skipped: false
+  skip_reason: null
+  documents_opened:
+  - 10-K FY2026 (0000012659-26-000026)
+  - SEC XBRL companyfacts CIK 12659
+  rulings_cited:
+  - E34
+  - E34.1
+  - E61
+- step: net-debt
+  outcome: next
+  text: count deferred revenue as debt, next
+  answered_at: 2026-09-18 15:20:00+02:00
+  skipped: false
+  skip_reason: null
+  documents_opened:
+  - 10-K FY2026 (0000012659-26-000026), balance sheet and revenue notes
+  rulings_cited:
+  - E14
+  - E81
+  - E85
+  - E25
+- step: divisor
+  outcome: next
+  text: Divisor is the stated FY2026 weighted-average diluted count, 128,866,000, on the same annual FY2026
+    basis as the flows. E38 met -- a window average exists, so E88 does not arise and E91's per-quarter
+    operand route is not needed. The ~124.2M period-end count stays memo under E38; it is arithmetic off
+    two stated counts, which E16 licenses as operands but does not promote to a divisor.
+  answered_at: 2026-09-18 19:36:00+02:00
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited:
+  - E38
+  - E88
+  - E91
+  - E16
+- step: growth-view
+  outcome: next
+  text: 'g_bear = -0.04, g_base = 0.02, g_bull = 0.05
+
+    Base (2%): Nearly all growth comes from price (+4-5% per return per year). Real volume is roughly
+    flat: the 1-2% company-owned volume growth is partly bought franchise offices, which costs cash rather
+    than creating it; total offices are shrinking; paid DIY customers fell ~4% in FY2026. Assisted is
+    ~65% of revenue growing ~6%, DIY flat, royalties falling, so total revenue grows ~3.5-4%. The main
+    cost is tax-pro wages, which rise about as fast as prices, so cash flow grows slower than revenue
+    and fades as pricing meets resistance. 2% means holding its own in real terms, no better. The CEO''s
+    market-share statement gets modest weight: one season, new CEO, no published figures.
+
+    Bear (-4%): The AI/free-software fear shows up in the numbers. Simple returns leave, and DIY doesn''t
+    catch them because that''s where price competition is fiercest. The office network is mostly fixed
+    cost, so a small loss of clients is a larger loss of cash, and raising prices on those who remain
+    speeds up the leaving. -4% compounded leaves about two-thirds of today''s cash flow in 10 years: a
+    melting ice cube, not a collapse, because complex returns and people who want a human don''t vanish.
+    Management''s own 10-K now names AI as a competition risk, and free government filing could return.
+
+    Bull (+5%): Share stabilization is real, tax complexity keeps pushing people toward help, pricing
+    holds at 4-5% because remaining clients value the service, AI makes preparers more productive so margins
+    widen, and small-business and financial products add a point. Possible, not probable: it needs both
+    pricing and technology to break the right way for a decade.
+
+    The spread is deliberately lopsided (bear 6 points below base, bull 3 above): a mature franchise with
+    flat volume has modest upside and a fatter downside tail.
+
+    What would change the view: 2-3 more tax seasons. Same-store assisted volumes holding while prices
+    rise -> base up a point. Client counts falling faster than prices rise -> bear becomes base.
+
+    Outcome: next
+
+    '
+  answered_at: 2026-09-18 20:03:30+02:00
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited:
+  - E28
+- step: strike
+  outcome: next
+  text: 'Step 13: fv_base 104.94 USD off the pre-registered view (g +2.00%, r 9.50%); E29 band 97.32 -
+    113.72; bear 64.24, bull 133.60; g* at 44.81 = -8.32%, below my registered bear case of -4%. Recorded
+    as printed. No change to the growth view, the engine, or any figure this cycle (E28).
+
+    Third upward bias, to be printed beside the strike with the other two: FCF0 adds back lease payments
+    of $250.5M while net debt deducts a lease liability of $610.9M, about 2.4 years of payments. The terminal
+    value capitalizes the add-back in perpetuity, but the business must rent offices in perpetuity and
+    no lease-renewal outflow is deducted. At the base-case multiple (~14.1x FCF0) the add-back contributes
+    ~$3.5B of EV against $0.6B deducted: roughly $23/share of upward bias. Memo figures (owner''s arithmetic,
+    verified by the session): treating rent as an operating cost gives base ~$82 and g* ~-5.7%; also using
+    the three-year-average cash flow gives base ~$73, bear ~$45, g* ~-4.1% -- the session''s independent
+    check puts the three-year average ALONE at base 94.46 / g* -6.94%, and base 72.56 / bear 44.97 / g*
+    -4.04% for BOTH adjustments together, which is what the ~$73 figure is.
+
+    Queue for after the review: a framework question on the lease treatment in E34 for filers whose lease
+    liability is short relative to annual lease payments. Does the add-back need a lease-renewal outflow,
+    or should rent stay an operating cost for such filers? Also check whether IFRS names in the store
+    are affected.
+
+    Outcome: next'
+  answered_at: '2026-09-18T21:40:00+02:00'
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited:
+  - E28
+  - E29
+  - E34
+- step: tier-mbp
+  outcome: next
+  text: 'Step 14: Tier 3 (0.65). MBP = 68.21 USD (band 63.26 - 73.92), off fv_base 104.94 as printed.
+
+    Reasoning: E90''s cushion covers model and input error. This review has documented three upward biases
+    (interest add-back, basis-year FCF0, lease add-back) that together take the base value from 104.94
+    to ~72.56, about 31%, all in the same direction. Tiers 1 and 2 (15%, 25%) are smaller than the documented
+    error; only tier 3 exceeds it. If the rulings fix the tier by score, check that the owner may choose
+    a wider cushion than the score licenses, and tell me if not.
+
+    Score and reading: score 6 on the accepted reading (Gate 3 passed by HRB-only exception at step 3).
+    Recorded alongside: on the strict reading Gate 3''s FCF limb fails as written, which would lower the
+    score and raise B22''s open question. B22 is not resolved here. The tier is chosen on E90''s purpose,
+    not on the conviction label.
+
+    To be printed beside the MBP: after the known biases, 68.21 is ~94% of the conservative base value
+    (~72.56), so the effective cushion for unknown error is ~6%, not 35%. Memo MBPs at tier 3 (owner''s
+    arithmetic, verified by the session): rent as operating cost ~53.46; both adjustments ~47.16, against
+    a price of 44.81. No change to the engine or any figure this cycle (E28).
+
+    Outcome: next'
+  answered_at: '2026-09-18T21:50:00+02:00'
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited:
+  - E90
+  - C2
+  - B22
+  - E28
+- step: verdict
+  outcome: watch-gated
+  text: 'watch-gated
+
+    Words: HRB is an understandable business that passes the quality floor, and at 44.81 the market is
+    paying for growth at or below my registered bear case on every variant (g* -8.32% as struck; -4.04%
+    on the conservative variant, against a bear of -4%). But the fair value of record (104.94) carries
+    three documented upward biases worth ~31%, the largest being the lease add-back, which awaits a framework
+    ruling. After those biases the tier-3 MBP of 68.21 leaves ~6% of effective cushion. The open question
+    is not price but whether the bear or the base case is right, and only tax-season data answers that.
+    No price may wake this name (E27).
+
+    Gate, both required:
+
+    1. Framework: the E34 lease-treatment question is ruled, and HRB is re-struck in a new cycle on the
+    resulting engine.
+
+    2. Business: the first report carrying 2027 tax-season data, the fiscal Q3 FY2027 results (expected
+    around early May 2027; date to be confirmed when announced). The FY2027 10-K is the second reading.
+    The November Q1 report is read for guidance and any comment on the drawdown, but it is an off-season
+    quarter and does not wake the name.
+
+    What to read at the gate, as registered at step 12: assisted client volumes against price increases,
+    paid DIY customer counts, published market-share figures rather than management adjectives, and any
+    return of free government filing.
+
+    The registered growth view (-0.04 / 0.02 / 0.05) carries into the re-strike unchanged unless the gate
+    event supplies new business facts.
+
+    Not an entry: I am investigating, not buying; Gate 1 was passed to learn the process, Gate 3 by HRB-only
+    exception (B22 open on the strict reading), Gate 4 was not evaluable, and the engine has a known flaw
+    awaiting a ruling. Not watch-priced: price is already below the MBP on every variant, so no price
+    level answers the open question.'
+  answered_at: '2026-09-18T21:58:00+02:00'
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited:
+  - E27
+growth_view:
+  base: 0.02
+  bear: -0.04
+  bull: 0.05
+  reasons: 'Base (2%): Nearly all growth comes from price (+4-5% per return per year). Real volume is
+    roughly flat: the 1-2% company-owned volume growth is partly bought franchise offices, which costs
+    cash rather than creating it; total offices are shrinking; paid DIY customers fell ~4% in FY2026.
+    Assisted is ~65% of revenue growing ~6%, DIY flat, royalties falling, so total revenue grows ~3.5-4%.
+    The main cost is tax-pro wages, which rise about as fast as prices, so cash flow grows slower than
+    revenue and fades as pricing meets resistance. 2% means holding its own in real terms, no better.
+    The CEO''s market-share statement gets modest weight: one season, new CEO, no published figures.
+
+    Bear (-4%): The AI/free-software fear shows up in the numbers. Simple returns leave, and DIY doesn''t
+    catch them because that''s where price competition is fiercest. The office network is mostly fixed
+    cost, so a small loss of clients is a larger loss of cash, and raising prices on those who remain
+    speeds up the leaving. -4% compounded leaves about two-thirds of today''s cash flow in 10 years: a
+    melting ice cube, not a collapse, because complex returns and people who want a human don''t vanish.
+    Management''s own 10-K now names AI as a competition risk, and free government filing could return.
+
+    Bull (+5%): Share stabilization is real, tax complexity keeps pushing people toward help, pricing
+    holds at 4-5% because remaining clients value the service, AI makes preparers more productive so margins
+    widen, and small-business and financial products add a point. Possible, not probable: it needs both
+    pricing and technology to break the right way for a decade.
+
+    The spread is deliberately lopsided (bear 6 points below base, bull 3 above): a mature franchise with
+    flat volume has modest upside and a fatter downside tail.
+
+    What would change the view: 2-3 more tax seasons. Same-store assisted volumes holding while prices
+    rise -> base up a point. Client counts falling faster than prices rise -> bear becomes base.
+
+    '
+  registered_at: 2026-09-18 20:03:01+02:00
+note: 'HRB: WATCH-GATED since 2026-09-18. No price may wake this name (E27).
+
+
+  Gate, both required:
+
+  1. The E34 lease-treatment question is ruled and HRB is re-struck in a new cycle.
+
+  2. The first report carrying 2027 tax-season data: fiscal Q3 FY2027 results, expected around early May
+  2027 (confirm the date when announced). The November 2026 Q1 report is off-season; read it, but it does
+  not wake the name.
+
+
+  WARNING: do not rely on the fair value of record. fv_base 104.94 and MBP 68.21 (tier 3) carry three
+  documented upward biases worth ~31%: interest add-back (E115), basis-year FCF0 (~11% above the three-year
+  average), and the lease add-back (~$23/share). Conservative memo value ~72.56; effective cushion at
+  the MBP ~6%. At 44.81 the market''s implied growth was -8.32% as struck and -4.04% on the conservative
+  variant, level with the registered bear case.
+
+
+  Registered growth view: -0.04 / 0.02 / 0.05, pre-registered under E28. It carries into the re-strike
+  unchanged unless the gate event supplies new business facts. Do not rewrite it because the engine changes.
+
+
+  At the gate, read: assisted client volumes against price increases, paid DIY customer counts, published
+  market-share figures (not management adjectives), any return of free government filing.
+
+
+  Context: this review was an investigation, not a purchase. Gate 1 was passed to learn the process, Gate
+  3 by HRB-only exception (B22 open on the strict reading), and Gate 4 was not evaluable. free_cash_flow_reported
+  was withdrawn for failed provenance.
+
+
+  Full record: reference/reviews/HRB/2026-09-17.yaml (this review), reference/HRB-STRIKE-2026-09-18.md,
+  reference/run-records/HRB-2026-09-18.json, and reference/growth-views/HRB.md (written by `vss review
+  --record`; it does not exist until then).
+
+  '

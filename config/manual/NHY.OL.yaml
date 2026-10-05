@@ -1,0 +1,540 @@
+# config/manual/NHY.OL.yaml -- Norsk Hydro ASA, hand-read from the issuer's
+# own published reports. Built 2026-08-30. IFRS as adopted by the EU;
+# calendar year; QUARTERLY reporter in NOK.
+#
+# DOCUMENTS (sources/manifest.json, origin `issuer-website`). Every one of
+# these is also filed on Euronext Oslo's NewsWeb -- the Norwegian Officially
+# Appointed Mechanism -- as an attachment to the results release (message
+# and attachment ids in the manifest), but NewsWeb's attachment endpoint
+# answers HTTP 400 to every automated request this tool could form, so the
+# files were taken from hydro.com, the issuer's own site, and the NewsWeb
+# record is named beside each as the regulatory copy of the same document.
+#   1. Report Q3 2025 (2025-10-24)            sources/NHY.OL_2025-Q3_quarterly-report_2025-10-24_en_a0.pdf
+#   2. Fourth Quarter Report 2025 (2026-02-13) sources/NHY.OL_2025-Q4_quarterly-report_2026-02-13_en_a0.pdf
+#   3. Integrated Annual Report 2025 (2026-02-13, audited)
+#                                              sources/NHY.OL_2025-FY_annual-financial-report_2026-02-13_en_a0.pdf
+#   4. First Quarter Report 2026 (2026-04-29)  sources/NHY.OL_2026-Q1_quarterly-report_2026-04-29_en_a0.pdf
+#   5. Second Quarter Report 2026 (2026-07-22) sources/NHY.OL_2026-Q2_quarterly-report_2026-07-22_en_a0.pdf
+# The ESEF/iXBRL package (NewsWeb message 665792, attachment 319033,
+# nhy-2025-12-31-1-nb.zip) is filed on NewsWeb only and could not be fetched.
+#
+# READ-BACK. Every figure was read from the PDF text layer and then read
+# back against the page rendered as an image (PyMuPDF 1.28.2, 105 dpi):
+# the quarterly reports' income statement (p.21) and cash flow statement
+# (p.24) for all four quarters, the Q2 2026 balance sheet (p.23) and
+# adjusted net debt table (p.34), and the annual report's income statement
+# (p.140), balance sheet (p.141), cash flow statement (p.142), provisions
+# table (p.172), debt note (p.182), equity note (p.184) and cash flow
+# information (p.206). Printed page = PDF page in every document. The text
+# layer carries every numeral intact (the annual report uses a space as the
+# thousands separator, "207 971"; the quarterlies a comma) and every figure
+# agreed between the two readings.
+#
+# STATUS: all UNVERIFIED (owner's instruction, 2026-08-30). No section 5
+# run, no fv_base, no tier, no mbp: no growth view is registered.
+#
+# UNITS. money_unit: millions -- every statement is headed "NOK million".
+# share_unit: millions -- the quarterlies print counts in millions
+# ('Weighted average number of outstanding shares (million) 1,966'); the
+# annual note 7.6 prints whole shares (1,965,278,330), entered as an exact
+# conversion to millions (E53: one scale per file).
+#
+# WHAT A QUARTERLY REPORT DOES NOT STATE, and is therefore absent on the
+# quarters (never derived): interest paid and received, income taxes paid,
+# share-based compensation, lease liabilities, the asset retirement
+# obligation, and any split of the debt captions. The annual report states
+# each once a year and the FY2025 annual entry carries them; on a TTM basis
+# only the fields E41 names as annual-only (sbc, pension_deficit,
+# asset_retirement_obligation, diluted_weighted_average_shares) reach a
+# window from there -- the borrowing and lease legs at 30 June 2026 stay
+# DATA MISSING, as said on the 2026-Q2 entry.
+#
+# E23 -- CAPEX. One line, 'Purchases of property, plant and equipment';
+# no intangibles line is printed in any of the five documents (the
+# investing section's other lines are long-term investments and
+# short-term investments). E23: where the issuer prints ONE line it is
+# `capex_combined`, and the split fields stay blank -- the schema reads the
+# pair only where both resolve, and this one line otherwise.
+#
+# E34 -- INTEREST. Both sides INSIDE operating activities: annual report
+# note 10.3 (p.206), 'Cash disbursements and receipts included in cash
+# from operations: Income taxes paid 4 765, Interest paid 2 358, Interest
+# received 1 072'. The condensed quarterly statements do not print them.
+#
+# E35 / E14 / E67 -- THE DEBT LEGS. Hydro's balance sheet presents 'Bank
+# loans and other interest-bearing short-term debt' and 'Long-term debt',
+# and note 7.4 (p.182) shows both CONTAIN the lease liabilities: outstanding
+# debt = unsecured loans 31 721 + other loans 445 + lease liabilities 4 305
+# = 36 471, less the current portion 8 046 = long-term debt 28 425; the
+# short-term caption is that current portion plus bank loans 103. The
+# leases' own current/non-current allocation is not stated. Under E67 the
+# two captions are read WHOLE at 31 December 2025, the lease 4 305 inside
+# them named and not added again by E65 (`lease_liabilities` a named zero
+# on E25's `subtotal` form: 8 149 + 28 425 = 36 574 = 36 471 + 103, every
+# krone once). At 30 June 2026 the interim states no lease figure, so E67
+# refuses and all three fields are DATA MISSING with the captions named.
+#
+# E68 / E68.1 / E69 -- ASSET RETIREMENT OBLIGATION. An extractive filer on
+# E68.1's refuse-until-read list: bauxite mining, alumina refining,
+# smelting. Read, not zeroed. Note 4.1 (p.172) states 'Environmental
+# clean-up and asset retirement obligations (ARO)' short-term 1 066,
+# long-term 3 224, TOTAL 4 290 at 31 December 2025 (2024: 4 710) --
+# entered under E69 as the stated total. The interim balance sheet carries
+# only the aggregate 'Provisions 5 026' (non-current, all five categories)
+# with the current portion inside 'Other current liabilities', so at 30
+# June 2026 the leg is DATA MISSING with those captions named; the Q2
+# report's adjusted-net-debt table (p.34, footnote 5) deducts the ARO net
+# of a 30% tax benefit inside a combined 5 332, which is not the gross
+# figure and is not entered.
+#
+# E35.1 -- PENSION. 'Pension liabilities' as presented (8 756 at 30 June
+# 2026; 8 902 at 31 December 2025). The separately presented 'Prepaid
+# pension' asset (10 559 / 10 563) is NOT netted: the schema holds no field
+# for it and omitting an asset is the conservative direction.
+#
+# E36 -- SHARE-BASED COMPENSATION. Equity-settled awards are the employee
+# share purchase plan only: note 9.2 (p.199) 'Compensation expense related
+# to the award, NOK thousand 17 425' (2024: 38 551) = NOK 17.425 million.
+# Hydro's long-term incentive is cash-settled and flows through operating
+# cash flow when paid (E36 excludes it). Annual-only; not stated quarterly.
+#
+# E38 / E75 -- DIVISOR. Every quarterly and annual statement prints
+# 'Basic and diluted earnings per share' on one count with the footnote
+# 'There were no significant diluting elements', so the stated diluted
+# weighted average IS the basic one. The 30 June 2026 balance sheet prints
+# the net count directly, 'Total number of outstanding shares (million)
+# 1,967' -- E75's window-end count, basic (E75.1: no diluted count at a
+# date is printed).
+#
+# E70 -- LEASES IN THE FLOW. IFRS 16 filer: the principal is a financing
+# flow (IFRS 16.50(b)); Hydro's statement folds it into 'Loan repayments'
+# and prints no separate lease line, so `lease_payments_capital` is absent.
+#
+# EBITDA. Entered as Hydro's own 'Adjusted EBITDA' -- the measure its
+# leverage target is set on (IAR p.35: 'adjusted net debt to adjusted
+# EBITDA ... targeted maximum ratio of 2.0 over the cycle') -- a non-GAAP
+# figure the reports print in their performance review (p.4); each
+# quarter's figure is the one printed there, and the four quarters of 2025
+# (9 516 + 7 790 + 5 996 + 5 587) add to the annual report's 28 889.
+#
+# NOT STATED anywhere in the five documents: an operating margin (Hydro
+# presents EBIT and adjusted EBITDA, never a margin), gross profit, a free
+# cash flow reconciled to the statements (the 'free cash flow' in the
+# performance review is an APM), a stated revenue growth rate.
+
+ticker: NHY.OL
+name: Norsk Hydro ASA
+reporting_currency: NOK
+money_unit: millions
+share_unit: millions
+quote_currency: NOK
+sector: Basic Materials   # the screener's own source-list string (config/watchlist.yaml, 2026-08-27 PIPELINE entry) -- not from these documents
+reporting_frequency: quarterly
+origin: manual
+
+interest_in_ocf:
+  value: yes
+  source: "Integrated Annual Report 2025 (audited), note 10.3 Cash flow information"
+  page: "p.206, note 10.3, 'Cash disbursements and receipts included in cash from operations': 'Income taxes paid 4 765 4 719', 'Interest paid 2 358 2 661', 'Interest received 1 072 1 542' (2025, 2024) -- both interest sides are INSIDE 'Net cash provided by operating activities 23 311' (p.142), which is stated after them; the condensed quarterly cash flow statements (p.24 of each report) print only net income, depreciation/amortization/impairment and 'Other adjustments' above the operating total"
+  interest_source: cash_flow_statement
+
+operating_leases_in_ocf:
+  value: no
+  source: "FRAMEWORK-EDITS E70, applied 2026-08-30 to an IFRS 16 filer"
+  page: "IFRS 16.50(b): a lessee classifies cash payments for the principal portion of the lease liability within FINANCING activities; note 2.6 (p.165) 'Lease liabilities are included in debt, see note 7.4', and the cash flow statement (p.142) carries the principal inside 'Loan repayments (11 877)' with no separate lease line. The interest portion is inside operating activities with the rest of the interest paid (note 10.3)"
+
+periods:
+  - period: 2025-Q3
+    period_end: 2025-09-30
+    document: "Report Q3 2025 (2025-10-24), condensed consolidated interim statements (unaudited)"
+    url: "sources/NHY.OL_2025-Q3_quarterly-report_2025-10-24_en_a0.pdf"
+    figures:
+      free_cash_flow_reported:
+        value: 2185
+        source: "E103 automatic reference extraction (pdf (model-read))"
+        page: "37 [printed in millions] -- verbatim: Free cash flow 2,185"
+        status: UNVERIFIED
+      revenue:
+        value: 50546
+        page: "p.21, condensed consolidated statements of income, 'Third quarter 2025' column: 'Revenue 50,546' (Q3 2024: 50,089)"
+        status: UNVERIFIED
+      operating_income:
+        value: 3491
+        page: "p.21: 'Earnings before financial items and tax (EBIT) 3,491' (Q3 2024: 3,488) -- the operating line as the statement presents it. E79 (2026-08-30): Hydro states no operating margin anywhere, so `op_margin` is blank and the check has nothing to compare; the printed EBIT enters (B46 had kept it out)"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 3698
+        page: "p.24, condensed consolidated statements of cash flows, 'Third quarter 2025': 'Net cash provided by operating activities 3,698' -- after interest and taxes (note 10.3 of the annual report)"
+        status: UNVERIFIED
+      capex_combined:
+        value: -2161
+        page: "p.24, investing activities: 'Purchases of property, plant and equipment (2,161)' -- THE ONE capex line the statement prints (E23): no intangibles line exists in the statement, so this is `capex_combined`, not a PPE half of a split"
+        status: UNVERIFIED
+      net_income:
+        value: 2194
+        page: "p.21: 'Net income (loss) attributable to Hydro shareholders 2,194' ('Net income (loss) 2,149' before non-controlling interests of (45))"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 2514
+        page: "p.21: 'Depreciation and amortization expense 2,514' (the cash flow statement's 'Depreciation, amortization and impairment 2,555' adds the 41 impairment)"
+        status: UNVERIFIED
+      ebitda:
+        value: 5996
+        page: "p.4, performance review, 'Adjusted EBITDA (NOK million)' series, Q3 2025 column: 5,996 -- Hydro's own non-GAAP measure, the one its leverage target is set on (see header)"
+        status: UNVERIFIED
+      finance_costs_period:
+        value: 726
+        page: "p.21: 'Interest and other finance expense (726)' (positive magnitude)"
+        status: UNVERIFIED
+      finance_income_period:
+        value: -103
+        page: "p.21: 'Interest and other finance income (103)' -- printed NEGATIVE this quarter (a loss inside other finance income); entered as printed so that costs less income gives the 829 the two lines imply. 'Foreign currency exchange gain (loss) 381' is a third line, entered in neither"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 1.12
+        page: "p.21: 'Basic and diluted earnings per share attributable to Hydro shareholders (in NOK) 1.12'; footnote 1: 'There were no significant diluting elements'"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 1965
+        page: "p.21: 'Weighted average number of outstanding shares (million) 1,965' -- basic and diluted are one count (footnote 1)"
+        status: UNVERIFIED
+
+  - period: 2025-Q4
+    period_end: 2025-12-31
+    document: "Fourth Quarter Report 2025 (2026-02-13), condensed consolidated interim statements (unaudited), 'Fourth quarter 2025' column"
+    url: "sources/NHY.OL_2025-Q4_quarterly-report_2026-02-13_en_a0.pdf"
+    figures:
+      free_cash_flow_reported:
+        value: 4599
+        source: "E103 automatic reference extraction (pdf (model-read))"
+        page: "36 [printed in millions] -- verbatim: Free cash flow 4,599"
+        status: UNVERIFIED
+      revenue:
+        value: 47215
+        page: "p.21, condensed consolidated statements of income, 'Fourth quarter 2025': 'Revenue 47,215' (Q4 2024: 55,057; year 2025: 207,971)"
+        status: UNVERIFIED
+      operating_income:
+        value: -1480
+        page: "p.21: 'Earnings before financial items and tax (EBIT) (1,480)' -- a loss quarter: impairment 801 and the Extrusions closure provision (p.4: NOK 1,226 million) s. E79 (2026-08-30): Hydro states no operating margin anywhere, so `op_margin` is blank and the check has nothing to compare; the printed EBIT enters (B46 had kept it out)"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 7993
+        page: "p.24, 'Fourth quarter 2025': 'Net cash provided by operating activities 7,993' (year 2025: 23,311)"
+        status: UNVERIFIED
+      capex_combined:
+        value: -4059
+        page: "p.24, investing activities: 'Purchases of property, plant and equipment (4,059)' (year 2025: (11,582)) -- the one capex line printed (E23), entered as `capex_combined`"
+        status: UNVERIFIED
+      net_income:
+        value: -2363
+        page: "p.21: 'Net income (loss) attributable to Hydro shareholders (2,363)' ('Net income (loss) (2,156)' before non-controlling interests of 207)"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 2751
+        page: "p.21: 'Depreciation and amortization expense 2,751'"
+        status: UNVERIFIED
+      ebitda:
+        value: 5587
+        page: "p.4, performance review, 'Adjusted EBITDA (NOK million)' eight-quarter series, last column (Q4 2025): 5,587; the four 2025 quarters 9,516 + 7,790 + 5,996 + 5,587 = 28,889, the annual report's full-year figure (p.34)"
+        status: UNVERIFIED
+      finance_costs_period:
+        value: 473
+        page: "p.21: 'Interest and other finance expense (473)' (positive magnitude)"
+        status: UNVERIFIED
+      finance_income_period:
+        value: 429
+        page: "p.21: 'Interest and other finance income 429'"
+        status: UNVERIFIED
+      diluted_eps:
+        value: -1.20
+        page: "p.21: 'Basic and diluted earnings per share attributable to Hydro shareholders (in NOK) (1.20)'"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 1965
+        page: "p.21: 'Weighted average number of outstanding shares (million) 1,965'"
+        status: UNVERIFIED
+
+  - period: 2026-Q1
+    period_end: 2026-03-31
+    document: "First Quarter Report 2026 (2026-04-29), condensed consolidated interim statements (unaudited)"
+    url: "sources/NHY.OL_2026-Q1_quarterly-report_2026-04-29_en_a0.pdf"
+    figures:
+      free_cash_flow_reported:
+        value: -3985
+        source: "E103 automatic reference extraction (pdf (model-read))"
+        page: "36 [printed in millions] -- verbatim: Free cash flow (3,985)"
+        status: UNVERIFIED
+      revenue:
+        value: 50388
+        page: "p.21, condensed consolidated statements of income, 'First quarter 2026': 'Revenue 50,388' (Q1 2025: 57,094)"
+        status: UNVERIFIED
+      operating_income:
+        value: 4396
+        page: "p.21: 'Earnings before financial items and tax (EBIT) 4,396' (Q1 2025: 8,016). E79 (2026-08-30): Hydro states no operating margin anywhere, so `op_margin` is blank and the check has nothing to compare; the printed EBIT enters (B46 had kept it out)"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: -1891
+        page: "p.24, 'First quarter 2026': 'Net cash provided by (used in) operating activities (1,891)' -- an outflow: 'Other adjustments (8,962)', the operating-capital build the report's p.2 describes"
+        status: UNVERIFIED
+      capex_combined:
+        value: -2752
+        page: "p.24, investing activities: 'Purchases of property, plant and equipment (2,752)' -- the one capex line printed (E23), entered as `capex_combined`"
+        status: UNVERIFIED
+      net_income:
+        value: 4236
+        page: "p.21: 'Net income (loss) attributable to Hydro shareholders 4,236' ('Net income (loss) 4,341')"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 2624
+        page: "p.21: 'Depreciation and amortization expense 2,624'"
+        status: UNVERIFIED
+      ebitda:
+        value: 8668
+        page: "p.4, performance review: adjusted EBITDA for the first quarter of 2026, 8,668 (p.2: 'Adjusted EBITDA NOK 8.7 billion')"
+        status: UNVERIFIED
+      finance_costs_period:
+        value: 567
+        page: "p.21: 'Interest and other finance expense (567)' (positive magnitude)"
+        status: UNVERIFIED
+      finance_income_period:
+        value: 232
+        page: "p.21: 'Interest and other finance income 232'"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 2.16
+        page: "p.21: 'Basic and diluted earnings per share attributable to Hydro shareholders (in NOK) 2.16'"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 1965
+        page: "p.21: 'Weighted average number of outstanding shares (million) 1,965'"
+        status: UNVERIFIED
+
+  - period: 2026-Q2
+    period_end: 2026-06-30
+    document: "Second Quarter Report 2026 (2026-07-22), condensed consolidated interim statements (unaudited)"
+    url: "sources/NHY.OL_2026-Q2_quarterly-report_2026-07-22_en_a0.pdf"
+    figures:
+      net_debt_reported:
+        value: 16300
+        source: "E103 automatic reference extraction (pdf (model-read))"
+        page: "5 [printed in billions] -- verbatim: Hydro’s net debt increased from NOK 12.9 billion to NOK 16.3 billion"
+        status: UNVERIFIED
+      free_cash_flow_reported:
+        value: 4000
+        source: "E103 automatic reference extraction (pdf (model-read))"
+        page: "3 [printed in billions] -- verbatim: Free cash flow was NOK 4 billion"
+        status: UNVERIFIED
+      # --- read by the E6 RANKING KEY ---------------------------------
+      revenue:
+        value: 56490
+        page: "p.21, condensed consolidated statements of income, 'Second quarter 2026': 'Revenue 56,490' (Q2 2025: 53,116; first half 2026: 106,878)"
+        status: UNVERIFIED
+      operating_income:
+        value: 8609
+        page: "p.21: 'Earnings before financial items and tax (EBIT) 8,609' (Q2 2025: 4,375). E79 (2026-08-30): Hydro states no operating margin anywhere, so `op_margin` is blank and the check has nothing to compare; the printed EBIT enters (B46 had kept it out)"
+        status: UNVERIFIED
+      total_assets:
+        value: 209663
+        page: "p.23, condensed balance sheets, 'June 30 2026': 'Total assets 209,663' (December 31 2025: 208,296)"
+        status: UNVERIFIED
+      net_ppe:
+        value: 78782
+        page: "p.23: 'Property, plant and equipment 78,782' (December 31 2025: 78,132) -- includes right-of-use assets (annual report note 2.6)"
+        status: UNVERIFIED
+      # --- section 5.1 C: the cash the reverse DCF discounts -----------
+      operating_cash_flow:
+        value: 9031
+        page: "p.24, condensed consolidated statements of cash flows, 'Second quarter 2026': 'Net cash provided by operating activities 9,031' (Q2 2025: 7,640; first half 2026: 7,140)"
+        status: UNVERIFIED
+      capex_combined:
+        value: -2572
+        page: "p.24, investing activities: 'Purchases of property, plant and equipment (2,572)' (first half 2026: (5,324)) -- the one capex line printed (E23), entered as `capex_combined`"
+        status: UNVERIFIED
+      # --- section 5.1 C: net debt, the bridge from EV to equity --------
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81 (2026-08-30): Q2 2026 report p.23, condensed balance sheet at June 30 2026, liabilities presented: 'Bank loans and other interest-bearing short-term debt 6,686', 'Trade and other payables 26,832', 'Other current liabilities 9,753', 'Long-term debt 29,040', 'Provisions 5,026', 'Pension liabilities 8,756', 'Deferred tax liabilities 5,667', 'Other non-current liabilities 6,133' -- no streaming, prepaid-offtake or prepaid-delivery caption, and no prepayment, advance-payment or stream arrangement anywhere in the 2025 annual report or the Q2 report (full-text search, 2026-08-30). 'Other current liabilities' and 'Other non-current liabilities' are captions with room (E25), named here. A caption zero"
+        status: UNVERIFIED
+      cash_and_equivalents:
+        value: 15355
+        page: "p.23, 'June 30 2026': 'Cash and cash equivalents 15,355'; p.24 'Cash and cash equivalents at end of period 15,355'"
+        status: UNVERIFIED
+      other_current_financial_assets:
+        value: 3847
+        page: "p.23: 'Short-term investments 3,847' -- p.34 footnote 1: bank time deposits with original maturities beyond three months are classified as investing activities and included in short-term investments; annual report note 7.3 (p.182) shows the year-end composition (time deposits, debt and equity securities, collateral accounts). Assumption A1 decides whether it counts as cash"
+        status: UNVERIFIED
+      # financial_liabilities_current: DATA MISSING at 30 June 2026 -- the
+      #   caption 'Bank loans and other interest-bearing short-term debt
+      #   6,686' (p.23) CONTAINS the current portion of the lease liabilities
+      #   (annual report note 7.4, p.182) and the interim states no lease
+      #   figure at this date, so E67 refuses the whole read and E14 forbids
+      #   the inclusive caption. Named, not entered.
+      # financial_liabilities_noncurrent: DATA MISSING at 30 June 2026 on the
+      #   same terms -- 'Long-term debt 29,040' (p.23) contains the
+      #   non-current lease liabilities; 4,305 was the whole lease liability
+      #   at 31 December 2025 (note 7.4), unstated since.
+      # lease_liabilities: DATA MISSING at 30 June 2026 -- not stated in the
+      #   interim (see the two captions above).
+      pension_deficit:
+        value: 8756
+        page: "p.23, non-current liabilities: 'Pension liabilities 8,756' (June 30 2025: 9,374; December 31 2025: 8,902). The separately presented asset 'Prepaid pension 10,559' is NOT netted (E35.1, schema)"
+        status: UNVERIFIED
+      # asset_retirement_obligation: DATA MISSING at 30 June 2026 -- the
+      #   interim presents only 'Provisions 5,026' (p.23, non-current, all
+      #   categories together) with the current portion inside 'Other
+      #   current liabilities 9,753'; the ARO itself is stated once a year
+      #   (annual report note 4.1, p.172: 4,290 at 31 December 2025, on the
+      #   annual entry). Extractive filer: refused until read (E68.1), and
+      #   read -- the interim simply does not carry the figure.
+      # --- share counts ----------------------------------------------------
+      diluted_weighted_average_shares:
+        value: 1966
+        page: "p.21: 'Weighted average number of outstanding shares (million) 1,966' for the quarter (first half 2026: 1,966); basic and diluted are one count (footnote 1: 'There were no significant diluting elements')"
+        status: UNVERIFIED
+      shares_outstanding_period_end:
+        value: 1967
+        page: "p.23, condensed balance sheets, last line: 'Total number of outstanding shares (million) 1,967' (June 30 2025: 1,965; December 31 2025: 1,965) -- the NET count as printed, in millions; E75's window-end divisor on a TTM basis, basic (E75.1: no diluted count at a date is printed)"
+        status: UNVERIFIED
+      # --- section 5.1 A and 5.3 -------------------------------------------
+      net_income:
+        value: 5694
+        page: "p.21: 'Net income (loss) attributable to Hydro shareholders 5,694' ('Net income (loss) 5,965' before non-controlling interests of 271)"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 2703
+        page: "p.21: 'Depreciation and amortization expense 2,703'"
+        status: UNVERIFIED
+      ebitda:
+        value: 8923
+        page: "p.4, performance review: adjusted EBITDA for the second quarter of 2026, 8,923 (p.2: 'Adjusted EBITDA NOK 8.9 billion')"
+        status: UNVERIFIED
+      finance_costs_period:
+        value: 619
+        page: "p.21: 'Interest and other finance expense (619)' (positive magnitude)"
+        status: UNVERIFIED
+      finance_income_period:
+        value: 266
+        page: "p.21: 'Interest and other finance income 266'"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 2.90
+        page: "p.21: 'Basic and diluted earnings per share attributable to Hydro shareholders (in NOK) 2.90' (Q2 2025: 1.04)"
+        status: UNVERIFIED
+
+annual:
+  - fiscal_year: 2025
+    period_end: 2025-12-31
+    document: "Integrated Annual Report 2025 (2026-02-13), consolidated financial statements (audited, KPMG)"
+    url: "sources/NHY.OL_2025-FY_annual-financial-report_2026-02-13_en_a0.pdf"
+    figures:
+      revenue:
+        value: 207971
+        page: "p.140, consolidated income statements, 2025: 'Revenue 207 971' (2024: 203 636)"
+        status: UNVERIFIED
+      operating_income:
+        value: 14401
+        page: "p.140: 'Earnings before financial items and tax 14 401' (2024: 16 487). E79 (2026-08-30): Hydro states no operating margin anywhere, so `op_margin` is blank and the check has nothing to compare; the printed EBIT enters (B46 had kept it out)"
+        status: UNVERIFIED
+      total_assets:
+        value: 208296
+        page: "p.141, consolidated balance sheets, December 31 2025: 'Total assets 208 296'"
+        status: UNVERIFIED
+      net_ppe:
+        value: 78132
+        page: "p.141: 'Property, plant and equipment 2.1 78 132'"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 23311
+        page: "p.142, consolidated statements of cash flows, 2025: 'Net cash provided by operating activities 10.3 23 311' (2024: 15 356) -- after interest paid and received and income taxes paid (note 10.3, p.206)"
+        status: UNVERIFIED
+      income_tax_paid:
+        value: -4765
+        page: "p.206, note 10.3: 'Income taxes paid 4 765' (2024: 4 719) -- a memo, already inside operating_cash_flow"
+        status: UNVERIFIED
+      capex_combined:
+        value: -11582
+        page: "p.142, investing activities: 'Purchases of property, plant and equipment (11 582)' (2024: (13 555)) -- the one capex line printed (E23), entered as `capex_combined`"
+        status: UNVERIFIED
+      finance_costs_paid:
+        value: 2358
+        page: "p.206, note 10.3, 'Cash disbursements and receipts included in cash from operations': 'Interest paid 2 358' (2024: 2 661) -- positive magnitude; INSIDE operating activities"
+        status: UNVERIFIED
+      finance_income_received:
+        value: 1072
+        page: "p.206, note 10.3: 'Interest received 1 072' (2024: 1 542) -- positive magnitude; INSIDE operating activities"
+        status: UNVERIFIED
+      sbc:
+        value: 17.425
+        page: "p.199, note 9.2, share purchase plan compensation table: 'Compensation expense related to the award, NOK thousand 17 425' (2024: 38 551) = NOK 17.425 million -- the equity-settled employee share purchase plan, the only equity-settled award; the long-term incentive is cash-settled and excluded (E36)"
+        status: UNVERIFIED
+      cash_and_equivalents:
+        value: 16085
+        page: "p.141: 'Cash and cash equivalents 7.2 16 085' (2024: 15 049)"
+        status: UNVERIFIED
+      other_current_financial_assets:
+        value: 10600
+        page: "p.141: 'Short-term investments 7.3 10 600'; note 7.3 (p.182): equity securities 404, debt securities 817, time deposits 6 767, collateral accounts and other 2 611. Assumption A1 decides whether it counts as cash"
+        status: UNVERIFIED
+      financial_liabilities_current:
+        value: 8149
+        page: "p.141: 'Bank loans and other interest-bearing short-term debt 7.4 8 149'; note 7.4 (p.182): 'Bank loans and overdraft facilities 103' + 'Current portion of long-term debt 8 046'. Read WHOLE under E67: the current portion contains the current lease liabilities, whose amount is not stated apart from the total lease liability 4 305 named on `lease_liabilities`"
+        status: UNVERIFIED
+      financial_liabilities_noncurrent:
+        value: 28425
+        page: "p.141: 'Long-term debt 7.4 28 425'; note 7.4 (p.182): 'Unsecured loans 31 721' + 'Other loans 445' + 'Lease liabilities 4 305' = 'Outstanding debt 36 471', 'Less: Current portion (8 046)', 'Total long-term debt 28 425'. Read WHOLE under E67 with the lease component stated inside it"
+        status: UNVERIFIED
+      lease_liabilities:
+        value: 0
+        zero_basis: subtotal
+        page: "note 7.4 (p.182): 'Lease liabilities 4 305' (2024: 4 669) is a component of 'Outstanding debt 36 471', which the two borrowing captions above carry in full (8 149 + 28 425 = 36 574 = 36 471 + bank loans 103). E67: the lease inside a combined caption is not added again by E65 -- a NAMED zero, the 4 305 stated here so that nothing is dropped and nothing counted twice"
+        status: UNVERIFIED
+      pension_deficit:
+        value: 8902
+        page: "p.141: 'Pension liabilities 9.3 8 902' (2024: 9 226); 'Prepaid pension 9.3 10 563' is a separately presented asset and is NOT netted (E35.1)"
+        status: UNVERIFIED
+      asset_retirement_obligation:
+        value: 4290
+        page: "p.172, note 4.1 Uncertain assets and liabilities, Provisions table, 2025: 'Environmental clean-up and asset retirement obligations (ARO) 1 066 3 224 4 290' (short-term, long-term, total; 2024 total 4 710); the specification of change: 4 710 + additions 555 - used (956) - reversals (146) - discount-rate effect (19) + accretion 246 - translation (99) = 4 290. Balance sheet p.141 'Provisions 4.1' 4 982 current and 4 863 non-current carry it among five categories. E68 via E69, the extractive read E68.1 requires"
+        status: UNVERIFIED
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81 (2026-08-30): AR 2025 consolidated balance sheets p.141, December 31 2025: the same captions as the Q2 interim (bank loans and other interest-bearing short-term debt 8,149, trade and other payables 26,394, other current liabilities 12,599, long-term debt 28,425, provisions 4,863, pension liabilities 8,902, deferred tax 4,907, other non-current liabilities 6,961) -- no streaming, prepaid-offtake or prepaid-delivery caption; a full-text search of the report for 'prepay', 'prepaid', 'advance payment' and 'stream' finds only upstream/downstream and streamlining. A caption zero"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 1970
+        page: "Fourth Quarter Report 2025 p.21, 'Year 2025' column: 'Weighted average number of outstanding shares (million) 1,970'; p.140 of the annual report prints 'Basic and diluted earnings per share 7.6 3.41' on that count (6 717 / 1 970 = 3.41)"
+        status: UNVERIFIED
+      shares_outstanding_period_end:
+        value: 1965.27833
+        page: "p.184, note 7.6 share capital table, 'December 31, 2025': ordinary shares issued 1 978 489 136, treasury shares (13 210 806), 'Ordinary shares outstanding' 1 965 278 330 -- the net count as printed, entered as an exact conversion to millions (share_unit); the issued and treasury counts are named here rather than entered because the accounts print the net directly"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 3.41
+        page: "p.140: 'Basic and diluted earnings per share attributable to Hydro shareholders 7.6 3.41' (2024: 2.90), NOK"
+        status: UNVERIFIED
+      net_income:
+        value: 6717
+        page: "p.140: 'Net income (loss) attributable to Hydro shareholders 6 717' ('Net income (loss) 8 304' before non-controlling interests of 1 587)"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 10328
+        page: "p.140: 'Depreciation and amortization expense 2.4 10 328' (the cash flow statement's 'Depreciation, amortization and impairment 11 476' adds the 1 148 impairment)"
+        status: UNVERIFIED
+      ebitda:
+        value: 28889
+        page: "p.34, Profit: 'Adjusted EBITDA for the full year of 2025 increased to NOK 28,889 million from NOK 26,318 million' -- Hydro's own non-GAAP measure and the denominator of its leverage target"
+        status: UNVERIFIED
+      net_debt_ebitda:
+        value: 0.7
+        page: "p.35, 'Adjusted net debt to adjusted EBITDA ratio': 'Hydro's average adjusted net debt to adjusted EBITDA was 0.7, well below the targeted maximum ratio of 2.0 over the cycle' -- on ADJUSTED net debt (NOK 18.2 billion at end-2025, which adds collateral, the captive insurer's cash, the net pension obligation after tax and the ARO after tax to plain net debt) and ADJUSTED EBITDA; not E35's net debt"
+        status: UNVERIFIED
+      finance_costs_period:
+        value: 2507
+        page: "p.140: 'Interest and other finance expense 7.5 (2 507)' (positive magnitude)"
+        status: UNVERIFIED
+      finance_income_period:
+        value: 820
+        page: "p.140: 'Interest and other finance income 7.5 820'"
+        status: UNVERIFIED

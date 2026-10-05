@@ -1,0 +1,2596 @@
+# config/watchlist.yaml
+#
+# Live portfolio and pipeline state. Replaces FRAMEWORK.md §9.
+# Verified against Avanza dashboard, 2026-08-20.
+#
+# MANUAL fields are never computed, estimated or defaulted by the tool.
+# Blank means DATA MISSING, which is a legitimate state — leave it blank
+# rather than inventing a placeholder. A guessed MBP is worse than no MBP.
+#
+# mbp is DERIVED (E90, 2026-08-30): BASE-case value x tier cushion
+# (T1 0.85 / T2 0.75 / T3 0.65), computed from the linked run record's
+# unrounded replay; the cushion covers model and input error, not scenario
+# risk. Enter fv_base and tier; let the tool compute mbp. (History: the
+# E28-era derivation was bear-case value x 0.80/0.70/0.60; before that
+# fv_base x tier, E32's superseded definition.)
+#
+# OPEN E-CANDIDATE (owner, 2026-08-30 stop session; recorded, NOT built):
+# a stop_price field FORM carrying a pre-registered DERIVATION (e.g.
+# entry x 0.92, the C1 end chosen by drawdown class) resolved at the
+# actual blended entry, instead of a level struck from a price nobody
+# holds. Needs a ruling and a schema form; until then a WATCH name's
+# stop stays null and the level is written at entry.
+#
+# ======================================================================
+# PARKED DATA — no home in the current schema.
+#
+# The loader accepts exactly one top-level key, 'tickers:', and rejects
+# unknown per-entry keys, so the blocks below are kept here as comments
+# rather than deleted. They are the inputs for the §7 position-size
+# checks. Move them into the schema if the tool grows support.
+#
+#   portfolio:            # MANUAL. Refresh when it drifts.
+#     total_value_sek:      314058
+#     satellite_sleeve_sek:  77271
+#     cash_sek:                975
+#
+#   regime:               # MANUAL per FRAMEWORK §2.
+#     elevated_valuation: false     # true shifts every name one tier
+#                                   # stricter (§5.3)
+#     verdict: NEUTRAL              # RISK_ON | NEUTRAL | RISK_OFF
+#
+#   core:                 # index funds — NOT satellite, NOT screened,
+#                         # dropped from the entry list below. Retained
+#                         # here for portfolio-percentage arithmetic.
+#     Avanza Zero: 197920
+#     Avanza USA:   37891
+#
+# Per-entry value_sek / last_seen_price from the old positions: block are
+# parked as a comment above each entry.
+# ======================================================================
+
+tickers:
+
+  # parked from old schema: value_sek 22886 | last_seen_price 482.34  (as of 2026-08-20)
+  - ticker: MSFT
+    name: Microsoft
+    currency: USD
+    status: DROPPED
+    # ======================================================================
+    # EXITED 2026-08-21 -- entire position sold, both accounts.
+    #
+    # Accounts:  ACCOUNT-B  x4      fill: 482.43 USD    proceeds 18,185.66 SEK
+    #            ACCOUNT-A  x1      fill: 482.425 USD   proceeds  4,546.37 SEK
+    #   (Avanza executed transactions, exact as printed; booked 2026-08-30 in
+    #   the `sales:` block below, FRAMEWORK-EDITS B45)
+    #
+    # Blended fill (4 x 482.43 + 1 x 482.425) / 5 = 482.429. Inside the day's
+    # 478.53-486.36 range, as it must be.
+    #
+    # Exit note:
+    #   "sold at ~49% above fv_base 323; §5 outcome: no tier qualified,
+    #    expected return below index even in bull case; satellite dislocation
+    #    closed (+17.6% from 420.36 entry)"
+    #
+    # RETURNS -- two different quantities, both stated, do not conflate:
+    #   SEK total return incl. FX, per Avanza .......... ~+17.6%
+    #   USD price return vs 420.36 entry ............... +14.77% (482.429 / 420.36)
+    #
+    #   First recorded as 482.xx with the cents omitted (a 0.24pp band on this
+    #   figure); the exact fills booked 2026-08-30 pin it at +14.77%.
+    #
+    #   The two numbers reconcile through currency, they do not contradict:
+    #   SEK +17.6% less a USD price return of +14.77% leaves ~+2.5% of FX,
+    #   i.e. USD strengthened against SEK over the holding period. USD/SEK
+    #   was 9.4617 on the exit date, which implies an entry-date rate of
+    #   ~9.23.
+    #
+    #   vs fv_base 323: +49.36% (482.429). The "~49%" in the note is right.
+    #
+    # Entry basis: 420.36 USD -- Avanza blended purchase price for the lots
+    #   still held at exit. snapshots/2026-06-11.md records ~413.10; that
+    #   figure predates the July trim and is NOT the basis for this P&L.
+    #
+    # STATUS IS 'DROPPED', NOT 'EXITED'. EXITED is not in the schema
+    #   (VALID_STATUSES = HELD|WATCH-PRICED|WATCH-GATED|PIPELINE|DROPPED,
+    #   the WATCH pair since FRAMEWORK-EDITS E27) and the validator
+    #   rejects it. rules.py defines DROPPED as "a RECORD, not a stage...
+    #   there is no position to exit and no entry to prepare for" -- which is
+    #   a closed position, and it is what cleared the no-stop blocker. It does
+    #   not distinguish a realised sale from a screening rejection; this
+    #   comment does. Adding a real EXITED status is on the backlog.
+    #
+    # COMPLETE. Fills booked to the cent 2026-08-30 from Avanza's executed
+    # transactions (`sales:` below, FRAMEWORK-EDITS B45).
+    # ======================================================================
+    cik: 789019            # SEC Central Index Key, for `vss xbrl`
+    # fv_base set 2026-08-21. §5.2 weighted: method C 0.90 + method A 0.10.
+    #   C = 279.93  (reverse DCF: normalised FCF 83,593 = 62.5% conversion of
+    #                FY26 net income 133,749; growth 10%; r 9.5%; terminal 2.5%; 10y)
+    #   A = 707.78  (A7 35.46 "proxy: trailing" per FRAMEWORK-EDITS B5, carrying a
+    #                quantified +22.6% generous bias, x A8 19.96 S&P Global NTM)
+    # Weighted 0.90/0.10 = 322.72, entered as 323. A held to 10% because at 15%
+    # it contributed 31% of fv_base -- disproportionate leverage for a method with
+    # a measured bias, 153% divergence from C, and a $200 vendor spread on A8.
+    fv_base: 323
+    # tier deliberately null. §4.4 conviction score = 4 (gates 2,3,5 passed;
+    # gate 1 failed at -11.2% today; gate 4 not passed) + 2 green - 1 soft.
+    # Score <=4 is "drop or watchlist" per §4.4, and §5.3 assigns no tier below
+    # its 5-6 band, so NO MAXIMUM BUY PRICE EXISTS for this name. vss will
+    # report the MBP checks as DATA MISSING, which is the correct state --
+    # not a gap to be filled. Do not set a tier to make the warning go away.
+    tier:
+    stop_price:
+    catalyst_date: 2026-07-29
+    catalyst_resolved: 2026-08-21
+    catalyst_event: FY26 Q4 results
+    # B45: one item per fill, exact as Avanza printed them (owner, 2026-08-30).
+    # No vss run record exists for this sale: fv_base 323 and FV_bull 465 were
+    # struck 2026-08-21 in the section 5.2 workbook (FRAMEWORK-EDITS C4 table),
+    # before run records were introduced (Build 2 item 9).
+    sales:
+      - date: 2026-08-21
+        price: 482.43
+        currency: USD
+        shares: 4
+        account: "ACCOUNT-B"
+        rule: C4
+        run_record:
+        proceeds_sek: 18185.66
+        note: "C4 first application (FRAMEWORK-EDITS C4, decided 2026-08-21): day range 478.53-486.36 above FV_bull 465; struck in the 2026-08-21 workbook, no JSON run record"
+      - date: 2026-08-21
+        price: 482.425
+        currency: USD
+        shares: 1
+        account: "ACCOUNT-A"
+        rule: C4
+        run_record:
+        proceeds_sek: 4546.37
+        note: "same sale, second account"
+    quarters:
+      - period: 2024-Q3
+        revenue: 61858000000.0
+        revenue_yoy: 
+        op_income: 27581000000.0
+        op_margin: 
+        eps: 2.94
+        net_debt_ebitda: 
+        receivables: 44029000000.0
+        inventory: 1304000000.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: fiscal
+        source: xbrl
+      - period: 2025-Q1
+        revenue: 65585000000.0
+        revenue_yoy: 
+        op_income: 30552000000.0
+        op_margin: 
+        eps: 3.3
+        net_debt_ebitda: 
+        receivables: 44148000000.0
+        inventory: 1626000000.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: fiscal
+        source: xbrl
+      - period: 2025-Q2
+        revenue: 69632000000.0
+        revenue_yoy: 
+        op_income: 31653000000.0
+        op_margin: 
+        eps: 3.23
+        net_debt_ebitda: 
+        receivables: 48188000000.0
+        inventory: 909000000.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: fiscal
+        source: xbrl
+      - period: 2025-Q3
+        revenue: 70066000000.0
+        revenue_yoy: 
+        op_income: 32000000000.0
+        op_margin: 
+        eps: 3.46
+        net_debt_ebitda: 
+        receivables: 51700000000.0
+        inventory: 848000000.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: fiscal
+        source: xbrl
+      - period: 2026-Q1
+        revenue: 77673000000.0
+        revenue_yoy: 
+        op_income: 37961000000.0
+        op_margin: 
+        eps: 3.72
+        net_debt_ebitda: 
+        receivables: 52894000000.0
+        inventory: 1130000000.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: fiscal
+        source: xbrl
+      - period: 2026-Q2
+        revenue: 81273000000.0
+        revenue_yoy: 
+        op_income: 38275000000.0
+        op_margin: 
+        eps: 5.16
+        net_debt_ebitda: 
+        receivables: 56535000000.0
+        inventory: 1059000000.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: fiscal
+        source: xbrl
+      - period: 2026-Q3
+        revenue: 82886000000.0
+        revenue_yoy: 
+        op_income: 38398000000.0
+        op_margin: 
+        eps: 4.27
+        net_debt_ebitda: 
+        receivables: 60041000000.0
+        inventory: 1219000000.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: fiscal
+        source: xbrl
+      - period: 2026-Q4
+        revenue: 
+        revenue_yoy: 
+        op_income: 
+        op_margin: 
+        eps: 
+        net_debt_ebitda: 
+        receivables: 80876000000.0
+        inventory: 1397000000.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: fiscal
+        source: xbrl
+    notes: |
+      7.3% of total portfolio, 45.6% of the sleeve in software with SAP
+      (as of 2026-08-20). Both were breaches under §7 v2.2; neither is a
+      breach under v2.3, which removed the per-name cap and the
+      25%-of-sleeve sector cap. What v2.3 does limit is the number of
+      SECTORS in the sleeve — at most 2 — and software is one of them.
+      FY26 Q4 reported Jul 29 2026 — NOT ingested. This is a fact,
+      not an outcome: there is deliberately no catalyst_resolved here.
+      Set catalyst_date + catalyst_resolved once it is ingested.
+
+  # parked from old schema: value_sek 25269 | last_seen_price 54.30  (as of 2026-08-20)
+  - ticker: UNA.AS
+    name: Unilever PLC
+    currency: EUR
+    status: DROPPED      # SOLD 2026-08-24: entire position, 42 shares at 54.81 EUR, C4 second application -- `sales:` below and notes. Booked 2026-08-30.
+    cik: 217410            # SEC Central Index Key, for `vss xbrl`. Unilever PLC still files a 20-F (0000217410-26-000007, FY2025, filed 2026-03-12); its facts are `ifrs-full`.
+    reporting_frequency: half_yearly   # Unilever reports H1 / FY (Q1 and Q3 are turnover-only trading statements): periods are YYYY-H1/H2/FY, 4.2 windows in half-years
+    # fv_base LOCKED 2026-08-22 (una-valuation.xlsx, una-scoring-evidence.md). §5.2 weighted: method C 0.90 + method A 0.10.
+    #   C = 40.47  (reverse DCF: FCF basis 1 = 6,987 = R12M post-tax OCF 8,610 - capex 1,623, continuing ops; base growth 4%
+    #               (bear 2%, bull 6%); r 9.5% (owner's margin note: least flattering for a defensive, not changed); terminal 2.5%;
+    #               10y; net debt 25,961 (Unilever's definition = A1=Y/A2=Y); 2,183.2m diluted shares). Implied growth at 54.59: 7.2%.
+    #   A = 70.49  (A7 20.61 "proxy: trailing", continuing-ops reading per FRAMEWORK-EDITS B5, +8.3% generous bias,
+    #               x A8 3.42 yfinance consensus forward EPS, vendor, underlying/non-GAAP basis -- mismatch vs the IFRS proxy flagged)
+    # Weighted = 43.47, entered as 43.5. Range: bear 37 / bull 51 (at r 9.0%: 40 / 47 / 55; at r 10.0%: 34 / 40 / 47).
+    # A/C divergence +74% (>25%) -> weighted toward C; A held to 10%.
+    fv_base: 43.5
+    # tier 2 LOCKED 2026-08-22: §4.4 proposal score 7 (3 gates: 2 class A, 3, 5; gate 1 FAIL at -13.2%, gate 4 DATA MISSING;
+    #   green +4: guidance raised, buyback at the lows, FCF conversion 105%, margin expansion; soft 0). Tier 2 not 1: no
+    #   fortress balance sheet (2.3x ND/UEBITDA, EUR 26bn net debt) and the owner has no domain knowledge of the company.
+    #   Regime adjustment N. Tier 2 -> 30% MoS -> MBP = 0.70 x 43.5 = 30.45 (vss computes it).
+    tier: 2
+    # E32 2026-08-25: `fv_base x tier multiplier` is SUPERSEDED as a definition.
+    # This number is KEPT, not recomputed and not deleted -- it cannot be
+    # restruck, because E28 needs the bear case pre-registered BEFORE implied
+    # growth is solved and here it was decided after. A missing proof of
+    # ORDERING, not a missing figure. It is a record of a decision, not a live
+    # buy price, and vss marks it wherever it prints.
+    mbp_basis:
+      definition: fv_base_x_tier
+      struck: 2026-08-22
+    # stop_price REMOVED 2026-08-22: the Avanza stop (trigger 50.00 / sell limit 48.50) was MAKULERAD
+    #   in Avanza when the sell order was placed. The C1 tight-end derivation that produced 50.00 is kept
+    #   in notes below as history, marked CANCELLED. A HELD name with no stop_price is reported by vss as
+    #   the NO STOP blocker (rules.missing_stop_blocker) -- that was the intended state until the fill was
+    #   booked (2026-08-30, `sales:` below) and the status became DROPPED.
+    catalyst_date: 2026-10-28          # Q3 2026 Trading Statement (H1 2026 report p.4 'Upcoming Events'). H1 2026 (2026-07-28) was resolved 2026-07-29 -- see notes.
+    catalyst_resolved:
+    catalyst_event: Q3 2026 trading statement
+    # B45: the fill, exact as Avanza printed it (owner, 2026-08-30). No vss run
+    # record: fv_base 43.5 / FV_bull 51.0 were struck 2026-08-22 in
+    # una-valuation.xlsx (FRAMEWORK-EDITS C4, second application).
+    sales:
+      - date: 2026-08-24
+        price: 54.81
+        currency: EUR
+        shares: 42
+        account: "ACCOUNT-A"
+        rule: C4
+        run_record:
+        proceeds_sek: 25376.66
+        note: "C4 second application (FRAMEWORK-EDITS C4): 54.59 close of 2026-08-21 was +7.0% above FV_bull 51.0 at r 9.5%; the owner's decision 2026-08-22, limit 54.30 queued to the 2026-08-24 open; filled at 54.81, 0.51 above the limit"
+    # quarters: HISTORY OPTION A (owner's decision 2026-08-22): continuing-operations basis after the Ice Cream demerger
+    # (2025-12-06). 2024-FY and 2025-H1 are the RESTATED comparatives read from the FY2025 and H1 2026 releases
+    # (vss earnings --compare, two runs agreed); 2026-H1 is its own report. Unilever states H1 and FY, never H2, so
+    # the overlap guard (finest wins, never both) means 2025-FY cannot sit beside 2025-H1 and no H2 row exists.
+    # Balance-sheet items from periods whose balance sheets still contain Ice Cream (31 Dec 2024, 30 Jun 2025) are
+    # LEFT BLANK (owner's decision) -- 4.2.7 reports CANNOT EVALUATE on them rather than a confounded trip.
+    quarters:
+      - period: 2024-FY
+        revenue: 52479.0              # "Turnover 50,503 52,479 (3.8)%" column 2024(a), unilever-fy-2025.pdf p.20 (restated, continuing ops)
+        revenue_yoy:                  # not stated on the restated basis
+        op_income: 8829.0             # "Operating profit 9,037 8,829 2.4%"
+        op_margin: 0.168              # "Operating margin (%) 17.9 16.8"
+        eps: 2.44                     # "Diluted earnings per share (€) from continuing operations 2.59 2.44 6.2%" (post 8-for-9 consolidation basis)
+        net_debt_ebitda:              # blank: the 1.9x in the FY2024 release is a pre-demerger, incl.-Ice-Cream measure
+        receivables:                  # blank: 31 Dec 2024 balance sheet not re-presented (contains Ice Cream)
+        inventory:                    # blank: same
+        class_c_impact: -710          # "Restructuring costs(c) (599) (710)" -- restructuring, a charge
+        covenant_headroom:
+        eps_consensus:                # MANUAL ONLY - vss never fills this
+        guidance_action:              # the FY2024 release issued the 2025 outlook; nothing earlier to compare against
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+        source: release
+      - period: 2025-H1
+        revenue: 25506.0              # "Turnover 25,623 25,506 0.5%" column 2025(a), unilever-h1-2026.pdf p.22 (restated, continuing ops)
+        revenue_yoy:                  # not stated on the restated basis (own H1 2025 release, incl. Ice Cream: -3.2%)
+        op_income: 4762.0             # "Operating profit 4,885 4,762 2.6%"
+        op_margin: 0.187              # "Operating margin (%) 19.1 18.7"
+        eps: 1.42                     # "Diluted earnings per share (€) from continuing operations 1.38 1.42 (2.5) %"
+        net_debt_ebitda:              # blank: the 2.1x in the H1 2025 release is pre-demerger
+        receivables:                  # blank: 30 Jun 2025 balance sheet contains Ice Cream
+        inventory:                    # blank: same
+        class_c_impact: -265          # "Restructuring costs(c) (131) (265)"
+        covenant_headroom:
+        eps_consensus:                # MANUAL ONLY - vss never fills this
+        guidance_action: maintained   # own H1 2025 release (2025-07-31): "2025 full year outlook reconfirmed"
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+        source: release
+      - period: 2026-H1
+        revenue: 25623.0              # "Turnover 25,623 25,506 0.5%" unilever-h1-2026.pdf p.22
+        revenue_yoy: 0.005            # same line (currency -4.9%, A&D +0.7%; USG +4.8%)
+        op_income: 4885.0             # "Operating profit 4,885 4,762 2.6%"
+        op_margin: 0.191              # "Operating margin was up 40bps at 19.1%." (p.3)
+        eps: 1.38                     # "Diluted earnings per share (€) from continuing operations 1.38 1.42 (2.5) %"
+        net_debt_ebitda: 2.3          # "net debt / underlying EBITDA ratio of 2.3x*" (*rolling twelve-month; UEBITDA basis, an adjusted measure) p.10
+        receivables: 10201.0          # "Trade and other current receivables 10,201 7,346 7,691" p.25 -- TSA gross-up, footnote (b) p.26; DSO WATCH POINT (FRAMEWORK-EDITS B10)
+        inventory: 4522.0             # "Inventories 4,522 4,043 5,502" p.25
+        class_c_impact: -131          # "Restructuring costs(c) (131) (265)"
+        covenant_headroom:
+        eps_consensus:                # MANUAL ONLY - vss never fills this
+        guidance_action: raised       # "Following strong performance in the first half, we have upgraded our outlook for 2026" p.2
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+        source: release
+    notes: |
+      SOLD 2026-08-24 (owner): C4, SECOND APPLICATION (FRAMEWORK-EDITS C4).
+      The 2026-08-21 close 54.59 sat +7.0% above FV_bull 51.0 at the
+      framework's r 9.5% -- the C4 condition the second-application
+      paragraph reported and left to the owner; the owner took the decision
+      on Saturday 2026-08-22 and queued 42 shares (the whole position) at a
+      54.30 limit to the Monday open. FILLED 2026-08-24 at 54.81 EUR, 0.51
+      ABOVE the limit (the open was 54.81), account ACCOUNT-A, proceeds
+      25,376.66 SEK -- Avanza's executed transaction, booked 2026-08-30 in
+      the `sales:` block above (B45). Full exit, not a section 6.4 trim.
+      Status DROPPED from that booking; the Avanza stop (50.00 / 48.50) had
+      been cancelled with the order on 2026-08-22, so no stop stands.
+      Until 2026-08-30 this entry read HELD with a SELL ORDER PENDING note
+      and no fill; the daily reports of 08-24 to 08-29 carried it as HELD
+      with the NO STOP blocker for that reason.
+
+      STOP 50.00 set 2026-08-22 (Avanza trigger) -- CANCELLED 2026-08-22, see
+      the sell-order note above. Kept as history: it is a committed framework
+      application (C1, commit 8f9007a). C1 reading: C1 was decided
+      2026-08-22 for VOLATILE names (wide end, -12%, because noise shakes a
+      tight stop out -- SAP, 47% drawdown, ~41% annualised vol). Unilever is
+      the complement: 1y annualised vol ~21%, daily sd 1.3%, trough -25.1%,
+      price within 1% of both SMA50 (53.77) and SMA200 (53.71) -- a -8% move
+      here is a real break, not noise, so the TIGHT end applies: 50.00.
+      The wide-end alternative 47.80 would sit 0.65 above the 52w low of
+      47.15 (2026-06-04), i.e. a support-floor reading; not chosen.
+      This is a vss-watched level mirroring the Avanza order.
+      8.0% of total portfolio, the largest satellite position (as of
+      2026-08-20). That was a breach under §7 v2.2; under v2.3 there is
+      no per-name cap and size is set by conviction, bounded by the
+      risk-based check (1% of portfolio ÷ entry-to-stop distance).
+      outcome: H1 2026 reported Jul 28 2026 — well received.
+      Verify UNA.AS returns data; if not try ULVR.L, and check §8
+      (withholding tax / listing preference) before any add.
+      H1 2026 catalyst (2026-07-28) was resolved 2026-07-29; replaced by the
+      Q3 2026 trading statement date on 2026-08-22.
+
+      DECISIONS 2026-08-22 (owner), evidence in una-scoring-evidence.md:
+      - 4.2.1 revenue kill = NOT TRIGGERED: reported turnover declines
+        (Q2'25..Q1'26, FY25 -3.8%) are disposals/demerger + currency;
+        USG positive 8/8 (3.0-5.8%). FRAMEWORK-EDITS B9 decided.
+      - 4.2.7 receivables = NOT TRIGGERED: +32.6% YoY is the TSA gross-up
+        with The Magnum Ice Cream Company (cited footnote). DSO WATCH
+        POINT: 72d (Jun-26) vs 53d (Dec-25), re-test each period until
+        the TSA / Foods separation ends. FRAMEWORK-EDITS B10 decided.
+      - Gate 1 = FAIL on today's level (-13.2% vs 52w high 62.92, outside
+        15-50%; trough -25.1% on 2026-06-04). B1 second application.
+      - A7 proxy = 20.61 (continuing-ops reading; bias +8.3%); A1=Y, A2=Y,
+        A4 = FCF basis 1 (post-tax OCF - capex = 6,987), diluted shares
+        2,183.2m -- in una-valuation.xlsx. fv_base/tier NOT yet set.
+      - History option A loaded (2024-FY r, 2025-H1 r, 2026-H1), Ice Cream
+        period balance-sheet items left blank.
+
+      §5 LOCKED 2026-08-22 (owner): fv_base 43.5 (C 0.90 @ 4% growth 40.47 +
+      A 0.10 @ 70.49), bear 37 / bull 51, tier 2 (30% MoS -> MBP 30.45),
+      regime N. Price 54.59 at the lock = +25.6% vs fv_base.
+      C4 STATE (FRAMEWORK-EDITS, exit test on FV_bull) -- reported, decision
+      is the owner's, NOT taken here: at r 9.5% the weighted bull FV is 51.0
+      and the price 54.59 is +7.0% ABOVE it (C4 condition met); at r 9.0%
+      FV_bull is 55.5 and the price is 1.6% below it; at r 10.0% FV_bull is
+      47.2. MBP 30.45 and fv_base 43.5 both sit below the 50.00 stop.
+
+  # parked from old schema: value_sek 15149 | last_seen_price 125.20  (as of 2026-08-20)
+  - ticker: LIAB.ST
+    # E28's pre-registered growth view, MACHINE-READABLE (2026-09-04).
+    # THE NUMBERS ARE UNCHANGED and are the owner's own, moved here
+    # from reference/growth-views/LIAB.ST.md and from the hard-coded copy
+    # inside the tools/ script that last struck this name -- so the
+    # code can read what until today only a person could. `view` and
+    # `registered` are what keep E28's ordering checkable.
+    growth:
+      base: 0.02
+      bear: 0.0
+      bull: 0.04
+      view: reference/growth-views/LIAB.ST.md
+      registered: 2026-08-26
+    name: Lindab International
+    currency: SEK
+    # HELD -> DROPPED 2026-09-21: the position is closed. The exit was
+    #   DECIDED 2026-09-19 under C4 / E42 (the close above FV_bull at every
+    #   end of the lease-interest bound) and EXECUTED 2026-09-21 at 120.70
+    #   SEK for the whole holding of 121 shares -- the fill is in `sales:`
+    #   below (B45). DROPPED is the record of a closed position, not a
+    #   judgement about Lindab: what changed was the measurement (E117),
+    #   not the company.
+    status: DROPPED
+    # E39 2026-08-26 -- superseded by REVIEW-4; re-strike after E34.
+    #   102.66 charged Lindab's interest TWICE. Its operating cash flow bears
+    #   net interest paid of 201 MSEK over the R12M to 2026-06-30 (Q2 2026
+    #   interim p.17), and 4,497 MSEK of lease-inclusive net debt was then
+    #   subtracted from a flow that had already paid the interest on it.
+    #   It also stood on the issuer's OWN "adjusted free cash flow" KPI (879)
+    #   rather than on the schema's basis 1 (~849). Under E34 the same inputs
+    #   give 139.48.
+    #   The number is NOT deleted: the prose block below still holds every
+    #   input of the superseded calculation. What is removed is its standing
+    #   as a live level -- section 6.4 compared a price with it and read
+    #   102.66, 19% BELOW the 126.30 close, as a name to TRIM.
+    #   `stop_price` is UNTOUCHED (E39): a stop is a statement about how much
+    #   the owner will lose, not about what the company is worth, and the one
+    #   thing that must not happen while a fair value is rebuilt is that the
+    #   position goes unwatched.
+    fv_base: 68.97     # E117 with E120's STAND-IN (lease interest 66, FY2025 note 30), struck 2026-09-19, reference/LIAB.ST-STRIKE-2026-09-19-e117.md; the exit decided 2026-09-19 stands. EARLIER: 133.48 -- was 102.66 (E39-nulled 2026-08-26). 133.48 = RESTRIKE-2026-08-26-b, Method C (E28) on the R12M to 2026-06-30 basis; RE-STRUCK 2026-08-30 under E34, E35/E35.1, E65-E68 and E70 (tools/restrike_liab_2026_08_30.py, reference/LIAB.ST-STRIKE-2026-08-30.md) at the SAME 133.48 -- the rulings since 08-26 NAME legs (finance leases inside the stated 1,410, E65; borrowings 5 + 3,378, E66/E67; ARO 0 by E68.1; declaration 3.1 'no', IFRS 16.50(b), E70) and MOVE nothing. LINKED to the record below, which replays to it (item 9)
+    # THE EXIT TEST (owner, 2026-09-20): C4 / E42 run the exit against the
+    #   BULL case, and the exit decided 2026-09-19 was decided on exactly
+    #   that -- "the close 119.70 is above FV_bull at every end of the
+    #   lease-interest bound (100.44 / 86.42 / 55.63)". 86.42 is the record
+    #   replayed at the pre-registered g_bull on E120's stand-in, the same
+    #   basis as fv_base above. A HELD entry without this is now REFUSED by
+    #   config.load_watchlist: a holding whose exit test cannot run is not
+    #   a holding this framework can carry.
+    fv_bull: 86.42
+    run_record: reference/run-records/LIAB.ST-2026-09-19-e117.json
+    # Tier RULED A 2026-08-26 (Build 2 item 5): re-entered as an INPUT,
+    # carried from pre-REVIEW-4 scoring; section 4.4 untouched by the review.
+    # Not a re-score. E39 nulled it with fv_base; a tier is a 4.4 SCORE and
+    # the owner re-decided it as the same 2.
+    tier: 2             # carried from pre-REVIEW-4 scoring; 4.4 untouched by the review
+    # E32 2026-08-25: `fv_base x tier multiplier` is SUPERSEDED as a definition.
+    # This number is KEPT, not recomputed and not deleted -- it cannot be
+    # restruck, because E28 needs the bear case pre-registered BEFORE implied
+    # growth is solved and here it was decided after. A missing proof of
+    # ORDERING, not a missing figure. It is a record of a decision, not a live
+    # buy price, and vss marks it wherever it prints.
+    # LINKED 2026-08-26 to the Build 2 record: the LIVE MBP is E28's -- the
+    # record struck at its pre-registered bear case (g 0.0%: 107.23) x the
+    # tier-2 cushion 0.70 = 75.06, computed by vss and unmarked. This block
+    # stays as the RECORD of the 71.86 strike under the superseded definition.
+    mbp_basis:
+      definition: fv_base_x_tier
+      struck: on or before 2026-08-21
+      # NOT a date that was rounded: 102.66 is present in the OLDEST backup
+      # on disk (config/watchlist.yaml.bak-2026-08-21) and the watchlist was
+      # not tracked in git then, so the day it was struck is not recoverable.
+      # Recording the bound is honest; inventing a day would not be.
+    # E102, RULED BY THE OWNER 2026-09-01 -- THE STOP STAYS AT 112, and the
+    #   open item of 2026-08-25 is CLOSED by the decision rather than
+    #   deferred again. The collision is real and accepted: fair value
+    #   133.48, stop 112, MBP 100.11 -- the framework is committed to
+    #   SELLING at 84% of what it says the company is worth and will not
+    #   buy again until 75%, and between 112 and 100.11 the rules say sell
+    #   and say do not yet buy.
+    #   THE REASONING IS THE OWNER'S, recorded as given: the stop protects
+    #   CAPITAL and the MBP expresses VALUATION; they answer two different
+    #   questions and are permitted to collide. "I accept being stopped out
+    #   above my own buy price." A stop moved down to clear the buy price is
+    #   a stop widened because the analysis says the company is cheap --
+    #   which is precisely the reasoning a stop exists to overrule.
+    #   Section 6.4 at the 2026-10-23 Q3 report may move it on NEW
+    #   INFORMATION; that is a different act from moving it to resolve a
+    #   tension with the buy price.
+    # stop_price CLEARED 2026-09-21 with the fill: 112 guarded a position
+    #   that no longer exists. It stood until the fill, as the exit
+    #   decision said it would.
+    stop_price:
+    # catalyst CLEARED 2026-09-21 with the fill: the Q3 2026 report on
+    #   2026-10-23 was the next section 6.4 reassessment of a HELD name,
+    #   and there is no holding to reassess.
+    catalyst_date:
+    # B45: the executed fill. ONE transaction, the whole holding.
+    sales:
+      - date: 2026-09-21
+        price: 120.70
+        currency: SEK
+        shares: 121
+        rule: C4
+        run_record: reference/run-records/LIAB.ST-2026-09-19-e117.json
+        note: >-
+          FULL EXIT, reported by the owner 2026-09-21: 121 shares at 120.70
+          SEK. Gross proceeds 14,604.70 SEK before fees; `proceeds_sek` is
+          left DATA MISSING rather than computed, because the net figure is
+          Avanza's and this file does not invent one. The account is not
+          recorded -- the owner did not state it and nothing here guesses.
+          THE RULE: C4 with E42's horizon, decided 2026-09-19 on the close
+          of 119.70 standing above FV_bull at EVERY end of the
+          lease-interest bound (100.44 / 86.42 / 55.63), so the result did
+          not depend on the unresolved lease-interest split. The E117 +
+          E120 strike on the linked record put fv_base at 68.97 with
+          FV_bull 86.42; the sale at 120.70 is 75.0% above fv_base and
+          39.7% above FV_bull. NOT a thesis stop: 4.2.5 read 2.7x stated
+          and 3.11x ex one-off at lease interest 66, inside 3.5x. What
+          changed was the measurement (E117: rent is an operating cost),
+          not Lindab.
+    catalyst_resolved:
+    catalyst_event: Q3 2026 report
+    quarters:
+      - period: 2024-Q3
+        revenue: 3348.0
+        revenue_yoy: 0.03
+        op_income: 274.0
+        op_margin: 0.082
+        eps: 2.05
+        net_debt_ebitda: 2.3
+        receivables: 2282.0
+        inventory: 2492.0
+        class_c_impact: -30
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+      - period: 2024-Q4
+        revenue: 3308.0
+        revenue_yoy: 0.01
+        op_income: -101.0
+        op_margin: -0.031
+        eps: -2.24
+        net_debt_ebitda: 2.5
+        receivables: 1964.0
+        inventory: 2214.0
+        class_c_impact: -278
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+      - period: 2025-Q1
+        revenue: 3214.0
+        revenue_yoy: 0.02
+        op_income: 228.0
+        op_margin: 0.071
+        eps: 1.89
+        net_debt_ebitda: 2.6
+        receivables: 2077.0
+        inventory: 2219.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+      - period: 2025-Q2
+        revenue: 3253.0
+        revenue_yoy: -0.08
+        op_income: 281.0
+        op_margin: 0.086
+        eps: 2.26
+        net_debt_ebitda: 2.7
+        receivables: 2208.0
+        inventory: 2196.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+      - period: 2025-Q3
+        revenue: 3253.0
+        revenue_yoy: -0.03
+        op_income: 491.0
+        op_margin: 0.151
+        eps: 5.19
+        net_debt_ebitda: 2.7
+        receivables: 2253.0
+        inventory: 2217.0
+        class_c_impact: 176
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+      - period: 2025-Q4
+        revenue: 3134.0
+        revenue_yoy: -0.05
+        op_income: 97.0
+        op_margin: 0.031
+        eps: 0.52
+        net_debt_ebitda: 2.6
+        receivables: 1813.0
+        inventory: 2111.0
+        class_c_impact: -106
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+      - period: 2026-Q1
+        revenue: 3003.0
+        revenue_yoy: -0.07
+        op_income: 188.0
+        op_margin: 0.063
+        eps: 1.41
+        net_debt_ebitda: 2.6
+        receivables: 2122.0
+        inventory: 2242.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+      - period: 2026-Q2
+        revenue: 3306.0
+        revenue_yoy: 0.02
+        op_income: 218.0
+        op_margin: 0.066
+        eps: 1.77
+        net_debt_ebitda: 2.7
+        receivables: 2317.0
+        inventory: 2252.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+    notes: |
+      CURRENT max-buy: MBP 75.06 SEK — E28: the bear-case value 107.23
+      (g 0%, reference/growth-views/LIAB.ST.md, registered 2026-08-26)
+      × 0.70 (tier 2, carried, not re-scored); band 83.57 / 75.06 /
+      67.68 across r 9.0–10.0% (E29). Re-struck 2026-08-30 under E34,
+      E35/E35.1, E65-E68 and E70 on the R12M to 2026-06-30 basis (TTM
+      2025-Q3..2026-Q2): FCF0 1,050 MSEK (net interest paid 201 added
+      back, E34; the lease principal never in the flow, IFRS 16.50(b),
+      E70 -- nothing added back), net debt 4,536 (borrowings 5 + 3,378,
+      leases 1,410, pension 280, ARO 0, less cash 527 and other
+      interest-bearing receivables 10), fv_base 133.48 (band 148.13 /
+      133.48 / 120.77), bear 107.23, bull 164.12, g* 1.87% at the 131.60
+      close of 2026-08-27. COMPUTED by vss from the linked record, never
+      entered: the MBP column of the report is authoritative, and this
+      line is a convenience copy that goes stale the moment the record
+      or the tier changes.
+
+      NEXT SCHEDULED REASSESSMENT: the Q3 2026 report, 2026-10-23
+      (catalyst_date above; the section 6.4 reassessment point).
+
+      SUPERSEDED 2026-08-21 figure, kept as history: MBP 71.86 SEK =
+      fv_base 102.66 × 0.70 (tier 2) under the fv_base × tier
+      definition that E32 retired.
+
+      HISTORY — not a live level. Bought Jul 17 2026 at ~124 kr, above
+      the ~105 kr max-buy that the framework analysis produced at the
+      time. Deliberate violation, recorded. That 105 is SUPERSEDED by
+      the MBP above: it is the level that applied at purchase, not a
+      level to buy against now.
+
+      BROKER STOP VALID TO 2026-09-01 — renew or clear this field, or
+      the tool watches a stop that no longer exists at Avanza.
+
+      SUPERSEDED (E39, 2026-08-26; re-struck 2026-08-26-b and 2026-08-30):
+      FV_base 102.66 SEK, reverse DCF (method C only), 2026-08-21.
+      Inputs: R12M adjusted FCF 879 MSEK, 2% growth, 2.5% terminal,
+      9.5% discount, net debt 4497, 77.036m shares.
+      Assumption: operating margin stays near 7.3%; European
+      construction growth ~2%/yr to 2028 per Euroconstruct.
+      Bear 91 (no margin recovery, 1% growth).
+      Bull 162 (margin reaches the 10% target, then 2%).
+      Tier 2: cyclical construction exposure.
+      NOTE: only 1 of 3 methods used. FRAMEWORK §5.1 requires 2.
+
+      2026-09-19, EXIT DECIDED by the owner (A2), to execute at the next session; the owner reports the fill: "Full exit at the next session under C4 and E42. The close 119.70 is above FV_bull at every end of the lease-interest bound (100.44 / 86.42 / 55.63), so the result does not depend on the unresolved split and the incomplete record does not change it. Not a thesis stop: 4.2.5 reads 2.7x stated, and 3.11x ex one-off at lease interest 66, under 3.5x. No structural upgrade to document: what changed is my measurement (E117), not Lindab. Record the exit decision dated 2026-09-19, to execute next session; I will report the fill. Stop 112 stands until then."
+
+  # parked from old schema: value_sek 12341 | last_seen_price 185.64  (as of 2026-08-20)
+  - ticker: SAP.DE
+    # E28's pre-registered growth view, MACHINE-READABLE (2026-09-04).
+    # THE NUMBERS ARE UNCHANGED and are the owner's own, moved here
+    # from reference/growth-views/SAP.DE.md and from the hard-coded copy
+    # inside the tools/ script that last struck this name -- so the
+    # code can read what until today only a person could. `view` and
+    # `registered` are what keep E28's ordering checkable.
+    growth:
+      base: 0.08
+      bear: 0.06
+      bull: 0.11
+      view: reference/growth-views/SAP.DE.md
+      registered: 2026-08-26
+    name: SAP SE
+    currency: EUR
+    # WATCH-PRICED -> WATCH-GATED, owner 2026-09-20. THE LEVEL RESTS ON
+    #   NOTHING THAT STILL STANDS: fv_base 140.3746 was struck 2026-08-30 on
+    #   TTM to 2026-06-30 under the PRE-E117 lease treatment and is BOUND
+    #   under E106 (E120: "SAP.DE states lease interest in no period, not
+    #   even annually: it stays E106-bounded"), while every other name was
+    #   re-struck under E117 on 2026-09-19; the tier 1 was locked 2026-08-22,
+    #   BEFORE both that record and the 2026-08-26 reading E39 nulled; and no
+    #   bull case has ever been struck. A bound value on a superseded basis
+    #   was carrying a live buy line, and the tier attached to it was set
+    #   before the record it now rests on existed.
+    #   MBP 119.32 stays RECORDED AND PROVISIONAL -- it is not a buy trigger
+    #   while the status is WATCH-GATED. The close 183.12 (2026-09-18,
+    #   RETAINED under E122) is 53.5% above it, so this costs and forecloses
+    #   nothing.
+    #   RE-STRIKE AT THE 2026-10-21 Q3 READING, IN THIS ORDER: value first,
+    #   then bear and bull, then fortress and tailwind read explicitly, then
+    #   the tier. The tier is NOT re-scored against a bound value.
+    #   The name may not reach HELD before a bull is struck -- that is a GATE
+    #   (rules.no_bull_blocker), not a note: C4 / E42 run the exit against
+    #   FV_bull, as LIAB.ST's exit of 2026-09-19 did.
+    status: WATCH-GATED
+    # ======================================================================
+    # SOLD 2026-08-26 -- entire position, 6 shares, entry 154.06 EUR.
+    #   sell price: 178.06 EUR, both accounts -- 1 share on ACCOUNT-B (proceeds
+    #     1,962.11 SEK) and 5 shares on ACCOUNT-A (proceeds 9,841.22 SEK), Avanza's
+    #     executed transactions, booked 2026-08-30 in `sales:` below (B45).
+    #     178.06 is 4.9% BELOW the 187.20 close that triggered C4: the sale
+    #     executed into a down day (2026-08-26 opened 179.92, ranged
+    #     176.82-182.16, closed 180.02).
+    #   reason: "C4: price 187.20 above FV_bull 174.30 (RESTRIKE-2026-08-26-b)"
+    #   ruling: FRAMEWORK-EDITS E42 -- C4 has no horizon; the full position is
+    #           sold at the next session, no trim, no wait for the next
+    #           report. Fourth application of C4 (MSFT, UNA.AS, SAP.DE).
+    #
+    # STATUS IS 'WATCH-PRICED', NOT 'SOLD'. SOLD is not in the schema
+    #   (VALID_STATUSES = HELD|WATCH-PRICED|WATCH-GATED|PIPELINE|DROPPED) and
+    #   the validator rejects it; the owner moved the name to WATCH the same
+    #   day. WATCH-PRICED, not -GATED, because the name has been through
+    #   section 5 (RESTRIKE-2026-08-26-b) and waits on a PRICE, not on a
+    #   gate (E27).
+    #
+    # RE-ENTRY LINE: mbp 96.21 EUR at tier 1 (owner, 2026-08-26). E28's MBP:
+    #   the bear-case value 120.27 (g 6.0%, pre-registered 2026-08-26 under
+    #   item 6 BEFORE implied growth was solved) x the tier-1 cushion 0.80
+    #   = 96.21; band across E29's +/-0.5%: 104.03 / 96.21 / 89.45. Record:
+    #   reference/run-records/SAP.DE-2026-08-26.json (fv_base on it 139.48;
+    #   printout reference/RESTRIKE-2026-08-26-b.md).
+    #   COMPUTED, NOT RECORDED (E28 wired 2026-08-26, the commit after E42):
+    #   `run_record:` below links the record, fv_base 139.48 is what it
+    #   replays to (item 9's gate), and vss strikes the record at its bear
+    #   case and applies the cushion -- rules.compute_mbp_e28 -- so the
+    #   96.21 in the report is the tool's own arithmetic, unmarked. The
+    #   superseded fv_base x tier (111.58 here) is computed only for names
+    #   whose record carries no bear case, and prints E32's mark.
+    # ======================================================================
+    cik: 1000184           # SEC Central Index Key, for `vss xbrl`. 20-F filer (0001104659-26-020058, FY2025); its facts are `ifrs-full`.
+    # fv_base LOCKED 2026-08-22 (sap-valuation.xlsx, sap-scoring-evidence.md). §5.2 weighted: method C 0.85 + method A 0.15.
+    #   C = 167.07  (reverse DCF: FCF basis 1 = 8,730 = R12M OCF 9,465 - capex 735; base growth 8% (bear 6%, bull 11%);
+    #                r 9.5%; terminal 2.5%; 10y; net cash +1,118 all-in; 1,158m diluted shares). Implied growth at 188.12: 9.6%.
+    #   A = 285.92  (A7 34.16 "proxy: trailing" per FRAMEWORK-EDITS B5 -- conservative bias -25.2% vs realised forward, BUT
+    #                FY22/FY24 depressed EPS inflate the median's inputs -- x A8 8.37 yfinance forwardEps, vendor, non-IFRS basis assumed)
+    # Weighted = 184.90, entered as 185. Range: bear 165 / bull 220. A/C divergence +71% (>25%) -> weighted toward C.
+    # E39 2026-08-26 -- superseded by E28; re-strike after E34-E38.
+    #   185 is NOT a Method C number. It is 0.85 x Method C 167.07 + 0.15 x
+    #   Method A 285.92, under the section 5.2 weighting E28 DELETED, and 15%
+    #   of it rests on an undated vendor `forwardEps` of 8.37 that yfinance
+    #   will not serve again. Every REVIEW-4 finding that moves it moves the
+    #   C leg only.
+    #   The number is NOT deleted: the two comment blocks above and below hold
+    #   every input of the superseded calculation. What is removed is its
+    #   standing as a live level.
+    #   `stop_price` 165 is UNTOUCHED (E39).
+    # E87 (2026-08-30): NULLED -- superseded: the store cannot rebuild it;
+    #   re-strike when it forms end to end. 139.48 was RESTRIKE-2026-08-26-b,
+    #   Method C (E28) on the R12M to 2026-06-30 basis, struck on two hand
+    #   inputs (capex -735 netted from cumulative columns; consolidated
+    #   financial liabilities 10,507) and before E68/E81 added legs the store
+    #   lacked. The record below still replays to 139.48 and stays linked as
+    #   history; replay is not re-strikeability (reports/E41-SAP-2026-08-30.md).
+    #   Tier 1 and the derived MBP 96.21 fall with it; stop_price was already
+    #   null (sold 2026-08-26, E42).
+    # RE-STRUCK 2026-08-30 (tools/strike_sap_2026_08_30.py,
+    #   reference/SAP.DE-STRIKE-2026-08-30.md): the store formed the record
+    #   end to end with ZERO hand inputs -- E86 capex columns, E84/E89
+    #   ex-lease legs, E85 NOT PRESENTED searches, E88 divisor 1,175m with
+    #   the basis mismatch flagged (declarations 1 and 7) -- after the
+    #   owner's read-back of all fifteen 2026-08-30 entries. The SAME
+    #   139.48 formed (band 151.17 / 139.48 / 129.38; bear 120.27; bull
+    #   174.30); E87's condition ('re-strike when it forms end to end') is
+    #   met and the nulls are replaced.
+    # RE-STRUCK AGAIN the same evening under E90/E91
+    #   (tools/restrike_sap_2026_08_30_e91.py, reference/SAP.DE-STRIKE-2026-08-30-e91.md):
+    #   the divisor became E91's day-weighted window average 1,167.5m (the
+    #   four EPS-footnote operands, read back), moving fv +0.64%; FCF0 and
+    #   net cash unchanged. MBP is E90's base x 0.85 = 119.32 (derived).
+    fv_base: 140.37     # was 185 (E39-nulled 2026-08-26), then 139.48 (E87-nulled 2026-08-30, re-struck same day, then E91 moved the divisor)
+    run_record: reference/run-records/SAP.DE-2026-08-30-e91.json   # priors: SAP.DE-2026-08-30.json (E88 divisor, 139.48) and SAP.DE-2026-08-26.json -- history, still replay
+    # B45: the fills, exact as Avanza printed them (owner, 2026-08-30). Struck
+    # against the linked run record (RESTRIKE-2026-08-26-b: FV_bull 174.30).
+    sales:
+      - date: 2026-08-26
+        price: 178.06
+        currency: EUR
+        shares: 1
+        account: "ACCOUNT-B"
+        rule: C4
+        run_record: reference/run-records/SAP.DE-2026-08-26.json
+        proceeds_sek: 1962.11
+        note: "C4 under E42 (fourth application): 187.20 settled close of 2026-08-24 vs FV_bull 174.30; executed 4.9% below the trigger close into a down day"
+      - date: 2026-08-26
+        price: 178.06
+        currency: EUR
+        shares: 5
+        account: "ACCOUNT-A"
+        rule: C4
+        run_record: reference/run-records/SAP.DE-2026-08-26.json
+        proceeds_sek: 9841.22
+        note: "same sale, second account"
+    # tier 1 LOCKED 2026-08-22: §4.4 score 7 = 4 gates (1 level+catalyst [B1 decided], 2 class B, 3, 5; gate 4 DATA MISSING)
+    #   + 4 green (insider cluster, buyback [B8 decided], FCF conversion 106%, margin expansion) - 1 soft (rising DSO);
+    #   no hard kill; regime adjustment N (fwd P/E 20.0 vs 5y 19.9). Tier 1 -> 20% MoS -> MBP = 0.80 x 185 = 148 (vss computes it).
+    # Tier RULED A 2026-08-26 (Build 2 item 5): re-entered as an INPUT,
+    # carried from pre-REVIEW-4 scoring; section 4.4 untouched by the review.
+    # Not a re-score. E39 nulled it with fv_base; a tier is a 4.4 SCORE and
+    # the owner re-decided it as the same 1.
+    tier: 1             # re-entered 2026-08-30 with the re-strike (was E87-nulled the same day); carried from pre-REVIEW-4 scoring; 4.4 untouched by the review; no E76 reading on file; E77 one-tier-stricter applies at the next 4.4 re-score (catalyst 2026-10-21)
+    # AT THE 2026-10-21 RE-SCORE (owner, 2026-09-19): read FORTRESS BALANCE
+    #   SHEET and SECULAR TAILWIND explicitly before keeping tier 1 -- a score
+    #   over the bar is not tier 1 by itself (the GDDY error class, corrected
+    #   2026-09-19). Not urgent: the close is far above MBP at any tier.
+    # mbp_basis 2026-08-26: the re-entry line 96.21 was struck under E28 --
+    # bear case pre-registered first (item 6), then solved -- so the basis is
+    # E28's. The earlier 148 (fv_base_x_tier, struck 2026-08-22, on the
+    # E39-nulled 185) stays in the tier comment above as history; E32 kept it
+    # as a record and E39 took the fv_base under it. Since E28 was wired
+    # (2026-08-26) this block is a RECORD of the strike; the live figure is
+    # computed from the linked run record's bear case, and the row's claim
+    # is not what clears E32's mark -- the bear case is.
+    mbp_basis:
+      definition: e90_base_cushion
+      struck: 2026-08-30    # E90 (base 140.37 x 0.85 = 119.32, derived). History: e28_bear_case struck 2026-08-26 and re-struck 2026-08-30 morning (bear 120.27 x 0.80 = 96.21, superseded by E90 the same evening); fv_base_x_tier 148 (2026-08-22, on the E39-nulled 185) further up
+    stop_price:           # null 2026-08-26: position SOLD, nothing to guard. Was 165 (§6.4 / C1 wide end, decided 2026-08-22, derivation in notes). Cancel the Avanza stop if one was placed.
+    # ^ null CONFIRMED by the owner 2026-08-30 (stop session): deliberate on
+    #   a WATCH name -- the level is derived from the REAL blended entry when
+    #   entry is contemplated (pre_entry_stop_flag is informational, not a
+    #   blocker: rules.missing_stop_blocker is HELD-only). The rule-field
+    #   idea is the open E-candidate in the header. The Avanza order is the
+    #   owner's to place; this field is the tool's requirement, not the order.
+    catalyst_date: 2026-10-21          # Q3 2026 results (yfinance earnings calendar; sap.com events page per WebSearch). First §6.4 reassessment point.
+    catalyst_resolved:                 # set the day the Q3 outcome is ingested. Q2 2026 (2026-07-23) was resolved 2026-07-27 -- see notes.
+    catalyst_event: Q3 2026 results
+    quarters:
+      - period: 2024-Q1
+        revenue: 8041.0
+        revenue_yoy: 0.08
+        op_income: -787.0
+        op_margin: -0.098
+        eps: -0.71
+        net_debt_ebitda: 
+        receivables: 7435.0
+        inventory: 
+        class_c_impact: -2242
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: maintained
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+        source: 
+        source: release
+      - period: 2024-Q2
+        revenue: 8288.0
+        revenue_yoy: 0.1
+        op_income: 1222.0
+        op_margin: 0.147
+        eps: 0.76
+        net_debt_ebitda: 
+        receivables: 6148.0
+        inventory: 
+        class_c_impact: -631
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: maintained
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+        source: 
+        source: release
+      - period: 2024-Q3
+        revenue: 8470.0
+        revenue_yoy: 0.09
+        op_income: 2214.0
+        op_margin: 0.261
+        eps: 1.25
+        net_debt_ebitda: 
+        receivables: 5481.0
+        inventory: 
+        class_c_impact: 52
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: raised
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+        source: 
+        source: release
+      - period: 2024-Q4
+        revenue: 9377.0
+        revenue_yoy: 0.11
+        op_income: 2016.0
+        op_margin: 0.215
+        eps: 1.37
+        net_debt_ebitda: 
+        receivables: 6774.0
+        inventory: 
+        class_c_impact: -323
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+        source: 
+        source: release
+      - period: 2025-Q1
+        revenue: 9013.0
+        revenue_yoy: 0.12
+        op_income: 2333.0
+        op_margin: 0.259
+        eps: 1.52
+        net_debt_ebitda: 
+        receivables: 7981.0
+        inventory: 
+        class_c_impact: 0
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: maintained
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+        source: 
+        source: release
+      - period: 2025-Q2
+        revenue: 9027.0
+        revenue_yoy: 0.09
+        op_income: 2456.0
+        op_margin: 0.272
+        eps: 1.45
+        net_debt_ebitda: 
+        receivables: 6289.0
+        inventory: 
+        class_c_impact: -18   # Restructuring line: "Restructuring –18 –631 –97" (sap-q22025.pdf, A.1); Q2 2026 comparative "Restructuring –7 –18 –59"
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: maintained
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+        source: 
+        source: release
+      - period: 2025-Q3
+        revenue: 9076.0
+        revenue_yoy: 0.07
+        op_income: 2487.0
+        op_margin: 0.274
+        eps: 1.72
+        net_debt_ebitda: 
+        receivables: 5778.0
+        inventory: 
+        class_c_impact: 18   # Restructuring line, a RELEASE (positive): "Restructuring 18 52 –66" (sap-q32025.pdf, A.1)
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: raised
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+        source: 
+        source: release
+      - period: 2025-Q4
+        revenue: 9684.0
+        revenue_yoy: 0.03
+        op_income: 2554.0
+        op_margin: 0.264
+        eps: 1.58
+        net_debt_ebitda: 
+        receivables: 6675.0   # "Trade and other receivables 6,675 6,774" (sap-q42025.pdf p.13, (B) as at 12/31/2025, column 2025); repeated as comparative in Q1/Q2 2026 statements. Human-verified 2026-08-22; --compare did not corroborate
+        inventory: 
+        class_c_impact: -3   # Restructuring line: "Restructuring –3 –323 –99" (sap-q42025.pdf p.11). Teradata litigation expense 174 is a separate quantified item (non-IFRS adj. table p.20), not on this line
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: none
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+        source: 
+        source: release
+      - period: 2026-Q1
+        revenue: 9555.0
+        revenue_yoy: 0.06
+        op_income: 2741.0
+        op_margin: 0.287
+        eps: 1.66
+        net_debt_ebitda: 
+        receivables: 8575.0
+        inventory: 
+        class_c_impact: -12   # Restructuring line: "Restructuring –12 0 NA" (sap-q12026.pdf p.7)
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: maintained
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+        source: 
+        source: release
+      - period: 2026-Q2
+        revenue: 9878.0
+        revenue_yoy: 0.09
+        op_income: 2643.0
+        op_margin: 0.268
+        eps: 1.89
+        net_debt_ebitda: 
+        receivables: 7076.0
+        inventory: 
+        class_c_impact: -7   # Restructuring line: "Restructuring –7 –18 –59" (sap-q22026.pdf p.8); corroborated by vss earnings --compare 2026-08-22 (two runs agreed)
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: cut
+        basis: reported
+        accounting: gaap
+        period_basis: calendar
+        source: 
+        source: release
+    # 4.2.6: checked through the Q2 2026 statement (2026-07-23). No CEO/CFO departure.
+    # "On May 5, SAP announced that it had further extended the contract of CEO and chairman of the Executive Board
+    #  Christian Klein to five years, until April 2030. In addition, the contract of Dominik Asam, CFO and member of
+    #  the Executive Board, has been further extended for two years to March 2028." (Q2 2025 statement)
+    # The three entries below are the only Executive Board departures in the ten statements (all 'other', all 2024):
+    exec_changes:
+      - role: other        # Scott Russell, Executive Board member -- "to leave the company's Executive Board, effective August 31" (Q3 2024 stmt)
+        departed: 2024-08-31
+      - role: other        # Julia White, Executive Board member -- same announcement, effective August 31 (Q3 2024 stmt)
+        departed: 2024-08-31
+      - role: other        # Dr.-Ing. Juergen Mueller, CTO and Executive Board member -- "effective September 30, 2024" (Q3 2024 stmt)
+        departed: 2024-09-30
+    notes: |
+      Bought Jul 2026 around EUR 154 after Q2 cleared the 145 reclaim.
+      Own rule at purchase: never add above EUR 160. Now 185.64 —
+      well above that; no adds.
+      outcome: Q2 2026 reported Jul 23 2026 — stock rallied off lows.
+      (Q2 2026 catalyst_date 2026-07-23 was resolved 2026-07-27; replaced by the Q3 2026 date on 2026-08-22.)
+
+      DECISIONS 2026-08-22 (owner), evidence in sap-scoring-evidence.md:
+      - stop_price 165 = §6.4 technical stop, FRAMEWORK-EDITS C1 read at
+        the wide end (-12%) for a volatile name: 188.12 x 0.88 = 165.55
+        -> 165. Rationale: a tight stop in a name that just printed a 47%
+        drawdown is shaken out by noise; 165 sits above the ~154 entry.
+        This is a vss-watched level; set the broker stop separately.
+      - 4.2.3 guidance kill = NOT TRIGGERED: trailing four = Q3'25 raised /
+        Q4'25 none / Q1'26 maintained / Q2'26 cut -> 1 cut of 4. The
+        '2 guidance cuts' printed by vss earnings --compare on the Q2 2026
+        re-read was an artefact (the extracted 2026-Q2 was counted beside
+        the already-loaded 2026-Q2).
+      - class_c_impact Q2'25..Q2'26 and 2025-Q4 receivables entered from the
+        statements (citations on each line). exec_changes recorded so 4.2.6
+        can evaluate.
+
+      §6.4 DECISION 2026-08-22 (owner): REASSESS branch -- HOLD IN FULL.
+      Price 188.12 vs fv_base 185 = +1.7%, which is inside the estimate's
+      noise, so the 'at FV_base, trim 25-50%' rule is not mechanically
+      applied; C4 does not fire (price is 15% below FV_bull 220); Executive
+      Board bought Jul-Aug 2026 at 133-179 (Klein 07-24, Asam 07-27,
+      Vargiu-Breuer 08-12); stop 165 guards the downside. No adds above
+      MBP 148. REASSESSMENT POINTS: the Q3 2026 report on 2026-10-21, or
+      price reaching FV_bull 220 -- whichever comes first. Then re-run
+      §6.4: trim/exit per the reversion rule or C4.
+
+      SOLD 2026-08-26 (owner): C4, FRAMEWORK-EDITS E42. Price 187.20 (last
+      settled close, 2026-08-24) vs FV_bull 174.30 = +7.4%; expected return
+      to the bull case -6.9% (RESTRIKE-2026-08-26-b, Method C on the R12M
+      to 2026-06-30 basis after E34-E41 and E35.1). Entire position, 6
+      shares, entry 154.06; sell price 178.06 EUR (booked 2026-08-30 from
+      Avanza's executed transactions: 4.9% below the 187.20 trigger close,
+      the sale having executed into a down day). No trim and no wait for
+      Q3 (E42): the 2026-08-22 reassessment points above are retired.
+      Moved to WATCH-PRICED; re-entry line mbp 96.21 (tier 1, E28) -- see
+      the SOLD block at the top of this entry. stop_price nulled. fv_base
+      139.48 linked to the run record the same day; vss computes the 96.21.
+
+  # parked from old schema: value_sek 1626 | last_seen_price 40.64  (as of 2026-08-20)
+  - ticker: HNSA.ST
+    name: Hansa Biopharma
+    currency: SEK
+    status: DROPPED      # sold 2026-08-22, entire position. DROPPED clears the no-stop blocker; see notes.
+    fv_base:
+    tier:
+    stop_price:
+    catalyst_date:
+    catalyst_resolved:
+    catalyst_event:
+    notes: |
+      sold 2026-08-22; never analyzed, outside framework scope. (Entire position.)
+      History below is kept as a record only.
+      0.5% of portfolio (as of 2026-08-20). Micro tracker.
+      The old §7 2% floor and the max-5-positions limit are both gone in
+      v2.3, so the open question — does a tracker count toward the five?
+      — is answered by there being no five. Size is conviction-set within
+      the sleeve; what still binds is the risk-based check and the
+      2-sector limit.
+
+  - ticker: NKE
+    # E28's pre-registered growth view, MACHINE-READABLE (2026-09-04).
+    # THE NUMBERS ARE UNCHANGED and are the owner's own, moved here
+    # from reference/growth-views/NKE.md and from the hard-coded copy
+    # inside the tools/ script that last struck this name -- so the
+    # code can read what until today only a person could. `view` and
+    # `registered` are what keep E28's ordering checkable.
+    growth:
+      base: 0.03
+      bear: 0.0
+      bull: 0.05
+      view: reference/growth-views/NKE.md
+      registered: 2026-08-25
+    name: Nike
+    currency: USD
+    status: DROPPED
+    cik: 320187            # SEC Central Index Key, for `vss xbrl`
+    fv_base:
+    tier:
+    stop_price:
+    catalyst_date:
+    catalyst_resolved:
+    catalyst_event:
+    quarters:
+      - period: 2025-Q1
+        revenue: 11589.0
+        revenue_yoy: -0.1
+        op_income: 1264.0
+        op_margin: 0.109
+        eps: 0.7
+        net_debt_ebitda: 
+        receivables: 4764.0
+        inventory: 8253.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: none
+        basis: reported
+        accounting: gaap
+        period_basis: fiscal
+        source: release
+      - period: 2025-Q2
+        revenue: 12354.0
+        revenue_yoy: -0.08
+        op_income: 1392.0
+        op_margin: 0.113
+        eps: 0.78
+        net_debt_ebitda: 
+        receivables: 5302.0
+        inventory: 7981.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: 
+        period_basis: fiscal
+        source: release
+      - period: 2025-Q3
+        revenue: 11269.0
+        revenue_yoy: -0.09
+        op_income: 826.0
+        op_margin: 0.073
+        eps: 0.54
+        net_debt_ebitda: 
+        receivables: 4491.0
+        inventory: 7539.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: fiscal
+        source: release
+      - period: 2025-Q4
+        revenue: 11097.0
+        revenue_yoy: -0.12
+        op_income: 296.0
+        op_margin: 0.027
+        eps: 0.14
+        net_debt_ebitda: 
+        receivables: 4717.0
+        inventory: 7489.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: fiscal
+        source: release
+      - period: 2026-Q1
+        revenue: 11720.0
+        revenue_yoy: 0.01
+        op_income: 904.0
+        op_margin: 0.077
+        eps: 0.49
+        net_debt_ebitda: 
+        receivables: 4962.0
+        inventory: 8114.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: fiscal
+        source: release
+      - period: 2026-Q2
+        revenue: 12427.0
+        revenue_yoy: 0.01
+        op_income: 990.0
+        op_margin: 0.08
+        eps: 0.53
+        net_debt_ebitda: 
+        receivables: 5738.0
+        inventory: 7726.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: fiscal
+        source: release
+      - period: 2026-Q3
+        revenue: 11279.0
+        revenue_yoy: 
+        op_income: 635.0
+        op_margin: 0.056
+        eps: 0.35
+        net_debt_ebitda: 
+        receivables: 5369.0
+        inventory: 7487.0
+        class_c_impact: 
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: fiscal
+        source: release
+      - period: 2026-Q4
+        revenue: 10972.0
+        revenue_yoy: -0.01
+        op_income: 1321.0
+        op_margin: 0.12
+        eps: 0.72
+        net_debt_ebitda: 
+        receivables: 5931.0
+        inventory: 7501.0
+        class_c_impact: 986
+        covenant_headroom: 
+        eps_consensus:        # MANUAL ONLY - vss never fills this
+        guidance_action: 
+        basis: reported
+        accounting: gaap
+        period_basis: fiscal
+        source: release
+    notes: |
+      Alert at 40 USD. An alert level is NOT an MBP — compute properly.
+
+      NKE — DROPPED (confirmed), 2026-08-25. Re-read as a fresh name with
+      growth pre-registered before the price was solved: base 3%, bear 0%,
+      bull 5%. Method C on FY2026 gives fair value 22.15 at base (r 9.5%,
+      band 20.64-23.89) against a close of 39.41. Bull at 5% is 25.73 —
+      still below the price. The market implies 10.67%, roughly twice my
+      most optimistic case. C4's condition is met.
+
+      Dropped on the same judgement the growth view states: Nike is not
+      going away, but the volume does not come back. On, Hoka and Brooks
+      went from under 10% share to about 17%; Anta passed Nike in China on
+      a market that grew while Nike fell about 30% in five years. Nike
+      diluted its own franchises by overselling Air Force 1, Air Jordan 1
+      and Dunk, and is now shrinking them deliberately. The cultural
+      position is gone until something proves otherwise.
+
+      PROVENANCE CAVEAT, recorded as part of the verdict: this Method C
+      ran OUTSIDE vss manual. There is no config/manual/NKE.yaml. The
+      figures were read directly from SEC companyfacts for FY2026 (10-K
+      0000320187-26-000088) — operating cash flow 2,868, capex 684,
+      diluted shares 1,481m, net debt 379. No page reference, no VERIFIED
+      flag, no E21 gate. The framework would not bless this run. The gap
+      between 22 and 39 is wide enough that verification would not close
+      it, but the caveat stands on the record.
+
+      E33's GAAP case, named as a judgement I am making: Nike reports
+      under ASC 842, where operating lease payments are already an
+      operating cash outflow inside the 2,868. Deducting them again would
+      double count, so basis 1 is used here — not because the leases are
+      incidental, but because the accounting framework already made the
+      deduction. E33 was written on an IFRS 16 filer and does not say
+      this. Open it as a B-entry: how E33 applies to a US GAAP filer.
+      Opened as B33.
+
+      Two gate limbs were never ruled and did not cause this: Gate 1 reads
+      49.89% against a peak dated to the window's FIRST DAY, which ages
+      out within the week — E11's exact case. Gate 3 could not form on any
+      limb. Six of eight section 4.2 hard kills read CANNOT_EVALUATE.
+      Record them as unruled, not as failures.
+
+      SUPERSEDED, kept as the record of what this replaced — the original
+      DROPPED 2026-08-21: rejected on FRAMEWORK Phase 2 evidence, not on a
+      4.2 hard kill. EBIT margin ex one-offs 2.70% -> 3.01% (FY26 Q4
+      reported 12.00% includes ~$986m IEEPA tariff recovery). Four
+      consecutive quarters of YoY margin decline. Receivables +26%
+      against declining revenue. Drawdown 49.2%, 0.8pp from the 50%
+      structural-impairment line in §3 Gate 1. No fv_base computed —
+      rejected before §5. NOTE: none of those four reasons was Gate 3's
+      revenue limb or gross-margin band, so E30 deleted no rule this
+      verdict rested on; what changed is that the margin observation is
+      now openly a judgement, because margin gets nothing mechanical.
+
+  - ticker: MC.PA
+    # E28/E109: the owner's pre-registered view, 2026-09-19, before any value was struck.
+    growth:
+      base: 0.03
+      bear: 0.0
+      bull: 0.06
+      view: reference/growth-views/MC.PA.md
+      registered: 2026-09-19
+    name: LVMH
+    currency: EUR
+    # WATCH-PRICED per FRAMEWORK-EDITS E27, 2026-08-25. Migrated from the
+    # bare WATCH: this name waits on a PRICE, not on a gate. It has never
+    # been through §3, so nothing about it was ever disqualified -- the
+    # alert is the whole of its state.
+    status: WATCH-PRICED
+    fv_base: 321.94     # first strike 2026-09-19 (owner A4): reference/MC.PA-STRIKE-2026-09-19.md, FY2025 basis, E117
+    run_record: reference/run-records/MC.PA-2026-09-19.json
+    tier:
+    stop_price:
+    catalyst_date:
+    catalyst_resolved:
+    catalyst_event:
+    notes: >-
+      MC.PA - WATCH-PRICED, migrated 2026-08-25 under FRAMEWORK-EDITS E27.
+
+      THE 440 EUR IS AN UNVALIDATED ALERT AND IS NOT AN MBP. THE NAME IS
+      NOT BUYABLE AT IT. The alert predates any §5 run on LVMH: there is
+      no fv_base and no tier, so no MBP has ever been computed, and E27
+      records the owner's own distinction from the NKE row of 2026-08-21 -
+      "an alert level is NOT an MBP - compute properly". The level stays
+      as a reminder to do the work, not as a buy price.
+
+      It has carried this alert unchanged since before 2026-08-21,
+      through twenty-six E-rulings and both verdicts (DECK 2026-08-24,
+      PNDORA.CO 2026-08-25) that say a price level is never a trigger -
+      which is what E27 settles: those verdicts govern WATCH-GATED names,
+      and this one is not gated. Not yet run through §3.
+
+
+  # --- added by `vss screen --write-pipeline` on 2026-08-22 ---
+  # PIPELINE only: no mbp, no fv_base, no tier. Section 5 is run by hand.
+  # UHS (rank 1 of the 2026-08-21 run) was REMOVED from PIPELINE by hand on
+  # 2026-08-23 under FRAMEWORK-EDITS E7. The feeder's cost of revenue for UHS
+  # is SuppliesExpense alone, so its 101.1% gross profitability is not the
+  # quantity the quality leg ranks; on every defensible recomputation the name
+  # leaves the top five. JD.L, the next name in the same ordering, was entered
+  # in its place at the end of this file. Backup:
+  # config/watchlist.yaml.bak-2026-08-23-pre-E7-uhs-removal
+  - ticker: LULU
+    name: Lululemon Athletica
+    currency: USD
+    status: DROPPED
+    notes: >-
+      DROPPED 2026-08-23 after the FRAMEWORK section 5 chain was run by
+      hand; evidence in lulu-scoring-evidence.md. Entered by the screener
+      2026-08-21 as rank 2 of 325 (FRAMEWORK-EDITS E6), rank 1 of 318
+      after E7 and E8. Gate 1 level limb PASSED: drawdown 43.9% from the
+      52-week closing high, close 121.07 USD on 2026-08-21, dateable
+      catalyst 2026-06-04 (fiscal 2026 guidance cut, revenue to
+      11.00-11.15bn from 11.35-11.50bn and EPS to 10.95-11.15 from
+      12.10-12.30). Dropped on three findings, none of them a formal hard
+      kill. ONE: Gate 3's gross-margin limb. Four of eight quarters lie
+      outside FRAMEWORK-EDITS B4's plus-or-minus 200bp band around the
+      8-quarter mean of 57.49%, and B4's only exception is a quantified
+      Class C event, of which none is disclosed. TWO: the margin has
+      fallen in five consecutive quarters, 59.6 to 54.2%, and operating
+      margin fell 730bp year on year in the quarter ending 2026-05-03 on
+      revenue that grew 4.3%. That is a direction, not an event. THREE:
+      section 5.1 Method A rests on a five-year median trailing P/E of
+      31.35, a multiple earned while EPS compounded above 20% a year,
+      multiplied into an EPS the company has just guided down; it gives
+      roughly 2.9 times the current price and is not usable. Method C, the
+      reverse DCF, points the other way and is recorded in the evidence
+      file: at 121.07 the market prices free cash flow to shrink 3.1% a
+      year for ten years. The two methods diverge far beyond section 5.1's
+      25% limit and the conservative one is not enough on its own. NOTED,
+      not a trigger: section 4.2.6 asks for a CEO AND CFO departure within
+      twelve months. CEO Calvin McDonald left 2026-01-31 and the CFO did
+      not leave, she became interim co-CEO, so the limb does not fire. The
+      company has had no permanent CEO since 2026-01-31 and the guidance
+      cut was delivered by an interim. ALSO NOTED: section 4.2.7's
+      inventory limb ran above 1.5 times revenue growth for three
+      consecutive quarters before easing to 0.49 times in the most recent
+      one, and receivables are DATA MISSING, untagged in 8 of 8 quarters.
+      No fv_base, no tier and no stop_price was ever set, so no exit price
+      was computed and none is implied. Entered on the exclusion list the
+      same day so the screener does not re-propose it.
+  - ticker: DECK
+    # E28's pre-registered growth view, MACHINE-READABLE (2026-09-04).
+    # THE NUMBERS ARE UNCHANGED and are the owner's own, moved here
+    # from reference/growth-views/DECK.md and from the hard-coded copy
+    # inside the tools/ script that last struck this name -- so the
+    # code can read what until today only a person could. `view` and
+    # `registered` are what keep E28's ordering checkable.
+    growth:
+      base: 0.035
+      bear: 0.0
+      bull: 0.08
+      view: reference/growth-views/DECK.md
+      registered: 2026-08-25
+    name: Deckers Brands
+    cik: 910521    # https://www.sec.gov/files/company_tickers.json
+                    # fetched 2026-09-04 with VSS_SEC_CONTACT declared:
+                    # {cik_str: 910521, ticker: DECK, title: DECKERS OUTDOOR CORP}.
+                    # Owner's instruction 2026-09-04. It unblocks E103's
+                    # EDGAR document route for this name -- companyfacts
+                    # still supplies neither reference figure (both are
+                    # non-GAAP APMs with no us-gaap element).
+    currency: USD
+    # WATCH-GATED per FRAMEWORK-EDITS E27, 2026-08-25. Migrated from the
+    # bare WATCH: this name failed Gate 1's CATALYST limb (the level limb
+    # PASSED at 26.0%), so the failure was not about price and no price
+    # level may wake it. The verdict below is unchanged.
+    status: WATCH-GATED
+    notes: |2-
+      DECK - WATCH, 2026-08-24. Gate 1 nivåled PASS 26,0 %. Katalysatorledet UNDERKÄNT: den enda daterade katalysatorn (-15,21 % 2025-10-24) återhämtades helt 2026-01-30. Nedgången som sätter DECK i bandet i dag är en drift 118,69 -> 91,68 utan en enda dag värre än -6,4 %, och senaste stora nedgången kom på ett kvartal som slog och höjde guidningen. Ingen namngivbar dislokationshändelse = inget köpläge. Bolaget är inte underkänt. Intäkt växer i alla åtta kvartal, nettokassa 1131 M, räntetäckning 499x, §4.2 orört, E7 ingen artefakt. Gate 3:s FCF-ben 5 av 8 lämnas oavgjort - helåren var +958 M och +1097 M och två helgkvartal bar nettot; frågan om regeln räknar fel på säsongsbolag är beställd men inte mätt. Värderingen 180-184 (Metod A) och Metod C:s -2,0 % implicerade FCF-tillväxt står som noterade, inte som grund för något beslut. Ingen fv_base, ingen tier, inget MBP, inget stop_price. Återupptas vid en daterad händelse som förklarar nedgången, eller vid ett kvartal som bryter mönstret. Inte vid någon kursnivå.
+
+      2026-09-19: stays WATCH-GATED at gate-1, no catalyst. E117 strike 120.03 on record, not read. At the Q2 re-read check the inventory build (487m at 2026-03-31 to 808m at 2026-06-30) and cash down to 1.6bn.
+  - ticker: PNDORA.CO
+    # E28's pre-registered growth view, MACHINE-READABLE (2026-09-04).
+    # THE NUMBERS ARE UNCHANGED and are the owner's own, moved here
+    # from reference/growth-views/PNDORA.CO.md and from the hard-coded copy
+    # inside the tools/ script that last struck this name -- so the
+    # code can read what until today only a person could. `view` and
+    # `registered` are what keep E28's ordering checkable.
+    growth:
+      base: 0.03
+      bear: 0.0
+      bull: 0.06
+      view: reference/growth-views/PNDORA.CO.md
+      registered: 2026-08-30
+    name: PANDORA
+    currency: DKK
+    # WATCH-GATED per FRAMEWORK-EDITS E27, 2026-08-25. Migrated from the
+    # bare WATCH: this name failed Gate 1's CATALYST limb (the level limb
+    # passed at entry and is frozen under E12), so the failure was not
+    # about price and no price level may wake it. The verdict below is
+    # unchanged, and its closing sentence is now the rule for this status
+    # rather than a convention carried on the note.
+    status: WATCH-GATED
+    # FRAMEWORK-EDITS E12, 2026-08-24: Gate 1 frozen at entry. Both figures are
+    # the ones already on record from the 2026-08-21 screener run --
+    # data/screener_runs/2026-08-21/filter1-candidates.csv carries the drawdown
+    # unrounded, and E11 records the peak's date. Neither is re-read.
+    dd_at_entry: 0.15635962235300163
+    peak_date: 2025-08-22
+    # No fv_base, no tier, no mbp, no stop_price. Section 5's chain produced no
+    # fair value: E22 leaves every per-share figure DATA MISSING, and Methods A
+    # and B need external inputs the file does not hold.
+    notes: >-
+      PNDORA.CO - WATCH, 2026-08-25.
+
+      Gate 1's catalyst leg fails. The dated catalyst is 2026-01-09
+      (CA 995, preliminary FY2025, organic 6% against 7-8% guided,
+      -13.01% that session) - not the 2026-02-04 guidance cut, which
+      the stock rose on. The decline that catalyst caused is fully
+      recovered and then some: 806.20 against 676.40 before the
+      announcement, +19%, and +85.5% off the 2026-03-17 low of
+      434.60. B1 reads -1.5568 - the trailing window contains a
+      recovery, not a fall. This is DECK's test on 2026-08-24
+      (B1 +0.84, recovered by 2026-01-30) applied to a clearer case.
+
+      The company itself is sound: net debt/EBITDA 0.90x
+      (1.50x lease-inclusive), interest coverage 8.45x, gross margin
+      78-80% through eight quarters, six of eight quarters FCF
+      positive with both negatives seasonal Q1s.
+
+      Gate 3 is NOT ruled. Its revenue limb reads -3.2% on reported
+      DKK in 2026-Q1 and +2% organic in the same quarter; FRAMEWORK's
+      text names no basis, so the limb admits both and they disagree.
+      Recorded as an open B-entry, not resolved here.
+
+      Re-entry requires a named information event that puts the price
+      back in the band - never a price level. The Q3 2026 report is
+      the next scheduled one.
+
+      2026-09-19 (owner, P1): keep the 556 pension bound. The annual report states a defined-benefit obligation of DKK 187m at 2025-12-31 (note 2.2, p.111) -- a different date from the 2026-06-30 basis, recorded as REFERENCE ONLY. Revisit at the annual report. Nothing depends on it before the Q3 report.
+  - ticker: BETS-B.ST
+    name: Betsson AB (publ)
+    currency: SEK
+    status: DROPPED
+    # No fv_base, no tier, no mbp, no stop_price. Section 5 ran on a
+    # VERIFIED file (basis TTM 2025-Q3+2025-Q4+2026-Q1+2026-Q2) and produced
+    # no fair value: one method of three could run, and the name is dropped
+    # on Gate 3 before any of that matters.
+    notes: >-
+      BETS-B.ST - DROPPED, 2026-08-25.
+
+      Gate 3 fails on the gross margin band: 65.3% to 57.2% over
+      eight quarters, 8.1pp against a 200bp limit, with the fall
+      concentrated in the last three quarters. The revenue limb also
+      fails on reported EUR at 2026-Q1 (-2.9%) while organic reads
+      +2% - B20, unresolved, and not the reason for this verdict.
+
+      The margin fall is two causes, not one. Gaming taxes follow a
+      regulated revenue share that went 59% to 75.5% in five
+      quarters; that is structural and no source gives a level where
+      it plateaus. Separately, B2B licence revenue - the
+      highest-margin line - fell from EUR 90m to 51m to 49m in two
+      quarters, attributed by trade press to Turkey's enforcement
+      campaign against unregulated gambling. Betsson does not name
+      the customer. No source describes that loss as permanent and
+      none shows it stabilising; the campaign is still tightening.
+
+      The company is financially sound: net cash EUR 136.4m,
+      interest coverage 16.5x, operating cash flow positive in eight
+      of eight quarters, and it trades at EV/EBITDA 3.9x against
+      Evolution 7.6-10.4x and Flutter 10.6x.
+
+      It is dropped because the thesis rests on whether the B2B loss
+      has a floor, and that is a question about Turkish enforcement
+      policy I have no way to judge better than the market.
+
+      Gate 2 is satisfied, unlike PNDORA.CO: both large falls carry
+      named dated causes - 2026-01-16 (-21.1%, Q4 pre-announcement)
+      and 2026-04-09 (-14.4%, Q1 pre-announcement).
+
+      One legal item in the window: Spelinspektionen's SEK 6.5m AML
+      penalty, upheld on appeal 2026-07-02, the court finding
+      "serious violations". Financially immaterial; the wording is
+      not.
+  - ticker: JD.L
+    name: JD SPORTS FASHION PLC
+    currency: GBX
+    status: DROPPED
+    notes: >-
+      JD.L - DROPPED, 2026-08-24. HART STOPP §1.2: nyaste
+      resultatrakningen ar sju manader gammal. Handelsen som flyttade
+      kursen 14,3 % (Q2-uppdateringen 2026-08-20) innehaller ingen
+      resultatrakning. Bolaget kan inte varderas pa farsk vinstdata och
+      darmed inte kopas. Stodjande: Metod A returnerar priset (0,0 %
+      rabatt mot medianmultipeln, multipeln oforandrad i tre ar) och bar
+      ingen information. Gate 1 haller pa kalendern - B1 -0,223, senaste
+      halvaret netto upp, toppen fran 2025-10-06 aldras ur fonstret
+      2026-10-06. Rantetackning har tre svar mot en troskel pa 5x (4,06
+      statutart, 5,34 fore justeringsposter, 17,5 exkl leasingranta) och
+      FRAMEWORK valjer inte. Metod C:s -5,12 % implicerade FCF-tillvaxt
+      star som noterad, inte som grund for nagot. Ingen fv_base, ingen
+      tier, inget MBP, inget stop_price.
+
+  - ticker: SYNSAM.ST
+    name: Synsam Group AB
+    currency: SEK
+    status: DROPPED
+    # No fv_base, no tier, no mbp, no stop_price. Section 5 RAN in full on a
+    # VERIFIED manual file (config/manual/SYNSAM.ST.yaml, basis
+    # TTM 2025-Q3+2025-Q4+2026-Q1+2026-Q2 ending 2026-06-30) and produced a
+    # fair value; the name is dropped on that figure AND on the owner's
+    # judgement, and no fair value is entered because a DROPPED name carries
+    # none. Growth view pre-registered in reference/growth-views/SYNSAM.ST.md,
+    # written 2026-08-25 BEFORE implied growth was solved (E28).
+    notes: >-
+      SYNSAM.ST - DROPPED, 2026-08-25. Struck on basis 2 per the ruling
+      above: FCF0 569 after 464 of lease capital. Fair value at my
+      pre-registered 2.5% growth is 36.29 (r 9.5%, band 32.37-40.80)
+      against a close of 59.50. Bull at 5% is 48.22, still below the
+      price, so C4's condition is met: expected return trails the index
+      even in my optimistic case.
+
+      Dropped on judgement, not only on the number. The Nordic optical
+      market is saturated and grows 3-4%. Subscription revenue is booked
+      upfront and the receivable factored, so cash flow growth needs
+      RISING new contract volume - and gross customer inflow has fallen
+      for twenty quarters. Competitors have copied the subscription.
+      Once a customer knows their prescription, the physical store is
+      worth less to them, and online sellers carry no lease at all. I do
+      not believe the ten-year story.
+
+      Two gate limbs were never ruled and did not cause this: interest
+      coverage read 4.36x against the 5x limit, and Gate 3's leverage limb
+      was E26-blocked with the issuer-stated 3,180 / 1.81x standing beside
+      a framework figure that would not form. The FCF leg could not form
+      on four quarters. Record them as unruled, not as failures.
+
+  # --- added by `vss screen --write-pipeline` on 2026-08-27 ---
+  # PIPELINE only: no mbp, no fv_base, no tier. Section 5 is run by hand.
+  - ticker: AUTO.L
+    # E28's pre-registered growth view, MACHINE-READABLE (2026-09-04).
+    # THE NUMBERS ARE UNCHANGED and are the owner's own, moved here
+    # from reference/growth-views/AUTO.L.md and from the hard-coded copy
+    # inside the tools/ script that last struck this name -- so the
+    # code can read what until today only a person could. `view` and
+    # `registered` are what keep E28's ordering checkable.
+    growth:
+      base: 0.03
+      bear: 0.0
+      bull: 0.06
+      view: reference/growth-views/AUTO.L.md
+      registered: 2026-08-27
+    name: AUTOTRADER GROUP PLC
+    currency: GBX
+    status: WATCH-PRICED
+    # ACCEPTED by the owner 2026-08-30 (Part D): fv_base 4.82 GBP with the
+    #   record link; tier stays empty per B22, so no MBP forms. UNIT SEAM,
+    #   recorded OPEN: the note below says hand-entered fv/stop are GBX, but
+    #   item 9 replays the linked record in GBP (4.82) and the replay check
+    #   (runner.FV_REPLAY_TOLERANCE) carries no minor-unit conversion -- so
+    #   fv_base is written in GBP to match the record, while the close and
+    #   any stop_price stay GBX. The ALL-TICKERS row therefore mixes units
+    #   in display only (no arithmetic crosses them while tier and stop are
+    #   empty). A future ruling/build should close the seam.
+    # SEAM CLOSED 2026-09-19 (owner, AUTO.L-S): runner.build_row moves the
+    #   record's GBP fv_base and bear case into GBX (fx.to_quote_units)
+    #   before any comparison, so a tier here gives an MBP in pence against
+    #   a close in pence; fv_base stays written in GBP, the record's unit.
+    #   Golden case G17 pins it.
+    fv_base: 4.84
+    # TIER 3, owner 2026-09-19 (AUTO.L-T). Section 4.4 score 5 -> tier 2 on
+    #   the scale (tier 1 fails on the tailwind), SHIFTED ONE TIER STRICTER
+    #   UNDER E77 (regime ELEVATED, standing) -> tier 3, MBP 314.36p (483.63p x 0.65; the 314.2p first quoted was a rounding slip). NO REGIME
+    #   RE-ASSESSMENT TODAY: that is a dated act on the market as a whole, made
+    #   on its own with its own evidence, never inside one name's tier question.
+    #   The buyback flag WITHHELD (AUTO.L-C): purchases at daily VWAPs of
+    #   485.8-514.9p against a value of 484p are at or above value -- the test
+    #   that withheld GDDY's ASR. Tier is 3 either way.
+    tier: 3
+    run_record: reference/run-records/AUTO.L-2026-09-19-e117.json
+    catalyst_date: 2026-11-05
+    catalyst_event: >-
+      Half-year results 2026-11-05 -- the reassessment point. The name also
+      wakes on a close at or below the MBP of 314.36p (owner, AUTO.L-V).
+    dd_at_entry: 0.3405
+    peak_date: 2025-08-27
+    notes: |2-
+      Screener 2026-08-26: rank 1 of 215 names ranked on BOTH components of the two-component key (FRAMEWORK-EDITS E6); 215 is that list, not the universe. Sector Communication Services. Market London. Drawdown 34.1% from the 52-week closing high set 2025-08-27. Gate 1 is FROZEN at this reading per FRAMEWORK-EDITS E12 and is not re-read; leaving PIPELINE takes an information event. Operating profitability (EBIT / total assets, FRAMEWORK-EDITS E43) 57.3%. Earnings yield 9.0%. Quoted in GBp -- the price series is in the MINOR unit, and the currency field says GBX for that reason. Any fv_base or stop_price entered by hand must be in GBX, not GBP. No fv_base, no tier and no mbp -- section 5 has not been run. This entry is review work, not a buy.
+
+      2026-09-19: PIPELINE → WATCH-PRICED. E117 fv_base 4.82 → 4.84 GBP; GBX/GBP seam closed. Score 5 (4 gates + FCF conversion 110% + market share, − CMA review probe opened 2026-03-27); buyback and guidance flags withheld, insider cluster not met (one buyer). Tier 2 on the scale, tier 3 under E77; MBP 314.36p against a 488.2p close. Class of decline: AI-substitution fear plus a soft UK used-car cycle, operational not structural. Wakes on a close ≤ 314.36p or the 2026-11-05 half-year results.
+  - ticker: NOVO-B.CO
+    name: NOVO NORDISK CLASS B
+    currency: DKK
+    status: DROPPED
+    dd_at_entry: 0.2402
+    peak_date: 2026-01-23
+    # DROPPED 2026-08-27 under FRAMEWORK-EDITS E51 -- OUTSIDE THE CIRCLE OF
+    # COMPETENCE. A pharmaceutical company's cash flow beyond the next patent
+    # expiry depends on clinical trial outcomes and regulatory approval, so
+    # section 5 cannot be run on it: the growth rate E28 makes us pre-register
+    # would be a guess about drug approvals, not an estimate of a business.
+    # The rule applies REGARDLESS OF RANK, and this name was rank 2 of 215.
+    # NOT a judgement about Novo Nordisk, and not a price level: it is a
+    # statement about what this framework can evaluate. No information event
+    # brings it back -- only the owner striking or amending E51.
+    # Caught by the vendor industry string 'Drug Manufacturers - General' at
+    # step 0 (config/screener_pharma_biotech.yaml); E51's first application.
+    # Nothing was ever computed for it: no fv_base, no tier, no mbp, no stop.
+    notes: >-
+      DROPPED 2026-08-27 under E51 (outside the circle of competence);
+      the entry below is the reading it was written on, kept as the
+      record. Screener 2026-08-26: rank 2 of 215 names ranked on BOTH components
+      of the two-component key (FRAMEWORK-EDITS E6); 215 is that list, not
+      the universe. Sector Healthcare. Market Copenhagen. Drawdown 24.0%
+      from the 52-week closing high set 2026-01-23. Gate 1 is FROZEN at
+      this reading per FRAMEWORK-EDITS E12 and is not re-read; leaving
+      PIPELINE takes an information event. Operating profitability (EBIT /
+      total assets, FRAMEWORK-EDITS E43) 23.9%. Earnings yield 9.8%. No
+      fv_base, no tier and no mbp -- section 5 has not been run. This
+      entry is review work, not a buy.
+  # --- entered by hand 2026-09-20 (owner): PROMOTED TO PIPELINE, which
+  # stamps E12. PHM reached a sheet from the 2026-09-19 screener top 20
+  # (combined rank 96) and was read on 2026-09-20 before entry.
+  - ticker: PHM
+    cik: 822416    # https://www.sec.gov/files/company_tickers.json fetched
+                   # 2026-09-20: {cik_str: 822416, ticker: PHM,
+                   # title: PULTEGROUP INC/MI/}
+    name: PulteGroup, Inc.
+    currency: USD
+    status: PIPELINE
+    # E12: GATE 1 IS FROZEN AT THIS READING and is not re-read. Struck on
+    #   the settled close of 117.26 (2026-09-18), the run of 2026-09-20.
+    #   The drawdown is UNROUNDED, and its reference peak is named beside
+    #   it -- they are a pair, and a frozen drawdown whose peak is not
+    #   named cannot be checked.
+    #   17.7469% is 2.75 points above Gate 1's 15% floor: a small further
+    #   recovery takes this name OUT of the band, and E12 means the frozen
+    #   reading stands whatever the price does after today.
+    dd_at_entry: 0.1774691067314637
+    peak_date: 2026-02-13
+    notes: >-
+      PIPELINE 2026-09-20. Screener 2026-09-19: combined rank 96 of the
+      239 names ranked on BOTH components of the two-component key (E6);
+      drawdown 17.7% from the 52-week closing high of 142.56 (2026-02-13),
+      52-week low 110.11 (2026-05-15), close 117.26 (2026-09-18) = 6.5%
+      above that low. Operating profitability and earnings yield as the
+      ranking read them: 14.0% and 10.9%.
+
+      STORE: config/manual/PHM.yaml, built 2026-09-20 from SEC XBRL
+      companyfacts (five annual periods, every figure VERIFIED by tag) and
+      completed by hand from the FY2025 10-K in sources/
+      (PHM_FY2025_annual-report-10k_2026-02-04_en_a0.htm, accession
+      0000822416-26-000007). Mixed provenance is deliberate and every figure
+      states its kind (owner, 2026-09-20).
+
+      E123 APPLIES TO THIS NAME: the operating asset is inventory (house
+      and land inventory 12,925,413 = 71.6% of total assets) and its
+      purchase runs through operating cash flow, so Gate 3's FCF limb and
+      its leverage limb are DATA MISSING and out of the count, and 4.4
+      rebases. Debt to total capitalisation prints instead, with no
+      threshold: 11.16% on the operating borrowings and 14.28% including
+      the captive finance arm (E124). No fv_base, no tier, no mbp --
+      section 5 has not been run, and no growth view is registered.
+
+      2026-09-20, THE OWNER'S DECISION, IN HIS WORDS: "The figures lag the
+      housing cycle by about a year, so holding this name requires a view on
+      US mortgage rates and affordability, which I do not have. The price
+      does not compensate for acquiring one -- the market pays for about
+      1.4% growth and the leading indicators are deteriorating faster than
+      that. This is a competence decision, not a verdict on the company."
+      NO GROWTH VIEW IS REGISTERED AND NOTHING IS STRUCK. The name stays
+      PIPELINE with Gate 1 frozen (E12, above). The 1.4% is g* solved at
+      the settled close of 117.26 (2026-09-18) on FCF0 1,710,958,000 at r
+      9.5% -- 0.40% at r 9.0%, 2.30% at r 10.0%. The deterioration it is
+      measured against, FY2025 against FY2024 from the 10-K: backlog -19%
+      in dollars and -16% in units, net new orders -4%, closings -5%, gross
+      margin from home sales 26.3% against 28.9%. See
+      reference/CIRCLE-OF-COMPETENCE.md.
+
+      MATURITY WALL (E126 step 3, measured, no threshold), from the FY2025
+      10-K note 5 and the liquidity paragraph: next scheduled repayment
+      251.9 USD m of 5.500% senior notes due March 2026, against
+      unrestricted cash 1,980.9 and 892.9 undrawn under the revolving
+      credit facility (1.3 bn capacity, maturing June 2027, no borrowings
+      drawn, 357.1 of letters of credit issued). Restricted cash 27.9. A
+      builder's debt is serviced by selling inventory rather than out of a
+      quarter's trading margin, which is why this prints where the coverage
+      limb cannot form.
+
+      STANDING NOTE FOR THE HOMEBUILDERS THE SCREENER KEEPS SURFACING
+      (owner, 2026-09-20): the same reason applies to the next one UNLESS
+      THE NAME IS CHEAP ENOUGH TO JUSTIFY LEARNING THE CYCLE. **This is NOT
+      an exclusion rule and must not become one** -- it is a reason to read
+      this note and reference/CIRCLE-OF-COMPETENCE.md FIRST, not a filter
+      that removes the name. E123 still governs how such a filer's Gate 3
+      reads, and B-15 (a filer that states no operating income) and the
+      E124 net-debt collision stay OPEN as their own rulings: they block
+      NVR as well, and neither is settled by this decision.
+  - ticker: RMV.L
+    # E28's pre-registered growth view, MACHINE-READABLE (2026-09-04).
+    # THE NUMBERS ARE UNCHANGED and are the owner's own, moved here
+    # from reference/growth-views/RMV.L.md and from the hard-coded copy
+    # inside the tools/ script that last struck this name -- so the
+    # code can read what until today only a person could. `view` and
+    # `registered` are what keep E28's ordering checkable.
+    growth:
+      base: 0.03
+      bear: 0.0
+      bull: 0.06
+      view: reference/growth-views/RMV.L.md
+      registered: 2026-08-30
+    name: RIGHTMOVE PLC
+    currency: GBX
+    status: PIPELINE
+    dd_at_entry: 0.3324
+    peak_date: 2025-08-27
+    notes: >-
+      Screener 2026-08-26: rank 3 of 215 names ranked on BOTH components
+      of the two-component key (FRAMEWORK-EDITS E6); 215 is that list, not
+      the universe. Sector Communication Services. Market London. Drawdown
+      33.2% from the 52-week closing high set 2025-08-27. Gate 1 is FROZEN
+      at this reading per FRAMEWORK-EDITS E12 and is not re-read; leaving
+      PIPELINE takes an information event. Operating profitability (EBIT /
+      total assets, FRAMEWORK-EDITS E43) 224.6%. Earnings yield 7.8%.
+      Quoted in GBp -- the price series is in the MINOR unit, and the
+      currency field says GBX for that reason. Any fv_base or stop_price
+      entered by hand must be in GBX, not GBP. No fv_base, no tier and no
+      mbp -- section 5 has not been run. This entry is review work, not a
+      buy.
+  - ticker: NHY.OL
+    name: NORSK HYDRO
+    currency: NOK
+    status: DROPPED
+    dd_at_entry: 0.2234
+    peak_date: 2026-06-02
+    notes: >-
+      Screener 2026-08-26: rank 4 of 215 names ranked on BOTH components
+      of the two-component key (FRAMEWORK-EDITS E6); 215 is that list, not
+      the universe. Sector Basic Materials. Market Oslo. Drawdown 22.3%
+      from the 52-week closing high set 2026-06-02. Gate 1 is FROZEN at
+      this reading per FRAMEWORK-EDITS E12 and is not re-read; leaving
+      PIPELINE takes an information event. Operating profitability (EBIT /
+      total assets, FRAMEWORK-EDITS E43) 17.8%. Earnings yield 18.7%. No
+      fv_base, no tier and no mbp -- section 5 has not been run. This
+      entry is review work, not a buy.
+
+      2026-09-19: DROPPED by the owner (A7): "drop under E96.1. The ruling names NHY.OL and refuses the exemption." Close 86.04 NOK (2026-09-18); no fair value was ever struck (E96: outside the circle). The shadow book measures it from 2026-09-18 (E114).
+  - ticker: NREST.ST
+    name: Nordrest Holding AB (publ)
+    currency: SEK
+    status: DROPPED
+    dd_at_entry: 0.2314
+    peak_date: 2026-05-08
+    # DROPPED 2026-08-27 under FRAMEWORK-EDITS E52 -- THE LISTING-AGE FLOOR.
+    # Its price history reaches back only to 2024-05-24, short of the
+    # five-year floor: not enough reported history to judge. Rejected at
+    # filter 1 ON MISSING DATA -- the name did not FAIL a limb, the limbs
+    # could not be evaluated on it. E52's first application.
+    # THIS ONE HAS A DATE ON IT, unlike the E51 drop above: the listing turns
+    # five on 2025-05-24 + 5y = 2029-05-24, and the floor stops applying then.
+    # Until then no information event reaches it, because the missing thing
+    # is history rather than news.
+    notes: >-
+      DROPPED 2026-08-27 under E52 (price history reaches only to
+      2024-05-24, short of the five-year floor); the entry below is the
+      reading it was written on, kept as the record.
+      Screener 2026-08-26: rank 5 of 215 names ranked on BOTH components
+      of the two-component key (FRAMEWORK-EDITS E6); 215 is that list, not
+      the universe. Sector Consumer Cyclical. Market Stockholm. Drawdown
+      23.1% from the 52-week closing high set 2026-05-08. Gate 1 is FROZEN
+      at this reading per FRAMEWORK-EDITS E12 and is not re-read; leaving
+      PIPELINE takes an information event. Operating profitability (EBIT /
+      total assets, FRAMEWORK-EDITS E43) 26.0%. Earnings yield 8.6%. No
+      fv_base, no tier and no mbp -- section 5 has not been run. This
+      entry is review work, not a buy.
+
+  # --- added by `vss screen --write-pipeline` on 2026-08-27 ---
+  # PIPELINE only: no mbp, no fv_base, no tier. Section 5 is run by hand.
+  - ticker: NVR
+    # E28's pre-registered growth view, MACHINE-READABLE (2026-09-04).
+    # THE NUMBERS ARE UNCHANGED and are the owner's own, moved here
+    # from reference/growth-views/NVR.md and from the hard-coded copy
+    # inside the tools/ script that last struck this name -- so the
+    # code can read what until today only a person could. `view` and
+    # `registered` are what keep E28's ordering checkable.
+    growth:
+      base: 0.025
+      bear: -0.03
+      bull: 0.065
+      view: reference/growth-views/NVR.md
+      registered: 2026-08-30
+    name: "NVR, Inc."
+    cik: 906163    # https://www.sec.gov/files/company_tickers.json
+                    # fetched 2026-09-04 with VSS_SEC_CONTACT declared:
+                    # {cik_str: 906163, ticker: NVR, title: NVR INC}.
+                    # Owner's instruction 2026-09-04. It unblocks E103's
+                    # EDGAR document route for this name -- companyfacts
+                    # still supplies neither reference figure (both are
+                    # non-GAAP APMs with no us-gaap element).
+    currency: USD
+    status: WATCH-GATED
+    # ACCEPTED by the owner 2026-08-30 (Part D): fv_base 4,978.10 with the
+    #   record link; tier stays empty per B22, so no MBP forms. The growth
+    #   view's registration was CONFIRMED by the owner at the acceptance:
+    #   the base 2.5% is the owner's own figure (raised from a proposed 2),
+    #   bear -3 / bull 6.5 explicitly approved -- reference/growth-views/NVR.md
+    #   stands as written.
+    fv_base: 4867.82
+    run_record: reference/run-records/NVR-2026-09-19-e117.json
+    dd_at_entry: 0.2546
+    peak_date: 2025-09-08
+    notes: |2-
+      Screener 2026-08-26: rank 4 of 197 names ranked on BOTH components of the two-component key (FRAMEWORK-EDITS E6); 197 is that list, not the universe. Sector Consumer Cyclical. Market US. Drawdown 25.5% from the 52-week closing high set 2025-09-08. Gate 1 is FROZEN at this reading per FRAMEWORK-EDITS E12 and is not re-read; leaving PIPELINE takes an information event. Operating profitability (EBIT / total assets, FRAMEWORK-EDITS E43) 26.0%. Earnings yield 8.3%. No fv_base, no tier and no mbp -- section 5 has not been run. This entry is review work, not a buy.
+
+      2026-09-19: PIPELINE → WATCH-GATED at Gate 3 (DATA MISSING, no stated operating income). E117 fv_base 4,978.10 → 4,867.82; close 26% above value. Needs a ruling on filers that state no operating income before any price can wake it.
+  - ticker: ZZ-B.ST
+    name: Zinzino AB (publ)
+    currency: SEK
+    status: PIPELINE
+    dd_at_entry: 0.2734
+    peak_date: 2025-08-28
+    notes: >-
+      Screener 2026-08-26: rank 5 of 197 names ranked on BOTH components
+      of the two-component key (FRAMEWORK-EDITS E6); 197 is that list, not
+      the universe. Sector Consumer Defensive. Market Stockholm. Drawdown
+      27.3% from the 52-week closing high set 2025-08-28. Gate 1 is FROZEN
+      at this reading per FRAMEWORK-EDITS E12 and is not re-read; leaving
+      PIPELINE takes an information event. Operating profitability (EBIT /
+      total assets, FRAMEWORK-EDITS E43) 20.4%. Earnings yield 9.4%. No
+      fv_base, no tier and no mbp -- section 5 has not been run. This
+      entry is review work, not a buy.
+  - ticker: HRB
+    growth:
+      base: 0.02
+      bear: -0.04
+      bull: 0.05
+      view: reference/growth-views/HRB.md
+      registered: 2026-09-18
+    name: H&R BLOCK INC
+    cik: 12659     # https://www.sec.gov/files/company_tickers.json
+                    # fetched 2026-09-17 with VSS_SEC_CONTACT declared:
+                    # {cik_str: 12659, ticker: HRB, title: H&R BLOCK INC}.
+    currency: USD
+    # PROMOTED TO PIPELINE by the owner 2026-09-17 (E111: the promotion is
+    # the owner's act), straight from the screen -- never INTAKE. E12
+    # stamped on the day of promotion, measured off the settled series as
+    # CROX's was: last settled close 45.11 (2026-09-16) against a 52-week
+    # closing high of 54.18 set 2026-08-12.
+    #
+    # WATCH-GATED per FRAMEWORK-EDITS E27, 2026-09-18, on the owner's verdict
+    # at the end of the review of 2026-09-17 (15 of 15 steps,
+    # reference/reviews/HRB/2026-09-17.yaml). The failure is NOT about price:
+    # at 44.81 the market already pays for growth at or below the registered
+    # bear case on every variant, so NO PRICE LEVEL MAY WAKE THIS NAME. The
+    # gate is the two events named in the notes below -- the E34
+    # lease-treatment ruling with a re-strike, and the first report carrying
+    # 2027 tax-season data. E12's frozen reading below is unchanged and is
+    # not re-read; leaving WATCH-GATED takes those events, not a quote.
+    status: WATCH-GATED
+    dd_at_entry: 0.1674
+    peak_date: 2026-08-12
+    notes: |2-
+      Screener 2026-09-12: rank 1 of 336 names ranked on BOTH components of the two-component key (FRAMEWORK-EDITS E6); 336 is that list, not the universe. Sector Consumer Cyclical. Market US. Drawdown 16.7% from the 52-week closing high set 2026-08-12, measured on the day of promotion, 2026-09-17. Gate 1 is FROZEN at this reading per FRAMEWORK-EDITS E12 and is not re-read; leaving PIPELINE takes an information event. Operating profitability (EBIT / total assets, FRAMEWORK-EDITS E43) 27.9%. Earnings yield 13.5%. No fv_base, no tier and no mbp -- section 5 has not been run. This entry is review work, not a buy. A SEASONAL BUSINESS: tax preparation earns nearly all its revenue January to April, which Gate 3's quarterly FCF leg will have to be read against.
+
+      HRB: WATCH-GATED since 2026-09-18. No price may wake this name (E27).
+
+      Gate, both required:
+      1. The E34 lease-treatment question is ruled and HRB is re-struck in a new cycle.
+      2. The first report carrying 2027 tax-season data: fiscal Q3 FY2027 results, expected around early May 2027 (confirm the date when announced). The November 2026 Q1 report is off-season; read it, but it does not wake the name.
+
+      WARNING: do not rely on the fair value of record. fv_base 104.94 and MBP 68.21 (tier 3) carry three documented upward biases worth ~31%: interest add-back (E115), basis-year FCF0 (~11% above the three-year average), and the lease add-back (~$23/share). Conservative memo value ~72.56; effective cushion at the MBP ~6%. At 44.81 the market's implied growth was -8.32% as struck and -4.04% on the conservative variant, level with the registered bear case.
+
+      Registered growth view: -0.04 / 0.02 / 0.05, pre-registered under E28. It carries into the re-strike unchanged unless the gate event supplies new business facts. Do not rewrite it because the engine changes.
+
+      At the gate, read: assisted client volumes against price increases, paid DIY customer counts, published market-share figures (not management adjectives), any return of free government filing.
+
+      Context: this review was an investigation, not a purchase. Gate 1 was passed to learn the process, Gate 3 by HRB-only exception (B22 open on the strict reading), and Gate 4 was not evaluable. free_cash_flow_reported was withdrawn for failed provenance.
+
+      Full record: reference/reviews/HRB/2026-09-17.yaml (this review), reference/HRB-STRIKE-2026-09-18.md, reference/run-records/HRB-2026-09-18.json, and reference/growth-views/HRB.md (written by `vss review --record`; it does not exist until then).
+
+      2026-09-19: gate condition 1 met. Lease ruling made (E117, rent as operating cost). Re-struck 104.94 → 82.24; close 44.25. Condition 2 (Q3 FY2027, ~May 2027) pending; stays WATCH-GATED.
+
+  - ticker: CPRT
+    cik: 900075    # SEC company_tickers.json, confirmed at data.sec.gov/submissions 2026-10-05: COPART INC, Nasdaq, FYE 0731
+    name: Copart, Inc.
+    currency: USD
+    status: INTAKE
+    # E28/E109: the owner's own pre-registered view, transcribed.
+    growth:
+      base: 0.06
+      bear: 0.01
+      bull: 0.10
+      view: reference/growth-views/CPRT.md
+      registered: 2026-10-05
+    notes: >-
+      E111 INTAKE, 2026-10-05. Store config/manual/CPRT.yaml from SEC XBRL
+      (commit b017235), basis annual FY2026 ending 2026-07-31, 0 refusals,
+      section 5 may run. #20 in SCREEN-2026-10-03 (drawdown 40.5% vs the
+      52-week high; -57% from the May 2025 peak). Next numbers: Q1 FY2027
+      (Aug-Oct 2026), around late November -- the first quarter with no
+      hurricane Helene/Milton comparison.
+
+      PASSED BY THE OWNER, 2026-10-05, on the first strike
+      (reference/CPRT-STRIKE-2026-10-05.md): fv_base 25.45 (bear 19.03,
+      bull 32.66) against the 27.22 close; g* 7.10% against his own base
+      6%. Stays INTAKE. The owner, verbatim: "Pass. Leave it on INTAKE. As
+      a quick trade, the asymmetry is wrong. Downside to your bear case is
+      about -30% (19.03), and upside to your bull case is about +20%
+      (32.66). You'd be paying above your own base case to gamble on one
+      quarter. I don't take that bet." AVANZA PRICE ALERT SET BY THE OWNER
+      AT 22 USD (a reference to look again, not an MBP: no tier is
+      scored). REVISIT IF EITHER the alert fires OR the Q1 FY2027 report
+      (late November) shows U.S. volumes turning without the hurricane
+      comparison. The cost of waiting, accepted in his words: "if November
+      shows US volumes turning, the stock can rerate fast and you won't
+      get 22."
+  - ticker: CRUS
+    cik: 772406
+    name: Cirrus Logic, Inc.
+    currency: USD
+    # DROPPED 2026-09-08 and STILL DROPPED (reference/CRUS-DROP-2026-09-08.md,
+    #   the standing exclusion in config/screener_exclusions.csv, the shadow
+    #   book row at 110.76). Section 5 never ran: no growth view, no fv_base,
+    #   no fv_bull, no MBP, no stop -- so this name CANNOT be HELD here
+    #   (config.load_watchlist refuses HELD without fv_bull), and this entry
+    #   carries NO LEVEL and no exit test.
+    status: DROPPED
+    notes: >-
+      OWNED OUTSIDE THE FRAMEWORK. Bought 2026-09-10, two days after the drop:
+      17 shares at 115.87 USD, account ACCOUNT-A, 19,183.51 SEK (Avanza
+      transaction list, konto/2026-10-05-avanza-transaktioner-*.png; recorded
+      2026-10-05). THE OWNER, 2026-10-05, verbatim: "i bought it as a chance
+      because i was like hmm yea i mean it is a risk the thing is said we dont
+      know what apple will do and like with everything we never know but i
+      feel if they keep it it should recover". The drop's ground is NOT
+      withdrawn and the exclusion is NOT lifted; the shadow book keeps
+      measuring the refusal, and this holding is the other side of it.
+      Re-opening the name (lift the exclusion, register a growth view, run
+      section 5) is the owner's decision and has not been taken.
+  # --- added by hand, 2026-08-27, to build config/manual/CTSH.yaml via
+  # `vss xbrl` -- not a screener entry, no dd_at_entry/peak_date because
+  # E12's PIPELINE freeze never applied to this name.
+  - ticker: CTSH
+    # E28's pre-registered growth view, MACHINE-READABLE (2026-09-04).
+    # THE NUMBERS ARE UNCHANGED and are the owner's own, moved here
+    # from reference/growth-views/CTSH.md and from the hard-coded copy
+    # inside the tools/ script that last struck this name -- so the
+    # code can read what until today only a person could. `view` and
+    # `registered` are what keep E28's ordering checkable.
+    growth:
+      base: 0.04
+      bear: 0.0
+      bull: 0.07
+      view: reference/growth-views/CTSH.md
+      registered: 2026-08-27
+    name: Cognizant Technology Solutions Corporation
+    currency: USD
+    # HELD from 2026-09-25 (owner, recorded 2026-10-05 from the Avanza
+    #   transaction list, konto/2026-10-05-avanza-transaktioner-*.png):
+    #   2 shares at 58.10 USD (account ACCOUNT-A, 1,164.95 SEK) and 1 share at
+    #   58.09 USD (account ACCOUNT-B, 587.34 SEK). 3 shares, blended 58.097.
+    #   Bought against the E76 verdict of 2026-08-31 ("no buy, re-read at
+    #   Q3"), below the carried MBP 63.12. THE OWNER, 2026-10-05, on the close
+    #   58.51 under the old 58.92 stop: "not selling its too little cash to
+    #   bother with let it sit there until we get more from the 10ks".
+    status: HELD
+    cik: 1058290    # SEC EDGAR company search, confirmed 2026-08-27:
+                    # CIK 0001058290, Teaneck NJ, SIC 7371, most recent
+                    # filing dated 2026-08-27
+    fv_base: 84.16
+    tier: 2
+    # stop 2026-08-30 (owner, stop session): 58.92 = 64.04 (settled close
+    #   2026-08-28, the entry the AT/BELOW-MBP signal prices) x 0.92 -- C1's
+    #   TIGHT end at today's trailing-year drawdown 26.1% (the decided wide
+    #   end applies only to the 40-50% class). Derived from entry at close
+    #   64.04; RE-DERIVE from the actual blended entry at fill. The Avanza
+    #   order is the owner's to place; the field is the tool's requirement,
+    #   not the order.
+    # RE-DERIVED AT FILL 2026-10-05, as the line above instructs: blended
+    #   entry 58.097 (2 x 58.10 + 1 x 58.09) x 0.92 = 53.45. 0.92 is still
+    #   C1's tight end: the trailing-year drawdown at the fill was ~33%
+    #   (86.70 -> 58.10), not the 40-50% class. Was 58.92.
+    stop_price: 53.45
+    # THE EXIT TEST a HELD name must carry (config.load_watchlist): the
+    #   bull of the SAME record as fv_base, replayed at the pre-registered
+    #   g_bull 7% -- `vss strike --ticker CTSH --dry-run`, 2026-10-05,
+    #   reproduces fv_base 84.16 exactly and gives bear 63.25 / bull 104.66.
+    fv_bull: 104.66
+    run_record: reference/run-records/CTSH-2026-09-19-e117-r2.json
+    catalyst_date: 2026-10-28          # Q3 2026 results -- the next scheduled section 6.4 reassessment (owner, 2026-08-30); E77's regime adjustment applies at that re-score, not before (E77, decided 2026-08-30)
+    catalyst_event: >-
+      Q3 2026 results, due 2026-10-28 -- the next scheduled reassessment.
+      Re-scored then under E77 (regime elevated, one tier stricter): tier 2
+      would become tier 3 and MBP (E90: base x cushion, on the E117 strike of 2026-09-19) 63.12 -> 54.70 USD;
+      until then the tier-2 figure stands as carried. (Arithmetic corrected
+      2026-08-30 at E90; the E28-era prediction here read 46.78 -> 40.10.)
+    notes: |2-
+      WATCH-PRICED 2026-08-29. Re-struck 2026-08-30 under E70 (a lease is counted once, in net debt, never also in the flow), Method C, FY2025 basis, twelve months ended 2025-12-31: FCF0 2,451 -> 2,643 USD m, the 192 USD m of operating lease payments the flow bore added back (leg operating_lease_payments, declaration 3.1; the 598 USD m lease liability stays in net debt). fv_base 89.38 USD (band 96.38 / 89.38 / 83.33 across r 9.0-10.0%, E29), bear 66.83, bull 111.48, g_base 4% / g_bear 0% / g_bull 7% (reference/growth-views/CTSH.md, pre-registered 2026-08-27, unchanged). Of the move from 83.01, E70 alone gives 89.43; the rest is the bridge under E65 (finance leases 22 USD m beside operating, net debt -489 -> -467). Tier 2 (section 4.4 score 5 of 2026-08-29 -- 3 gates passed + 2 green flags - 0 soft flags -- not re-scored). MBP 46.78 USD = bear 66.83 x 0.70 (band 43.85-50.15 across r 9.0-10.0%, E29). Prior strike 2026-08-28: fv_base 83.01, bear 62.09, bull 103.50, MBP 43.46 (reference/run-records/CTSH-2026-08-28.json). Last close 64.04 USD (2026-08-28) sits above MBP -- WATCH-PRICED per E27, limit alert armed at 46.78, not a buy at today's price.
+      GATE 2 = CLASS B, SECTOR ROTATION. Ruled by the owner 2026-08-28 on evidence outside the three filings read for reports/CTSH-reading-2026-08-28.md; recorded here with the evidence, not only the conclusion. On 2026-06-18 CTSH fell more than 10% in one session to a fresh 52-week low. The catalyst was Accenture cutting guidance and Berenberg withdrawing its Buy rating the same day, framing AI deflation as a SECTOR-WIDE theme, naming Accenture its top pick, and concluding Cognizant lacked the differentiated mix to offset the pressure (TIKR, "Cognizant Stock Drops 10% to a 52-Week Low", 2026-06-19). Cognizant itself did nothing that day -- no filing, no release. PEER CONFIRMATION: Gartner (ticker IT) fell 37.6% year to date and 62.7% over 52 weeks across the same window -- a LARGER fall than CTSH's, in the same industry (Yahoo Finance / Barchart, 2026-06-10). That peer move is what makes this B (sold with the group) rather than A (an isolated re-rating) -- the filings alone could not have supplied it. AGAINST STRUCTURAL IMPAIRMENT: Cognizant beat adjusted EPS estimates in each of the last five quarters; Q1 2026 revenue +5.8% to $5.41bn, adjusted EPS $1.40 against a $1.33 estimate. MANAGEMENT ACTED AGAINST THE PRICE: the board doubled the 2026 buyback target to $2bn; CEO Ravi Kumar S said the price "significantly undervalues those prospects"; a director (Rohleder) bought 4,034 shares on the open market on 2026-06-10 at $52.00 ($209,768) -- the single open-market purchase the Form 4 crawl found (reports/CTSH-reading-2026-08-28.md, S6) -- eight days before the 18 June break.
+      TWO THINGS THAT CUT THE OTHER WAY, recorded so this entry stays honest. Management acknowledged a "softening demand environment" and "heightened macroeconomic uncertainty" in the June quarter -- language that appears in neither the 10-K nor reference/growth-views/CTSH.md's base-case rationale. And Project Leap ($230-320m, disclosed only in the two 2026 10-Qs) postdates the February break entirely -- it cannot have caused it, but it is a live, AI-framed restructuring running concurrently with the June sector rotation. Both argue for RE-TESTING g_base 4% against the Q3 2026 results, due **2026-10-28** -- that is the re-assessment date this entry is carrying forward to; it re-tests the growth view, not Gate 1 or Gate 2, which are not frozen for a WATCH-PRICED name the way E12 freezes a PIPELINE one. E76 VERDICT DICTATED BY THE OWNER 2026-08-31, recorded verbatim in reports/CTSH-reading-2026-08-28.md section 11: "aktien har återhämtat sig för mycket för att vi ska hoppa in pga AI som tar deras kund timmar tror vi men namnet omprövas vid Q3 2026-10-28". NO BUY. Status stays WATCH-PRICED; fv_base 89.38, tier 2, the derived MBP and stop_price 58.92 are all UNCHANGED by this dictation.
+      THE OWNER'S READING BESIDE THE VERDICT, 2026-08-31. GATE 1 IS READ AS CLOSED ON THE JUNE CATALYST: the 2026-06-18 break (-10.5% to 43.70 on Accenture's cut and Berenberg pulling its Buy) and the Nasdaq-100 removal effective 2026-06-22 are RETRACED IN FULL -- the settled close 64.04 (2026-08-28) is +46.5% above 48.82, the eve of the break, after the 2026-07-29 Q2 raise-and-re-rate (+11.3% that session; +65.3% off the 38.73 low of 2026-06-30). THE FEBRUARY LEG IS JUDGED STRUCTURAL, NOT EVENT-DATED: the residual -26.1% from the 86.70 high of 2026-01-14 is an AI repricing of billed client hours, not a dateable event awaiting resolution -- which is the verdict's own reason and is why no price level alone wakes this name before the date below. SECTION 6 TIMING VETOES INDEPENDENTLY: RSI(14) 73.4 at the 2026-08-28 close trips 6.2's "no new tranche while RSI(14) > 70, regardless of fundamentals", price +27.5% above the 50DMA, and no 6.1 structure assessment exists for this name. RE-READ AT Q3 2026 RESULTS, 2026-10-28, together with the E77 re-score (tier 2 -> 3; the E90 MBP would move 67.04 -> 58.10) already carried on the catalyst fields. Full working: reports/CTSH-PREBUY-2026-08-31.md.
+
+      2026-09-19: WATCH-PRICED → entry. Re-struck under E117 (rent as operating cost): fv_base 84.16, bear 63.25, bull 104.66, tier-2 MBP 63.12; record CTSH-2026-09-19-e117-r2.json. Close 2026-09-18 59.87, 5.2% below MBP. Growth view 0.04 / 0.00 / 0.07 stands. Gate 3 coverage PASS under E118 (net finance income); leverage PASS under E119 (derived EBITDA 3,939m; 0.20x on 2026-06-30 net debt 791m). H1 2026: net cash became net debt after 1,334m acquisitions, 1,607m buybacks, 1,000m revolver draw; debt matures Oct 2027. June 30 sensitivity still below MBP (65.45; 60.88 at r 10%). Thin margin: on the FY2025 strike at r 10% the MBP is 58.91, below the close. Re-strike on Q3 results (late Oct).
+
+      2026-09-19, later the same day (owner): No buy Monday. My 2026-08-31 reading stands: no price level alone wakes this name before the Q3 re-read on 2026-10-28, and no §6.1 structure assessment exists. No order. At the re-read: re-strike on Q3, do the §6.1 assessment, then set the §6.1 and §6.2 triggers.
+
+      2026-09-19, E77 AT THE RE-SCORE (owner): at the 2026-10-28 re-score E77 applies unless the owner has first recorded a regime re-assessment. Tier 2 → 3 under E77 gives MBP ~54.70 (84.16 × 0.65, E117 strike on FY2025) against the 59.87 close (2026-09-18) -- 9.4% above, i.e. no entry. Today's entry reading rested on E77 being held back.
+
+  # --- added by hand, 2026-08-30, the first name through E76's full order:
+  # manual file (SEC XBRL, 2026-08-30) -> growth view -> strike -> reading
+  # -> re-registered view -> re-strike -> section 4.4 score -> tier -> MBP.
+  # Not a screener entry; no dd_at_entry/peak_date because E12's PIPELINE
+  # freeze never applied to this name.
+  - ticker: GDDY
+    # E28's pre-registered growth view, MACHINE-READABLE (2026-09-04).
+    # THE NUMBERS ARE UNCHANGED and are the owner's own, moved here
+    # from reference/growth-views/GDDY.md and from the hard-coded copy
+    # inside the tools/ script that last struck this name -- so the
+    # code can read what until today only a person could. `view` and
+    # `registered` are what keep E28's ordering checkable.
+    growth:
+      base: 0.03
+      bear: 0.01
+      bull: 0.08
+      view: reference/growth-views/GDDY.md
+      registered: 2026-08-30
+    name: GoDaddy Inc.
+    currency: USD
+    status: WATCH-PRICED
+    cik: 1609711    # https://www.sec.gov/files/company_tickers.json fetched
+                    # 2026-08-30: row 836 {cik_str: 1609711, ticker: GDDY,
+                    # title: GoDaddy Inc.}; Delaware, SIC 7373, Tempe AZ
+    fv_base: 129.03
+    # TIER 3 -> 2 on 2026-09-01, under E99. NOT a re-score: the section 4.4
+    #   score of 2026-08-30 stands at 6 and no figure in it moved. Gate 4
+    #   left the DENOMINATOR (it has never been evaluable for any name), so
+    #   the tier-1 bar fell from 7 to 6 and the tier-2 band from 5-6 to 4-5.
+    #   GDDY scores 6 -> tier 1 on the scale, then E77's one-tier-stricter
+    #   regime adjustment -> TIER 2. It was tier 3 by the same two steps on
+    #   the old scale.
+    # E100 GOVERNS WHAT FOLLOWS FROM IT. The MBP moves 85.91 -> 99.13 and
+    #   the close of 97.88 (2026-08-29) goes from 13.9% ABOVE the line to
+    #   1.3% BELOW it WITH NO PRICE MOVEMENT AT ALL. That is a
+    #   DEFINITION-CAUSED crossing: the run marks it, and NO ALERT IS ARMED
+    #   ON IT. The armed Avanza limit at 66.82 is the E28-era line and is
+    #   not touched by this; re-arming anything remains the owner's act.
+    # CORRECTED 2 -> 3 on 2026-09-19 (owner). THE 09-01 READING ABOVE
+    #   MISAPPLIED SECTION 5.3: it took score 6 as tier 1 without tier 1's two
+    #   other conditions -- a fortress balance sheet and a secular tailwind,
+    #   which the 2026-08-30 scoring itself found absent (notes: net debt
+    #   1.75x NEBITDA on 215 USD m of book equity; units fall while the market
+    #   grows). Read the way AUTO.L was read the same day: score 6 -> tier 2
+    #   (tier 1 fails on both conditions) -> E77 -> TIER 3. MBP 96.77 ->
+    #   83.87 on the E117 fv_base 129.03. The score of 6 is not touched.
+    #   A correction of a misreading, not a cushion change, so E100's
+    #   next-reassessment timing does not govern it.
+    tier: 3
+    # stop null CONFIRMED by the owner 2026-08-30 (stop session), the
+    #   SAP.DE treatment: deliberate on a WATCH name +13.7% above its E90
+    #   MBP -- the level is derived from the REAL blended entry when entry
+    #   is contemplated; pre_entry_stop_flag is informational, not a
+    #   blocker. NOTE: the armed Avanza limit alert at 66.82 in the notes
+    #   below is the E28-era MBP; the E90 MBP is 85.91 -- re-arming is the
+    #   owner's act, recorded here only. The Avanza order is the owner's;
+    #   the field is the tool's requirement, not the order.
+    stop_price:
+    run_record: reference/run-records/GDDY-2026-09-19-e117.json
+    catalyst_date: 2026-11-09
+    catalyst_event: >-
+      Q3 2026 results -- the reassessment point. Expected before the 10-Q
+      deadline of 2026-11-09 (40 days after the quarter end); the company
+      reported Q3 2025 on 2025-10-30 and has not announced the 2026 date.
+    notes: |2-
+      WATCH-PRICED 2026-08-30. Method C on the FY2025 basis (twelve months to 2025-12-31, 242 days old at the strike): FCF0 1,406.4 USD m (E34.1 accrual net 114.2 added back under E69 over E61's gross proxy, E36 SBC 317.8 deducted = 22.6% of FCF0, E70 lease payments 34.5 added back), net debt 2,781.7 (cash 1,080.9 entered under E69 -- a tag-map gap; finance leases a named zero under E73), divisor 140.6 m diluted (E38). fv_base 132.18 USD (band 143.97 / 132.18 / 121.95 across r 9.0-10.0%, E29), bear 111.36, bull 200.58, on the growth view RE-REGISTERED 2026-08-30 under E76 after reports/GDDY-reading-2026-08-30.md: g_base 3% (was 5%) / g_bear 1% / g_bull 8% (reference/growth-views/GDDY.md; the first view and its strike, fv_base 156.45, stay in the record as superseded -- reference/run-records/GDDY-2026-08-30.json). g* at the settled close 97.70 (2026-08-28) is -0.51%.
+      SECTION 4.4 SCORE 6, scored 2026-08-30: 4 gates passed (Gate 1 dislocation 34.4% off the 2025-09-09 high, timing limb passed on the owner's confirmation; GATE 2 = CLASS A -- an expectations reset on growth with no deterioration in reported fundamentals, the UNIT SHARE LOSS ON PRICE named: the domain market grew 8.1% to Q2 2026 while GoDaddy ended 2025 with about a million fewer domains, external, Verisign DNIB and Domain Name Wire -- not B, because both falls, 2026-02-25 -14.3% and 2026-07-31 -16.7%, landed on GoDaddy's own guidance days, not on a sector move, which is where the CTSH analogy breaks; Gate 3 on E30's residual limbs, net debt/EBITDA 1.75x, interest cover 7.5x, FCF positive every period; Gate 5 on the 10-Q deadline; Gate 4 NOT passed -- one limb indicative, B5 trailing proxy 14.5x vs 19.9x, two DATA MISSING) + 3 green flags (guidance held through the drawdown -- zero cuts in five releases; FCF conversion 161%; margin expansion, op margin 26.4% vs 21.9%) - 1 soft flag (A&C deceleration two quarters, 14.3% -> 11.6% -> 11.0%). The buyback green flag WITHHELD by the owner: the Q1 2025 ASR at 176.02, 33% above the fv_base now struck, beside 2026's 9.8 m shares at ~87 is a fixed budget executed regardless of price. No hard kill tripped; EPS misses DATA MISSING. Insider record -- zero open-market purchases in twelve months against 44 sales; the CEO and CFO each sold on 2026-03-04 at 88.99 a week after the February fall without a plan flag -- is evidence with no flag under the framework as written: B44, open, not applied.
+      TIER 3: score 6 is the medium band, Tier 2 -- Tier 1 also needed a fortress balance sheet (net debt 1.75x NEBITDA on 215 USD m of book equity: no) and a secular tailwind reaching the company (units fall while the market grows: no) -- SHIFTED ONE TIER STRICTER UNDER E77 (2026-08-30, the regime ELEVATED: global indices at all-time highs; the first application of section 5.3's adjustment). MBP 66.82 USD = bear 111.36 x 0.60 (band 72.70 / 66.82 / 61.72 across r 9.0-10.0%, E29); at Tier 2 it would have been 77.95. Last close 97.70 sits 46.2% above MBP -- WATCH-PRICED per E27, limit alert armed at 66.82, not a buy at today's price; the accounts are 242 days old and the Q3 release is the reassessment point. Litigation named, not priced: Express Mobile patent verdict, exposure zero to 170 USD m plus interest, on appeal, no liability recognised (Q2 10-Q).
+
+      2026-09-19: stays WATCH-PRICED. Re-struck under E117: fv_base 132.18 → 129.03, MBP 96.77; close 97.46, 0.7% above. Growth view stands. Leverage 2.17x vs 2.5x limit, thin. Class action pending. Re-read at Q3 results.
+
+      2026-09-19, TIER CORRECTED 2 → 3 (owner): the 2026-09-01 reading misapplied §5.3 by taking score 6 as tier 1 without its two conditions (fortress balance sheet, secular tailwind -- both found absent on 2026-08-30). Score 6 → tier 2 → E77 → tier 3; MBP 96.77 → 83.87. The close of 97.46 is 16% above it, so the APPROACHING MBP flag goes away. Re-read at Q3 results 2026-11-09.
+
+  # =================================================================
+  # INTAKE (E111, 2026-09-04): READ, NOT WATCHED.
+  #
+  # Each of these has a store, a basis and -- where the owner has
+  # already registered one -- a machine-readable growth view, so E108's
+  # sensitivity floor and E106 clause 4 can run for it. NONE carries an
+  # entry fact: no dd_at_entry, no peak_date, no stop_price, no tier and
+  # therefore no MBP. E12's clock starts at PROMOTION TO PIPELINE, and
+  # that promotion is the owner's act.
+  #
+  # NO GROWTH VIEW WAS WRITTEN HERE. The five that carry one carry the
+  # owner's own numbers, transcribed from reference/growth-views/*.md
+  # with the file and date they were registered on. CROX, LOPE and MUSA
+  # carry none, and until they do nothing can be struck for them.
+  # =================================================================
+  - ticker: ACN
+    cik: 1467373
+    name: Accenture plc
+    currency: USD
+    status: INTAKE
+    catalyst_date: 2026-10-01          # FY2026 annual results; the intake re-run and Gate 5's dated event (owner, 2026-09-19, A1/B1)
+    catalyst_event: FY2026 annual results, 2026-10-01 -- re-run intake on the FY2026 annual basis; promotion decided on those figures
+    # E28/E109: the owner's own pre-registered view, transcribed.
+    growth:
+      base: 0.045
+      bear: 0.0
+      bull: 0.075
+      view: reference/growth-views/ACN.md
+      registered: 2026-08-30
+    notes: |2-
+      E111 INTAKE, 2026-09-04. record COMPLETE. Struck 2026-08-30 (reference/ACN-STRIKE-2026-08-30.md); E105's leg -3,492,000 added 2026-09-04, VERIFIED by provenance.
+
+      2026-09-19: intake paused, pipeline. Re-run after FY2026 results 2026-10-01 on the FY2026 annual basis. Dated event for Gate 5: 2026-10-01.
+  - ticker: AOS
+    cik: 91142
+    name: SMITH A O CORP
+    currency: USD
+    status: INTAKE
+    # E28/E109: the owner's own pre-registered view, transcribed.
+    growth:
+      base: 0.04
+      bear: 0.0
+      bull: 0.07
+      view: reference/growth-views/AOS.md
+      registered: 2026-08-30
+    notes: >-
+      E111 INTAKE, 2026-09-04. record REFUSED, and on SIZE rather than on absence: E70's operating-lease leg is DATA MISSING and BOUNDED at 23,200,000 (E106 clause 3, the issuer's own total lease expense), which moves fv_base by 4.27% against E106's 3.5%. Clause 2 refuses. Closes if A. O. Smith ever states the cash paid for operating leases.
+  - ticker: CROX
+    # E28/E109: REGISTERED BY THE OWNER 2026-09-04, in his own
+    # words and before section 5 was run on this name. The
+    # reasoning is transcribed verbatim in the view file and
+    # was deliberately not tidied.
+    growth:
+      base: 0.01
+      bear: -0.01
+      bull: 0.03
+      view: reference/growth-views/CROX.md
+      registered: 2026-09-04
+    cik: 1334036
+    name: CROCS, INC.
+    currency: USD
+    # PROMOTED FROM INTAKE TO PIPELINE 2026-09-04 and DROPPED 2026-09-08,
+    # four days later, on Gate 2. The promotion stamped E12's entry (below)
+    # and the stamps are KEPT: a dropped name is a RECORD, and the reading
+    # Gate 1 was frozen on is part of what the record says.
+    #
+    # NO fv_base, NO tier, NO mbp, NO stop_price -- and section 5 DID run.
+    # It struck 169.79 against a settled close of 116.01, with g* at
+    # -3.39% against the owner's registered bear of -1%: the price was 18.9%
+    # BELOW the bear case. The name is dropped anyway, on Gate 2, before any
+    # of that matters. The strike stands in reference/CROX-STRIKE-2026-09-04.md
+    # and reference/CROX-CHAIN-2026-09-04.md as history.
+    status: DROPPED
+    # E12: Gate 1 was evaluated ONCE, at entry on 2026-09-04, and frozen.
+    #   52-week closing high 141.19 on 2026-08-04; settled close 116.01 on
+    #   2026-09-03; 141.19 -> 116.01 is -17.83%.
+    dd_at_entry: 0.1783
+    peak_date: 2026-08-04
+    notes: >-
+      CROX - DROPPED, 2026-09-08, on Gate 2: classification D, which is a
+      hard kill.
+
+
+      THE OWNER'S RULING, VERBATIM: "HEYDUDE has fallen 24.7% over two
+      years and is guided down again - that is structural deterioration,
+      not a quantified one-off, and the 738,115 of impairments are the
+      accounting consequence of it rather than an event separate from it.
+      The Crocs Brand growing does not offset it: the framework asks what
+      the disconnect is, and a brand the company bought and cannot fix is
+      not a disconnect between price and value. The same reasoning that
+      dropped BETS-B.ST applies - a part of the business whose floor I
+      cannot judge better than the market."
+
+
+      THE FIGURES THE RULING RESTS ON, from 10-K 0001334036-26-000006.
+      HEYDUDE Brand revenue 949,393 (FY2023) -> 824,141 (FY2024) ->
+      714,840 (FY2025), -24.7% over two years; guided down a further 4% to
+      2% for FY2026 (8-K 0001334036-26-000050 ex-99.1, 2026-07-30).
+      Impairments inside FY2025 income from operations: goodwill 307,000
+      and assets 431,115, 738,115 together, both attributable to HEYDUDE.
+      Crocs Brand revenue over the same three years 3,012,954 ->
+      3,277,967 -> 3,325,807.
+
+
+      WHAT ELSE WAS FOUND, recorded because a later reader should not have
+      to re-derive it. Gate 1's LEVEL leg passed at 17.83% and its
+      CATALYST leg did not: since the 2026-08-04 peak only 2 of 23
+      sessions fell 3% or more, the largest -4.69%, and the one -7.4%
+      session in 260 days (2026-07-30, soft Q3 outlook) came FIVE DAYS
+      BEFORE the 52-week high was set, so it cannot be the cause of a
+      decline that began after it. Gate 3's interest coverage FAILS at
+      1.69x under E112 (income from operations 149,515 over interest
+      expense 88,287, impairments left in); adding the 738,115 back would
+      give 10.05x, which is the other side of the limit and is information
+      rather than the verdict. Gate 3's other limbs: net debt/EBITDA DATA
+      MISSING (the 10-K states no EBITDA figure), FCF in 6 of 8 quarters
+      DATA MISSING (Crocs tags its cash flow cumulatively, so only Q1s
+      exist as three-month facts), and the clean-audit limb PASSES on a
+      recorded search. Gate 5 had no announced date.
+
+
+      CAPITAL ALLOCATION, measured against the fv_base that was struck and
+      not written: 6,942,914 shares repurchased over four reported
+      quarters at an average 91.27 against fv_base 169.79, 46.2% below -
+      Q3 2025 at 83.03, Q4 2025 at 83.63, NOTHING in Q1 2026, Q2 2026 at
+      106.87. Insiders went the other way: 28 Form 4s over twelve months,
+      every open-market line a SALE, not one purchase, none under a
+      10b5-1 plan.
+
+
+      Re-entry takes a named information event and not a price level
+      (E27's ground for a gate failure that is not about price).
+  - ticker: LII
+    cik: 1069202
+    name: LENNOX INTERNATIONAL INC
+    currency: USD
+    status: INTAKE
+    # E28/E109: the owner's own pre-registered view, transcribed.
+    growth:
+      base: 0.05
+      bear: 0.0
+      bull: 0.08
+      view: reference/growth-views/LII.md
+      registered: 2026-08-30
+    notes: >-
+      E111 INTAKE, 2026-09-04. record COMPLETE. Struck 2026-08-30 under E70 (reference/LII-STRIKE-2026-08-30-e70.md); E105's leg is a searched zero.
+  - ticker: LOPE
+    # E28/E109: REGISTERED BY THE OWNER 2026-09-04, in his own
+    # words and before section 5 was run on this name. The
+    # reasoning is transcribed verbatim in the view file and
+    # was deliberately not tidied.
+    growth:
+      base: 0.03
+      bear: 0.02
+      bull: 0.05
+      view: reference/growth-views/LOPE.md
+      registered: 2026-09-04
+    cik: 1434588
+    name: GRAND CANYON EDUCATION, INC.
+    currency: USD
+    status: INTAKE
+    notes: >-
+      E111 INTAKE, 2026-09-04. record COMPLETE. Intaken 2026-09-04. FCF0 242,120,000 USD, net cash 4,439,000, 28,024,000 diluted shares. NO GROWTH VIEW IS REGISTERED, so nothing has been struck.
+  - ticker: MEKKO.HE
+    # E28/E109: REGISTERED BY THE OWNER 2026-09-08, in his own words and
+    # BEFORE section 5 was run on this name -- the view file was committed
+    # before the solver was called, and the git history is the evidence E28
+    # asks for. The reasoning is transcribed verbatim in the view file, in
+    # the Swedish he wrote it in, and was deliberately not tidied.
+    #
+    # THE BLOCK ARRIVES WITH THE ENTRY. Until today MEKKO.HE had no
+    # watchlist row at all, so E109's machine-readable block had nowhere to
+    # live and `vss manual`'s E108 floor had to be measured by hand -- the
+    # view file says exactly that. Writing it can only ask for this name to
+    # be measured: E109 makes the gate STRICTER without a block, never
+    # looser, because a name with no block has no view.
+    growth:
+      base: 0.05
+      bear: 0.03
+      bull: 0.10
+      view: reference/growth-views/MEKKO.HE.md
+      registered: 2026-09-08
+    # NO CIK, and that is deliberate rather than missing. Marimekko is
+    # Finnish, files with Nasdaq Helsinki and has none; this store is
+    # PDF-sourced off that feed and the XBRL path has never touched it.
+    # Nothing in this project guesses a CIK.
+    name: Marimekko Oyj
+    currency: EUR
+    reporting_frequency: quarterly
+    # WATCH-GATED per FRAMEWORK-EDITS E27, ruled by the owner 2026-09-08.
+    # INTAKE -> WATCH-GATED, and this is the FIRST watchlist entry this name
+    # has ever carried. It failed a section 3 gate on something other than
+    # PRICE -- Gate 2 class D, driven by the section 4.2 hard kill -- so
+    # section 5.3 does not reach it, it has no row in section 6.3's matrix,
+    # and no price level may wake it.
+    status: WATCH-GATED
+    # NO dd_at_entry AND NO peak_date, DELIBERATELY. E12's stamp is what
+    # PROMOTION TO PIPELINE writes (E111), and `rules.frozen_gate_1` fires
+    # for PIPELINE alone: a WATCH-GATED name has its own re-entry rule under
+    # E27 and has nothing to freeze. Gate 1 stays readable on today's level,
+    # which is B1's decision of 2026-08-22.
+    #
+    # NO tier, NO mbp, NO stop_price, on the owner's instruction -- and NO
+    # fv_base field, following the CROX row of 2026-09-08: section 5 DID run
+    # and struck 14.03 EUR, and that value is kept in the note below as
+    # HISTORY rather than as an entry fact, because a gated name is not
+    # being bought and E90's mbp is a value times a tier cushion.
+    catalyst_date: 2026-11-04          # Q3 2026 interim report -- the NAMED INFORMATION EVENT this status re-enters on, not a diary line. The issuer's own date: H1 2026 report, "Financial calendar for 2026".
+    catalyst_resolved:                 # set the day the Q3 2026 outcome is ingested.
+    catalyst_event: Q3 2026 interim report -- does the comparable operating margin return inside the guided 16-19% band?
+    notes: >-
+      MEKKO.HE - WATCH-GATED, 2026-09-08, on Gate 2 class D, which the
+      section 4.2 hard kill drives. Full record in
+      reference/MEKKO.HE-GATED-2026-09-08.md.
+
+
+      THE OWNER'S RULING, VERBATIM and in the Swedish he wrote it in:
+      "Regeln galler. Argumentet att marginalfallet ar butiksexpansion och
+      inte forsamring ar rimligt i sig, men det argumentet finns alltid
+      tillgangligt for varje bolag med fallande marginal, och det ar precis
+      darfor regeln finns. Har stoder datan det inte heller: jamforbar
+      butiksforsaljning i Finland faller fyra kvartal i rad - 3, 5, 4 och
+      cirka 13 procent - sa det ar inte bara nya butiker som drar.
+      Intakterna foll dessutom trots 7 procent fler butiker, vilket ar
+      motsatsen till vad expansionsargumentet forutsager. Bolaget ar i
+      ovrigt friskt: nettokassa, guidningen 16-19 procent oforandrad genom
+      hela raset, ingen skuld. Darfor WATCH-GATED och inte DROPPED." (The
+      verbatim text with its Swedish diacritics is in the record file; this
+      row is ASCII.)
+
+
+      THE KILL, on the issuer's own printed figures (H1 2026 report, Key
+      figures, Nasdaq 1458035). Q2 2026 net sales 43.9 against 44.5, -1%;
+      operating profit margin 10.8% against 14.3%, -350bps; comparable
+      11.7% against 14.6%, -290bps. The issuer's explanation is "an
+      increase in fixed costs in particular" and the decrease in net sales
+      - not a discrete, quantified Class C event; items affecting
+      comparability in the quarter are 0.4m. Finland comparable retail
+      sales fell FOUR consecutive quarters, -3%, -5%, -4% and about -13%,
+      in the market area that is 54% of 2025 net sales, while the store
+      count rose 7% to 183.
+
+
+      WHAT ELSE THE CHAIN FOUND, recorded because a later reader should not
+      have to re-derive it. Gate 1 MET on BOTH legs: level 33.24% (high
+      13.96 set 2025-10-23 and again 2025-10-27, close 9.32 on 2026-09-07),
+      catalyst 2026-02-12 -14.15% on the Financial Statements Bulletin
+      2025, which is -1.84 of the -4.64 EUR fall, 39.7% in one session, and
+      UNABSORBED - the high-water close since is 11.58 and the low is
+      9.32. The 2025-04-16 -7.85% Inderes note is NOT this drawdown's
+      catalyst: it sits outside the 52-week window and before the peak, and
+      was fully absorbed (11.50 -> 13.96 by 2025-10-23). B1 metric 0.32,
+      context only under B1's decision of 2026-08-22. Gate 3: net
+      debt/EBITDA -0.17x MET (+0.19x at 2026-06-30), interest coverage
+      22.71x MET under E112 on operating income AS STATED, clean-audit limb
+      MET on a recorded search (KPMG since 2018, unqualified opinion, no
+      restatement), and FCF in 6 of 8 quarters DATA MISSING - Marimekko's
+      cash flow statement prints ONLY cumulative columns, no standalone
+      quarter exists in any of the five documents, and the limb is closable
+      only by the issuer changing its presentation. Gate 5 MET: 2026-11-04,
+      the issuer's own stated date. Gate 4 DATA MISSING and out of the
+      count (E99).
+
+
+      THE BASIS AND THE KILL ARE ON DIFFERENT WINDOWS, BY CONSTRUCTION.
+      Section 5 reads annual FY2025 because no twelve-month basis ending
+      2026-06-30 is reachable without subtracting cumulative columns; the
+      kill lives entirely in the two quarters outside that window. THIS
+      CANNOT BE CORRECTED BY RE-STRIKING - there is no reachable basis to
+      re-strike on. The FY2026 annual report, early 2027, is the first
+      document that puts those quarters inside a window section 5 may read.
+
+
+      THE STRUCK VALUE, KEPT AS HISTORY. fv_base 14.03 EUR at the
+      registered base of 5%, against a settled close of 9.39 on 2026-09-04,
+      -33.0%, with g* -0.53% - below the owner's own bear of 3%. FCF0
+      31,900,000, net cash 6,900,000, divisor 40,571,380. Zero refusals,
+      four read-backs, twenty waivers under E108 and E113, all named in
+      reference/MEKKO.HE-STRIKE-2026-09-08.md. The name is gated anyway, on
+      section 4.2, before any of that matters.
+
+
+      THREE ITEMS ARE LEFT OPEN AND NONE OF THEM MOVES THIS VERDICT:
+      whether a DATA MISSING limb fails Gate 3 (E99 ruled that question at
+      the GATE level, never at the limb level - so Gate 3 scores +1 or 0);
+      the market-share comparator, since no Finnish retail market series is
+      on the record and Inderes' "7% contraction" is Marimekko's own
+      figure; and B8's reading of "active" buyback, the programme having
+      run 17 Feb - 4 Mar 2026 and completed, 90,000 shares for EUR 1.0m at
+      about 11.1, roughly 20% below the high, and nothing bought at the
+      lows. The score they would decide is 3 or 4 on E99's rebased scale,
+      and a hard kill overrides it, which is why no tier is written.
+
+
+      RE-ENTRY TAKES A NAMED INFORMATION EVENT AND NEVER A PRICE LEVEL
+      (E27's ground for a gate failure that is not about price): the Q3
+      2026 interim report of 2026-11-04, and specifically whether the
+      comparable operating profit margin returns inside the guided 16-19%
+      band. A FURTHER FALL IN THE PRICE CHANGES NOTHING.
+  - ticker: MUSA
+    # E28/E109: REGISTERED BY THE OWNER 2026-09-04, in his own
+    # words and before section 5 was run on this name. The
+    # reasoning is transcribed verbatim in the view file and
+    # was deliberately not tidied.
+    growth:
+      base: 0.02
+      bear: 0.01
+      bull: 0.03
+      view: reference/growth-views/MUSA.md
+      registered: 2026-09-04
+    cik: 1573516
+    name: MURPHY USA INC.
+    currency: USD
+    status: DROPPED
+    notes: >-
+      E111 INTAKE, 2026-09-04. record COMPLETE. Intaken 2026-09-04. FCF0 517,600,000 USD, net debt 2,766,600,000, 19,526,000 diluted shares. NO GROWTH VIEW IS REGISTERED, so nothing has been struck.
+
+      2026-09-19: DROPPED by the owner (A11): "+142% suggests the model doesn't fit or it's nowhere near." E117 value 217.03 (reference/run-records/MUSA-2026-09-19-e117.json) against the close of 526.09 (2026-09-18). A drop is reversible; the shadow book measures it from 2026-09-18 (E114).
+  - ticker: RKT.L
+    # NO CIK, and that is deliberate rather than missing. I had written
+    # 1057081 from memory; SEC's own company_tickers.json has no such row,
+    # and Reckitt appears there only as CIK 1420798 under RBGLY / RBGPF --
+    # its ADR registration, not this LSE line. This store is PDF-sourced
+    # (annual report and final results), the XBRL path has never touched
+    # it, and a CIK pointing at a different security would invite it to.
+    # Nothing in this project guesses a CIK; a wrong one is worse than none.
+    name: Reckitt Benckiser Group plc
+    currency: GBX
+    status: INTAKE
+    # E28/E109: the owner's own pre-registered view, transcribed.
+    growth:
+      base: 0.03
+      bear: 0.0
+      bull: 0.05
+      view: reference/growth-views/RKT.L.md
+      registered: 2026-08-30
+    notes: >-
+      E111 INTAKE, 2026-09-04. record COMPLETE. Struck 2026-08-30 (reference/RKT.L-STRIKE-2026-08-30.md); E105's leg -6 GBPm, read back by the owner 2026-09-04.
+  - ticker: ULTA
+    cik: 1403568
+    name: Ulta Beauty, Inc.
+    currency: USD
+    status: INTAKE
+    # E28/E109: the owner's own pre-registered view, transcribed.
+    growth:
+      base: 0.035
+      bear: 0.0
+      bull: 0.065
+      view: reference/growth-views/ULTA.md
+      registered: 2026-08-30
+    notes: >-
+      E111 INTAKE, 2026-09-04. record COMPLETE. Struck 2026-08-30 (reference/ULTA-STRIKE-2026-08-30.md); E105's leg is a searched zero. net_income corrected 2026-09-04 to the 10-K's 1,153,479,000 from a proxy's rounded 1,153,000,000.
+  # --- entered 2026-09-25 on the owner's instruction: PIPELINE, which
+  # stamps E12. Brought by the owner after the Q2 2026 selloff; not from a
+  # screener top 20 (UMG.AS is absent from the 2026-09-19 ranking).
+  - ticker: UMG.AS
+    # NO CIK: Euronext Amsterdam listing, not an SEC filer.
+    name: Universal Music Group N.V.
+    currency: EUR
+    status: PIPELINE
+    # E12: GATE 1 IS FROZEN AT THIS READING and is not re-read. Struck on
+    #   the settled close of 14.48 (2026-09-24), yfinance, 2026-09-25.
+    #   The drawdown is UNROUNDED and its reference peak is named beside it.
+    #   42.70% is 7.3 points below Gate 1's 50% ceiling.
+    dd_at_entry: 0.4269885524363869
+    peak_date: 2025-10-02
+    notes: >-
+      PIPELINE 2026-09-25, on the owner's instruction. Drawdown 42.7% from
+      the 52-week closing high of 25.27 (2025-10-02), 52-week low 14.02
+      (2026-09-10), close 14.48 (2026-09-24). Catalyst candidate: Q2 2026
+      results of 2026-07-30 (stock -25% on the session). Screener
+      2026-08-22 (E6): combined rank 259, operating profitability 30.4%,
+      earnings yield 7.0%. No fv_base, no tier and no mbp -- section 5 has
+      not been run. This entry is review work, not a buy.

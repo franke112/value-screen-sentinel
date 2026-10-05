@@ -1,0 +1,162 @@
+{
+ "_about": "Vendor price data the tests read. NOT redistributed (Yahoo Finance terms: personal use). tools/fetch_test_fixtures.py fetches each file from Yahoo with yfinance using the parameters below. Refetched data can differ slightly from the owner's copy: Yahoo revises adjusted history.",
+ "files": [
+  {
+   "path": "tests/fixtures/verdict-matrix/prices/HNSA.ST.csv",
+   "ticker": "HNSA.ST",
+   "start": "2020-08-03",
+   "end": "2026-08-20",
+   "columns": [
+    "Date",
+    "Open",
+    "High",
+    "Low",
+    "Close",
+    "Adj Close",
+    "Volume",
+    "Dividends",
+    "Stock Splits"
+   ],
+   "rows": 1521,
+   "auto_adjust": false
+  },
+  {
+   "path": "tests/fixtures/verdict-matrix/prices/MC.PA.csv",
+   "ticker": "MC.PA",
+   "start": "2020-08-03",
+   "end": "2026-08-20",
+   "columns": [
+    "Date",
+    "Open",
+    "High",
+    "Low",
+    "Close",
+    "Adj Close",
+    "Volume",
+    "Dividends",
+    "Stock Splits"
+   ],
+   "rows": 1550,
+   "auto_adjust": false
+  },
+  {
+   "path": "tests/fixtures/verdict-matrix/prices/MSFT.csv",
+   "ticker": "MSFT",
+   "start": "2020-08-03",
+   "end": "2026-08-20",
+   "columns": [
+    "Date",
+    "Open",
+    "High",
+    "Low",
+    "Close",
+    "Adj Close",
+    "Volume",
+    "Dividends",
+    "Stock Splits"
+   ],
+   "rows": 1520,
+   "auto_adjust": false
+  },
+  {
+   "path": "tests/fixtures/verdict-matrix/prices/NKE.csv",
+   "ticker": "NKE",
+   "start": "2020-08-03",
+   "end": "2026-08-20",
+   "columns": [
+    "Date",
+    "Open",
+    "High",
+    "Low",
+    "Close",
+    "Adj Close",
+    "Volume",
+    "Dividends",
+    "Stock Splits"
+   ],
+   "rows": 1520,
+   "auto_adjust": false
+  },
+  {
+   "path": "tests/fixtures/verdict-matrix/prices/SAP.DE.csv",
+   "ticker": "SAP.DE",
+   "start": "2020-08-03",
+   "end": "2026-08-20",
+   "columns": [
+    "Date",
+    "Open",
+    "High",
+    "Low",
+    "Close",
+    "Adj Close",
+    "Volume",
+    "Dividends",
+    "Stock Splits"
+   ],
+   "rows": 1541,
+   "auto_adjust": false
+  },
+  {
+   "path": "tests/fixtures/verdict-matrix/prices/UNA.AS.csv",
+   "ticker": "UNA.AS",
+   "start": "2020-12-04",
+   "end": "2026-08-20",
+   "columns": [
+    "Date",
+    "Open",
+    "High",
+    "Low",
+    "Close",
+    "Adj Close",
+    "Volume",
+    "Dividends",
+    "Stock Splits"
+   ],
+   "rows": 1461,
+   "auto_adjust": false
+  },
+  {
+   "path": "tests/fixtures/series-sanity/ELUX-A.ST.csv",
+   "ticker": "ELUX-A.ST",
+   "start": "2025-08-22",
+   "end": "2026-08-20",
+   "columns": [
+    "Date",
+    "Close",
+    "Volume"
+   ],
+   "rows": 249,
+   "auto_adjust": false
+  },
+  {
+   "path": "tests/fixtures/series-sanity/MNST.csv",
+   "ticker": "MNST",
+   "start": "2025-08-22",
+   "end": "2026-08-21",
+   "columns": [
+    "Date",
+    "Close",
+    "Volume"
+   ],
+   "rows": 250,
+   "auto_adjust": false
+  },
+  {
+   "path": "tests/fixtures/series-sanity/MRNA.csv",
+   "ticker": "MRNA",
+   "start": "2025-08-22",
+   "end": "2026-08-21",
+   "columns": [
+    "Date",
+    "Close",
+    "Volume"
+   ],
+   "rows": 251,
+   "auto_adjust": false
+  }
+ ],
+ "not_refetchable": {
+  "path": "tests/fixtures/ranking-acceptance/",
+  "why": "a point-in-time screener snapshot of 2026-08-21 (prices AND fundamentals as served that day); Yahoo serves today's figures, so it cannot be rebuilt. tests/test_ranking_acceptance.py skips without it."
+ }
+}

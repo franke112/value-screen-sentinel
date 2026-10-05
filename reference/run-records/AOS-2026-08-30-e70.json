@@ -1,0 +1,152 @@
+{
+ "ticker": "AOS",
+ "currency": "USD",
+ "run_ts": "2026-08-30T04:18:17-04:00",
+ "basis": "annual FY2025",
+ "shares": {
+  "count": 141914840.0,
+  "basis": "weighted-average DILUTED count for annual FY2025, the same window as the flows (E38)",
+  "as_of": "2025-12-31",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole"
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 13800000.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0000091142 (SMITH A O CORP) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000091142.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+  "net_interest_paid": 13500000.0,
+  "source": "interest_expense_only"
+ },
+ "bridge": {
+  "net_debt": 35800000.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 47900000.0,
+   "pensions": 7400000.0,
+   "asset_retirement_obligations": 0.0,
+   "non_controlling_interests": "no field in this schema (E35)"
+  },
+  "note": "borrowings 42,300,000 + 112,700,000 + leases 47,900,000 (E35: always in; finance leases beside operating, E65) + pension deficit 7,400,000 (E35.1) + asset retirement obligations 0 (E68) - cash 174,500,000 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+ },
+ "dates": {
+  "flows_window_end": "2025-12-31",
+  "balance_sheet": "2025-12-31",
+  "share_count": "2025-12-31",
+  "price": "2026-08-28"
+ },
+ "growth": {
+  "base": 0.04,
+  "view_file": "reference/growth-views/AOS.md",
+  "view_date": "2026-08-30",
+  "bear": 0.0,
+  "bull": 0.07
+ },
+ "operating_cash_flow": 616800000.0,
+ "capex": -70800000.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_combined",
+   "value": -70800000.0,
+   "provenance": "us-gaap:PaymentsToAcquireProductiveAssets [2025-01-01..2025-12-31] 10-K 0000091142-26-000008 filed 2026-02-10 -- CONCEPT: the filer's ONE capital-expenditure line, tagged under the broader 'productive assets' element and not the PP&E one; E23's combined line, a record of the issuer's presentation and not a claim about what is inside it",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 616800000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-01-01..2025-12-31] 10-K 0000091142-26-000008 filed 2026-02-10",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "sbc",
+   "value": 13800000.0,
+   "provenance": "us-gaap:AllocatedShareBasedCompensationExpense [2025-01-01..2025-12-31] 10-K 0000091142-26-000008 filed 2026-02-10 -- CONCEPT: the INCOME-STATEMENT share-based compensation CHARGE, taken because this filer tags no `ShareBasedCompensation` (the cash-flow statement's non-cash add-back). E36 subtracts the cost either way; the two elements state one charge from two statements and can differ by any capitalised or discontinued portion",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "finance_costs_period",
+   "value": 13500000.0,
+   "provenance": "E69: Item 8, CONSOLIDATED STATEMENTS OF EARNINGS, year ended December 31, 2025, 10-K 0000091142-26-000008 filed 2026-02-10: 'Interest expense | 13.5' (dollars in millions); the same line in Item 7, Results of Operations. Tagged by the filer as us-gaap:InterestExpense, an element the map does not read (NOT_WRITTEN: it carries a NET line for Lennox and a GROSS line here); read by hand as the GROSS expense. INTEREST INCOME APPEARS NOWHERE IN THE FILING AS A FIGURE: the statement prints 'Other income, net | (0.6)', which Item 7 describes as 'lower foreign currency translation losses compared to the prior year and lower interest income from lower average cash balances', and the segment note says only 'Other expense (income), net consists primarily of interest income' -- a composite, not a net finance figure, so it is NOT entered as net_finance_costs and no E18 pair forms. Under E61.1 (2026-08-30) the stated expense alone is the add-back -- interest_source: interest_expense_only on this file, the bound printed as a percentage of FCF0.",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 141914840.0,
+   "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2025-01-01..2025-12-31] 10-K 0000091142-26-000008 filed 2026-02-10",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 42300000.0,
+   "provenance": "us-gaap:LongTermDebtCurrent [as of 2025-12-31] 10-Q 0000091142-26-000098 filed 2026-07-30",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 112700000.0,
+   "provenance": "us-gaap:LongTermDebtNoncurrent [as of 2025-12-31] 10-Q 0000091142-26-000098 filed 2026-07-30",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 47900000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2025-12-31] 10-K 0000091142-26-000008 filed 2026-02-10",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 7400000.0,
+   "provenance": "us-gaap:DefinedBenefitPensionPlanLiabilitiesNoncurrent [as of 2025-12-31] 10-K 0000091142-26-000008 filed 2026-02-10",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "E68.1: Item 8, Consolidated Balance Sheets as of December 31, 2025, 10-K 0000091142-26-000008 filed 2026-02-10 -- liabilities presented: 'Trade payables', 'Accrued payroll and benefits', 'Accrued liabilities', 'Product warranties', 'Long-term debt due within one year', 'Long-term debt', 'Product warranties', 'Pension liabilities', 'Long-term operating lease liabilities', 'Other liabilities'; no asset retirement or decommissioning caption, and neither term appears anywhere in the filing (full-text search of the primary document, 2026-08-29). A water-heater and boiler manufacturer owning nothing that requires decommissioning: the absence is evidence. NAMED, NOT INCLUDED: the income-tax note lists a deferred tax asset on 'Environmental liabilities 1.3', i.e. a remediation accrual (ASC 410-30) inside 'Accrued liabilities' / 'Other liabilities' -- a remediation liability, not an asset retirement obligation, outside E68 as ruled.",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 174500000.0,
+   "provenance": "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2025-12-31] 10-Q 0000091142-26-000098 filed 2026-07-30",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  }
+ ],
+ "tool_commit": "E70 re-strike, 2026-08-30, d171724",
+ "notes": "",
+ "money_unit": "whole",
+ "lease": {
+  "in_operating_cash_flow": true,
+  "page": "FRAMEWORK-EDITS E70, applied 2026-08-30 to a us-gaap filer ASC 842-20-45-5(a): a lessee classifies payments for operating leases within OPERATING activities, so this filer's `operating_cash_flow` already bears them; the stated cash paid is `us-gaap:OperatingLeasePayments` ('cash paid for amounts included in the measurement of operating lease liabilities'), written as `operating_lease_payments` where tagged. No filer-specific tag states the classification because the standard leaves no choice",
+  "principal_added_back": null,
+  "leg": "`operating_lease_payments` (cash paid for operating leases, the whole payment: principal under E70; its interest component under E34, being inside operating cash flow)"
+ }
+}

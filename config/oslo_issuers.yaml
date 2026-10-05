@@ -1,0 +1,12 @@
+# ticker -> the ISSUER SIGN Euronext Oslo's NewsWeb keys on.
+# Resolved once against the exchange's own issuer directory
+# by `vss nordic --resolve` and stored. SEPARATE from
+# config/nordic_issuers.yaml, which answers a different
+# question: whether a name is on the NASDAQ Nordic feed.
+issuers:
+  BOUV.OL:
+    sign: "BOUV"
+    company: "Bouvet ASA"
+    issuer_id: 8307
+    resolved: 2026-09-08
+    note: "matched the exchange's own issuer directory (https://api3.oslo.oslobors.no/v1/newsreader/issuers); isActive=1"

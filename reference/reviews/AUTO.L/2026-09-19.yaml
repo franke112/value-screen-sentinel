@@ -1,0 +1,187 @@
+schema: vss/review v1
+ticker: AUTO.L
+date: '2026-09-19'
+status_at_start: PIPELINE
+prepare_report: reports/prepare/AUTO.L-2026-09-19.json
+prepare_waived: null
+started_at: verdict
+resume_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+  set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/AUTO.L-2026-09-19-e117.json,
+  reference/AUTO.L-STRIKE-2026-09-19-e117.md)'
+steps:
+- step: gate-1
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/AUTO.L-2026-09-19-e117.json,
+    reference/AUTO.L-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: gate-2
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/AUTO.L-2026-09-19-e117.json,
+    reference/AUTO.L-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: gate-3
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/AUTO.L-2026-09-19-e117.json,
+    reference/AUTO.L-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: gate-4
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/AUTO.L-2026-09-19-e117.json,
+    reference/AUTO.L-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: gate-5
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/AUTO.L-2026-09-19-e117.json,
+    reference/AUTO.L-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: hard-kills
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/AUTO.L-2026-09-19-e117.json,
+    reference/AUTO.L-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: conviction
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/AUTO.L-2026-09-19-e117.json,
+    reference/AUTO.L-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: basis
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/AUTO.L-2026-09-19-e117.json,
+    reference/AUTO.L-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: flow
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/AUTO.L-2026-09-19-e117.json,
+    reference/AUTO.L-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: net-debt
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/AUTO.L-2026-09-19-e117.json,
+    reference/AUTO.L-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: divisor
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/AUTO.L-2026-09-19-e117.json,
+    reference/AUTO.L-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: growth-view
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/AUTO.L-2026-09-19-e117.json,
+    reference/AUTO.L-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: strike
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/AUTO.L-2026-09-19-e117.json,
+    reference/AUTO.L-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: tier-mbp
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/AUTO.L-2026-09-19-e117.json,
+    reference/AUTO.L-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: verdict
+  outcome: watch-priced
+  text: 'watch-priced — E117 fv_base 4.84, all gates pass, close 4.882 is 0.9% above
+    value. No tier, so no MBP: bring me the conviction and tier steps next so a buy
+    price exists. Write 4.84 on the entry.'
+  answered_at: '2026-09-19T20:23:47+02:00'
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+growth_view:
+  base: 0.03
+  bear: 0.0
+  bull: 0.06
+  registered_at: '2026-08-27T00:00:00+02:00'
+  reasons: 'standing view of 2026-08-27, reference/growth-views/AUTO.L.md -- owner:
+    "stands — 0.03 / 0.00 / 0.06. No results since 2026-08-27; half-year results are
+    in November."'
+note: '2026-09-19: PIPELINE → WATCH-PRICED, fixing the E27 inconsistency. E117 fv_base
+  4.82 → 4.84; gates pass rent-bearing (coverage 101x, leverage 0.36x). Close 4.882,
+  about fair value, nowhere near a buy price. Tier to be set.'

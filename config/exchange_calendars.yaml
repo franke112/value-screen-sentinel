@@ -1,0 +1,63 @@
+# Exchange calendars for the staleness gate (FRAMEWORK-EDITS E47 / C3;
+# SCREENER-REVIEW-3 Part 10, build item 3).
+#
+# The gate blocks a close older than MAX_CLOSE_AGE_TRADING_DAYS sessions.
+# `rules.trading_days_between` counts weekdays and takes the exchange's
+# closed days from the CALLER; nothing supplied them until 2026-08-26, and the
+# cost was measured: Christmas Eve to Boxing Day is three closed weekdays on
+# seven of the eleven markets, which collapsed a 3-session gate to ONE real
+# session and removed a whole market ON VALUE on the first morning after.
+#
+# This file maps the universe CSVs' own `marknad` string to the ISO 10383
+# MIC the `exchange_calendars` package builds a rule-based calendar for. The
+# calendar is computed from the exchange's holiday rules, offline, for past
+# and future dates alike.
+#
+# A market absent here is NOT an error: the gate falls back to the naive
+# Monday-to-Friday count for it and the filter-1 report NAMES the market and
+# the count of names measured that way. Add the mapping rather than living
+# with the note.
+
+markets:
+  US: XNYS
+  Stockholm: XSTO
+  London: XLON
+  Xetra: XETR
+  Paris: XPAR
+  Zurich: XSWX
+  Milan: XMIL
+  Amsterdam: XAMS
+  Madrid: XMAD
+  Oslo: XOSL
+  Copenhagen: XCSE
+  Helsinki: XHEL
+  Warsaw: XWAR
+  Brussels: XBRU
+  Vienna: XWBO
+  Dublin: XDUB
+  Lisbon: XLIS
+
+# THE WATCHLIST'S MAP (owner, 2026-09-19): `vss run` has no `marknad` string
+# -- a watchlist entry carries a ticker, not a market -- so the ticker's
+# exchange suffix (the vendor's own code for the listing) names the market
+# above. The empty key is a ticker with no suffix: a US listing. A suffix
+# absent here is measured on the naive Monday-to-Friday count, and the
+# block that results SAYS so.
+suffixes:
+  "": US
+  ST: Stockholm
+  L: London
+  DE: Xetra
+  PA: Paris
+  SW: Zurich
+  MI: Milan
+  AS: Amsterdam
+  MC: Madrid
+  OL: Oslo
+  CO: Copenhagen
+  HE: Helsinki
+  WA: Warsaw
+  BR: Brussels
+  VI: Vienna
+  IR: Dublin
+  LS: Lisbon

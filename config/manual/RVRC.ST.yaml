@@ -1,0 +1,641 @@
+# config/manual/RVRC.ST.yaml -- RVRC Holding AB (publ), "RevolutionRace",
+# hand-read from the issuer's own reports as filed on the Nasdaq Stockholm
+# disclosure feed (sources/manifest.json, origin nasdaq-nordic, market
+# "Main Market, Stockholm", company "RVRC Holding AB"). Built 2026-08-30.
+# IFRS; FISCAL YEAR 1 JULY - 30 JUNE; quarterly reporter in SEK.
+#
+# PERIOD LABELS ARE FISCAL (period_basis: fiscal): the issuer's Q1 2025/26
+# is July-September 2025 and is stored as 2026-Q1; Q4 2025/26 (April-June
+# 2026) as 2026-Q4. E19's twelve months = 2026-Q1 + 2026-Q2 + 2026-Q3 +
+# 2026-Q4, ending 2026-06-30 -- which is also the issuer's own fiscal year
+# 2025/26, so the year-end report's Jul-Jun column checks every quarter.
+#
+# DOCUMENTS (each fetched and recorded by `vss nordic`):
+#   2026-Q1  release 1396024 (2025-10-23), Interim report 1 July - 30 September 2025 (21 pp)
+#            sources/RVRC.ST_2026-Q1_interim-report-q1-and-q3_2025-10-23_en_a0.pdf
+#   2026-Q2  release 1416236 (2026-01-29), Interim report 1 July - 31 December 2025 (23 pp)
+#            sources/RVRC.ST_2026-Q2_half-year-financial-report_2026-01-29_en_a0.pdf
+#   2026-Q3  release 1437483 (2026-04-28), Interim report 1 July 2025 - 31 March 2026 (24 pp)
+#            sources/RVRC.ST_2026-Q3_interim-report-q1-and-q3_2026-04-28_en_a0.pdf
+#   2026-Q4  release 1457620 (2026-08-11), Year-end & Q4 report 1 July 2025 - 30 June 2026 (24 pp, unaudited)
+#            sources/RVRC.ST_2026-Q4_financial-statement-release_2026-08-11_en_a0.pdf
+#   FY 2025  release 1394559 (2025-10-15), Annual Report 2024/25 (122 pp, audited; year to 30 June 2025)
+#            sources/RVRC.ST_2025-FY_annual-financial-report_2025-10-15_en_a0.pdf
+#            -- ON FILE FOR POLICIES ONLY. Its year end (2025-06-30) is the
+#            day the basis window opens, not inside it, so under E20/E41 it
+#            supplies no figure; the accounting-policy sentences the zeros
+#            below rest on are cited from it and the fact that they are a
+#            year old is said on each. The Annual Report 2025/26 is due
+#            2026-10-16 (year-end report p.24) and will replace the year-end
+#            report as the annual document. No ESEF package is on the feed
+#            for the 2024/25 report (release 1394559 carries one PDF).
+#
+# READ-BACK. Every figure was read from the PDF text layer and then read
+# back against the page rendered as an image (PyMuPDF, 100 dpi): each
+# quarter's income statement and cash flow statement, the year-end
+# report's balance sheet (both pages), APM reconciliation (p.19) and
+# note 5 (p.22). The text layer carries every numeral intact; every figure
+# agreed. Printed page = PDF page in every document.
+#
+# STATUS: all UNVERIFIED (owner's instruction). No section 5 run, no
+# fv_base, no tier, no mbp; no growth view is registered.
+#
+# UNITS: SEK MILLION, WHOLE (money_unit millions, no decimals -- the
+# reports round to the nearest million and print figures between 0 and
+# 0.5 as 0, year-end report p.20). That coarseness is a fact about the
+# accounts: a printed '-0' is a stated outflow under half a million and
+# is entered as 0. share_unit WHOLE shares, as printed.
+#
+# E34 -- INTEREST. Both sides INSIDE operating activities: 'Interest
+# received' and 'Interest paid' sit above 'Cash flow from operating
+# activities before changes in working capital' in every cash flow
+# statement (Q4 p.13: 1 and -1; year 4 and -4). `interest_in_ocf: yes`.
+#
+# E70 -- LEASES IN THE FLOW. IFRS 16 filer: 'Amortisation of lease
+# liabilities' is a FINANCING line (Q4 p.13: -2; year -8); IFRS 16.50(b).
+# The interest on leases is inside 'Interest paid' (AR 2024/25 note 18
+# p.108: 'Interest expenses for lease liabilities 0').
+#
+# E35 / E35.1 / E65-E68 -- NET DEBT LEGS at 2026-06-30:
+#   * borrowings: NAMED ZEROS on E25's note form, from the basis document
+#     itself -- the year-end report's APM reconciliation p.19 states
+#     'Interest-bearing debt * 15' with '* Is composed of leasing
+#     liabilities', and the balance sheet (p.12) presents no borrowings
+#     caption. The group's SEK 600 m credit facility was undrawn at 30 June
+#     2025 (AR 2024/25 note 21 p.110: 'Credit Facility B 600, Used 0') and
+#     'Fees related to borrowings -0' in financing is the facility fee.
+#   * leases: p.19 'Interest-bearing debt 15 ... composed of leasing
+#     liabilities' is the STATED total; the balance sheet's two parts read
+#     8 + 8 = 16, one off from whole-million rounding. The stated total is
+#     entered and the parts named (E65; one IFRS 16 liability).
+#   * pension: zero on the note form -- AR 2024/25 p.100: 'The group's
+#     pension obligations only include contribution defined plans.' The
+#     sentence is a year old; the 30 June 2026 balance sheet presents no
+#     pension caption. THE OWNER DECIDES whether a year-old policy sentence
+#     is E25's 'sentence that states there is none' (the same question
+#     ZZ-B.ST's file asks).
+#   * asset retirement obligation: zero on the CAPTION form (E68.1): the
+#     30 June 2026 balance sheet (p.12) presents no provision caption of
+#     any kind -- an online apparel retailer with leased premises and no
+#     restoration provision recognised. Not on E68.1's refuse list.
+#   * other_current_financial_assets: 'Interest-bearing assets (-) -' on
+#     p.19, nil; the field takes no zero (E25), so it is blank.
+#
+# E36 -- SHARE-BASED COMPENSATION. Zero on the note form: the warrants are
+# 'transferred to the participants at market price' (year-end report note
+# 5 p.22, in the basis document) and 'are not reported according to
+# IFRS 2. Instead, they are reported as an increase in equity equal to
+# the price of the warrants as acquired' (AR 2024/25 p.100). The year-end
+# report's 'Expenses mainly related to LTIP and stay-on-bonus 2' (p.19,
+# Jul-Jun 2025/26, an item affecting comparability) is a cash expense
+# already inside EBIT and the flow -- named, not an IFRS 2 charge.
+#
+# E38 / E75 / E75.1 -- DIVISOR. The reports print a BASIC weighted average
+# only ('Weighted average number of shares 107,347,924' for Q4, 107,904,719
+# for the year, note 5 p.22); diluted EPS (3.09) differs from basic (3.10),
+# so a diluted count exists and is not printed -- `diluted_weighted_average_shares`
+# is DATA MISSING, said so, never derived. E75 takes the window-end count:
+# note 5 p.22 prints the NET count directly, 'the total number of
+# outstanding shares (total number of shares reduced by treasury shares)
+# amounts to 104,596,200' (107,359,430 issued less 2,763,230 treasury) --
+# `shares_outstanding_period_end`, basic (E75.1: no diluted count at a
+# date is printed).
+#
+# E23 -- CAPEX. Two lines printed ('Acquisition of tangible assets',
+# 'Acquisition of intangible assets'), both tiny; the split fields are
+# entered and `capex_combined` stays blank.
+#
+# THE MARGIN CHECK (B46, a second variant). RVRC prints its EBIT margin to
+# one decimal from UNROUNDED figures, while EBIT and net sales are printed
+# in whole millions. For Q1 (75 / 392 = 19.13% against the printed 19.0%)
+# and Q3 (105 / 487 = 21.56% against 21.4%) the gap exceeds the loader's
+# 0.1pp tolerance, so `operating_income` and `op_margin` are left blank
+# on those two quarters and recorded in comments; Q2, Q4 and the year pass.
+# The TTM EBIT the store forms is therefore missing two quarters.
+#
+# NOT PRESENTED: EBITDA (the issuer's operating APM is adjusted EBIT); a
+# stated net debt / EBITDA (the covenant, 'must not exceed 3.50', is a
+# threshold, and the group is net cash: p.19 'Net debt(+)/Net cash(-)
+# -313'); a diluted weighted average count.
+
+ticker: RVRC.ST
+name: RVRC Holding AB (publ)
+reporting_currency: SEK
+money_unit: millions
+share_unit: whole
+quote_currency: SEK
+sector: Consumer Cyclical   # the screener's own string (data/screener_snapshots/2026-08-29/fundamentals.sqlite, field sector) -- not from these documents
+reporting_frequency: quarterly
+origin: manual
+
+interest_in_ocf:
+  value: yes
+  source: "Year-end & Q4 report 1 July 2025 - 30 June 2026 (unaudited); every interim of the year"
+  page: "Q4 p.13, Group statement on cash flow, operating activities: 'Interest received 1' and 'Interest paid -1' (Apr-Jun 2026; year: 4 and -4) sit above 'Cash flow from operating activities before changes in working capital 51' and 'Cash flow from operating activities 31'. The same placement in the Q1 (p.10), Q2 (p.12) and Q3 (p.13) statements and in AR 2024/25 p.96"
+  interest_source: cash_flow_statement
+
+operating_leases_in_ocf:
+  value: no
+  source: "FRAMEWORK-EDITS E70, applied 2026-08-30 to an IFRS 16 filer"
+  page: "IFRS 16.50(b): the principal portion of lease payments is a financing flow; Q4 p.13 'Amortisation of lease liabilities -2' (year -8) sits in financing activities in every statement. Interest on leases, 0 to the nearest million (AR 2024/25 note 18 p.108), is inside 'Interest paid' in operating"
+
+periods:
+  - period: 2026-Q1
+    period_end: 2025-09-30
+    period_basis: fiscal
+    document: "Interim report 1 July - 30 September 2025 (Nasdaq Stockholm release 1396024, 2025-10-23), the issuer's Q1 2025/26"
+    url: "sources/RVRC.ST_2026-Q1_interim-report-q1-and-q3_2025-10-23_en_a0.pdf"
+    figures:
+      revenue:
+        value: 392
+        page: "p.7, Group income statement, Jul-Sep 25/26: 'Net sales 392' (Jul-Sep 24/25: 350); operating income 392 with 'Other operating income 0'"
+        status: UNVERIFIED
+      # operating_income / op_margin: NOT ENTERED. p.7 'Operating profit (EBIT)
+      #   75'; p.2 'EBIT margin* 19.0%'. 75 / 392 = 19.13%, 0.13pp from the
+      #   printed margin because the components are whole millions -- over the
+      #   ±0.1pp band a tenth-of-a-percent margin gets under E79 (2026-08-30).
+      #   E79.1 (2026-08-30) closed the seam: `precision: 0.1` would make the
+      #   loader read the printed tenth, and at that precision 19.13% still
+      #   disagrees with 19.0% (0.13pp over the ±0.1pp band) -- so the figure
+      #   stays out, as the owner ruled, and says so here.
+      gross_profit:
+        value: 273
+        page: "p.2, key figures, Jul-Sep 25/26: 'Gross profit* 273' (an APM: net sales less goods for resale, 392 - 119; the income statement prints no gross-profit line)"
+        status: UNVERIFIED
+      revenue_yoy:
+        value: 0.12
+        page: "p.2, key figures, Jul-Sep 25/26: 'Net sales 392 350 12%'"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 3
+        page: "p.7, Jul-Sep 25/26: 'Depreciation and amortisation of tangible and intangible assets -3'; p.10 cash flow 'Depreciation and amortisation 3'"
+        status: UNVERIFIED
+      net_income:
+        value: 58
+        page: "p.7, Jul-Sep 25/26: 'Profit for the period 58', 'Attributable to parent company's shareholders 58'"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 0.53
+        page: "p.7, Jul-Sep 25/26: 'Earnings per share after dilution, SEK 0.53'"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 27
+        page: "p.10, Group statement on cash flow, Jul-Sep 25/26: 'Cash flow from operating activities 27' (Jul-Sep 24/25: -82) -- after interest and 'Paid income tax -24'"
+        status: UNVERIFIED
+      finance_costs_paid:
+        value: 1
+        page: "p.10, operating activities, Jul-Sep 25/26: 'Interest paid -1' (positive magnitude)"
+        status: UNVERIFIED
+      finance_income_received:
+        value: 0
+        page: "p.10, operating activities, Jul-Sep 25/26: 'Interest received 0' -- printed 0, i.e. under SEK 0.5 million (rounding convention, year-end report p.20); a stated figure, not an absence"
+        status: UNVERIFIED
+      income_tax_paid:
+        value: -24
+        page: "p.10, Jul-Sep 25/26: 'Paid income tax -24' -- memo"
+        status: UNVERIFIED
+      capex_ppe:
+        value: 0
+        zero_basis: caption
+        page: "p.10, investing activities, Jul-Sep 25/26: 'Acquisition of tangible assets -0' -- an outflow under SEK 0.5 million printed as -0"
+        status: UNVERIFIED
+      capex_intangibles:
+        value: 0
+        zero_basis: caption
+        page: "p.10, investing activities, Jul-Sep 25/26: 'Acquisition of intangible assets -0' -- under SEK 0.5 million, printed -0 ('Cash flow from investing activities -1' for the two together)"
+        status: UNVERIFIED
+      lease_payments_capital:
+        value: -2
+        page: "p.10, financing activities, Jul-Sep 25/26: 'Amortisation of lease liabilities -2'. A MEMO under E70"
+        status: UNVERIFIED
+      finance_costs_period:
+        value: 1
+        page: "p.7, Jul-Sep 25/26: 'Financial expenses -1' (positive magnitude)"
+        status: UNVERIFIED
+      finance_income_period:
+        value: 0
+        page: "p.7, Jul-Sep 25/26: 'Financial income 0' -- printed 0, under SEK 0.5 million"
+        status: UNVERIFIED
+
+  - period: 2026-Q2
+    period_end: 2025-12-31
+    period_basis: fiscal
+    document: "Interim report 1 July - 31 December 2025 (Nasdaq Stockholm release 1416236, 2026-01-29), Oct-Dec column, the issuer's Q2 2025/26"
+    url: "sources/RVRC.ST_2026-Q2_half-year-financial-report_2026-01-29_en_a0.pdf"
+    figures:
+      revenue:
+        value: 726
+        page: "p.9, Group income statement, Oct-Dec 25/26: 'Net sales 726' (Oct-Dec 24/25: 684); 'Other operating income -'"
+        status: UNVERIFIED
+      operating_income:
+        value: 177
+        page: "p.9, Oct-Dec 25/26: 'Operating profit (EBIT) 177' (Oct-Dec 24/25: 158); adjusted EBIT 180 (items affecting comparability 2, LTIP-related), entered nowhere"
+        status: UNVERIFIED
+      op_margin:
+        value: 0.244
+        page: "p.2, key figures, Oct-Dec 25/26: 'EBIT margin* 24.4%' (177 / 726 = 24.38%)"
+        status: UNVERIFIED
+      gross_profit:
+        value: 506
+        page: "p.2, key figures, Oct-Dec 25/26: 'Gross profit* 506' (APM: 726 - 219 goods for resale, p.9)"
+        status: UNVERIFIED
+      revenue_yoy:
+        value: 0.06
+        page: "p.2, key figures, Oct-Dec 25/26: 'Net sales 726 684 6%'"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 3
+        page: "p.9, Oct-Dec 25/26: 'Depreciation and amortisation of tangible and intangible assets -3'; p.12 cash flow 'Depreciation and amortisation 3'"
+        status: UNVERIFIED
+      net_income:
+        value: 140
+        page: "p.9, Oct-Dec 25/26: 'Profit for the period 140', attributable in full"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 1.29
+        page: "p.9, Oct-Dec 25/26: 'Earnings per share after dilution, SEK 1.29' (basic 1.30)"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 360
+        page: "p.12, Group statement on cash flow, Oct-Dec 25/26: 'Cash flow from operating activities 360' (Oct-Dec 24/25: 327)"
+        status: UNVERIFIED
+      finance_costs_paid:
+        value: 1
+        page: "p.12, operating activities, Oct-Dec 25/26: 'Interest paid -1' (positive magnitude)"
+        status: UNVERIFIED
+      finance_income_received:
+        value: 1
+        page: "p.12, operating activities, Oct-Dec 25/26: 'Interest received 1'"
+        status: UNVERIFIED
+      income_tax_paid:
+        value: -26
+        page: "p.12, Oct-Dec 25/26: 'Paid income tax -26' -- memo"
+        status: UNVERIFIED
+      capex_ppe:
+        value: -1
+        page: "p.12, investing activities, Oct-Dec 25/26: 'Acquisition of tangible assets -1'"
+        status: UNVERIFIED
+      capex_intangibles:
+        value: 0
+        zero_basis: caption
+        page: "p.12, investing activities, Oct-Dec 25/26: 'Acquisition of intangible assets -0' -- under SEK 0.5 million, printed -0"
+        status: UNVERIFIED
+      lease_payments_capital:
+        value: -2
+        page: "p.12, financing activities, Oct-Dec 25/26: 'Amortisation of lease liabilities -2'. A MEMO under E70"
+        status: UNVERIFIED
+      finance_costs_period:
+        value: 1
+        page: "p.9, Oct-Dec 25/26: 'Financial expenses -1' (positive magnitude)"
+        status: UNVERIFIED
+      finance_income_period:
+        value: 1
+        page: "p.9, Oct-Dec 25/26: 'Financial income 1'"
+        status: UNVERIFIED
+
+  - period: 2026-Q3
+    period_end: 2026-03-31
+    period_basis: fiscal
+    document: "Interim report 1 July 2025 - 31 March 2026 (Nasdaq Stockholm release 1437483, 2026-04-28), Jan-Mar column, the issuer's Q3 2025/26"
+    url: "sources/RVRC.ST_2026-Q3_interim-report-q1-and-q3_2026-04-28_en_a0.pdf"
+    figures:
+      revenue:
+        value: 487
+        page: "p.10, Group income statement, Jan-Mar 25/26: 'Net sales 487' (Jan-Mar 24/25: 486); 'Other operating income 1' beside it"
+        status: UNVERIFIED
+      # operating_income / op_margin: NOT ENTERED. p.10 'Operating profit
+      #   (EBIT) 105'; p.2 'EBIT margin amounted to 21.4 (16.4) percent'. 105 /
+      #   487 = 21.56%, 0.16pp from the printed margin (whole-million
+      #   components) -- over the ±0.1pp band a tenth-of-a-percent margin
+      #   gets under E79 / E79.1 (2026-08-30): with the printed tenth read
+      #   correctly it still disagrees (0.16pp), so it stays out, and says so.
+      gross_profit:
+        value: 345
+        page: "p.2, highlights, Jan-Mar 25/26: 'Gross profit amounted to SEK 345 (337) million' and the key figures 'Gross profit* 345' (APM: 487 - 141 goods for resale)"
+        status: UNVERIFIED
+      revenue_yoy:
+        value: 0.0
+        page: "p.2, key figures, Jan-Mar 25/26: 'Net sales 487 486 0%' (growth 5% in local currencies)"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 3
+        page: "p.10, Jan-Mar 25/26: 'Depreciation and amortisation of tangible and intangible assets -3'; p.13 cash flow 'Depreciation and amortisation 3'"
+        status: UNVERIFIED
+      net_income:
+        value: 83
+        page: "p.10, Jan-Mar 25/26: 'Profit for the period 83', attributable in full"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 0.77
+        page: "p.10, Jan-Mar 25/26: 'Earnings per share after dilution, SEK 0.77'"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 18
+        page: "p.13, Group statement on cash flow, Jan-Mar 25/26: 'Cash flow from operating activities 18' (Jan-Mar 24/25: -110) -- a seasonal working-capital quarter ('operating liabilities -154')"
+        status: UNVERIFIED
+      finance_costs_paid:
+        value: 1
+        page: "p.13, operating activities, Jan-Mar 25/26: 'Interest paid -1' (positive magnitude)"
+        status: UNVERIFIED
+      finance_income_received:
+        value: 1
+        page: "p.13, operating activities, Jan-Mar 25/26: 'Interest received 1'"
+        status: UNVERIFIED
+      income_tax_paid:
+        value: -22
+        page: "p.13, Jan-Mar 25/26: 'Paid income tax -22' -- memo"
+        status: UNVERIFIED
+      capex_ppe:
+        value: 0
+        zero_basis: caption
+        page: "p.13, investing activities, Jan-Mar 25/26: 'Acquisition of tangible assets -0' -- under SEK 0.5 million, printed -0"
+        status: UNVERIFIED
+      capex_intangibles:
+        value: -1
+        page: "p.13, investing activities, Jan-Mar 25/26: 'Acquisition of intangible assets -1'"
+        status: UNVERIFIED
+      lease_payments_capital:
+        value: -2
+        page: "p.13, financing activities, Jan-Mar 25/26: 'Amortisation of lease liabilities -2'. A MEMO under E70"
+        status: UNVERIFIED
+      finance_costs_period:
+        value: 1
+        page: "p.10, Jan-Mar 25/26: 'Financial expenses -1' (positive magnitude)"
+        status: UNVERIFIED
+      finance_income_period:
+        value: 1
+        page: "p.10, Jan-Mar 25/26: 'Financial income 1'"
+        status: UNVERIFIED
+
+  - period: 2026-Q4
+    period_end: 2026-06-30
+    period_basis: fiscal
+    document: "Year-end & Q4 report 1 July 2025 - 30 June 2026 (Nasdaq Stockholm release 1457620, 2026-08-11), Apr-Jun column, the issuer's Q4 2025/26 (unaudited)"
+    url: "sources/RVRC.ST_2026-Q4_financial-statement-release_2026-08-11_en_a0.pdf"
+    figures:
+      net_debt_reported:
+        value: -313
+        source: "E103 automatic reference extraction (pdf (model-read))"
+        page: "19 [printed in millions] -- verbatim: Net debt(+)/Net cash (-) -313 -177 -313 -177"
+        status: UNVERIFIED
+      # --- read by the E6 RANKING KEY ---------------------------------
+      revenue:
+        value: 414
+        page: "p.10, Group income statement, Apr-Jun 25/26: 'Net sales 414' (Apr-Jun 24/25: 405); operating income 414, no other operating income"
+        status: UNVERIFIED
+      operating_income:
+        value: 66
+        page: "p.10, Apr-Jun 25/26: 'Operating profit (EBIT) 66' (Apr-Jun 24/25: 63); p.19 reconciliation 'Adjusted EBIT 66' -- no items affecting comparability this quarter"
+        status: UNVERIFIED
+      op_margin:
+        value: 0.159
+        page: "p.19, reconciliation tables, EBIT margin, Apr-Jun 25/26: 'EBIT Margin 15.9%' (66 / 414 = 15.94%); p.2 'EBIT margin and adjusted EBIT margin amounted to 15.9 (15.5) percent'"
+        status: UNVERIFIED
+      gross_profit:
+        value: 299
+        page: "p.19, reconciliation tables, Apr-Jun 25/26: 'Net sales 414', 'Goods for resale (-) -115', 'Gross profit 299' -- the issuer's APM, stated; the income statement prints no gross-profit line"
+        status: UNVERIFIED
+      revenue_yoy:
+        value: 0.02
+        page: "p.2, key figures, Apr-Jun 25/26: 'Net sales 414 405 2%' (3 percent in local currencies)"
+        status: UNVERIFIED
+      total_assets:
+        value: 1724
+        page: "p.11, Group statement of financial position, 30/06/2026: 'TOTAL ASSETS 1,724' (30/06/2025: 1,561)"
+        status: UNVERIFIED
+      net_ppe:
+        value: 20
+        page: "p.11, 30/06/2026, tangible assets subtotal 20 = 'Expenditures on third-party property 3' + 'Equipment, tools and installations 2' + 'Right of use assets 15' -- the balance sheet's own subtotal, right-of-use assets inside it"
+        status: UNVERIFIED
+      # --- section 5.1 C: the cash the reverse DCF discounts -----------
+      operating_cash_flow:
+        value: 31
+        page: "p.13, Group statement on cash flow, Apr-Jun 25/26: 'Cash flow from operating activities 31' (Apr-Jun 24/25: 85; Jul-Jun 25/26: 435) -- an inventory build of 111 in the quarter"
+        status: UNVERIFIED
+      finance_costs_paid:
+        value: 1
+        page: "p.13, operating activities, Apr-Jun 25/26: 'Interest paid -1' (positive magnitude)"
+        status: UNVERIFIED
+      finance_income_received:
+        value: 1
+        page: "p.13, operating activities, Apr-Jun 25/26: 'Interest received 1'"
+        status: UNVERIFIED
+      income_tax_paid:
+        value: -18
+        page: "p.13, Apr-Jun 25/26: 'Paid income tax -18' -- memo"
+        status: UNVERIFIED
+      capex_ppe:
+        value: -1
+        page: "p.13, investing activities, Apr-Jun 25/26: 'Acquisition of tangible assets -1'"
+        status: UNVERIFIED
+      capex_intangibles:
+        value: 0
+        zero_basis: caption
+        page: "p.13, investing activities, Apr-Jun 25/26: 'Acquisition of intangible assets -0' -- under SEK 0.5 million, printed -0"
+        status: UNVERIFIED
+      lease_payments_capital:
+        value: -2
+        page: "p.13, financing activities, Apr-Jun 25/26: 'Amortisation of lease liabilities -2'. A MEMO under E70"
+        status: UNVERIFIED
+      # --- section 5.1 C: net debt, the bridge from EV to equity --------
+      cash_and_equivalents:
+        value: 328
+        page: "p.11, 30/06/2026: 'Cash and cash equivalents 328'; p.13 'Cash and cash equivalents at end of period 328'; p.19 net debt table 'Cash and cash equivalents (-) -328'"
+        status: UNVERIFIED
+      financial_liabilities_current:
+        value: 0
+        zero_basis: note
+        page: "p.19, reconciliation tables, Net debt(+)/Net cash(-) at 30/06/2026: 'Interest-bearing debt * 15' with the footnote '* Is composed of leasing liabilities' -- the issuer's own statement that it carries no interest-bearing debt but leases; p.12 presents no borrowings caption among current liabilities. The SEK 600 m credit facility was undrawn at 30 June 2025 (AR 2024/25 note 21 p.110) and 'Fees related to borrowings -0' (p.13) is its commitment fee"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "Interest-bearing debt * 15 — * Is composed of leasing liabilities"
+      financial_liabilities_noncurrent:
+        value: 0
+        zero_basis: note
+        page: "p.19: 'Interest-bearing debt * 15 ... * Is composed of leasing liabilities'; p.12 long-term liabilities are 'Lease liabilities 8' and 'Deferred tax liabilities 35' only -- no borrowings caption"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "Interest-bearing debt * 15 — * Is composed of leasing liabilities"
+      lease_liabilities:
+        value: 15
+        page: "p.19, net debt table, 30/06/2026: 'Interest-bearing debt * 15' -- '* Is composed of leasing liabilities': the STATED total. The balance sheet's parts, p.12 'Lease liabilities 8' (long-term) and 'Lease liabilities 8' (current), add to 16 -- one off from whole-million rounding (the year-end report rounds every line); the stated total is entered, the parts named. One IFRS 16 liability (E65)"
+        status: UNVERIFIED
+      asset_retirement_obligation:
+        value: 0
+        zero_basis: caption
+        page: "p.12, Group statement of financial position (cont.), 30/06/2026: the liabilities presented are lease liabilities, deferred tax liabilities, accounts payable, other current liabilities, tax liabilities, repayment liabilities and prepaid income and accrued expenses -- no provision caption of any kind. An online apparel retailer with no restoration provision recognised; E68.1's caption form, not on its refuse list"
+        status: UNVERIFIED
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81 (2026-08-30): year-end report p.12, Group statement of financial position (cont.), 30/06/2026, liabilities presented: lease liabilities, deferred tax liabilities, accounts payable, other current liabilities, tax liabilities, repayment liabilities and 'prepaid income and accrued expenses' -- no streaming, prepaid-offtake or prepaid-delivery caption. 'Prepaid income' here is customer payments received before dispatch, the ordinary contract liability of an online apparel retailer, working capital and NOT this leg, named. A caption zero"
+        status: UNVERIFIED
+      # pension_deficit: on the FY2026 annual entry (annual-only, E41), a
+      #   zero on the note form; see the header for the year-old sentence.
+      # --- share counts ----------------------------------------------------
+      shares_outstanding_period_end:
+        value: 104596200
+        page: "note 5, p.22, Number of shares: 'At the end of the quarter the total number of outstanding shares (total number of shares reduced by treasury shares) amounts to 104,596,200' -- the NET count as printed; total shares 107,359,430 (closing balance 30/06/2026) less 2,763,230 treasury shares ('At the end of the period the company holds 2,763,230 treasury shares'). E75's window-end divisor, basic"
+        status: UNVERIFIED
+      # diluted_weighted_average_shares: DATA MISSING -- note 5 p.22 prints only
+      #   'Weighted average number of shares 107,347,924' (Apr-Jun 25/26), a
+      #   BASIC average; diluted EPS 0.49 = basic 0.49 this quarter, 3.09 vs
+      #   3.10 for the year, so a diluted count exists and is not printed.
+      # --- section 5.1 A and 5.3 ---------------------------------------------
+      depreciation_amortisation:
+        value: 3
+        page: "p.10, Apr-Jun 25/26: 'Depreciation and amortisation of tangible and intangible assets -3'; p.13 'Depreciation and amortisation 3'"
+        status: UNVERIFIED
+      net_income:
+        value: 53
+        page: "p.10, Apr-Jun 25/26: 'Profit for the period 53', 'Attributable to parent company's shareholders 53'"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 0.49
+        page: "p.10, Apr-Jun 25/26: 'Earnings per share after dilution, SEK 0.49' (basic 0.49)"
+        status: UNVERIFIED
+      finance_costs_period:
+        value: 1
+        page: "p.10, Apr-Jun 25/26: 'Financial expenses -1' (positive magnitude)"
+        status: UNVERIFIED
+      finance_income_period:
+        value: 1
+        page: "p.10, Apr-Jun 25/26: 'Financial income 1'"
+        status: UNVERIFIED
+
+annual:
+  - fiscal_year: 2026
+    period_end: 2026-06-30
+    document: "Year-end & Q4 report 1 July 2025 - 30 June 2026 (Nasdaq Stockholm release 1457620, 2026-08-11), Jul-Jun 25/26 column -- UNAUDITED; the audited Annual Report 2025/26 is due 2026-10-16"
+    url: "sources/RVRC.ST_2026-Q4_financial-statement-release_2026-08-11_en_a0.pdf"
+    figures:
+      revenue:
+        value: 2018
+        page: "p.10, Group income statement, Jul-Jun 25/26: 'Net sales 2,018' (Jul-Jun 24/25: 1,925)"
+        status: UNVERIFIED
+      operating_income:
+        value: 422
+        page: "p.10, Jul-Jun 25/26: 'Operating profit (EBIT) 422' (Jul-Jun 24/25: 357); p.19 'Adjusted EBIT 425' after 'Expenses mainly related to LTIP and stay-on-bonus 2'"
+        status: UNVERIFIED
+      op_margin:
+        value: 0.209
+        page: "p.19, reconciliation tables, EBIT margin, Jul-Jun 25/26: 'EBIT Margin 20.9%' (422 / 2,018 = 20.91%); p.2 'EBIT margin amounted to 20.9 (18.6) percent'"
+        status: UNVERIFIED
+      gross_profit:
+        value: 1423
+        page: "p.19, reconciliation tables, Jul-Jun 25/26: 'Net sales 2,018', 'Goods for resale (-) -595', 'Gross profit 1,423' (gross margin 70.5%)"
+        status: UNVERIFIED
+      revenue_yoy:
+        value: 0.05
+        page: "p.2, key figures, Jul-Jun 25/26: 'Net sales 2,018 1,925 5%' (8 percent in local currencies)"
+        status: UNVERIFIED
+      total_assets:
+        value: 1724
+        page: "p.11, 30/06/2026: 'TOTAL ASSETS 1,724'"
+        status: UNVERIFIED
+      net_ppe:
+        value: 20
+        page: "p.11, 30/06/2026, tangible assets subtotal 20 (including right of use assets 15)"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 435
+        page: "p.13, Group statement on cash flow, Jul-Jun 25/26: 'Cash flow from operating activities 435' (Jul-Jun 24/25: 219); the four quarters 27 + 360 + 18 + 31 = 436, one off from rounding"
+        status: UNVERIFIED
+      finance_costs_paid:
+        value: 4
+        page: "p.13, operating activities, Jul-Jun 25/26: 'Interest paid -4' (positive magnitude)"
+        status: UNVERIFIED
+      finance_income_received:
+        value: 4
+        page: "p.13, operating activities, Jul-Jun 25/26: 'Interest received 4'"
+        status: UNVERIFIED
+      income_tax_paid:
+        value: -90
+        page: "p.13, Jul-Jun 25/26: 'Paid income tax -90' -- memo"
+        status: UNVERIFIED
+      capex_ppe:
+        value: -3
+        page: "p.13, investing activities, Jul-Jun 25/26: 'Acquisition of tangible assets -3'"
+        status: UNVERIFIED
+      capex_intangibles:
+        value: -2
+        page: "p.13, investing activities, Jul-Jun 25/26: 'Acquisition of intangible assets -2'"
+        status: UNVERIFIED
+      lease_payments_capital:
+        value: -8
+        page: "p.13, financing activities, Jul-Jun 25/26: 'Amortisation of lease liabilities -8'. A MEMO under E70"
+        status: UNVERIFIED
+      sbc:
+        value: 0
+        zero_basis: note
+        page: "note 5, p.22: 'The warrants have been transferred to the participants at market price.' AR 2024/25 p.100, accounting principles, Incentive programmes: 'As the warrants are not settled as share-related remuneration towards acquired goods or services, they are not reported according to IFRS 2. Instead, they are reported as an increase in equity equal to the price of the warrants as acquired by the individuals.' No share-based payment expense exists; the cash flow statement's 'Other non-cash items 0' agrees. The p.19 'Expenses mainly related to LTIP and stay-on-bonus 2' is a cash expense inside EBIT, named and not an IFRS 2 charge (E36)"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "The warrants have been transferred to the participants at market price."
+      cash_and_equivalents:
+        value: 328
+        page: "p.11, 30/06/2026: 'Cash and cash equivalents 328'; p.13 year column 'Cash and cash equivalents at end of period 328'"
+        status: UNVERIFIED
+      financial_liabilities_current:
+        value: 0
+        zero_basis: note
+        page: "p.19, 30/06/2026: 'Interest-bearing debt * 15 ... * Is composed of leasing liabilities'; no borrowings caption on p.12"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "Interest-bearing debt * 15 — * Is composed of leasing liabilities"
+      financial_liabilities_noncurrent:
+        value: 0
+        zero_basis: note
+        page: "p.19, 30/06/2026: 'Interest-bearing debt * 15 ... * Is composed of leasing liabilities'; no borrowings caption on p.12"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "Interest-bearing debt * 15 — * Is composed of leasing liabilities"
+      lease_liabilities:
+        value: 15
+        page: "p.19, 30/06/2026: 'Interest-bearing debt * 15', composed of leasing liabilities -- the stated total; p.12 parts 8 + 8 (rounded), named"
+        status: UNVERIFIED
+      pension_deficit:
+        value: 0
+        zero_basis: note
+        page: "AR 2024/25 p.100, accounting principles, 'Contribution defined pension plans': 'The group's pension obligations only include contribution defined plans.' A sentence dated 30 June 2025; the 30 June 2026 balance sheet (p.12) presents no pension caption, and the year-end report restates no policy. E35.1's note form -- the owner decides whether a year-old policy sentence serves (as ZZ-B.ST's file asks). E78.1 (2026-08-30): ACCEPTED -- the most recent statement the issuer has made (Annual Report 2024/25, published 2025-10-15, for the year to 30 June 2025), neither contradicted nor restated by the year-end report of 2026-08-11; the age of the evidence is stated here, not hidden"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "The group's pension obligations only include contribution defined plans."
+      asset_retirement_obligation:
+        value: 0
+        zero_basis: caption
+        page: "p.12, 30/06/2026: no provision caption of any kind on the balance sheet (E68.1 caption form; see the 2026-Q4 entry)"
+        status: UNVERIFIED
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81 (2026-08-30): year-end report p.12, 30/06/2026: as on the 2026-Q4 entry -- no streaming, prepaid-offtake or prepaid-delivery caption; 'prepaid income and accrued expenses' is working capital, named. A caption zero"
+        status: UNVERIFIED
+      shares_outstanding_period_end:
+        value: 104596200
+        page: "note 5, p.22: 'the total number of outstanding shares (total number of shares reduced by treasury shares) amounts to 104,596,200' at 30 June 2026 (107,359,430 total less 2,763,230 treasury)"
+        status: UNVERIFIED
+      # diluted_weighted_average_shares: DATA MISSING -- only the basic
+      #   'Weighted average number of shares 107,904,719' (Jul-Jun 25/26) is
+      #   printed; diluted EPS 3.09 against basic 3.10 shows a diluted count
+      #   the report does not print.
+      depreciation_amortisation:
+        value: 11
+        page: "p.10, Jul-Jun 25/26: 'Depreciation and amortisation of tangible and intangible assets -11'; p.13 'Depreciation and amortisation 11' (the quarters print 3 + 3 + 3 + 3 = 12, rounding)"
+        status: UNVERIFIED
+      net_income:
+        value: 334
+        page: "p.10, Jul-Jun 25/26: 'Profit for the period 334', attributable in full"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 3.09
+        page: "p.10, Jul-Jun 25/26: 'Earnings per share after dilution, SEK 3.09' (basic 3.10)"
+        status: UNVERIFIED
+      finance_costs_period:
+        value: 4
+        page: "p.10, Jul-Jun 25/26: 'Financial expenses -4' (positive magnitude)"
+        status: UNVERIFIED
+      finance_income_period:
+        value: 4
+        page: "p.10, Jul-Jun 25/26: 'Financial income 4'"
+        status: UNVERIFIED

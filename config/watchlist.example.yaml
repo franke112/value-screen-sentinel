@@ -1,0 +1,131 @@
+# vss watchlist -- copy to config/watchlist.yaml and edit.
+#
+# Every field below is MANUAL. vss never computes, guesses, defaults or
+# back-fills any of them.
+#
+# NOTE: there is deliberately no `mbp:` field. MBP is COMPUTED as
+#   mbp = fv_base * tier_multiplier      (tier 1 = 0.80, 2 = 0.70, 3 = 0.60)
+# Adding an `mbp:` key by hand fails the run with a provenance conflict.
+# If fv_base or tier is absent, mbp is DATA MISSING and every MBP-dependent
+# verdict reports DATA MISSING rather than a guess.
+#
+# A missing `stop_price` BLOCKS a HELD ticker: an open position with no
+# defined exit gets no verdict. Waiting names are not blocked --
+# there is nothing to exit yet -- but they carry a NO STOP DEFINED flag
+# so a buy verdict is never acted on before the §6.4 decision is made.
+#
+# Fields
+#   ticker         yfinance symbol (e.g. VOLV-B.ST, RHM.DE, MSFT)
+#   name           display name
+#   currency       trading currency, display only
+#   hurdle         E29's frozen hurdle rate, on a PURCHASE verdict only:
+#                    hurdle:
+#                      rate: 0.095
+#                      core_expected_return: 0.070
+#                      premium: 0.025          # E29 sets this at 2-3 points
+#                      rate_as_of: 2026-08-25
+#                  All four or none. rate must equal core + premium. Absent
+#                  on every other row -- a C4 exit is re-struck at today's
+#                  rate, never read from here.
+#   status         HELD | WATCH-PRICED | WATCH-GATED | PIPELINE
+#                  WATCH was split by FRAMEWORK-EDITS E27 (2026-08-25) and
+#                  the bare word is REJECTED. WATCH-PRICED passed §5 and is
+#                  only too expensive -- §5.3 applies, a limit alert
+#                  computed from MBP. WATCH-GATED failed a §3 gate on
+#                  something other than price -- re-entry on a named
+#                  information event, NEVER a price level.
+#   fv_base        base-case fair value, per FRAMEWORK 5.1-5.2
+#   tier           1 | 2 | 3, per FRAMEWORK 5.3
+#   stop_price     per FRAMEWORK 6.4. Required for HELD (else blocked);
+#                  for a waiting name its absence is flagged, not blocking
+#   catalyst_date  YYYY-MM-DD, when the catalyst is/was due
+#   catalyst_resolved  YYYY-MM-DD, the day you actually ingested the
+#                  outcome. Once catalyst_date is in the past, a missing
+#                  catalyst_resolved BLOCKS the ticker. It must not be
+#                  earlier than catalyst_date -- that fails the run.
+#   catalyst_event what the catalyst is
+#   notes          free text. Prose only: the gate does NOT read notes.
+#                  Write an `outcome:` line if you like it as a human
+#                  record, but only catalyst_resolved resolves a catalyst.
+
+tickers:
+  - ticker: EXMPL.ST
+    name: Example Industrials AB
+    currency: SEK
+    status: WATCH-GATED
+    fv_base: 180.00      # tier 2 -> mbp = 126.00
+    tier: 2
+    stop_price: 96.00
+    catalyst_date: 2026-10-24
+    catalyst_resolved:     # still in the future, nothing to resolve yet
+    catalyst_event: Q3 report
+    notes: |
+      Dummy entry -- replace me.
+      Thesis in one line so future-you remembers why this is on the list.
+
+    # Optional: 8 quarters, oldest first, for FRAMEWORK 4.2 hard kills.
+    # ALL MANUAL. eps_consensus is MANUAL ONLY -- vss never extracts or
+    # proposes it, and rule 4.2.4 reports CANNOT EVALUATE without it.
+    # basis/accounting let a YoY comparison refuse to mix constant-currency
+    # with reported rather than compute a meaningless number.
+    #
+    # A half-yearly reporter sets `reporting_frequency: half_yearly` on the
+    # entry and stores YYYY-H1 / YYYY-H2 / YYYY-FY periods instead of
+    # YYYY-Qn; its 4.2 windows are then counted in half-years. No two
+    # periods of one ticker may overlap (2025-FY contains 2025-H1): the
+    # overlap guard keeps the finest resolution and never both.
+    quarters:
+      - period: 2026-Q1
+        revenue: 4130
+        revenue_yoy: -0.02
+        op_income: 537
+        op_margin: 0.130
+        eps: 2.31
+        eps_consensus: 2.35      # MANUAL ONLY
+        net_debt_ebitda: 2.0
+        guidance_action: maintained   # raised|maintained|cut|none
+        receivables: 1900
+        inventory: 1239
+        class_c_impact:          # quantified one-off, exempts 4.2.2
+        covenant_headroom:
+        basis: reported          # reported|constant_currency
+        accounting: gaap         # gaap|non_gaap
+    # Absent = "not recorded", so 4.2.6 reports CANNOT EVALUATE.
+    # An empty list means "checked, no departures".
+    exec_changes: []
+
+  - ticker: DUMMY.AS
+    name: Dummy Holdings NV
+    currency: EUR
+    status: HELD
+    fv_bull: 87.5    # the exit test C4/E42 runs on (owner, 2026-09-20)
+    fv_base: 62.50       # tier 1 -> mbp = 50.00
+    tier: 1
+    # OPTIONAL, and E32 is why it exists. `fv_base x tier multiplier` is
+    # SUPERSEDED as a definition: under E28 the MBP is the price at which
+    # implied growth equals the PRE-REGISTERED bear case, with the same
+    # cushion on that. `rules.compute_mbp` still computes the old one --
+    # three stored figures were struck under it and E32 keeps them -- so
+    # every mbp the tool produces today is marked wherever it prints.
+    #
+    # ABSENCE DOES NOT MEAN LIVE. This block records WHEN a figure was
+    # struck and confirms WHICH definition; leaving it out does not make
+    # a number current. Both keys or neither.
+    #
+    #   definition: fv_base_x_tier | e28_bear_case
+    #   struck:     YYYY-MM-DD, or `on or before YYYY-MM-DD` where the day
+    #               is genuinely not recoverable. There is no third form,
+    #               and a day is never invented to fill this in.
+    #
+    # mbp_basis:
+    #   definition: fv_base_x_tier
+    #   struck: 2026-08-22
+    stop_price: 41.00
+    catalyst_date: 2026-05-14
+    catalyst_resolved: 2026-05-15   # the day the outcome was ingested
+    catalyst_event: FY guidance update
+    notes: |
+      Dummy entry -- replace me.
+      outcome: guidance reiterated, thesis intact, no action taken
+      (this line is a human record only; catalyst_resolved above is what
+      the gate actually checks)

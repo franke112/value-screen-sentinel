@@ -1,0 +1,114 @@
+# Instrument-type policy for the screening universe.
+#
+# The exclusion decision reads the `instrumenttyp` column of the universe
+# CSVs -- which is the SOURCE LIST's own field -- and matches it here. It
+# NEVER reads `namn`. A name string cannot tell an investment trust from an
+# operating company, and a screener that guesses from names will drop real
+# constituents whose names happen to contain "Trust", "Group" or "Fund".
+#
+# Matching is case- and whitespace-insensitive. The vocabularies differ per
+# source list, so both appear below: iShares writes "Equity", Yahoo writes
+# "EQUITY", the German iShares file writes "Aktien".
+
+include:
+  equity:
+    - EQUITY
+    - Equity
+    - Aktien
+    - Common Stock
+    - Ordinary Share
+    - Stock
+
+exclude:
+  etf:
+    - ETF
+    - Exchange Traded Fund
+    - Exchange Traded Product
+    - ETP
+  fund:
+    - MUTUALFUND
+    - Mutual Fund
+    - Fund
+    - Investment Fund
+    - Money Market
+  preferred:
+    - PREFERRED
+    - Preferred Stock
+    - Preference Share
+    - Preferensaktie
+  spac:
+    - SPAC
+    - Blank Cheque
+    - Special Purpose Acquisition Company
+  trust:
+    - TRUST
+    - Unit Trust
+    - Investment Trust
+    - Royalty Trust
+  adr:
+    # Kept for completeness. It rarely fires: Yahoo reports an ADR as
+    # quoteType EQUITY, so on any Yahoo-typed list the ADR exclusion has
+    # NO DATA to act on. That is stated in the universe report rather than
+    # papered over by matching " ADR" in the name.
+    - ADR
+    - ADRC
+    - American Depositary Receipt
+    - GDR
+    - Depositary Receipt
+  # Index-fund holdings files carry the fund's own cash and hedges as rows.
+  # They are not instruments to screen, and they are typed as such by the
+  # source, so they are excluded here rather than filtered out at build time.
+  cash_and_derivatives:
+    - Cash
+    - Cash Collateral and Margins
+    - FX
+    - Futures
+    - FUTURE
+    - Forward
+    - Option
+    - Swap
+  other_non_equity:
+    - CURRENCY
+    - CRYPTOCURRENCY
+    - INDEX
+    - Bond
+    - Fixed Income
+    - Warrant
+    - Right
+
+# TICKER rules (SCREENER-REVIEW-3 Part 14.3, build item 4, 2026-08-26;
+# narrowed by FRAMEWORK-EDITS E48, 2026-08-27). The `preferred` exclusion
+# above never had anything to act on: Yahoo types the Stockholm `-PREF` and
+# `-D` lines `EQUITY`, so ten preference and D-share lines reached the band
+# (SBB-D.ST and INTEA-D.ST on 2026-08-26) and a preference line ranked as
+# the company is a listing the vocabulary above says it does not want. The
+# rule below classifies them ON VALUE, by TICKER -- the source list's own
+# identifier for the line, never the name string -- with the same reason
+# the type rule would have given.
+#
+# What the rule reaches, stated. A Stockholm PREF line is a fixed-dividend
+# preference share and a D-share is a common share with a capped dividend,
+# economically a preference line: both are excluded on that ground. A German
+# Vorzugsaktie -- the "3"-suffix Xetra lines VOW3.DE, HEN3.DE, SRT3.DE,
+# P911.DE, PAH3.DE, FPE3.DE -- is NOT one: it is an ordinary share without a
+# vote, with the full residual claim and a dividend preference of a few cents,
+# and for five of the six it is the company's only listed line. Item 4
+# excluded them by name and over-reached; E48 reinstates them as equity, so
+# `tickers:` below is empty and only the Stockholm patterns remain. A ticker
+# is added to `tickers:` deliberately, by the owner, never by the loader.
+exclude_tickers:
+  preferred:
+    tickers: []
+    patterns:
+      - '-PREF\.ST$'   # Stockholm preference lines: VOLO-PREF, CORE-PREF, NAVIGO-PREF, NP3-PREF, ALM-PREF
+      - '-D\.ST$'      # Stockholm D-shares: SAGA-D, CORE-D, FPAR-D, SBB-D, INTEA-D
+
+# What to do with an instrument type the source list did not supply, or one
+# that is not listed above. DATA MISSING is a third state, not a silent FAIL.
+#
+#   keep     -- the row stays in the universe and is COUNTED as unknown-typed.
+#               This is the default because excluding it would be guessing
+#               that it is a fund.
+#   exclude  -- the row is dropped and counted under "rejected on MISSING
+#               data", never mixed in with the value-based exclusions.
+unknown_action: keep

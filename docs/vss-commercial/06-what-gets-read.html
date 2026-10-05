@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What gets read · The slow way, made survivable</title>
+<meta name="description" content="Only the company&#x27;s own filings. Every figure with its origin, period and page. Nothing stretched, scaled or annualised to fill a gap. A concrete example of the wrong kind of number and what believing it would cost.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="06-what-gets-read" data-title="What gets read">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+<a class="brand" href="index.html">The slow way, made survivable</a>
+<span class="where">Chapter 6 of 23</span>
+</header>
+<div class="frame">
+<div class="chapters"><input type="checkbox" id="menu-toggle" class="menu-toggle"><label for="menu-toggle" class="menu-label">Contents</label><nav aria-label="Chapters" id="contents"><ol><li class="home"><a href="index.html"><span class="n">&nbsp;</span>Start here: the map</a></li><li class="part">Part One · The method</li><li><a href="01-the-problem.html"><span class="n">1</span><span>The problem</span><span class="short">10-min route</span></a></li><li><a href="02-value.html"><span class="n">2</span><span>What value investing is</span><span class="short">10-min route</span></a></li><li><a href="03-this-project.html"><span class="n">3</span><span>This project&#x27;s flavour</span></a></li><li><a href="04-the-screen.html"><span class="n">4</span><span>The screener: two thousand to a handful</span></a></li><li><a href="05-refusal.html"><span class="n">5</span><span>Why a name is refused, and why that is the normal outcome</span></a></li><li><a href="06-what-gets-read.html" aria-current="page"><span class="n">6</span><span>What gets read</span></a></li><li><a href="07-reverse-dcf.html"><span class="n">7</span><span>The reverse DCF</span><span class="short">10-min route</span></a></li><li><a href="08-pre-registration.html"><span class="n">8</span><span>Pre-registration: write the belief before you see the number</span><span class="short">10-min route</span></a></li><li><a href="09-three-outcomes.html"><span class="n">9</span><span>The three outcomes</span></a></li><li><a href="10-the-funnel.html"><span class="n">10</span><span>The funnel: six statuses</span></a></li><li><a href="11-the-decision.html"><span class="n">11</span><span>The decision</span></a></li><li><a href="12-shadow-book.html"><span class="n">12</span><span>The shadow book</span></a></li><li class="part">Part Two · The machine</li><li><a href="13-why-a-machine.html"><span class="n">13</span><span>Why the method needed a machine</span><span class="short">10-min route</span></a></li><li><a href="14-the-pieces.html"><span class="n">14</span><span>How the program is put together</span></a></li><li><a href="15-the-record.html"><span class="n">15</span><span>Where the data lives and how it is kept honest</span></a></li><li><a href="16-the-rules-file.html"><span class="n">16</span><span>The rules file</span><span class="short">10-min route</span></a></li><li><a href="17-the-nightly-run.html"><span class="n">17</span><span>The nightly run</span></a></li><li><a href="18-dead-mans-switch.html"><span class="n">18</span><span>The dead man&#x27;s switch</span><span class="short">10-min route</span></a></li><li><a href="19-the-phone.html"><span class="n">19</span><span>The phone problem</span></a></li><li><a href="20-the-boundary.html"><span class="n">20</span><span>The boundary</span></a></li><li><a href="21-the-page.html"><span class="n">21</span><span>The page that arrives</span></a></li><li><a href="22-limits.html"><span class="n">22</span><span>What it does not do</span></a></li><li><a href="23-close.html"><span class="n">23</span><span>The slow way, made survivable</span><span class="short">10-min route</span></a></li><li class="part">Appendix</li><li><a href="sources.html"><span class="n">&nbsp;</span>All sources</a></li></ol></nav></div>
+<main id="main">
+<div class="article">
+<p class="crumb"><a href="index.html">The map</a> · Part One · The method · Chapter 6 of 23</p><h1>What gets read</h1><p class="lede">Only the company&#x27;s own filings. Every figure with its origin, period and page. Nothing stretched, scaled or annualised to fill a gap. A concrete example of the wrong kind of number and what believing it would cost. <span class="time">About 8 minutes.</span></p>
+<p>Once a name survives the gates, the reading changes character. The screen used a vendor's summary of the accounts because that is the only thing that scales to two thousand names. From here on, every figure that will touch a decision comes from the document the company itself published.</p>
+
+<h2>The rule, in one sentence</h2>
+<p>A figure is admissible if it can be pointed to: this filing, this period, this page. Everything else is hearsay.</p>
+
+<p>That sounds obvious and is violated constantly. A data vendor's "revenue" might be the company's revenue, or it might be revenue with one segment reclassified, or it might be last year's number the vendor has not updated. A news article's "profit rose 12 percent" might be operating profit, net profit, or adjusted profit on the company's own definition. None of these are lies. They are just not the figure, and a person who builds a valuation on them has built it on something they cannot check.</p>
+
+<p>So the tool's reading code fetches only company filings and regulatory documents, and refuses to follow links or search.<a class="noteref" href="#n1" id="r1" aria-label="note 1">1</a><span class="note" id="n1" role="note"><span class="nn">1</span>The source module's own description: 'Primary source ONLY: a company IR release or a regulatory filing. Never a news article about one. This module does not search, guess or follow links.'</span> For American companies it reads the structured data companies must file with the regulator. For Nordic companies it reads the exchange's own disclosure feed. For everything else, a person reads the PDF and types the figure in, with the page number beside it.</p>
+
+
+<h2>Every figure carries three things</h2>
+<ol>
+<li><strong>Where it came from.</strong> The document, and the page or the tag within it.</li>
+<li><strong>What period it covers.</strong> A quarter, a half year, a year, and which one.</li>
+<li><strong>Whether a person has checked it.</strong> A figure enters as unchecked. It becomes checked only when the owner has read it back against the page named beside it, and the record says which kind of check it survived: matched to the regulator's structured data, matched across two separate documents, or read back against the same page it came from, which is the weakest kind and says so.<a class="noteref" href="#n2" id="r2" aria-label="note 2">2</a><span class="note" id="n2" role="note"><span class="nn">2</span>Ruling E40 and the verification kinds in vss/manual.py: tagged, cross-document, same page. Unchecked is not the same state as absent: 'UNVERIFIED is the state a figure is entered in, and it is what section 5 refuses on. It is NOT the same state as absent.'</span></li>
+</ol>
+
+<p>The valuation refuses to run on an unchecked figure. Not warns: refuses, and the command exits with an error. A figure nobody has read back is a figure nobody has read.</p>
+
+<h2>Nothing is stretched to fit</h2>
+<p>The valuation works on twelve months of cash flow. Suppose the company has reported three quarters of this year and you want a full year. The tempting move is to take the nine months and multiply by four thirds. The method forbids it. A figure of the wrong length is missing, not a figure adjusted to fit.<a class="noteref" href="#n3" id="r3" aria-label="note 3">3</a><span class="note" id="n3" role="note"><span class="nn">3</span>Framework §5 basis rule (rulings E19, E20): 'Nothing here is annualised and nothing is scaled — a figure of the wrong length is DATA MISSING, never a figure adjusted to fit.'</span> Twelve months are assembled from four actual quarters, all four checked, and the report names all four beside the figure. A twelve-month figure that ends on a different date from the other figures in the same calculation is also refused, with both dates printed, because two windows are not a ratio.</p>
+
+<p>The same strictness applies to things that look trivial. A share count must be stated by the company, not derived. A zero is a claim about the company and needs a basis: the line exists and reads zero, or the company says the item is nil, or the whole report was searched and the record says so. A figure converted from one currency to another names the rate and the date, and a change of unit is not a rate.<a class="noteref" href="#n4" id="r4" aria-label="note 4">4</a><span class="note" id="n4" role="note"><span class="nn">4</span>Rulings E22 and following (the share count), E25 (a zero is a claim), E98 (a rate and a date; a unit is not a rate).</span></p>
+
+
+<h2>The wrong kind of number, and what it would have cost</h2>
+<div class="example"><span class="tag">A real defect, with the name removed</span>
+<p>NAME A is listed in London. Its shares are quoted in pence. Its accounts, and therefore the owner's estimate of its value, are in pounds. The first draft of the tool's overview page took the value in pounds, the price in pence, and computed how far apart they were. The answer it printed was that the price was about 12,700 percent away from the value.</p>
+<p>Nobody would have bought on that number; it was absurd on sight. But the same defect, on a name where the units differed by a factor of ten instead of a hundred, would have printed a distance that looked merely surprising. The fix was not to convert. It was to refuse: where the two currencies are not the same code, the distance is missing and the seam is named.</p>
+</div>
+<p>The defect and the rule that replaced it are written into the page generator's own comments, so the next person to touch that code meets the number before the arithmetic.<a class="noteref" href="#n5" id="r5" aria-label="note 5">5</a><span class="note" id="n5" role="note"><span class="nn">5</span>The page generator's own rule: 'NO ARITHMETIC CROSSES A UNIT SEAM ... A distance computed across it would read as roughly −12,700%, which is the shape of the defect this project has already met once.' The first draft printed +10,543% on one name and +12,791% in a dry-run table.</span></p>
+
+
+<p>A second example from the same family. A data vendor's price history for one large company switched, for four weeks, between two scales: one adjusted for a share split and one not. The computed fall from the year's high was 52 percent. The true figure was about 4. A check was built that treats a jump one way followed by a matching jump back as proof of two scales in one column, because real corporate events do not reverse themselves, and that treats a lone jump as suspect unless the day traded at many multiples of normal volume, which real repricings do and feed errors do not.<a class="noteref" href="#n6" id="r6" aria-label="note 6">6</a><span class="note" id="n6" role="note"><span class="nn">6</span>vss/series_sanity.py, ruling K4. Measured: two real large single-day moves traded at roughly 24× and 14× their median volume; the corrupted halvings traded at 0.7× to 2.6×.</span></p>
+
+
+<p>Believing either number would not have cost a wrong purchase directly. It would have cost something worse: a system whose figures nobody could trust, and therefore a system nobody would use on the night it mattered.</p>
+
+<dl class="decision"><dt>Decided</dt><dd>Figures come only from the issuer's own documents, carry origin, period and page, and are never scaled, annualised or borrowed across windows. The valuation refuses to run on a figure nobody has read back.</dd><dt>Why</dt><dd>A figure that cannot be pointed to cannot be checked, and a figure that cannot be checked will eventually be wrong on the night it matters.</dd><dt>Cost</dt><dd>Reading is slow. Some companies cannot be valued at all for months because a figure they never state is missing. The tool says which figure, and waits.</dd></dl>
+<section class="sources"><h2>Sources for this chapter</h2><ol><li>Primary-source and provenance rulings <span class="how">— read from this repository: vss/source.py; reference/FRAMEWORK.md §5 basis rule; reference/FRAMEWORK-EDITS.md E19, E20, E22, E25, E40, E98; vss/overview.py (the unit seam); vss/series_sanity.py (ruling K4)</span></li></ol></section><nav class="pager" aria-label="Previous and next chapter"><a class="prev" href="05-refusal.html" rel="prev"><span class="lab">Previous · 5</span>Why a name is refused, and why that is the normal outcome</a><a class="next" href="07-reverse-dcf.html" rel="next"><span class="lab">Next · 7</span>The reverse DCF</a><span class="keys" hidden>Keyboard: ← previous chapter, → next chapter.</span></nav><p class="foot">The slow way, made survivable. Built 2026-09-13 from the repository as it stood that day. NAME A and NAME B are fictional; no company, price or holding appears on this site.</p>
+</div>
+</main>
+</div>
+<script src="site.js"></script>
+</body>
+</html>

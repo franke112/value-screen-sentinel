@@ -1,0 +1,199 @@
+{
+ "ticker": "DECK",
+ "currency": "USD",
+ "run_ts": "2026-09-19T11:53:05+02:00",
+ "basis": "annual FY2026",
+ "shares": {
+  "count": 145805000.0,
+  "basis": "weighted-average DILUTED count for annual FY2026, the same window as the flows (E38); `shares_point_in_time` 139,978,000 is on the file as a MEMO and is NOT the divisor (E38)",
+  "as_of": "2026-03-31",
+  "point_in_time": 139978000.0,
+  "point_in_time_as_of": "2026-03-31",
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 44835000.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0000910521 (Deckers Brands) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000910521.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+  "net_interest_paid": -61083000.0,
+  "source": "income_statement_net"
+ },
+ "bridge": {
+  "net_debt": -1870459000.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 0.0,
+   "pensions": 0.0,
+   "asset_retirement_obligations": 36790000.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+  },
+  "note": "borrowings 0 + 0 + finance leases 0 (E117: the operating lease liability 375,194,000 LEAVES net debt, its rent being in the flow; finance leases stay) + pension deficit 0 (E35.1) + asset retirement obligations 36,790,000 (E68) + prepaid delivery obligations 0 (E81) - cash 1,907,249,000 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+ },
+ "dates": {
+  "flows_window_end": "2026-03-31",
+  "balance_sheet": "2026-03-31",
+  "share_count": "2026-03-31",
+  "price": "2026-09-18"
+ },
+ "growth": {
+  "base": 0.035,
+  "view_file": "reference/growth-views/DECK.md",
+  "view_date": "2026-08-25",
+  "bear": 0.0,
+  "bull": 0.08
+ },
+ "operating_cash_flow": 1181955000.0,
+ "capex": -84623000.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_combined",
+   "value": -84623000.0,
+   "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2025-04-01..2026-03-31] 10-K 0001628280-26-037664 filed 2026-05-22",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 1181955000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-04-01..2026-03-31] 10-K 0001628280-26-037664 filed 2026-05-22",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "sbc",
+   "value": 44835000.0,
+   "provenance": "us-gaap:ShareBasedCompensation [2025-04-01..2026-03-31] 10-K 0001628280-26-037664 filed 2026-05-22",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "net_finance_costs",
+   "value": -61083000.0,
+   "provenance": "E18: finance_costs_period - finance_income_period, both on annual FY2026",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 145805000.0,
+   "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2025-04-01..2026-03-31] 10-K 0001628280-26-037664 filed 2026-05-22",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "shares_point_in_time",
+   "value": 139978000.0,
+   "provenance": "us-gaap:CommonStockSharesOutstanding [as of 2026-03-31] 10-Q 0000910521-26-000022 filed 2026-07-30",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 0.0,
+   "provenance": "E25 / E78: Consolidated Balance Sheets as of March 31, 2026 (10-K 0001628280-26-037664), current liabilities presented: 'Trade accounts payable 384,529', 'Accrued payroll 119,597', 'Operating lease liabilities 83,931', 'Other accrued expenses 171,173', 'Income tax payable 36,475', 'Value added tax payable 8,369' -- no borrowings caption; no us-gaap debt element (DebtCurrent, LongTermDebt, LineOfCredit) is tagged at 2026-03-31. Note 6, Revolving Credit Facilities, Borrowing Activity, states the absence in words for the Primary Credit Facility (quoted) and the China Credit Facility (quoted on financial_liabilities_noncurrent)",
+   "entered_by": "store",
+   "verified": "VERIFIED (caption_statement)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 0.0,
+   "provenance": "E25 / E78: the same balance sheet, long-term liabilities presented: 'Long-term operating lease liabilities 291,263', 'Income tax liability 26,313', 'Other long-term liabilities 66,477' -- no borrowings caption; nothing drawn under either facility (Note 6, Borrowing Activity: 'During the year ended March 31, 2026, the Company made no borrowings or repayments under' each facility)",
+   "entered_by": "store",
+   "verified": "VERIFIED (caption_statement)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 375194000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2026-03-31] 10-K 0001628280-26-037664 filed 2026-05-22",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 0.0,
+   "provenance": "E35.1 / E78: 10-K 0001628280-26-037664, Note 1, Retirement Plan -- defined contribution only; no defined-benefit obligation is described anywhere in the filing and no retirement caption is presented on the balance sheet",
+   "entered_by": "store",
+   "verified": "VERIFIED (caption_statement)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 36790000.0,
+   "provenance": "us-gaap:AssetRetirementObligationsNoncurrent [as of 2026-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 -- an element the tag map does not read, entered by hand from the companyfacts fact (E68; E40: verified by provenance, tag + accession + filing date). The 10-K's Note 1, Asset Retirement Obligations (AROs), roll-forward for the year ended March 31, 2026: 'Beginning balance $ 28,118', 'Additions and changes in estimate 8,152', 'Liabilities settled during the period (735)', 'Accretion expenses 1,122', 'Foreign currency translation gains 133', 'Ending balance $ 36,790' (thousands); 'The Company is contractually obligated under certain of its lease agreements to restore certain retail, office, and warehouse facilities back to their original conditions'; 'The Company's AROs are recorded in other long-term liabilities in the consolidated balance sheets' (us-gaap:OtherLiabilitiesNoncurrent 66,477 has the room)",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "E81 (2026-08-30): Consolidated Balance Sheets as of March 31, 2026, liabilities presented -- the six current and three long-term captions named on financial_liabilities_current / _noncurrent above; no streaming, prepaid-offtake or prepaid-delivery caption. Cross-checked against the 10-K's own tags under E59.1 (component sum): us-gaap:AccountsPayableTradeCurrent 384,529 + EmployeeRelatedLiabilitiesCurrent 119,597 + OperatingLeaseLiabilityCurrent 83,931 + OtherAccruedLiabilitiesCurrent 171,173 + AccruedIncomeTaxesCurrent 36,475 + deck:ValueAddedTaxPayable 8,369 (an issuer extension tagged in the 10-K's inline XBRL, not carried by companyfacts) = LiabilitiesCurrent 804,074 EXACTLY; OperatingLeaseLiabilityNoncurrent 291,263 + AccruedIncomeTaxesNoncurrent 26,313 + OtherLiabilitiesNoncurrent 66,477 = LiabilitiesNoncurrent 384,053 EXACTLY -- the tagged captions exhaust both totals, leaving no room for a prepaid-delivery caption. The wholesale sales return liability and the loyalty / gift-card contract liabilities inside 'Other accrued expenses' are E81's ordinary contract liabilities, named here and not this leg",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 1907249000.0,
+   "provenance": "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2026-03-31] 10-Q 0000910521-26-000022 filed 2026-07-30",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_lease_liabilities",
+   "value": 375194000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2026-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 -- E117: the operating part of `lease_liabilities`, which LEAVES net debt",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  }
+ ],
+ "tool_commit": "E117 re-strike, 2026-09-19, e46b8a8",
+ "notes": "E117 re-strike: the lease treatment is the only change from the prior record, DECK-2026-08-30.json",
+ "money_unit": "whole",
+ "nci_dividends_paid": 0.0,
+ "undetermined": [],
+ "fcf_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_debt_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_income": {
+  "value": 1024071000.0,
+  "page": "us-gaap:NetIncomeLoss [2025-04-01..2026-03-31] DEF 14A 0000910521-26-000018 filed 2026-07-24",
+  "verified": true
+ },
+ "lease": {
+  "in_operating_cash_flow": true,
+  "page": "FRAMEWORK-EDITS E70, applied 2026-08-30 to a us-gaap filer ASC 842-20-45-5(a): a lessee classifies payments for operating leases within OPERATING activities, so this filer's `operating_cash_flow` already bears them; the stated cash paid is `us-gaap:OperatingLeasePayments` ('cash paid for amounts included in the measurement of operating lease liabilities'), written as `operating_lease_payments` where tagged. No filer-specific tag states the classification because the standard leaves no choice",
+  "principal_added_back": null,
+  "leg": "none -- the operating cash flow bears the rent (E117)",
+  "rule": "E117",
+  "lease_cash_deducted": null,
+  "principal_paid": null,
+  "interest_paid": null,
+  "liability_excluded": 375194000.0
+ }
+}

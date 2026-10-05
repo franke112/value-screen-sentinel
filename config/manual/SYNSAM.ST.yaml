@@ -1,0 +1,228 @@
+# SYNSAM.ST -- hand-entered from Synsam Group AB's own periodic reports.
+#
+# BASIS: E19's twelve-month window is the four consecutive quarters
+# 2025-Q3 + 2025-Q4 + 2026-Q1 + 2026-Q2, ending 2026-06-30. Synsam prints a
+# STANDALONE QUARTER COLUMN in every periodic report -- verified document by
+# document, including the year-end report, whose income statement heads its
+# first column `Q4` -- so the window is four filed quarters and nothing is
+# annualised.
+#
+# EVERY FIGURE IS READ FROM ITS OWN QUARTER'S REPORT, never from a later
+# report's comparative column, so that the Q2 2026 report's QUARTERLY DATA
+# table (p.29) stays available as an INDEPENDENT second read of all four.
+#
+# E40 (2026-08-26): WHICH KIND OF VERIFICATION EACH FLAG STANDS ON is now
+# on the figure. TWENTY carry `verified_kind: cross_document` -- revenue,
+# operating income, net income, op_margin and diluted EPS for all four
+# quarters, cross-checked against that p.29 table (20 agree, 0 disagree;
+# HANDOFF-2026-08-25). The other FIFTY-TWO name no kind and are read as
+# `same_page`: a second pdftotext extraction of the same page, which
+# catches a column misread but is not a human read-back. THE FOUR CASH-FLOW
+# LINES METHOD C READS -- OCF, the two capex legs, lease principal -- ARE
+# AMONG THE FIFTY-TWO.
+# Page numbers are the PRINTED page, which for these documents equals the
+# PDF page.
+#
+# `revenue` IS `Total revenue`, NOT `Net sales`, and the reason is the
+# issuer's own definitions on p.37 of the Q2 2026 report:
+#     "EBIT margin -- EBIT as a percentage of total revenue."
+#     "Gross profit -- Total revenue less the cost of goods for resale."
+# The arithmetic confirms it: Q2 2026 EBIT 290 / Total revenue 2,081 =
+# 13.9%, which is the margin Synsam states; 290 / Net sales 2,049 = 14.2%,
+# which it does not. The schema's own note for the field says "Total
+# Revenue". `Net sales` is the base of a DIFFERENT stated measure (Gross
+# margin, organic growth), and is not entered anywhere in this file.
+#
+# `gross_profit` IS DATA MISSING and is NOT derived. Synsam defines it in
+# prose and states `Gross margin, %`, but no statement prints the line.
+# Total revenue minus Goods for resale would be arithmetic the sheet does
+# not state, which is the one thing this path exists not to do. It is a
+# ranking-key field and no method of section 5 reads it.
+#
+# `depreciation_amortisation` comes from the CASH FLOW statement, which
+# prints ONE stated line. The income statement splits it into `Depreciation
+# of tangible non-current assets` and `Amortisation of intangible
+# non-current assets` and never totals them; adding those two would be a
+# derivation, and under E26 a total the issuer never totals is not this
+# file's to compute. The two do not always reconcile to the cash-flow line
+# (Q1 2026: 182 + 32 = 214 against 213), which is the second reason to take
+# the line the issuer actually prints.
+#
+# `finance_costs_period` and `finance_income_period` are entered as POSITIVE
+# MAGNITUDES, per the field spec: the store subtracts costs minus income
+# (E18) and a negative here would invert the net. The income statement
+# prints Financial expenses negative.
+#
+# THE PAID-INTEREST TRIO IS ABSENT ON PURPOSE. `finance_costs_paid`,
+# `finance_income_received` and `net_interest_paid` appear ONLY in the
+# ANNUAL cash flow statement. Under E20 an annual flow from a different
+# window end may not fill a gap at this basis -- FY2025 ends 2025-12-31 and
+# the basis ends 2026-06-30 -- so they are left blank rather than reached
+# for. They are DATA MISSING at this basis and that is the correct state.
+#
+# NO `market:` BLOCK. Enterprise value and market capitalisation are priced
+# facts and no price was fetched for this entry pass. The ranking key's
+# EBIT/EV leg is DATA MISSING in consequence.
+
+ticker: SYNSAM.ST
+name: Synsam Group AB
+reporting_currency: SEK
+money_unit: millions   # declared 2026-08-26: SEK millions, as the reports print them (Q2 2026 EBIT 290 / total revenue 2,081, header above)
+share_unit: whole      # declared 2026-08-26: 'Average number of shares during the period' entered whole, 144,404,338
+quote_currency: SEK
+sector: Healthcare
+reporting_frequency: quarterly
+
+# E70 (2026-08-30): whether this filer's operating cash flow bears its
+# lease principal. Under IFRS 16 it does not, so nothing is added back: the
+# lease is counted once, in net debt (E35, E65); `lease_payments_capital`,
+# where entered, is a memo the flow never deducted.
+operating_leases_in_ocf:
+  value: no
+  source: "FRAMEWORK-EDITS E70, applied 2026-08-30 to an IFRS 16 filer"
+  page: "IFRS 16.50(b): a lessee classifies cash payments for the principal portion of the lease liability within FINANCING activities, so this filer's `operating_cash_flow` never bore the principal; the interest portion follows the filer's IAS 7 policy, which `interest_in_ocf` records. The standard leaves no choice on the principal"
+
+periods:
+
+  - period: 2025-Q3
+    period_end: 2025-09-30
+    period_basis: calendar
+    document: "Synsam Group Q3 report 2025 (interim report January-September 2025), published 2025-11-18"
+    url: "sources/SYNSAM.ST_2025-Q3_interim-report-q1-and-q3_2025-11-18_en_a1.pdf"
+    figures:
+      revenue:                     {value: 1753, page: "p.20 income statement, Q3 2025 column, `Total revenue`", status: VERIFIED, verified_kind: cross_document}
+      operating_income:            {value: 207,  page: "p.20 income statement, Q3 2025 column, `EBIT`", status: VERIFIED, verified_kind: cross_document}
+      operating_income_adjusted:   {value: 239,  page: "p.20 income statement, Q3 2025 column, `EBITA`", status: VERIFIED}
+      ebitda:                      {value: 418,  page: "p.20 income statement, Q3 2025 column, `EBITDA`. Synsam's own leverage measure is Adjusted EBITDA, which p.29 of the Q2 2026 report states equals EBITDA because no items affecting comparability were reported", status: VERIFIED}
+      depreciation_amortisation:   {value: 212,  page: "p.22 cash flow statement, Q3 2025 column, `Depreciation and amortisation`", status: VERIFIED}
+      net_income:                  {value: 130,  page: "p.20 income statement, Q3 2025 column, `PROFIT FOR THE PERIOD`", status: VERIFIED, verified_kind: cross_document}
+      finance_costs_period:        {value: 119,  page: "p.20 income statement, Q3 2025 column, `Financial expenses` (-119; entered as a positive magnitude)", status: VERIFIED}
+      finance_income_period:       {value: 77,   page: "p.20 income statement, Q3 2025 column, `Financial income`", status: VERIFIED}
+      operating_cash_flow:         {value: 235,  page: "p.22 cash flow statement, Q3 2025 column, `Cash flow from operating activities` (after tax: income taxes paid sits above it)", status: VERIFIED}
+      income_tax_paid:             {value: -28,  page: "p.22 cash flow statement, Q3 2025 column, `Income taxes paid`", status: VERIFIED}
+      capex_ppe:                   {value: -49,  page: "p.22 cash flow statement, Q3 2025 column, `Investments in tangible non-current assets`", status: VERIFIED}
+      capex_intangibles:           {value: -11,  page: "p.22 cash flow statement, Q3 2025 column, `Investments in intangible non-current assets`", status: VERIFIED}
+      lease_payments_capital:      {value: -112, page: "p.22 cash flow statement, Q3 2025 column, `Amortisation of leasing liabilities`", status: VERIFIED}
+      diluted_eps:                 {value: 0.90, page: "p.28 Other financial information, QUARTERLY DATA, Q3 2025 column, `Earnings per share, SEK`. Synsam states one figure before and after dilution", status: VERIFIED, verified_kind: cross_document}
+      diluted_weighted_average_shares: {value: 144404338, page: "p.28 Other financial information, PERFORMANCE MEASURES, Q3 2025 column, `Average number of shares during the period`", status: VERIFIED}
+      op_margin:                   {value: 0.118, page: "p.28 Other financial information, QUARTERLY DATA, Q3 2025 column, `EBIT margin, %` = 11.8", status: VERIFIED, verified_kind: cross_document}
+
+  - period: 2025-Q4
+    period_end: 2025-12-31
+    period_basis: calendar
+    document: "Synsam Group Year-end report 2025, published 2026-02-20"
+    url: "sources/SYNSAM.ST_2025-Q4_financial-statement-release_2026-02-20_en_a1.pdf"
+    figures:
+      revenue:                     {value: 1834, page: "p.20 income statement, Q4 2025 column, `Total revenue`", status: VERIFIED, verified_kind: cross_document}
+      operating_income:            {value: 215,  page: "p.20 income statement, Q4 2025 column, `EBIT`", status: VERIFIED, verified_kind: cross_document}
+      operating_income_adjusted:   {value: 246,  page: "p.20 income statement, Q4 2025 column, `EBITA`", status: VERIFIED}
+      ebitda:                      {value: 426,  page: "p.20 income statement, Q4 2025 column, `EBITDA`", status: VERIFIED}
+      depreciation_amortisation:   {value: 212,  page: "p.22 cash flow statement, Q4 2025 column, `Depreciation and amortisation`", status: VERIFIED}
+      net_income:                  {value: 123,  page: "p.20 income statement, Q4 2025 column, `PROFIT FOR THE PERIOD`", status: VERIFIED, verified_kind: cross_document}
+      finance_costs_period:        {value: 147,  page: "p.20 income statement, Q4 2025 column, `Financial expenses` (-147; positive magnitude)", status: VERIFIED}
+      finance_income_period:       {value: 95,   page: "p.20 income statement, Q4 2025 column, `Financial income`", status: VERIFIED}
+      operating_cash_flow:         {value: 308,  page: "p.22 cash flow statement, Q4 2025 column, `Cash flow from operating activities`", status: VERIFIED}
+      income_tax_paid:             {value: -32,  page: "p.22 cash flow statement, Q4 2025 column, `Income taxes paid`", status: VERIFIED}
+      capex_ppe:                   {value: -64,  page: "p.22 cash flow statement, Q4 2025 column, `Investments in tangible non-current assets`", status: VERIFIED}
+      capex_intangibles:           {value: -10,  page: "p.22 cash flow statement, Q4 2025 column, `Investments in intangible non-current assets`", status: VERIFIED}
+      lease_payments_capital:      {value: -111, page: "p.22 cash flow statement, Q4 2025 column, `Amortisation of leasing liabilities`", status: VERIFIED}
+      diluted_eps:                 {value: 0.85, page: "p.27 Other financial information, QUARTERLY DATA, Q4 2025 column, `Earnings per share, SEK`", status: VERIFIED, verified_kind: cross_document}
+      diluted_weighted_average_shares: {value: 143365510, page: "p.27 Other financial information, PERFORMANCE MEASURES, Q4 2025 column, `Average number of shares during the period`", status: VERIFIED}
+      op_margin:                   {value: 0.117, page: "p.27 Other financial information, QUARTERLY DATA, Q4 2025 column, `EBIT margin, %` = 11.7", status: VERIFIED, verified_kind: cross_document}
+
+  - period: 2026-Q1
+    period_end: 2026-03-31
+    period_basis: calendar
+    document: "Synsam Group Q1 report 2026, published 2026-05-08"
+    url: "sources/SYNSAM.ST_2026-Q1_interim-report-q1-and-q3_2026-05-08_en_a0.pdf"
+    figures:
+      revenue:                     {value: 1801, page: "p.18 income statement, Q1 2026 column, `Total revenue`", status: VERIFIED, verified_kind: cross_document}
+      operating_income:            {value: 186,  page: "p.18 income statement, Q1 2026 column, `EBIT`", status: VERIFIED, verified_kind: cross_document}
+      operating_income_adjusted:   {value: 218,  page: "p.18 income statement, Q1 2026 column, `EBITA`", status: VERIFIED}
+      ebitda:                      {value: 400,  page: "p.18 income statement, Q1 2026 column, `EBITDA`", status: VERIFIED}
+      depreciation_amortisation:   {value: 213,  page: "p.20 cash flow statement, Q1 2026 column, `Depreciation and amortisation`", status: VERIFIED}
+      net_income:                  {value: 131,  page: "p.18 income statement, Q1 2026 column, `PROFIT FOR THE PERIOD`", status: VERIFIED, verified_kind: cross_document}
+      finance_costs_period:        {value: 142,  page: "p.18 income statement, Q1 2026 column, `Financial expenses` (-142; positive magnitude)", status: VERIFIED}
+      finance_income_period:       {value: 120,  page: "p.18 income statement, Q1 2026 column, `Financial income`", status: VERIFIED}
+      operating_cash_flow:         {value: 374,  page: "p.20 cash flow statement, Q1 2026 column, `Cash flow from operating activities`", status: VERIFIED}
+      income_tax_paid:             {value: -50,  page: "p.20 cash flow statement, Q1 2026 column, `Income taxes paid`", status: VERIFIED}
+      capex_ppe:                   {value: -65,  page: "p.20 cash flow statement, Q1 2026 column, `Investments in tangible non-current assets`", status: VERIFIED}
+      capex_intangibles:           {value: -12,  page: "p.20 cash flow statement, Q1 2026 column, `Investments in intangible non-current assets`", status: VERIFIED}
+      lease_payments_capital:      {value: -148, page: "p.20 cash flow statement, Q1 2026 column, `Amortisation of leasing liabilities`", status: VERIFIED}
+      diluted_eps:                 {value: 0.92, page: "p.25 Other financial information, QUARTERLY DATA, Q1 2026 column, `Earnings per share, SEK`", status: VERIFIED, verified_kind: cross_document}
+      diluted_weighted_average_shares: {value: 142261532, page: "p.25 Other financial information, PERFORMANCE MEASURES, Q1 2026 column, `Average number of shares during the period`", status: VERIFIED}
+      op_margin:                   {value: 0.104, page: "p.25 Other financial information, QUARTERLY DATA, Q1 2026 column, `EBIT margin, %` = 10.4", status: VERIFIED, verified_kind: cross_document}
+
+  - period: 2026-Q2
+    period_end: 2026-06-30
+    period_basis: calendar
+    document: "Synsam Group Q2 report 2026 (half-year report January-June 2026), published 2026-08-21"
+    url: "sources/SYNSAM.ST_2026-Q2_half-year-financial-report_2026-08-21_en_a1.pdf"
+    figures:
+      net_debt_reported:
+        value: 3180
+        source: "E103 automatic reference extraction (pdf (model-read))"
+        page: "1 (summary) and 11 (financial position) [printed in millions] -- verbatim: Net debt amounted to SEK 3,180 million (3,040) at the end of the period"
+        status: UNVERIFIED
+      # --- flows, the newest quarter of the window ------------------------
+      revenue:                     {value: 2081, page: "p.21 income statement, Q2 2026 column, `Total revenue`", status: VERIFIED, verified_kind: cross_document}
+      operating_income:            {value: 290,  page: "p.21 income statement, Q2 2026 column, `EBIT`", status: VERIFIED, verified_kind: cross_document}
+      operating_income_adjusted:   {value: 326,  page: "p.21 income statement, Q2 2026 column, `EBITA`", status: VERIFIED}
+      ebitda:                      {value: 513,  page: "p.21 income statement, Q2 2026 column, `EBITDA`", status: VERIFIED}
+      depreciation_amortisation:   {value: 223,  page: "p.23 cash flow statement, Q2 2026 column, `Depreciation and amortisation`", status: VERIFIED}
+      net_income:                  {value: 192,  page: "p.21 income statement, Q2 2026 column, `PROFIT FOR THE PERIOD`", status: VERIFIED, verified_kind: cross_document}
+      finance_costs_period:        {value: 164,  page: "p.21 income statement, Q2 2026 column, `Financial expenses` (-164; positive magnitude)", status: VERIFIED}
+      finance_income_period:       {value: 74,   page: "p.21 income statement, Q2 2026 column, `Financial income`", status: VERIFIED}
+      operating_cash_flow:         {value: 435,  page: "p.23 cash flow statement, Q2 2026 column, `Cash flow from operating activities`", status: VERIFIED}
+      income_tax_paid:             {value: -40,  page: "p.23 cash flow statement, Q2 2026 column, `Income taxes paid`", status: VERIFIED}
+      capex_ppe:                   {value: -81,  page: "p.23 cash flow statement, Q2 2026 column, `Investments in tangible non-current assets`", status: VERIFIED}
+      capex_intangibles:           {value: -27,  page: "p.23 cash flow statement, Q2 2026 column, `Investments in intangible non-current assets`", status: VERIFIED}
+      lease_payments_capital:      {value: -93,  page: "p.23 cash flow statement, Q2 2026 column, `Amortisation of leasing liabilities`", status: VERIFIED}
+      diluted_eps:                 {value: 1.35, page: "p.21 income statement, Q2 2026 column, `Earnings per share before and after dilution, SEK`", status: VERIFIED, verified_kind: cross_document}
+      diluted_weighted_average_shares: {value: 141994156, page: "p.29 Other financial information, PERFORMANCE MEASURES, Q2 2026 column, `Average number of shares during the period`", status: VERIFIED}
+      # --- stocks, taken AT the window's end, 2026-06-30 (E19) -------------
+      total_assets:                {value: 8503, page: "p.22 statement of financial position, 30 Jun 2026 column, `TOTAL ASSETS`", status: VERIFIED}
+      net_ppe:                     {value: 810,  page: "p.22 statement of financial position, 30 Jun 2026 column, `Tangible non-current assets`", status: VERIFIED}
+      cash_and_equivalents:        {value: 648,  page: "p.22 statement of financial position, 30 Jun 2026 column, `Cash and cash equivalents`", status: VERIFIED}
+      shares_outstanding_period_end: {value: 141980111, page: "p.29 Other financial information, PERFORMANCE MEASURES, Q2 2026 column, `Number of shares at end of period`", status: VERIFIED}
+      shares_issued_period_end:    {value: 145313746, page: "p.29 footnote 1: `The total number of shares at the end of the period amounts to 145,313,746`", status: VERIFIED}
+      treasury_shares_period_end:  {value: 3333635, page: "p.29 footnote 1: `of which 3,333,635 are repurchased shares in own custody`. A COUNT, as stated (E22)", status: VERIFIED}
+      # E25: the issuer LISTS the line and shows a dash at the basis date,
+      # and shows 1 at 31 Dec 2025 -- so the caption exists and is nil here.
+      # `caption` is what was SEEN.
+      #
+      # READ THIS ZERO WITH ITS NEIGHBOUR. It means "no current BORROWINGS",
+      # which is what the field is (E14: borrowings alone, excluding leases).
+      # It does NOT mean Synsam owed nothing current and interest-bearing at
+      # 30 Jun 2026: `Current lease liabilities` on the same page is 404, and
+      # that figure belongs to `lease_liabilities`, which is DATA MISSING
+      # under E26 because the issuer never totals it against the non-current
+      # 508. So two of E14's three additive limbs are DATA MISSING and the
+      # third is a zero -- net debt does not form either way, and a reader
+      # who takes this row alone would understate current obligations by 404.
+      # WHETHER A LONE ZERO IS THE RIGHT STATE for one limb of a triple whose
+      # other limbs are DATA MISSING is not settled by E14, E25 or E26, and
+      # is not decided here.
+      financial_liabilities_current: {value: 0, zero_basis: caption, page: "p.22 statement of financial position, 30 Jun 2026 column, `Other current liabilities, interest-bearing` = `-` (31 Dec 2025 shows 1). Current LEASE liabilities of 404 on the same page are a separate field", status: VERIFIED}
+      # --- stated ratio, struck by the issuer on its own window ------------
+      net_debt_ebitda:             {value: 1.81, page: "p.29 Other financial information, PERFORMANCE MEASURES, Jan-Jun 2026 column, `Net debt/Adjusted EBITDA`. Footnote 2 states it is calculated on a ROLLING 12-MONTH basis for January-June -- i.e. the twelve months ending 2026-06-30, which IS this basis. The Q2 (three-month) column prints `n/a`", status: VERIFIED}
+      op_margin:                   {value: 0.139, page: "p.29 Other financial information, QUARTERLY DATA, Q2 2026 column, `EBIT margin, %` = 13.9", status: VERIFIED, verified_kind: cross_document}
+      # DATA MISSING, and why -- each is an absence, never a zero:
+      #   gross_profit                        no statement prints the line (defined in prose only, p.37)
+      #   operating_cash_flow_pretax          the statement presents OCF AFTER tax; the `before changes in
+      #                                       working capital` subtotal is a different quantity
+      #   capex_combined                      the issuer prints the SPLIT pair, so E23 reads that
+      #   proceeds_from_disposals_ppe         no such line in the cash flow statement
+      #   free_cash_flow_reported             not stated; Synsam reports OCF/EBITDA instead
+      #   finance_costs_paid                  ANNUAL cash flow only -- E20 bars it at this basis
+      #   finance_income_received             ANNUAL cash flow only -- E20 bars it at this basis
+      #   net_interest_paid                   its two operands are annual-only, so the net cannot form
+      #   net_finance_costs                   not printed as a net; the store subtracts the two halves (E18)
+      #   other_current_financial_assets      no such caption on the balance sheet
+      #   noncurrent_derivative_assets_on_debt no such caption on the balance sheet
+      #   financial_liabilities_noncurrent    E26: TWO captions, never totalled -- `Non-current loans from
+      #                                       financial institutions` 2,741 and `Other non-current
+      #                                       liabilities, interest-bearing` 34 (p.22)
+      #   lease_liabilities                   E26: TWO captions, never totalled -- `Non-current lease
+      #                                       liabilities` 508 and `Current lease liabilities` 404 (p.22)
+      #   diluted_eps_adjusted                not stated

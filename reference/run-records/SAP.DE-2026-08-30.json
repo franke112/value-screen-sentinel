@@ -1,0 +1,163 @@
+{
+ "ticker": "SAP.DE",
+ "currency": "EUR",
+ "run_ts": "2026-08-30T21:59:16+02:00",
+ "basis": "TTM 2025-Q3+2025-Q4+2026-Q1+2026-Q2",
+ "shares": {
+  "count": 1175000000.0,
+  "basis": "weighted-average DILUTED count for annual FY2025 (E41: annual-only, year-end 2025-12-31 inside the window), NOT the flows' own window TTM 2025-Q3+2025-Q4+2026-Q1+2026-Q2 -- E88: an ANNUAL average divides twelve months of flows ending 2026-06-30, the basis mismatch flagged, taken under E41's annual-only rule because no window average exists and a window-end count is never promoted; E16 / E80's issued-less-treasury pair at the window end, 1,154,200,000, stays MEMO -- never promoted (E88)",
+  "as_of": "2025-12-31",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 1331000000.0,
+  "basis": "annual FY2025 (E41: annual-only, year-end 2025-12-31 inside the window)"
+ },
+ "interest": {
+  "in_operating_cash_flow": false,
+  "page": "SEC XBRL companyfacts for CIK 0001000184 (SAP SE) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001000184.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ifrs-full:InterestPaidClassifiedAsFinancingActivities [2025-01-01..2025-12-31] 20-F 0001104659-26-020058",
+  "net_interest_paid": null,
+  "source": "cash_flow_statement"
+ },
+ "bridge": {
+  "net_debt": -869000000.0,
+  "items": {
+   "short_term_investments": 1114000000.0,
+   "current_financial_assets": 1114000000.0,
+   "leases": 1735000000.0,
+   "pensions": 249000000.0,
+   "asset_retirement_obligations": 0.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "no field in this schema (E35)"
+  },
+  "note": "borrowings 1,685,000,000 + 7,087,000,000 + leases 1,735,000,000 (E35: always in; finance leases beside operating, E65) + pension deficit 249,000,000 (E35.1) + asset retirement obligations 0 (E68) + prepaid delivery obligations 0 (E81) - cash 10,511,000,000 - other current financial assets 1,114,000,000. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). NOT PRESENTED (E85), entered at nil on a recorded search: asset_retirement_obligation, prepaid_delivery_obligation. Capex legs: combined: capex_combined, the one line the issuer prints"
+ },
+ "dates": {
+  "flows_window_end": "2026-06-30",
+  "balance_sheet": "2026-06-30",
+  "share_count": "2025-12-31",
+  "price": "2026-08-27"
+ },
+ "growth": {
+  "base": 0.08,
+  "view_file": "reference/growth-views/SAP.DE.md",
+  "view_date": "2026-08-26",
+  "bear": 0.06,
+  "bull": 0.11
+ },
+ "operating_cash_flow": 9465000000.0,
+ "capex": -735000000.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_combined",
+   "value": -735000000.0,
+   "provenance": "E86: -559,000,000 [sap-q32025.pdf p.13, Consolidated Statements of Cash Flows, Q1-Q3 2025 column: 'Purchase of intangible assets and property, plant, and equipment -559' (EUR millions); the same -559 on p.18, free cash flow reconciliation] - -358,000,000 [sap-q22025.pdf p.13, Consolidated Statements of Cash Flows, Q1-Q2 2025 column: 'Purchase of intangible assets and property, plant, and equipment -358' (EUR millions); the same -358 on p.18, and restated as the comparative column in sap-q22026.pdf p.15] = -201,000,000 -- the difference is the code's, both columns printed; E86: -739,000,000 [sap-q42025.pdf p.14, Consolidated Statements of Cash Flows, Q1-Q4 2025 column: 'Purchase of intangible assets and property, plant, and equipment -739' (EUR millions); the same -739 on p.19; the 20-F tags the year as ifrs-full:PurchaseOfPropertyPlantAndEquipmentIntangibleAssetsOtherThanGoodwill... -739,000,000 (annual FY2025 entry below)] - -559,000,000 [sap-q32025.pdf p.13, Consolidated Statements of Cash Flows, Q1-Q3 2025 column: 'Purchase of intangible assets and property, plant, and equipment -559' (EUR millions); the same -559 on p.18] = -180,000,000 -- the difference is the code's, both columns printed; sap-q12026.pdf p.9, Consolidated Statements of Cash Flows, Q1 2026 column: 'Purchase of intangible assets and property, plant, and equipment -238' (EUR millions); the same -238 on p.12, free cash flow reconciliation; E86: -354,000,000 [sap-q22026.pdf p.11, Consolidated Statements of Cash Flows, Q1-Q2 2026 column: 'Purchase of intangible assets and property, plant, and equipment -354' (EUR millions); the same -354 on p.15; restated in the Half-Year Report 2026 (sources/sap-2026-half-year-report.pdf) p.27 and p.46] - -238,000,000 [sap-q12026.pdf p.9, Consolidated Statements of Cash Flows, Q1 2026 column: 'Purchase of intangible assets and property, plant, and equipment -238' (EUR millions); the same -238 on p.12] = -116,000,000 -- the difference is the code's, both columns printed",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document/same_page)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 9465000000.0,
+   "provenance": "p.2 Financial Performance, Q3 2025 column: Net cash flows from operating activities 1,502 (EUR millions); the same 1,502 stands in the Q4 2025 statement's multi-quarter table, p.9; p.2 Financial Performance, Q4 2025 column: Net cash flows from operating activities 1,297 (EUR millions); FY2025 9,156 (20-F tag CashFlowsFromUsedInOperatingActivities, and p.14) less Q1-Q3 2025 7,859 (Q3 2025 statement p.13) = 1,297; p.2 Financial Performance, Q1 2026 column: Net cash flows from operating activities 3,513 (EUR millions); Q2 2026 statement p.11 Q1-Q2 2026 6,666 less its p.2 Q2 2026 3,153 = 3,513; p.2 Financial Performance, Q2 2026 column: Net cash flows from operating activities 3,153 (EUR millions); p.11 Q1-Q2 2026 6,666 less the Q1 2026 statement's p.2 3,513 = 3,153",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "sbc",
+   "value": 1331000000.0,
+   "provenance": "ifrs-full:ExpenseFromEquitysettledSharebasedPaymentTransactionsInWhichGoodsOrServicesReceivedDidNotQualifyForRecognitionAsAssets [2025-01-01..2025-12-31] 20-F 0001104659-26-020058 filed 2026-02-26",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 1175000000.0,
+   "provenance": "ifrs-full:AdjustedWeightedAverageShares [2025-01-01..2025-12-31] 20-F 0001104659-26-020058 filed 2026-02-26",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 1685000000.0,
+   "provenance": "Half-Year Report 2026 (sources/sap-2026-half-year-report.pdf), note (E.2) Liquidity, p.39, 6/30/2026 carrying amounts, current column: 'Financial debt 1,478' + 'Other financial liabilities 207' (EUR millions) = 1,685, the stated operands of the note's 'Financial liabilities 1,966' less its 'Lease liabilities 281' (E84 / E71: financial liabilities ex-leases; the issuer presents the operands inside one line on the balance sheet p.25 and totals them here). Financial debt is bonds 980 + commercial paper 498 (private placements 0, bank loans 0)",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 7087000000.0,
+   "provenance": "Half-Year Report 2026, note (E.2) Liquidity, p.39, 6/30/2026 carrying amounts, non-current column: 'Financial debt 6,726' + 'Other financial liabilities 361' (EUR millions) = 7,087, the stated operands of the note's 'Financial liabilities 8,541' less its 'Lease liabilities 1,454' (E84 / E71). Financial debt is bonds 6,726 alone",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 1735000000.0,
+   "provenance": "Half-Year Report 2026, note (E.2) Liquidity, p.39, 6/30/2026: 'Lease liabilities 281 (current) 1,454 (non-current) 1,735 (total)' (EUR millions) -- the stated total (E26 satisfied); presented inside 'Financial liabilities' on the balance sheet p.25",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 249000000.0,
+   "provenance": "ifrs-full:RecognisedLiabilitiesDefinedBenefitPlan [as of 2025-12-31] 20-F 0001104659-26-020058 filed 2026-02-26",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "NOT PRESENTED (E85: searched SAP Half-Year Report 2026 (sources/sap-2026-half-year-report.pdf, 50 pages, approved 2026-07-22) (all 50 pages by text search: the statement of financial position p.25 and every note A.1-G.4; the terms 'asset retirement', 'decommissioning', 'restoration' and 'dilapidation' occur nowhere (reports/E41-SAP-2026-08-30.md, addendum section 4)) on 2026-08-30) -- Half-Year Report 2026 p.25, Consolidated Statement of Financial Position at 6/30/2026, liabilities presented: 'Provisions 119' (current) and '611' (non-current), undecomposed; no provisions note exists in the report (contents p.2-3: notes A.1-A.2, B.1-B.3, C.1-C.3, D.1-D.3, E.1-E.2, F.1, G.1-G.4). The 20-F tags CurrentProvisions 537 / NoncurrentProvisions 550 at 12/31/2025 and no decommissioning element",
+   "entered_by": "store",
+   "verified": "NOT PRESENTED (E85)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "NOT PRESENTED (E85: searched SAP Half-Year Report 2026 (sources/sap-2026-half-year-report.pdf, 50 pages, approved 2026-07-22) (all 50 pages by text search: p.25 and every note A.1-G.4; no note on contract liabilities exists (the only other mention is the cash-flow line 'Increase/decrease in contract liabilities 2,990', p.27) and 'prepay' occurs nowhere (reports/E41-SAP-2026-08-30.md, addendum section 4)) on 2026-08-30) -- Half-Year Report 2026 p.25, Consolidated Statement of Financial Position at 6/30/2026, liabilities presented: trade and other payables 2,747 / 1, tax liabilities 1,359 / 670, financial liabilities 1,966 / 8,541, other non-financial liabilities 3,699 / 456, provisions 119 / 611, deferred tax liabilities 211, contract liabilities 9,843 / 136 -- no streaming, prepaid-offtake or prepaid-delivery caption; the contract liabilities are subscriptions billed in advance, E81's ordinary kind (the RMV.L and EXE precedents), named here and not this leg",
+   "entered_by": "store",
+   "verified": "NOT PRESENTED (E85)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 10511000000.0,
+   "provenance": "p.10 Consolidated Statements of Financial Position as at 6/30/2026: Cash and cash equivalents 10,511 (EUR millions)",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "other_current_financial_assets",
+   "value": 1114000000.0,
+   "provenance": "p.10 Consolidated Statements of Financial Position as at 6/30/2026, current assets: Other financial assets 1,114 (EUR millions)",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  }
+ ],
+ "tool_commit": "SAP.DE strike, 2026-08-30, 8c3ac21",
+ "notes": "",
+ "money_unit": "whole",
+ "lease": {
+  "in_operating_cash_flow": false,
+  "page": "FRAMEWORK-EDITS E70, applied 2026-08-30 to an IFRS 16 filer IFRS 16.50(b): a lessee classifies cash payments for the principal portion of the lease liability within FINANCING activities, so this filer's `operating_cash_flow` never bore the principal; the interest portion follows the filer's IAS 7 policy, which `interest_in_ocf` records. The standard leaves no choice on the principal",
+  "principal_added_back": null,
+  "leg": "none -- IFRS 16.50(b)"
+ }
+}

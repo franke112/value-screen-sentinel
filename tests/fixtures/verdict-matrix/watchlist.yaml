@@ -1,0 +1,165 @@
+# =====================================================================
+# SYNTHETIC — NOT REAL VALUATIONS
+#
+# EVERY fv_base, tier AND stop_price IN THIS FILE IS FABRICATED. They
+# were reverse-engineered from the actual closes of 2026-08-20 purely to
+# make each verdict path fire. They are NOT the output of FRAMEWORK
+# §5.1/§5.2, they encode no view on any company, and they must NEVER be
+# copied into config/watchlist.yaml.
+#
+# PRICES ARE FROZEN AT 2026-08-20 BY DESIGN. The CSVs in ./prices/ are a
+# snapshot of that evening's fetch, and the test that drives this file
+# reads them offline and never touches the network. That is what makes
+# this a regression fixture: the thresholds below were reverse-engineered
+# from those exact closes, so if they were re-fetched, a market move
+# would break the expectations instead of a code change.
+#
+# Build 2 item 9: `vss run` prints an fv_base only from a complete run
+# record that replays to it, so each fabricated fv_base below names a
+# fabricated record under ./records/ (tests/_records.py) that replays to
+# it exactly and says SYNTHETIC on every line.
+#
+# Driven by tests/test_verdict_matrix.py. To eyeball it by hand:
+#   python -m vss run --dry-run --config tests/fixtures/verdict-matrix/watchlist.yaml
+# (that form DOES hit the network and may drift -- the pytest case is the
+# authority.)
+# =====================================================================
+#
+# DERIVATION — mbp = fv_base x E90 cushion (T1 0.85 / T2 0.75 / T3 0.65),
+# recalibrated 2026-08-30; the per-entry prose below records the ORIGINAL
+# E28-era tuning (T1 0.80 / T2 0.70 / T3 0.60) and is kept as the history
+# of why each close was chosen. tests/test_verdict_matrix.py is the
+# authority on the expectations.
+#
+#   ticker     close    DD   | fv_base x cush =    MBP   x1.05    stop
+#   MSFT      481.15  11.2%  |  602.00 x 0.85 = 511.70  537.29  400.00
+#   UNA.AS     54.30  13.7%  |   66.25 x 0.85 =  56.31   59.13   45.00
+#   SAP.DE    185.64  23.3%  |  240.00 x 0.75 = 180.00  189.00  190.00
+#   HNSA.ST    40.64   4.9%  |   60.00 x 0.65 =  39.00   40.95   30.00
+#   NKE        40.21  49.2%  |   50.00 x 0.75 =  37.50   39.38   30.00
+#   MC.PA     443.10  32.1%  |  600.00 x 0.85 = 510.00  535.50  460.00
+#
+# NOTE ON DRAWDOWN: drawdown is computed from price history alone. No
+# manual field can tune it, so MSFT (11.2%) and UNA.AS (13.7%) are below
+# the 0.15 floor and unavoidably carry OUTSIDE DISLOCATION BAND on top of
+# their target verdict. That is the engine being correct, not a mistake
+# in this fixture.
+#
+# No catalyst_date anywhere: a passed catalyst would BLOCK the ticker and
+# suppress the verdicts this file exists to exercise.
+
+tickers:
+
+  # TARGET: AT/BELOW MBP — MBP 481.60 sits 0.45 above the 481.15 close.
+  # stop 400.00 is far below, so no breach competes.
+  - ticker: MSFT
+    name: Microsoft
+    currency: USD
+    status: HELD
+    fv_bull: 842.8    # the exit test C4/E42 runs on (owner, 2026-09-20)
+    fv_base: 602.00
+    run_record: tests/fixtures/verdict-matrix/records/MSFT.json   # SYNTHETIC, replays to the fabricated fv_base (item 9)
+    tier: 1
+    stop_price: 400.00
+    catalyst_date:
+    catalyst_resolved:
+    catalyst_event:
+    notes: |
+      SYNTHETIC. fv_base chosen so 602.00 x 0.80 = 481.60, fractionally
+      above the close. Also fires OUTSIDE BAND (DD 11.2% < 0.15).
+
+  # TARGET: APPROACHING MBP — close 54.30 sits above MBP 53.00 but within
+  # 5% of it (53.00 x 1.05 = 55.65). Band is 51.71..54.30 as specified.
+  - ticker: UNA.AS
+    name: Unilever PLC
+    currency: EUR
+    status: HELD
+    fv_bull: 92.75    # the exit test C4/E42 runs on (owner, 2026-09-20)
+    fv_base: 66.25
+    run_record: tests/fixtures/verdict-matrix/records/UNA.AS.json   # SYNTHETIC, replays to the fabricated fv_base (item 9)
+    tier: 1
+    stop_price: 45.00
+    catalyst_date:
+    catalyst_resolved:
+    catalyst_event:
+    notes: |
+      SYNTHETIC. 66.25 x 0.80 = 53.00, which is 2.4% below the close —
+      inside the 5% approach band. Also fires OUTSIDE BAND (DD 13.7%).
+
+  # TARGET: STOP BREACHED — HELD with stop 190.00 above the 185.64 close.
+  # MBP 168.00 (x1.05 = 176.40) stays below the close so no MBP verdict
+  # competes, and DD 23.3% is inside the band. Clean single verdict.
+  - ticker: SAP.DE
+    name: SAP SE
+    currency: EUR
+    status: HELD
+    fv_bull: 336.0    # the exit test C4/E42 runs on (owner, 2026-09-20)
+    fv_base: 240.00
+    run_record: tests/fixtures/verdict-matrix/records/SAP.DE.json   # SYNTHETIC, replays to the fabricated fv_base (item 9)
+    tier: 2
+    stop_price: 190.00
+    catalyst_date:
+    catalyst_resolved:
+    catalyst_event:
+    notes: |
+      SYNTHETIC. stop deliberately set above the close to breach it.
+
+  # TARGET: OUTSIDE DISLOCATION BAND — real DD is 4.9%, below the 0.15
+  # floor. fv_base/tier are set so MBP is NOT DATA MISSING, and MBP
+  # 36.00 (x1.05 = 37.80) stays below the 40.64 close so no MBP verdict
+  # fires. stop 30.00 is below the close so it is neither blocked nor
+  # breached.
+  - ticker: HNSA.ST
+    name: Hansa Biopharma
+    currency: SEK
+    status: HELD
+    fv_bull: 84.0    # the exit test C4/E42 runs on (owner, 2026-09-20)
+    fv_base: 60.00
+    run_record: tests/fixtures/verdict-matrix/records/HNSA.ST.json   # SYNTHETIC, replays to the fabricated fv_base (item 9)
+    tier: 3
+    stop_price: 30.00
+    catalyst_date:
+    catalyst_resolved:
+    catalyst_event:
+    notes: |
+      SYNTHETIC. Isolates the dislocation-band rule.
+
+  # TARGET: NO ACTION — nothing may fire. MBP 35.00 (x1.05 = 36.75) is
+  # below the 40.21 close, DD 49.2% is inside [0.15, 0.50], status is not
+  # HELD so no stop check applies, and stop_price IS set so the
+  # NO STOP DEFINED pre-entry flag stays silent.
+  - ticker: NKE
+    name: Nike
+    currency: USD
+    status: WATCH-GATED
+    fv_base: 50.00
+    run_record: tests/fixtures/verdict-matrix/records/NKE.json   # SYNTHETIC, replays to the fabricated fv_base (item 9)
+    tier: 2
+    stop_price: 30.00
+    catalyst_date:
+    catalyst_resolved:
+    catalyst_event:
+    notes: |
+      SYNTHETIC. The control case: every rule evaluated, none fires.
+      NOTE: DD 49.2% is close to the 0.50 ceiling. A ~1.6% fall in NKE
+      would push it out of band and break this case.
+
+  # TARGET: MULTIPLE VERDICTS — proves collect-all on live data.
+  # HELD with stop 460.00 above the 443.10 close (STOP BREACHED) AND
+  # MBP 480.00 above the close (AT/BELOW MBP). DD 32.1% is in band, so
+  # exactly two fire. Under first-match-wins only one would appear.
+  - ticker: MC.PA
+    name: LVMH
+    currency: EUR
+    status: HELD
+    fv_bull: 840.0    # the exit test C4/E42 runs on (owner, 2026-09-20)
+    fv_base: 600.00
+    run_record: tests/fixtures/verdict-matrix/records/MC.PA.json   # SYNTHETIC, replays to the fabricated fv_base (item 9)
+    tier: 1
+    stop_price: 460.00
+    catalyst_date:
+    catalyst_resolved:
+    catalyst_event:
+    notes: |
+      SYNTHETIC. status forced to HELD (it is WATCH-GATED in the real file) so
+      the stop rule applies. Two verdicts must appear together.

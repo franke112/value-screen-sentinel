@@ -1,0 +1,199 @@
+{
+ "ticker": "AUTO.L",
+ "currency": "GBP",
+ "run_ts": "2026-09-19T11:53:05+02:00",
+ "basis": "2026-FY",
+ "shares": {
+  "count": 862666.25,
+  "basis": "weighted-average DILUTED count for 2026-FY, the same window as the flows (E38)",
+  "as_of": "2026-03-31",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "thousands",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 9.2,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": false,
+  "page": "Annual Report and Financial Statements 2026 (audited) p.105, consolidated statement of cash flows: 'Payment of interest on borrowings 31 (2.8)' sits inside Cash flows from FINANCING activities, and 'Interest received on cash and cash equivalents 1.3' sits inside Cash flows from INVESTING activities -- both OUTSIDE 'Net cash generated from operating activities 322.8', which is computed from 'Cash generated from operations 418.0' less 'Income taxes paid (95.2)' alone, with no interest line in operating activities at all",
+  "net_interest_paid": null,
+  "source": "cash_flow_statement"
+ },
+ "bridge": {
+  "net_debt": 148.9,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 0.0,
+   "pensions": 0.0,
+   "asset_retirement_obligations": 3.7,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+  },
+  "note": "borrowings 0 + 163 + leases 0 -- the IFRS 16 liability 43 LEAVES net debt whole (E117: its cash is in the flow; one lessee model, no split) + pension deficit 0 (E35.1) + asset retirement obligations 4 (E68) + prepaid delivery obligations 0 (E81) - cash 18 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: split: capex_ppe + capex_intangibles, as the accounts print them"
+ },
+ "dates": {
+  "flows_window_end": "2026-03-31",
+  "balance_sheet": "2026-03-31",
+  "share_count": "2026-03-31",
+  "price": "2026-09-18"
+ },
+ "growth": {
+  "base": 0.03,
+  "view_file": "reference/growth-views/AUTO.L.md",
+  "view_date": "2026-08-27",
+  "bear": 0.0,
+  "bull": 0.06
+ },
+ "operating_cash_flow": 322.8,
+ "capex": -27.400000000000002,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_ppe",
+   "value": -27.3,
+   "provenance": "p.105: 'Purchases of property, plant and equipment (27.3)' -- the PDF text layer extracts this as '(27 .3)'; cross-checked against the ESEF/iXBRL package, tag ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities, context P04_01_2025To03_31_2026, unit Unit_GBP, scale 6: 27.3, sign attribute absent. Not a discrepancy: this concept is inherently an outflow, tagged as a positive magnitude by iXBRL convention, while the printed statement (and this field) sign cash outflows negative. Same \u00a327.3m either way -- the sign was reconciled by convention, not by value.",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "capex_intangibles",
+   "value": -0.1,
+   "provenance": "p.105: 'Purchases of intangible assets (0.1)'; cross-checked against the ESEF/iXBRL package, tag ifrs-full:PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities, context P04_01_2025To03_31_2026, unit Unit_GBP, scale 6: 0.1, sign attribute absent. Not a discrepancy: same convention gap as capex_ppe above -- iXBRL tags the outflow as a positive magnitude, this field signs it negative. Same \u00a30.1m either way.",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 322.8,
+   "provenance": "p.105, consolidated statement of cash flows: 'Net cash generated from operating activities 322.8'; cross-checked against the ESEF/iXBRL package, tag ifrs-full:CashFlowsFromUsedInOperatingActivities, context P04_01_2025To03_31_2026, unit Unit_GBP, scale 6: 322.8",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "sbc",
+   "value": 9.2,
+   "provenance": "note 28, p.126, cash generated from operations reconciliation: 'Share-based payments charge (excluding associated NI) 9.2'; reconciles exactly to note 29, p.126, share-based payments: 'Total charge 9.7' less 'NI and apprenticeship levy on applicable schemes 0.5' = 9.2 -- the same charge decomposed in the separately-prepared remuneration note (FRAMEWORK-EDITS E59)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 862666.25,
+   "provenance": "note 11, p.117, earnings per share: 'Diluted EPS 862,666,250' weighted average number of ordinary shares (entered in thousands, share_unit: E53); reconciles to rounding against p.101, consolidated income statement: net_income 293.9 / diluted_eps 34.07p = 862,635,750 point estimate (30,500 shares off stated, 0.0035%), within the band [862,362,436-862,909,144] implied by both inputs' own printed rounding -- see SHARE COUNT ARITHMETIC CHECKS in the header. A reconciliation against the separately-prepared primary statement, not an exact digit match, per FRAMEWORK-EDITS E59",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 0.0,
+   "provenance": "note 21, p.121, borrowings repayment schedule: 'Less than one year \u2013 \u2013'; reconciles exactly to note 31, p.131, net debt roll-forward: 'Debt due within one year \u2013 \u2013 \u2013 \u2013' -- the same zero balance independently stated in the separately-prepared net debt reconciliation (FRAMEWORK-EDITS E59). EXCLUDES the \u00a35.0m vehicle stocking loan (note 20, p.121) under FRAMEWORK-EDITS E55 -- inventory finance, presented inside trade and other payables, not borrowings",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 163.4,
+   "provenance": "p.103, consolidated balance sheet: 'Borrowings 21 163.4'; note 21, p.121: 'Total borrowings 163.4' (\u00a3165.0m gross of the Syndicated RCF less \u00a31.6m unamortised debt issue costs); cross-checked against the ESEF/iXBRL package, tag ifrs-full:LongtermBorrowings, context PAsOn03_31_2026, unit Unit_GBP, scale 6: 163.4",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 42.6,
+   "provenance": "note 14, p.119, 'Lease liabilities in the balance sheet at 31 March': 'Current 0.6' + 'Non-current 42.0' = 'Total 42.6'; cross-checked against the ESEF/iXBRL package, tags ifrs-full:CurrentLeaseLiabilities (context PAsOn03_31_2026: 0.6) + ifrs-full:NoncurrentLeaseLiabilities (context PAsOn03_31_2026: 42.0), unit Unit_GBP, scale 6: sum 42.6",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 0.0,
+   "provenance": "note 24, p.123-124: the Scheme's buy-in was converted to a full buy-out on 2025-09-12 and accounted for as a Settlement; 'it was not necessary to derive assumptions as at 31 March 2026 since there were no benefits to be valued'; the note's own balance-sheet reconciliation states, for 2026, 'Present value of funded obligations \u2013', 'Fair value of plan assets \u2013', 'Net asset recognised in the Consolidated balance sheet \u2013' -- all nil. The \u00a32,000 IFRIC 14 residual named on the same page is an ASSET, immaterial at this file's \u00a30.1m rounding, and not the LIABILITY E35.1's field is (FRAMEWORK-EDITS E35.1, resolved 2026-08-27 -- see header PENSION DEFICIT note)",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 3.7,
+   "provenance": "note 22 PROVISIONS, p.122, column 'Dilapidations provision \u00a3m': 'At 31 March 2025 1.6', 'Charged to the income statement \u2013', 'Utilised in the year (1.0)', 'Recognised under IFRS 16 3.6', 'Released in the year (0.5)', 'At 31 March 2026 3.7'; the balance sheet p.103 presents it inside 'Provisions 22' (non-current 3.7; the current 1.2 is the holiday-pay provision). Note 28 p.126, cash generated from operations: 'Dilapidation provision release (0.5)'. A lessee's restoration obligation recognised with the right-of-use asset -- a decommissioning-type provision within E68's leg, entered under E69 because no ifrs-full decommissioning element is tagged for it. JUDGEMENT FOR THE OWNER: that E68 reaches a dilapidations provision (ASC 410-20 and IAS 37 both treat it as one).",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "E81 (2026-08-30): AR 2026 consolidated balance sheet, printed p.103 (PDF p.105), liabilities presented at 31 March 2026: 'Borrowings 21 | 163.4', 'Provisions 22 | 3.7', 'Lease liabilities 14 | 42.0', 'Deferred income 5 | 6.6', 'Deferred taxation liabilities 0.6', 'Trade and other payables 20 | 60.1', 'Provisions 1.2', 'Lease liabilities 0.6' -- no streaming, prepaid-offtake or prepaid-delivery caption. 'Deferred income 6.6' is advertising billed in advance, working capital and NOT this leg, named here. A caption zero",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 18.2,
+   "provenance": "p.103, consolidated balance sheet: 'Cash and cash equivalents 19 18.2'; note 19, p.121 confirms; cross-checked against the ESEF/iXBRL package, tag ifrs-full:CashAndCashEquivalents, context PAsOn03_31_2026, unit Unit_GBP, scale 6: 18.2",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "lease_payments_capital",
+   "value": -1.8,
+   "provenance": "p.105: 'Payment of lease liabilities (1.8)'; reconciles exactly to note 31, p.131, net debt roll-forward: the lease liabilities row's 'Cash flow' column states '(1.8)' -- the same period's lease cash payment, restated in the separately-prepared net debt reconciliation (FRAMEWORK-EDITS E59)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "lease_interest_paid",
+   "value": 0.0,
+   "provenance": "AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf p.122, note 14: 'Total cash outflow for leases 1.8' (IFRS 16.53(g)) -- the SAME figure as the cash flow statement's financing line 'Payment of lease liabilities (1.8)' (p.107), so the filer's own total lease cash outflow is that one line, principal and interest inside it. Note 14's income-statement 'Interest on lease liabilities 1.7' is an EXPENSE and is NOT deducted again. E117 deducts the stated total, 1.8, once",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  }
+ ],
+ "tool_commit": "E117 re-strike, 2026-09-19, e46b8a8",
+ "notes": "E117 re-strike: the lease treatment is the only change from the prior record, AUTO.L-2026-08-27.json",
+ "money_unit": "millions",
+ "nci_dividends_paid": 0.0,
+ "undetermined": [],
+ "fcf_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_debt_reported": {
+  "value": 188.3,
+  "page": "131 [printed in millions] -- verbatim: Net debt/(cash) (12.7) 157.5 43.5 188.3",
+  "verified": false
+ },
+ "net_income": {
+  "value": 293.9,
+  "page": "p.101, consolidated income statement: 'Profit for the year attributable to equity holders of the parent 293.9'; cross-checked against the ESEF/iXBRL package, tags ifrs-full:ProfitLoss and ifrs-full:ProfitLossAttributableToOwnersOfParent (both context P04_01_2025To03_31_2026, unit Unit_GBP, scale 6: 293.9 -- AUTO.L has no non-controlling interest so the two tags agree)",
+  "verified": true
+ },
+ "lease": {
+  "in_operating_cash_flow": false,
+  "page": "FRAMEWORK-EDITS E70, applied 2026-08-30 to an IFRS 16 filer IFRS 16.50(b): a lessee classifies cash payments for the principal portion of the lease liability within FINANCING activities, so this filer's `operating_cash_flow` never bore the principal; the interest portion follows the filer's IAS 7 policy, which `interest_in_ocf` records. The standard leaves no choice on the principal",
+  "principal_added_back": null,
+  "leg": "`lease_payments_capital` + `lease_interest_paid`, DEDUCTED (E117: the IFRS 16 principal and lease interest)",
+  "rule": "E117",
+  "lease_cash_deducted": 1.8,
+  "principal_paid": 1.8,
+  "interest_paid": 0.0,
+  "liability_excluded": 42.6
+ }
+}

@@ -1,0 +1,180 @@
+# MC.PA -- built 2026-09-19 (owner, A4) from LVMH's own reports, downloaded from lvmh.com the same day.
+# Basis: FY2025 as filed (a half-yearly reporter; E86's differencing is for quarters). VERIFIED (same_page) = the printed
+# figure found again on its page by an automated read-back, 2026-09-19. OPEN, for the owner: E68's asset-retirement leg
+# and E81's prepaid-delivery leg: RULED by the owner 2026-09-19 as named zeros (reasons on the figures).
+# Growth view registered 2026-09-19 (reference/growth-views/MC.PA.md).
+ticker: MC.PA
+name: LVMH Moet Hennessy Louis Vuitton SE
+reporting_currency: EUR
+money_unit: millions
+share_unit: whole
+quote_currency: EUR
+sector: Consumer Cyclical
+reporting_frequency: half_yearly
+origin: manual
+interest_in_ocf:
+  value: true
+  source: sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf
+  page: 'pdf page 28, CONSOLIDATED CASH FLOW STATEMENT, I. OPERATING ACTIVITIES: ''Cost of net financial debt: interest paid (290)'', ''Lease liabilities: interest paid (545)'' and ''Tax paid (4,656)'' all sit above ''Net cash from/(used in) operating activities 18,874''. No interest RECEIVED line is printed: E115 governs, the add-back is interest paid ALONE, a named one-sided proxy'
+  interest_source: cash_paid_only
+operating_leases_in_ocf:
+  value: false
+  source: IFRS 16.50(b)
+  page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 28: ''Repayment of lease liabilities (2,974)'' sits in financing, below the operating total'
+market:
+  as_of: null
+periods:
+  - period: 2025-FY
+    period_end: '2025-12-31'
+    period_basis: calendar
+    document: LVMH Financial Documents - December 31, 2025, sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf
+    figures:
+      asset_retirement_obligation:
+        value: 0
+        zero_basis: note
+        page: "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 34: 'Leasehold rights and property, plant and equipment related to restoration obligations for leased facilities are presented within Right-of-use assets'. A NAMED ZERO (owner, 2026-09-19, MC.PA-E68): restoration obligations sit inside lease accounting, so E117's lease treatment already carries them; deducting again would double-count"
+        status: VERIFIED
+        verified_kind: same_page
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: note
+        page: "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 57, note 22.2: 'Advances and payments on account from customers 1,120' and 'Loyalty programs and gift cards 780' are the two candidates, and NEITHER is E81's leg (owner, 2026-09-19, MC.PA-E81): customer advances are a working-capital item, not a delivery obligation of the kind E81 targets (a stream, a prepaid offtake); loyalty programmes and gift cards are a deferred-revenue liability, not prepaid delivery. E81's second application (EXE's contract liabilities, 2026-08-30) reads the same way. A NAMED ZERO"
+        status: VERIFIED
+        verified_kind: same_page
+      revenue:
+        value: 80807
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 24: ''Revenue 80,807'''
+        status: VERIFIED
+        verified_kind: same_page
+      operating_income:
+        value: 17099
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 24: ''Operating profit 17,099'''
+        status: VERIFIED
+        verified_kind: same_page
+      operating_cash_flow:
+        value: 18874
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 28: ''Net cash from/(used in) operating activities 18,874'''
+        status: VERIFIED
+        verified_kind: same_page
+      capex_combined:
+        value: -4567
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 28: ''Operating investments (4,567)'''
+        status: VERIFIED
+        verified_kind: same_page
+      lease_payments_capital:
+        value: -2974
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 28: ''Repayment of lease liabilities (2,974)'''
+        status: VERIFIED
+        verified_kind: same_page
+      finance_costs_paid:
+        value: 290
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 28: ''Cost of net financial debt: interest paid (290)'' (a positive magnitude)'
+        status: VERIFIED
+        verified_kind: same_page
+      sbc:
+        value: 165
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 52: ''Expense for the period 165'' (bonus share plans)'
+        status: VERIFIED
+        verified_kind: same_page
+      nci_dividends_paid:
+        value: -414
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 48: ''Interim and final dividends paid to minority interests in consolidated subsidiaries (414)'''
+        status: VERIFIED
+        verified_kind: same_page
+      rou_depreciation:
+        value: 3143
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 28: ''Depreciation of right-of-use assets 3,143'''
+        status: VERIFIED
+        verified_kind: same_page
+      net_finance_costs:
+        value: 348
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 24: ''Cost of net financial debt (348)'' (a cost, positive magnitude)'
+        status: VERIFIED
+        verified_kind: same_page
+      diluted_weighted_average_shares:
+        value: 497976118
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 24: ''Number of shares on which the calculation is based 497,976,118'''
+        status: VERIFIED
+        verified_kind: same_page
+      shares_outstanding_period_end:
+        value: 497686940
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 49: ''the share capital consisted of 497,686,940'''
+        status: VERIFIED
+        verified_kind: same_page
+      cash_and_equivalents:
+        value: 8794
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 26: ''Cash and cash equivalents 8,794'''
+        status: VERIFIED
+        verified_kind: same_page
+      other_current_financial_assets:
+        value: 4708
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 47: ''Current available for sale financial assets 4,708'' (note 14; inside ''Other current assets'' on the face)'
+        status: VERIFIED
+        verified_kind: same_page
+      financial_liabilities_current:
+        value: 7925
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 26: ''Short-term borrowings 7,925'''
+        status: VERIFIED
+        verified_kind: same_page
+      financial_liabilities_noncurrent:
+        value: 12418
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 26: ''Long-term borrowings 12,418'''
+        status: VERIFIED
+        verified_kind: same_page
+      pension_deficit:
+        value: 641
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 55: ''Provisions for pensions, medical costs and similar commitments 627'' non-current + 14 current = 641 (note 20)'
+        status: VERIFIED
+        verified_kind: same_page
+      free_cash_flow_reported:
+        value: 11333
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 28: ''Operating free cash flow 11,333'' (LVMH''s own definition, a reference figure)'
+        status: VERIFIED
+        verified_kind: same_page
+      net_debt_reported:
+        value: 6857
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 20: ''Net financial debt 6,857'' (LVMH''s definition EXCLUDES lease liabilities, note 1.22)'
+        status: VERIFIED
+        verified_kind: same_page
+      lease_liabilities:
+        value: 16018
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 26: ''Non-current lease liabilities 13,384'' + ''Current lease liabilities 2,634'' = 16,018 (E71: two stated parts of one liability)'
+        status: VERIFIED
+        verified_kind: same_page
+      lease_interest_paid:
+        value: 0
+        zero_basis: note
+        page: 'sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 28: ''Lease liabilities: interest paid (545)'' is its OWN line inside OPERATING ACTIVITIES, apart from ''Cost of net financial debt: interest paid (290)'', which is the E115 add-back. The operating cash flow therefore still BEARS the lease interest after E34, so E117 deducts nothing further for it: a named zero, the lease cash counted once (the AUTO.L shape)'
+        status: VERIFIED
+        verified_kind: same_page
+  - period: 2026-H1
+    period_end: '2026-06-30'
+    period_basis: calendar
+    document: LVMH 2026 first-half financial report, sources/MC.PA_2026-H1_half-year-financial-report_2026-07-27_en_a0.pdf
+    figures:
+      revenue:
+        value: 38644
+        page: 'sources/MC.PA_2026-H1_half-year-financial-report_2026-07-27_en_a0.pdf pdf page 22: ''Revenue 38,644'''
+        status: VERIFIED
+        verified_kind: same_page
+      operating_income:
+        value: 8714
+        page: 'sources/MC.PA_2026-H1_half-year-financial-report_2026-07-27_en_a0.pdf pdf page 22: ''Operating profit 8,714'''
+        status: VERIFIED
+        verified_kind: same_page
+      cash_and_equivalents:
+        value: 6803
+        page: 'sources/MC.PA_2026-H1_half-year-financial-report_2026-07-27_en_a0.pdf pdf page 24: ''Cash and cash equivalents 6,803'''
+        status: VERIFIED
+        verified_kind: same_page
+      other_current_financial_assets:
+        value: 5399
+        page: 'sources/MC.PA_2026-H1_half-year-financial-report_2026-07-27_en_a0.pdf pdf page 24: ''Current available for sale financial assets 5,399'''
+        status: VERIFIED
+        verified_kind: same_page
+      financial_liabilities_noncurrent:
+        value: 13041
+        page: 'sources/MC.PA_2026-H1_half-year-financial-report_2026-07-27_en_a0.pdf pdf page 24: ''Long 13,041'' -- ''Long-term borrowings'''
+        status: VERIFIED
+        verified_kind: same_page
+annual: []

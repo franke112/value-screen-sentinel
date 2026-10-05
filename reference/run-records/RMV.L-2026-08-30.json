@@ -1,0 +1,177 @@
+{
+ "ticker": "RMV.L",
+ "currency": "GBP",
+ "run_ts": "2026-08-30T19:16:25+02:00",
+ "basis": "2025-FY",
+ "shares": {
+  "count": 775356560.0,
+  "basis": "weighted-average DILUTED count for 2025-FY, the same window as the flows (E38)",
+  "as_of": "2025-12-31",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 8539.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "Annual report and accounts 2025 (audited); Half-year Financial Report 2026 (RNS, unaudited) p.117, consolidated statement of cash flows: 'Financial expenses paid (535)' sits INSIDE cash flows from operating activities, between 'Cash generated from operating activities 308,015' and 'Net cash from operating activities 236,299' (beside 'Income taxes paid (71,181)'); 'Interest received on cash and cash equivalents 2,435' sits in cash flows used in INVESTING activities, outside. So the operating cash flow already bears every finance cost PAID (note 8, p.128: the \u00a3557k charge is 'Bank charges 455', 'Interest unwind on lease liabilities 90', 'Interest unwind on dilapidations 12') and does not contain the interest RECEIVED -- the conservative side. The interim keeps the placement: 'Financial expenses paid (272)' in operating, 'Interest received on cash and cash equivalents 1,116' in investing",
+  "net_interest_paid": -1900.0,
+  "source": "cash_flow_statement"
+ },
+ "bridge": {
+  "net_debt": -34005.0,
+  "items": {
+   "short_term_investments": 5683.0,
+   "current_financial_assets": 5683.0,
+   "leases": 7184.0,
+   "pensions": 0.0,
+   "asset_retirement_obligations": 1717.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "no field in this schema (E35)"
+  },
+  "note": "borrowings 0 + 0 + leases 7,184 (E35: always in; finance leases beside operating, E65) + pension deficit 0 (E35.1) + asset retirement obligations 1,717 (E68) + prepaid delivery obligations 0 (E81) - cash 37,223 - other current financial assets 5,683. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: split: capex_ppe + capex_intangibles, as the accounts print them"
+ },
+ "dates": {
+  "flows_window_end": "2025-12-31",
+  "balance_sheet": "2025-12-31",
+  "share_count": "2025-12-31",
+  "price": "2026-08-27"
+ },
+ "growth": {
+  "base": 0.03,
+  "view_file": "reference/growth-views/RMV.L.md",
+  "view_date": "2026-08-30",
+  "bear": 0.0,
+  "bull": 0.06
+ },
+ "operating_cash_flow": 236299.0,
+ "capex": -10179.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_ppe",
+   "value": -903.0,
+   "provenance": "p.117, cash flows used in investing activities: 'Acquisition of property, plant and equipment 12 (903)'; note 12, p.130: 'Additions ... 903' (leased asset additions 4,159 are separate, non-cash); cross-checked against the ESEF/iXBRL package, tag ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities, context c-1, scale 3: 903, sign attribute absent -- same magnitude, sign by convention (outflow tagged positive; this field signs it negative), not a discrepancy. E40 cross_document",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "capex_intangibles",
+   "value": -9276.0,
+   "provenance": "p.117, cash flows used in investing activities: 'Acquisition of intangible assets 13 (9,276)'; note 13, p.130: 'Additions \u2013 6,509 2,767 \u2013 9,276' (computer software 6,509, software development 2,767); cross-checked against the ESEF/iXBRL package, tag ifrs-full:PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities, context c-1, scale 3: 9,276, sign attribute absent -- same magnitude, sign by convention, not a discrepancy. E40 cross_document",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 236299.0,
+   "provenance": "p.117, consolidated statement of cash flows: 'Net cash from operating activities 236,299' (2024: 211,270) -- after 'Financial expenses paid (535)' and 'Income taxes paid (71,181)'. operating_cash_flow_pretax is deliberately NOT entered: the statement presents the flow after tax, and its pre-tax subtotal 'Cash generated from operating activities 308,015' is also pre-interest, so pretax-plus-tax would not reproduce this line; cross-checked against the ESEF/iXBRL package, tag ifrs-full:CashFlowsFromUsedInOperatingActivities, context c-1, scale 3: 236,299 -- agrees (E40 cross_document)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "sbc",
+   "value": 8539.0,
+   "provenance": "p.117, adjustments to profit: 'Share-based payments 23 8,539'; note 23, p.135: 'The Group recognised a total share-based payments charge for the year of \u00a38,539,000' -- Sharesave 500, PSP 336, DSP 3,244, SIP 1,606, RSP 2,853 = 'Total share-based payments charge 8,539'; the 'NI on applicable share-based incentives at 15.0% 1,276' that lifts it to the income statement's 9,815 is a cash cost the flow already bears and is excluded (E36; AUTO.L convention). All schemes equity-settled (p.123); cross-checked against the ESEF/iXBRL package, tag ifrs-full:AdjustmentsForSharebasedPayments, context c-1, scale 3: 8,539 -- agrees; the package tags the income-statement line separately as ifrs-full:ExpenseFromSharebasedPaymentTransactionsWithEmployees 9,815, the charge plus NI, which this field deliberately does not enter (E40 cross_document)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "net_interest_paid",
+   "value": -1900.0,
+   "provenance": "E18: finance_costs_paid - finance_income_received, both on 2025-FY",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 775356560.0,
+   "provenance": "note 10, p.129, 'Weighted average number of ordinary shares (diluted)': basic 772,382,123 + 'Dilutive impact of share-based incentives outstanding 2,974,437' = 775,356,560 (2024: 792,601,981); p.115 'Diluted 10 28.0' pence reconciles (217,067 / 775,356.56 = 28.0). E59 (2026-08-30), the AUTO.L precedent: the count reconciles to rounding against the separately-prepared primary statement, both of whose inputs are ESEF-tagged -- ifrs-full:ProfitLoss 217,067,000 / ifrs-full:DilutedEarningsLossPerShare 0.280 (u-2 GBP/shares, decimals 3) = 775,239,286 point estimate, 117,274 shares (0.015%) off the stated count, inside the band [773,857,398 to 776,626,118] implied by 28.0p's own half-tenth rounding. No share COUNT is tagged anywhere in the package (units u-1 GBP and u-2 GBP/shares only, no xbrli:shares unit), so this is the only second read available; cross_document under E59",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 0.0,
+   "provenance": "p.116, current liabilities: 'Trade and other payables 18 (32,568)', 'Lease liabilities 19 (3,562)', 'Contract liabilities 4 (3,485)', 'Income tax payable (501)', 'Other current liabilities 17 (428)' -- no borrowings caption. The 428 is the deferred consideration for HomeViews Platform Limited payable February 2026 (note 17 p.132), NAMED here and not a leg of E35's net debt; p.59 (Investment case): 'no external debt'",
+   "entered_by": "store",
+   "verified": "VERIFIED (caption_statement)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 0.0,
+   "provenance": "p.116, non-current liabilities: 'Other non-current liabilities 17 \u2013', 'Lease liabilities 19 (3,622)', 'Provisions 20 (1,717)' -- no borrowings caption; there is no borrowings note in the report",
+   "entered_by": "store",
+   "verified": "VERIFIED (caption_statement)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 7184.0,
+   "provenance": "note 19, p.132, 'Lease liabilities included in the statement of financial position': 'Current 3,562', 'Non-current 3,622', '7,184' -- the stated total; p.116 carries the two parts as 'Lease liabilities 19 (3,562)' and 'Lease liabilities 19 (3,622)'; note 19 p.133 reconciliation 'Balance as at 31 December 7,184'. E65: one IFRS 16 lessee liability, no finance/operating split exists to size; cross-checked against the ESEF/iXBRL package: no total is tagged, but ifrs-full:CurrentLeaseLiabilities 3,562 and ifrs-full:NoncurrentLeaseLiabilities 3,622 (context c-3, scale 3) sum to 7,184 exactly -- agrees on both stated parts (E40 cross_document)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 0.0,
+   "provenance": "p.123, note 2 material accounting policy information, Employee benefits (i) Pensions: 'The Group provides access to stakeholder pension schemes (defined contribution pension plans). Obligations for contributions to defined contribution pension plans are recognised as an employee benefit expense in the income statement when they are incurred.' No pension caption on p.116; note 6, p.128: 'Pension costs 3,730'. E35.1's note form",
+   "entered_by": "store",
+   "verified": "VERIFIED (caption_statement)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 1717.0,
+   "provenance": "note 20 PROVISIONS, p.133: 'The dilapidations provision is in respect of any of the Group's leased properties where the Group has obligations to make good dilapidations' -- 'At 1 January 853', 'Charged 852', 'Unwinding of discount 12', 'At 31 December 1,717', 'Current \u2013', 'Non-current 1,717'; p.116 'Provisions 20 (1,717)'. Entered under E68 via E69 on AUTO.L's dilapidations precedent (E68.1 applications table); cross-checked against the ESEF/iXBRL package, tag ifrs-full:NoncurrentProvisions, context c-3, scale 3: 1,717 -- agrees; note 20 states the dilapidations provision is the only provision (Current \u2013, Non-current 1,717), so the tagged caption IS this figure (E40 cross_document)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "E81 (2026-08-30): p.116, consolidated statement of financial position at 31 December 2025, liabilities presented: 'Trade and other payables (32,568)', 'Lease liabilities (3,562)', 'Contract liabilities (3,485)', 'Income tax payable (501)', 'Other current liabilities (428)', 'Other non-current liabilities -', 'Lease liabilities (3,622)', 'Provisions (1,717)' -- no streaming, prepaid-offtake or prepaid-delivery caption. 'Contract liabilities 3,485' is subscription revenue billed in advance (note 4), the ordinary contract liability of a property portal, working capital and NOT this leg, named here. A caption zero. Cross-checked against the ESEF/iXBRL package (E59, component sum): the tagged liability captions at context c-3 are TradeAndOtherCurrentPayables 32,568, CurrentLeaseLiabilities 3,562, CurrentContractLiabilities 3,485, CurrentTaxLiabilities 501, OtherCurrentLiabilities 428 (= CurrentLiabilities 40,544 exactly), NoncurrentLeaseLiabilities 3,622, NoncurrentProvisions 1,717, OtherNoncurrentFinancialLiabilities \u2013 (= NoncurrentLiabilities 5,339 exactly), Liabilities 45,883 = 40,544 + 5,339 -- the tagged captions exhaust the total, leaving no room for a prepaid-delivery caption. The absence is read a second time from the tagged balance sheet; cross_document",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 37223.0,
+   "provenance": "p.116, consolidated statement of financial position: 'Cash and cash equivalents 17 37,223'; note 17, p.132, confirms, and names \u00a3101,000 restricted under the EBT deeds, \u00a35,598,000 in a 30-day deposit account and \u00a3428,000 ringfenced for the HomeViews deferred consideration; cross-checked against the ESEF/iXBRL package, tag ifrs-full:CashAndCashEquivalents, context c-3, scale 3: 37,223 -- agrees (E40 cross_document)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "other_current_financial_assets",
+   "value": 5683.0,
+   "provenance": "p.116: 'Money market deposits 17 5,683'; note 17, p.132: original maturity of more than three months and less than a year, weighted average rate 3.6%. Assumption A1 decides whether it counts as cash; cross-checked against the ESEF/iXBRL package, issuer extension tag rightmoveplc:MoneyMarketDeposits, context c-3, scale 3: 5,683 -- agrees (E40 cross_document)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  }
+ ],
+ "tool_commit": "RMV.L/RKT.L/PNDORA.CO/DECK first strikes, 2026-08-30, d4425b5",
+ "notes": "",
+ "money_unit": "thousands",
+ "lease": {
+  "in_operating_cash_flow": false,
+  "page": "FRAMEWORK-EDITS E70, applied 2026-08-30 to an IFRS 16 filer IFRS 16.50(b): a lessee classifies cash payments for the principal portion of the lease liability within FINANCING activities; p.117 shows exactly that, 'Payment of principal portion of lease liabilities 19 (3,146)' under cash flows used in financing activities. The interest portion follows the filer's IAS 7 policy, which `interest_in_ocf` records (80 inside 'Financial expenses paid'). The standard leaves no choice on the principal",
+  "principal_added_back": null,
+  "leg": "none -- IFRS 16.50(b)"
+ }
+}

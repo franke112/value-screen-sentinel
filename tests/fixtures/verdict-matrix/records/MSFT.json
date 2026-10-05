@@ -1,0 +1,145 @@
+{
+ "ticker": "MSFT",
+ "currency": "USD",
+ "run_ts": "2026-08-20T22:30:00+02:00",
+ "basis": "SYNTHETIC FIXTURE (tests/_records.py) -- not a filing, not a figure: no window",
+ "shares": {
+  "count": 1.0,
+  "basis": "SYNTHETIC FIXTURE (tests/_records.py) -- not a filing, not a figure",
+  "as_of": "2026-08-20",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole"
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 0.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "SYNTHETIC FIXTURE (tests/_records.py) -- not a filing, not a figure",
+  "net_interest_paid": 0.0,
+  "source": "cash_flow_statement"
+ },
+ "bridge": {
+  "net_debt": -602.0,
+  "items": {
+   "short_term_investments": 0.0,
+   "leases": 0.0,
+   "non_controlling_interests": 0.0,
+   "pensions": 0.0,
+   "current_financial_assets": 0.0
+  },
+  "note": "SYNTHETIC FIXTURE (tests/_records.py) -- not a filing, not a figure"
+ },
+ "dates": {
+  "flows_window_end": "2026-08-20",
+  "balance_sheet": "2026-08-20",
+  "share_count": "2026-08-20",
+  "price": "2026-08-20"
+ },
+ "growth": {
+  "base": 0.0,
+  "view_file": "SYNTHETIC FIXTURE (tests/_records.py) -- not a filing, not a figure",
+  "view_date": null,
+  "bear": null,
+  "bull": null
+ },
+ "operating_cash_flow": 0.0,
+ "capex": 0.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": null,
+  "premium": null,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "operating_cash_flow",
+   "value": 0.0,
+   "provenance": "SYNTHETIC FIXTURE (tests/_records.py) -- not a filing, not a figure",
+   "entered_by": "hand",
+   "verified": "hand"
+  },
+  {
+   "name": "capex_combined",
+   "value": 0.0,
+   "provenance": "SYNTHETIC FIXTURE (tests/_records.py) -- not a filing, not a figure",
+   "entered_by": "hand",
+   "verified": "hand"
+  },
+  {
+   "name": "sbc",
+   "value": 0.0,
+   "provenance": "SYNTHETIC FIXTURE (tests/_records.py) -- not a filing, not a figure",
+   "entered_by": "hand",
+   "verified": "hand"
+  },
+  {
+   "name": "net_interest_paid",
+   "value": 0.0,
+   "provenance": "SYNTHETIC FIXTURE (tests/_records.py) -- not a filing, not a figure",
+   "entered_by": "hand",
+   "verified": "hand"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 1.0,
+   "provenance": "SYNTHETIC FIXTURE (tests/_records.py) -- not a filing, not a figure",
+   "entered_by": "hand",
+   "verified": "hand"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 0.0,
+   "provenance": "SYNTHETIC FIXTURE (tests/_records.py) -- not a filing, not a figure",
+   "entered_by": "hand",
+   "verified": "hand"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 0.0,
+   "provenance": "SYNTHETIC FIXTURE (tests/_records.py) -- not a filing, not a figure",
+   "entered_by": "hand",
+   "verified": "hand"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 0.0,
+   "provenance": "SYNTHETIC FIXTURE (tests/_records.py) -- not a filing, not a figure",
+   "entered_by": "hand",
+   "verified": "hand"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 0.0,
+   "provenance": "SYNTHETIC FIXTURE (tests/_records.py) -- not a filing, not a figure",
+   "entered_by": "hand",
+   "verified": "hand"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 602.0,
+   "provenance": "SYNTHETIC FIXTURE (tests/_records.py) -- not a filing, not a figure",
+   "entered_by": "hand",
+   "verified": "hand"
+  },
+  {
+   "name": "other_current_financial_assets",
+   "value": 0.0,
+   "provenance": "SYNTHETIC FIXTURE (tests/_records.py) -- not a filing, not a figure",
+   "entered_by": "hand",
+   "verified": "hand"
+  }
+ ],
+ "tool_commit": "synthetic",
+ "notes": "SYNTHETIC FIXTURE (tests/_records.py) -- not a filing, not a figure",
+ "money_unit": "whole"
+}

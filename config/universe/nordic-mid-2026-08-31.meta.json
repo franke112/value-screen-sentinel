@@ -1,0 +1,52 @@
+{
+  "list": "nordic-mid",
+  "index": "Oslo Bors + Nasdaq Copenhagen + Nasdaq Helsinki, Large+Mid",
+  "source_url": "yfinance equity screener, exchange=OSL|CPH|HEL",
+  "source_kind": "APPROXIMATION -- market-cap cut, not index membership",
+  "expected_rows": null,
+  "approximation": true,
+  "approximation_rule": "Yahoo equity screener per venue with intraday market cap above Nasdaq's own Mid Cap floor of EUR 150,000,000, converted to each venue's quoting currency at a rate read at build time. Per-venue rates and local floors are in `conversions` below (E98).",
+  "conversions": {
+    "Oslo": {
+      "exchange": "OSL",
+      "floor_eur": 150000000,
+      "floor_local": 1627888441,
+      "currency_pair": "EURNOK=X",
+      "rate": 10.85259,
+      "rate_source": "EURNOK=X close 2026-08-31",
+      "rows": 147
+    },
+    "Copenhagen": {
+      "exchange": "CPH",
+      "floor_eur": 150000000,
+      "floor_local": 1121181035,
+      "currency_pair": "EURDKK=X",
+      "rate": 7.47454,
+      "rate_source": "EURDKK=X close 2026-08-31",
+      "rows": 71
+    },
+    "Helsinki": {
+      "exchange": "HEL",
+      "floor_eur": 150000000,
+      "floor_local": 150000000,
+      "currency_pair": "none (EUR venue)",
+      "rate": 1.0,
+      "rate_source": "quoted in EUR -- no conversion (E98: a unit is not a rate)",
+      "rows": 94
+    }
+  },
+  "approximation_caveat": "Segment membership is reviewed annually by each exchange; a live market-cap cut therefore disagrees with the official segment at the margins, and it does not separate the main market from First North or Euronext Growth. The official segment files are behind a login.",
+  "overlap_note": "Roughly a fifth of these rows are already in the STOXX 600 file (tier A). They are written through unchanged and dropped by DEDUP, so the overlap is counted in the universe report rather than hidden by a pre-filter here.",
+  "instrumenttyp_source": "yahoo quoteType",
+  "valuta_source": "yahoo currency",
+  "listdatum_source": "yahoo firstTradeDate",
+  "file": "nordic-mid-2026-08-31.csv",
+  "tier": "B",
+  "retrieved": "2026-08-31",
+  "rows": 312,
+  "rows_without_yahoo_mapping": 0,
+  "isin_populated": 0,
+  "isin_note": "No free source checked carries ISIN for these venues; a guessed ISIN would silently merge two companies in dedup. Left empty.",
+  "sha256": "0cf9a00f109d1befc816e6611039f827b97bd65e7403ed8b40d87ad34b493b12",
+  "built_by": "tools/build_universe.py"
+}

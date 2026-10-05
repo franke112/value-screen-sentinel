@@ -1,0 +1,192 @@
+{
+ "ticker": "MUSA",
+ "currency": "USD",
+ "run_ts": "2026-09-19T11:53:05+02:00",
+ "basis": "annual FY2025",
+ "shares": {
+  "count": 19526000.0,
+  "basis": "weighted-average DILUTED count for annual FY2025, the same window as the flows (E38)",
+  "as_of": "2025-12-31",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 28600000.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0001573516 (MURPHY USA INC.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001573516.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+  "net_interest_paid": 110900000.0,
+  "source": "interest_expense_only"
+ },
+ "bridge": {
+  "net_debt": 2206200000.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 0.0,
+   "pensions": 0.0,
+   "asset_retirement_obligations": 52500000.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+  },
+  "note": "borrowings 19,000,000 + 2,163,600,000 + finance leases 0 (E117: the operating lease liability 560,400,000 LEAVES net debt, its rent being in the flow; finance leases stay) + pension deficit 0 (E35.1) + asset retirement obligations 52,500,000 (E68) + prepaid delivery obligations 0 (E81) - cash 28,900,000 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+ },
+ "dates": {
+  "flows_window_end": "2025-12-31",
+  "balance_sheet": "2025-12-31",
+  "share_count": "2025-12-31",
+  "price": "2026-09-18"
+ },
+ "growth": {
+  "base": 0.02,
+  "view_file": "reference/growth-views/MUSA.md",
+  "view_date": "2026-09-04",
+  "bear": 0.01,
+  "bull": 0.03
+ },
+ "operating_cash_flow": 813900000.0,
+ "capex": -439600000.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_combined",
+   "value": -439600000.0,
+   "provenance": "us-gaap:PaymentsToAcquireProductiveAssets [2025-01-01..2025-12-31] 10-K 0001573516-26-000090 filed 2026-02-18 -- CONCEPT: the filer's ONE capital-expenditure line, tagged under the broader 'productive assets' element and not the PP&E one; E23's combined line, a record of the issuer's presentation and not a claim about what is inside it",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 813900000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-01-01..2025-12-31] 10-K 0001573516-26-000090 filed 2026-02-18",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "sbc",
+   "value": 28600000.0,
+   "provenance": "us-gaap:AllocatedShareBasedCompensationExpense [2025-01-01..2025-12-31] 10-K 0001573516-26-000090 filed 2026-02-18 -- CONCEPT: the INCOME-STATEMENT share-based compensation CHARGE, taken because this filer tags no `ShareBasedCompensation` (the cash-flow statement's non-cash add-back). E36 subtracts the cost either way; the two elements state one charge from two statements and can differ by any capitalised or discontinued portion",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "finance_costs_period",
+   "value": 110900000.0,
+   "provenance": "us-gaap:InterestExpenseNonoperating [2025-01-01..2025-12-31] 10-K 0001573516-26-000090 filed 2026-02-18",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 19526000.0,
+   "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2025-01-01..2025-12-31] 10-K 0001573516-26-000090 filed 2026-02-18",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 19000000.0,
+   "provenance": "us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent [as of 2025-12-31] 10-Q 0001573516-26-000166 filed 2026-08-06 -- E67: borrowings AND finance leases as one current caption, read whole because the filer tags no borrowings-only current element; 13,000,000 of it is `FinanceLeaseLiabilityCurrent` and E65 does not add that again",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 2163600000.0,
+   "provenance": "us-gaap:LongTermDebtAndCapitalLeaseObligations [as of 2025-12-31] 10-Q 0001573516-26-000166 filed 2026-08-06 -- E67: borrowings AND finance leases as one non-current caption, read whole because the filer tags no borrowings-only element; 105,500,000 of it is `FinanceLeaseLiabilityNoncurrent` and E65 does not add that again",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 560400000.0,
+   "provenance": "E65 -- operating and finance lease liabilities: us-gaap:OperatingLeaseLiability [as of 2025-12-31] 10-K 0001573516-26-000090 filed 2026-02-18 = 560,400,000 + us-gaap:FinanceLeaseLiability [as of 2025-12-31] 10-K 0001573516-26-000090 filed 2026-02-18 = 118,500,000, of which 13,000,000 already inside `financial_liabilities_current` (E67) and 105,500,000 already inside `financial_liabilities_noncurrent` (E67), so 0 is added = 560,400,000",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 0.0,
+   "provenance": "sources/MUSA_FY2025_annual-report-10k_2026-02-18_en_a0.htm (the FY2025 Form 10-K as filed with the SEC, accession 0001573516-26-000090, filed 2026-02-18; 334,654 characters of extracted text), note 13 EMPLOYEE BENEFIT PLANS. Searched 2026-09-04: 'pension' and 'defined benefit' each ZERO occurrences in the whole document. What Murphy USA runs is a DEFINED CONTRIBUTION plan -- 'the QuickChek Corporation 401(k) Retirement and Savings Plan and the Murphy Profit Sharing Plan were merged into the Murphy USA Savings Plan. The Company's combined expenses related to these plans were $21.1 million in 2025' -- and E35.1 holds the recognised net DEFINED-BENEFIT liability, which does not exist here. NAMED AND NOT ADDED (E74): the same note discloses a Supplemental Executive Retirement Plan, 'a NONQUALIFIED DEFERRED COMPENSATION plan... intended to restore qualified DEFINED CONTRIBUTION plan benefits restricted under the Internal Revenue Code', whose 'liability balances, NET OF ASSOCIATED ASSETS, were $8.4 million and $11.4 million, at December 31, 2025 and 2024'. That 8.4m is a deferred-compensation obligation and not a pension deficit; it is recorded here so a reader sees it was read and deliberately excluded, not missed.",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 52500000.0,
+   "provenance": "us-gaap:AssetRetirementObligation [as of 2025-12-31] 10-Q 0001573516-26-000166 filed 2026-08-06 -- E68: the stated TOTAL; tagged beside it as memo and never added: `AssetRetirementObligationsNoncurrent` 52,500,000",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "sources/MUSA_FY2025_annual-report-10k_2026-02-18_en_a0.htm, revenue recognition note, loyalty programmes: 'We recognize loyalty revenue when a customer redeems an earned reward. Deferred revenue associated with both loyalty programs are included in Trade accounts payable and accrued liabilities in our Consolidated Balance Sheets. THE DEFERRED REVENUE BALANCES AT DECEMBER 31, 2025 AND 2024 WERE IMMATERIAL.' The sentence is about the concept this field holds -- cash taken against product or reward still to be delivered -- and about the basis date. Murphy USA tags no deferred-revenue or contract-liability element for the year end.",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 28900000.0,
+   "provenance": "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2025-12-31] 10-Q 0001573516-26-000166 filed 2026-08-06",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_lease_liabilities",
+   "value": 560400000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2025-12-31] 10-K 0001573516-26-000090 filed 2026-02-18 -- E117: the operating part of `lease_liabilities`, which LEAVES net debt",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  }
+ ],
+ "tool_commit": "E117 re-strike, 2026-09-19, e46b8a8",
+ "notes": "E117 re-strike: the lease treatment is the only change from the prior record, MUSA-2026-09-04.json",
+ "money_unit": "whole",
+ "nci_dividends_paid": 0.0,
+ "undetermined": [],
+ "fcf_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_debt_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_income": {
+  "value": 470600000.0,
+  "page": "us-gaap:NetIncomeLoss [2025-01-01..2025-12-31] 10-K 0001573516-26-000090 filed 2026-02-18",
+  "verified": true
+ },
+ "lease": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0001573516 (MURPHY USA INC.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001573516.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 842-20-45-5(a): a lessee classifies payments for operating leases within OPERATING activities, so this filer's `operating_cash_flow` already bears them; the stated cash paid is `us-gaap:OperatingLeasePayments`, written as `operating_lease_payments` where tagged. No filer-specific tag states the classification because the standard leaves no choice",
+  "principal_added_back": null,
+  "leg": "none -- the operating cash flow bears the rent (E117)",
+  "rule": "E117",
+  "lease_cash_deducted": null,
+  "principal_paid": null,
+  "interest_paid": null,
+  "liability_excluded": 560400000.0
+ }
+}

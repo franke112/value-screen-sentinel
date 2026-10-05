@@ -1,0 +1,68 @@
+# ticker -> the market and company string api.news.eu.nasdaq.com needs.
+# Resolved once by `vss nordic --resolve` and stored; never worked out per call.
+issuers:
+  PNDORA.CO:
+    market: "Main Market, Copenhagen"
+    company: "Pandora A/S"
+    language: en
+    resolved: 2026-08-24
+    note: "matched 196 release(s) on the feed, newest 2026-08-20"
+  BETS-B.ST:
+    market: "Main Market, Stockholm"
+    company: "Betsson AB"
+    language: en
+    resolved: 2026-08-24
+    note: "matched 192 release(s) on the feed, newest 2026-08-03"
+  AFRY.ST:
+    market: "Main Market, Stockholm"
+    company: "AFRY AB"
+    resolved: 2026-08-25
+    note: "matched 148 release(s) on the feed, newest 2026-07-15"
+  NREST.ST:
+    market: "First North Sweden"
+    company: "Nordrest Holding AB"
+    resolved: 2026-08-25
+    note: "matched 39 release(s) on the feed, newest 2026-08-21"
+  ZZ-B.ST:
+    market: "First North Sweden"
+    company: "Zinzino Holding AB"
+    resolved: 2026-08-25
+    note: "matched 200 release(s) on the feed, newest 2026-08-25"
+  SYNSAM.ST:
+    market: "Main Market, Stockholm"
+    company: "Synsam AB"
+    resolved: 2026-08-25
+    note: "matched 199 release(s) on the feed, newest 2026-08-24"
+  LIAB.ST:
+    market: "Main Market, Stockholm"
+    company: "Lindab AB"
+    language: en
+    resolved: 2026-08-26
+    note: "matched 186 release(s) on the feed, newest 2026-07-17"
+  TRUE-B.ST:
+    market: "Main Market, Stockholm"
+    company: "Truecaller AB"
+    resolved: 2026-08-26
+    note: "matched 195 release(s) on the feed, newest 2026-08-24"
+  KAR.ST:
+    market: "Main Market, Stockholm"
+    company: "Karnov Group AB"
+    resolved: 2026-08-30
+    note: "matched 198 release(s) on the feed, newest 2026-08-24"
+  RVRC.ST:
+    market: "Main Market, Stockholm"
+    company: "RVRC Holding AB"
+    resolved: 2026-08-30
+    note: "matched 135 release(s) on the feed, newest 2026-08-26"
+  LUG.ST:
+    market: "Main Market, Stockholm"
+    company: "Lundin Gold Inc."
+    language: en
+    resolved: 2026-08-30
+    note: "matched 88 release(s) on the feed, newest 2026-08-06. WRITTEN BY HAND: the feed's top full-text candidate for 'Lundin Gold' was Filo Corp. (a Lundin-group company that mentions the name), so --write was not used; the row for Lundin Gold Inc. itself was taken from the same candidate table. Toronto-primary (TSX: LUG), Stockholm secondary listing; the Nasdaq Stockholm feed carries its releases"
+  MEKKO.HE:
+    market: "Main Market, Helsinki"
+    company: "Marimekko Oyj"
+    language: en
+    resolved: 2026-09-08
+    note: "matched 189 release(s) on the feed, newest 2026-08-13"

@@ -1,0 +1,550 @@
+# AUTO.L -- Autotrader Group plc, hand-read from the issuer's own filings.
+# WRITTEN 2026-08-27. No section 5 run on this file: no fv_base, no tier,
+# no mbp, no growth view registered in reference/growth-views/AUTO.L.md.
+#
+# SOURCES, all four in sources/, all recorded in sources/manifest.json with
+# FCA National Storage Mechanism provenance (LEI 213800QLK9BZILB1DI86):
+#   AR    Annual Report and Financial Statements 2026 (audited), 146 PDF
+#         pages, published 2026-06-08, covering FY ended 2026-03-31.
+#   ESEF  the same report as an ESEF/iXBRL tagged package. UPDATED
+#         2026-08-27: the inline-XBRL report inside the taxonomy package
+#         (reports/213800QLK9BZILB1DI86-2026-03-31-T01.html) was read and
+#         its 326 ix:nonFraction facts cross-checked field by field against
+#         this file (FRAMEWORK-EDITS E40). ELEVEN fields agree and now carry
+#         `verified_kind: cross_document` -- revenue, operating_income,
+#         net_income, total_assets, cash_and_equivalents,
+#         financial_liabilities_noncurrent, lease_liabilities,
+#         operating_cash_flow, diluted_eps, capex_ppe, capex_intangibles.
+#         The last two match on magnitude only after reconciling a SIGN
+#         CONVENTION, not a discrepancy: this file signs cash outflows
+#         negative, while the iXBRL concept
+#         (PurchaseOf...ClassifiedAsInvestingActivities) tags the outflow as
+#         a positive magnitude by taxonomy convention -- same £27.3m /
+#         £0.1m either way, noted inline where each field sits. FOUR fields
+#         (financial_liabilities_current, shares_issued_period_end,
+#         treasury_shares_period_end, diluted_weighted_average_shares) have
+#         no corresponding tagged fact at all -- the package defines only
+#         two units in the whole document (Unit_GBP and Unit_GBP_per_Share,
+#         no bare xbrli:shares unit exists anywhere), so no share COUNT is
+#         ever tagged, only the monetary IssuedCapital/TreasuryShares
+#         captions and the EPS ratios themselves; and no current-borrowings
+#         concept is tagged at all. Those four stay same_page; the three
+#         share-count fields among them were instead checked by ARITHMETIC
+#         against other entered figures (see SHARE COUNT ARITHMETIC CHECKS
+#         below) since the PDF text layer is the hazard most likely to have
+#         corrupted exactly these numbers.
+#   FY RNS  "FULL YEAR RESULTS FOR THE YEAR ENDED 31 MARCH 2026", 2026-05-21.
+#   H1 RNS  "HALF YEAR RESULTS FOR THE SIX MONTHS ENDED 30 SEPTEMBER 2025",
+#           2025-11-06. Not used for a periods: entry -- see BASIS below.
+# Nothing here comes from outside these four files (plus the ESEF package's
+# own tagged facts, now read), and nothing was web-searched.
+#
+# PAGE CONVENTION: every `page:` below is the PRINTED folio, which for this
+# PDF is PDF page minus 2 (the cover and contents carry no printed number).
+#
+# A HAZARD IN THE SOURCE, not in this file: the AR's PDF text layer inserts
+# spaces inside some numerals -- note 25's share total extracts as
+# "8 2 7, 5 0 3", note 12's goodwill as "1 1 7. 0". Every figure below was
+# read back against the RENDERED page, not the raw extraction.
+#
+# BASIS. reporting_frequency: half_yearly. Autotrader files H1 and FY only,
+# no discrete quarters. The one periods: entry is 2026-FY (year ended
+# 2026-03-31), the newest filed period and the twelve-month window E19/E31
+# put section 5 on for a half-yearly reporter. The H1 RNS (six months to
+# 2025-09-30) falls ENTIRELY INSIDE that year and is not a second periods:
+# entry -- it would overlap the FY window and double-count April-September
+# 2025. It supplied no figure below; it was read only for the Gate 2 /
+# section 2 narrative (reports/AUTO.L-reading-2026-08-27.md).
+#
+# EXPENSES ARE CLASSIFIED BY NATURE, and the issuer says so: "In the current
+# and prior year, the Group has classified expenditure by nature (2025: by
+# nature)" (note 4, p.114). The income statement carries a single "Operating
+# costs" line and NO gross profit (p.101) -- gross_profit is DATA MISSING
+# because the concept is not presented, not because it was not found.
+#
+# UNITS. money_unit: millions, as the accounts state: "rounded to the
+# nearest hundred thousand (£0.1m)" (note 1, p.106).
+#
+# share_unit: thousands (FRAMEWORK-EDITS E53). Note 25 (p.125) prints the
+# period-end issued count ALREADY ROUNDED to the nearest thousand -- "Total
+# 827,503" -- and no more exact figure is printed anywhere; deriving one
+# from note 11's opening count less note 25's cancellation would be MORE
+# precise than the accounts state and is exactly the derivation E22
+# forbids. share_unit is ONE scale for the whole file (vss/runrecord.py
+# multiplies a single shares.unit against the whole record), so every OTHER
+# share count -- notes 11 and 26 print these in WHOLE UNITS -- is converted
+# to thousands by dividing by 1,000, an EXACT operation that loses no
+# precision (E53's correction, same day): diluted_weighted_average_shares
+# 862,666,250 -> 862,666.25; treasury_shares_period_end 4,412,082 ->
+# 4,412.082; employee_trust_shares_period_end 282,389 -> 282.389. Only
+# shares_issued_period_end (827,503) carries the issuer's own rounding,
+# to +-500 shares.
+#
+# SHARE COUNT ARITHMETIC CHECKS, 2026-08-27. The ESEF package tags no share
+# count at all (see ESEF note above), so the three PDF-only share fields
+# were checked by ARITHMETIC against other entered figures instead of by a
+# second document -- a CHECK, not a derivation, and none of the three
+# entered values below was changed by it (E22, E53 stand).
+#
+#   diluted_weighted_average_shares (862,666.25 thousand = 862,666,250,
+#   note 11 p.117, printed CLEANLY -- no space-insertion in this cell).
+#   Reproduced from the two figures on this basis already VERIFIED
+#   cross_document against the ESEF package: net_income 293.9 and
+#   diluted_eps 34.07p. shares = net_income / diluted_eps =
+#   293,900,000 / 0.3407 = 862,635,750 (point estimate on the rounded
+#   inputs). Against the printed 862,666,250 that is a gap of 30,500
+#   shares, 0.0035%. Both inputs are themselves rounded (net_income to the
+#   nearest £0.1m, diluted_eps to the nearest 0.01p); propagating those
+#   tolerances gives a band of 862,362,436-862,909,144, which contains
+#   862,666,250 comfortably. CONSISTENT to rounding.
+#
+#   shares_issued_period_end (827,503 thousand, note 25 p.125, THE hazard
+#   page -- "8 2 7, 5 0 3" in the raw extraction). Two independent checks:
+#     (a) note 11's EXACT opening count less note 25's EXACT cancellation.
+#     Note 11 (p.117, EPS reconciliation, printed cleanly): "Issued
+#     ordinary shares at 1 April 884,700,426". Note 25's own narrative
+#     (p.125, printed cleanly): "a total of 58,493,141 ordinary shares...
+#     were purchased. ... 1,295,147 were held in treasury with 57,197,994
+#     being cancelled." 884,700,426 - 57,197,994 = 827,502,432. Against the
+#     printed rounded total of 827,503,000 that is a gap of 568 shares,
+#     0.00007% -- outside a naive +-500 half-a-thousand rounding band, but
+#     immaterial in size, and unsurprising: note 11's opening count and
+#     note 25's share-capital roll-forward are two different disclosures
+#     that need not share one internal cutoff to the share. CONSISTENT
+#     for practical purposes; the residual is a fact about the accounts,
+#     not corrected here (E22 -- this is a check, not a derivation, and
+#     827,503 as printed remains the entered figure regardless).
+#     (b) issued capital at par. Note 25's own table: shares of "1p each"
+#     (£0.01 par), Amount column "8.3" (£m, rounded to the nearest £0.1m).
+#     827,503,000 shares x £0.01 = £8,275,030 = £8.28m unrounded, rounds to
+#     £8.3m -- matches. Reversing loosely (£8.3m +-£0.05m at £0.01 par is
+#     825,000,000-835,000,000 shares) also contains 827,503,000 easily.
+#     CONSISTENT.
+#   Neither check failed; both entered figures stand as printed, now noted
+#   as arithmetically checked rather than left as a single PDF read.
+#
+# FRAMEWORK-EDITS E59 (RULED, 2026-08-27, owner) -- an internal cross-check
+# is a second read. Where a figure entered from one page reconciles to a
+# DIFFERENT note in the same document (a roll-forward, a component sum, a
+# segmental restatement) prepared separately from the entered figure's own
+# source, that is an independent confirmation and the field takes
+# `verified_kind: cross_document`, citing both pages -- a transcription
+# error would break the tie, the same test cross-document verification
+# applies across two filings. It does NOT extend to a figure that merely
+# appears twice on the same page. Applied to ELEVEN fields, each now citing
+# its reconciling note inline: depreciation_amortisation (note 28 sums to
+# note 4's total), diluted_weighted_average_shares (p.101's net_income /
+# diluted_eps reproduces note 11's count to rounding -- see SHARE COUNT
+# ARITHMETIC CHECKS above, promoted from CHECK to cross_document verification
+# by this ruling), employee_trust_shares_period_end and
+# treasury_shares_period_end (note 26's own roll-forwards reproduce note
+# 25's counts exactly), finance_income_received (note 9 restates p.105
+# exactly), financial_liabilities_current (note 31 restates note 21's zero),
+# lease_payments_capital (note 31's roll-forward restates p.105 exactly),
+# net_finance_costs (note 9's own components sum to p.101's total),
+# operating_cash_flow_pretax (note 28 restates p.105 exactly), sbc (note 29's
+# own components net to note 28's figure), shares_issued_period_end (note 11
+# less note 25's own narrative reproduces the total to rounding, plus the
+# par-value check -- see SHARE COUNT ARITHMETIC CHECKS above, likewise
+# promoted). THREE do NOT get it, and stay UNVERIFIED with the reason
+# recorded at the field: finance_costs_paid (note 30 gives £2.7m against the
+# cash flow's £2.8m -- a real £0.1m gap between two figures each already
+# rounded to £0.1m, not one rounding absorbs); income_tax_paid (note 10's
+# current tax CHARGE is an accrual, not the cash actually paid -- the
+# numerical tie at this rounding may be coincidence, not a reconciliation);
+# proceeds_from_disposals_ppe (no reconciling note found at all -- note 13's
+# disposal schedule does not decompose into proceeds cleanly).
+#
+# THE EMPLOYEE TRUST LEG (FRAMEWORK-EDITS E54, first application). Note 11
+# (p.117): basic EPS uses shares "excluding those held in treasury and by
+# the Employee Share Option Trust ('ESOT')". Notes 25 and 26 (p.125) print
+# the two counts SEPARATELY at the period end. Entered as its own field,
+# employee_trust_shares_period_end, never folded into
+# treasury_shares_period_end. shares_outstanding_period_end is left BLANK
+# below so the store subtracts all three: issued 827,503 - treasury
+# 4,412.082 - trust 282.389 = 822,808.529 thousand = 822,808,529 shares,
+# which matches the EPS basis note 11 states (860,235,092 basic weighted
+# average is a DIFFERENT, weighted-average figure and is not this net).
+#
+# THE VEHICLE STOCKING LOAN IS NOT NET DEBT (FRAMEWORK-EDITS E55). The
+# £5.0m balance (note 20, p.121) is excluded from financial_liabilities_
+# current: it can only fund vehicles held for resale, self-liquidates
+# within 180 days on their sale, and the issuer books it inside trade and
+# other payables, not borrowings (note 3, p.113; note 20, p.121).
+#
+# NET DEBT INCLUDES LEASES (FRAMEWORK-EDITS E56, confirming E35). The
+# issuer's OWN "net bank debt" of £146.8m (p.23) excludes leases and is
+# NOT what financial_liabilities_current/noncurrent/lease_liabilities below
+# are struck to reproduce. Note 31's own net debt (p.131) -- "total
+# borrowings and lease liabilities, less cash and cash equivalents" -- is
+# £188.3m: 163.4 borrowings + 42.6 leases + 0.5 accrued interest - 18.2
+# cash. THE SCHEMA HAS NO FIELD FOR THE £0.5M ACCRUED-INTEREST LEG, so the
+# five legs below (163.4 + 42.6 + 0 pension - 18.2) sum to £0.5m LESS than
+# the issuer's own 188.3 -- a schema gap, stated here rather than closed by
+# adjusting a printed figure to make the arithmetic land. net_debt_ebitda is
+# left DATA MISSING for a separate reason: the printed 0.3x leverage is
+# struck on the £146.8m figure this ruling declines AND on a non-standard
+# covenant EBITDA that strips share-based pay and joint-venture profit
+# (note 21, p.122) and that the accounts state only as a RATIO, never as an
+# amount.
+#
+# PENSION DEFICIT -- RESOLVED 2026-08-27 (E35.1), the open question above
+# closed with primary-source evidence, not decided by inference from the
+# balance-sheet asset caption alone. Note 24 (p.123-124) in full: the
+# Scheme's buy-in policy was converted to a full buy-out on 2025-09-12, the
+# Group "has accounted for the buy-out as a Settlement", and "it was not
+# necessary to derive assumptions as at 31 March 2026 since there were no
+# benefits to be valued". The note's own balance-sheet reconciliation
+# (p.124) states, for 2026: "Present value of funded obligations –",
+# "Fair value of plan assets –", "Net asset recognised in the Consolidated
+# balance sheet –" -- all NIL, not merely a surplus caption's silence. The
+# £2,000 (two thousand pounds) IFRIC 14 residual named on the same page is
+# immaterial at this file's £0.1m rounding and is an ASSET, not a
+# liability, consistent with E35.1's field being the recognised net
+# defined-benefit LIABILITY specifically. Entered as pension_deficit: 0,
+# zero_basis: note, status VERIFIED / same_page (E40): read directly off
+# the rendered primary source this session, not cross-checked against a
+# second document. Unblocks net_debt_on_basis, whose five required legs
+# (E35.1) previously refused with pension_deficit absent.
+# INTEREST (E34): Autotrader's operating cash flow does NOT bear interest --
+# see interest_in_ocf below. FCF0 is not being struck here (section 5 is
+# not run), so this affects nothing in this file beyond the declaration.
+#
+# SHARE-BASED COMPENSATION (E36): sbc is the non-cash addback note 28
+# states inside "Cash generated from operations" -- "Share-based payments
+# charge (excluding associated NI) 9.2" (p.126) -- the equity-settled
+# charge before employer NI and the apprenticeship levy. No scheme is
+# described as cash-settled (note 29, p.126-129: SIP, Sharesave, PSP,
+# Deferred Annual Bonus and Single Incentive Plan, all measured at fair
+# value under Black-Scholes/Monte Carlo, the shape of an equity award).
+#
+# WHAT IS DELIBERATELY ABSENT, and why (beyond gross_profit above):
+#   * ebitda -- never stated as an amount, only the 0.3x leverage ratio
+#     (see NET DEBT note above).
+#   * free_cash_flow_reported -- no company-published free cash flow line
+#     in the AR or either RNS.
+#   * diluted_eps_adjusted, operating_income_adjusted -- no adjusted
+#     measures are presented anywhere in these four documents.
+#   * capex_combined -- the issuer prints the split (capex_ppe /
+#     capex_intangibles), so E23 leaves the combined line blank.
+#   * net_interest_paid -- not printed as one net; note 9 (p.116) nets
+#     finance costs and finance income on the INCOME STATEMENT basis
+#     (net_finance_costs, entered directly below) but the CASH FLOW
+#     statement (p.105) never combines interest paid and interest received
+#     into one line -- they sit in different sections (financing and
+#     investing respectively) -- so finance_costs_paid and
+#     finance_income_received are entered instead and the store subtracts.
+#   * finance_costs_period, finance_income_period -- net_finance_costs is
+#     printed directly (p.101; note 9 total, p.116), so E18 leaves the
+#     split blank.
+#   * pension_deficit -- RESOLVED 2026-08-27, see PENSION DEFICIT below.
+#     No longer absent; entered as a stated zero.
+#   * other_current_financial_assets -- no such caption on the balance
+#     sheet. Current assets (Inventory 4.3 + Trade and other receivables
+#     82.1 + Current income tax assets 2.7 + Cash 18.2 = 107.3, p.103) sum
+#     exactly to the printed subtotal, which could support a
+#     zero_basis: subtotal entry -- also an open question, not decided
+#     here, and left blank rather than assumed.
+#   * noncurrent_derivative_assets_on_debt -- note 31's own net debt
+#     reconciliation (p.131) carries no such leg.
+#   * shares_point_in_time -- no count stated as of a specific day distinct
+#     from a period end in any of the four documents.
+#   * market: block (as_of / enterprise_value / market_cap) -- these are
+#     priced facts belonging to a date, not to a fiscal period, and none of
+#     the four documents states one.
+
+ticker: AUTO.L
+name: Autotrader Group plc
+reporting_currency: GBP
+money_unit: millions
+share_unit: thousands
+quote_currency: GBX
+sector: Communication Services   # the screener's own source-list string (config/watchlist.yaml, 2026-08-26 entry) -- not from these documents
+reporting_frequency: half_yearly
+origin: manual
+
+interest_in_ocf:
+  value: no
+  source: "Annual Report and Financial Statements 2026 (audited)"
+  page: "p.105, consolidated statement of cash flows: 'Payment of interest on borrowings 31 (2.8)' sits inside Cash flows from FINANCING activities, and 'Interest received on cash and cash equivalents 1.3' sits inside Cash flows from INVESTING activities -- both OUTSIDE 'Net cash generated from operating activities 322.8', which is computed from 'Cash generated from operations 418.0' less 'Income taxes paid (95.2)' alone, with no interest line in operating activities at all"
+
+# E70 (2026-08-30): whether this filer's operating cash flow bears its
+# lease principal. Under IFRS 16 it does not, so nothing is added back: the
+# lease is counted once, in net debt (E35, E65); `lease_payments_capital`,
+# where entered, is a memo the flow never deducted.
+operating_leases_in_ocf:
+  value: no
+  source: "FRAMEWORK-EDITS E70, applied 2026-08-30 to an IFRS 16 filer"
+  page: "IFRS 16.50(b): a lessee classifies cash payments for the principal portion of the lease liability within FINANCING activities, so this filer's `operating_cash_flow` never bore the principal; the interest portion follows the filer's IAS 7 policy, which `interest_in_ocf` records. The standard leaves no choice on the principal"
+
+periods:
+  - period: 2026-FY
+    period_end: 2026-03-31
+    period_basis: fiscal
+    document: "Annual Report and Financial Statements 2026 (audited)"
+    url: "sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf"
+    figures:
+      rou_depreciation:
+        value: 4.7
+        page: "sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf pdf p.122, note 14 Leases, amounts charged in the income statement: 'Depreciation charge of right of use assets 4.7' (2025: 2.3). Read back 2026-09-19 (E117 clause 5)"
+        status: VERIFIED
+        verified_kind: same_page
+      nci_dividends_paid:
+        value: 0
+        zero_basis: searched
+        source: "E105 leg; E107 searched absence"
+        page: "E107 SEARCHED ABSENCE. Document: AUTO.L_2026-FY_final-results_2026-05-21_xx_a0.pdf (104,991 characters of extracted text). Searched 2026-09-04 for the terms 'non-controlling', 'noncontrolling', 'minority interest', 'minority interests' -- ZERO occurrences of any of them. The group states no non-controlling interest, so it distributes none (E106 clause 5: a determined zero, not an undetermined leg)."
+        status: UNVERIFIED
+      net_debt_reported:
+        value: 188.3
+        source: "E103 automatic reference extraction (pdf (model-read))"
+        page: "131 [printed in millions] -- verbatim: Net debt/(cash) (12.7) 157.5 43.5 188.3"
+        status: UNVERIFIED
+      # --- read by the E6 RANKING KEY ---------------------------------
+      revenue:
+        value: 624.3
+        page: "p.101, consolidated income statement: 'Revenue 624.3'; note 5, p.114 confirms by stream; cross-checked against the ESEF/iXBRL package (sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.zip), tag ifrs-full:Revenue, context P04_01_2025To03_31_2026 (2025-04-01 to 2026-03-31), unit Unit_GBP, scale 6: 624.3"
+        status: VERIFIED
+        verified_kind: cross_document
+      # gross_profit: DATA MISSING -- the concept is not presented (see header)
+      operating_income:
+        value: 392.7
+        page: "p.101, consolidated income statement: 'Operating profit 392.7'; cross-checked against the ESEF/iXBRL package, tag ifrs-full:ProfitLossFromOperatingActivities, context P04_01_2025To03_31_2026, unit Unit_GBP, scale 6: 392.7"
+        status: VERIFIED
+        verified_kind: cross_document
+      total_assets:
+        value: 685.3
+        page: "p.103, consolidated balance sheet: 'Total assets 685.3'; cross-checked against the ESEF/iXBRL package, tag ifrs-full:Assets, context PAsOn03_31_2026, unit Unit_GBP, scale 6: 685.3"
+        status: VERIFIED
+        verified_kind: cross_document
+      net_ppe:
+        value: 73.0
+        page: "p.103, consolidated balance sheet: 'Property, plant and equipment 13 73.0'; note 13, p.119 confirms: 'Net book value at 31 March 2026 66.4 6.4 0.2 – 73.0'"
+        status: UNVERIFIED
+      # --- section 5.1 C: the cash the reverse DCF discounts -----------
+      operating_cash_flow:
+        value: 322.8
+        page: "p.105, consolidated statement of cash flows: 'Net cash generated from operating activities 322.8'; cross-checked against the ESEF/iXBRL package, tag ifrs-full:CashFlowsFromUsedInOperatingActivities, context P04_01_2025To03_31_2026, unit Unit_GBP, scale 6: 322.8"
+        status: VERIFIED
+        verified_kind: cross_document
+      operating_cash_flow_pretax:
+        value: 418.0
+        page: "p.105: 'Cash generated from operations 418.0'; reconciles exactly to note 28, p.126, 'Cash generated from operations 418.0' -- the cash flow statement's own total restated as the closing line of note 28's separately-prepared profit-to-cash reconciliation (FRAMEWORK-EDITS E59)"
+        status: VERIFIED
+        verified_kind: cross_document
+      income_tax_paid:
+        value: -95.2
+        page: "p.105: 'Income taxes paid (95.2)'"
+        status: UNVERIFIED
+        # FRAMEWORK-EDITS E59 -- does NOT get verified_kind: cross_document.
+        # Note 10 (p.116) states 'Total current taxation 95.2', which ties
+        # numerically to this field at the printed rounding, but the two are
+        # different concepts: note 10 is the YEAR'S ACCRUED tax CHARGE, this
+        # field is the CASH actually paid, and cash paid ordinarily reflects
+        # a mix of current and prior-year instalments rather than the
+        # current year's charge alone. The numerical tie may be coincidence
+        # at one decimal place, not a reconciliation a transcription error
+        # would necessarily break. Stays UNVERIFIED.
+      capex_ppe:
+        value: -27.3
+        page: "p.105: 'Purchases of property, plant and equipment (27.3)' -- the PDF text layer extracts this as '(27 .3)'; cross-checked against the ESEF/iXBRL package, tag ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities, context P04_01_2025To03_31_2026, unit Unit_GBP, scale 6: 27.3, sign attribute absent. Not a discrepancy: this concept is inherently an outflow, tagged as a positive magnitude by iXBRL convention, while the printed statement (and this field) sign cash outflows negative. Same £27.3m either way -- the sign was reconciled by convention, not by value."
+        status: VERIFIED
+        verified_kind: cross_document
+      capex_intangibles:
+        value: -0.1
+        page: "p.105: 'Purchases of intangible assets (0.1)'; cross-checked against the ESEF/iXBRL package, tag ifrs-full:PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities, context P04_01_2025To03_31_2026, unit Unit_GBP, scale 6: 0.1, sign attribute absent. Not a discrepancy: same convention gap as capex_ppe above -- iXBRL tags the outflow as a positive magnitude, this field signs it negative. Same £0.1m either way."
+        status: VERIFIED
+        verified_kind: cross_document
+      # capex_combined: DATA MISSING -- the issuer prints the split above (E23)
+      proceeds_from_disposals_ppe:
+        value: 4.5
+        page: "p.105: 'Proceeds from sale of property, plant and equipment 4.5'"
+        status: UNVERIFIED
+        # FRAMEWORK-EDITS E59 -- does NOT get verified_kind: cross_document.
+        # Note 13's disposal schedule (p.119: cost disposals 21.0, accumulated
+        # depreciation disposals 16.1, narrative NBVs for individual disposals)
+        # does not decompose cleanly enough to reproduce 4.5 independently --
+        # it mixes owned and lease right-of-use asset disposals and does not
+        # state proceeds separately from carrying value. No reconciling note
+        # found. Stays UNVERIFIED.
+      lease_payments_capital:
+        value: -1.8
+        page: "p.105: 'Payment of lease liabilities (1.8)'; reconciles exactly to note 31, p.131, net debt roll-forward: the lease liabilities row's 'Cash flow' column states '(1.8)' -- the same period's lease cash payment, restated in the separately-prepared net debt reconciliation (FRAMEWORK-EDITS E59)"
+        status: VERIFIED
+        verified_kind: cross_document
+      lease_interest_paid:
+        value: 0
+        page: "AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf p.122, note 14: 'Total cash outflow for leases 1.8' (IFRS 16.53(g)) -- the SAME figure as the cash flow statement's financing line 'Payment of lease liabilities (1.8)' (p.107), so the filer's own total lease cash outflow is that one line, principal and interest inside it. Note 14's income-statement 'Interest on lease liabilities 1.7' is an EXPENSE and is NOT deducted again. E117 deducts the stated total, 1.8, once"
+        status: VERIFIED
+        zero_basis: note
+      # net_interest_paid: DATA MISSING directly -- the cash flow statement never
+      # nets interest paid and interest received into one line (see header);
+      # the two sides below let the store subtract (E18).
+      finance_costs_paid:
+        value: 2.8
+        page: "p.105, cash flows from FINANCING activities: 'Payment of interest on borrowings 31 (2.8)' (entered as a positive magnitude). Note 30 (p.131) separately states interest paid was £2.4m on borrowings and £0.3m on the vehicle stocking loan -- £2.7m combined, £0.1m short of this cash-flow-statement figure. The cash flow statement is this field's own required source and is what is entered; the £0.1m gap is a fact about the accounts, not corrected here"
+        status: UNVERIFIED
+        # FRAMEWORK-EDITS E59 -- does NOT get verified_kind: cross_document.
+        # The would-be reconciling note (30, p.131) does NOT tie: £2.4m
+        # borrowings interest + £0.3m vehicle stocking loan interest = £2.7m
+        # against this field's £2.8m, a £0.1m gap (see page: above). Both
+        # figures are already rounded to the nearest £0.1m, so a whole
+        # £0.1m of daylight between them is not absorbed by rounding the
+        # way the share-count checks' sub-0.01% gaps are -- it is a real,
+        # unexplained residual, not a reconciliation a transcription error
+        # would break. Stays UNVERIFIED. If section 5 needs this figure, it
+        # will refuse on it, and that refusal is correct.
+      finance_income_received:
+        value: 1.3
+        page: "p.105, cash flows from INVESTING activities: 'Interest received on cash and cash equivalents 1.3' (entered as a positive magnitude); reconciles exactly to note 9, p.116, net finance costs: 'Interest receivable on cash and cash equivalents (1.3)' -- the same figure in the separately-prepared finance-costs note (FRAMEWORK-EDITS E59)"
+        status: VERIFIED
+        verified_kind: cross_document
+      sbc:
+        value: 9.2
+        page: "note 28, p.126, cash generated from operations reconciliation: 'Share-based payments charge (excluding associated NI) 9.2'; reconciles exactly to note 29, p.126, share-based payments: 'Total charge 9.7' less 'NI and apprenticeship levy on applicable schemes 0.5' = 9.2 -- the same charge decomposed in the separately-prepared remuneration note (FRAMEWORK-EDITS E59)"
+        status: VERIFIED
+        verified_kind: cross_document
+      # free_cash_flow_reported: DATA MISSING -- no company FCF line (see header)
+      # --- section 5.1 C: net debt ------------------------------------
+      cash_and_equivalents:
+        value: 18.2
+        page: "p.103, consolidated balance sheet: 'Cash and cash equivalents 19 18.2'; note 19, p.121 confirms; cross-checked against the ESEF/iXBRL package, tag ifrs-full:CashAndCashEquivalents, context PAsOn03_31_2026, unit Unit_GBP, scale 6: 18.2"
+        status: VERIFIED
+        verified_kind: cross_document
+      # other_current_financial_assets: DATA MISSING -- see header (subtotal
+      # argument possible, not decided)
+      financial_liabilities_current:
+        value: 0
+        zero_basis: caption
+        page: "note 21, p.121, borrowings repayment schedule: 'Less than one year – –'; reconciles exactly to note 31, p.131, net debt roll-forward: 'Debt due within one year – – – –' -- the same zero balance independently stated in the separately-prepared net debt reconciliation (FRAMEWORK-EDITS E59). EXCLUDES the £5.0m vehicle stocking loan (note 20, p.121) under FRAMEWORK-EDITS E55 -- inventory finance, presented inside trade and other payables, not borrowings"
+        status: VERIFIED
+        verified_kind: cross_document
+        # ESEF CROSS-CHECK: the tagged package carries no current-borrowings
+        # concept at all -- ifrs-full:LongtermBorrowings is tagged (see
+        # financial_liabilities_noncurrent below) but no current counterpart
+        # (e.g. a "ShorttermBorrowings" or "CurrentBorrowings" tag) appears
+        # anywhere in the 326 ix:nonFraction facts. Stays same_page per step 4.
+      financial_liabilities_noncurrent:
+        value: 163.4
+        page: "p.103, consolidated balance sheet: 'Borrowings 21 163.4'; note 21, p.121: 'Total borrowings 163.4' (£165.0m gross of the Syndicated RCF less £1.6m unamortised debt issue costs); cross-checked against the ESEF/iXBRL package, tag ifrs-full:LongtermBorrowings, context PAsOn03_31_2026, unit Unit_GBP, scale 6: 163.4"
+        status: VERIFIED
+        verified_kind: cross_document
+      lease_liabilities:
+        value: 42.6
+        page: "note 14, p.119, 'Lease liabilities in the balance sheet at 31 March': 'Current 0.6' + 'Non-current 42.0' = 'Total 42.6'; cross-checked against the ESEF/iXBRL package, tags ifrs-full:CurrentLeaseLiabilities (context PAsOn03_31_2026: 0.6) + ifrs-full:NoncurrentLeaseLiabilities (context PAsOn03_31_2026: 42.0), unit Unit_GBP, scale 6: sum 42.6"
+        status: VERIFIED
+        verified_kind: cross_document
+      pension_deficit:
+        value: 0
+        zero_basis: note
+        page: "note 24, p.123-124: the Scheme's buy-in was converted to a full buy-out on 2025-09-12 and accounted for as a Settlement; 'it was not necessary to derive assumptions as at 31 March 2026 since there were no benefits to be valued'; the note's own balance-sheet reconciliation states, for 2026, 'Present value of funded obligations –', 'Fair value of plan assets –', 'Net asset recognised in the Consolidated balance sheet –' -- all nil. The £2,000 IFRIC 14 residual named on the same page is an ASSET, immaterial at this file's £0.1m rounding, and not the LIABILITY E35.1's field is (FRAMEWORK-EDITS E35.1, resolved 2026-08-27 -- see header PENSION DEFICIT note)"
+        status: VERIFIED
+        verified_kind: same_page
+      # E68 / E69 (2026-08-29): NOT a caption zero. The balance sheet
+      # (p.103) presents `Provisions 22` and note 22 carries a
+      # `Dilapidations provision` column -- a lessee's obligation to restore
+      # the leased premises, recognised with the right-of-use asset under
+      # IFRS 16 -- so the decommissioning-type provision EXISTS and is a
+      # stated figure the ESEF package tags under no decommissioning element.
+      # Read by hand from the note (E69), caption quoted, same_page.
+      asset_retirement_obligation:
+        value: 3.7
+        page: "note 22 PROVISIONS, p.122, column 'Dilapidations provision £m': 'At 31 March 2025 1.6', 'Charged to the income statement –', 'Utilised in the year (1.0)', 'Recognised under IFRS 16 3.6', 'Released in the year (0.5)', 'At 31 March 2026 3.7'; the balance sheet p.103 presents it inside 'Provisions 22' (non-current 3.7; the current 1.2 is the holiday-pay provision). Note 28 p.126, cash generated from operations: 'Dilapidation provision release (0.5)'. A lessee's restoration obligation recognised with the right-of-use asset -- a decommissioning-type provision within E68's leg, entered under E69 because no ifrs-full decommissioning element is tagged for it. JUDGEMENT FOR THE OWNER: that E68 reaches a dilapidations provision (ASC 410-20 and IAS 37 both treat it as one)."
+        status: VERIFIED
+        verified_kind: same_page
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81 (2026-08-30): AR 2026 consolidated balance sheet, printed p.103 (PDF p.105), liabilities presented at 31 March 2026: 'Borrowings 21 | 163.4', 'Provisions 22 | 3.7', 'Lease liabilities 14 | 42.0', 'Deferred income 5 | 6.6', 'Deferred taxation liabilities 0.6', 'Trade and other payables 20 | 60.1', 'Provisions 1.2', 'Lease liabilities 0.6' -- no streaming, prepaid-offtake or prepaid-delivery caption. 'Deferred income 6.6' is advertising billed in advance, working capital and NOT this leg, named here. A caption zero"
+        status: VERIFIED
+        verified_kind: same_page
+      # noncurrent_derivative_assets_on_debt: DATA MISSING -- no such leg
+      # in note 31's net debt reconciliation
+      # --- share counts ------------------------------------------------
+      diluted_weighted_average_shares:
+        value: 862666.25
+        page: "note 11, p.117, earnings per share: 'Diluted EPS 862,666,250' weighted average number of ordinary shares (entered in thousands, share_unit: E53); reconciles to rounding against p.101, consolidated income statement: net_income 293.9 / diluted_eps 34.07p = 862,635,750 point estimate (30,500 shares off stated, 0.0035%), within the band [862,362,436-862,909,144] implied by both inputs' own printed rounding -- see SHARE COUNT ARITHMETIC CHECKS in the header. A reconciliation against the separately-prepared primary statement, not an exact digit match, per FRAMEWORK-EDITS E59"
+        status: VERIFIED
+        verified_kind: cross_document
+        # ESEF CROSS-CHECK: the package defines only two units for the whole
+        # document -- Unit_GBP (iso4217:GBP) and Unit_GBP_per_Share (GBP/shares)
+        # -- no pure xbrli:shares unit exists anywhere, so no fact carries a
+        # bare share count. Diluted (and basic) EPS are tagged (see diluted_eps
+        # below); the weighted-average denominator itself is not. Stays
+        # same_page per step 4.
+      # shares_outstanding_period_end: left BLANK -- the store subtracts
+      # issued minus treasury minus the employee trust (E16, E54)
+      shares_issued_period_end:
+        value: 827503
+        page: "note 25, p.125, share capital: 'Total 8 2 7, 5 0 3' thousand shares (PDF text layer inserts spaces; the printed figure is 827,503 thousand, ROUNDED to the nearest thousand -- FRAMEWORK-EDITS E53); reconciles to rounding against note 11, p.117 (opening count 884,700,426, exact) less note 25's own narrative cancellation figure (57,197,994, exact): 827,502,432, a gap of 568 shares (0.00007%) from the printed 827,503,000, fully within the tolerance of a figure the issuer itself states pre-rounded to the nearest thousand; and against note 25's own issued capital at £0.01 par (8.3 -> 827,503,000 x GBP0.01 = GBP8.275030m, rounds to 8.3). See SHARE COUNT ARITHMETIC CHECKS in the header. FRAMEWORK-EDITS E59"
+        status: VERIFIED
+        verified_kind: cross_document
+        # ESEF CROSS-CHECK: the package tags ifrs-full:IssuedCapital (context
+        # PAsOn03_31_2026, unit Unit_GBP, scale 6: 8.3) -- the MONETARY nominal
+        # value of issued share capital, a different concept from a share
+        # count. No xbrli:shares unit exists in the document (see
+        # diluted_weighted_average_shares above), so no tagged fact answers
+        # "number of shares issued" at all. Stays same_page per step 4.
+      treasury_shares_period_end:
+        value: 4412.082
+        page: "note 25, p.125: '4,412,082 (2025: 4,600,897) shares held in treasury'. Entered in thousands, an exact conversion of the printed whole-unit figure (share_unit: E53); reconciles exactly to note 26, p.125, own shares held roll-forward (Treasury shares column): opening 4,600,897 + 'Repurchase of own shares for treasury' 1,295,147 - 'Share-based incentives exercised' 1,483,962 = 4,412,082 -- the closing balance of a separately-prepared movement schedule, not a repeat of the same cell (FRAMEWORK-EDITS E59)"
+        status: VERIFIED
+        verified_kind: cross_document
+        # ESEF CROSS-CHECK: the package tags ifrs-full:TreasuryShares (context
+        # PAsOn03_31_2026, unit Unit_GBP, scale 6: 31.9) -- the MONETARY cost of
+        # treasury shares held, not a share count. No xbrli:shares unit exists
+        # in the document. Stays same_page per step 4.
+      employee_trust_shares_period_end:
+        value: 282.389
+        page: "note 25, p.125: '282,389 (2025: 294,600) shares held by the ESOT'. Entered in thousands, an exact conversion (share_unit: E53). Note 11, p.117: basic EPS excludes shares held in treasury AND by the Employee Share Option Trust (FRAMEWORK-EDITS E54); reconciles exactly to note 26, p.125, own shares held roll-forward (ESOT shares reserve column): opening 294,600 - 'Transfer of shares from ESOT' 12,211 = 282,389 -- the closing balance of a separately-prepared movement schedule, not a repeat of the same cell (FRAMEWORK-EDITS E59)"
+        status: VERIFIED
+        verified_kind: cross_document
+        # ESEF CROSS-CHECK: no ESOT/employee-trust concept is tagged anywhere
+        # in the package at all (not requested by the task's field list;
+        # noted here for completeness). Stays same_page per step 4.
+      # shares_point_in_time: DATA MISSING -- no such count in these documents
+      # --- section 5.1 A and 5.3 ---------------------------------------
+      diluted_eps:
+        value: 34.07
+        page: "p.101, consolidated income statement: 'Diluted earnings per share (pence) 34.07'; note 11, p.117 confirms; cross-checked against the ESEF/iXBRL package, tag ifrs-full:DilutedEarningsLossPerShare, context P04_01_2025To03_31_2026, unit Unit_GBP_per_Share, scale -2: 34.07"
+        status: VERIFIED
+        verified_kind: cross_document
+      # diluted_eps_adjusted: DATA MISSING -- no adjusted EPS is presented
+      # operating_income_adjusted: DATA MISSING -- no adjusted operating
+      # profit is presented
+      net_income:
+        value: 293.9
+        page: "p.101, consolidated income statement: 'Profit for the year attributable to equity holders of the parent 293.9'; cross-checked against the ESEF/iXBRL package, tags ifrs-full:ProfitLoss and ifrs-full:ProfitLossAttributableToOwnersOfParent (both context P04_01_2025To03_31_2026, unit Unit_GBP, scale 6: 293.9 -- AUTO.L has no non-controlling interest so the two tags agree)"
+        status: VERIFIED
+        verified_kind: cross_document
+      # ebitda: DATA MISSING -- never stated as an amount, only the 0.3x
+      # leverage ratio (see header, NET DEBT note)
+      depreciation_amortisation:
+        value: 23.4
+        page: "note 4, p.114, segmental information, Group column: 'Depreciation & amortisation (9.4) (0.7) (13.3) (23.4)' -- 23.4 is the printed group total, not a hand sum; reconciles exactly to note 28, p.126, cash generated from operations: 'Depreciation 8.2' + 'Amortisation 15.2' = 23.4 -- the same total, disaggregated in the separately-prepared cash-flow reconciliation (FRAMEWORK-EDITS E59)"
+        status: VERIFIED
+        verified_kind: cross_document
+      net_finance_costs:
+        value: 3.9
+        page: "p.101, consolidated income statement: 'Net finance costs 9 (3.9)'; reconciles exactly to note 9, p.116: 'On bank loans and overdrafts 2.8' + 'Amortisation of debt issue costs 0.4' + 'Interest unwind on lease liabilities 1.7' + 'Interest on vehicle stocking loan 0.3' - 'Interest receivable on cash and cash equivalents 1.3' = 'Total 3.9' -- the same net figure, built up from its components in the separately-prepared finance-costs note (FRAMEWORK-EDITS E59); note 4, p.114 segmental restatement 'Finance costs – net (3.9)' agrees as well"
+        status: VERIFIED
+        verified_kind: cross_document
+      # finance_costs_period, finance_income_period: DATA MISSING -- the
+      # net above is printed directly, so E18 leaves the split blank
+      # net_debt_ebitda: DATA MISSING (FRAMEWORK-EDITS E56) -- the printed
+      # 0.3x is struck on the £146.8m "net bank debt" this ruling declines
+      # AND on a non-standard covenant EBITDA (note 21, p.122) that strips
+      # share-based pay and joint-venture profit and is stated only as a
+      # ratio, never as an amount. Importing 0.3x would enter a figure
+      # struck on two departures from this field's own definition at once.
+      # --- ratios: FRACTIONS, entered so the arithmetic can be checked --
+      op_margin:
+        value: 0.63
+        page: "p.21, financial review: 'Group operating profit margin 63% 63% 0% pts'"
+        status: UNVERIFIED
+      revenue_yoy:
+        value: 0.04
+        page: "p.21, financial review: 'Revenue 624.3 601.1 4%'"
+        status: UNVERIFIED
+
+annual: []

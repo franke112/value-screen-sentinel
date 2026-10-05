@@ -1,0 +1,185 @@
+schema: vss/review v1
+ticker: NVR
+date: '2026-09-19'
+status_at_start: PIPELINE
+prepare_report: reports/prepare/NVR-2026-09-19.json
+prepare_waived: null
+started_at: verdict
+resume_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+  set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/NVR-2026-09-19-e117.json,
+  reference/NVR-STRIKE-2026-09-19-e117.md)'
+steps:
+- step: gate-1
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/NVR-2026-09-19-e117.json,
+    reference/NVR-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: gate-2
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/NVR-2026-09-19-e117.json,
+    reference/NVR-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: gate-3
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/NVR-2026-09-19-e117.json,
+    reference/NVR-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: gate-4
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/NVR-2026-09-19-e117.json,
+    reference/NVR-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: gate-5
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/NVR-2026-09-19-e117.json,
+    reference/NVR-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: hard-kills
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/NVR-2026-09-19-e117.json,
+    reference/NVR-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: conviction
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/NVR-2026-09-19-e117.json,
+    reference/NVR-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: basis
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/NVR-2026-09-19-e117.json,
+    reference/NVR-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: flow
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/NVR-2026-09-19-e117.json,
+    reference/NVR-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: net-debt
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/NVR-2026-09-19-e117.json,
+    reference/NVR-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: divisor
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/NVR-2026-09-19-e117.json,
+    reference/NVR-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: growth-view
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/NVR-2026-09-19-e117.json,
+    reference/NVR-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: strike
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/NVR-2026-09-19-e117.json,
+    reference/NVR-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: tier-mbp
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'INCONSISTENT WITH E27 on the prepare report of 2026-09-19: fv_base
+    set, status PIPELINE -- walked from the verdict (struck; E117 record reference/run-records/NVR-2026-09-19-e117.json,
+    reference/NVR-STRIKE-2026-09-19-e117.md)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: verdict
+  outcome: watch-gated
+  text: 'watch-gated — Gate 3 cannot form: NVR states no operating income. E117 value
+    4,867.82; close 6,150.47 is 26% above it. Write 4,867.82 on the entry. Low priority.'
+  answered_at: '2026-09-19T20:23:47+02:00'
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+growth_view:
+  base: 0.025
+  bear: -0.03
+  bull: 0.065
+  registered_at: '2026-08-30T00:00:00+02:00'
+  reasons: 'standing view of 2026-08-30, reference/growth-views/NVR.md -- owner: "stands
+    — 0.025 / −0.03 / 0.065. No results since 2026-08-30; Q3 is late October."'
+note: '2026-09-19: PIPELINE → WATCH-GATED at Gate 3 (DATA MISSING, no stated operating
+  income). E117 fv_base 4,978.10 → 4,867.82; close 26% above value. Needs a ruling
+  on filers that state no operating income before any price can wake it.'

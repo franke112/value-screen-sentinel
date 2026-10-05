@@ -1,0 +1,438 @@
+# config/manual/APN.L.yaml -- Applied Nutrition plc, hand-read from the
+# documents the issuer filed with the FCA's National Storage Mechanism
+# (sources/manifest.json, origin `fca-nsm`, LEI 213800KCP1IDX51ZHE47).
+# Built 2026-08-30. UK-adopted IFRS; fiscal year to 31 July; half-yearly
+# reporter; Main Market since 24 October 2024 (FTSE 250 from December 2025).
+#
+# DOCUMENTS:
+#   1. Annual report FY2025 (year ended 31 July 2025) -- the NSM holds it
+#      ONLY as the ESEF/iXBRL package NI-000134643 (published 2025-11-27,
+#      zip with one xhtml, 213800KCP1IDX51ZHE47-2025-07-31-T01.xhtml). No
+#      PDF annual report was filed with the NSM.
+#      sources/APN.L_2025-FY_annual-financial-report_2025-11-27_xx_a0.zip
+#   2. "Final Results" for the year ended 31 July 2025 -- RNS 943fa974-...,
+#      2025-11-10, the full audited primary statements and notes as text.
+#      sources/APN.L_2025-FY_final-results_2025-11-10_xx_a0.html
+#   3. "Interim Results" for the half year ended 31 January 2026 -- RNS
+#      4b44f706-..., 2026-03-23, condensed statements (unaudited).
+#      sources/APN.L_2026-H1_half-year-financial-report_2026-03-23_xx_a0.html
+#   4. "FY26 Trading Update" -- RNS 21714cc2-..., 2026-08-26, for the year
+#      ended 31 July 2026: NAMED, not read for figures (no statements in it;
+#      the FY26 results are due in November 2026 and will replace 2025-FY
+#      here when filed).
+#
+# THE TEXT LAYER. Two behaviours in one issuer. The ESEF xhtml's text
+# inserts spaces inside numerals ('107 .1', '(57 .8)', '250 ,000,000') --
+# the AUTO.L defect, here on the only annual document the NSM holds. The
+# RNS texts (2, 3) are clean: every numeral whole. So every figure below
+# was READ FROM THE RNS TEXT (the Final Results carry the audited
+# statements verbatim) and CROSS-READ against the ESEF: after removing the
+# inserted spaces every FY2025 figure entered here is found in the ESEF
+# text, and the ESEF tags ifrs-full Revenue, ProfitLossFromOperating-
+# Activities, ProfitLoss, CashFlowsFromUsedInOperatingActivities,
+# PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities,
+# InterestReceivedClassifiedAsInvestingActivities, InterestPaidClassified-
+# AsFinancingActivities, PaymentsOfLeaseLiabilitiesClassifiedAsFinancing-
+# Activities, Current/NoncurrentLeaseLiabilities, CashAndCashEquivalents,
+# DilutedEarningsLossPerShare, FinanceIncome, FinanceCosts, IncomeTaxesPaid
+# and ExpenseFromSharebasedPaymentTransactionsWithEmployees (a tag-map
+# second reader for a later pass; NOT applied here). There is NO rendered
+# page to read back against for this name: an RNS has no pages and the
+# xhtml is not a paginated document, so citations below name the
+# statement or note, not a page. THE OWNER'S READ-BACK STEP COULD NOT BE
+# PERFORMED IN ITS PDF FORM; the two-document agreement above is what
+# stands in for it.
+#
+# THE TAG-MAP PASS, 2026-08-30 (E40; the AUTO.L ESEF precedent, E58). The
+# question first: is the ESEF an honest second reader here, when it is
+# the document the figures were NOT read from because its text spaces its
+# numerals? The answer taken is YES, on these grounds, and the owner may
+# overturn it by reverting this one commit. (1) The figures were read from
+# the Final Results RNS of 2025-11-10; the ESEF is the annual report
+# published 2025-11-27 -- two separately published documents carrying the
+# same audited statements, which is MORE separation than AUTO.L had (one
+# report, two renderings). (2) What was compared is not the text layer
+# read by eye but the 187 ix:nonFraction facts parsed mechanically --
+# concept, context, unit, scale and the digits of the value string with
+# every inserted space removed -- extracted BEFORE any comparison, so
+# nothing was read knowing the RNS number. (3) The spacing defect can only
+# COST an agreement, never manufacture one: a dropped or doubled digit
+# would disagree with the RNS, and no de-spacing choice exists for a
+# string like '(57 .8)' or '250 ,000,000'. (4) The record above already
+# said this pass was the second reader 'for a later pass'. The E59 route
+# inside the RNS's own notes remains open as the fallback if the owner
+# strikes this one. RESULT: every 2025-FY figure the basis reads has a
+# tagged fact and AGREES -- 16 fields cross_document on the tag, three of
+# them (income_tax_paid, capex_combined, lease_payments_capital) on
+# magnitude with the sign reconciled by iXBRL convention; three fields
+# have no tag (no xbrli:shares unit exists; no prepaid caption) and were
+# settled under E59 -- the two 250,000,000 counts (the Directors' Report,
+# the parent company's note and note 11 restate note 21) and the
+# prepaid_delivery_obligation caption zero (the tagged liability captions
+# sum exactly to the tagged totals). No tagged fact DIFFERS from an
+# entered figure. The package also tags ifrs-full:Assets 75.0 and
+# PropertyPlantAndEquipment 2.0, which this file never entered -- named,
+# not added. 2026-H1 is outside the package and stays UNVERIFIED.
+#
+# STATUS: 2025-FY VERIFIED / cross_document throughout after the tag-map
+# and E59 pass of 2026-08-30 (the four caption_statement zeros under E78
+# stand); 2026-H1 all UNVERIFIED. No section 5 run, no fv_base, no tier,
+# no mbp; no growth view is registered.
+#
+# PERIODS HELD: 2025-FY (fiscal year to 2025-07-31) and 2026-H1 (six
+# months to 2026-01-31), labels on the FISCAL basis. Under E31 section 5
+# stands on the year as filed and names 2026-H1 as the newer period. The
+# interim's H1 FY25 comparatives, for the record: revenue 47.6; operating
+# profit 11.5; net cash from operating activities 7.1; purchase of tangible
+# fixed assets (0.3); profit 8.9 (GBP m).
+#
+# UNITS: GBP MILLION to one decimal (money_unit millions; every statement
+# is headed '£m'). share_unit WHOLE (250,000,000 printed whole). Per-share
+# figures in PENCE; the quote is GBX.
+#
+# SECTOR: the screener holds no fundamentals row for APN.L (first bar
+# 2024-10-24, inside the listing-age floor), so no screener string exists;
+# the vendor classifies the ticker 'Consumer Defensive / Packaged Foods'
+# and that string is entered AS A PLACEHOLDER for the owner to confirm.
+#
+# E34 -- INTEREST. `interest_in_ocf: no`. Both legs sit OUTSIDE operating:
+# 'Interest received 0.6' is in cash flows from INVESTING activities and
+# 'Interest paid on lease liability (0.1)' in FINANCING (the only interest
+# the group pays -- it has no borrowings). Operating cash flow therefore
+# bears no interest at all; the two legs are entered as `finance_costs_paid`
+# and `finance_income_received` and the tool nets them (E34). The interim
+# keeps the placement.
+#
+# E70 -- LEASES. `operating_leases_in_ocf: no`: IFRS 16 filer, 'Principal
+# paid on lease liability (0.3)' sits in financing (IFRS 16.50(b)); the
+# lease is counted once, in net debt; `lease_payments_capital` is a memo.
+#
+# E35 / E35.1 / E65-E68 -- NET DEBT LEGS. No borrowings: the balance sheet
+# presents no borrowings caption in either liability block (current: lease
+# liabilities, trade and other payables; non-current: deferred tax, lease
+# liabilities, provision for liabilities) and note 23 / interim note 9 list
+# the financial liabilities in full -- trade and other payables, accruals,
+# lease liabilities -- so both borrowing legs are ZERO on the caption form.
+# Leases by E71's stated total (note 14 'Total lease liability 3.0';
+# interim note 9 'Lease liabilities 3.1'), the two captions summing to the
+# same. Pension: 'The Group operates a defined contribution pension scheme'
+# (accounting policy 2.19, the only pension arrangement; no retirement
+# caption on the balance sheet) -- ZERO on the note form under E35.1.
+# Asset retirement obligation: the ONLY provision is 'Leasehold property
+# dilapidations 0.3' (note 20; balance sheet 'Provision for liabilities
+# (0.3)') -- a discounted, legally required, cash-settled restoration
+# obligation on leased property, read by hand (E69) and ENTERED as the E68
+# leg on the AUTO.L precedent (FRAMEWORK-EDITS E68.1 applications table).
+# E36: cash 18.5 / 26.4; no other-current-financial-assets caption (blank,
+# E25 forbids a zero there).
+#
+# E38 / E75 / E75.1 -- SHARE COUNTS. Diluted weighted average 250,000,000
+# for FY2025 (note 11: no dilutive instruments) and 250,407,125 for H1
+# FY26 (interim note 8: 'Effect of potentially dilutive items 407,125').
+# Point-in-time: 250,000,000 ordinary shares in issue (note 21, interim
+# note 10); no treasury shares exist or are mentioned, so the issued count
+# IS the net count and is entered.
+#
+# E23 -- CAPEX. One investing purchase line, 'Purchase of tangible fixed
+# assets (1.0)' / (0.2); intangible additions are stated 'below £0.1
+# million' (note 15) and have no cash-flow line, so `capex_combined`
+# carries the one line and the split fields stay blank.
+#
+# THE MARGIN CHECK (B46, settled by E79 2026-08-30). No statutory operating
+# margin is stated in either document; the only margin printed is 'EBITDA
+# margin of 29% for FY25', an APM to a whole percent. Under E79 a stated
+# EBIT with no stated margin enters: operating profit 28.1 (26.2% of
+# revenue) and 20.7 (27.8%) are entered with `op_margin` blank.
+#
+# NOT STATED: any net-debt-to-EBITDA (the group is net cash); a pension
+# deficit; borrowings. NOT ENTERED: 'Adjusted EBITDA 30.9' / '21.5' (APM).
+#
+# THE FY26 TRADING UPDATE (2026-08-26) reports the year to 31 July 2026
+# unaudited; nothing from it is entered.
+
+ticker: APN.L
+name: Applied Nutrition plc
+reporting_currency: GBP
+money_unit: millions
+share_unit: whole
+quote_currency: GBX
+sector: Consumer Defensive   # PLACEHOLDER: no screener string exists for APN.L (no fundamentals row); the vendor's classification, for the owner to confirm
+reporting_frequency: half_yearly
+origin: manual
+
+interest_in_ocf:
+  value: no
+  source: "Final Results FY2025 (RNS 2025-11-10, audited statements); Interim Results H1 FY26 (RNS 2026-03-23, unaudited)"
+  page: "Consolidated statement of cash flows, year ended 31 July 2025: 'Net cash inflow from operating activities 15.6' contains no interest line; 'Interest received 0.6' is under cash flows from INVESTING activities and 'Interest paid on lease liability (0.1)' under cash flows from FINANCING activities (beside 'Principal paid on lease liability (0.3)'). The interim (half year to 31 January 2026) keeps the placement: 'Interest received 0.2' investing, 'Interest paid on lease liability (0.1)' financing. The ESEF tags the two as InterestReceivedClassifiedAsInvestingActivities and InterestPaidClassifiedAsFinancingActivities"
+  interest_source: cash_flow_statement
+
+operating_leases_in_ocf:
+  value: no
+  source: "FRAMEWORK-EDITS E70, applied 2026-08-30 to an IFRS 16 filer"
+  page: "IFRS 16.50(b): principal payments on lease liabilities are financing cash flows; the statement shows exactly that -- 'Principal paid on lease liability 14 (0.3)' (FY2025) and '(0.4)' (H1 FY26) under cash flows from financing activities, tagged PaymentsOfLeaseLiabilitiesClassifiedAsFinancingActivities in the ESEF. Lease interest follows the filer's IAS 7 placement, recorded in `interest_in_ocf`"
+
+periods:
+  - period: 2025-FY
+    period_end: 2025-07-31
+    period_basis: fiscal
+    document: "Annual report FY2025 as filed: ESEF package NI-000134643 (2025-11-27); figures read from the Final Results RNS of 2025-11-10, which carries the audited statements and notes as clean text"
+    url: "sources/APN.L_2025-FY_annual-financial-report_2025-11-27_xx_a0.zip"
+    figures:
+      # E105 (2026-09-04): E25's NOTE basis -- the issuer states in words
+      # that no non-controlling interest exists, at both balance sheet
+      # dates. Not a searched absence: a sentence, which is stronger.
+      nci_dividends_paid:
+        value: 0
+        zero_basis: note
+        source: "E105 leg; E25 note basis"
+        page: "sources/APN.L_2025-FY_final-results_2025-11-10_xx_a0.html, note 24 (share-based payments), on AN USA Holdings Inc.: 'it is concluded the AN USA Holdings Inc.'s CEO held no rights to AN USA Holdings Inc.'s equity outside of the predetermined formula, and thus NO NON-CONTROLLING INTEREST (NCI) EXISTED. No recognition of NCI was recognised as at 31 July 2025, nor was any recognised as at 31 July 2024.' The 10% holding a reader would take for a minority is accounted for as a cash-settled share-based payment, not as an NCI. A group with no minority distributes nothing to one."
+        status: UNVERIFIED
+      free_cash_flow_reported:
+        value: 16.5
+        source: "E103 automatic reference extraction (pdf (model-read))"
+        page: "Key financial information table in final results announcement [printed in millions] -- verbatim: Free cash flow (£m) 16.5"
+        status: UNVERIFIED
+      revenue:
+        value: 107.1
+        page: "Consolidated statement of comprehensive income, year ended 31 July 2025: 'Revenue 4 | 107.1' (2024: 86.2); ESEF ifrs-full:Revenue; cross-checked against the ESEF/iXBRL package (sources/APN.L_2025-FY_annual-financial-report_2025-11-27_xx_a0.zip, reports/213800KCP1IDX51ZHE47-2025-07-31-T01.xhtml, NSM NI-000134643; the tag's value string carries the xhtml's inserted spaces and was parsed mechanically, concept + context + scale + digits, before any comparison -- see the header), tag ifrs-full:Revenue, context c-1 (2024-08-01 to 2025-07-31), unit GBP, scale 6: 107.1 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      operating_income:
+        value: 28.1
+        page: "Consolidated statement of comprehensive income: 'Operating profit 28.1' (2024: 23.7), after 'Costs relating to Initial Public Offering (1.7)'; 'Adjusted operating profit 29.8' is the issuer's APM and is not entered; ESEF ifrs-full:ProfitLossFromOperatingActivities. E79: no statutory margin is stated (the 'EBITDA margin of 29%' is an APM), so `op_margin` is blank and the printed EBIT enters; 28.1 / 107.1 = 26.2%; cross-checked against the ESEF/iXBRL package, tag ifrs-full:ProfitLossFromOperatingActivities, context c-1 (2024-08-01 to 2025-07-31), unit GBP, scale 6: 28.1 -- agrees; the APM is tagged apart as appliednutritionplc:AdjustedOperatingProfit 29.8 and is not entered (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      net_income:
+        value: 21.1
+        page: "Consolidated statement of comprehensive income: 'Profit for the year attributable to equity shareholders 21.1' (2024: 18.7); no non-controlling interest exists; ESEF ifrs-full:ProfitLoss; cross-checked against the ESEF/iXBRL package, tag ifrs-full:ProfitLoss, context c-1 (2024-08-01 to 2025-07-31), unit GBP, scale 6: 21.1 -- agrees (no attributable-to-owners concept is tagged: there is no non-controlling interest) (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      diluted_eps:
+        value: 8.4
+        page: "Consolidated statement of comprehensive income: 'Basic and diluted (pence) 11 | 8.4' (2024: 7.5); note 11 repeats it; ESEF ifrs-full:DilutedEarningsLossPerShare; cross-checked against the ESEF/iXBRL package, tag ifrs-full:DilutedEarningsLossPerShare, context c-1 (2024-08-01 to 2025-07-31), unit GBP/shares, scale -2, decimals 3: 8.4 = 8.4 pence -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      diluted_weighted_average_shares:
+        value: 250000000
+        page: "Note 11 Earnings per share: 'Weighted average number of shares (No. of shares) 250,000,000' for basic and diluted alike -- 'the basic and diluted earnings per share have been calculated based on a total of 250 million ordinary shares in issue during each period'; no dilutive instruments in FY2025. E59 (2026-08-30): no share count is tagged in the package (units GBP, GBP/shares and pure only). The count reconciles across notes: note 21's separately-prepared share capital roll-forward closes at 'Closing number of ordinary shares 250,000,000' with no issue in the year, so a weighted average of 250,000,000 is what note 11 must state and does; the Directors' Report restates 'issued share capital consisted of 250,000,000 ordinary shares of .02 pence each'; and the ESEF-tagged ifrs-full:ProfitLoss 21,100,000 / ifrs-full:DilutedEarningsLossPerShare 0.084 GBP = 251,190,476, inside the band [249,704,142 to 252,694,611] implied by 8.4p's half-tenth rounding (the AUTO.L shape); cross_document under E59"
+        status: VERIFIED
+        verified_kind: cross_document
+      depreciation_amortisation:
+        value: 1.1
+        page: "Consolidated statement of cash flows: 'Depreciation and amortisation charges 13 & 14 | 1.1' (2024: 0.9); no impairment inside the line; cross-checked against the ESEF/iXBRL package, tag ifrs-full:AdjustmentsForDepreciationAndAmortisationExpense, context c-1 (2024-08-01 to 2025-07-31), unit GBP, scale 6: 1.1 -- agrees -- tagged as the plain D&A concept, no impairment inside, consistent with the line (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      gross_profit:
+        value: 49.3
+        page: "Consolidated statement of comprehensive income: 'Gross profit 49.3' (2024: 41.3) = revenue 107.1 less cost of sales (57.8); cross-checked against the ESEF/iXBRL package, tag ifrs-full:GrossProfit, context c-1 (2024-08-01 to 2025-07-31), unit GBP, scale 6: 49.3 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      income_tax_paid:
+        value: -6.3
+        page: "Consolidated statement of cash flows: 'Income tax paid (6.3)' (2024: (9.7)), entered as printed (an outflow, negative); ESEF IncomeTaxesPaidRefundClassifiedAsOperatingActivities; cross-checked against the ESEF/iXBRL package, tag ifrs-full:IncomeTaxesPaidRefundClassifiedAsOperatingActivities, context c-1 (2024-08-01 to 2025-07-31), unit GBP, scale 6: 6.3 -- same magnitude; the concept is inherently an outflow tagged as a positive magnitude by iXBRL convention while this field signs outflows negative, a convention difference and not a discrepancy (E58 precedent) (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      operating_cash_flow:
+        value: 15.6
+        page: "Consolidated statement of cash flows: 'Net cash inflow from operating activities 15.6' (2024: 6.7), after 'Income tax paid (6.3)'; ESEF ifrs-full:CashFlowsFromUsedInOperatingActivities. No interest inside (see interest_in_ocf); cross-checked against the ESEF/iXBRL package, tag ifrs-full:CashFlowsFromUsedInOperatingActivities, context c-1 (2024-08-01 to 2025-07-31), unit GBP, scale 6: 15.6 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      capex_combined:
+        value: -1.0
+        page: "Consolidated statement of cash flows, investing: 'Purchase of tangible fixed assets 13 (1.0)' (2024: (1.0)) -- the only purchase line (E23); note 15: intangible additions 'below £0.1 million', no cash-flow line; ESEF PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities; cross-checked against the ESEF/iXBRL package, tag ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities, context c-1 (2024-08-01 to 2025-07-31), unit GBP, scale 6: 1.0 -- same magnitude; the concept is inherently an outflow tagged as a positive magnitude by iXBRL convention while this field signs outflows negative, a convention difference and not a discrepancy (E58 precedent); no intangible purchase concept is tagged, consistent with there being no such cash-flow line (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      finance_costs_paid:
+        value: 0.1
+        page: "Consolidated statement of cash flows, FINANCING: 'Interest paid on lease liability 14 (0.1)' (entered as a positive magnitude) -- the group's only interest paid; note 9: 'Interest on lease liabilities and dilapidations 0.1'; cross-checked against the ESEF/iXBRL package, tag ifrs-full:InterestPaidClassifiedAsFinancingActivities, context c-1 (2024-08-01 to 2025-07-31), unit GBP, scale 6: 0.1 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      finance_income_received:
+        value: 0.6
+        page: "Consolidated statement of cash flows, INVESTING: 'Interest received 0.6' (2024: 0.6), entered as a positive magnitude; note 9: 'Bank interest receivable 0.5' (accrual); cross-checked against the ESEF/iXBRL package, tag ifrs-full:InterestReceivedClassifiedAsInvestingActivities, context c-1 (2024-08-01 to 2025-07-31), unit GBP, scale 6: 0.6 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      lease_payments_capital:
+        value: -0.3
+        page: "Consolidated statement of cash flows, financing: 'Principal paid on lease liability 14 (0.3)'; note 14 lease-liability roll-forward: 'Lease payments (0.4)' of which interest 0.1. A MEMO under E70; cross-checked against the ESEF/iXBRL package, tag ifrs-full:PaymentsOfLeaseLiabilitiesClassifiedAsFinancingActivities, context c-1 (2024-08-01 to 2025-07-31), unit GBP, scale 6: 0.3 -- same magnitude; the concept is inherently an outflow tagged as a positive magnitude by iXBRL convention while this field signs outflows negative, a convention difference and not a discrepancy (E58 precedent) (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      sbc:
+        value: 0
+        zero_basis: caption
+        page: "Consolidated statement of comprehensive income: 'Share-based payment expense - | (0.2)' -- a dash for FY2025 against 0.2 in FY2024; cash flow 'Share-based payment expense 22 | - | 0.2'; note 6: 'a share-based payment expense of £nil was recognised in the year ended 31 July 2025 (2024: £0.2 million)'; note 22: cash-settled charge '£nil' and an equity-settled LTIP established in the year with no charge printed for it"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "In accordance with IFRS 2, a share-based payment expense of £nil was recognised in the year ended 31 July 2025 (2024: £0.2 million) in respect of a Director Share Option Plan created in FY21."
+      finance_costs_period:
+        value: 0.1
+        page: "Consolidated statement of comprehensive income: 'Finance expense 9 (0.1)' (2024: (0.1)); note 9: 'Interest on lease liabilities and dilapidations 0.1'; ESEF ifrs-full:FinanceCosts; cross-checked against the ESEF/iXBRL package, tag ifrs-full:FinanceCosts, context c-1 (2024-08-01 to 2025-07-31), unit GBP, scale 6: 0.1 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      finance_income_period:
+        value: 0.5
+        page: "Consolidated statement of comprehensive income: 'Finance income 9 | 0.5' (2024: 0.7); note 9: 'Bank interest receivable 0.5'; ESEF ifrs-full:FinanceIncome; cross-checked against the ESEF/iXBRL package, tag ifrs-full:FinanceIncome, context c-1 (2024-08-01 to 2025-07-31), unit GBP, scale 6: 0.5 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      financial_liabilities_current:
+        value: 0
+        zero_basis: caption
+        page: "Consolidated statement of financial position at 31 July 2025, current liabilities: 'Lease liabilities 14 (0.6)' and 'Trade and other payables 19 (17.1)' only -- no borrowings, overdraft or loan caption; note 23 financial liabilities at amortised cost: trade and other payables 10.6, accruals 5.0, lease liabilities 3.0 and nothing else. The lease sits in its own field"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "The Group’s financial instruments comprise cash and cash equivalents, lease liabilities and items such as trade and other receivables and trade and other payables, which arise from its operations."
+      financial_liabilities_noncurrent:
+        value: 0
+        zero_basis: caption
+        page: "Consolidated statement of financial position, non-current liabilities: 'Deferred tax liabilities (0.3)', 'Lease liabilities 14 (2.4)', 'Provision for liabilities 20 (0.3)' -- no borrowings caption; note 23 as above"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "The Group’s financial instruments comprise cash and cash equivalents, lease liabilities and items such as trade and other receivables and trade and other payables, which arise from its operations."
+      lease_liabilities:
+        value: 3.0
+        page: "Note 14 Leases: 'Total lease liability 3.0' (current 0.6 + non-current 2.4; 2024: 1.8) -- E71 stated total; roll-forward 'At 31 July 2025 3.0'; balance sheet captions (0.6) and (2.4); ESEF Current/NoncurrentLeaseLiabilities; cross-checked against the ESEF/iXBRL package, tag ifrs-full:CurrentLeaseLiabilities, context c-3 (instant 2025-07-31), unit GBP, scale 6: 0.6; tag ifrs-full:NoncurrentLeaseLiabilities, context c-3 (instant 2025-07-31), unit GBP, scale 6: 2.4 -- the parts sum to 3 exactly; no total is tagged -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      pension_deficit:
+        value: 0
+        zero_basis: note
+        page: "Accounting policy 2.19 Pensions: 'The Group operates a defined contribution pension scheme. Contributions to the scheme are charged to the statement of profit or loss ... in the period to which the contributions relate. The assets of the scheme are held separately from those of the Group' -- no defined-benefit scheme, no retirement-benefit caption on the balance sheet; note 7 'Other pension costs 0.2'. E35.1 note form"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "The Group operates a defined contribution pension scheme."
+      asset_retirement_obligation:
+        value: 0.3
+        page: "Note 20 Provisions, non-current: 'Leasehold property dilapidations ... At 31 July 2025 0.3' (at 1 August 2024 0.2, 'Interest expense 0.1'); 'As part of the Group's property leasing arrangements there is an obligation to repair damage which occurs during the life of the lease ... shown separately to the lease obligation liability'; balance sheet 'Provision for liabilities 20 (0.3)'. Read by hand under E69, entered as the E68 leg on the AUTO.L precedent; cross-checked against the ESEF/iXBRL package, tag ifrs-full:NoncurrentProvisions, context c-3 (instant 2025-07-31), unit GBP, scale 6: 0.3 -- agrees; note 20 states the dilapidations provision is the only provision, so the tagged caption IS this figure (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81 (2026-08-30): Consolidated statement of financial position at 31 July 2025, liabilities presented: 'Lease liabilities (0.6)', 'Trade and other payables (17.1)', 'Deferred tax liabilities (0.3)', 'Lease liabilities (2.4)', 'Provision for liabilities (0.3)' -- no streaming, prepaid-offtake or prepaid-delivery caption; note 23 lists the financial liabilities in full (trade and other payables, accruals, lease liabilities). A caption zero. Cross-checked against the ESEF/iXBRL package under E59 (2026-08-30, component sum): at instant c-3 (2025-07-31) the tagged ifrs-full:CurrentLeaseLiabilities 0.6 + ifrs-full:TradeAndOtherCurrentPayables 17.1 = ifrs-full:CurrentLiabilities 17.7 EXACTLY, and ifrs-full:DeferredTaxLiabilities 0.3 + ifrs-full:NoncurrentLeaseLiabilities 2.4 + ifrs-full:NoncurrentProvisions 0.3 = ifrs-full:NoncurrentLiabilities 3.0 EXACTLY (ifrs-full:Liabilities 20.7 = 17.7 + 3.0) -- the tagged captions exhaust the totals, leaving no room for a prepaid-delivery caption; no borrowings concept is tagged at all, which is also the caption zeros' second read; cross_document"
+        status: VERIFIED
+        verified_kind: cross_document
+      cash_and_equivalents:
+        value: 18.5
+        page: "Consolidated statement of financial position: 'Cash and cash equivalents 18 | 18.5' (2024: 18.7); cash flow 'Cash and cash equivalents at end of period 18 | 18.5'; ESEF ifrs-full:CashAndCashEquivalents; cross-checked against the ESEF/iXBRL package, tag ifrs-full:CashAndCashEquivalents, context c-3 (instant 2025-07-31), unit GBP, scale 6: 18.5 -- agrees (E40 cross_document)"
+        status: VERIFIED
+        verified_kind: cross_document
+      shares_outstanding_period_end:
+        value: 250000000
+        page: "Note 21 Share capital: 'Closing number of ordinary shares 250,000,000' (ordinary shares of £0.0002 each, after the 23 October 2024 sub-division and re-designation); no treasury shares exist or are mentioned anywhere in the accounts, and note 11 uses the same 250,000,000 as the shares in issue, so the issued count is the net count. E59 (2026-08-30): no share count is tagged in the package. Restated outside note 21 by the Directors' Report ('the Company's issued share capital consisted of 250,000,000 ordinary shares of .02 pence each'), by the parent company's own share capital note ('Closing number of shares 250,000,000'), and by note 11's weighted average of 250,000,000 (which can only equal the closing count because no share was issued in the year, note 21's roll-forward); the ESEF-tagged ifrs-full:IssuedCapital 0.1 (GBP m) is 250,000,000 x GBP 0.0002 = 0.05, at the edge of the printed tenth; cross_document under E59"
+        status: VERIFIED
+        verified_kind: cross_document
+
+  - period: 2026-H1
+    period_end: 2026-01-31
+    period_basis: fiscal
+    document: "Interim Results for the half year ended 31 January 2026 (RNS 4b44f706-..., 2026-03-23): condensed consolidated statements, unaudited"
+    url: "sources/APN.L_2026-H1_half-year-financial-report_2026-03-23_xx_a0.html"
+    figures:
+      revenue:
+        value: 74.5
+        page: "Condensed consolidated statement of comprehensive income, half year ended 31 January 2026: 'Revenue 3 | 74.5' (H1 FY25: 47.6)"
+        status: UNVERIFIED
+      operating_income:
+        value: 20.7
+        page: "Condensed consolidated statement of comprehensive income: 'Operating profit 20.7' (H1 FY25: 11.5); 'Adjusted operating profit 20.7' is equal this half (no IPO costs). E79: no statutory margin stated, `op_margin` blank; 20.7 / 74.5 = 27.8%"
+        status: UNVERIFIED
+      net_income:
+        value: 15.4
+        page: "Condensed consolidated statement of comprehensive income: 'Profit for the period attributable to equity shareholders 15.4' (H1 FY25: 8.9)"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 6.2
+        page: "Condensed consolidated statement of comprehensive income: 'Basic and diluted (p) 8 | 6.2' (H1 FY25: 3.5); note 8"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 250407125
+        page: "Note 8 Earnings per share: 'Weighted average number of shares in issue during the period for the purposes of basic EPS 250,000,000', 'Effect of potentially dilutive items 407,125', 'Weighted average number of shares for the purposes of fully diluted EPS 250,407,125'"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 0.8
+        page: "Condensed consolidated statement of cash flows: 'Depreciation and amortisation charges 0.8' (H1 FY25: 0.5)"
+        status: UNVERIFIED
+      gross_profit:
+        value: 34.8
+        page: "Condensed consolidated statement of comprehensive income: 'Gross profit 34.8' (H1 FY25: 22.3) = revenue 74.5 less cost of sales (39.7)"
+        status: UNVERIFIED
+      income_tax_paid:
+        value: -2.3
+        page: "Condensed consolidated statement of cash flows: 'Income tax paid (2.3)' (H1 FY25: (3.2)), entered as printed (an outflow, negative)"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 8.3
+        page: "Condensed consolidated statement of cash flows: 'Net cash from operating activities 8.3' (H1 FY25: 7.1), after 'Income tax paid (2.3)'; no interest inside"
+        status: UNVERIFIED
+      capex_combined:
+        value: -0.2
+        page: "Condensed consolidated statement of cash flows, investing: 'Purchase of tangible fixed assets (0.2)' (H1 FY25: (0.3)) -- the only purchase line (E23)"
+        status: UNVERIFIED
+      finance_costs_paid:
+        value: 0.1
+        page: "Condensed consolidated statement of cash flows, FINANCING: 'Interest paid on lease liability (0.1)' (entered as a positive magnitude)"
+        status: UNVERIFIED
+      finance_income_received:
+        value: 0.2
+        page: "Condensed consolidated statement of cash flows, INVESTING: 'Interest received 0.2' (H1 FY25: 0.4), entered as a positive magnitude"
+        status: UNVERIFIED
+      lease_payments_capital:
+        value: -0.4
+        page: "Condensed consolidated statement of cash flows, financing: 'Principal paid on lease liability (0.4)' (H1 FY25: (0.1)). A MEMO under E70"
+        status: UNVERIFIED
+      sbc:
+        value: 0.1
+        page: "Condensed consolidated statement of cash flows: 'Share-based payment expense 0.1' (H1 FY25: -); CFO review: 'The administrative costs in H1 FY26 had £0.1m of share-based payment costs which have not been adjusted for in arriving at adjusted EBITDA'"
+        status: UNVERIFIED
+      finance_costs_period:
+        value: 0.1
+        page: "Condensed consolidated statement of comprehensive income: 'Finance expense 6 (0.1)'; note 6: 'Interest on lease liabilities and dilapidations (0.1)'"
+        status: UNVERIFIED
+      finance_income_period:
+        value: 0.3
+        page: "Condensed consolidated statement of comprehensive income: 'Finance income 6 | 0.3'; note 6: 'Bank interest receivable 0.3'"
+        status: UNVERIFIED
+      financial_liabilities_current:
+        value: 0
+        zero_basis: caption
+        page: "Condensed consolidated statement of financial position at 31 January 2026, current liabilities: 'Lease liabilities 9 (0.9)' and 'Trade and other payables (25.9)' only; note 9 financial liabilities: trade and other payables 13.7, accruals 6.0, lease liabilities 3.1 -- no borrowings"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "The Group’s financial instruments comprise cash and cash equivalents, lease liabilities and items such as trade and other receivables and trade and other payables, which arise from its operations."
+      financial_liabilities_noncurrent:
+        value: 0
+        zero_basis: caption
+        page: "Condensed consolidated statement of financial position, non-current liabilities: 'Deferred tax liabilities -', 'Lease liabilities 9 (2.2)', 'Provision for liabilities (0.3)' -- no borrowings caption; note 9 as above"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "The Group’s financial instruments comprise cash and cash equivalents, lease liabilities and items such as trade and other receivables and trade and other payables, which arise from its operations."
+      lease_liabilities:
+        value: 3.1
+        page: "Note 9 Financial instruments: 'Lease liabilities 3.1' (31 January 2025: 1.7; 31 July 2025: 3.0) -- E71 stated total; balance sheet captions (0.9) current + (2.2) non-current = 3.1"
+        status: UNVERIFIED
+      pension_deficit:
+        value: 0
+        zero_basis: note
+        page: "No retirement-benefit caption on the condensed balance sheet; the group's only pension arrangement is the defined contribution scheme of accounting policy 2.19 (FY2025 accounts; the interim states its policies are unchanged). E35.1 note form -- the sentence is the annual report's, not the interim's"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "The accounting policies have been applied consistently to all periods presented (interim note 1); FY2025 accounting policy 2.19: The Group operates a defined contribution pension scheme."
+      asset_retirement_obligation:
+        value: 0.3
+        page: "Condensed consolidated statement of financial position, non-current: 'Provision for liabilities (0.3)' (31 July 2025: (0.3)) -- the leasehold dilapidations provision of note 20 of the FY2025 accounts, the interim carrying no provisions note; note 6 'Interest on lease liabilities and dilapidations (0.1)'. E69 / E68 as on the annual entry"
+        status: UNVERIFIED
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81 (2026-08-30): Condensed consolidated statement of financial position at 31 January 2026: 'Lease liabilities (0.9)', 'Trade and other payables (25.9)', 'Lease liabilities (2.2)', 'Provision for liabilities (0.3)' -- no streaming, prepaid-offtake or prepaid-delivery caption; interim note 9 lists the financial liabilities in full. A caption zero"
+        status: UNVERIFIED
+      cash_and_equivalents:
+        value: 26.4
+        page: "Condensed consolidated statement of financial position: 'Cash and cash equivalents 26.4' (31 July 2025: 18.5); cash flow 'Cash and cash equivalents at end of period 26.4'"
+        status: UNVERIFIED
+      shares_outstanding_period_end:
+        value: 250000000
+        page: "Note 10 Share capital and the EPS footnote: 'a total of 250 million ordinary shares in issue during each period'; note 8 basic count 250,000,000; no treasury shares exist or are mentioned"
+        status: UNVERIFIED
+
+annual: []

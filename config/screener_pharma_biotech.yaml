@@ -1,0 +1,139 @@
+# OUTSIDE THE CIRCLE OF COMPETENCE: pharmaceutical and biotechnology
+# companies -- those whose cash flow beyond the next patent expiry depends on
+# clinical trial outcomes and regulatory approval. Section 5 cannot be run on
+# them: the growth rate E28 makes us pre-register would be a guess about drug
+# approvals, not an estimate of a business.
+#
+# FRAMEWORK-EDITS E51, ruled by the owner 2026-08-27. Applied at STEP 0, with
+# the reason recorded, so a name is never hand-deleted from a run. The rule
+# applies REGARDLESS OF SCREENER RANK.
+#
+# TWO LIMBS, and the file holds both:
+#
+#   industries:  the VENDOR's industry string, matched exactly. It reaches a
+#                name only where a sector/industry string has been STORED for
+#                it -- fundamentals are fetched for the survivors of filter 1
+#                alone, so most of the universe carries no string and this
+#                limb is blind to it. That silence is a fact about the fetch.
+#   tickers:     the owner's own list, which does not depend on the vendor
+#                having classified anything.
+#
+# AND ONE ESCAPE, which only the owner writes:
+#
+#   exempt:      a ticker the string limb catches and the owner has ruled back
+#                IN, with the reason. Empty today. A session never adds a row
+#                here; it flags the name in the run report and stops.
+#
+# Matching is on ticker_yahoo, exactly, as the exclusion list and E46's list
+# match. A ticker in no universe file is inert and the step-0 report says so.
+
+# The vendor's own strings, as returned on 2026-08-26. E46's lesson applies:
+# the string is the vendor's classification of a listing, not a fact about
+# the company -- which is why `tickers:` and `exempt:` sit beside it.
+industries:
+  - Biotechnology
+  - Drug Manufacturers - General
+  - Drug Manufacturers - Specialty & Generic
+
+# Sector strings, if the owner ever wants a whole sector out. EMPTY on
+# purpose: `Healthcare` would take the medical-device, diagnostics,
+# distribution and care-facility businesses with it, and E51 does not reach
+# them -- a device sells a product whose approval is behind it.
+sectors: []
+
+# The owner's list (FRAMEWORK-EDITS E51.2, 2026-08-27). Reaches a name the
+# vendor has not classified, or has classified wrongly.
+#
+# WHY IT EXISTS: on 2026-08-26, 794 of the 1,345 names offered to step 0 --
+# 59% of the universe -- carried NO vendor string, because fundamentals are
+# fetched for the survivors of filter 1 alone. Every pharmaceutical major was
+# among them. The STRING LIMB REMAINS THE PRIMARY CATCH; this block covers
+# the vendor's silence, and E49's retention should make it shorter over time.
+#
+# NOT a claim that these are the only pharma in the universe. It is the set
+# the owner named after a scan BY NAME of the unclassified 794, and a scan by
+# name is evidence about names.
+tickers:
+  # --- US -------------------------------------------------------------------
+  - ticker: PFE
+    company: Pfizer Inc.
+  - ticker: MRK
+    company: Merck & Co., Inc.
+  - ticker: LLY
+    company: Eli Lilly and Company
+  - ticker: ABBV
+    company: AbbVie Inc.
+  - ticker: AMGN
+    company: Amgen Inc.
+  - ticker: GILD
+    company: Gilead Sciences, Inc.
+  - ticker: BIIB
+    company: Biogen Inc.
+  - ticker: REGN
+    company: Regeneron Pharmaceuticals, Inc.
+  - ticker: VRTX
+    company: Vertex Pharmaceuticals Incorporated
+  # --- Europe ---------------------------------------------------------------
+  - ticker: MRK.DE
+    company: Merck KGaA
+  - ticker: BAYN.DE
+    company: Bayer AG
+  - ticker: NOVN.SW
+    company: Novartis AG
+  - ticker: SAN.PA
+    company: Sanofi SA
+  - ticker: IPN.PA
+    company: Ipsen SA
+  - ticker: GMAB.CO
+    company: Genmab A/S
+  - ticker: ARGX.BR
+    company: argenx SE
+  - ticker: SOBI.ST
+    company: Swedish Orphan Biovitrum AB (publ)
+  - ticker: HIK.L
+    company: Hikma Pharmaceuticals PLC
+  - ticker: REC.MI
+    company: Recordati Industria Chimica e Farmaceutica SpA
+  - ticker: ORNBV.HE
+    company: Orion Oyj Class B
+  # --- INERT: named by the owner, matches nothing in the universe files -----
+  #
+  # ROG.SW IS ROCHE'S REGISTERED SHARE (Namenaktie) AND IS NOT IN ANY
+  # UNIVERSE FILE. The only Roche line this universe carries is ROP.SW --
+  # `ROCHE PS PAR AG`, the Genussschein -- in stoxx600-2026-08-22.csv.
+  #
+  # ROP.SW WAS NOT ADDED. Substituting a ticker the owner did not name, even
+  # the obviously intended one in the same issuer, would make this file say
+  # something the owner did not.
+  #
+  # SO ROCHE IS NOT EXCLUDED TODAY: ROP.SW carries no vendor string either,
+  # and neither limb reaches it. One line away from covered, and that line is
+  # the owner's to write. The step-0 report names this row as inert every run.
+  - ticker: ROG.SW
+    company: Roche Holding AG (registered share)
+
+# Ruled back IN by the owner, with the reason (FRAMEWORK-EDITS E51.1,
+# 2026-08-27). Every row MUST carry a reason or the load fails.
+#
+# NOT LISTED HERE, and deliberately: TUB.BR (Financiere de Tubize SA), the
+# holding company whose sole asset is a stake in UCB. The owner declined to
+# exempt it and added it to config/screener_investment_companies.yaml
+# instead -- E46's list says what it IS, where this block could only have
+# said what it is not. It is therefore STILL REMOVED by E51 at step 0, and
+# its E46 entry is inert until that ever changes (E51.1).
+#
+# Nearer the line than the rest, still caught, and named so the question
+# stays visible: GRF.MC (plasma-derived products) and ALVO-SDB.ST
+# (biosimilars).
+exempt:
+  - ticker: SFZN.SW
+    reason: >-
+      Siegfried Holding AG is a CDMO -- it manufactures other companies'
+      molecules under contract and carries no pipeline of its own, so no
+      cash flow of its own turns on a trial reading out. The vendor string
+      'Drug Manufacturers - Specialty & Generic' describes what it makes.
+  - ticker: FLERIE.ST
+    reason: >-
+      Flerie AB is a life-science INVESTMENT company: it holds positions in
+      developers and is not one. The vendor string 'Biotechnology'
+      describes its holdings, not the company.

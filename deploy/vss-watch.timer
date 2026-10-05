@@ -1,0 +1,14 @@
+[Unit]
+Description=Run the filing watch (EDGAR + Nordic) daily at 13:00 and 23:30
+Documentation=file://%h/vss/vss/secwatch.py
+
+[Timer]
+# 13:00 CEST catches a filing made before the US open; 23:30 the rest of the US day.
+OnCalendar=*-*-* 13:00:00
+OnCalendar=*-*-* 23:30:00
+AccuracySec=1min
+Persistent=true
+Unit=vss-watch.service
+
+[Install]
+WantedBy=timers.target

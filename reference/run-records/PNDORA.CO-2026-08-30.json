@@ -1,0 +1,149 @@
+{
+ "ticker": "PNDORA.CO",
+ "currency": "DKK",
+ "run_ts": "2026-08-30T19:16:25+02:00",
+ "basis": "TTM 2025-Q3+2025-Q4+2026-Q1+2026-Q2",
+ "shares": {
+  "count": 77189151.0,
+  "basis": "weighted-average DILUTED count for annual FY2025 (E41: annual-only, year-end 2025-12-31 inside the window), NOT the flows' own window TTM 2025-Q3+2025-Q4+2026-Q1+2026-Q2 -- the count the annual entry states, taken under E41 because no interim states the window's average and no count at the window end is stated either (E75 has nothing to take); its date is its own",
+  "as_of": "2025-12-31",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 48.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "Annual Report 2025 (audited) p.103, consolidated statement of cash flows: 'Finance income received 4.6 174' and 'Finance costs paid 4.6 -1,009' both ABOVE 'Cash flows from operating activities, net 7,361'; Pandora's own free-cash-flow reconciliation on the same page strips them back out",
+  "net_interest_paid": 861.0,
+  "source": "cash_flow_statement"
+ },
+ "bridge": {
+  "net_debt": null,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 6291.0,
+   "pensions": null,
+   "asset_retirement_obligations": null,
+   "prepaid_delivery_obligations": null,
+   "non_controlling_interests": "no field in this schema (E35)"
+  },
+  "note": "asset_retirement_obligation, pension_deficit, prepaid_delivery_obligation is not on the basis TTM 2025-Q3+2025-Q4+2026-Q1+2026-Q2. Capex legs: split: capex_ppe + capex_intangibles, as the accounts print them"
+ },
+ "dates": {
+  "flows_window_end": "2026-06-30",
+  "balance_sheet": "2026-06-30",
+  "share_count": "2025-12-31",
+  "price": "2026-08-27"
+ },
+ "growth": {
+  "base": 0.03,
+  "view_file": "reference/growth-views/PNDORA.CO.md",
+  "view_date": "2026-08-30",
+  "bear": 0.0,
+  "bull": 0.06
+ },
+ "operating_cash_flow": 8134.0,
+ "capex": -1906.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_ppe",
+   "value": -1440.0,
+   "provenance": "Financial statements_appendix \u00b7 Purchase of property, plant and equipment; Financial statements_appendix \u00b7 Purchase of property, plant and equipment; Financial statements_appendix \u00b7 Purchase of property, plant and equipment; Financial statements_appendix \u00b7 Purchase of property, plant and equipment",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "capex_intangibles",
+   "value": -466.0,
+   "provenance": "Financial statements_appendix \u00b7 Purchase of intangible assets; Financial statements_appendix \u00b7 Purchase of intangible assets; Financial statements_appendix \u00b7 Purchase of intangible assets; Financial statements_appendix \u00b7 Purchase of intangible assets",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 8134.0,
+   "provenance": "Financial statements_appendix \u00b7 Cash flows from operating activities, net; Financial statements_appendix \u00b7 Cash flows from operating activities, net; Financial statements_appendix \u00b7 Cash flows from operating activities, net; Financial statements_appendix \u00b7 Cash flows from operating activities, net",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "sbc",
+   "value": 48.0,
+   "provenance": "p.32, cash flow, 'Share-based payments' 51, Q3 column; appendix Financial statements_appendix \u00b7 Share-based payments, Q3 2025 column 51; p.32, cash flow, 'Share-based payments' -11, Q4 column (a reversal: the 2025 programme was recorded at target, note 2.3); appendix Financial statements_appendix \u00b7 Share-based payments, Q4 2025 column -11; p.31, cash flow, 'Share-based payments' -11, Q1 column (a reversal); appendix Financial statements_appendix \u00b7 Share-based payments, Q1 2026 column -11; cash flow p.32, 'Share-based payments' 19, Q2 column; appendix Financial statements_appendix \u00b7 Share-based payments, Q2 2026 column 19",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "net_interest_paid",
+   "value": 861.0,
+   "provenance": "E18: finance_costs_paid - finance_income_received, both on TTM 2025-Q3+2025-Q4+2026-Q1+2026-Q2",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 77189151.0,
+   "provenance": "note 4.2, p.131",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 1076.0,
+   "provenance": "note 4, p.37",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 9184.0,
+   "provenance": "note 4, p.37",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 6291.0,
+   "provenance": "note 7, p.38",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 908.0,
+   "provenance": "Financial statements_appendix \u00b7 Cash",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  }
+ ],
+ "tool_commit": "RMV.L/RKT.L/PNDORA.CO/DECK first strikes, 2026-08-30, d4425b5",
+ "notes": "",
+ "money_unit": "millions",
+ "lease": {
+  "in_operating_cash_flow": false,
+  "page": "FRAMEWORK-EDITS E70, applied 2026-08-30 to an IFRS 16 filer IFRS 16.50(b): a lessee classifies cash payments for the principal portion of the lease liability within FINANCING activities, so this filer's `operating_cash_flow` never bore the principal; the interest portion follows the filer's IAS 7 policy, which `interest_in_ocf` records. The standard leaves no choice on the principal",
+  "principal_added_back": null,
+  "leg": "none -- IFRS 16.50(b)"
+ }
+}

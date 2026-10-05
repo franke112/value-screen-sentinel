@@ -1,0 +1,871 @@
+# ZZ-B.ST -- Zinzino AB (publ), hand-read from the issuer's own periodic
+# reports. WRITTEN 2026-08-30 by the build session; no store file existed
+# before. EVERY FIGURE IS UNVERIFIED: each was entered ONCE from a pypdf
+# text extraction of the filed PDF and has NOT been read back -- the owner's
+# second read is what turns a flag to VERIFIED (E21, E40). Section 5 refuses
+# on every figure its basis reads until then.
+#
+# VERIFICATION PASS 2026-08-30 (E59, on the owner's instruction). Of the 57
+# figures the TTM basis reads, 50 now carry VERIFIED / cross_document, each
+# with its reconciliation written on the figure: a segment-note restatement
+# of an income-statement line, a component sum to a printed subtotal, or a
+# cross-document subtraction of two printed cumulative columns (9M 2025 less
+# H1 2025, FY 2025 less 9M 2025, H1 2026 less Q1 2026 -- each column printed
+# in a different report). Where a cumulative subtraction came out one to
+# three off from column rounding it is named and NOT used as the tie. No
+# ESEF/iXBRL package exists: Zinzino is a First North issuer (an MTF), and
+# the annual-report release 1436889 carries two PDFs and no zip. SEVEN
+# figures remain UNVERIFIED at the basis because no second figure exists to
+# reconcile them to: the four E25 zeros (2026-Q2 borrowings x2 on the note
+# form, FY2025 pension and asset retirement obligation on the note/caption
+# form -- claims, not figures; only the owner's own read settles them), the
+# E36 zero on `sbc` (the same), the 2026-Q2 `lease_liabilities` (an E71 sum
+# of two balance-sheet parts the interim restates nowhere), and the 2026-Q2
+# `shares_outstanding_period_end` (printed twice on p.19 and nowhere else --
+# E59 excludes a figure that merely appears twice on one page). The 45
+# figures the basis does not read are left as entered (E21), except the
+# 2026-Q1 diluted count, corrected to note 4's print and flagged: the Q1
+# report's p.5 and p.28 disagree by 300 shares.
+#
+# DOCUMENTS: five, all in sources/ and all recorded in sources/manifest.json
+# by `vss nordic` on 2026-08-25 (origin nasdaq-nordic, market First North
+# Sweden, company string 'Zinzino Holding AB'; the covers read 'Zinzino AB').
+# Nothing was missing to fetch: the FY2025 annual report and every interim
+# through Q2 2026 were already on disk. Note the exchange category: the
+# YEAR-END REPORT 2025 is filed under 'Interim report (Q1 and Q3)', and its
+# income-statement page (p.22) is in SWEDISH in the English PDF -- the
+# captions are quoted as printed.
+#
+# BASIS: E19's twelve-month window is the four consecutive quarters 2025-Q3,
+# 2025-Q4, 2026-Q1 and 2026-Q2, ending 2026-06-30 (61 days before
+# 2026-08-30). Every interim prints a STANDALONE QUARTER column for the
+# income statement AND the cash flow statement, so each quarter's figures
+# come from its own document. The Q2 2026 report's H1 column and the Q1
+# 2026 report's Q1 column together check the Q2 quarter for the income
+# statement lines (e.g. net sales 868,952 + 881,712 = 1,750,664 against the
+# printed 1,750,665); the year-end report's FY column checks Q3 + Q4 2025
+# against the nine-month column (OCF 270,352 + 271,519 = 541,871 against
+# the printed 541,870).
+#
+# ONE DISCREPANCY THE OWNER MUST RULE ON, recorded rather than resolved:
+# OPERATING CASH FLOW FOR Q1 2026. The Q1 2026 report prints 125,618 (p.19).
+# The Q2 2026 report prints H1 2026 = 280,002 and Q2 = 175,818 (p.25), which
+# leaves 104,184 for Q1 -- 21,434 LESS than the Q1 report printed. 21,434 is
+# exactly the 'Cash and cash equivalent 21,434' acquired with the ItWorks!
+# subsidiaries (Q2 report note 6, p.36), which the Q2 report presents in
+# INVESTING ('Acquisition of assets (note 5 & 6) ... 12,439' for H1 = 21,434
+# acquired less 8,995 paid for Sanki) and which the Q1 report carried inside
+# operating working capital. The file carries the Q1 REPORT'S PRINTED
+# 125,618 (E19: each quarter keeps its own entry and page; 104,184 is a
+# subtraction the accounts never print), so the TTM operating cash flow
+# 136,614 + 271,519 + 125,618 + 175,818 = 709,569 stands 21,434 (3.0%) ABOVE
+# what the Q2 report's own H1 implies, in the flattering direction.
+#
+# UNITS: SEK THOUSANDS for money, as every statement prints them ('Amounts
+# in SEK thousands'; the key-figure pages print SEK millions and are cited
+# only as a second reading). SHARE COUNTS ARE WHOLE SHARES, as printed.
+# Signs as printed: outflows negative; the interest pair as POSITIVE
+# MAGNITUDES per the schema (E18); a net financial INCOME on the income
+# statement is entered NEGATIVE in `net_finance_costs`, which holds a net
+# cost as a positive number.
+#
+# INTEREST (E34): Zinzino books interest INSIDE operating activities --
+# 'Interest received' and 'Interest paid' sit above 'Cash flow from
+# operating activities before changes in operating capital' in every cash
+# flow statement (Q2 2026 p.25; AR p.82) -- so `interest_in_ocf: yes` and
+# FCF0 adds back the NET INTEREST PAID. The net is NEGATIVE on this window
+# (paid 3,704 against received 7,100 over the four quarters): E34's add-back
+# REMOVES 3,396 of net interest income from FCF0. The interest on lease
+# liabilities is inside 'Interest paid' (AR note 22 p.114: 'The interest
+# portion of the leasing payment remains cash flow from operating
+# activities'), so E34's rule already covers it.
+#
+# LEASES (E70): IFRS 16 filer -- `operating_leases_in_ocf: no`. The
+# principal is in FINANCING ('Amortisation of lease liabilities attributable
+# to lease agreements', Q2 2026 p.25; AR p.82 'Amortisation of leasing
+# liabilities -21,499'), so the flow never bore it and nothing is added
+# back; `lease_payments_capital` is a memo. IFRS 16.50(b).
+#
+# NET DEBT (E35, E35.1, E65-E68) -- what the file can and cannot supply at
+# the basis end 2026-06-30:
+#   * borrowings: ZERO in both fields on E25's `note` form. The AR states it
+#     outright at 2025-12-31 -- p.64 'Zinzino has no interest-bearing loans,
+#     apart from an unused overdraft facility of SEK 80 (80) million and
+#     certain limited leasing commitments'; note 3(c) p.97 'the lack of
+#     liabilities to credit institutions'; the p.97 maturity table lists
+#     financial liabilities as leasing liabilities, accounts payable, other
+#     liabilities and accrued costs and NO borrowings row. At 2026-06-30 the
+#     interim says less: p.23 presents no borrowings caption and p.17 says
+#     'The Group has an unutilised overdraft facility of SEK 80 (80)
+#     million' -- the only facility, unutilised. The 2026-Q2 zeros cite both
+#     and say which sentence is six months old; THE OWNER DECIDES whether
+#     the interim's sentence is E25's 'sentence that states there is none'.
+#   * lease_liabilities at 2026-06-30: 62,219 under E71 (2026-08-30) --
+#     the Q2 2026 balance sheet (p.23) presents 'Lease liabilities 37,637'
+#     (long-term) and 'Lease liabilities 24,582' (current) and totals them
+#     nowhere, and the interim has no lease note; the issuer's own evidence
+#     that they are one quantity is the annual report's note 22 (p.115,
+#     'Long term / Current / Total 41,990'), note 3's single 'Leasing
+#     liabilities' line (p.97) and note 37's roll-forward (p.122). Both
+#     components are named on the field. Before E71 this leg was DATA
+#     MISSING (E26, the BETS-B.ST precedent) and net debt did not form; now
+#     the bridge's arithmetic completes -- 0 + 0 + 62,219 + 0 + 0 - 841,991
+#     = -779,772, NET CASH -- and what still stops section 5 is E21: every
+#     figure here is UNVERIFIED until the owner's second read.
+#   * pension_deficit: ZERO on the `note` form, FY2025 entry, reaching the
+#     TTM basis under E41 (annual-only). AR note 2.7.2 p.91: 'The Group
+#     companies only have defined contribution pension plans.'
+#   * asset_retirement_obligation: ZERO on E68.1's `caption` form, FY2025
+#     entry, via E41. The balance sheet (AR p.80) presents no provision of
+#     any kind; the words decommission / restoration / dismantling / asset
+#     retirement appear nowhere in the annual report. Dietary supplements
+#     sold by direct selling, with one Norwegian contract-manufacturing unit
+#     (Faun Pharma AS): not on E68.1's refuse-until-read list.
+#   * other_current_financial_assets: no such caption; left DATA MISSING
+#     (E25 refuses a zero here outright). Omitting an asset is the
+#     conservative direction. Cash is 'Cash and bank balances 841,991'.
+#
+# SHARE-BASED COMPENSATION (E36): ZERO on E25's `note` form, FY2025 entry,
+# via E41 -- A JUDGEMENT, FLAGGED. Zinzino's incentive instruments are
+# WARRANTS SOLD AT A MARKET PREMIUM: AR note 39 p.123 'At all subscription
+# events, the option premium is determined at an estimated market value
+# through Black & Scholes calculations' (also p.55). No IFRS 2 charge is
+# stated anywhere: note 8 (employee benefits, p.101) has no share-based
+# line, note 38 (non-cash items, p.123) has none, and the equity statement's
+# only warrant entries are premiums RECEIVED ('Issued warrants 277' in 2024,
+# none in 2025, p.81; the cash flow shows them as a FINANCING inflow,
+# 'Issuance of options'). An instrument bought at fair value carries no
+# IFRS 2 expense, which is why the accounts show none -- but no sentence
+# says 'no share-based payment expense', so the zero rests on the premium
+# sentence plus the absence of any charge. If the owner refuses the zero,
+# FCF0 is DATA MISSING on E36's terms.
+#
+# SHARE COUNT (E38, E41, E75): the quarters state only QUARTERLY diluted
+# averages (38,001,886 / 38,054,898 / 38,665,212 / 39,528,665, entered as
+# stated and never summed, B27) and no interim states a twelve-month
+# average. Before E75 the store took the FY2025 weighted diluted average
+# 37,530,107 under E41 -- a count from BEFORE the 2,846,458 shares issued
+# in H1 2026 for ItWorks!, Sanki, Bode Pro, Xion and Truvy and on warrant
+# exercises (Q2 2026 pp.18-19). UNDER E75 (2026-08-30) THE DIVISOR IS THE
+# COUNT OUTSTANDING AT THE WINDOW END, 39,165,998 (p.19, 'Number of
+# outstanding shares'), `divisor_basis: period_end`, a drift of +4.36%
+# against the E41 average -- the flattering understatement E75 exists to
+# remove. E75.1 (2026-08-30): a stated DILUTED count at the window end
+# would beat the basic one -- ZINZINO STATES NONE. The Q2 2026 interim
+# prints diluted AVERAGES (p.6; note 4 p.34), diluted EPS, and the warrant
+# programmes' sum on p.20 (3,293,314 potential Class B shares, 'a total
+# dilution of the share capital amounting to approximately 8.4%'); the
+# annual report the same shapes at 2025-12-31 (p.5, notes 36 and 39). So
+# the divisor is the basic count, `divisor_basis: period_end_basic`, and
+# the dropped dilution is named on the field.
+#
+# REVENUE, GROSS PROFIT, OPERATING PROFIT -- the figures the earlier
+# reading carried (reports/SCREENER-REVIEW-3-2026-08-26.md), verified
+# against the documents:
+#   * NET SALES FY2025 3,172,194 (AR p.77 'Net sales 3,172,194'; p.5
+#     '3,172.2'; year-end report p.22 'Nettoomsättning 3 172 194'): VERIFIED
+#     as read. The file carries NET SALES as `revenue`, the line the vendor
+#     and the ranking carry. The issuer ALSO prints 'Other operating revenues
+#     165,264' (note 6 p.100: freight revenue 155,244, service and reminder
+#     fees 1,828, other 8,192) and a TOTAL of 3,337,458 (p.77) that it calls
+#     'Total revenue' (p.5), on which it strikes EVERY margin it states
+#     (note 40 p.124). The interims print net sales and other revenue as two
+#     lines with no TSEK total, so total revenue cannot be carried per
+#     quarter without a sum (E26); net sales is carried throughout.
+#   * OPERATING PROFIT FY2025 410,029 (AR p.77 'Operating profit 410,029',
+#     p.82, p.65; p.5 '410.0'; year-end report p.22 'Rörelseresultat 410
+#     029'): VERIFIED as read -- and NOT CARRIED AS A FIGURE. The schema's
+#     `op_margin` reconciliation (0.1pp) demands the margin the source
+#     states, and Zinzino states 12.3% on TOTAL revenue (p.5, p.65, note 40)
+#     while the file's revenue line is net sales (410,029 / 3,172,194 =
+#     12.9%); a margin computed to satisfy the check is refused by the
+#     check's own text, and an `operating_income` without a margin fails the
+#     load. So the operating profits are recorded HERE: Q3 2025 101,373
+#     (p.21), Q4 2025 166,401 (p.22), Q1 2026 130,225 (p.16), Q2 2026
+#     138,854 (p.22) -- TTM 536,853; stated operating margins on total
+#     revenue 12.9% / 16.1% / 14.1% / 14.8% (key-figure pages), FY2025 12.3%.
+#     ONE RE-PRESENTATION INSIDE THE WINDOW: the 2026 interims restate
+#     FY2025 operating profit to 409,586 (Q1 2026 p.16; Q2 2026 p.22) by
+#     moving 'Results from holdings in associated companies -443' out of
+#     financial items (AR note 9 p.105) into operating profit; the 2026
+#     quarters carry the associate result (-485, -498) inside operating
+#     profit and the 2025 quarters do not. Under 0.5m over the window.
+#     EBITDA IS CARRIED instead: the segment note prints it in TSEK every
+#     quarter (Q3 2025 109,714; Q4 2025 175,210; Q1 2026 142,263; Q2 2026
+#     153,073 -- the sum of `ebitda` and `depreciation_amortisation` on each
+#     entry reproduces the quarter's operating profit) and it is the metric
+#     the group's financial goal is set on ('operating margin before
+#     depreciation shall exceed 11%', Q2 2026 p.6).
+#   * GROSS PROFIT FY2025 1,119,056 (segment note 4 p.98 'Gross profit
+#     1,058,539 | 60,517 | - | 1,119,056'; p.5 '1,119.1'; year-end report
+#     p.22 'Bruttovinst 1 119 056'; the AR's income statement p.77 prints
+#     costs by nature and NO gross-profit line): VERIFIED as read. The file
+#     carries THE ISSUER'S figure. Definition, note 40 p.124: 'Profit from
+#     total revenue less goods for resale' -- i.e. 3,337,458 total revenue
+#     less 'Goods for resale and other direct costs' 2,218,402 (= raw
+#     materials and consumables 622,400 + trading costs 1,596,002, p.77).
+#     The vendor's 953.8 is 3,172,194 - 2,218,402 = 953,792: the same costs
+#     against NET SALES, i.e. the issuer's figure less the 165,264 of other
+#     operating revenues -- a traceable difference, as the earlier reading
+#     said. The issuer's is the line printed on the face of every interim
+#     income statement ('Gross profit 351,283', Q2 2026 p.22) and is what
+#     'gross profit margin 37.5%' is struck on.
+#
+# COMMISSIONS TO DISTRIBUTORS -- what the accounts say, since it decides
+# what the operating margin means. Zinzino is a direct-selling company
+# (AR note 2.5.1: 'All sales within the business segment Zinzino are made
+# via direct sales ... Sales are also made to the Group's independent
+# distributors according to the same model'). The income statement carries
+# NO line captioned commissions. What it carries, by nature (AR p.77):
+# 'Raw materials and consumables -622,400' (note 23: cost of inventories
+# 509,900 inside it) and 'TRADING COSTS -1,596,002' (2024: -1,023,725) --
+# 50.3% of net sales, 47.8% of total revenue -- a line the annual report
+# NEVER DEFINES and gives no note. The interims fold both into 'Goods for
+# resale and other direct costs' ABOVE gross profit. The evidence that
+# trading costs are the distributor remuneration is indirect but
+# consistent: the balance sheet carries 'Commission liability 354,945'
+# (295,202) in other current liabilities (note 32 p.120) and 'Accrued
+# commission 41,915' (33,109) in accrued costs (note 33), a turnover the
+# 1,596,002 line is the only one large enough to feed; related-party
+# purchases are described as 'sales commissions ... calculated according
+# to the same commission plan and under the same terms as for all other
+# distributors within Zinzino's global sales organisation' (note 35
+# pp.121-122: Saele Invest & Consulting AS 81,429, Moonwalk AG 12,892);
+# and the Q2 2026 narrative attributes the gross margin's rise to
+# 'normalised levels of distributor remuneration during the quarter'
+# (p.12), which places that remuneration ABOVE gross profit. NOTHING
+# IDENTIFIABLE AS COMMISSION SITS OUTSIDE COGS: 'Staff costs' are
+# employees (note 8: salaries 172,068, of which executive bonuses 3,508),
+# and 'External operating expenses -439,498' hold FX translation losses of
+# 27,714 (note 10), sales-conference and marketing costs (note 27 'Pre-paid
+# cost for sales conference 23,207'), audit and rent. So Zinzino's 33.5%
+# 'gross margin' is a margin after BOTH product cost and the sales force,
+# and its 12.3% operating margin is a margin on revenue of which roughly
+# half is paid out to the field before anything else -- a supplement
+# brand's economics with the distribution cost inside gross profit rather
+# than below it. WHAT IS NOT STATED: the split of trading costs between
+# commissions and other direct costs, and a policy sentence defining the
+# line. The earlier reading's 'trading costs 1,596.0' is the vendor's
+# rendering of the same p.77 line.
+#
+# ACQUISITIONS, NAMED BECAUSE THE CAPEX LINES DO NOT SEE THEM: the capex
+# fields carry the two tiny printed investment lines (TTM intangibles
+# -4,473, tangible -4,120). The growth is BOUGHT -- distributor databases,
+# inventories and IP ('Acquisition of assets' -71,020 cash in FY2025; ItWorks!
+# 290,613 and Sanki 75,367 in H1 2026, both paid almost entirely in NEWLY
+# ISSUED SHARES, Q2 2026 notes 5-6 pp.35-36) -- and neither the cash nor the
+# shares reach FCF0 or, on this basis, the divisor (see SHARE COUNT). A
+# growth view that reads this file's FCF0 as organic reads it wrong.
+#
+# STALENESS: newest period end 2026-06-30. Next report: Q3 2026 on
+# 2026-11-17 (Q2 2026 p.21).
+
+ticker: ZZ-B.ST
+name: Zinzino AB (publ)
+reporting_currency: SEK
+money_unit: thousands   # SEK THOUSANDS, as every statement prints them (header above)
+share_unit: whole       # counts entered as printed, in whole shares
+quote_currency: SEK
+sector: Consumer Defensive
+reporting_frequency: quarterly
+origin: manual
+
+interest_in_ocf:
+  value: yes
+  source: "Zinzino Interim Report Q2 2026 (Nasdaq First North release 1459993, 2026-08-25), sources/ZZ-B.ST_2026-Q2_interim-report-q1-and-q3_2026-08-25_en_a1.pdf"
+  page: "p.25, Summary of cash flows, OPERATING ACTIVITIES: 'Interest received 1,660 1,287 3,261 2,388 6,227' and 'Interest paid -912 -958 -2,084 -1,907 -3,527' (Apr-Jun 2026, Apr-Jun 2025, Jan-Jun 2026, Jan-Jun 2025, Jan-Dec 2025) ABOVE 'Cash flow from operating activities before changes in operating capital'; the same layout in the Annual Report 2025 p.82 ('Interest received 6,227', 'Interest paid -3,527' under 'Cash flow from operating activities'). AR note 22 p.114: 'The interest portion of the leasing payment remains cash flow from operating activities'"
+
+# E70 (2026-08-30): whether this filer's operating cash flow bears its
+# lease principal. Under IFRS 16 it does not, so nothing is added back: the
+# lease is counted once, in net debt (E35, E65); `lease_payments_capital`
+# is a memo the flow never deducted.
+operating_leases_in_ocf:
+  value: no
+  source: "FRAMEWORK-EDITS E70, applied 2026-08-30 to an IFRS 16 filer"
+  page: "IFRS 16.50(b): a lessee classifies cash payments for the principal portion of the lease liability within FINANCING activities, so this filer's `operating_cash_flow` never bore the principal. The filer's own statement: Q2 2026 p.25, FINANCING ACTIVITIES, 'Amortisation of lease liabilities attributable to lease agreements -6,256'; AR p.82 'Amortisation of leasing liabilities -21,499' under 'Cash flow from financing activities'; AR note 22 p.114: 'As the main payment is reported as financing activities, cash flow from financing activities decreases with a corresponding increase in cash flow from operating activities.' The interest portion follows `interest_in_ocf` (yes)"
+
+periods:
+  - period: 2025-Q3
+    period_end: 2025-09-30
+    period_basis: calendar
+    document: "Zinzino Interim Report Q3 2025 (Nasdaq First North release 1401475, 2025-11-19), sources/ZZ-B.ST_2025-Q3_interim-report-q1-and-q3_2025-11-19_en_a0.pdf"
+    url: "sources/ZZ-B.ST_2025-Q3_interim-report-q1-and-q3_2025-11-19_en_a0.pdf"
+    figures:
+      # E105 (2026-09-04): Zinzino DOES have a minority -- equity 899
+      # TSEK at 31/12/2025, profit attributable 210 TSEK -- so this is
+      # NOT a clause 5 zero about the accounts having no such thing. It
+      # is a CAPTION zero about the WINDOW: the issuer prints the
+      # Dividends row with a Non-controlling influence column and shows a
+      # DASH for the half-year that contains this quarter. The last real
+      # distribution, -39 TSEK, fell in Q2 2025 and is OUTSIDE the basis.
+      nci_dividends_paid:
+        value: 0
+        zero_basis: caption
+        source: "E105 leg; E25 caption basis"
+        page: "sources/ZZ-B.ST_2026-Q2_interim-report-q1-and-q3_2026-08-25_en_a1.pdf p.24, 'Summary of changes in equity', amounts in SEK thousands, the block opening 01/07/2025 - 31/12/2025: row 'Dividends - - - - -233,317 -233,317 - -233,317' / '- - - - - - - -' -- THE NON-CONTROLLING INFLUENCE COLUMN IS A DASH for the second half of 2025, which contains this quarter. The same statement shows where the money went instead: the 01/01/2025-30/06/2025 block prints 'Dividends ... -143,056 -143,056 -39 -143,095', so the group's one distribution to its minority in this history, -39 TSEK, was paid in Q2 2025 -- one quarter BEFORE the basis window opens. Corroborated by the Q3 2025 interim report p.23 (01/01/2025-30/09/2025 cumulative: the same -39, so nothing was added in Q3) and by the annual report p.81 (01/01/2025-31/12/2025: still -39, so nothing was added in Q4). The cash flow statement does not separate the line; the equity statement is where this issuer states it."
+        status: UNVERIFIED
+      revenue:
+        value: 743232
+        page: "p.21, Summary of comprehensive profit/loss, 01/07/2025-30/09/2025 column: 'Net sales 743,232' (beside 'Other revenue 40,854', not totalled in TSEK); p.6 key figures 'Net sales 743.2' and 'Total revenue 784.1' (SEK million); E59: segment note p.29, Jul-Sep 2025, Total Group: 'Net sales 735,111 | 49,135 | -41,014 | 743,232' restates the line exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      gross_profit:
+        value: 277234
+        page: "p.21, 01/07/2025-30/09/2025 column: 'Gross profit 277,234' -- the issuer's figure, total revenue less 'Goods for resale and other direct costs -506,852'; p.29 segment note 'Gross profit 260,912 | 16,322 | - | 277,234'"
+        status: UNVERIFIED
+      ebitda:
+        value: 109714
+        page: "p.29, segment note, Jul-Sep 2025, Total Group column: 'EBITDA 105,589 | 4,125 | - | 109,714'; p.6 'Operating profit before depreciation and amortisation 109.7'. The group's steering and target metric (financial goal: operating margin before depreciation above 11%). 109,714 - 8,341 = 101,373, the printed operating profit; E59: p.21 'Operating profit 101,373' + 'Depreciation/amortisation 8,341' = 109,714, the segment note's total, exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      depreciation_amortisation:
+        value: 8341
+        page: "p.21, 01/07/2025-30/09/2025 column: 'Depreciation/amortisation -8,341'; E59: p.24 cash flow statement 'Depreciation and amortisation/write-down 8,341' and segment note p.29 '-8,341' both restate it exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      net_finance_costs:
+        value: -12115
+        page: "p.21, 01/07/2025-30/09/2025 column: 'Net financial income/expense 12,115' -- a net INCOME, entered NEGATIVE because this field holds a net cost as a positive magnitude (E18). Includes FX and remeasurement effects beside interest (AR note 9 layout); E59: segment note p.29 'Net financial income/expense 12,282 | -167 | 12,115'; and p.21 operating profit 101,373 + 12,115 - tax 24,039 = 89,449, the printed profit for the period, exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      net_income:
+        value: 89406
+        page: "p.21, 01/07/2025-30/09/2025 column, 'Profit/loss for the period attributable to: Parent company shareholders 89,406' (total 89,449 incl. non-controlling 43); E59: note 4 p.34 'Earnings attributable to shareholders of the parent company used in the calculation of earnings per share ... 89,406' restates it exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      diluted_eps:
+        value: 2.35
+        page: "p.21, 01/07/2025-30/09/2025 column: 'Earnings per share after dilution 2.35'; p.6 'Net earnings per share after tax at full dilution, SEK 2.35'; E59: note 4 p.34 'Earnings per share after dilution 2.35'; 89,406 / 38,001,886 = 2.3527, the printed 2.35"
+        status: VERIFIED
+        verified_kind: cross_document
+      revenue_yoy:
+        value: 0.47
+        page: "p.6 key figures, 01/07/2025-30/09/2025 column: 'Sales growth 47%' -- the issuer's APM, defined on TOTAL revenue (definitions page: 'The total revenue as a percentage change compared to the total revenue for the corresponding period of the previous year'), not on net sales"
+        status: UNVERIFIED
+      total_assets:
+        value: 1604048
+        page: "p.22, Summary of financial position, 30/09/2025: 'TOTAL ASSETS 1,604,048'"
+        status: UNVERIFIED
+      net_ppe:
+        value: 19046
+        page: "p.22, 30/09/2025: 'Equipment, tools and installations 19,046' (right-of-use assets 43,123 are a separate line and are not included)"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 136614
+        page: "p.24, Summary of cash flows, 01/07/2025-30/09/2025 column: 'Cash flow from operating activities 136,614'; 9M 2025 column 270,352, which with the year-end report's Q4 271,519 gives 541,871 against the printed FY 541,870; E59: p.24 component sum 'Cash flow from operating activities before changes in operating capital 93,773' + changes in operating capital 'Total 42,841' = 136,614 exactly (the 9M column 270,352 less the Q2 2026 report p.25, comparative column 01/01/2025-30/06/2025 133,741 gives 136,611, three off from rounding, and is NOT the tie)"
+        status: VERIFIED
+        verified_kind: cross_document
+      finance_costs_paid:
+        value: 915
+        page: "p.24, OPERATING ACTIVITIES, 01/07/2025-30/09/2025 column: 'Interest paid -915' (entered as a positive magnitude); E59: cross-document: 9M 2025 'Interest paid -2,822' (p.24) less H1 2025 '-1,907' (Q2 2026 report p.25, comparative column 01/01/2025-30/06/2025) = 915 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      finance_income_received:
+        value: 2774
+        page: "p.24, OPERATING ACTIVITIES, 01/07/2025-30/09/2025 column: 'Interest received 2,774'; E59: cross-document: 9M 'Interest received 5,162' (p.24) less H1 2025 '2,388' (Q2 2026 report p.25, comparative column 01/01/2025-30/06/2025) = 2,774 exactly; p.24 subtotal 2,774 - 915 - 35,218 = -33,359 as printed"
+        status: VERIFIED
+        verified_kind: cross_document
+      capex_intangibles:
+        value: -1100
+        page: "p.24, INVESTMENT ACTIVITY, 01/07/2025-30/09/2025 column: 'Investments in intangible fixed assets -1,100'. NOT the acquisitions of distributor databases ('Acquisition of assets -4,459'), which are business/asset acquisitions outside E23's capex lines; E59: cross-document: 9M '-4,414' (p.24) less H1 2025 '-3,314' (Q2 2026 report p.25, comparative column 01/01/2025-30/06/2025) = -1,100 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      capex_ppe:
+        value: -1848
+        page: "p.24, INVESTMENT ACTIVITY, 01/07/2025-30/09/2025 column: 'Investments in tangible fixed assets -1,848'; E59: cross-document: 9M 'Investments in tangible fixed assets -6,017' (p.24) less H1 2025 '-4,169' (Q2 2026 report p.25, comparative column 01/01/2025-30/06/2025) = -1,848 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      lease_payments_capital:
+        value: -5405
+        page: "p.24, FINANCING ACTIVITIES, 01/07/2025-30/09/2025 column: 'Amortisation of lease liabilities attributable to lease agreements -5,405'. A MEMO (E70): the flow never deducted it; E59: cross-document: 9M '-16,185' (p.24) less H1 2025 '-10,780' (Q2 2026 report p.25, comparative column 01/01/2025-30/06/2025) = -5,405 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      cash_and_equivalents:
+        value: 529232
+        page: "p.22, 30/09/2025: 'Cash and bank balances 529,232'; p.24 'Cash and cash equivalents at end of period 529,232'"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 38001886
+        page: "p.34, Note 4 Earnings per share, 01/07/2025-30/09/2025 column: 'Weighted average number of ordinary shares and potential ordinary shares used as denominator in calculating earnings per share after dilution 38,001,886'; p.6 'Average number of issued shares for the period with full dilution 38,001,886'. A QUARTERLY average, entered as stated; never summed (E41)"
+        status: UNVERIFIED
+  - period: 2025-Q4
+    period_end: 2025-12-31
+    period_basis: calendar
+    document: "Zinzino Year-End Report 2025 (Nasdaq First North release 1422408, 2026-02-25, filed under the category 'Interim report (Q1 and Q3)'), sources/ZZ-B.ST_2025-Q4_interim-report-q1-and-q3_2026-02-25_en_a1.pdf"
+    url: "sources/ZZ-B.ST_2025-Q4_interim-report-q1-and-q3_2026-02-25_en_a1.pdf"
+    figures:
+      # E105 (2026-09-04): Zinzino DOES have a minority -- equity 899
+      # TSEK at 31/12/2025, profit attributable 210 TSEK -- so this is
+      # NOT a clause 5 zero about the accounts having no such thing. It
+      # is a CAPTION zero about the WINDOW: the issuer prints the
+      # Dividends row with a Non-controlling influence column and shows a
+      # DASH for the half-year that contains this quarter. The last real
+      # distribution, -39 TSEK, fell in Q2 2025 and is OUTSIDE the basis.
+      nci_dividends_paid:
+        value: 0
+        zero_basis: caption
+        source: "E105 leg; E25 caption basis"
+        page: "sources/ZZ-B.ST_2026-Q2_interim-report-q1-and-q3_2026-08-25_en_a1.pdf p.24, 'Summary of changes in equity', amounts in SEK thousands, the block opening 01/07/2025 - 31/12/2025: row 'Dividends - - - - -233,317 -233,317 - -233,317' / '- - - - - - - -' -- THE NON-CONTROLLING INFLUENCE COLUMN IS A DASH for the second half of 2025, which contains this quarter. The same statement shows where the money went instead: the 01/01/2025-30/06/2025 block prints 'Dividends ... -143,056 -143,056 -39 -143,095', so the group's one distribution to its minority in this history, -39 TSEK, was paid in Q2 2025 -- one quarter BEFORE the basis window opens. Corroborated by the Q3 2025 interim report p.23 (01/01/2025-30/09/2025 cumulative: the same -39, so nothing was added in Q3) and by the annual report p.81 (01/01/2025-31/12/2025: still -39, so nothing was added in Q4). The cash flow statement does not separate the line; the equity statement is where this issuer states it."
+        status: UNVERIFIED
+      revenue:
+        value: 985562
+        page: "p.22 (printed in Swedish in this PDF), 2025-10-01 - 2025-12-31 column: 'Nettoomsättning 985 562' (net sales); p.6 key figures 'Net sales 985.6' and 'Total revenue 1,035.3' (SEK million); p.30 segment note 'Net sales 975,808 | 38,647 | -28,893 | 985,562'; E59: segment note p.30, Oct-Dec 2025, Total Group: 'Net sales 975,808 | 38,647 | -28,893 | 985,562' restates it exactly (FY 3,172,194 less the Q3 report's 9M 2,186,633 gives 985,561, one off from rounding, and is not the tie)"
+        status: VERIFIED
+        verified_kind: cross_document
+      gross_profit:
+        value: 370332
+        page: "p.22, 2025-10-01 - 2025-12-31 column: 'Bruttovinst 370 332' (gross profit); p.30 segment note 'Gross profit 356,085 | 14,247 | - | 370,332'; p.6 'Gross profit 370.3'"
+        status: UNVERIFIED
+      ebitda:
+        value: 175210
+        page: "p.30, segment note, Oct-Dec 2025, Total Group column: 'EBITDA 174,753 | 457 | - | 175,210'; p.6 'Operating profit before depreciation and amortisation 175.2'. 175,210 - 8,809 = 166,401, the printed operating profit ('Rörelseresultat 166 401', p.22); E59: p.22 'Rorelseresultat 166 401' + 'Avskrivningar 8 809' = 175,210, the segment note's total, exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      depreciation_amortisation:
+        value: 8809
+        page: "p.22, 2025-10-01 - 2025-12-31 column: 'Avskrivningar -8 809' (depreciation/amortisation); E59: p.25 cash flow statement 'Depreciation and amortisation/write-down 8,809' restates it; cross-document: FY 33,337 (AR p.77) less the Q3 2025 report's 9M 24,528 (p.21) = 8,809 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      net_finance_costs:
+        value: 3624
+        page: "p.22, 2025-10-01 - 2025-12-31 column: 'Finansnetto -3 624' (net financial items) -- a net COST, entered positive (E18); E59: segment note p.30 'Net financial income/expense -3,181' + 'Profit/loss share associated companies -443' = -3,624, the income statement's 'Finansnetto -3 624', exactly; cross-document: FY 8,963 (AR p.77 'Total profit/loss from financial items') less the Q3 report's 9M 12,587 (p.21) = -3,624 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      net_income:
+        value: 123618
+        page: "p.22, 2025-10-01 - 2025-12-31 column, 'Periodens resultat hänförligt till: Moderbolagets aktieägare 123 618' (profit attributable to parent company shareholders; total 123,656 incl. non-controlling 38); E59: note 4 p.35 'Earnings attributable to shareholders of the parent company ... 123,618' restates it exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      diluted_eps:
+        value: 3.25
+        page: "p.22, 2025-10-01 - 2025-12-31 column: 'Resultat per aktie efter utspädning 3,25'; p.6 'Net earnings per share after tax at full dilution, SEK 3.25'; E59: note 4 p.35 'Earnings per share after dilution 3.25'; 123,618 / 38,054,898 = 3.2484, the printed 3.25"
+        status: VERIFIED
+        verified_kind: cross_document
+      revenue_yoy:
+        value: 0.45
+        page: "p.6 key figures, 01/10/2025-31/12/2025 column: 'Sales growth 45%' -- on TOTAL revenue (the issuer's definition)"
+        status: UNVERIFIED
+      total_assets:
+        value: 1752524
+        page: "p.23, Summary of financial position, 31/12/2025: 'TOTAL ASSETS 1,752,524'; AR p.79 'Total assets 1,752,524'"
+        status: UNVERIFIED
+      net_ppe:
+        value: 17558
+        page: "p.23, 31/12/2025: 'Equipment, tools and installations 17,558'; AR p.79 the same"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 271519
+        page: "p.25, Summary of cash flows, 01/10/2025-31/12/2025 column: 'Cash flow from operating activities 271,519'; FY column 541,870 = AR p.82; E59: p.25 component sum 167,446 + 104,073 = 271,519 exactly (FY 541,870 less the Q3 report's 9M 270,352 = 271,518, one off from rounding, is not the tie)"
+        status: VERIFIED
+        verified_kind: cross_document
+      finance_costs_paid:
+        value: 705
+        page: "p.25, OPERATING ACTIVITIES, 01/10/2025-31/12/2025 column: 'Interest paid -705' (entered as a positive magnitude); FY column -3,527 = 2,822 (9M) + 705; E59: cross-document: FY 'Interest paid -3,527' (p.25; AR p.82) less the Q3 2025 report's 9M '-2,822' (p.24) = 705 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      finance_income_received:
+        value: 1065
+        page: "p.25, OPERATING ACTIVITIES, 01/10/2025-31/12/2025 column: 'Interest received 1,065'; FY column 6,227 = 5,162 (9M) + 1,065; E59: cross-document: FY 'Interest received 6,227' (p.25; AR p.82) less the Q3 report's 9M '5,162' (p.24) = 1,065 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      capex_intangibles:
+        value: -1393
+        page: "p.25, INVESTMENT ACTIVITY, 01/10/2025-31/12/2025 column: 'Investments in intangible fixed assets -1,393'; FY -5,807 = -4,414 (9M) - 1,393; E59: cross-document: FY '-5,807' (p.25; AR p.82) less the Q3 report's 9M '-4,414' (p.24) = -1,393 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      capex_ppe:
+        value: -84
+        page: "p.25, INVESTMENT ACTIVITY, 01/10/2025-31/12/2025 column: 'Investments in tangible fixed assets -84'; FY -6,101 = -6,017 (9M) - 84; E59: cross-document: FY '-6,101' (p.25; AR p.82) less the Q3 report's 9M '-6,017' (p.24) = -84 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      lease_payments_capital:
+        value: -5314
+        page: "p.25, FINANCING ACTIVITIES, 01/10/2025-31/12/2025 column: 'Amortisation of lease liabilities attributable to lease agreements -5,314'. A MEMO (E70); E59: cross-document: FY '-21,499' (p.25; AR p.82 and the lease roll-forward's 'Cash outflow -21,499', AR p.122) less the Q3 report's 9M '-16,185' (p.24) = -5,314 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      cash_and_equivalents:
+        value: 771004
+        page: "p.23, 31/12/2025: 'Cash and bank balances 771,004'; p.25 'Cash and cash equivalents at end of period 771,004'; AR p.79 and note 28 p.118 'Bank balances 771,004'"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 38054898
+        page: "p.35, Earnings per share note, 01/10/2025-31/12/2025 column: 'Weighted average number of ordinary shares and potential ordinary shares ... after dilution 38,054,898'; p.6 'Average number of issued shares for the period with full dilution 38,054,898'. A QUARTERLY average, entered as stated (E41)"
+        status: UNVERIFIED
+  - period: 2026-Q1
+    period_end: 2026-03-31
+    period_basis: calendar
+    document: "Zinzino Interim Report Q1 2026 (Nasdaq First North release 1443682, 2026-05-22), sources/ZZ-B.ST_2026-Q1_interim-report-q1-and-q3_2026-05-22_en_a1.pdf"
+    url: "sources/ZZ-B.ST_2026-Q1_interim-report-q1-and-q3_2026-05-22_en_a1.pdf"
+    figures:
+      # E105 (2026-09-04): Zinzino DOES have a minority -- equity 899
+      # TSEK at 31/12/2025, profit attributable 210 TSEK -- so this is
+      # NOT a clause 5 zero about the accounts having no such thing. It
+      # is a CAPTION zero about the WINDOW: the issuer prints the
+      # Dividends row with a Non-controlling influence column and shows a
+      # DASH for the half-year that contains this quarter. The last real
+      # distribution, -39 TSEK, fell in Q2 2025 and is OUTSIDE the basis.
+      nci_dividends_paid:
+        value: 0
+        zero_basis: caption
+        source: "E105 leg; E25 caption basis"
+        page: "sources/ZZ-B.ST_2026-Q2_interim-report-q1-and-q3_2026-08-25_en_a1.pdf p.24, 'Summary of changes in equity', amounts in SEK thousands, the block opening 01/01/2026 - 30/06/2026: row 'Dividends - - - - -233,317 -233,317 - -233,317' / '- - - - - - - -' -- THE NON-CONTROLLING INFLUENCE COLUMN IS A DASH for the first half of 2026, which contains this quarter. The same statement shows where the money went instead: the 01/01/2025-30/06/2025 block prints 'Dividends ... -143,056 -143,056 -39 -143,095', so the group's one distribution to its minority in this history, -39 TSEK, was paid in Q2 2025 -- one quarter BEFORE the basis window opens. Corroborated by the Q3 2025 interim report p.23 (01/01/2025-30/09/2025 cumulative: the same -39, so nothing was added in Q3) and by the annual report p.81 (01/01/2025-31/12/2025: still -39, so nothing was added in Q4). The cash flow statement does not separate the line; the equity statement is where this issuer states it."
+        status: UNVERIFIED
+      revenue:
+        value: 868952
+        page: "p.16, Summary of comprehensive profit/loss, 01/01/2026-31/03/2026 column: 'Net sales 868,952' (beside 'Other revenue 53,122', not totalled in TSEK); p.5 'Net sales 869.0', 'Total revenue 922.1' (SEK million); Q2 2026 report H1 net sales 1,750,665 = 868,952 + 881,712 (+1 rounding); E59: segment note p.24, Jan-Mar 2026, Total Group: 'Net sales 849,883 | 32,790 | -13,721 | 868,952' restates it exactly (the Q2 2026 report's H1 1,750,665 less its Q2 881,712 gives 868,953, one off from rounding, and is not the tie)"
+        status: VERIFIED
+        verified_kind: cross_document
+      gross_profit:
+        value: 341530
+        page: "p.16, 01/01/2026-31/03/2026 column: 'Gross profit 341,530'; p.24 segment note 'Gross profit 329,196 | 12,334 | - | 341,530'"
+        status: UNVERIFIED
+      ebitda:
+        value: 142263
+        page: "p.24, segment note, Jan-Mar 2026, Total Group column: 'EBITDA 142,250 | 13 | - | 142,263'; p.5 'Operating profit before depreciation and amortisation 142.3'. 142,263 - 12,038 = 130,225, the printed operating profit; E59: p.16 'Operating profit 130,225' + 'Depreciation/amortisation 12,038' = 142,263, the segment note's total, exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      depreciation_amortisation:
+        value: 12038
+        page: "p.16, 01/01/2026-31/03/2026 column: 'Depreciation/amortisation -12,038'; E59: p.19 cash flow statement 'Depreciation and amortisation/write-down 12,038' restates it; cross-document: Q2 2026 report H1 26,257 less its Q2 14,219 (p.22) = 12,038 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      net_finance_costs:
+        value: -2672
+        page: "p.16, 01/01/2026-31/03/2026 column: 'Net financial income/expense 2,672' -- a net INCOME, entered negative (E18); E59: segment note p.24 'Net financial income/expense 3,560 | -888 | - | 2,672'; cross-document: Q2 2026 report p.22 H1 -1,335 less Q2 -4,007 = 2,672 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      net_income:
+        value: 104470
+        page: "p.16, 01/01/2026-31/03/2026 column, 'Profit/loss for the period attributable to: Parent company shareholders 104,470' (total 104,516 incl. non-controlling 46); E59: note 4 p.28 'Earnings attributable to shareholders of the parent company ... 104,470' restates it exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      diluted_eps:
+        value: 2.70
+        page: "p.16, 01/01/2026-31/03/2026 column: 'Earnings per share after dilution 2.70'; p.5 the same; E59: note 4 p.28 'Earnings per share after dilution 2.70'; 104,470 / 38,665,512 = 2.7019, the printed 2.70"
+        status: VERIFIED
+        verified_kind: cross_document
+      revenue_yoy:
+        value: 0.27
+        page: "p.5 key figures, 01/01/2026-31/03/2026 column: 'Sales growth 27%' -- on TOTAL revenue (the issuer's definition)"
+        status: UNVERIFIED
+      total_assets:
+        value: 2301589
+        page: "p.17, Summary of financial position, 31/03/2026: 'TOTAL ASSETS 2,301,589'"
+        status: UNVERIFIED
+      net_ppe:
+        value: 18289
+        page: "p.17, 31/03/2026: 'Equipment, tools and installations 18,289'"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 125618
+        page: "p.19, Summary of cash flows, 01/01/2026-31/03/2026 column: 'Cash flow from operating activities 125,618'. SEE THE HEADER: the Q2 2026 report's H1 figure 280,002 less its Q2 175,818 leaves 104,184 -- 21,434 less, the cash acquired with the ItWorks! subsidiaries, which the Q2 report presents in investing. The PRINTED Q1 figure is carried (E19); the difference is flagged, not resolved; E59: p.19 component sum 'Cash flow from operating activities before changes in operating capital 90,865' + 'Total 34,753' = 125,618 exactly. The Q2 2026 report's H1 280,002 less its Q2 175,818 = 104,184 does NOT tie, by the 21,434 the header records; the component sum verifies the figure AS THIS REPORT PRINTS IT"
+        status: VERIFIED
+        verified_kind: cross_document
+      finance_costs_paid:
+        value: 1172
+        page: "p.19, OPERATING ACTIVITIES, 01/01/2026-31/03/2026 column: 'Interest paid -1,172' (entered as a positive magnitude); Q2 2026 report H1 -2,084 = 1,172 + 912; E59: cross-document: Q2 2026 report p.25 H1 'Interest paid -2,084' less Q2 '-912' = 1,172 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      finance_income_received:
+        value: 1601
+        page: "p.19, OPERATING ACTIVITIES, 01/01/2026-31/03/2026 column: 'Interest received 1,601'; Q2 2026 report H1 3,261 = 1,601 + 1,660; E59: cross-document: Q2 2026 report p.25 H1 'Interest received 3,261' less Q2 '1,660' = 1,601 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      capex_intangibles:
+        value: -1570
+        page: "p.19, INVESTMENT ACTIVITY, 01/01/2026-31/03/2026 column: 'Investments in intangible fixed assets -1,570'; Q2 2026 report H1 -1,980 = -1,570 - 410; E59: cross-document: Q2 2026 report p.25 H1 '-1,980' less Q2 '-410' = -1,570 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      capex_ppe:
+        value: -477
+        page: "p.19, INVESTMENT ACTIVITY, 01/01/2026-31/03/2026 column: 'Investments in tangible fixed assets -477'; Q2 2026 report H1 -2,188 = -477 - 1,711; E59: cross-document: Q2 2026 report p.25 H1 '-2,188' less Q2 '-1,711' = -477 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      lease_payments_capital:
+        value: -6195
+        page: "p.19, FINANCING ACTIVITIES, 01/01/2026-31/03/2026 column: 'Amortisation of lease liabilities attributable to lease agreements -6,195'. A MEMO (E70); E59: cross-document: Q2 2026 report p.25 H1 '-12,451' less Q2 '-6,256' = -6,195 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      cash_and_equivalents:
+        value: 889200
+        page: "p.17, 31/03/2026: 'Cash and bank balances 889,200'; p.19 'Cash and cash equivalents at end of period 889,200'; Q2 2026 report p.25 'Cash and cash equivalents at start of period 889,200'"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 38665512
+        page: "p.28, Note 4 Earnings per share, 01/01/2026-31/03/2026 column: 'Weighted average number of ordinary shares and potential ordinary shares used as denominator in calculating earnings per share after dilution 38,665,512'. THE DOCUMENT DISAGREES WITH ITSELF: p.5 key figures print 'with full dilution 38,665,212', 300 fewer; the note is the accounting presentation and is entered, the key-figures print is named. First entered 2026-08-30 as 38,665,212 with the note misquoted; corrected in the E59 read-back the same day. 104,470 / either count = 2.70, so the EPS tie cannot choose between them -- NOT verified. A QUARTERLY average, entered as stated (E41); not read on the TTM basis"
+        status: UNVERIFIED
+  - period: 2026-Q2
+    period_end: 2026-06-30
+    period_basis: calendar
+    document: "Zinzino Interim Report Q2 2026 (Nasdaq First North release 1459993, 2026-08-25), sources/ZZ-B.ST_2026-Q2_interim-report-q1-and-q3_2026-08-25_en_a1.pdf"
+    url: "sources/ZZ-B.ST_2026-Q2_interim-report-q1-and-q3_2026-08-25_en_a1.pdf"
+    figures:
+      # E105 (2026-09-04): Zinzino DOES have a minority -- equity 899
+      # TSEK at 31/12/2025, profit attributable 210 TSEK -- so this is
+      # NOT a clause 5 zero about the accounts having no such thing. It
+      # is a CAPTION zero about the WINDOW: the issuer prints the
+      # Dividends row with a Non-controlling influence column and shows a
+      # DASH for the half-year that contains this quarter. The last real
+      # distribution, -39 TSEK, fell in Q2 2025 and is OUTSIDE the basis.
+      nci_dividends_paid:
+        value: 0
+        zero_basis: caption
+        source: "E105 leg; E25 caption basis"
+        page: "sources/ZZ-B.ST_2026-Q2_interim-report-q1-and-q3_2026-08-25_en_a1.pdf p.24, 'Summary of changes in equity', amounts in SEK thousands, the block opening 01/01/2026 - 30/06/2026: row 'Dividends - - - - -233,317 -233,317 - -233,317' / '- - - - - - - -' -- THE NON-CONTROLLING INFLUENCE COLUMN IS A DASH for the first half of 2026, which contains this quarter. The same statement shows where the money went instead: the 01/01/2025-30/06/2025 block prints 'Dividends ... -143,056 -143,056 -39 -143,095', so the group's one distribution to its minority in this history, -39 TSEK, was paid in Q2 2025 -- one quarter BEFORE the basis window opens. Corroborated by the Q3 2025 interim report p.23 (01/01/2025-30/09/2025 cumulative: the same -39, so nothing was added in Q3) and by the annual report p.81 (01/01/2025-31/12/2025: still -39, so nothing was added in Q4). The cash flow statement does not separate the line; the equity statement is where this issuer states it."
+        status: UNVERIFIED
+      revenue:
+        value: 881712
+        page: "p.22, Summary of comprehensive profit/loss, 01/04/2026-30/06/2026 column: 'Net sales 881,712' (beside 'Other revenue 55,102', not totalled in TSEK; the H1 column prints 1,750,665); p.6 'Net sales 881.7', 'Total revenue 936.8' (SEK million); p.30 segment note 'Net sales 866,524 | 32,423 | -17,235 | 881,712'; E59: segment note p.30, Apr-Jun 2026, Total Group: 'Net sales 866,524 | 32,423 | -17,235 | 881,712' restates it exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      gross_profit:
+        value: 351283
+        page: "p.22, 01/04/2026-30/06/2026 column: 'Gross profit 351,283' = net sales 881,712 + other revenue 55,102 - 'Goods for resale and other direct costs -585,531'; p.30 segment note 'Gross profit 338,802 | 12,481 | - | 351,283'; p.6 'Gross profit 351.3', 'Gross profit margin 37.5%'"
+        status: UNVERIFIED
+      ebitda:
+        value: 153073
+        page: "p.30, segment note, Apr-Jun 2026, Total Group column: 'EBITDA 151,756 | 1,317 | - | 153,073'; p.6 'Operating profit before depreciation and amortisation 153.1'. 153,073 - 14,219 = 138,854, the printed operating profit; E59: p.22 'Operating profit 138,854' + 'Depreciation/amortisation 14,219' = 153,073, the segment note's total, exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      depreciation_amortisation:
+        value: 14219
+        page: "p.22, 01/04/2026-30/06/2026 column: 'Depreciation/amortisation -14,219'; p.12: 'SEK 5.4 (4.6) million relates to depreciation of right-of-use assets'; E59: p.25 cash flow statement 'Depreciation and amortisation/write-down 14,219' and segment note p.30 '-14,219' both restate it exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      net_finance_costs:
+        value: 4007
+        page: "p.22, 01/04/2026-30/06/2026 column: 'Net financial income/expense -4,007' -- a net COST, entered positive (E18). p.12: profit before tax 'negatively impacted by discounting effects arising from the adjustment and reclassification of future additional purchase considerations relating to acquisitions of SEK -4.5 (0.0) million' -- so most of this quarter's net is contingent-consideration remeasurement, not interest; E59: segment note p.30 'Net financial income/expense -3,596 | -411 | - | -4,007'; cross-document: p.22 H1 -1,335 less the Q1 2026 report's 2,672 (p.16) = -4,007 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      net_income:
+        value: 105642
+        page: "p.22, 01/04/2026-30/06/2026 column, 'Profit/loss for the period attributable to: Parent company shareholders 105,642' (total 105,848 incl. non-controlling 206); p.34 note 4 'Earnings attributable to shareholders of the parent company ... 105,642'; E59: note 4 p.34 'Earnings attributable to shareholders of the parent company ... 105,642' restates it exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      diluted_eps:
+        value: 2.67
+        page: "p.22, 01/04/2026-30/06/2026 column: 'Earnings per share after dilution 2.67'; p.34 note 4; p.6; E59: note 4 p.34 'Earnings per share after dilution 2.67'; 105,642 / 39,528,665 = 2.6725, the printed 2.67"
+        status: VERIFIED
+        verified_kind: cross_document
+      revenue_yoy:
+        value: 0.18
+        page: "p.6 key figures, 01/04/2026-30/06/2026 column: 'Sales growth 18%' -- on TOTAL revenue (definitions p.38: 'The total revenue as a percentage change compared with the total revenue for the corresponding period of the previous year')"
+        status: UNVERIFIED
+      total_assets:
+        value: 2232252
+        page: "p.23, Summary of financial position, 30/06/2026: 'TOTAL ASSETS 2,232,252'; p.32 segment assets 'Total assets 2,168,952 | 63,300 | 2,232,252'"
+        status: UNVERIFIED
+      net_ppe:
+        value: 19032
+        page: "p.23, 30/06/2026: 'Equipment, tools and installations 19,032' (right-of-use assets 58,085 are a separate line and are not included)"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 175818
+        page: "p.25, Summary of cash flows, 01/04/2026-30/06/2026 column: 'Cash flow from operating activities 175,818'; H1 column 280,002 (see the header on Q1); E59: p.25 component sum 'Cash flow from operating activities before changes in operating capital 131,639' + 'Total 44,179' = 175,818 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      finance_costs_paid:
+        value: 912
+        page: "p.25, OPERATING ACTIVITIES, 01/04/2026-30/06/2026 column: 'Interest paid -912' (entered as a positive magnitude); H1 -2,084 = 1,172 + 912; E59: cross-document: p.25 H1 'Interest paid -2,084' less the Q1 2026 report's '-1,172' (p.19) = 912 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      finance_income_received:
+        value: 1660
+        page: "p.25, OPERATING ACTIVITIES, 01/04/2026-30/06/2026 column: 'Interest received 1,660'; H1 3,261 = 1,601 + 1,660; E59: cross-document: p.25 H1 'Interest received 3,261' less the Q1 2026 report's '1,601' (p.19) = 1,660 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      capex_intangibles:
+        value: -410
+        page: "p.25, INVESTMENT ACTIVITY, 01/04/2026-30/06/2026 column: 'Investments in intangible fixed assets -410'; H1 -1,980 = -1,570 - 410. NOT the acquisitions (notes 5 and 6), which are outside E23's capex lines and were paid in shares; E59: cross-document: p.25 H1 '-1,980' less the Q1 2026 report's '-1,570' (p.19) = -410 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      capex_ppe:
+        value: -1711
+        page: "p.25, INVESTMENT ACTIVITY, 01/04/2026-30/06/2026 column: 'Investments in tangible fixed assets -1,711'; H1 -2,188 = -477 - 1,711; E59: cross-document: p.25 H1 '-2,188' less the Q1 2026 report's '-477' (p.19) = -1,711 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      lease_payments_capital:
+        value: -6256
+        page: "p.25, FINANCING ACTIVITIES, 01/04/2026-30/06/2026 column: 'Amortisation of lease liabilities attributable to lease agreements -6,256'; H1 -12,451 = -6,195 - 6,256. A MEMO (E70); E59: cross-document: p.25 H1 '-12,451' less the Q1 2026 report's '-6,195' (p.19) = -6,256 exactly"
+        status: VERIFIED
+        verified_kind: cross_document
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81 (2026-08-30): Q2 2026 report p.23, Summary of financial position 30/06/2026, liabilities presented: 'Lease liabilities 37,637', 'Deferred tax liability 17,138', 'Other long-term liabilities 57,574', 'Accounts payable 104,172', 'Tax liabilities 30,590', 'Lease liabilities 24,582', 'Other current liabilities' -- no streaming, prepaid-offtake or prepaid-delivery caption; a direct-selling company of nutritional products sells from inventory, and AR 2025 note 32 itemises other current liabilities in full (VAT, withholding tax, social security, commission liability, ...) with no customer prepayment inside. A caption zero"
+        status: UNVERIFIED
+      cash_and_equivalents:
+        value: 841991
+        page: "p.23, 30/06/2026, current assets: 'Cash and bank balances 841,991'; p.25 'Cash and cash equivalents at end of period 841,991'; p.3 and p.17 'SEK 842.0 (408.5) million'; E59: p.25 cash flow statement 'Cash and cash equivalents at end of period 841,991' restates the balance sheet's 'Cash and bank balances 841,991' exactly (p.17 'SEK 842.0 million' is the rounded third print)"
+        status: VERIFIED
+        verified_kind: cross_document
+      # E25 `note` form -- READ THE HEADER: the interim's sentence is about
+      # the facility being unutilised; the sentence that says 'no
+      # interest-bearing loans' is the annual report's, at 2025-12-31.
+      financial_liabilities_current:
+        value: 0
+        zero_basis: note
+        page: "p.17, Financial position: 'As at the balance sheet date, the Group's bank balances amounted to SEK 842.0 (408.5) million. The Group has an unutilised overdraft facility of SEK 80 (80) million' -- the group's only credit facility, unutilised; p.23, Summary of financial position 30/06/2026, current liabilities presented: 'Accounts payable 104,172', 'Tax liabilities 30,590', 'Lease liabilities 24,582', 'Other current liabilities 607,539', 'Accrued costs and deferred revenues 273,212' -- no borrowings caption. The explicit sentence is six months older: Annual Report 2025 p.64 'Zinzino has no interest-bearing loans, apart from an unused overdraft facility of SEK 80 (80) million and certain limited leasing commitments'; note 3(c) p.97 'the lack of liabilities to credit institutions'. 'Other current liabilities' is a caption with room (E25) -- the AR's note 32 itemises it fully at 2025-12-31 (VAT, withholding tax, social security, commission liability 354,945, contingent consideration 13,733, loyalty-programme contract liability 104,440, other 12,325) with no borrowing inside"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "The Group has an unutilised overdraft facility of SEK 80 (80) million, intended to provide additional financial strength and flexibility in line with the company’s acquisition strategy and global expansion plans."
+      financial_liabilities_noncurrent:
+        value: 0
+        zero_basis: note
+        page: "p.23, Summary of financial position 30/06/2026, long-term liabilities presented: 'Lease liabilities 37,637', 'Deferred tax liability 17,138', 'Other long-term liabilities 57,574' -- no borrowings caption; p.17 'The Group has an unutilised overdraft facility of SEK 80 (80) million'. Annual Report 2025 p.64 'Zinzino has no interest-bearing loans, apart from an unused overdraft facility ...'; note 31 p.120 itemises 'Other long-term liabilities' at 2025-12-31 as contingent consideration 70,936, debt to minority interests 9,973 and other nil -- a caption with room (E25), named. Same caveat as the current field: the explicit sentence is the annual report's"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "The Group has an unutilised overdraft facility of SEK 80 (80) million, intended to provide additional financial strength and flexibility in line with the company’s acquisition strategy and global expansion plans."
+      # E71 (2026-08-30): two stated captions the issuer never totals here
+      # but itself treats as ONE liability -- added, both named.
+      lease_liabilities:
+        value: 62219
+        page: "E71: p.23, Summary of financial position 30/06/2026: 'Lease liabilities 37,637' (long-term liabilities) + 'Lease liabilities 24,582' (current liabilities) = 62,219; the interim prints no total and has no lease note. The issuer's evidence that they are one quantity: Annual Report 2025 note 22 p.115 presents 'Lease liabilities: Long term 19,985 / Current 22,005 / Total 41,990' as one liability, note 3 p.97 carries 'Leasing liabilities' as ONE line of financial liabilities (carrying value 41,990), and note 37 p.122 rolls the one liability forward ('Lease liabilities 46,065 ... 41,990'). IFRS 16: every lease, one lessee model (E65 adds nothing)"
+        status: UNVERIFIED
+      shares_outstanding_period_end:
+        value: 39165998
+        page: "p.19, 'Number of outstanding shares': 'As at 30 June 2026, the share capital was divided into 39,165,998 shares, of which 5,113,392 are Class A shares (1 vote) and 34,052,606 are Class B shares (0.1 vote).' The issuer's own heading calls this the outstanding count; no treasury holding is mentioned in any of the five documents. THE DIVISOR under E75 (2026-08-30), `divisor_basis: period_end_basic`: no interim states a twelve-month weighted average, and E75.1's diluted period-end count is NOT stated anywhere -- the Q2 report prints only diluted AVERAGES (p.6, note 4 p.34) and diluted EPS. THE DILUTION DROPPED, NAMED (E75.1): p.20, 'If all outstanding warrants that have not yet been exercised for the subscription of shares as described above are exercised for new subscriptions, a total of 3,293,314 Class B shares will be issued, corresponding to a total dilution of the share capital amounting to approximately 8.4%' -- none of it is in this count, and 39,165,998 + 3,293,314 is a sum the accounts do not print as a count (E22)"
+        status: UNVERIFIED
+      diluted_weighted_average_shares:
+        value: 39528665
+        page: "p.34, Note 4 Earnings per share, 01/04/2026-30/06/2026 column: 'Weighted average number of ordinary shares and potential ordinary shares used as denominator in calculating earnings per share after dilution 39,528,665' (H1 2026 column 38,867,263); p.6 'Average number of issued shares for the period with full dilution 39,528,665'. A QUARTERLY average, entered as stated; on the TTM basis the store takes the FY2025 annual figure under E41 (see the header)"
+        status: UNVERIFIED
+
+annual:
+  - fiscal_year: 2025
+    period_end: 2025-12-31
+    document: "Zinzino Annual Report 2025 (Nasdaq First North release 1436889, 2026-04-24; approved for issue 23 April 2026; audited, auditor's report p.127), sources/ZZ-B.ST_2025-FY_annual-financial-report_2026-04-24_en_a0.pdf"
+    url: "sources/ZZ-B.ST_2025-FY_annual-financial-report_2026-04-24_en_a0.pdf"
+    figures:
+      revenue:
+        value: 3172194
+        page: "p.77, Group report - comprehensive profit/loss, 2025 column, Operating revenues: 'Net sales 5 | 3,172,194' (beside 'Other operating revenues 6, 10 | 165,264' and 'Total | 3,337,458'); p.5 'Net sales 3,172.2' and 'Total revenue 3,337.5'; note 5 p.100 net sales by product area and by country total 3,172,194. NET SALES is carried (see the header); the issuer's margins are on the 3,337,458 total"
+        status: UNVERIFIED
+      gross_profit:
+        value: 1119056
+        page: "note 4 p.98, segment table Jan-Dec 2025, Total Group column: 'Gross profit 1,058,539 | 60,517 | - | 1,119,056'; p.5 'Gross profit 1,119.1', 'Gross profit margin 33.5%'; year-end report p.22 'Bruttovinst 1 119 056'; Q1 and Q2 2026 reports' FY2025 column 'Gross profit 1,119,056'. The AR's income statement p.77 prints costs by nature and no gross-profit line. Definition, note 40 p.124: 'Profit from total revenue less goods for resale' = 3,337,458 - 2,218,402 (raw materials and consumables 622,400 + trading costs 1,596,002). The vendor's 953.8 is the same costs against NET SALES"
+        status: UNVERIFIED
+      ebitda:
+        value: 443366
+        page: "note 4 p.98, segment table Jan-Dec 2025, Total Group column: 'EBITDA 433,418 | 9,948 | - | 443,366'; p.5 'Operating profit before depreciation and amortisation 443.4'; year-end report p.31. 443,366 - 33,337 = 410,029, the printed operating profit (p.77). The 2026 interims restate FY2025 EBITDA to 442,923 (the associate result moved into operating profit)"
+        status: UNVERIFIED
+      depreciation_amortisation:
+        value: 33337
+        page: "p.77, 2025 column: 'Depreciation/amortisation and write-downs of tangible and intangible fixed assets 20, 21 | -33,337'; note 22 p.115: of which depreciation on rights of use 18,275; E82 (2026-08-30): the caption names write-downs, and notes 19-22 decompose the year -- 'The year's depreciation' 4,316 + 6,765 + 3,980 (equipment, p.114) + 18,275 (right of use) = 33,336 against the line's 33,337 (rounding), with NO write-down row in 2025 -- so the line IS the recurring charge and stands"
+        status: UNVERIFIED
+      finance_costs_period:
+        value: 3969
+        page: "p.77, 2025 column: 'Financial costs 9 | -3,969' (entered as a positive magnitude); note 9 p.105: 'Interest expenses for leasing liabilities and other financial expenses -3,526' and 'Results from holdings in associated companies -443' (which the 2026 interims move into operating profit); note 22 p.115 'Interest expenses (included in financial expenses) 3,137' on leases"
+        status: UNVERIFIED
+      finance_income_period:
+        value: 12932
+        page: "p.77, 2025 column: 'Financial income 9 | 12,932'; note 9 p.105: 'Interest revenues 6,227' plus 'Restatement of amortised cost 6,705' (contingent-consideration remeasurement, not interest) -- entered as printed, the composition named"
+        status: UNVERIFIED
+      net_income:
+        value: 324321
+        page: "p.78, 2025: 'Profit/loss for the year attributable to Parent company shareholders 324,321' (total 324,531; non-controlling 210); note 36 p.122"
+        status: UNVERIFIED
+      diluted_eps:
+        value: 8.64
+        page: "p.78: 'Earnings per share after dilution 8.64'; note 36 p.122; p.5"
+        status: UNVERIFIED
+      revenue_yoy:
+        value: 0.51
+        page: "p.5 key figures, 2025 column: 'Sales growth 51%' -- on TOTAL revenue (note 40 p.124 definition)"
+        status: UNVERIFIED
+      total_assets:
+        value: 1752524
+        page: "p.79, Consolidated Balance Sheet, 31/12/2025: 'Total assets 1,752,524'"
+        status: UNVERIFIED
+      net_ppe:
+        value: 17558
+        page: "p.79, 31/12/2025: 'Equipment, tools and installations 21 | 17,558'; note 21 p.114 'Closing carrying amount 17,558'"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 541870
+        page: "p.82, Group report - cash flow statement, 2025: 'Cash flow from operating activities 541,870'; p.5 '541.8'"
+        status: UNVERIFIED
+      finance_costs_paid:
+        value: 3527
+        page: "p.82, 'Cash flow from operating activities' block, 2025: 'Interest paid -3,527' (entered as a positive magnitude)"
+        status: UNVERIFIED
+      finance_income_received:
+        value: 6227
+        page: "p.82, 'Cash flow from operating activities' block, 2025: 'Interest received 6,227'; note 9 p.105 'Interest revenues 6,227'"
+        status: UNVERIFIED
+      capex_intangibles:
+        value: -5807
+        page: "p.82, 'Cash flow from investment activities', 2025: 'Investments in intangible fixed assets -5,807'"
+        status: UNVERIFIED
+      capex_ppe:
+        value: -6101
+        page: "p.82, 'Cash flow from investment activities', 2025: 'Investments in tangible fixed assets -6,101'; note 21 p.114 'Acquisitions during the year 6,639' (accrual basis)"
+        status: UNVERIFIED
+      lease_payments_capital:
+        value: -21499
+        page: "p.82, 'Cash flow from financing activities', 2025: 'Amortisation of leasing liabilities -21,499'; note 22 p.115 'The total cash flow for leases was SEK 21,499 (21,381) million' (sic -- thousand); note 37 p.122 lease liabilities cash outflow -21,499. A MEMO (E70)"
+        status: UNVERIFIED
+      cash_and_equivalents:
+        value: 771004
+        page: "p.79, 31/12/2025: 'Cash and cash equivalents 28 | 771,004'; note 28 p.118 'Bank balances 771,004' (blocked bank funds of 1,435 for supplier guarantees inside it)"
+        status: UNVERIFIED
+      financial_liabilities_current:
+        value: 0
+        zero_basis: note
+        page: "p.64, Results and financial position: 'Zinzino has no interest-bearing loans, apart from an unused overdraft facility of SEK 80 (80) million and certain limited leasing commitments in relation to the size of the business'; note 3(c) p.97: 'the lack of liabilities to credit institutions and unutilised credit facilities of SEK 80 million'; note 3 p.97 maturity table 'Financial liabilities' at 31/12/2025 lists 'Leasing liabilities', 'Accounts payable', 'Other liabilities', 'Accrued costs' and no borrowings row; balance sheet p.80 presents no borrowings caption; note 34 p.121: floating charges of 80,000 secure the unused facility"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "Zinzino has no interest-bearing loans, apart from an unused overdraft facility of SEK 80 (80) million and certain limited leasing commitments in relation to the size of the business"
+      financial_liabilities_noncurrent:
+        value: 0
+        zero_basis: note
+        page: "p.64 'Zinzino has no interest-bearing loans, apart from an unused overdraft facility ...'; note 3(c) p.97 'the lack of liabilities to credit institutions'; balance sheet p.80, long-term liabilities presented: 'Deferred tax liability 8,671', 'Other liabilities 31 | 80,909', 'Lease liabilities 22 | 19,985' -- note 31 p.120 itemises the 80,909 as 'Contingent consideration 70,936', 'Debt to minority interests 9,973', 'Other long-term liabilities -'; note 35 p.121 'There are no loans to or from related parties within the group'"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "Zinzino has no interest-bearing loans, apart from an unused overdraft facility of SEK 80 (80) million and certain limited leasing commitments in relation to the size of the business"
+      lease_liabilities:
+        value: 41990
+        page: "note 22 p.115, 'Lease liabilities 31/12/2025: Long term 19,985; Current 22,005; Total 41,990' -- a STATED total (E26); note 3 p.97 'Leasing liabilities ... Carrying value 41,990'; note 37 p.122 closing 41,990. The balance sheet p.80 presents the two captions only. OFF THE TTM BASIS (E20): a stock at 2025-12-31, six months before the window end"
+        status: UNVERIFIED
+      # E35.1: the pension leg, on E25's `note` form, reaching the TTM basis
+      # under E41 (annual-only).
+      pension_deficit:
+        value: 0
+        zero_basis: note
+        page: "note 2.7.2 Post-employment benefits, p.91: 'The Group companies only have defined contribution pension plans. ... The Group does not have any legal or constructive obligations to pay any additional fees'; note 8 p.101 'Pension costs - defined contribution plans 14,133'; remuneration guidelines pp.103-104 'shall be a defined contribution' (CEO; ITP2 for other executives); balance sheet p.80 presents no pension provision"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "The Group companies only have defined contribution pension plans."
+      # E68.1: a caption-based ZERO, reaching the TTM basis under E41.
+      asset_retirement_obligation:
+        value: 0
+        zero_basis: caption
+        page: "Consolidated Balance Sheet p.80, liabilities presented at 31/12/2025: 'Deferred tax liability', 'Other liabilities' (note 31: contingent consideration 70,936, debt to minority interests 9,973), 'Lease liabilities', 'Accounts payable', 'Tax liabilities', 'Lease liabilities', 'Other current liabilities' (note 32, fully itemised: VAT 50,602, withholding tax 3,885, social security 4,384, commission liability 354,945, contingent consideration 13,733, loyalty-programme liability 104,440, other 12,325), 'Accrued costs and deferred revenues' (note 33: accrued discount, wage-related, accrued commission 41,915, contractual debt 105,551, 'Other items 28,976' -- the one caption with room, named). No provision caption of any kind; 'decommission', 'restoration', 'dismantl' and 'asset retirement' appear nowhere in the annual report (full-text search of the extracted text, 2026-08-30; the only 'provision' mentions are IFRS 9 loss allowances and 'provisionally capitalised' acquisition surpluses). Dietary supplements sold by direct selling from leased premises, with one Norwegian contract-manufacturing unit (Faun Pharma AS, right-of-use assets 8,274): not extractive, utility, mining, shipping, chemical or heavy industrial (E68.1). The absence is evidence"
+        status: UNVERIFIED
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81 (2026-08-30): Consolidated Balance Sheet p.80, liabilities presented at 31/12/2025 (the read on `asset_retirement_obligation` above, note 31 and note 32 itemising the two 'Other' captions in full) -- no streaming, prepaid-offtake or prepaid-delivery caption. A caption zero"
+        status: UNVERIFIED
+      # E36, on E25's `note` form -- A JUDGEMENT, see the header. Warrants are
+      # sold to distributors, employees and the board at a Black & Scholes
+      # market premium; no IFRS 2 charge is stated anywhere in the accounts.
+      sbc:
+        value: 0
+        zero_basis: note
+        page: "note 39 Options programme, p.123: 'At all subscription events, the option premium is determined at an estimated market value through Black & Scholes calculations' (p.55 the same); note 8 Employee benefits p.101 lists salaries and other remuneration 172,068, social security 40,037, pension costs 14,133 and NO share-based payment line; note 38 p.123 lists no share-based add-back; the statement of changes in equity p.81 shows 'Issued warrants 277' in 2024 (a premium RECEIVED, presented in the cash flow p.82 as a financing inflow 'Issuance of options 277') and no warrant entry in 2025. An instrument subscribed at fair value carries no IFRS 2 expense. NO SENTENCE SAYS 'no share-based payment expense': the zero rests on the premium sentence and the absence of any charge, and the owner may refuse it (FCF0 then DATA MISSING, E36)"
+        status: VERIFIED
+        verified_kind: caption_statement
+        statement: "At all subscription events, the option premium is determined at an estimated market value through Black & Scholes calculations"
+      # E38 / E41: the count section 5 will divide by on the TTM basis (the
+      # quarters state quarterly averages only). SEE THE HEADER on how far
+      # this sits below the count outstanding at 2026-06-30.
+      diluted_weighted_average_shares:
+        value: 37530107
+        page: "note 36 Earnings per share, p.122: 'Weighted average number of ordinary shares in calculating earnings per share after dilution* 37,530,107' ('* The dilution effect is mainly due to ongoing options programmes, see Note 39'); p.5 'Average number of issued shares for the period with full dilution 37,530,107'; before dilution 35,666,660; E59: cross-document: the Year-End Report 2025 note 4 p.35 ('Weighted average number of ordinary shares and potential ordinary shares ... after dilution 37,530,107', 01/01/2025-31/12/2025 column) and the Q1 and Q2 2026 reports' FY columns (p.28, p.34) restate it exactly; 324,321 / 37,530,107 = 8.6416, the printed 8.64"
+        status: VERIFIED
+        verified_kind: cross_document
+      shares_outstanding_period_end:
+        value: 36319540
+        page: "note 29 Share capital, p.118: 'Of the company's number of shares, 36,319,540, 5,113,392 constitute A shares'; the share-capital table closes '2025 Offset issue 412,563 | 36,319,540'. No treasury shares are mentioned anywhere in the report and no caption holds any, so the issued count is the count outstanding; the accounts do not use the word 'outstanding' here (the Q2 2026 report does, p.19). A memo beside E38's divisor"
+        status: UNVERIFIED

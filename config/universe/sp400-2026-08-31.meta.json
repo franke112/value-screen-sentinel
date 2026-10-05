@@ -1,0 +1,22 @@
+{
+  "list": "sp400",
+  "index": "S&P MidCap 400",
+  "source_url": "https://en.wikipedia.org/wiki/List_of_S%26P_400_companies",
+  "source_kind": "index constituent list",
+  "expected_rows": 400,
+  "approximation": false,
+  "instrumenttyp_source": "yahoo quoteType (the Wikipedia table has no instrument-type column)",
+  "instrumenttyp_caveat": "Yahoo reports ADRs as quoteType EQUITY, so the ADR exclusion cannot fire on this list. NO DATA -- reported, never guessed from the name.",
+  "valuta_source": "yahoo currency",
+  "listdatum_source": "yahoo firstTradeDate (first trade, not index admission)",
+  "disjoint_note": "The S&P 500 and the S&P MidCap 400 share no constituent, so this list overlaps tier A's sp500 file nowhere. Dedup still runs.",
+  "file": "sp400-2026-08-31.csv",
+  "tier": "B",
+  "retrieved": "2026-08-31",
+  "rows": 400,
+  "rows_without_yahoo_mapping": 0,
+  "isin_populated": 0,
+  "isin_note": "No free source checked carries ISIN for these venues; a guessed ISIN would silently merge two companies in dedup. Left empty.",
+  "sha256": "b6869b845892447d47fe8e4ae8febce3c149c8981b332d6f27160568780fc30b",
+  "built_by": "tools/build_universe.py"
+}

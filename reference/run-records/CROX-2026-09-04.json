@@ -1,0 +1,194 @@
+{
+  "ticker": "CROX",
+  "currency": "USD",
+  "run_ts": "2026-09-04T15:50:03-04:00",
+  "basis": "annual FY2025",
+  "shares": {
+    "count": 54208000.0,
+    "basis": "weighted-average DILUTED count for annual FY2025, the same window as the flows (E38); `shares_point_in_time` 50,200,000 is on the file as a MEMO and is NOT the divisor (E38)",
+    "as_of": "2025-12-31",
+    "point_in_time": 50200000.0,
+    "point_in_time_as_of": "2025-12-31",
+    "unit": "whole",
+    "divisor_basis": "weighted_average",
+    "prior_average": null,
+    "drift": null
+  },
+  "sbc": {
+    "treatment": "deducted",
+    "amount": 36701000.0,
+    "basis": ""
+  },
+  "interest": {
+    "in_operating_cash_flow": true,
+    "page": "SEC XBRL companyfacts for CIK 0001334036 (CROCS,\u00a0INC.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001334036.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+    "net_interest_paid": 88287000.0,
+    "source": "interest_expense_only"
+  },
+  "bridge": {
+    "net_debt": 1483495000.0,
+    "items": {
+      "short_term_investments": null,
+      "current_financial_assets": null,
+      "leases": 382964000.0,
+      "pensions": 0.0,
+      "asset_retirement_obligations": 0.0,
+      "prepaid_delivery_obligations": 0.0,
+      "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+    },
+    "note": "borrowings 0 + 1,230,885,000 + leases 382,964,000 (E35: always in; finance leases beside operating, E65) + pension deficit 0 (E35.1) + asset retirement obligations 0 (E68) + prepaid delivery obligations 0 (E81) - cash 130,354,000 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+  },
+  "dates": {
+    "flows_window_end": "2025-12-31",
+    "balance_sheet": "2025-12-31",
+    "share_count": "2025-12-31",
+    "price": "2026-09-03"
+  },
+  "growth": {
+    "base": 0.01,
+    "view_file": "reference/growth-views/CROX.md",
+    "view_date": "2026-09-04",
+    "bear": -0.01,
+    "bull": 0.03
+  },
+  "operating_cash_flow": 710431000.0,
+  "capex": -51231000.0,
+  "conventions": {
+    "horizon_years": 10,
+    "terminal_growth": 0.025,
+    "mid_year": false,
+    "first_year_flow": "FCF0 * (1 + g)"
+  },
+  "rate": {
+    "rate": 0.095,
+    "core_expected_return": 0.07,
+    "premium": 0.025,
+    "band": 0.005
+  },
+  "inputs": [
+    {
+      "name": "capex_combined",
+      "value": -51231000.0,
+      "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2025-01-01..2025-12-31] 10-K 0001334036-26-000006 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "operating_cash_flow",
+      "value": 710431000.0,
+      "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-01-01..2025-12-31] 10-K 0001334036-26-000006 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "sbc",
+      "value": 36701000.0,
+      "provenance": "us-gaap:ShareBasedCompensation [2025-01-01..2025-12-31] 10-K 0001334036-26-000006 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "finance_costs_period",
+      "value": 88287000.0,
+      "provenance": "us-gaap:InterestExpenseNonoperating [2025-01-01..2025-12-31] 10-K 0001334036-26-000006 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "diluted_weighted_average_shares",
+      "value": 54208000.0,
+      "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2025-01-01..2025-12-31] 10-K 0001334036-26-000006 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "shares_point_in_time",
+      "value": 50200000.0,
+      "provenance": "us-gaap:CommonStockSharesOutstanding [as of 2025-12-31] 10-Q 0001334036-26-000052 filed 2026-07-30",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "financial_liabilities_current",
+      "value": 0.0,
+      "provenance": "us-gaap:LongTermDebtCurrent [as of 2025-12-31] 10-Q 0001334036-26-000032 filed 2026-04-30",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "financial_liabilities_noncurrent",
+      "value": 1230885000.0,
+      "provenance": "us-gaap:LongTermDebtNoncurrent [as of 2025-12-31] 10-Q 0001334036-26-000052 filed 2026-07-30",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "lease_liabilities",
+      "value": 382964000.0,
+      "provenance": "us-gaap:OperatingLeaseLiability [as of 2025-12-31] 10-Q 0001334036-26-000052 filed 2026-07-30",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "pension_deficit",
+      "value": 0.0,
+      "provenance": "sources/CROX_FY2025_annual-report-10k_2026-02-12_en_a0.htm (the FY2025 Form 10-K as filed with the SEC, accession 0001334036-26-000006, filed 2026-02-12; 424,671 characters of extracted text), note 18 EMPLOYEE BENEFIT PLAN, 'Defined Contribution Plan': 'We sponsor a qualified defined contribution benefit plan (the \"Plan\"), covering substantially all of our U.S. employees. The Plan includes a savings plan feature under Section 401(k) of the Internal Revenue Code. We make matching contributions to the plans equal to 100% of the first 3%, and up to 50% of the next 2% of salary contributed by an eligible employee.' Searched 2026-09-04: 'defined benefit' ZERO occurrences, 'postretirement' and 'post-retirement' ZERO occurrences. A DEFINED CONTRIBUTION plan carries no deficit -- the obligation is discharged when the contribution is made -- so there is nothing for E35.1's leg to hold.",
+      "entered_by": "store",
+      "verified": "UNVERIFIED"
+    },
+    {
+      "name": "asset_retirement_obligation",
+      "value": 0.0,
+      "provenance": "sources/CROX_FY2025_annual-report-10k_2026-02-12_en_a0.htm, note 2 (Summary of Significant Accounting Policies), 'Asset Retirement Obligations': 'We are contractually obligated, under certain of our lease agreements, to restore certain retail and office facilities back to their original condition. At lease inception, the estimated fair value of these liabilities is recorded along with a related asset. ASSET RETIREMENT OBLIGATIONS WERE NOT SIGNIFICANT TO THE CONSOLIDATED BALANCE SHEETS IN THE YEARS ENDED DECEMBER 31, 2025, OR 2024.' The sentence is about the concept this field holds and about the basis date, and Crocs tags no `us-gaap:AssetRetirementObligation` in any year.",
+      "entered_by": "store",
+      "verified": "UNVERIFIED"
+    },
+    {
+      "name": "prepaid_delivery_obligation",
+      "value": 0.0,
+      "provenance": "sources/CROX_FY2025_annual-report-10k_2026-02-12_en_a0.htm (the FY2025 Form 10-K as filed with the SEC, accession 0001334036-26-000006, filed 2026-02-12; 424,671 characters of extracted text), note on Contract Liabilities: 'Contract liabilities consist of advance cash deposits received from wholesale customers to secure product orders in connection with selling seasons and payments received in advance of delivery... AT DECEMBER 31, 2025, WE DID NOT RECORD ANY DEFERRED REVENUES, and at December 31, 2024, we recorded an insignificant amount of deferred revenues associated with advance customer deposits in Accrued expenses and other liabilities'. The concept is exactly E81's -- cash taken against product still to be delivered -- and the issuer states it is nil at the basis date.",
+      "entered_by": "store",
+      "verified": "UNVERIFIED"
+    },
+    {
+      "name": "cash_and_equivalents",
+      "value": 130354000.0,
+      "provenance": "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2025-12-31] 10-Q 0001334036-26-000052 filed 2026-07-30",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "operating_lease_payments",
+      "value": 104275000.0,
+      "provenance": "us-gaap:OperatingLeasePayments [2025-01-01..2025-12-31] 10-K 0001334036-26-000006 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    }
+  ],
+  "tool_commit": "CROX/LOPE/MUSA first strikes, 2026-09-04, 8d182af",
+  "notes": "",
+  "money_unit": "whole",
+  "nci_dividends_paid": 0.0,
+  "undetermined": [],
+  "fcf_reported": {
+    "value": null,
+    "page": "",
+    "verified": false
+  },
+  "net_debt_reported": {
+    "value": null,
+    "page": "",
+    "verified": false
+  },
+  "net_income": {
+    "value": -81198000.0,
+    "page": "us-gaap:NetIncomeLoss [2025-01-01..2025-12-31] 10-K 0001334036-26-000006 filed 2026-02-12",
+    "verified": true
+  },
+  "lease": {
+    "in_operating_cash_flow": true,
+    "page": "SEC XBRL companyfacts for CIK 0001334036 (CROCS,\u00a0INC.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001334036.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 842-20-45-5(a): a lessee classifies payments for operating leases within OPERATING activities, so this filer's `operating_cash_flow` already bears them; the stated cash paid is `us-gaap:OperatingLeasePayments`, written as `operating_lease_payments` where tagged. No filer-specific tag states the classification because the standard leaves no choice",
+    "principal_added_back": 104275000.0,
+    "leg": "`operating_lease_payments` (cash paid for operating leases, the whole payment: principal under E70; its interest component under E34, being inside operating cash flow)"
+  }
+}

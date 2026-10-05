@@ -1,0 +1,142 @@
+schema: vss/review v1
+ticker: GDDY
+date: '2026-09-19'
+status_at_start: WATCH-PRICED
+prepare_report: reports/prepare/GDDY-2026-09-19.json
+prepare_waived: null
+started_at: verdict
+resume_reason: struck 2026-08-30 (reference/run-records/GDDY-2026-08-30-restrike.json)
+  and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/GDDY-2026-09-19-e117.json,
+  reference/GDDY-STRIKE-2026-09-19-e117.md); verdict WATCH-PRICED on the entry --
+  the prepare report of 2026-09-19 resumes at verdict
+steps:
+- step: hard-kills
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: struck 2026-08-30 (reference/run-records/GDDY-2026-08-30-restrike.json)
+    and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/GDDY-2026-09-19-e117.json,
+    reference/GDDY-STRIKE-2026-09-19-e117.md); verdict WATCH-PRICED on the entry --
+    the prepare report of 2026-09-19 resumes at verdict
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: conviction
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: struck 2026-08-30 (reference/run-records/GDDY-2026-08-30-restrike.json)
+    and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/GDDY-2026-09-19-e117.json,
+    reference/GDDY-STRIKE-2026-09-19-e117.md); verdict WATCH-PRICED on the entry --
+    the prepare report of 2026-09-19 resumes at verdict
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: basis
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: struck 2026-08-30 (reference/run-records/GDDY-2026-08-30-restrike.json)
+    and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/GDDY-2026-09-19-e117.json,
+    reference/GDDY-STRIKE-2026-09-19-e117.md); verdict WATCH-PRICED on the entry --
+    the prepare report of 2026-09-19 resumes at verdict
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: flow
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: struck 2026-08-30 (reference/run-records/GDDY-2026-08-30-restrike.json)
+    and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/GDDY-2026-09-19-e117.json,
+    reference/GDDY-STRIKE-2026-09-19-e117.md); verdict WATCH-PRICED on the entry --
+    the prepare report of 2026-09-19 resumes at verdict
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: net-debt
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: struck 2026-08-30 (reference/run-records/GDDY-2026-08-30-restrike.json)
+    and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/GDDY-2026-09-19-e117.json,
+    reference/GDDY-STRIKE-2026-09-19-e117.md); verdict WATCH-PRICED on the entry --
+    the prepare report of 2026-09-19 resumes at verdict
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: divisor
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: struck 2026-08-30 (reference/run-records/GDDY-2026-08-30-restrike.json)
+    and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/GDDY-2026-09-19-e117.json,
+    reference/GDDY-STRIKE-2026-09-19-e117.md); verdict WATCH-PRICED on the entry --
+    the prepare report of 2026-09-19 resumes at verdict
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: growth-view
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: struck 2026-08-30 (reference/run-records/GDDY-2026-08-30-restrike.json)
+    and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/GDDY-2026-09-19-e117.json,
+    reference/GDDY-STRIKE-2026-09-19-e117.md); verdict WATCH-PRICED on the entry --
+    the prepare report of 2026-09-19 resumes at verdict
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: strike
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: struck 2026-08-30 (reference/run-records/GDDY-2026-08-30-restrike.json)
+    and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/GDDY-2026-09-19-e117.json,
+    reference/GDDY-STRIKE-2026-09-19-e117.md); verdict WATCH-PRICED on the entry --
+    the prepare report of 2026-09-19 resumes at verdict
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: tier-mbp
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: struck 2026-08-30 (reference/run-records/GDDY-2026-08-30-restrike.json)
+    and RE-STRUCK UNDER E117 on 2026-09-19 (reference/run-records/GDDY-2026-09-19-e117.json,
+    reference/GDDY-STRIKE-2026-09-19-e117.md); verdict WATCH-PRICED on the entry --
+    the prepare report of 2026-09-19 resumes at verdict
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: verdict
+  outcome: watch-priced
+  text: 'watch-priced — E117 fv_base 129.03, tier-2 MBP 96.77; close 97.46 is 0.7%
+    above. Wakes at a close at or below MBP. Leverage 2.17x against 2.5x is the tightest
+    of the three; re-check at Q3. Securities class action filed (lead-plaintiff deadline
+    2026-10-20): read under 4.2.6 at the re-read.'
+  answered_at: '2026-09-19T19:21:05+02:00'
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+growth_view:
+  base: 0.03
+  bear: 0.01
+  bull: 0.08
+  registered_at: '2026-08-30T00:00:00+02:00'
+  reasons: 'standing view of 2026-08-30, reference/growth-views/GDDY.md -- owner:
+    "stands — 0.03 / 0.01 / 0.08, no results since 2026-08-30."'
+note: '2026-09-19: stays WATCH-PRICED. Re-struck under E117: fv_base 132.18 → 129.03,
+  MBP 96.77; close 97.46, 0.7% above. Growth view stands. Leverage 2.17x vs 2.5x limit,
+  thin. Class action pending. Re-read at Q3 results.'

@@ -1,0 +1,20 @@
+[Unit]
+Description=vss -- filing watch, EDGAR and the Nasdaq Nordic feed (vss watch), notify only
+Documentation=file://%h/vss/vss/secwatch.py
+OnFailure=vss-failure@%n.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/vss
+ExecStart=%h/vss/.venv/bin/python -m vss watch --read
+EnvironmentFile=-%h/.config/vss/vss.env
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=vss-watch
+TimeoutStartSec=60min
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+# Writes only its cursor, data/watch_state.json. Never the store or the watchlist.
+ReadWritePaths=%h/vss/data
+NoNewPrivileges=true

@@ -1,0 +1,37 @@
+# Per-tier universe floors. CONFIG, not code -- nothing here is hardcoded in
+# vss/universe.py, and changing a number here must never require a code edit.
+#
+# Every monetary threshold carries its own currency. The universe spans some
+# fifteen quoting currencies, so "market cap > 300000000" is not a rule until
+# it says 300 million of what. Applying these needs an FX source, which
+# phase 1 does not have and does not fake: phase 1 loads and reports the
+# floors, phase 3 applies them.
+
+tiers:
+  # Tier A is the correctness harness: S&P 500, OMXS Large+Mid, STOXX 600.
+  # Index membership IS the floor, so no numeric floors apply.
+  A: {}
+
+  # Tier B: S&P MidCap 400, OBX / OMXC / OMXH Large+Mid, SMI, IBEX, FTSE 250,
+  # TSX. Membership is again the floor. Not populated in phase 1.
+  B: {}
+
+  # Tier C: everything else Avanza can trade. Here the floors do the work.
+  C:
+    market_cap:
+      min: 300000000
+      currency: EUR
+    median_daily_turnover:
+      min: 2000000
+      currency: SEK
+      window_days: 90
+    listing_age:
+      min: 5
+      unit: years
+
+# Requirements that apply to EVERY tier, C included, and are not waived by
+# index membership. A name without 52 weeks of closes has no 52-week high,
+# so FRAMEWORK Gate 1 cannot be computed for it at all.
+universal:
+  min_trading_days_52w: 200
+  min_reported_quarters: 8

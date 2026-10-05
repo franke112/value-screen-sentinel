@@ -1,0 +1,169 @@
+{
+ "ticker": "NVR",
+ "currency": "USD",
+ "run_ts": "2026-08-30T07:16:17-04:00",
+ "basis": "annual FY2025",
+ "shares": {
+  "count": 3069103.0,
+  "basis": "weighted-average DILUTED count for annual FY2025, the same window as the flows (E38); `shares_point_in_time` 2,799,387 is on the file as a MEMO and is NOT the divisor (E38)",
+  "as_of": "2025-12-31",
+  "point_in_time": 2799387.0,
+  "point_in_time_as_of": "2025-12-31",
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 69213000.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0000906163 (NVR, Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000906163.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+  "net_interest_paid": -73209000.0,
+  "source": "income_statement_net"
+ },
+ "bridge": {
+  "net_debt": -821119000.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 186207000.0,
+   "pensions": 0.0,
+   "asset_retirement_obligations": 0.0,
+   "non_controlling_interests": "no field in this schema (E35)"
+  },
+  "note": "borrowings 0 + 909,160,000 + leases 186,207,000 (E35: always in; finance leases beside operating, E65) + pension deficit 0 (E35.1) + asset retirement obligations 0 (E68) - cash 1,916,486,000 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+ },
+ "dates": {
+  "flows_window_end": "2025-12-31",
+  "balance_sheet": "2025-12-31",
+  "share_count": "2025-12-31",
+  "price": "2026-08-28"
+ },
+ "growth": {
+  "base": 0.025,
+  "view_file": "reference/growth-views/NVR.md",
+  "view_date": "2026-08-30",
+  "bear": -0.03,
+  "bull": 0.065
+ },
+ "operating_cash_flow": 1121320000.0,
+ "capex": -24508000.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_combined",
+   "value": -24508000.0,
+   "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2025-01-01..2025-12-31] 10-K 0000906163-26-000018 filed 2026-02-11",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 1121320000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-01-01..2025-12-31] 10-K 0000906163-26-000018 filed 2026-02-11",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "sbc",
+   "value": 69213000.0,
+   "provenance": "us-gaap:ShareBasedCompensation [2025-01-01..2025-12-31] 10-K 0000906163-26-000018 filed 2026-02-11",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "net_finance_costs",
+   "value": -73209000.0,
+   "provenance": "E18: finance_costs_period - finance_income_period, both on annual FY2025",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 3069103.0,
+   "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2025-01-01..2025-12-31] 10-K 0000906163-26-000018 filed 2026-02-11",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "shares_point_in_time",
+   "value": 2799387.0,
+   "provenance": "us-gaap:CommonStockSharesOutstanding [as of 2025-12-31] 10-K 0000906163-26-000018 filed 2026-02-11",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 0.0,
+   "provenance": "Item 7, Liquidity and Capital Resources, 10-K 0000906163-26-000018 filed 2026-02-11: 'There were no borrowings outstanding under the Credit Agreement as of December 31, 2025' ($300,000 revolving commitments; letters of credit of approximately $9,700 outstanding); Note 7: 'As of both December 31, 2025 and 2024, there was no debt outstanding under the Repurchase Agreement' (NVRM's $150,000 non-recourse mortgage repurchase facility); the Senior Notes mature in May 2030. Consolidated Balance Sheets, December 31, 2025, liabilities presented: Homebuilding 'Accounts payable', 'Accrued expenses and other liabilities', 'Customer deposits', 'Operating lease liabilities', 'Senior notes'; Mortgage Banking 'Accounts payable and other liabilities', 'Operating lease liabilities' -- no current-debt caption. E55 is not reached while the repurchase facility is undrawn.",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 909160000.0,
+   "provenance": "E69: Item 8, Consolidated Balance Sheets, December 31, 2025, 10-K 0000906163-26-000018 filed 2026-02-11 (in thousands), Homebuilding liabilities: 'Senior notes | 909,160' (2024: 911,118); Item 7, Capital Resources: 'As of December 31, 2025, we had a total of $900,000 in outstanding Senior Notes which mature in May 2030.' BORROWINGS ALONE (E14): the operating lease liabilities are separate captions and the finance leases sit in 'Accrued expenses and other liabilities'. No us-gaap element carries this figure at 2025-12-31 -- the filer tags it under an extension element the map cannot read.",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 186207000.0,
+   "provenance": "E65 -- operating and finance lease liabilities: us-gaap:OperatingLeaseLiability [as of 2025-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = 143,733,000 + us-gaap:FinanceLeaseLiability [as of 2025-12-31] 10-Q 0000906163-26-000093 filed 2026-08-05 = 42,474,000, added in full = 186,207,000",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 0.0,
+   "provenance": "E35.1: Item 8, Note 10, Equity-Based Compensation, Profit Sharing and Deferred Compensation Plans, 10-K 0000906163-26-000018 filed 2026-02-11: 'We have a trustee-administered, profit sharing retirement plan (the Profit Sharing Plan) and an Employee Stock Ownership Plan (ESOP) covering substantially all employees. The Profit Sharing Plan and the ESOP provide for annual discretionary contributions in amounts as determined by our Board of Directors. The combined plan contribution for the years ended December 31, 2025, 2024 and 2023 equaled approximately $29,400, $30,200 and $26,200' -- discretionary defined-contribution plans; the nonqualified deferred compensation plan is funded by a trust holding 106,697 NVR shares, presented within shareholders' equity ('Deferred compensation trust (16,710)' / 'Deferred compensation liability 16,710'). 'Defined benefit' appears nowhere in the filing (full-text search of nvr-20251231.htm, 2026-08-30); the balance sheet presents no pension caption.",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "E68.1: Item 8, Consolidated Balance Sheets, December 31, 2025, 10-K 0000906163-26-000018 filed 2026-02-11 -- liabilities presented: Homebuilding 'Accounts payable', 'Accrued expenses and other liabilities' (376,976), 'Customer deposits', 'Operating lease liabilities', 'Senior notes'; Mortgage Banking 'Accounts payable and other liabilities' (53,738), 'Operating lease liabilities'. No asset retirement or decommissioning caption; 'asset retirement', 'decommission', 'dilapidation' and 'restoration obligation' appear nowhere in the filing (full-text search, 2026-08-30). A homebuilder that builds on lots it acquires finished from developers under lot purchase agreements, owning no plant requiring decommissioning: the absence is evidence. 'Accrued expenses and other liabilities' is a caption with room (E25) -- it holds the warranty reserve, accrued interest on unrecognised tax benefits (8,600) and the finance lease liabilities -- and is named here.",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 1916486000.0,
+   "provenance": "E71 / E69: Item 8, Consolidated Balance Sheets, December 31, 2025, 10-K 0000906163-26-000018 filed 2026-02-11 (in thousands): Homebuilding 'Cash and cash equivalents | 1,883,844' + Mortgage Banking 'Cash and cash equivalents | 32,642' = 1,916,486. The issuer's own reconciliation: the Consolidated Statements of Cash Flows close on 'cash, restricted cash and cash equivalents' 1,956,881 (tagged us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents [as of 2025-12-31]) = 1,883,844 + 32,642 + 'Restricted cash | 34,348' (Homebuilding) + 'Restricted cash | 6,047' (Mortgage Banking). THE RESTRICTED CASH, 40,395, IS EXCLUDED: presented under its own caption on both segments, escrowed, not available to service debt; the field is the balance sheet's cash caption. No us-gaap element carries either segment's cash on its own.",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "operating_lease_payments",
+   "value": 32930000.0,
+   "provenance": "us-gaap:OperatingLeasePayments [2025-01-01..2025-12-31] 10-K 0000906163-26-000018 filed 2026-02-11",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  }
+ ],
+ "tool_commit": "ACN/GDDY/NVR/ULTA first strikes, 2026-08-30, 179f2b4",
+ "notes": "",
+ "money_unit": "whole",
+ "lease": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0000906163 (NVR, Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000906163.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 842-20-45-5(a): a lessee classifies payments for operating leases within OPERATING activities, so this filer's `operating_cash_flow` already bears them; the stated cash paid is `us-gaap:OperatingLeasePayments`, written as `operating_lease_payments` where tagged. No filer-specific tag states the classification because the standard leaves no choice",
+  "principal_added_back": 32930000.0,
+  "leg": "`operating_lease_payments` (cash paid for operating leases, the whole payment: principal under E70; its interest component under E34, being inside operating cash flow)"
+ }
+}

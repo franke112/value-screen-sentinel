@@ -1,0 +1,206 @@
+{
+ "ticker": "GDDY",
+ "currency": "USD",
+ "run_ts": "2026-09-19T11:53:05+02:00",
+ "basis": "annual FY2025",
+ "shares": {
+  "count": 140621000.0,
+  "basis": "weighted-average DILUTED count for annual FY2025, the same window as the flows (E38); `shares_point_in_time` 134,737,000 is on the file as a MEMO and is NOT the divisor (E38)",
+  "as_of": "2025-12-31",
+  "point_in_time": 134737000.0,
+  "point_in_time_as_of": "2025-12-31",
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 317800000.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0001609711 (GoDaddy Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001609711.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+  "net_interest_paid": 114200000.0,
+  "source": "income_statement_net"
+ },
+ "bridge": {
+  "net_debt": 2699400000.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 0.0,
+   "pensions": 0.0,
+   "asset_retirement_obligations": 0.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+  },
+  "note": "borrowings 15,100,000 + 3,765,200,000 + finance leases 0 (E117: the operating lease liability 82,300,000 LEAVES net debt, its rent being in the flow; finance leases stay) + pension deficit 0 (E35.1) + asset retirement obligations 0 (E68) + prepaid delivery obligations 0 (E81) - cash 1,080,900,000 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: split: capex_ppe + capex_intangibles, as the accounts print them"
+ },
+ "dates": {
+  "flows_window_end": "2025-12-31",
+  "balance_sheet": "2025-12-31",
+  "share_count": "2025-12-31",
+  "price": "2026-09-18"
+ },
+ "growth": {
+  "base": 0.03,
+  "view_file": "reference/growth-views/GDDY.md",
+  "view_date": "2026-08-30",
+  "bear": 0.01,
+  "bull": 0.08
+ },
+ "operating_cash_flow": 1599400000.0,
+ "capex": -23900000.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_ppe",
+   "value": -23900000.0,
+   "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2025-01-01..2025-12-31] 10-K 0001609711-26-000010 filed 2026-02-25",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "capex_intangibles",
+   "value": 0.0,
+   "provenance": "us-gaap:PaymentsToAcquireIntangibleAssets [2025-01-01..2025-12-31] 10-K 0001609711-26-000010 filed 2026-02-25",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 1599400000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-01-01..2025-12-31] 10-K 0001609711-26-000010 filed 2026-02-25",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "sbc",
+   "value": 317800000.0,
+   "provenance": "us-gaap:ShareBasedCompensation [2025-01-01..2025-12-31] 10-K 0001609711-26-000010 filed 2026-02-25",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "net_finance_costs",
+   "value": 114200000.0,
+   "provenance": "E69 / E34.1: Item 8, Note 17, Segment Information, reconciliation of Total Segment EBITDA to net income, year ended December 31, 2025, 10-K 0001609711-26-000010 filed 2026-02-25 (in millions): 'Interest expense, net of interest income | (114.2)' (2024: (130.4); 2023: (155.4)); the same line in Item 7, Reconciliation of NEBITDA: 'Interest expense, net of interest income | 114.2'. The Consolidated Statements of Operations print the gross 'Interest expense | (151.0)' (tagged us-gaap:InterestExpenseNonoperating, on this file as `finance_costs_period`) and 'Other income (expense), net | 42.3', inside which the 36.8 of interest income sits untagged. A NET EXPENSE, entered positive; the accrual proxy E34 adds back. Not tagged in FY2025 under any element (the filer tagged InterestIncomeExpenseNonoperatingNet in FY2022-FY2024 and stopped).",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 140621000.0,
+   "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2025-01-01..2025-12-31] 10-K 0001609711-26-000010 filed 2026-02-25",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "shares_point_in_time",
+   "value": 134737000.0,
+   "provenance": "us-gaap:CommonStockSharesOutstanding [as of 2025-12-31] 10-Q 0001609711-26-000088 filed 2026-07-31",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 15100000.0,
+   "provenance": "us-gaap:LongTermDebtCurrent [as of 2025-12-31] 10-Q 0001609711-26-000088 filed 2026-07-31",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 3765200000.0,
+   "provenance": "us-gaap:LongTermDebtNoncurrent [as of 2025-12-31] 10-Q 0001609711-26-000088 filed 2026-07-31",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 82300000.0,
+   "provenance": "E65 -- operating and finance lease liabilities: us-gaap:OperatingLeaseLiability [as of 2025-12-31] 10-K 0001609711-26-000010 filed 2026-02-25 = 82,300,000 + finance lease liabilities 0 under E73 (zero_basis caption for the component): Note 2, Leases, states 'Assets and liabilities associated with finance leases are included in property and equipment, net, accrued expenses and other current liabilities and other long-term liabilities', and no amount for them appears anywhere in the filing -- the leases note is operating-only and no finance-lease element is tagged. The captions with room, named: Note 8's 'Other | 85.7' inside accrued expenses and other current liabilities 528.7, and 'Other long-term liabilities | 57.5'. = 82,300,000",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 0.0,
+   "provenance": "E35.1: Item 8, Note 14, Defined Contribution Plan, 10-K 0001609711-26-000010 filed 2026-02-25: 'We maintain a defined contribution 401(k) plan covering eligible U.S. employees ... Expense for our matching contributions was $14.7 million, $15.1 million and $15.8 million during the years ended December 31, 2025, 2024 and 2023, respectively. We maintain defined contribution benefit plans covering eligible foreign employees. Expense related to such plans was not material in any period presented.' The filing's only benefit-plan note; 'defined benefit' appears nowhere in it (full-text search of gddy-20251231.htm, 2026-08-30); the balance sheet presents no retirement or pension caption.",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "E68.1: Item 8, Consolidated Balance Sheets, December 31, 2025, 10-K 0001609711-26-000010 filed 2026-02-25 -- liabilities presented: 'Accounts payable', 'Accrued expenses and other current liabilities' (528.7), 'Deferred revenue', 'Long-term debt' (current 15.1); 'Deferred revenue, net of current portion', 'Long-term debt, net of current portion', 'Operating lease liabilities, net of current portion', 'Other long-term liabilities' (57.5), 'Deferred tax liabilities'. No asset retirement or decommissioning caption; 'asset retirement', 'decommission', 'dilapidation' and 'restoration obligation' appear nowhere in the filing (full-text search, 2026-08-30). Domain registration, hosting and commerce software delivered from leased data centres and offices: the absence is evidence. Captions with room (E25), named: Note 8 itemises accrued expenses as derivative liabilities 136.0, accrued payroll 135.9, tax-related 84.6, accrued hosting 34.1, accrued legal 32.1, current operating lease liabilities 20.3 and 'Other | 85.7'; 'Other long-term liabilities 57.5' is not itemised. Per Note 2 the filer's FINANCE LEASES sit inside those two captions, unsized (see the header, E65).",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "E81 (2026-08-30): the same Consolidated Balance Sheets, December 31, 2025 read for `asset_retirement_obligation` above, every liability caption enumerated there -- no streaming, prepaid-offtake or prepaid-delivery caption. 'Deferred revenue' (current and non-current) is subscription billings in advance -- domains and hosting paid up front, working capital the flow already carries, NOT this leg -- named here. A caption zero",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 1080900000.0,
+   "provenance": "E69: Item 8, Consolidated Balance Sheets, December 31, 2025, 10-K 0001609711-26-000010 filed 2026-02-25 (in millions): 'Cash and cash equivalents | $ | 1,080.9'; Consolidated Statements of Cash Flows 'Cash and cash equivalents, end of period | $ | 1,080.9'. Tagged by the filer as us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents [as of 2025-12-31] = 1,080,900,000 and NOT as CashAndCashEquivalentsAtCarryingValue, the map's alias; 'restricted cash' appears nowhere in the filing, so the caption and the tag are one figure. SHORT-TERM INVESTMENTS ARE NOT INCLUDED (A1): none are presented.",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "operating_lease_liabilities",
+   "value": 82300000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2025-12-31] 10-K 0001609711-26-000010 filed 2026-02-25 -- E117: the operating part of `lease_liabilities`, which LEAVES net debt",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  }
+ ],
+ "tool_commit": "E117 re-strike, 2026-09-19, e46b8a8",
+ "notes": "E117 re-strike: the lease treatment is the only change from the prior record, GDDY-2026-08-30-restrike.json",
+ "money_unit": "whole",
+ "nci_dividends_paid": 0.0,
+ "undetermined": [],
+ "fcf_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_debt_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_income": {
+  "value": 875000000.0,
+  "page": "us-gaap:NetIncomeLoss [2025-01-01..2025-12-31] 10-K 0001609711-26-000010 filed 2026-02-25",
+  "verified": true
+ },
+ "lease": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0001609711 (GoDaddy Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001609711.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 842-20-45-5(a): a lessee classifies payments for operating leases within OPERATING activities, so this filer's `operating_cash_flow` already bears them; the stated cash paid is `us-gaap:OperatingLeasePayments`, written as `operating_lease_payments` where tagged. No filer-specific tag states the classification because the standard leaves no choice",
+  "principal_added_back": null,
+  "leg": "none -- the operating cash flow bears the rent (E117)",
+  "rule": "E117",
+  "lease_cash_deducted": null,
+  "principal_paid": null,
+  "interest_paid": null,
+  "liability_excluded": 82300000.0
+ }
+}

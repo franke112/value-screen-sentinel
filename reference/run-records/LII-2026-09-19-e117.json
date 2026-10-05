@@ -1,0 +1,192 @@
+{
+ "ticker": "LII",
+ "currency": "USD",
+ "run_ts": "2026-09-19T11:53:05+02:00",
+ "basis": "annual FY2025",
+ "shares": {
+  "count": 35400000.0,
+  "basis": "weighted-average DILUTED count for annual FY2025, the same window as the flows (E38)",
+  "as_of": "2025-12-31",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 29100000.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0001069202 (LENNOX INTERNATIONAL INC) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001069202.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+  "net_interest_paid": 40900000.0,
+  "source": "income_statement_net"
+ },
+ "bridge": {
+  "net_debt": 1372900000.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 0.0,
+   "pensions": 18700000.0,
+   "asset_retirement_obligations": 0.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+  },
+  "note": "borrowings 244,300,000 + 1,144,100,000 + finance leases 0 (E117: the operating lease liability 382,300,000 LEAVES net debt, its rent being in the flow; finance leases stay) + pension deficit 18,700,000 (E35.1) + asset retirement obligations 0 (E68) + prepaid delivery obligations 0 (E81) - cash 34,200,000 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+ },
+ "dates": {
+  "flows_window_end": "2025-12-31",
+  "balance_sheet": "2025-12-31",
+  "share_count": "2025-12-31",
+  "price": "2026-09-18"
+ },
+ "growth": {
+  "base": 0.05,
+  "view_file": "reference/growth-views/LII.md",
+  "view_date": "2026-08-30",
+  "bear": 0.0,
+  "bull": 0.08
+ },
+ "operating_cash_flow": 757600000.0,
+ "capex": -118800000.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_combined",
+   "value": -118800000.0,
+   "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2025-01-01..2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 757600000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-01-01..2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "sbc",
+   "value": 29100000.0,
+   "provenance": "us-gaap:ShareBasedCompensation [2025-01-01..2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "net_finance_costs",
+   "value": 40900000.0,
+   "provenance": "E18: finance_costs_period - finance_income_period, both on annual FY2025",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 35400000.0,
+   "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2025-01-01..2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 244300000.0,
+   "provenance": "E66 -- two stated current-borrowing captions, added: us-gaap:LongTermDebtCurrent [as of 2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 -- E67: tagged EQUAL to `LongTermDebtAndCapitalLeaseObligationsCurrent` 18,300,000, the inclusive caption, so this ex-lease element was tagged INCLUSIVE of its finance lease: 18,300,000 of it is `FinanceLeaseLiabilityCurrent` and E65 does not add that again = 18,300,000 + us-gaap:CommercialPaper [as of 2025-12-31] 10-Q 0001069202-26-000054 filed 2026-04-29 -- CONCEPT: commercial paper outstanding, read as the current borrowing because this filer tags neither a current-maturities nor a short-term-borrowings element at this year end = 226,000,000 = 244,300,000",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 1144100000.0,
+   "provenance": "us-gaap:LongTermDebtAndCapitalLeaseObligations [as of 2025-12-31] 10-Q 0001069202-26-000054 filed 2026-04-29 -- E67: borrowings AND finance leases as one non-current caption, read whole because the filer tags no borrowings-only element; 50,600,000 of it is `FinanceLeaseLiabilityNoncurrent` and E65 does not add that again",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 382300000.0,
+   "provenance": "E65 -- operating and finance lease liabilities: us-gaap:OperatingLeaseLiability [as of 2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = 382,300,000 + us-gaap:FinanceLeaseLiability [as of 2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = 68,900,000, of which 18,300,000 already inside `financial_liabilities_current` (E67) and 50,600,000 already inside `financial_liabilities_noncurrent` (E67), so 0 is added = 382,300,000",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 18700000.0,
+   "provenance": "us-gaap:DefinedBenefitPensionPlanLiabilitiesNoncurrent [as of 2025-12-31] 10-Q 0001069202-26-000054 filed 2026-04-29",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "E68.2: Item 8, Consolidated Balance Sheets as of December 31, 2025, 10-K 0001069202-26-000028 filed 2026-02-17 -- liabilities presented: 'Commercial paper', 'Current maturities of long-term debt', 'Current operating lease liabilities', 'Accounts payable', 'Accrued expenses', 'Income taxes payable', 'Long-term debt', 'Long-term operating lease liabilities', 'Pensions', 'Other liabilities'; no asset retirement or decommissioning caption, and neither term appears anywhere in the filing (full-text search of the primary document, 2026-08-29). NAMED, UNQUANTIFIED: Note 5, Commitments and Contingencies -- Environmental: 'Total environmental accruals are included in Accrued expenses and Other liabilities on the accompanying Consolidated Balance Sheets' and 'we do not believe that any future remediation related to those facilities will be material to our results of operations'; Item 7: 'Environmental liabilities and special litigation charges 10.9' for 2025, which 'relate to estimated remediation costs at some of our facilities and outstanding legal settlements including asbestos. Refer to Note 5' -- a CHARGE, not a balance; no balance-sheet amount is stated anywhere. The accrual sits inside 'Accrued expenses' / 'Other liabilities', captions with room (E25). Zero here BY RULING (E68.2), with the omission named, not because it is nil.",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "E81 (2026-08-30): the same Consolidated Balance Sheets as of December 31, 2025 read for `asset_retirement_obligation` above, every liability caption enumerated there -- no streaming, prepaid-offtake or prepaid-delivery caption, and no such arrangement anywhere in the 10-K. An HVAC manufacturer sells from inventory. A caption zero",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 34200000.0,
+   "provenance": "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2025-12-31] 10-Q 0001069202-26-000054 filed 2026-04-29",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_lease_liabilities",
+   "value": 382300000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 -- E117: the operating part of `lease_liabilities`, which LEAVES net debt",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  }
+ ],
+ "tool_commit": "E117 re-strike, 2026-09-19, e46b8a8",
+ "notes": "E117 re-strike: the lease treatment is the only change from the prior record, LII-2026-08-30-e70.json",
+ "money_unit": "whole",
+ "nci_dividends_paid": 0.0,
+ "undetermined": [],
+ "fcf_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_debt_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_income": {
+  "value": 805800000.0,
+  "page": "us-gaap:NetIncomeLoss [2025-01-01..2025-12-31] DEF 14A 0001069202-26-000046 filed 2026-04-08",
+  "verified": true
+ },
+ "lease": {
+  "in_operating_cash_flow": true,
+  "page": "FRAMEWORK-EDITS E70, applied 2026-08-30 to a us-gaap filer ASC 842-20-45-5(a): a lessee classifies payments for operating leases within OPERATING activities, so this filer's `operating_cash_flow` already bears them; the stated cash paid is `us-gaap:OperatingLeasePayments` ('cash paid for amounts included in the measurement of operating lease liabilities'), written as `operating_lease_payments` where tagged. No filer-specific tag states the classification because the standard leaves no choice",
+  "principal_added_back": null,
+  "leg": "none -- the operating cash flow bears the rent (E117)",
+  "rule": "E117",
+  "lease_cash_deducted": null,
+  "principal_paid": null,
+  "interest_paid": null,
+  "liability_excluded": 382300000.0
+ }
+}

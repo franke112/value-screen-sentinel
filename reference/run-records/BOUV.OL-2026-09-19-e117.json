@@ -1,0 +1,199 @@
+{
+ "ticker": "BOUV.OL",
+ "currency": "NOK",
+ "run_ts": "2026-09-19T11:53:05+02:00",
+ "basis": "TTM 2025-Q3+2025-Q4+2026-Q1+2026-Q2",
+ "shares": {
+  "count": 103695316.05479452,
+  "basis": "E91: the coded DAY-WEIGHTED average of the four stated per-quarter diluted counts for TTM 2025-Q3+2025-Q4+2026-Q1+2026-Q2 -- (2025-Q3 103,413,458 x 92d; 2025-Q4 103,841,034 x 92d; 2026-Q1 104,160,484 x 90d; 2026-Q2 103,372,896 x 91d) / 365d = 103,695,316. The window's own average, so the dates agree; stated operands, the arithmetic the code's (E86's pattern), superseding E88's annual fall-back for this issuer",
+  "as_of": "2026-06-30",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole",
+  "divisor_basis": "window_day_weighted",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 22622.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": false,
+  "page": "Bouvet Q2 Report 2026, sources/BOUV.OL_2026-Q2_half-year-financial-report_2026-08-19_en_a0.pdf, and the audited Annual Report 2025, sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf Q2 2026 p.24 and AR 2025 p.126, consolidated statement of cash flows: 'Net cash flow from operating activities' is struck ABOVE every interest line. Interest RECEIVED is in INVESTING ('Received interest 3 950' / AR 'Received interest payments 23 942'); interest PAID is in FINANCING ('Payments interests on lease liabilities -5 968' / AR -24 386, and 'Interest payments -218' / AR -1 093). The operating section's reversal line 'Interest income and interest expenses' equals -(interest income) + (non-lease interest expense) in every period (FY2025: -23 942 + 1 093 = -22 849; Q2 2026: -3 950 + 218 = -3 732), which read literally would leave the LEASE interest charged in operating and paid again in financing. It cannot: the three sections sum to 'Net changes in liquid assets -162 037' and the balance sheet's liquid assets move 834 341 -> 672 304, the same 162 037, so a 24 386 double charge would break the tie and does not. The lease-interest add-back is inside 'Changes in other accruals'. The operating total is stated before ALL interest",
+  "net_interest_paid": null,
+  "source": "cash_flow_statement"
+ },
+ "bridge": {
+  "net_debt": -159733.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 0.0,
+   "pensions": 0.0,
+   "asset_retirement_obligations": 0.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+  },
+  "note": "borrowings 0 + 0 + leases 0 -- the IFRS 16 liability 321,855 LEAVES net debt whole (E117: its cash is in the flow; one lessee model, no split) + pension deficit 0 (E35.1) + asset retirement obligations 0 (E68) + prepaid delivery obligations 0 (E81) - cash 159,733 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: split: capex_ppe + capex_intangibles, as the accounts print them"
+ },
+ "dates": {
+  "flows_window_end": "2026-06-30",
+  "balance_sheet": "2026-06-30",
+  "share_count": "2026-06-30",
+  "price": "2026-09-16"
+ },
+ "growth": {
+  "base": 0.03,
+  "view_file": "reference/growth-views/BOUV.OL.md",
+  "view_date": "2026-09-08",
+  "bear": 0.02,
+  "bull": 0.06
+ },
+ "operating_cash_flow": 272440.0,
+ "capex": -25967.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_ppe",
+   "value": -24258.0,
+   "provenance": "p.24, investing activities: 'Purchase of fixed assets -7 000'. E23: the statement prints the split, so this and capex_intangibles are used and capex_combined stays blank; p.24, investing activities: 'Purchase of fixed assets -4 120' (year 2025: -26 257); p.24, investing activities: 'Purchase of fixed assets -3 504'; p.24, investing activities: 'Purchase of fixed assets -9 634' (Jan-Jun 2026: -13 138)",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "capex_intangibles",
+   "value": -1709.0,
+   "provenance": "p.24, investing activities: 'Purchase of intangible assets 3 0' -- the line is PRINTED and its value is a literal 0 for Jul-Sep 2025 (Jul-Sep 2024: -1 575). An E25 caption zero, not an absence; p.24, investing activities: 'Purchase of intangible assets 3 -63' -- the whole of the year's -63 fell in this quarter. AR 2025 p.126 calls the same line 'Payments made to develop software'; p.24, investing activities: 'Purchase of intangible assets 3 -909'. Q2 2026 note 03 attributes the half-year's 1 646 to 'the development of a new course administration system'; p.24, investing activities: 'Purchase of intangible assets 3 -737'. Note 03 (p.28): 'Internally developed software 1 646' for the half year, 'mainly relates to the development of a new course administration system'",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 272440.0,
+   "provenance": "p.24, consolidated statement of cash flows, 'Unaudited Jul-Sep 2025': 'Net cash flow from operating activities 12 144'. AFTER tax -- 'Paid tax -101' is inside the operating section -- and BEFORE all interest (see interest_in_ocf); p.24, cash flow statement, 'Unaudited Oct-Dec 2025': 'Net cash flow from operating activities 363 443' (year 2025: 347 111, the audited figure on AR p.126). After tax ('Paid tax -19 177' inside operating), before all interest; p.24, cash flow statement, 'Unaudited Jan-Mar 2026': 'Net cash flow from operating activities -48 547' (Jan-Mar 2025: -34 592). A NEGATIVE first quarter is this issuer's seasonal shape -- the Q1 2025 comparative is negative too, and Q4 is where the working capital comes back; p.24, cash flow statement, 'Unaudited Apr-Jun 2026': 'Net cash flow from operating activities -54 600' (Apr-Jun 2025: 6 116). The narrative (p.4) attributes the quarter to a 204.8m fall in current liabilities from 'discontinuation of the tax deduction account for employees' advance tax deductions, which has taken effect in 2026'. The four quarters of the basis sum to 272 440, the issuer's own Jul 2025-Jun 2026 column (p.2: 272.4)",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "sbc",
+   "value": 22622.0,
+   "provenance": "p.24, operating activities: 'Share based payments 4 792' -- the non-cash add-back for the all-employee share scheme (AR 2025 note 08, equity as the contra entry). E36 subtracts it from FCF0; p.24, operating activities: 'Share based payments 7 447'. The four quarters of 2025 sum to the audited year: 14 377 (Jan-Sep) + 7 447 = 21 824 = AR p.126; p.24, operating activities: 'Share based payments 5 191'; p.24, operating activities: 'Share based payments 5 192'. AR 2025 note 08 describes the scheme: all employees may subscribe at a 20% discount and receive a matching free share after three years, expensed over a three-year vesting period",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 103695316.05479452,
+   "provenance": "p.33, Key figures Group, Jul-Sep 2025 column: 'Weighted average diluted shares outstanding 103 413 458'. Defined on p.34 as 'Issued shares adjusted for own shares and share scheme on average'. E91: one of the four stated per-quarter counts the divisor is day-weighted from; p.33, Key figures Group, Oct-Dec 2025 column: 'Weighted average diluted shares outstanding 103 841 034'. E91 operand; p.33, Key figures Group, Jan-Mar 2026 column: 'Weighted average diluted shares outstanding 104 160 484'. E91 operand; p.33, Key figures Group, Apr-Jun 2026 column: 'Weighted average diluted shares outstanding 103 372 896'. E91: the fourth of the four stated per-quarter counts the divisor is day-weighted from",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 0.0,
+   "provenance": "p.5, Liquidity and solvency: 'The group has no interest-bearing debt, and bank deposits totalled NOK 159.7 million at quarter-end'. The balance sheet (p.23) enumerates its short-term debt -- current lease liabilities, trade accounts payable, income tax payable, public duties payable, deferred revenue, other short-term debt -- and carries no borrowing caption. 'The group had an unutilised overdraft facility of NOK 100.0 million at quarter-end': a facility, not a drawing",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 0.0,
+   "provenance": "p.5, as above; the balance sheet's long-term debt at 30.06.2026 is 'Lease liabilities 247 374' and 'Other provisions for obligations 0' and nothing else. The audited AR 2025 says it twice more (p.10: 'no interest-bearing liabilities other than lease liabilities recognised under IFRS 16'; p.10 interest-rate risk) and note 17's exhaustive classification of financial liabilities is lease liabilities and trade accounts payable",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 321855.0,
+   "provenance": "E69 hand read, both stated parts named. p.23, balance sheet at 30.06.2026: long-term 'Lease liabilities 247 374' + 'Current lease liabilities 74 481' = 321 855. Note 04 (p.29) gives the undiscounted maturity: 'Undiscounted lease liabilities 30.06.2026 408 714' over <1y 76 377, 1-2y 58 931, 2-3y 56 586, 3-4y 55 239, 4-5y 47 935, >5y 113 647. E14: held apart from the borrowing fields, which are zero",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 0.0,
+   "provenance": "AR 2025 note 06 Pensions, p.134: 'The Group has a defined contribution plan for all employees in Norway and Sweden... The Group's commitment is fully met when paid', and the reconciliation of the year's pension expense shows one line, 'Contribution plan - paid contribution for the year 128 395'. No defined-benefit obligation exists. The 30.06.2026 balance sheet enumerates its liabilities and presents no pension caption; this report contains no occurrence of 'pension', 'defined benefit' or 'defined-benefit' (searched 2026-09-08). E35.1 / E25 note",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "E68.1 and E25 caption. p.23, balance sheet at 30.06.2026, long-term debt: 'Other provisions for obligations 0' -- the caption is printed and its value is a literal zero (30.06.2025: 5 545). Bouvet is an IT consultancy that LEASES all 17 of its offices and owns no plant requiring decommissioning -- on none of E68.1's refuse-until-read lists. E107 SEARCH, 2026-09-08, of the audited annual report (sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf, 411,867 characters of extracted text) for 'asset retirement', 'decommission', 'dismantl', 'restoration', 'make good', 'make-good', 'dilapidation', 'reinstatement', 'environmental provision': ZERO occurrences of any of the nine. Note 16 Leases describes the office leases, their 1-10 year terms and their extension options and states no restoration or make-good obligation; note 04 of this report likewise",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "E81, with the deferred revenue NAMED. p.23, balance sheet at 30.06.2026: 'Deferred revenue 2 5 346' (note 02). Note 02 (p.27) shows it beside 'Work in progress 72 207' and explains: 'At the balance sheet date, processed but not billed services amounted to NOK 72.21 million... mainly services delivered on running account, invoiced to customers at the beginning of the next month.' Ordinary billings in advance of a time-and-materials consultancy -- E81's own exclusion, in its own words: 'NOT this leg: the ordinary contract liabilities of a subscription or services business, customer deposits, billings in advance -- working capital the flow already carries.' No streaming, offtake or prepaid-delivery arrangement exists in any of the five documents (searched 2026-09-08 for 'streaming', 'offtake', 'prepaid delivery', 'advance payments from customers', 'customer deposit': ZERO occurrences)",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 159733.0,
+   "provenance": "p.22, balance sheet at 30.06.2026: 'Liquid assets 159 733' (30.06.2025: 383 481). The fall is explained on p.5: 'discontinuation of the requirement to maintain a dedicated bank account for advance employee tax deductions with effect from 2026. Advance tax deductions are now paid to the Norwegian Tax Administration monthly, compared to six times a year previously.' So the AR 2025 restricted portion (note 20: 92 420 of the 672 304) no longer exists at this date -- this figure is unrestricted",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "lease_payments_capital",
+   "value": -65089.0,
+   "provenance": "p.24, financing activities: 'Payments on lease liabilities -15 058'. E70 MEMO: FCF0 does not deduct it -- the lease is charged once, in net debt; p.24, financing activities: 'Payments on lease liabilities 4 -15 613' (year 2025: -57 412). E70 MEMO; p.24, financing activities: 'Payments on lease liabilities 4 -17 231'. E70 MEMO; p.24, financing activities: 'Payments on lease liabilities 4 -17 187'. E70 MEMO: the flow is not charged with it; the 321 855 of lease liability in net debt is",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "lease_interest_paid",
+   "value": 24540.0,
+   "provenance": "BOUV.OL_2025-Q3_half-year-financial-report_2025-11-11_en_a1.pdf p.24, financing: 'Payments interests on lease liabilities' -6,211 (Jul-Sep 2025). E117: deducted beside the principal; BOUV.OL_2025-Q4_half-year-financial-report_2026-02-13_en_a0.pdf p.24, financing: 'Payments interests on lease liabilities' -6,169 (Oct-Dec 2025). E117: deducted beside the principal; BOUV.OL_2026-Q1_half-year-financial-report_2026-05-13_en_a0.pdf p.13, financing: 'Payments interests on lease liabilities' -6,192 (Jan-Mar 2026). E117: deducted beside the principal; BOUV.OL_2026-Q2_half-year-financial-report_2026-08-19_en_a0.pdf p.13, financing: 'Payments interests on lease liabilities' -5,968 (Apr-Jun 2026). E117: deducted beside the principal",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  }
+ ],
+ "tool_commit": "E117 re-strike, 2026-09-19, e46b8a8",
+ "notes": "E117 re-strike: the lease treatment is the only change from the prior record, BOUV.OL-2026-09-08.json",
+ "money_unit": "thousands",
+ "nci_dividends_paid": 0.0,
+ "undetermined": [],
+ "fcf_reported": {
+  "value": 264451.0,
+  "page": "E103 REFERENCE FIGURE -- compared against section 5's own construction and NEVER used to build one; the section 5 gate refuses if it ever reaches a basis. Bouvet's OWN APM, defined on p.32 of the same report: 'Net free cash flow is calculated as net cash flow from operations plus net cash flow from investing activities', and on p.34: 'Net cash flow operations - Net cash flow investments'. It is NOT E34's construction: it deducts no share-based compensation, adds back no interest, and carries interest RECEIVED inside the investing half. HAND-READ 2026-09-08 off the page named -- E103's automatic model route could not run on this host (no VSS_OPENROUTER_KEY), and a page read by eye is stronger provenance than the route it replaces, not weaker. p.33, Key figures Group, Jul-Sep 2025 column: 'Net free cash flow 11 363' (Jul-Sep 2024: 135 341)",
+  "verified": false
+ },
+ "net_debt_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_income": {
+  "value": 332074.0,
+  "page": "p.20: 'Profit for the period 70 085', all of it assigned to 'Shareholders in parent company 70 085'",
+  "verified": false
+ },
+ "lease": {
+  "in_operating_cash_flow": false,
+  "page": "FRAMEWORK-EDITS E70, applied 2026-09-08 to an IFRS 16 filer IFRS 16.50(b): a lessee classifies cash payments for the principal portion of the lease liability within FINANCING, and Bouvet prints it there -- 'Payments on lease liabilities' (Q2 2026 p.24: -17 187; AR 2025 p.126: -57 412), below the operating total. The operating cash flow never bore the principal, so nothing is added back; the lease is counted once, in net debt (E35, E65)",
+  "principal_added_back": null,
+  "leg": "`lease_payments_capital` + `lease_interest_paid`, DEDUCTED (E117: the IFRS 16 principal and lease interest)",
+  "rule": "E117",
+  "lease_cash_deducted": 89629.0,
+  "principal_paid": 65089.0,
+  "interest_paid": 24540.0,
+  "liability_excluded": 321855.0
+ }
+}

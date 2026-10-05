@@ -1,0 +1,13 @@
+{
+  "list": "tier-c",
+  "tier": "C",
+  "file": "tier-c-2026-08-22.csv",
+  "retrieved": "2026-08-22",
+  "rows": 0,
+  "expected_rows": null,
+  "approximation": false,
+  "source_url": null,
+  "note": "Tier C is not populated in phase 1. Schema only. Its floors live in config/universe/floors.yaml, not in this file.",
+  "sha256": "b4a58995e74b4ba658750028370bf4aed35d4ebf3d88c724675620beb35d8f20",
+  "built_by": "tools/build_universe.py"
+}

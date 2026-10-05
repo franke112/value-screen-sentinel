@@ -1,0 +1,519 @@
+# LIAB.ST -- Lindab International AB, hand-read from the issuer's own
+# periodic reports. WRITTEN 2026-08-26 by the Build 2 session (item 7); no
+# store file existed before -- the first re-strike ran on hand inputs.
+#
+# BASIS: E19's twelve-month window is the four consecutive quarters 2025-Q3,
+# 2025-Q4, 2026-Q1 and 2026-Q2, ending 2026-06-30. Lindab prints a
+# STANDALONE QUARTER column in every report (Jul-Sep, Oct-Dec, Jan-Mar,
+# Apr-Jun) beside the cumulative and R12M columns, and the Q2 2026 report's
+# quarterly table (p.19) restates every quarter's operating cash flow, so
+# each quarter's OCF is confirmed by a SECOND document (`cross_document`).
+# The R12M column of the Q2 2026 report confirms every SUM: OCF 335 + 521 +
+# 45 + 275 = 1,176; interest paid 61 + 52 + 50 + 48 = 211; interest received
+# 3 + 5 + 1 + 1 = 10; investments in intangibles 31 + 41 + 27 + 43 = 142 and
+# in tangible fixed assets 50 + 47 + 43 + 45 = 185.
+#
+# EVERY FIGURE WAS ENTERED FROM A pdftotext EXTRACTION AND RE-EXTRACTED FROM
+# THE SAME PAGE (same_page, E40) BY THE BUILD SESSION -- NOT read back by the
+# owner. Where a second document states the same figure the kind says so.
+#
+# UNITS: SEK MILLIONS for money, as every statement prints them. SHARE
+# COUNTS ARE ENTERED IN MILLIONS (77.036 for the printed "77,036 thousand")
+# so that SEK-million figures divide to SEK per share; the page line quotes
+# the printed thousands. Signs as printed: outflows negative; the interest
+# pair as POSITIVE MAGNITUDES per the schema (E18).
+#
+# INTEREST (E34): Lindab books interest INSIDE operating cash flow --
+# POST-interest -- so FCF0 adds back net interest paid (211 - 10 = 201 on
+# the R12M) and net debt is subtracted once.
+#
+# WHAT IS DELIBERATELY ABSENT, and why:
+#   * capex_combined -- Lindab prints the split (intangible / tangible), so
+#     the split pair is entered and the combined line is not (E23).
+#   * lease_liabilities in the OLDER quarters -- only the newest quarter's
+#     balance sheet is a stock on this basis (E19); 2026-Q2 carries it as
+#     the STATED TOTAL from the net-debt note (p.25 'Lease liabilities
+#     -1,410'), which the balance sheet presents as 1,018 + 392 (E26).
+#   * other_current_financial_assets in 2026-Q1 -- the balance sheet shows
+#     a DASH for 'Other interest-bearing receivables'; E25 refuses a zero on
+#     this field outright, so it is left blank. Only 2026-Q2's matters.
+#   * the 39 of NON-current 'Financial interest-bearing fixed assets' that
+#     Lindab's own net debt nets (p.25, incl. pension-related assets 21) --
+#     no field holds a non-current financial asset; omitting an ASSET is
+#     the conservative direction (E35) and it is 0.5 SEK a share.
+#   * revenue / operating income -- not needed by section 5 here; the
+#     watchlist quarters carry them (source: release).
+#
+# SHARE-BASED COMPENSATION (E36): ZERO for FY2025 on E25's `note` form. The
+# annual report states that the long-term incentive programmes for 2023,
+# 2024 and 2025 are CASH remuneration "presumed to be invested in shares"
+# (p.96) and that the share option programme is a market transaction, "no
+# part of the program should be seen as share-based remuneration" (p.112).
+# A performance share plan accounted for under IFRS 2 began in 2026 (Q2 2026
+# interim p.10, "total accounting cost ... approximately SEK 4 m ...
+# allocated over the vesting period" of three years); the charge inside the
+# R12M window is not stated and is at most about SEK 0.3 m -- 0.03% of FCF0,
+# in the generous direction. E41 fills the FY2025 zero onto this basis.
+
+ticker: LIAB.ST
+name: Lindab International AB
+reporting_currency: SEK
+money_unit: millions   # declared 2026-08-26: SEK MILLIONS, as every statement prints them (header above)
+share_unit: millions   # declared 2026-08-26: counts ENTERED IN MILLIONS -- 77.036 for the printed '77,036 thousand' (header above)
+quote_currency: SEK
+sector: Industrials
+reporting_frequency: quarterly
+origin: manual
+
+interest_in_ocf:
+  value: yes
+  source: "Lindab Interim Report January-June 2026 (Nasdaq release 1454549, 2026-07-17), sources/LIAB.ST_2026-Q2_half-year-financial-report_2026-07-17_en_a0.pdf"
+  page: "p.17, consolidated cash flow statement, OPERATING ACTIVITIES: 'Interest received 1 3 2 5 10 13' and 'Interest paid -48 -52 -98 -107 -211 -220' (Apr-Jun 2026, Apr-Jun 2025, Jan-Jun 2026, Jan-Jun 2025, R12M, Jan-Dec 2025) ABOVE 'Cash flow from operating activities before changes in working capital'"
+
+# E70 (2026-08-30): whether this filer's operating cash flow bears its
+# lease principal. Under IFRS 16 it does not, so nothing is added back: the
+# lease is counted once, in net debt (E35, E65); `lease_payments_capital`,
+# where entered, is a memo the flow never deducted.
+operating_leases_in_ocf:
+  value: no
+  source: "FRAMEWORK-EDITS E70, applied 2026-08-30 to an IFRS 16 filer"
+  page: "IFRS 16.50(b): a lessee classifies cash payments for the principal portion of the lease liability within FINANCING activities, so this filer's `operating_cash_flow` never bore the principal; the interest portion follows the filer's IAS 7 policy, which `interest_in_ocf` records. The standard leaves no choice on the principal"
+
+periods:
+  - period: 2025-Q3
+    period_end: 2025-09-30
+    period_basis: calendar
+    document: "Lindab Interim Report January-September 2025 (Nasdaq release 1396438, 2025-10-24), sources/LIAB.ST_2025-Q3_interim-report-q1-and-q3_2025-10-24_en_a0.pdf"
+    url: "sources/LIAB.ST_2025-Q3_interim-report-q1-and-q3_2025-10-24_en_a0.pdf"
+    figures:
+      rou_depreciation:
+        value: 94
+        page: "sources/LIAB.ST_2025-Q3_interim-report-q1-and-q3_2025-10-24_en_a0.pdf p.21: 'Depreciation and amortisation for the quarter ... SEK 94 m ... to right of use assets' (Jul-Sep 2025). Read back 2026-09-19 (E117 clause 5, A2)"
+        status: VERIFIED
+        verified_kind: same_page
+      net_finance_costs:
+        value: 56
+        page: "sources/LIAB.ST_2025-Q3_interim-report-q1-and-q3_2025-10-24_en_a0.pdf p.11: 'Net financial items -56' for Jul-Sep 2025 (a cost, entered as a positive magnitude). Read back 2026-09-19 (E117 clause 5, A2)"
+        status: VERIFIED
+        verified_kind: same_page
+      operating_income:
+        value: 491
+        page: "sources/LIAB.ST_2026-Q2_half-year-financial-report_2026-07-17_en_a0.pdf p.19, Key performance indicators, quarterly columns: 'Operating profit' Jul-Sep 2025 491. Read back 2026-09-19 (E117 clause 5, A2)"
+        status: VERIFIED
+        verified_kind: same_page
+      ebitda:
+        value: 738
+        page: "sources/LIAB.ST_2026-Q2_half-year-financial-report_2026-07-17_en_a0.pdf p.19, Key performance indicators, quarterly columns: 'Operating profit before depreciation/amortisation and impairment losses' Jul-Sep 2025 738 -- the EBITDA Lindab's own net debt/EBITDA covenant KPI uses. Read back 2026-09-19 (E117 clause 5, A2)"
+        status: VERIFIED
+        verified_kind: same_page
+      lease_payments_capital:
+        value: -94
+        page: "sources/LIAB.ST_2025-Q3_interim-report-q1-and-q3_2025-10-24_en_a0.pdf p.13, cash flow statement, Jul-Sep 2025 column: 'Repayment of leasing-related liabilities -94'. Read back 2026-09-19 (E117)"
+        status: VERIFIED
+        verified_kind: same_page
+      lease_interest_paid:
+        bound: 61
+        bound_direction: reduces
+        source: "E106 clause 3 bound (owner, 2026-09-19, A2): the quarter's lease interest is not stated; it is at most the quarter's TOTAL interest paid"
+        page: "sources/LIAB.ST_2025-Q3_interim-report-q1-and-q3_2025-10-24_en_a0.pdf p.13, Jul-Sep 2025 column: 'Interest paid -61' -- every interest payment of the quarter, lease interest inside it; annual report note 30 states FY2025 lease interest 66 against 220 paid in total"
+        status: UNVERIFIED
+      # E105 (2026-09-04): a determined zero. Lindab's own five-year
+      # summary prints the minority's equity as a DASH in every one of
+      # the five years, which is as plain as an accounts can say it.
+      nci_dividends_paid:
+        value: 0
+        zero_basis: searched
+        source: "E105 leg; E107 searched absence"
+        page: "E107 SEARCHED ABSENCE. Document: sources/LIAB.ST_2025-Q3_interim-report-q1-and-q3_2025-10-24_en_a0.pdf (93,742 characters of extracted text). Searched 2026-09-04 for the terms 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- two, both the DEFINITION of the equity/asset ratio ('Shareholders' equity including non-controlling interests') and neither a holding. THE ANNUAL REPORT WAS SEARCHED TOO (sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf, 865,173 characters, the same day): four occurrences, and the one that answers the question is p.78's five-year summary, 'Shareholders' equity attributable to non-controlling interests - - - - -' -- A DASH IN ALL FIVE YEARS, 2021 to 2025, beneath 'Shareholders' equity attributable to Parent Company shareholders 7,319 7,360 7,237 6,751 5,650'. No minority equity in any year of the window; nothing to distribute to. E106 clause 5: a determined zero."
+        status: UNVERIFIED
+      free_cash_flow_reported:
+        value: 37
+        source: "E103 automatic reference extraction (pdf (model-read))"
+        page: "24 [printed in millions] -- verbatim: Free cash flow 37 185 383 -572 -163"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 335
+        page: "p.13, consolidated cash flow statement, Jul-Sep 2025 column: 'Cash flow from operating activities 335'; Q2 2026 report p.19 quarterly table restates 335"
+        status: VERIFIED
+        verified_kind: cross_document
+      finance_costs_paid:
+        value: 61
+        page: "p.13, cash flow statement, OPERATING ACTIVITIES, Jul-Sep 2025 column: 'Interest paid -61' (entered as a positive magnitude)"
+        status: VERIFIED
+        verified_kind: same_page
+      finance_income_received:
+        value: 3
+        page: "p.13, cash flow statement, OPERATING ACTIVITIES, Jul-Sep 2025 column: 'Interest received 3'"
+        status: VERIFIED
+        verified_kind: same_page
+      capex_intangibles:
+        value: -31
+        page: "p.13, cash flow statement, INVESTING ACTIVITIES, Jul-Sep 2025 column: 'Investments in intangible assets -31'"
+        status: VERIFIED
+        verified_kind: same_page
+      capex_ppe:
+        value: -50
+        page: "p.13, cash flow statement, INVESTING ACTIVITIES, Jul-Sep 2025 column: 'Investments in tangible fixed assets -50'"
+        status: VERIFIED
+        verified_kind: same_page
+      cash_and_equivalents:
+        value: 506
+        page: "p.14, consolidated balance sheet, Sep 30, 2025: 'Cash and cash equivalents 506'; net debt note p.25 restates 506"
+        status: VERIFIED
+        verified_kind: same_page
+      other_current_financial_assets:
+        value: 11
+        page: "p.14, consolidated balance sheet, Sep 30, 2025: 'Other interest-bearing receivables 11'; net debt note p.25 restates 11"
+        status: VERIFIED
+        verified_kind: same_page
+  - period: 2025-Q4
+    period_end: 2025-12-31
+    period_basis: calendar
+    document: "Lindab Full Year Report January-December 2025 (Nasdaq release 1419614, 2026-02-12), sources/LIAB.ST_2025-Q4_financial-statement-release_2026-02-12_en_a0.pdf"
+    url: "sources/LIAB.ST_2025-Q4_financial-statement-release_2026-02-12_en_a0.pdf"
+    figures:
+      rou_depreciation:
+        value: 96
+        page: "sources/LIAB.ST_2025-Q4_financial-statement-release_2026-02-12_en_a0.pdf p.20: 'Depreciation and amortisation for the quarter ... SEK 96 m ... to right of use assets' (Oct-Dec 2025). Read back 2026-09-19 (E117 clause 5, A2)"
+        status: VERIFIED
+        verified_kind: same_page
+      net_finance_costs:
+        value: 50
+        page: "sources/LIAB.ST_2025-Q4_financial-statement-release_2026-02-12_en_a0.pdf p.11: 'Net financial items -50' for Oct-Dec 2025 (a cost, entered as a positive magnitude). Read back 2026-09-19 (E117 clause 5, A2)"
+        status: VERIFIED
+        verified_kind: same_page
+      operating_income:
+        value: 97
+        page: "sources/LIAB.ST_2026-Q2_half-year-financial-report_2026-07-17_en_a0.pdf p.19, Key performance indicators, quarterly columns: 'Operating profit' Oct-Dec 2025 97. Read back 2026-09-19 (E117 clause 5, A2)"
+        status: VERIFIED
+        verified_kind: same_page
+      ebitda:
+        value: 267
+        page: "sources/LIAB.ST_2026-Q2_half-year-financial-report_2026-07-17_en_a0.pdf p.19, Key performance indicators, quarterly columns: 'Operating profit before depreciation/amortisation and impairment losses' Oct-Dec 2025 267 -- the EBITDA Lindab's own net debt/EBITDA covenant KPI uses. Read back 2026-09-19 (E117 clause 5, A2)"
+        status: VERIFIED
+        verified_kind: same_page
+      lease_payments_capital:
+        value: -100
+        page: "sources/LIAB.ST_2025-Q4_financial-statement-release_2026-02-12_en_a0.pdf p.13, cash flow statement, Oct-Dec 2025 column: 'Repayment of leasing-related liabilities -100'. Read back 2026-09-19 (E117)"
+        status: VERIFIED
+        verified_kind: same_page
+      lease_interest_paid:
+        bound: 52
+        bound_direction: reduces
+        source: "E106 clause 3 bound (owner, 2026-09-19, A2): the quarter's lease interest is not stated; it is at most the quarter's TOTAL interest paid"
+        page: "sources/LIAB.ST_2025-Q4_financial-statement-release_2026-02-12_en_a0.pdf p.13, Oct-Dec 2025 column: 'Interest paid -52' -- every interest payment of the quarter, lease interest inside it; annual report note 30 states FY2025 lease interest 66 against 220 paid in total"
+        status: UNVERIFIED
+      # E105 (2026-09-04): a determined zero. Lindab's own five-year
+      # summary prints the minority's equity as a DASH in every one of
+      # the five years, which is as plain as an accounts can say it.
+      nci_dividends_paid:
+        value: 0
+        zero_basis: searched
+        source: "E105 leg; E107 searched absence"
+        page: "E107 SEARCHED ABSENCE. Document: sources/LIAB.ST_2025-Q4_financial-statement-release_2026-02-12_en_a0.pdf (91,898 characters of extracted text). Searched 2026-09-04 for the terms 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- one, the same ratio definition and not a holding. THE ANNUAL REPORT WAS SEARCHED TOO (sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf, 865,173 characters, the same day): four occurrences, and the one that answers the question is p.78's five-year summary, 'Shareholders' equity attributable to non-controlling interests - - - - -' -- A DASH IN ALL FIVE YEARS, 2021 to 2025, beneath 'Shareholders' equity attributable to Parent Company shareholders 7,319 7,360 7,237 6,751 5,650'. No minority equity in any year of the window; nothing to distribute to. E106 clause 5: a determined zero."
+        status: UNVERIFIED
+      free_cash_flow_reported:
+        value: 456
+        source: "E103 automatic reference extraction (pdf (model-read))"
+        page: "22 [printed in millions] -- verbatim: Free cash flow 456 409 839 -163"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 521
+        page: "p.13, consolidated cash flow statement, Oct-Dec 2025 column: 'Cash flow from operating activities 521'; Q2 2026 report p.19 quarterly table restates 521"
+        status: VERIFIED
+        verified_kind: cross_document
+      finance_costs_paid:
+        value: 52
+        page: "p.13, cash flow statement, OPERATING ACTIVITIES, Oct-Dec 2025 column: 'Interest paid -52' (entered as a positive magnitude)"
+        status: VERIFIED
+        verified_kind: same_page
+      finance_income_received:
+        value: 5
+        page: "p.13, cash flow statement, OPERATING ACTIVITIES, Oct-Dec 2025 column: 'Interest received 5'"
+        status: VERIFIED
+        verified_kind: same_page
+      capex_intangibles:
+        value: -41
+        page: "p.13, cash flow statement, INVESTING ACTIVITIES, Oct-Dec 2025 column: 'Investments in intangible assets -41'"
+        status: VERIFIED
+        verified_kind: same_page
+      capex_ppe:
+        value: -47
+        page: "p.13, cash flow statement, INVESTING ACTIVITIES, Oct-Dec 2025 column: 'Investments in tangible fixed assets -47'"
+        status: VERIFIED
+        verified_kind: same_page
+      cash_and_equivalents:
+        value: 442
+        page: "p.14, consolidated balance sheet, Dec 31, 2025: 'Cash and cash equivalents 442'; net debt note p.23 restates 442; Q2 2026 report p.15 Dec 31, 2025 column 442"
+        status: VERIFIED
+        verified_kind: cross_document
+      other_current_financial_assets:
+        value: 16
+        page: "p.14, consolidated balance sheet, Dec 31, 2025: 'Other interest-bearing receivables 16'; net debt note p.23 restates 16"
+        status: VERIFIED
+        verified_kind: same_page
+  - period: 2026-Q1
+    period_end: 2026-03-31
+    period_basis: calendar
+    document: "Lindab Interim Report January-March 2026 (Nasdaq release 1439937, 2026-05-06), sources/LIAB.ST_2026-Q1_interim-report-q1-and-q3_2026-05-06_en_a0.pdf"
+    url: "sources/LIAB.ST_2026-Q1_interim-report-q1-and-q3_2026-05-06_en_a0.pdf"
+    figures:
+      rou_depreciation:
+        value: 98
+        page: "sources/LIAB.ST_2026-Q1_interim-report-q1-and-q3_2026-05-06_en_a0.pdf p.19: 'Depreciation and amortisation for the quarter ... SEK 98 m ... to right of use assets' (Jan-Mar 2026). Read back 2026-09-19 (E117 clause 5, A2)"
+        status: VERIFIED
+        verified_kind: same_page
+      net_finance_costs:
+        value: 50
+        page: "sources/LIAB.ST_2026-Q1_interim-report-q1-and-q3_2026-05-06_en_a0.pdf p.11: 'Net financial items -50' for Jan-Mar 2026 (a cost, entered as a positive magnitude). Read back 2026-09-19 (E117 clause 5, A2)"
+        status: VERIFIED
+        verified_kind: same_page
+      operating_income:
+        value: 188
+        page: "sources/LIAB.ST_2026-Q2_half-year-financial-report_2026-07-17_en_a0.pdf p.19, Key performance indicators, quarterly columns: 'Operating profit' Jan-Mar 2026 188. Read back 2026-09-19 (E117 clause 5, A2)"
+        status: VERIFIED
+        verified_kind: same_page
+      ebitda:
+        value: 355
+        page: "sources/LIAB.ST_2026-Q2_half-year-financial-report_2026-07-17_en_a0.pdf p.19, Key performance indicators, quarterly columns: 'Operating profit before depreciation/amortisation and impairment losses' Jan-Mar 2026 355 -- the EBITDA Lindab's own net debt/EBITDA covenant KPI uses. Read back 2026-09-19 (E117 clause 5, A2)"
+        status: VERIFIED
+        verified_kind: same_page
+      lease_payments_capital:
+        value: -96
+        page: "sources/LIAB.ST_2026-Q1_interim-report-q1-and-q3_2026-05-06_en_a0.pdf p.15, cash flow statement, Jan-Mar 2026 column: 'Repayment of lease liabilities -96'. Read back 2026-09-19 (E117)"
+        status: VERIFIED
+        verified_kind: same_page
+      lease_interest_paid:
+        bound: 50
+        bound_direction: reduces
+        source: "E106 clause 3 bound (owner, 2026-09-19, A2): the quarter's lease interest is not stated; it is at most the quarter's TOTAL interest paid"
+        page: "sources/LIAB.ST_2026-Q1_interim-report-q1-and-q3_2026-05-06_en_a0.pdf p.15, Jan-Mar 2026 column: 'Interest paid -50' -- every interest payment of the quarter, lease interest inside it; annual report note 30 states FY2025 lease interest 66 against 220 paid in total"
+        status: UNVERIFIED
+      # E105 (2026-09-04): a determined zero. Lindab's own five-year
+      # summary prints the minority's equity as a DASH in every one of
+      # the five years, which is as plain as an accounts can say it.
+      nci_dividends_paid:
+        value: 0
+        zero_basis: searched
+        source: "E105 leg; E107 searched absence"
+        page: "E107 SEARCHED ABSENCE. Document: sources/LIAB.ST_2026-Q1_interim-report-q1-and-q3_2026-05-06_en_a0.pdf (75,983 characters of extracted text). Searched 2026-09-04 for the terms 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- ZERO occurrences of any of them. THE ANNUAL REPORT WAS SEARCHED TOO (sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf, 865,173 characters, the same day): four occurrences, and the one that answers the question is p.78's five-year summary, 'Shareholders' equity attributable to non-controlling interests - - - - -' -- A DASH IN ALL FIVE YEARS, 2021 to 2025, beneath 'Shareholders' equity attributable to Parent Company shareholders 7,319 7,360 7,237 6,751 5,650'. No minority equity in any year of the window; nothing to distribute to. E106 clause 5: a determined zero."
+        status: UNVERIFIED
+      free_cash_flow_reported:
+        value: null
+        source: "E104 WITHDRAWN -- two independent extractions did not agree"
+        page: "first pass read -21, second pass read no figure from the same line; the second pass returned no figure for that period from that line. A named absence, not a figure: two transcriptions of one printed line that differ mean the line was not read (E104, E25)"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 45
+        page: "p.15, consolidated cash flow statement, Jan-Mar 2026 column: 'Cash flow from operating activities 45'; Q2 2026 report p.19 quarterly table restates 45"
+        status: VERIFIED
+        verified_kind: cross_document
+      finance_costs_paid:
+        value: 50
+        page: "p.15, cash flow statement, OPERATING ACTIVITIES, Jan-Mar 2026 column: 'Interest paid -50' (entered as a positive magnitude)"
+        status: VERIFIED
+        verified_kind: same_page
+      finance_income_received:
+        value: 1
+        page: "p.15, cash flow statement, OPERATING ACTIVITIES, Jan-Mar 2026 column: 'Interest received 1'"
+        status: VERIFIED
+        verified_kind: same_page
+      capex_intangibles:
+        value: -27
+        page: "p.15, cash flow statement, INVESTING ACTIVITIES, Jan-Mar 2026 column: 'Investments in intangible assets -27'"
+        status: VERIFIED
+        verified_kind: same_page
+      capex_ppe:
+        value: -43
+        page: "p.15, cash flow statement, INVESTING ACTIVITIES, Jan-Mar 2026 column: 'Investments in tangible fixed assets -43'"
+        status: VERIFIED
+        verified_kind: same_page
+      cash_and_equivalents:
+        value: 427
+        page: "p.13, consolidated balance sheet, Mar 31, 2026: 'Cash and cash equivalents 427'; net debt note p.22 restates 427"
+        status: VERIFIED
+        verified_kind: same_page
+  - period: 2026-Q2
+    period_end: 2026-06-30
+    period_basis: calendar
+    document: "Lindab Interim Report January-June 2026 (Nasdaq release 1454549, 2026-07-17), sources/LIAB.ST_2026-Q2_half-year-financial-report_2026-07-17_en_a0.pdf"
+    url: "sources/LIAB.ST_2026-Q2_half-year-financial-report_2026-07-17_en_a0.pdf"
+    figures:
+      rou_depreciation:
+        value: 98
+        page: "sources/LIAB.ST_2026-Q2_half-year-financial-report_2026-07-17_en_a0.pdf p.21: 'Depreciation and amortisation for the quarter ... SEK 98 m ... to right of use assets' (Apr-Jun 2026). Read back 2026-09-19 (E117 clause 5, A2)"
+        status: VERIFIED
+        verified_kind: same_page
+      net_finance_costs:
+        value: 48
+        page: "sources/LIAB.ST_2026-Q2_half-year-financial-report_2026-07-17_en_a0.pdf p.13: 'Net financial items -48' for Apr-Jun 2026 (a cost, entered as a positive magnitude). Read back 2026-09-19 (E117 clause 5, A2)"
+        status: VERIFIED
+        verified_kind: same_page
+      operating_income:
+        value: 218
+        page: "sources/LIAB.ST_2026-Q2_half-year-financial-report_2026-07-17_en_a0.pdf p.19, Key performance indicators, quarterly columns: 'Operating profit' Apr-Jun 2026 218. Read back 2026-09-19 (E117 clause 5, A2)"
+        status: VERIFIED
+        verified_kind: same_page
+      ebitda:
+        value: 387
+        page: "sources/LIAB.ST_2026-Q2_half-year-financial-report_2026-07-17_en_a0.pdf p.19, Key performance indicators, quarterly columns: 'Operating profit before depreciation/amortisation and impairment losses' Apr-Jun 2026 387 -- the EBITDA Lindab's own net debt/EBITDA covenant KPI uses. Read back 2026-09-19 (E117 clause 5, A2)"
+        status: VERIFIED
+        verified_kind: same_page
+      lease_payments_capital:
+        value: -96
+        page: "sources/LIAB.ST_2026-Q2_half-year-financial-report_2026-07-17_en_a0.pdf p.17, cash flow statement, Apr-Jun 2026 column: 'Repayment of lease liabilities -96'. Read back 2026-09-19 (E117)"
+        status: VERIFIED
+        verified_kind: same_page
+      lease_interest_paid:
+        bound: 48
+        bound_direction: reduces
+        source: "E106 clause 3 bound (owner, 2026-09-19, A2): the quarter's lease interest is not stated; it is at most the quarter's TOTAL interest paid"
+        page: "sources/LIAB.ST_2026-Q2_half-year-financial-report_2026-07-17_en_a0.pdf p.17, Apr-Jun 2026 column: 'Interest paid -48' -- every interest payment of the quarter, lease interest inside it; annual report note 30 states FY2025 lease interest 66 against 220 paid in total"
+        status: UNVERIFIED
+      # E105 (2026-09-04): a determined zero. Lindab's own five-year
+      # summary prints the minority's equity as a DASH in every one of
+      # the five years, which is as plain as an accounts can say it.
+      nci_dividends_paid:
+        value: 0
+        zero_basis: searched
+        source: "E105 leg; E107 searched absence"
+        page: "E107 SEARCHED ABSENCE. Document: sources/LIAB.ST_2026-Q2_half-year-financial-report_2026-07-17_en_a0.pdf (88,232 characters of extracted text). Searched 2026-09-04 for the terms 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- ZERO occurrences of any of them. THE ANNUAL REPORT WAS SEARCHED TOO (sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf, 865,173 characters, the same day): four occurrences, and the one that answers the question is p.78's five-year summary, 'Shareholders' equity attributable to non-controlling interests - - - - -' -- A DASH IN ALL FIVE YEARS, 2021 to 2025, beneath 'Shareholders' equity attributable to Parent Company shareholders 7,319 7,360 7,237 6,751 5,650'. No minority equity in any year of the window; nothing to distribute to. E106 clause 5: a determined zero."
+        status: UNVERIFIED
+      net_debt_reported:
+        value: 4497
+        source: "E103 automatic reference extraction (pdf (model-read))"
+        page: "7 [printed in millions] -- verbatim: Net debt 4,497"
+        status: UNVERIFIED
+      free_cash_flow_reported:
+        value: 193
+        source: "E103 automatic reference extraction (pdf (model-read))"
+        page: "24 [printed in millions] -- verbatim: Free cash flow 193"
+        status: UNVERIFIED
+      operating_cash_flow:
+        value: 275
+        page: "p.17, consolidated cash flow statement, Apr-Jun 2026 column: 'Cash flow from operating activities 275'; p.19 quarterly table 275; the R12M column 1,176 = 335 + 521 + 45 + 275"
+        status: VERIFIED
+        verified_kind: cross_document
+      finance_costs_paid:
+        value: 48
+        page: "p.17, cash flow statement, OPERATING ACTIVITIES, Apr-Jun 2026 column: 'Interest paid -48' (entered as a positive magnitude); R12M column -211 = 61 + 52 + 50 + 48"
+        status: VERIFIED
+        verified_kind: same_page
+      finance_income_received:
+        value: 1
+        page: "p.17, cash flow statement, OPERATING ACTIVITIES, Apr-Jun 2026 column: 'Interest received 1'; R12M column 10 = 3 + 5 + 1 + 1"
+        status: VERIFIED
+        verified_kind: same_page
+      capex_intangibles:
+        value: -43
+        page: "p.17, cash flow statement, INVESTING ACTIVITIES, Apr-Jun 2026 column: 'Investments in intangible assets -43'; R12M column -142 = 31 + 41 + 27 + 43"
+        status: VERIFIED
+        verified_kind: same_page
+      capex_ppe:
+        value: -45
+        page: "p.17, cash flow statement, INVESTING ACTIVITIES, Apr-Jun 2026 column: 'Investments in tangible fixed assets -45'; R12M column -185 = 50 + 47 + 43 + 45"
+        status: VERIFIED
+        verified_kind: same_page
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81 (2026-08-30): Q2 2026 report p.15, condensed statement of financial position at 30 June 2026, liabilities presented: 'Provisions for pensions and similar obligations 280', 'Liabilities to credit institutions 3,378', 'Lease liabilities 1,018', 'Deferred tax liabilities 191', 'Provisions 18', 'Other non-current liabilities 41', 'Other interest-bearing liabilities 5', 'Lease liabilities 392', 'Provisions 199', 'Accounts payable 1,092', 'Other current liabilities 1,533' -- no streaming, prepaid-offtake or prepaid-delivery caption. The AR 2025 balance sheet p.74 shows 'Advance payments from customers 86' inside the current non-interest-bearing liabilities: ordinary customer prepayments of a ventilation-products manufacturer, working capital and NOT this leg, named here. A caption zero"
+        status: VERIFIED
+        verified_kind: same_page
+      cash_and_equivalents:
+        value: 527
+        page: "p.15, consolidated balance sheet, Jun 30, 2026: 'Cash and cash equivalents 527'; net debt note p.25 restates 527. NOT the 506 the first re-strike used, which is Sep 30, 2025's figure"
+        status: VERIFIED
+        verified_kind: same_page
+      other_current_financial_assets:
+        value: 10
+        page: "p.15, consolidated balance sheet, Jun 30, 2026, current assets: 'Other interest-bearing receivables 10'; net debt note p.25 restates 10"
+        status: VERIFIED
+        verified_kind: same_page
+      financial_liabilities_noncurrent:
+        value: 3378
+        page: "p.15, consolidated balance sheet, Jun 30, 2026, non-current liabilities: 'Liabilities to credit institutions 3,378'; net debt note p.25 restates 3,378. BORROWINGS ALONE (E14): leases and pensions are separate lines"
+        status: VERIFIED
+        verified_kind: same_page
+      financial_liabilities_current:
+        value: 5
+        page: "p.15, consolidated balance sheet, Jun 30, 2026, current liabilities: 'Other interest-bearing liabilities 5'; net debt note p.25 'Current interest-bearing liabilities 397' = this 5 + current lease liabilities 392"
+        status: VERIFIED
+        verified_kind: same_page
+      # E35.1 (2026-08-26): the pension leg. With it E35's legs reach 4,536 on
+      # this page; Lindab's own 4,497 also nets 39 of non-current interest-
+      # bearing assets (incl. pension-related assets 21) that no field holds.
+      pension_deficit:
+        value: 280
+        page: "p.15, consolidated balance sheet, Jun 30, 2026, non-current liabilities: 'Provisions for pensions and similar obligations 280'; net debt note p.25: 'Non-current interest-bearing provisions for pensions and similar obligations 280' and 'Pension-related liabilities -280'"
+        status: VERIFIED
+        verified_kind: same_page
+      lease_liabilities:
+        value: 1410
+        page: "p.25, net debt note, Jun 30, 2026: 'Lease liabilities -1,410' -- the STATED TOTAL (E26); the balance sheet p.15 presents it as non-current 1,018 + current 392 and never totals it there"
+        status: VERIFIED
+        verified_kind: same_page
+      shares_outstanding_period_end:
+        value: 77.036
+        page: "p.19, quarterly table, Apr-Jun 2026 column: 'Number of shares outstanding, thousands 77,036' -- and 77,036 at every one of the last eight quarter ends. Entered in MILLIONS (see header)"
+        status: VERIFIED
+        verified_kind: same_page
+      net_debt_ebitda:
+        value: 2.7
+        page: "p.25, 'Net debt/EBITDA, times 2.7' at Jun 30, 2026 (Lindab's own, including IFRS 16, adjusted for one-off items and restructuring costs); p.19 quarterly table 2.7"
+        status: VERIFIED
+        verified_kind: same_page
+
+annual:
+  - fiscal_year: 2025
+    period_end: 2025-12-31
+    document: "Lindab Annual Report and Sustainability Report 2025 (Nasdaq release 1433540, 2026-04-10), sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf"
+    url: "sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf"
+    figures:
+      lease_interest_paid:
+        value: 66
+        stand_in: true
+        page: "sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf pdf page 118, note 30 Leases: 'Total cash flow attributable to rental and leasing agreements recognised in the statement of financial position amount to SEK 449 m (433), of which SEK 66 m (58) relates to interest expenses recognised in cash flow from operating activities.' STAND-IN (E120, owner 2026-09-19) for the 2025-Q3 to 2026-Q2 window, whose quarters state no lease interest. Read back 2026-09-19"
+        status: VERIFIED
+        verified_kind: same_page
+      # E68.1 (2026-08-29): a caption-based ZERO. The statement of financial
+      # position presents two provision captions and neither is a
+      # decommissioning, restoration or dismantling provision; note 27
+      # splits `Other provisions` into restructuring, warranty and an
+      # undescribed `Other 76`, which is named below as a caption with room
+      # (E25). A ventilation-and-building-products manufacturer owning
+      # nothing that requires decommissioning: the absence is evidence.
+      # On the ANNUAL entry because the field is E41 annual-only and this
+      # year end sits inside the TTM window.
+      asset_retirement_obligation:
+        value: 0
+        zero_basis: caption
+        page: "Consolidated statement of financial position, p.74: provisions presented are 'Provisions for pensions and similar obligations' (note 26; 265) and 'Other provisions' (note 27; non-current 13, current 235) -- no decommissioning, restoration, dismantling or environmental provision is presented. Note 27 Other provisions, p.115: 'Restructuring reserve 167', 'Warranty provision 5', 'Other 76', 'Total 248'; 'Other provisions amounted to SEK 76 m (10)', not further described -- a caption with room (E25), named here. No such provision is named anywhere in the report (full-text search of the annual report, 2026-08-29). E68.1: the absence is evidence for this business."
+        status: VERIFIED
+        verified_kind: same_page
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81 (2026-08-30): AR 2025 statement of financial position p.74, liabilities presented: liabilities to credit institutions 2,971 / 2, lease liabilities 1,099 / 377, provisions for pensions 265, deferred tax 194, other provisions 13 / 235, other liabilities 74 / 218, overdraft facilities 19, accrued expenses and deferred income 8 / 772, 'Advance payments from customers 86', accounts payable 889, current tax 34, liabilities held for sale 54 -- no streaming, prepaid-offtake or prepaid-delivery caption; the 86 of customer advances is working capital, NOT this leg, named here. A caption zero"
+        status: VERIFIED
+        verified_kind: same_page
+      # E38 / E41: the weighted-average count for the year, and it equals
+      # the R12M average the Q2 2026 interim states for the window that ends
+      # 2026-06-30 (p.20: 77,036 thousand), because the count has stood at
+      # 77,036 thousand at every quarter end since Q3 2024. Diluted = basic:
+      # every report prints EPS "after dilution" equal to EPS before it, and
+      # the interim p.10 states the 2026 plan "had no impact on diluted
+      # earnings per share". Entered in MILLIONS (see header).
+      diluted_weighted_average_shares:
+        value: 77.036
+        source: "Lindab Full Year Report January-December 2025 (Nasdaq release 1419614, 2026-02-12), sources/LIAB.ST_2025-Q4_financial-statement-release_2026-02-12_en_a0.pdf"
+        page: "p.18, five-year table, Jan-Dec 2025 column: 'Average number of shares outstanding R12M, thousands 77,036'; Q2 2026 interim p.20, Jan-Jun 2026 column, R12M average 77,036"
+        status: VERIFIED
+        verified_kind: cross_document
+      # E36, on E25's `note` form -- see the header. The IFRS 2 charge for
+      # FY2025 is NIL by the annual report's own sentences.
+      sbc:
+        value: 0
+        zero_basis: note
+        page: "p.96, Incentive program: the long-term incentive programmes 2023-2025 are 'long-term variable cash remuneration ... presumed to be invested in shares or share related instruments in Lindab Group on market terms' (cash, not IFRS 2 equity-settled); p.112, share option programme: 'The program is thus based on a market transaction with related parties, and no part of the program should be seen as share-based remuneration'"
+        status: VERIFIED

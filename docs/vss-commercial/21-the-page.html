@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The page that arrives · The slow way, made survivable</title>
+<meta name="description" content="What the owner sees on the phone, and the rules on what it may say: a distance from a price, never a verdict; no buy-side condition without the conditions that qualify it; its own age stated twice so a stale page cannot pass as fresh.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="21-the-page" data-title="The page that arrives">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+<a class="brand" href="index.html">The slow way, made survivable</a>
+<span class="where">Chapter 21 of 23</span>
+</header>
+<div class="frame">
+<div class="chapters"><input type="checkbox" id="menu-toggle" class="menu-toggle"><label for="menu-toggle" class="menu-label">Contents</label><nav aria-label="Chapters" id="contents"><ol><li class="home"><a href="index.html"><span class="n">&nbsp;</span>Start here: the map</a></li><li class="part">Part One · The method</li><li><a href="01-the-problem.html"><span class="n">1</span><span>The problem</span><span class="short">10-min route</span></a></li><li><a href="02-value.html"><span class="n">2</span><span>What value investing is</span><span class="short">10-min route</span></a></li><li><a href="03-this-project.html"><span class="n">3</span><span>This project&#x27;s flavour</span></a></li><li><a href="04-the-screen.html"><span class="n">4</span><span>The screener: two thousand to a handful</span></a></li><li><a href="05-refusal.html"><span class="n">5</span><span>Why a name is refused, and why that is the normal outcome</span></a></li><li><a href="06-what-gets-read.html"><span class="n">6</span><span>What gets read</span></a></li><li><a href="07-reverse-dcf.html"><span class="n">7</span><span>The reverse DCF</span><span class="short">10-min route</span></a></li><li><a href="08-pre-registration.html"><span class="n">8</span><span>Pre-registration: write the belief before you see the number</span><span class="short">10-min route</span></a></li><li><a href="09-three-outcomes.html"><span class="n">9</span><span>The three outcomes</span></a></li><li><a href="10-the-funnel.html"><span class="n">10</span><span>The funnel: six statuses</span></a></li><li><a href="11-the-decision.html"><span class="n">11</span><span>The decision</span></a></li><li><a href="12-shadow-book.html"><span class="n">12</span><span>The shadow book</span></a></li><li class="part">Part Two · The machine</li><li><a href="13-why-a-machine.html"><span class="n">13</span><span>Why the method needed a machine</span><span class="short">10-min route</span></a></li><li><a href="14-the-pieces.html"><span class="n">14</span><span>How the program is put together</span></a></li><li><a href="15-the-record.html"><span class="n">15</span><span>Where the data lives and how it is kept honest</span></a></li><li><a href="16-the-rules-file.html"><span class="n">16</span><span>The rules file</span><span class="short">10-min route</span></a></li><li><a href="17-the-nightly-run.html"><span class="n">17</span><span>The nightly run</span></a></li><li><a href="18-dead-mans-switch.html"><span class="n">18</span><span>The dead man&#x27;s switch</span><span class="short">10-min route</span></a></li><li><a href="19-the-phone.html"><span class="n">19</span><span>The phone problem</span></a></li><li><a href="20-the-boundary.html"><span class="n">20</span><span>The boundary</span></a></li><li><a href="21-the-page.html" aria-current="page"><span class="n">21</span><span>The page that arrives</span></a></li><li><a href="22-limits.html"><span class="n">22</span><span>What it does not do</span></a></li><li><a href="23-close.html"><span class="n">23</span><span>The slow way, made survivable</span><span class="short">10-min route</span></a></li><li class="part">Appendix</li><li><a href="sources.html"><span class="n">&nbsp;</span>All sources</a></li></ol></nav></div>
+<main id="main">
+<div class="article">
+<p class="crumb"><a href="index.html">The map</a> · Part Two · The machine · Chapter 21 of 23</p><h1>The page that arrives</h1><p class="lede">What the owner sees on the phone, and the rules on what it may say: a distance from a price, never a verdict; no buy-side condition without the conditions that qualify it; its own age stated twice so a stale page cannot pass as fresh. <span class="time">About 8 minutes.</span></p>
+<p>The page is one file: no server logic, no framework, no script. It opens from a local file on the owner's own machine just as it does through the tunnel, and it is built to be read on a phone in the order a person would actually ask questions.<a class="noteref" href="#n1" id="r1" aria-label="note 1">1</a><span class="note" id="n1" role="note"><span class="nn">1</span>vss/overview.py; the design rules are each backed by a test, described in the project brief §4.7.</span></p>
+
+
+<h2>Three questions, in order</h2>
+<ol>
+<li><strong>Does anything need me today?</strong> One block at the top, in plain sentences. Either "nothing", or the two or three things that do: a buy line crossed, a stop breached, a held name with no stop, a dated event within seven days. The list of kinds is closed, so the block cannot grow into a feed. Beside it, always, is what was checked, because "nothing needs you" and "nobody looked" are otherwise the same silence.</li>
+<li><strong>Where is everything against its value?</strong> One card per name. A card, not a table, because a table is for comparing forty things and a card is for recognising one. The price large; the value and the buy line beside it; a year of settled closing prices drawn as a small line; and a track showing where the price sits between half the value and half again, on a scale that is never rescaled per name. A picture never replaces a figure.</li>
+<li><strong>What is coming?</strong> The unresolved dated events, nearest first. A long note is folded, never cut short, because "an ellipsis on a record is a record nobody can read."</li>
+</ol>
+
+<h2>The rules on what it may say</h2>
+
+<h3>A distance, never a verdict</h3>
+<p>The page uses green and red. It uses them to say how far a price is from a line, in five bands whose boundaries are the method's own numbers, and for nothing else. A name can be green and need nothing; the name that needs the owner can be red. Colour is never applied to a whole card, because a green card reads as approval. A name that is cheap but has failed a gate is drawn muted, with the reason stated in words, so that a cheap closed door does not read as an invitation. No colour anywhere carries meaning on its own.<a class="noteref" href="#n2" id="r2" aria-label="note 2">2</a><span class="note" id="n2" role="note"><span class="nn">2</span>vss/overview.py: 'THE DISTANCE SCALE... it is a MEASUREMENT, never a verdict. It says HOW FAR, and nothing about whether to act.' Bands at 0, 5, 25 and 75 percent.</span></p>
+
+
+<h3>No buy-side condition without the conditions that qualify it</h3>
+<p>If the page says that a price is below its buy line, the same sentence says what else must be true: that the reading is current, that the conditions from chapter 11 hold. Not a line below. The same sentence, because "the reader who stops after the first half is the reader this page is for."<a class="noteref" href="#n3" id="r3" aria-label="note 3">3</a><span class="note" id="n3" role="note"><span class="nn">3</span>vss/overview.py: 'A BUY-SIDE CONDITION NEVER STANDS ALONE. The qualifying clause goes in the SAME SENTENCE, not a line below it.'</span></p>
+
+
+<h3>It states its own age, twice</h3>
+<p>A run that fails writes nothing. The server keeps serving the last good page. The page looks identical to a fresh one, and the owner reads last Thursday's states believing they are tonight's. That failure is invisible to every alarm in chapter 18, because the run either happened or it did not, and the page's age is a different question. So the page prints the exact time it was generated, with the timezone, in the header, visible on a phone without scrolling, and again in the first sentence of the footer. The page cannot mark itself stale, because that would need a script and scripts are forbidden; it can only make its age impossible to miss, and the subtraction is the owner's.<a class="noteref" href="#n4" id="r4" aria-label="note 4">4</a><span class="note" id="n4" role="note"><span class="nn">4</span>Ruling F1 limb (c) requirement 1, and ruling F2 withdrawing requirement 2. Implemented 2026-09-13.</span></p>
+
+
+<h3>It never chooses</h3>
+<p>Where the record holds two valuations for a name and nothing says which is current, the page prints DATA MISSING and links both. It does not take the newer one. A sort order is not a decision, and the page must not answer a question the owner has not.<a class="noteref" href="#n5" id="r5" aria-label="note 5">5</a><span class="note" id="n5" role="note"><span class="nn">5</span>vss/overview.py: 'it never chooses (two run records and no entry naming one ⇒ DATA MISSING and both linked — a filename sort must not answer E39's question)'.</span></p>
+
+
+<h2>Why a page that renders no opinion is more useful</h2>
+<p>A page that said "buy NAME A" would be read for its verdict, and the verdict would be right or wrong, and the owner would learn nothing either way about whether the reading behind it was sound. A page that says "NAME A is 3 percent above its line, the line was struck on the June report, the next report is in nine days, and one figure is unverified" gives the owner every fact needed to decide and withholds the one thing that would let the owner stop thinking. It is more work to read. That is what it is for.</p>
+
+<dl class="decision"><dt>Decided</dt><dd>The page shows state, distance and age. It renders no verdict on any name, colours nothing as approval, qualifies every buy-side sentence in the same sentence, and prints its own generation time twice.</dd><dt>Why</dt><dd>The page is the thing the owner acts on. Anything it decided would be decided without the reading, and anything it hid about its own age would be believed.</dd><dt>Cost</dt><dd>It cannot warn that it is stale; the owner must read the time and subtract. It never gives the answer, so every night the owner does the thinking again.</dd></dl>
+<section class="sources"><h2>Sources for this chapter</h2><ol><li>The overview page generator and its rulings <span class="how">— read from this repository: vss/overview.py; vss/render.py; reference/FRAMEWORK-EDITS.md F1, F2</span></li></ol></section><nav class="pager" aria-label="Previous and next chapter"><a class="prev" href="20-the-boundary.html" rel="prev"><span class="lab">Previous · 20</span>The boundary</a><a class="next" href="22-limits.html" rel="next"><span class="lab">Next · 22</span>What it does not do</a><span class="keys" hidden>Keyboard: ← previous chapter, → next chapter.</span></nav><p class="foot">The slow way, made survivable. Built 2026-09-13 from the repository as it stood that day. NAME A and NAME B are fictional; no company, price or holding appears on this site.</p>
+</div>
+</main>
+</div>
+<script src="site.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+# Investment companies: exempt on BOTH legs the sector exemption reaches --
+# filter 2's leverage limb (NOT APPLICABLE) and the ranking's quality leg
+# (its own state, in the yield-only section that is never written).
+#
+# FRAMEWORK-EDITS E46, ruled by the owner 2026-08-26 after SCREENER-REVIEW-3
+# Part 7.3. THIS FILE DECIDES, NEVER THE VENDOR'S SECTOR STRING: the vendor
+# returns Financial Services for Investor and Industrials / Conglomerates for
+# Latour, and both are investment companies. The string exemptions of E3/E6
+# stand beside this list on their own ground.
+#
+# Matching is on ticker_yahoo, exactly, as the exclusion list matches. Every
+# share class is listed by its own ticker. A ticker not in any universe file
+# is inert and the filter-2 report names it.
+#
+# `unsure: true` marks the STOXX candidates the owner should look at (E46
+# lists the reason per name). Remove a row to rank the name again.
+
+investment_companies:
+  # --- Stockholm: the eleven the owner named ---------------------------------
+  - ticker: INVE-A.ST
+    company: Investor AB
+  - ticker: INVE-B.ST
+    company: Investor AB
+  - ticker: EQT.ST
+    company: EQT AB
+  - ticker: KINV-A.ST
+    company: Kinnevik AB
+  - ticker: KINV-B.ST
+    company: Kinnevik AB
+  - ticker: INDU-A.ST
+    company: AB Industrivärden
+  - ticker: INDU-C.ST
+    company: AB Industrivärden
+  - ticker: LATO-B.ST
+    company: Investment AB Latour
+    note: vendor string Industrials / Conglomerates -- ranked at place 263 on 2026-08-26 (report 7.3)
+  - ticker: LUND-B.ST
+    company: L E Lundbergföretagen AB
+    note: vendor string Industrials / Conglomerates
+  - ticker: SVOL-B.ST
+    company: Svolder AB
+  - ticker: BURE.ST
+    company: Bure Equity AB
+  - ticker: CRED-A.ST
+    company: Creades AB
+  - ticker: ORES.ST
+    company: Investment AB Öresund
+  - ticker: TRAC-B.ST
+    company: AB Traction
+  # --- STOXX 600 holding companies the section 3.3 logic would otherwise rank --
+  - ticker: EXO.AS
+    company: Exor NV
+    note: vendor string Financial Services (exempt by string today; the list decides)
+  - ticker: GBLB.BR
+    company: Groupe Bruxelles Lambert
+    note: vendor string Financial Services
+  - ticker: SOF.BR
+    company: Sofina SA
+    note: vendor string Financial Services
+  - ticker: PRX.AS
+    company: Prosus NV
+    note: vendor string Consumer Cyclical / Internet Retail -- an investment holding the string would rank
+  - ticker: AKER.OL
+    company: Aker ASA
+    note: vendor string Industrials / Conglomerates -- Latour's shape
+  - ticker: ACKB.BR
+    company: Ackermans & van Haaren NV
+    unsure: true
+    note: a diversified holding that consolidates its contracting arm; vendor string Industrials
+  - ticker: BOL.PA
+    company: Bolloré SE
+    unsure: true
+    note: a holding that still consolidates operating businesses; vendor string Communication Services
+  - ticker: HEIO.AS
+    company: Heineken Holding NV
+    unsure: true
+    note: a single-asset holding whose consolidated accounts are Heineken NV's; vendor string Consumer Defensive
+  # --- added 2026-08-27 by FRAMEWORK-EDITS E51.1 ------------------------------
+  - ticker: TUB.BR
+    company: Financière de Tubize SA
+    note: >-
+      a holding company whose SOLE asset is a stake in UCB SA; its
+      consolidated accounts are UCB's economics seen through a stake, which
+      is the shape E46 exists for (Latour, place 263). Vendor string
+      Healthcare / Biotechnology. INERT TODAY: E51 removes this name at step
+      0, before anything reads this file, and the owner declined to exempt
+      it there (E51.1). The classification is recorded now so it is not made
+      under pressure the day E51's catch is lifted.
