@@ -56,6 +56,16 @@ it keeps the record of what you decided and why.
 - **Not a website.** It's a command-line tool and a set of rules, designed
   to be worked through in Claude Code sessions. Some setup is needed.
 
+## Disclosure
+
+**I own shares in Cognizant (CTSH) and Cirrus Logic (CRUS)** as of
+2026-10-05, and the record in this repository shows when I bought and sold
+others. The fair values, buy limits (MBP) and stops in
+`config/watchlist.yaml` are my personal working notes, written for my own
+decisions. **Nothing here is a recommendation to buy, sell or hold any
+security.** If my holdings change, this line may be out of date -- the
+watchlist's `status: HELD` entries are the current record.
+
 ## Who it might be useful for
 
 A private investor who already uses Claude Code, likes the idea of value
@@ -68,6 +78,19 @@ be able to check afterwards whether it was.
 My watchlist, my growth views, the rulings that shaped the method (E1–E129)
 and the trades are in this repo as they are, including the ones that went
 against my own rules. A method you can't check is a story.
+
+## Where the data comes from
+
+No market data is shipped. The screener's universe lists in
+`config/universe/` hold only tickers, names, ISINs and listing facts:
+the S&P 400 and S&P 500 lists come from Wikipedia
+([S&P 500](https://en.wikipedia.org/wiki/List_of_S%26P_500_companies),
+[S&P 400](https://en.wikipedia.org/wiki/List_of_S%26P_400_companies),
+CC BY-SA 4.0), the STOXX Europe 600 list from the iShares fund holdings file,
+and the Nordic lists from Yahoo's equity screener; each file's source is in
+its `.meta.json`. Prices come from Yahoo Finance via yfinance and filings
+from SEC EDGAR and the Nasdaq Nordic disclosure feed -- fetched by you, at
+run time.
 
 ## Read more
 

@@ -122,7 +122,7 @@ def build_chapter(i, c):
     route = ' · on the 10-minute route' if c["short"] else ""
     lede = f'<p class="lede">{escape(c["lede"])} <span class="time">About {c["minutes"]} minutes{route}.</span></p>'
     body = crumb + f"<h1>{escape(c['title'])}</h1>" + lede + c["body"] + sources_block(c) + pager(i)
-    body += f'<p class="foot">{SITE}. Built {BUILT} from the repository as it stood that day. NAME A and NAME B are fictional; no company, price or holding appears on this site.</p>'
+    body += f'<p class="foot">{SITE}. Built {BUILT} from the repository as it stood that day. NAME A and NAME B are fictional; no company, price or holding appears on this site. Not financial advice: one private investor&#x27;s method, shared as it is.</p>'
     html = page(c["slug"], c["title"], where, body, c["lede"])
     with open(os.path.join(OUT, c["slug"] + ".html"), "w", encoding="utf-8") as f:
         f.write(html)
@@ -173,7 +173,7 @@ def build_index():
 
 <h2>Two names</h2>
 <p>Every worked example uses NAME A, and occasionally NAME B, which are fictional companies with round numbers. No real company, price, holding or address appears anywhere on this site; where a real defect is described, the name has been removed.</p>
-<p class="foot">{SITE}. Built {BUILT}. The research behind the design and the sources for every borrowed idea are in <a href="sources.html">All sources</a>.</p>
+<p class="foot">{SITE}. Built {BUILT}. The research behind the design and the sources for every borrowed idea are in <a href="sources.html">All sources</a>. Not financial advice: one private investor&#x27;s method, shared as it is.</p>
 """
     html = page("index", SITE, "Start here", body, TAGLINE)
     with open(os.path.join(OUT, "index.html"), "w", encoding="utf-8") as f:
@@ -212,7 +212,7 @@ def build_sources():
 <p>The choice of a chaptered site over a single page, the pattern used for each kind of content, the colour system and the accessibility checks are recorded with their sources and their costs in the file <code>RESEARCH-NOTES.md</code> that ships beside these pages.</p>
 </section>
 {'<nav class="pager" aria-label="Previous and next"><a class="prev" href="' + CHAPTERS[-1]["slug"] + '.html" rel="prev"><span class="lab">Previous · 23</span>' + escape(CHAPTERS[-1]["title"]) + '</a><a class="next" href="index.html" rel="next"><span class="lab">Back to</span>The map</a><span class="keys" hidden>Keyboard: ← previous chapter, → next chapter.</span></nav>'}
-<p class="foot">{SITE}. Built {BUILT}.</p>
+<p class="foot">{SITE}. Built {BUILT}. Not financial advice: one private investor&#x27;s method, shared as it is.</p>
 """
     html = page("sources", "All sources", "Appendix", body, "Every source for the site, external and from the repository.")
     with open(os.path.join(OUT, "sources.html"), "w", encoding="utf-8") as f:
