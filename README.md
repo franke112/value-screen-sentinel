@@ -14,8 +14,7 @@ night. **It never tells you to buy anything.** It measures. You decide, and
 it keeps the record of what you decided and why.
 
 > **The full story -- how the method works and why, in 23 short chapters:**
-> [`docs/the-method/`](docs/the-method/) (open `index.html`; it becomes a
-> website once GitHub Pages is switched on).
+> **[franke112.github.io/value-screen-sentinel/the-method/](https://franke112.github.io/value-screen-sentinel/the-method/)**
 
 ## Four habits it enforces
 
@@ -72,7 +71,7 @@ against my own rules. A method you can't check is a story.
 
 ## Read more
 
-- **The full story, 23 short chapters:** [`docs/the-method/`](docs/the-method/)
+- **The full story, 23 short chapters:** [the website](https://franke112.github.io/value-screen-sentinel/the-method/) (source in [`docs/the-method/`](docs/the-method/))
   covers why the method needed a machine, the reverse DCF, pre-registration
   and the shadow book.
 - **How to run it:** [`SETUP.md`](SETUP.md), then the technical manual
