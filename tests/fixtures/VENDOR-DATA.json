@@ -18,7 +18,8 @@
     "Stock Splits"
    ],
    "rows": 1521,
-   "auto_adjust": false
+   "auto_adjust": false,
+   "sha256": "a9cec3699ced074d1648de5ee4727c058aed5b6ed5ae5e0bb9a52e80cde3619e"
   },
   {
    "path": "tests/fixtures/verdict-matrix/prices/MC.PA.csv",
@@ -37,7 +38,8 @@
     "Stock Splits"
    ],
    "rows": 1550,
-   "auto_adjust": false
+   "auto_adjust": false,
+   "sha256": "bc7f404ce3947a41e7509408fc914dbf1ffb0a30e0aeff26b6ffa86013629f40"
   },
   {
    "path": "tests/fixtures/verdict-matrix/prices/MSFT.csv",
@@ -56,7 +58,8 @@
     "Stock Splits"
    ],
    "rows": 1520,
-   "auto_adjust": false
+   "auto_adjust": false,
+   "sha256": "d54fe62b93c15ad2e4a0a93b411adbe259ba31975420739a7d60b4cd4c6bdb6d"
   },
   {
    "path": "tests/fixtures/verdict-matrix/prices/NKE.csv",
@@ -75,7 +78,8 @@
     "Stock Splits"
    ],
    "rows": 1520,
-   "auto_adjust": false
+   "auto_adjust": false,
+   "sha256": "71ca8e5ce4e90988ade5ad152fa9f6bdbfc423603ca1beca5c366791c37d459b"
   },
   {
    "path": "tests/fixtures/verdict-matrix/prices/SAP.DE.csv",
@@ -94,7 +98,8 @@
     "Stock Splits"
    ],
    "rows": 1541,
-   "auto_adjust": false
+   "auto_adjust": false,
+   "sha256": "57a3332ccba60f84eddb939c6f4ca4fbf20401d4c57a626896c5acf2dad834d7"
   },
   {
    "path": "tests/fixtures/verdict-matrix/prices/UNA.AS.csv",
@@ -113,7 +118,8 @@
     "Stock Splits"
    ],
    "rows": 1461,
-   "auto_adjust": false
+   "auto_adjust": false,
+   "sha256": "ecdb038ae30188b04343e7bcc6fcd4ab9368d4e704e46596969f11242049ef96"
   },
   {
    "path": "tests/fixtures/series-sanity/ELUX-A.ST.csv",
@@ -126,7 +132,8 @@
     "Volume"
    ],
    "rows": 249,
-   "auto_adjust": false
+   "auto_adjust": false,
+   "sha256": "55246694225345a7707a24ef87e12265640432d9061b2ef6b05f43becfa654f1"
   },
   {
    "path": "tests/fixtures/series-sanity/MNST.csv",
@@ -139,7 +146,8 @@
     "Volume"
    ],
    "rows": 250,
-   "auto_adjust": false
+   "auto_adjust": false,
+   "sha256": "8f4bd183aaf8f0c77438694c3ec61481a95a12cf18207cd3ff3b478f047451ae"
   },
   {
    "path": "tests/fixtures/series-sanity/MRNA.csv",
@@ -152,7 +160,8 @@
     "Volume"
    ],
    "rows": 251,
-   "auto_adjust": false
+   "auto_adjust": false,
+   "sha256": "4fad739daf2674808657f13e3556a8dbdf4fc60eec49abff7434ccd3653539d1"
   }
  ],
  "not_refetchable": {

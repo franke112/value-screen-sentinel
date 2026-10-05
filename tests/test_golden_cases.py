@@ -35,7 +35,7 @@ from vss import metrics as MT
 from vss import rules as RU
 from vss import runrecord as R
 from vss import valuation as V
-from tests._vendor_data import need
+from tests._vendor_data import need, need_exact
 
 AS_OF = date(2026, 8, 26)
 RUN_TS = datetime(2026, 8, 26, 22, 30, tzinfo=ZoneInfo("Europe/Stockholm"))
@@ -603,7 +603,7 @@ G14 = Case(name="phantom-halving", source="tests/fixtures/series-sanity/MNST.csv
 def test_G14_a_scale_switch_is_a_feed_fault_and_not_a_breach():
     from vss.series_sanity import KIND_SCALE_SWITCH, check
     import pandas as pd
-    need("tests/fixtures/series-sanity/MNST.csv")
+    need_exact("tests/fixtures/series-sanity/MNST.csv")
     frame = pd.read_csv("tests/fixtures/series-sanity/MNST.csv",
                         index_col=0, parse_dates=True)
     finding = check(frame, date(2026, 8, 21))

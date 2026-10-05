@@ -29,7 +29,7 @@ from vss.series_sanity import (
     check,
     find_jumps,
 )
-from tests._vendor_data import need
+from tests._vendor_data import need, need_exact
 
 FIXTURES = Path(__file__).resolve().parent / "fixtures" / "series-sanity"
 AS_OF = date(2026, 8, 21)
@@ -62,6 +62,7 @@ def test_the_mnst_series_that_fooled_the_screener_is_refused():
     one scale against a last close of 47.79 on the other -- a 52.2% drawdown
     where the true figure is about -4%.
     """
+    need_exact(FIXTURES / "MNST.csv")
     frame = stored("MNST")
     # The fabricated figure, struck the way the screener struck it -- off
     # the primitives, which is where the 52.2% came from.

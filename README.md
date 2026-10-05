@@ -1,4 +1,92 @@
-# vss -- value-screen sentinel
+# vss — value-screen sentinel
+
+**A value-investing method that one person can actually keep to, run together
+with [Claude Code](https://claude.com/claude-code).**
+
+About two thousand listed companies you could buy a piece of. One person, a
+few evenings a week. And no reliable way to know whether you are reading a
+company carefully or just talking yourself into it. vss is the tool I built
+to handle that last part.
+
+It screens the market, reads the companies' own reports, works out what
+growth today's price is assuming, and watches the names you care about every
+night. **It never tells you to buy anything.** It measures. You decide, and
+it keeps the record of what you decided and why.
+
+## Four habits it enforces
+
+1. **Figures come only from the company's own filings.** Every number
+   carries the filing, the period and the line it was read from. If there's
+   no source, the number doesn't go in.
+2. **You write down your view before you see the market's.** Your growth
+   expectation (base, bear, bull, with reasons) is registered and
+   timestamped *before* the tool solves for what the price implies. A view
+   written after seeing the price doesn't count.
+3. **A failed test is final.** A company that fails on something other than
+   price does not come back because the price fell. Only a new fact brings
+   it back: a new filing, a profit warning, a changed forecast.
+4. **Every refusal is tracked.** Most companies get a "no". Each one is
+   recorded with the price and the reason, then measured against the index
+   at 1, 3, 6 and 12 months. So you find out whether your no's were right.
+
+## What it looks like in practice
+
+- **Cirrus Logic** passed every mechanical check. I dropped it anyway,
+  because 91% of its sales go to Apple, and whether Apple keeps buying is a
+  question I can't judge better than the market. The reasoning is on file in
+  my own words, and the shadow book keeps measuring what that refusal cost
+  or saved.
+- **Copart** fell 57% from its high. I wrote down my growth view (6% base),
+  and then the tool found that the price was already assuming 7%. The price
+  is above my own fair value, so I passed and set an alert. The tool didn't
+  stop me; my own numbers did.
+- **Accenture's results** came in overnight. The watcher saw the SEC filing,
+  read the press release twice, kept only the figures both readings agreed
+  on, dropped one the model couldn't quote a source for, and checked my
+  warning rules. No session had to be opened.
+
+## What it is not
+
+- **Not financial advice**, and not a recommendation to buy or sell
+  anything. This is one private investor's method, shared as it is.
+- **Not a trading bot.** It places no orders and has no view on next week.
+- **Not a website.** It's a command-line tool and a set of rules, designed
+  to be worked through in Claude Code sessions. Some setup is needed.
+
+## Who it might be useful for
+
+A private investor who already uses Claude Code, likes the idea of value
+investing, and wants **rules and a record** instead of gut feeling: someone
+who has accepted that most of the time the right answer is no, and wants to
+be able to check afterwards whether it was.
+
+## The record is public too
+
+My watchlist, my growth views, the rulings that shaped the method (E1–E129)
+and the trades are in this repo as they are, including the ones that went
+against my own rules. A method you can't check is a story.
+
+## Read more
+
+- **The full story, 23 short chapters:** [`docs/vss-commercial/`](docs/vss-commercial/)
+  covers why the method needed a machine, the reverse DCF, pre-registration
+  and the shadow book.
+- **How to run it:** [`SETUP.md`](SETUP.md), then the technical manual
+  below (what you need: Python, Claude Code, an SEC contact
+  e-mail; optionally an OpenRouter key for the report reader and an ntfy
+  topic for phone alerts).
+- **The rules:** [`reference/FRAMEWORK.md`](reference/FRAMEWORK.md) and every
+  ruling since, with its date and reason, in
+  [`reference/FRAMEWORK-EDITS.md`](reference/FRAMEWORK-EDITS.md).
+
+---
+
+*Built by Veljko Radan, with Claude. MIT licence — use it, change it, share it; just keep the credit. See [`LICENSE`](LICENSE).*
+
+---
+
+# The technical manual
+
 
 A small CLI that watches a hand-maintained value-investing watchlist. Every
 run fetches daily OHLCV, computes a fixed set of metrics, applies a staleness
