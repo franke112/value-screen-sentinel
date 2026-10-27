@@ -1,0 +1,273 @@
+schema: vss/review v1
+ticker: ACAD.ST
+date: '2026-10-27'
+status_at_start: PIPELINE
+prepare_report: reports/prepare/ACAD.ST-2026-10-27.json
+prepare_waived: null
+steps:
+- step: gate-1
+  outcome: next
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). NOT PASSED,
+    and it does not bar the name. ACAD entered on value under E139 at its 52-week high (dd_at_entry 0.0%,
+    2026-10-19); today''s drawdown 2.1%. E139 left open how a value entry''s tier treats Gate 1: it scores
+    0 in section 4.4 and the name may still carry a tier -- the owner''s own words at entry were "vi skiter
+    i gate 1 o vi skiter i ras vi vill ha värdebolag".'
+  answered_at: '2026-10-27T21:22:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened:
+  - reports/prepare/ACAD.ST-2026-10-27.md
+  rulings_cited:
+  - E139
+  - E12
+  verification: []
+- step: gate-2
+  outcome: next
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). NOT PASSED (scores
+    0): there is no decline to classify. Not class D either: the filings show no damage to the model --
+    every quarter of 2025/26 grew (organic incl. bolt-ons 6.2%, 4.5%, 5.7%, 6.0%). THE POLITICAL RISK
+    IS NAMED HERE AND CARRIED, NOT SCORED: the election of 2026-09-13 went 176-173 to the opposition and
+    Kristersson resigned; the Tidö proposal of May 2026 bars value transfers from NEW schools, schools
+    with NEW owners and sanctioned schools from 2027-07-01 (SVT, Skolledaren). It does not touch the existing
+    schools, and seven of the year''s eight acquisitions were outside Sweden. A new government''s line
+    on profits in tax-funded schools is not known on the record; it is the event that would move this
+    to D.'
+  answered_at: '2026-10-27T21:22:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened:
+  - sources/ACAD.ST_2026-Q1_interim-report-q1-and-q3_2025-11-03_en_a0.pdf
+  - sources/ACAD.ST_2026-Q2_half-year-financial-report_2026-02-02_en_a0.pdf
+  - sources/ACAD.ST_2026-Q3_interim-report-q1-and-q3_2026-05-11_en_a0.pdf
+  - sources/ACAD.ST_2026-Q4_financial-statement-release_2026-08-31_en_a0.pdf
+  - reports/prepare/ACAD.ST-2026-10-27.md
+  rulings_cited:
+  - E139
+  - B1
+  verification: []
+- step: gate-3
+  outcome: next
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). PASS on its
+    evaluable limbs. Net debt / EBITDA 0.95x (E119 derived, rent-bearing, against 2.5x). FCF positive
+    in 6 of 8 quarters on the rent-bearing flow (E117): operating cash flow less lease principal and lease
+    interest -- Q1 2024/25 -167, Q2 642, Q3 189, Q4 553, Q1 2025/26 -62, Q2 754, Q3 288, Q4 393 (SEK m,
+    before capex of about 85-100 a quarter, which turns no positive quarter negative); the two negatives
+    are the summer quarters, when no school fees fall. Interest coverage DATA MISSING (no right-of-use
+    depreciation on the basis, E117 clause 5). Auditor Öhrlings PricewaterhouseCoopers; no going-concern
+    language and no restatement in the 2025/26 annual report.'
+  answered_at: '2026-10-27T21:22:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened:
+  - sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf
+  - sources/ACAD.ST_2026-Q1_interim-report-q1-and-q3_2025-11-03_en_a0.pdf
+  - sources/ACAD.ST_2026-Q2_half-year-financial-report_2026-02-02_en_a0.pdf
+  - sources/ACAD.ST_2026-Q3_interim-report-q1-and-q3_2026-05-11_en_a0.pdf
+  - sources/ACAD.ST_2026-Q4_financial-statement-release_2026-08-31_en_a0.pdf
+  - reports/prepare/ACAD.ST-2026-10-27.md
+  rulings_cited:
+  - E117
+  - E119
+  - E99
+  verification: []
+- step: gate-4
+  outcome: next
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). DATA MISSING
+    for every name (E99); out of the count.'
+  answered_at: '2026-10-27T21:22:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited:
+  - E99
+  verification: []
+- step: gate-5
+  outcome: next
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). PASS: the Q1
+    2026/27 interim report (July-September 2026) is dated 2026-11-02 in the issuer''s financial calendar,
+    six days out.'
+  answered_at: '2026-10-27T21:22:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: hard-kills
+  outcome: next
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). NO HARD KILL
+    TRIPS. 4.2.1: net sales grew in all four quarters -- 4,101 vs 3,842 (+6.7%), 5,231 vs 5,025 (+4.1%),
+    5,371 vs 5,037 (+6.6%), 5,658 vs 5,118 (+10.6%). 4.2.2: EBIT rose every quarter -- 292 vs 272, 450
+    vs 402, 539 vs 499, 666 vs 578; FY EBIT margin 9.6% vs 9.2%. 4.2.3: the 2025-11-03 revision kept 5-7%
+    growth and moved the margin target from adjusted EBIT to adjusted EBITA 7-8% "to better reflect the
+    company''s focus on acquisition-driven growth" -- the measure loosened (EBITA leaves out the amortisation
+    of acquired intangibles) but no number was cut; noted, not a kill. 4.2.4 DATA MISSING (no consensus
+    on file). 4.2.5 0.95x against 3.5x. 4.2.6: only the Deputy CEO left (2026-01-31); CEO Marcus Strömberg
+    and CFO Petter Sylvan in post. 4.2.7: receivables 371 vs 330 (+12.4%) on sales +7.0% is 1.8x on the YEAR -- above the 1.5x line on one annual point; the kill needs 2+ quarters and the quarterly receivables are not on file, so DATA MISSING, watched at the 2026-11-02 report.'
+  answered_at: '2026-10-27T21:22:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened:
+  - sources/ACAD.ST_2026-Q1_interim-report-q1-and-q3_2025-11-03_en_a0.pdf
+  - sources/ACAD.ST_2026-Q2_half-year-financial-report_2026-02-02_en_a0.pdf
+  - sources/ACAD.ST_2026-Q3_interim-report-q1-and-q3_2026-05-11_en_a0.pdf
+  - sources/ACAD.ST_2026-Q4_financial-statement-release_2026-08-31_en_a0.pdf
+  - sources/ACAD.ST_2026-Q1_investor-news_2025-11-03_en_a0.pdf
+  - sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf
+  rulings_cited:
+  - E45
+  - B9
+  - E119
+  verification: []
+- step: conviction
+  outcome: next
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). SCORE 4 (medium
+    band, 4-5). Gates passed 2 (Gate 3, Gate 5; Gate 1 and Gate 2 score 0, Gate 4 out). Green +2: FCF
+    conversion 109% (rent-bearing FY2025/26 free cash flow 1,045 against profit for the year 955); margin
+    expansion through the political controversy (adjusted EBIT 1,487 on 20,360 = 7.3% against 1,281 on
+    19,021 = 6.7%). Not taken: guidance through a drawdown (there was none), buyback at depressed prices
+    (the price stood at its high), insider cluster (no Swedish insider register on file -- DATA MISSING),
+    market share (no market series). Soft 0: no regulatory PROBE is open; the profit-limitation proposal
+    is legislation, carried at Gate 2.'
+  answered_at: '2026-10-27T21:22:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened:
+  - sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf
+  - reports/prepare/ACAD.ST-2026-10-27.md
+  rulings_cited:
+  - E99
+  - E76
+  verification: []
+- step: basis
+  outcome: next
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). annual FY2026
+    (July 2025 - June 2026), one twelve-month window; the prepare report lists 0 UNVERIFIED figures the
+    basis reads.'
+  answered_at: '2026-10-27T21:22:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened:
+  - reports/prepare/ACAD.ST-2026-10-27.md
+  rulings_cited:
+  - E19
+  - E21
+  verification: []
+- step: flow
+  outcome: next
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). FCF0 is E140''s
+    three-year mean, rent-bearing (E117: lease principal and interest deducted): FY2024 813, FY2025 936,
+    FY2026 1,045 = 931; acquisitions are valued as the deal programme at the acquirer''s ROIIC (E142).'
+  answered_at: '2026-10-27T21:22:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened:
+  - sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf
+  rulings_cited:
+  - E140
+  - E117
+  - E142
+  verification: []
+- step: net-debt
+  outcome: next
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). Net debt 1,710
+    on the balance sheet of 2026-06-30, IFRS 16 lease liabilities out (E117(3)); the post-basis deals
+    Kindernet, Florencius and Kids&Co enter the bridge at the high end, 640 (E140(3)); additional purchase
+    considerations as printed.'
+  answered_at: '2026-10-27T21:22:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened:
+  - sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf
+  rulings_cited:
+  - E117
+  - E140
+  verification: []
+- step: divisor
+  outcome: next
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). the weighted-average
+    DILUTED count for FY2026, the same window as the flows (E38).'
+  answered_at: '2026-10-27T21:22:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened:
+  - reports/prepare/ACAD.ST-2026-10-27.md
+  rulings_cited:
+  - E38
+  verification: []
+- step: growth-view
+  outcome: next
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). The registered
+    view of 2026-10-20 (4.5% / 3.5% / 7%) stands as the record; the strike reads the E144 growth derived
+    from the history file, which the rules put first.'
+  answered_at: '2026-10-27T21:22:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited:
+  - E28
+  - E144
+  verification: []
+- step: strike
+  outcome: next
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). Struck 2026-10-27
+    (reference/ACAD.ST-STRIKE-2026-10-27-goodwill.md): base 158.74, bear 110.63, bull 181.95; g* 2.53%;
+    the base case returns about 11.3% a year at 112.40. E145: Q1 PASS (tangible ROIC 48.1% with goodwill
+    out), Q2 PASS, Q3 PASS (2.4x), Q4 FAIL (ROIIC 7.2% against 9.5%), Q5 PASS.'
+  answered_at: '2026-10-27T21:22:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened:
+  - reference/ACAD.ST-STRIKE-2026-10-27-goodwill.md
+  rulings_cited:
+  - E142
+  - E144
+  - E145
+  verification: []
+- step: tier-mbp
+  outcome: verdict
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). TIER 3. Score
+    4 is the medium band -> Tier 2; E145 Q4 (the acquisitions earn 7.2%, below the 9.5% hurdle, and the
+    company has just made acquisition-driven growth its stated strategy) lowers it one step -> Tier 3;
+    E77''s regime shift has nowhere further to go (Tier 3 is the floor, C2). MBP = 158.74 x 0.65 = 103.18
+    SEK (E90).'
+  answered_at: '2026-10-27T21:22:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited:
+  - E90
+  - E77
+  - E145
+  - C2
+  verification: []
+- step: verdict
+  outcome: watch-priced
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). WATCH-PRICED,
+    tier 3, MBP 103.18 SEK against 112.40 (the price is 8.9% above the line). Warren''s reading: a steady,
+    cash-generative school operator, priced fairly rather than cheaply once the acquisition habit and
+    the political risk are counted; buy only with the cushion. CONDITIONS: the price at or below 103.18
+    on a settled close; no change in Swedish law or a new government''s programme that limits profits
+    in EXISTING schools (that is a Gate 2 class D event and gates the name at once); the Q1 2026/27 report
+    of 2026-11-02 read before any order. STOP: set at entry under FRAMEWORK §6.4, not before.'
+  answered_at: '2026-10-27T21:22:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited:
+  - E27
+  - E90
+  - E141
+  verification: []
+growth_view:
+  base: 0.045
+  bear: 0.035
+  bull: 0.07
+  registered_at: '2026-10-20T00:00:00+02:00'
+  reasons: 'standing view of 2026-10-20, reference/growth-views/ACAD.ST.md (E141 decision: it stands;
+    the strike reads the E144 growth derived from the history file)'
+note: '2026-10-27 (E141 decision, full walk reference/reviews/ACAD.ST/2026-10-27.yaml): PIPELINE -> WATCH-PRICED,
+  tier 3, MBP 103.18 SEK (158.74 x 0.65) against 112.40. Score 4: Gate 3 and Gate 5 passed (Gate 1 and
+  2 score 0 on a value entry, E139), green flags FCF conversion 109% and margin expansion. No hard kill:
+  every quarter of 2025/26 grew 4-11% with EBIT up. Tier 2 lowered to 3 by E145 Q4 (acquisitions earn
+  7.2% against 9.5%). Carried risk: the 2026-09-13 election went to the opposition; a law limiting profits
+  in EXISTING schools gates the name at once. Read the Q1 2026/27 report (2026-11-02) before any order.'

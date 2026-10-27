@@ -541,8 +541,14 @@ def _decides(text: str) -> str:
     if len(body) <= CALENDAR_LEAD:
         return code_spans(body)
     cut = body.find(". ")
-    lead, rest = ((body[:cut + 1], body[cut + 2:]) if 0 < cut <= CALENDAR_LEAD
-                  else (body[:CALENDAR_LEAD], body[CALENDAR_LEAD:]))
+    if 0 < cut <= CALENDAR_LEAD:
+        lead, rest = body[:cut + 1], body[cut + 2:]
+    else:
+        # no sentence end in reach: fold at the last space before the
+        # limit, never inside a word
+        space = body.rfind(" ", 0, CALENDAR_LEAD + 1)
+        at = space if space > 0 else CALENDAR_LEAD
+        lead, rest = body[:at], body[at:].lstrip()
     return (f"{code_spans(lead)}"
             f'<details class="inline"><summary>the rest of the note'
             f"</summary>{code_spans(rest)}</details>")

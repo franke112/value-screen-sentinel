@@ -1407,6 +1407,15 @@ def test_a_long_note_is_folded_and_never_truncated():
     assert "<details" in out
 
 
+def test_a_note_with_no_early_sentence_end_folds_between_words():
+    """ACAD.ST's note folded inside "government" at character 160."""
+    body = "word " * 40 + "government on profits"
+    out = RENDER._decides(body)
+    assert "<details" in out and "gove<" not in out
+    text = re.sub(r"<[^>]+>", " ", out).replace("the rest of the note", " ")
+    assert "government on profits" in re.sub(r"\s+", " ", text)
+
+
 def test_a_short_note_is_not_folded():
     assert "<details" not in RENDER._decides("Q3 2026 results")
 

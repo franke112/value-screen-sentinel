@@ -2654,28 +2654,19 @@ tickers:
       registered: 2026-10-20
     name: AcadeMedia AB (publ)
     currency: SEK
-    status: PIPELINE     # RESTORED 2026-10-27 (E141 decision): the E145 drop was an ERROR -- Q1 ran on all capital employed because the history had no goodwill row; with goodwill taken out Q1 PASSES (median 48.1%), reference/ACAD.ST-STRIKE-2026-10-27-goodwill.md. Only Q4 fails (ROIIC 7.2%), which lowers the tier one step. EARLIER: DROPPED -- E145 Q1, reference/ACAD.ST-STRIKE-2026-10-27-e142.md. Was PIPELINE
+    status: WATCH-PRICED # E141 decision 2026-10-27 after the full walk reference/reviews/ACAD.ST/2026-10-27.yaml: score 4, tier 3, MBP 103.18 (158.74 x 0.65) against 112.40. EARLIER: PIPELINE -- RESTORED 2026-10-27 (E141 decision): the E145 drop was an ERROR -- Q1 ran on all capital employed because the history had no goodwill row; with goodwill taken out Q1 PASSES (median 48.1%), reference/ACAD.ST-STRIKE-2026-10-27-goodwill.md. Only Q4 fails (ROIIC 7.2%), which lowers the tier one step. EARLIER: DROPPED -- E145 Q1, reference/ACAD.ST-STRIKE-2026-10-27-e142.md. Was PIPELINE
     dd_at_entry: 0.0
     peak_date: 2026-10-19
     fv_base: 158.74     # re-struck after the method check 2026-10-27, reference/ACAD.ST-STRIKE-2026-10-27-check.md (E141). EARLIER: 173.63 -- E142-E145 re-strike 2026-10-27, reference/ACAD.ST-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 25.91 -- E140/E140.1 re-strike 2026-10-27, reference/ACAD.ST-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 152.32 -- vss strike 2026-10-24 on the registered view 4.5/3.5/7 (bear 140.19, bull 187.01), basis annual FY2026, close 110.40, g* 0.66%
+    tier: 3     # E141 decision 2026-10-27: section 4.4 score 4 (medium -> Tier 2), lowered one step by E145 Q4 (ROIIC 7.2% against r 9.5%); E77's regime shift stops at the floor (C2)
+    catalyst_date: 2026-11-02          # Q1 2026/27 interim report (July-September 2026), the issuer's financial calendar.
+    catalyst_resolved:                 # set the day the Q1 2026/27 report is read.
+    catalyst_event: Q1 2026/27 interim -- organic growth and EBIT against Q1 2025/26 (EBIT 292 against 272), receivables growth against sales growth, and any word from the new government on profits in existing schools.
     run_record: reference/run-records/ACAD.ST-2026-10-27-goodwill.json     # Q1 re-read with goodwill out; value unchanged. EARLIER: reference/run-records/ACAD.ST-2026-10-27-check.json -- the method-check record. EARLIER: reference/run-records/ACAD.ST-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/ACAD.ST-2026-10-27.json
-    notes: >-
-      STRUCK 2026-10-24 (owner: "ja kör acad") once the AR 2025/26 gave the
-      five legs: fv_base 152.32 against 110.40. FCF0 982 excludes the
-      acquisition spend (1,036 in FY2026, 333 the year before) -- if the
-      4.5% base needs it, the value is overstated. Additional purchase
-      considerations (reclassified to other liabilities in the AR) are not
-      a net-debt leg under any ruling and are not in it.
-      Off-band value intake 2026-10-20 (a one-off cheapness scan of names
-      NOT in the 15-50% band, vendor FCF/EV 11.4%). Store
-      config/manual/ACAD.ST.yaml from the year-end report 2025/26; five
-      legs (pension, ARO, prepaid delivery, diluted average, sbc) wait for
-      the Annual Report 2025/26 due 2026-10-23, so NO fv_base yet. A
-      PROVISIONAL scratch strike with prior-year stand-ins gave base 152 /
-      bear 140 / bull 187 against 114.80, g* 1.1% -- not a struck value and
-      not entered. Political risk: Swedish profit-limitation proposals
-      (SOU 2025:37), the L-SD agreement of March 2026, and the election
-      of 2026-09-13. No tier and no mbp. This entry is review work, not a buy.
+    notes: |2-
+      STRUCK 2026-10-24 (owner: "ja kör acad") once the AR 2025/26 gave the five legs: fv_base 152.32 against 110.40. FCF0 982 excludes the acquisition spend (1,036 in FY2026, 333 the year before) -- if the 4.5% base needs it, the value is overstated. Additional purchase considerations (reclassified to other liabilities in the AR) are not a net-debt leg under any ruling and are not in it. Off-band value intake 2026-10-20 (a one-off cheapness scan of names NOT in the 15-50% band, vendor FCF/EV 11.4%). Store config/manual/ACAD.ST.yaml from the year-end report 2025/26; five legs (pension, ARO, prepaid delivery, diluted average, sbc) wait for the Annual Report 2025/26 due 2026-10-23, so NO fv_base yet. A PROVISIONAL scratch strike with prior-year stand-ins gave base 152 / bear 140 / bull 187 against 114.80, g* 1.1% -- not a struck value and not entered. Political risk: Swedish profit-limitation proposals (SOU 2025:37), the L-SD agreement of March 2026, and the election of 2026-09-13. No tier and no mbp. This entry is review work, not a buy.
+
+      2026-10-27 (E141 decision, full walk reference/reviews/ACAD.ST/2026-10-27.yaml): PIPELINE -> WATCH-PRICED, tier 3, MBP 103.18 SEK (158.74 x 0.65) against 112.40. Score 4: Gate 3 and Gate 5 passed (Gate 1 and 2 score 0 on a value entry, E139), green flags FCF conversion 109% and margin expansion. No hard kill: every quarter of 2025/26 grew 4-11% with EBIT up. Tier 2 lowered to 3 by E145 Q4 (acquisitions earn 7.2% against 9.5%). Carried risk: the 2026-09-13 election went to the opposition; a law limiting profits in EXISTING schools gates the name at once. Read the Q1 2026/27 report (2026-11-02) before any order.
   - ticker: ALV
     # PROMOTED TO PIPELINE by the owner 2026-10-20 ON VALUE (E139), from the
     # one-off not-fallen value screen of 2026-10-17. The owner asked the
