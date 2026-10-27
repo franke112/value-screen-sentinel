@@ -836,6 +836,9 @@ class E142Params:
     level_bear: float = 1.0
     level_how: str = ""
     growth_how: str = ""
+    #: E146: set on every record struck after the method check; a record
+    #: struck before it replays with the deficit gross, as it was struck.
+    pension_after_tax: bool = False
 
     def level(self, case: str) -> float:
         return {"bull": 1.0, "base": self.level_base,
@@ -1271,10 +1274,19 @@ class RunRecord:
         price = self.e140.deal_price(deal_end) * money
         credit = price * roiic_fraction(roiic, r)
         shift = (self.e140.deal_price("high") - self.e140.deal_price(deal_end)) * money
+        # E146: the bridge carries the pension deficit GROSS, as the store
+        # states it; the contributions that close it are deductible, so
+        # the deficit x the statutory rate is credited back here.
+        deficit = self.bridge.items.get("pensions")
+        pension_tax = (float(deficit) * money * float(self.e140.tax_rate)
+                       if p.pension_after_tax
+                       and isinstance(deficit, (int, float)) and deficit > 0
+                       and self.e140.tax_rate is not None else 0.0)
         return {"case": case, "growth": g, "rate": r, "flow": flow,
                 "level": level, "fcf0": fcf0, "roiic": roiic,
                 "programme": programme, "deal_price": price,
-                "deal_credit": credit, "deal_end_shift": shift}
+                "deal_credit": credit, "deal_end_shift": shift,
+                "pension_tax": pension_tax}
 
     def _strike_unchecked(self, growth: float | None = None, *,
                           fcf0_adjustment: float = 0.0,
@@ -1314,7 +1326,7 @@ class RunRecord:
                 growth=g,
                 net_cash=(legs.net_cash + net_cash_adjustment * money
                           + parts["programme"] + parts["deal_credit"]
-                          + parts["deal_end_shift"]),
+                          + parts["deal_end_shift"] + parts["pension_tax"]),
                 shares=shares, rate=r,
                 terminal=self.conventions.terminal_growth,
                 years=self.conventions.horizon_years)

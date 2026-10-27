@@ -140,7 +140,7 @@ def bear_case_value(record: "RunRecord | None") -> float | None:
     """
     if record is None or record.growth.bear is None:
         return None
-    return record.strike(record.growth.bear)
+    return record.strike(record.growth.bear, case="bear")
 
 
 
@@ -225,7 +225,7 @@ def entry_levels(entry: WatchlistEntry) -> dict[str, float]:
     if entry.fv_bull is not None:
         levels["FV_bull"] = float(entry.fv_bull)
     elif record.growth.bull is not None:
-        bull = to_quote_units(record.strike(record.growth.bull),
+        bull = to_quote_units(record.strike(record.growth.bull, case="bull"),
                               record.currency, entry.currency)
         if bull is not None:
             levels["FV_bull"] = float(bull)
@@ -277,7 +277,7 @@ def build_row(entry: WatchlistEntry, fetched: FetchResult, as_of: date,
     fv_bear = bear_case_value(record)
     # The bull case, on the same record and the same pre-registered view.
     # A HELD name without one has no C4 / E42 exit test (owner, 2026-09-20).
-    fv_bull = (record.strike(record.growth.bull)
+    fv_bull = (record.strike(record.growth.bull, case="bull")
                if record is not None and record.growth.bull is not None else None)
     # THE GBX/GBP SEAM, CLOSED (G17, 2026-09-19): the record values the
     # share in its accounts' currency (AUTO.L: GBP) and the close arrives in

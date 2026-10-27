@@ -1029,7 +1029,7 @@ def test_phase_5_wrote_its_printout_and_NOT_the_watchlist():
     assert entries["SAP.DE"].fv_base == 140.37 and entries["SAP.DE"].stop_price is None   # E87-nulled 2026-08-30, re-struck end to end; E91's divisor moved it to 140.37 the same evening
     # E117 + E120, 2026-09-19; 133.48 before. The stop was CLEARED with the
     # fill of 2026-09-21 -- it guarded a position that no longer exists.
-    assert entries["LIAB.ST"].fv_base == 65.93 and entries["LIAB.ST"].stop_price is None
+    assert entries["LIAB.ST"].fv_base == 66.68 and entries["LIAB.ST"].stop_price is None
     # SOLD 2026-08-26 (E42); WATCH-PRICED -> WATCH-GATED 2026-09-20 (owner):
     # a bound, pre-E117 value on a superseded basis was carrying a live
     # buy line, and the tier predates the record it rests on.
@@ -1042,7 +1042,7 @@ def test_phase_5_wrote_its_printout_and_NOT_the_watchlist():
     # CRUS is owned too but stays DROPPED -- no strike, so no level.
     # CENTA HELD since 2026-10-20 (aa94b93 added to it 2026-10-26)
     assert [e.ticker for e in entries.values() if e.status == "HELD"] == ["CTSH", "CENTA"]
-    assert entries["CTSH"].stop_price == 53.45 and entries["CTSH"].fv_bull == 109.81   # the E142 record's bull, 2026-10-27 (E140: 72.41, E117: 104.66)
+    assert entries["CTSH"].stop_price == 53.45 and entries["CTSH"].fv_bull == 109.95   # the method-check record's bull, 2026-10-27 (E142: 109.81) (E140: 72.41, E117: 104.66)
     assert entries["CRUS"].status == "DROPPED"
 
 
@@ -1056,7 +1056,7 @@ def test_item_5_the_tiers_are_re_entered_as_inputs_and_produce_no_mbp():
     assert entries["SAP.DE"].tier == 1 and entries["LIAB.ST"].tier == 2   # SAP.DE tier re-entered 2026-08-30 with the re-strike (E87-nulled earlier that day)
     # both records are linked by the owner now (E28 wired); the tiers
     # were inputs BEFORE that, and a tier alone still produces no mbp
-    assert entries["SAP.DE"].fv_base == 140.37 and entries["LIAB.ST"].fv_base == 65.93   # LIAB.ST: E142 2026-10-27 (68.97 E117+E120 before, 133.48 before that)
+    assert entries["SAP.DE"].fv_base == 140.37 and entries["LIAB.ST"].fv_base == 66.68   # LIAB.ST: E142 2026-10-27 (68.97 E117+E120 before, 133.48 before that)
     assert RU.compute_mbp(None, 1) is None and RU.compute_mbp(None, 2) is None
     text = Path("config/watchlist.yaml").read_text(encoding="utf-8")
     assert text.count("carried from pre-REVIEW-4 scoring; 4.4 untouched by the review") == 2
@@ -1177,11 +1177,11 @@ def test_build_2_the_printout_exists_and_the_watchlist_is_STILL_not_written():
     # sale, LIAB.ST's stop 112 untouched.
     assert entries["SAP.DE"].fv_base == 140.37   # E87-nulled 2026-08-30, re-struck from the store, then E91 moved the divisor the same evening
     assert entries["SAP.DE"].run_record == "reference/run-records/SAP.DE-2026-08-30-e91.json"   # the -08-30 (E88 divisor) and -08-26 records stay on disk as history
-    assert entries["LIAB.ST"].fv_base == 65.93   # E142 2026-10-27 (68.97 E117+E120, 133.48 before)
+    assert entries["LIAB.ST"].fv_base == 66.68   # E142 2026-10-27 (68.97 E117+E120, 133.48 before)
     # relinked 2026-08-30 to the re-strike under E65-E68 and E70, which
     # replays to the same 133.48; relinked again 2026-09-19 to the E117
     # record (E120's stand-in), 68.97; both earlier records stay on disk
-    assert entries["LIAB.ST"].run_record == "reference/run-records/LIAB.ST-2026-10-27-e142.json"
+    assert entries["LIAB.ST"].run_record == "reference/run-records/LIAB.ST-2026-10-27-check.json"
     # SAP.DE's stop was nulled when the position was sold (2026-08-26);
     # LIAB.ST's 112 stood until ITS fill on 2026-09-21 and was cleared with
     # it. Neither name guards a position now.

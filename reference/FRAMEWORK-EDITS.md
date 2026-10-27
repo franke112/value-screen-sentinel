@@ -12900,6 +12900,13 @@ deal: its price into net debt, its earnings at zero.
 > part of the profit increase is taken out:
 > ROIIC = (EBIT_end − EBIT_start × Π(1 + organic_t)) × (1 − statutory tax)
 > / max(invested capital_end − invested capital_start, Σ acquisitions).
+> **As the code forms it (method check 1.3, 2026-10-27):** on the full
+> window each END is the mean of three years (a single end year carries
+> its one-offs), the organic product and Σ acquisitions run between the
+> two middle years; a year with no organic figure counts at the base
+> growth of the view; invested capital, where no row is printed, is equity
+> plus net debt; adjusted operating profit is used where printed for
+> every year (E143(2)). The bear window uses single years five apart.
 >
 > **(3) Never credited upward.** A ROIIC above r counts as r: future deals
 > are worth at most what they cost. A ROIIC below zero counts as zero.
@@ -12991,9 +12998,11 @@ before g\* is solved, so the price cannot steer it.
 
 **DECIDED 2026-10-27 by the session under E141** (rule R3). Amends E35.1's
 amount, not its standing: the deficit × (1 − statutory tax), because the
-contributions that close it are deductible. Applied from the next store
-change; no struck value in the 2026-10-27 set carries a material pension
-leg.
+contributions that close it are deductible. **How it is applied (method
+check 1.2, 2026-10-27):** the store and the bridge keep the deficit GROSS,
+as the issuer states it; the E142 value credits back deficit × the
+statutory rate, printed on the strike. Every E142 record struck after this
+carries it.
 
 ### E147 — where a filer states no operating profit, it is pre-tax profit plus interest expense, as stated
 

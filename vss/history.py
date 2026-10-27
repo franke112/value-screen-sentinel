@@ -201,7 +201,9 @@ def pdf_text(file: str, *, cache: Path = PDF_TEXT_CACHE) -> str:
         if src.suffix.lower() == ".pdf":
             subprocess.run(["pdftotext", "-layout", str(src), str(out)], check=True)
         else:
-            out.write_text(re.sub(r"<[^>]+>", " ", src.read_text(errors="replace")))
+            import html as _html
+            out.write_text(_html.unescape(re.sub(r"<[^>]+>", " ",
+                                                 src.read_text(errors="replace"))))
     return _norm(out.read_text(errors="replace"))
 
 
@@ -230,7 +232,7 @@ def _find_values(quote: str, values: tuple[float, ...]) -> str | None:
     for v in values:
         best = None
         for f in _forms(v):
-            pats = [re.escape(f)] if v >= 0 else [r"-\s?" + re.escape(f), r"\(" + re.escape(f) + r"\)"]
+            pats = [re.escape(f)] if v >= 0 else [r"-\s?" + re.escape(f), r"\(\s?" + re.escape(f) + r"\s?\)"]
             for p in pats:
                 m = re.compile(r"(?<![\d.,])" + p + r"(?![\d])").search(q, pos)
                 if m and (best is None or m.start() < best.start()):
@@ -550,8 +552,10 @@ def quality(h: History, *, tax: float, fcf0: float, net_debt: float,
             rocs.append(float("inf") if tangible <= 0 else profit[y] * (1 - tax) / tangible)
     if rocs:
         med = statistics.median(rocs)
+        shown = ("above any rate (tangible capital at or below zero)"
+                 if med == float("inf") else f"{med:.1%}")
         out.append(Test("Q1 tangible ROIC", med >= Q1_TANGIBLE_ROIC,
-                        f"median {med:.1%} over {len(rocs)} years"
+                        f"median {shown} over {len(rocs)} years"
                         + ("" if gw else " (no goodwill row: on all invested capital)")
                         + f" against {Q1_TANGIBLE_ROIC:.0%}"))
     else:

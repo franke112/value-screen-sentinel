@@ -1,0 +1,51 @@
+# GDDY -- struck 2026-10-27
+
+*Struck by `vss strike` off `config/manual/GDDY.yaml` on the pre-registered growth view 3.00% / 1.00% / 8.00%, carried from GDDY-2026-10-27-e142.json. Nothing here writes the watchlist: fv_base, tier, mbp and stop_price are the owner's.*
+
+- **basis:** annual FY2025
+- **fv_base:** 79.99 -> **79.99** (bear 27.90, bull 132.86)
+- **FCF0:** 850,250,000
+- **net debt:** 2,618,900,000 on the balance sheet of 2026-06-30
+- **E140 FCF0:** mean of annual FY2023 440,200,000; annual FY2024 791,000,000; annual FY2025 1,062,600,000 = 764,600,000; acquisitions mean 0 NOT deducted -- valued as the deal programme (E142); + interest after tax 85,650,000 at 0.25 (US); - minority dividends 0
+- **bridge rolled (E140.1(3)):** 2025-12-31 -> 2026-06-30; year-to-date working capital 209,100,000 neutralised (added to net debt)
+- **bridge (E140(3), deals at the HIGH end):** net debt 2,618,900,000 on the balance sheet + deals 0 + working capital neutralised 209,100,000 = 2,828,000,000
+- **growth (E144):** VIEW, NOT DERIVED (E144(4)): fewer than five organic years in config/history/GDDY.yaml; the registered view reference/growth-views/GDDY.md
+- **cycle and level (E143):** not cyclical (E143(3)); bear level x0.576: the weakest E140 year 440,200,000 over the mean 764,600,000 (E143(4))
+- **deal programme (E142):** not a repeat buyer: no programme
+- **bear:** flow 850,250,000 x level 0.576 x (1 + 1.00%) = FCF0 494,406,030; programme 0 (+0.00/sh); deals 0 credited back 0 at ROIIC 6.42% (+0.00/sh) -> **27.90**
+- **base:** flow 850,250,000 x level 1.000 x (1 + 3.00%) = FCF0 875,757,500; programme 0 (+0.00/sh); deals 0 credited back 0 at ROIIC 6.42% (+0.00/sh) -> **79.99**
+- **bull:** flow 850,250,000 x level 1.000 x (1 + 8.00%) = FCF0 918,270,000; programme 0 (+0.00/sh); deals 0 credited back 0 at ROIIC 9.50% (+0.00/sh) -> **132.86**
+- **events ledger** `reference/events/GDDY.yaml` dated 2026-10-27, cut at 2026-06-30: no deal in the bridge
+- **divisor:** 130,994,000
+- **lease:** RENT IS AN OPERATING COST (E117): the operating cash flow bears the operating lease payments (ASC 842-20-45-5(a)) and NOTHING is added back; the lease liability 82,300,000 LEFT net debt; finance leases stay in net debt
+- **MBP (E90, tier 3):** 51.99 -> 51.99
+- **close 2026-10-26:** 109.82; g* 6.07%
+- **store's newest period:** 2026-06-30
+- **anchors:** g* 6.07%; the base case returns ~7.9% a year at today's price against r 9.5%; tangible ROIC median above any rate (tangible capital at or below zero) over 4 years against 15%
+- **would Warren own it (E145):**
+  - Q1 tangible ROIC: **PASS** -- median above any rate (tangible capital at or below zero) over 4 years against 15%
+  - Q2 stability: **PASS** -- owner earnings negative in no year; operating profit at most 0% below its running peak
+  - Q3 debt: **PASS** -- net debt 3.2x FCF0 against 4.5x (stable class)
+  - Q4 capital allocation: **PASS** -- not a repeat buyer
+  - Q5 understandable: **PASS** -- GoDaddy sells domains, hosting, website and commerce tools to small businesses and individuals; subscriptions and switching costs keep them.
+
+```
+GDDY — strike 2026-10-27   against GDDY-2026-10-27-e142.json
+
+                                before           after     move
+fv_base                          79.99           79.99    +0.0%
+  bear                           27.90           27.90    +0.0%
+  bull                          132.86          132.86    +0.0%
+MBP (E90)  tier 3 -> 3           51.99           51.99    +0.0%
+g*                                               6.07%         
+
+WHICH LEG MOVED
+  unchanged: FCF0, net debt, divisor (shares), basis, growth view, discount rate, lease treatment
+
+WHAT THE TWO SIDES STAND ON
+  basis window end        2025-12-31 -> 2025-12-31
+  settled close           2026-10-26 -> 2026-10-26  (109.82)
+  store's newest period, today: 2026-06-30   <- NEWER THAN THE BASIS: a quarter has landed that this strike did not read (E19 chooses ONE window)
+```
+
+Record: `reference/run-records/GDDY-2026-10-27-check.json`

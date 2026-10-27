@@ -249,11 +249,12 @@ class Strike:
             return None
         return self.record.strike(g, case="bull") if self.e142 else self.record.strike(g)
 
-    def prior_value(self, growth: float | None = None) -> float | None:
+    def prior_value(self, growth: float | None = None,
+                    case: str | None = None) -> float | None:
         if self.prior is None:
             return None
         try:
-            return self.prior.strike(growth)
+            return self.prior.strike(growth, case=case)
         except Exception:  # noqa: BLE001 -- a prior that no longer replays
             return None
 
@@ -445,7 +446,8 @@ def apply_e142(record: R.RunRecord, history: "HI.History | None",
         roiic_base_how="" if full is None else full.how,
         roiic_bear_how="" if worst is None else worst.how,
         cyclical=cyc.cyclical, level_base=cyc.level_base, level_bear=bear_level,
-        level_how=cyc.how + bear_how, growth_how=growth_how)
+        level_how=cyc.how + bear_how, growth_how=growth_how,
+        pension_after_tax=True)
     record = replace(record, e140=replace(record.e140, e142=params))
     if params.repeat_buyer and (params.roiic_base is None or params.roiic_bear is None):
         # E142(6) with E106's floor: an absent ROIIC that cannot move the
@@ -506,10 +508,10 @@ def table(s: Strike) -> str:
                else "   (first strike: no prior record)"))
     rows = [
         ("fv_base", _num(prior_fv), _num(s.fv), _move(prior_fv, s.fv)),
-        ("  bear", _num(s.prior_value(s.record.growth.bear)), _num(s.bear),
-         _move(s.prior_value(s.record.growth.bear), s.bear)),
-        ("  bull", _num(s.prior_value(s.record.growth.bull)), _num(s.bull),
-         _move(s.prior_value(s.record.growth.bull), s.bull)),
+        ("  bear", _num(s.prior_value(s.record.growth.bear, "bear")), _num(s.bear),
+         _move(s.prior_value(s.record.growth.bear, "bear"), s.bear)),
+        ("  bull", _num(s.prior_value(s.record.growth.bull, "bull")), _num(s.bull),
+         _move(s.prior_value(s.record.growth.bull, "bull"), s.bull)),
     ]
     mbp_before = s.mbp(s.tier_before, prior_fv)
     mbp_after = s.mbp(s.tier_after, s.fv)
@@ -645,7 +647,9 @@ def e142_lines(record: R.RunRecord) -> list[str]:
             f"{parts['deal_price'] / money:,.0f} credited back "
             f"{parts['deal_credit'] / money:,.0f} at ROIIC "
             f"{_num(parts['roiic'], '.2%')} ({parts['deal_credit'] / shares:+.2f}/sh)"
-            f" -> **{value:,.2f}**")
+            + (f"; pension deficit after tax (E146) +{parts['pension_tax'] / money:,.0f} "
+               f"({parts['pension_tax'] / shares:+.2f}/sh)" if parts["pension_tax"] else "")
+            + f" -> **{value:,.2f}**")
     return out
 
 
@@ -659,23 +663,37 @@ def quality_lines(s: Strike) -> list[str]:
     return out
 
 
+def implied_return(record: R.RunRecord, price: float) -> float | None:
+    """The rate at which the base case -- level, roll, programme and deals
+    all as struck -- meets the price: what the price returns a year if the
+    base case is right. Method check 3.2: the old 'yield + g' was a
+    perpetuity at the ten-year growth and overstated every grower."""
+    lo, hi = record.conventions.terminal_growth + 0.001, 0.60
+    f = lambda r: record._strike_unchecked(rate=r) - price  # noqa: E731
+    try:
+        if f(lo) < 0 or f(hi) > 0:
+            return None
+    except Exception:  # noqa: BLE001
+        return None
+    for _ in range(100):
+        mid = (lo + hi) / 2
+        if f(mid) > 0:
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2
+
+
 def anchor_lines(s: Strike) -> list[str]:
-    """The three anchors (method review section 6): g*, the owner-earnings
-    yield at today's price plus base growth, and the tangible ROIC."""
+    """The three anchors (method review section 6): g*, the return the
+    price gives on the base case, and the tangible ROIC."""
     if not s.e142 or s.price is None:
         return []
-    try:
-        parts = s.record.e142_parts()
-        legs = s.record.legs()
-        ev = s.price * legs.shares - legs.net_cash
-        y = parts["fcf0"] / ev if ev > 0 else None
-    except Exception:  # noqa: BLE001
-        return []
+    irr = implied_return(s.record, s.price)
     q1 = next((t.figure for t in s.quality if t.name.startswith("Q1")), "no history")
-    return [f"- **anchors:** g* {_num(s.g_star, '.2%')}; owner-earnings yield on EV "
-            f"{_num(y, '.2%')} + base growth {s.record.growth.base:.2%} = expected "
-            f"return ~{_num(None if y is None else y + s.record.growth.base, '.1%')} "
-            f"against r {s.record.rate.rate:.1%}; tangible ROIC {q1}"]
+    return [f"- **anchors:** g* {_num(s.g_star, '.2%')}; the base case returns "
+            f"~{_num(irr, '.1%')} a year at today's price against r "
+            f"{s.record.rate.rate:.1%}; tangible ROIC {q1}"]
 
 
 def document(s: Strike) -> str:

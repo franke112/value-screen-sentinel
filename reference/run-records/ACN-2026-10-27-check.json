@@ -1,0 +1,369 @@
+{
+ "ticker": "ACN",
+ "currency": "USD",
+ "run_ts": "2026-10-27T15:27:37+01:00",
+ "basis": "TTM 2026-Q1+2026-Q2+2026-Q3+2026-Q4",
+ "shares": {
+  "count": 617498483.0,
+  "basis": "weighted-average DILUTED count for TTM 2026-Q1+2026-Q2+2026-Q3+2026-Q4, the same window as the flows (E38)",
+  "as_of": "2026-08-31",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 2100433000.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0001467373 (Accenture plc) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001467373.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+  "net_interest_paid": -59808000.0,
+  "source": "income_statement_net"
+ },
+ "bridge": {
+  "net_debt": -1167236000.0,
+  "items": {
+   "short_term_investments": 6298000.0,
+   "current_financial_assets": 6298000.0,
+   "leases": 0.0,
+   "pensions": 1558775000.0,
+   "asset_retirement_obligations": 0.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+  },
+  "note": "borrowings 113,069,000 + 9,998,689,000 + finance leases 0 (E117: the operating lease liability 3,285,232,000 LEAVES net debt, its rent being in the flow; finance leases stay) + pension deficit 1,558,775,000 (E35.1) + asset retirement obligations 0 (E68) + prepaid delivery obligations 0 (E81) - cash 12,831,471,000 - other current financial assets 6,298,000. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+ },
+ "dates": {
+  "flows_window_end": "2026-08-31",
+  "balance_sheet": "2026-08-31",
+  "share_count": "2026-08-31",
+  "price": "2026-10-26"
+ },
+ "growth": {
+  "base": 0.045,
+  "view_file": "reference/growth-views/ACN.md",
+  "view_date": "2026-08-30",
+  "bear": 0.0,
+  "bull": 0.075
+ },
+ "operating_cash_flow": 12363346000.0,
+ "capex": -742748000.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_combined",
+   "value": -742748000.0,
+   "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 12363346000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "sbc",
+   "value": 2100433000.0,
+   "provenance": "us-gaap:ShareBasedCompensation [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "net_finance_costs",
+   "value": -59808000.0,
+   "provenance": "E18: finance_costs_period - finance_income_period, both on TTM 2026-Q1+2026-Q2+2026-Q3+2026-Q4",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back/tagged)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 617498483.0,
+   "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 113069000.0,
+   "provenance": "us-gaap:DebtCurrent [as of 2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 -- E66: the taxonomy's SUBTOTAL of current borrowings, read whole; tagged beside it as memo and never added: `CommercialPaper` 99,710,000",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 9998689000.0,
+   "provenance": "us-gaap:LongTermDebtAndCapitalLeaseObligations [as of 2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 -- E72: borrowings AND finance leases as one non-current caption, read WHOLE: the filer tags no finance-lease element at all, so the lease inside is stated only in the filing's words, which must be quoted on this figure by hand (E72); E65 adds nothing",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 3285232000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 1558775000.0,
+   "provenance": "us-gaap:PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent [as of 2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "E68.1: sources/ACN_FY2026_annual-report-10k_2026-10-16_en_a0.htm, Consolidated Balance Sheets as of August 31, 2026 -- CURRENT LIABILITIES: 'Current portion of long-term debt and bank borrowings', 'Accounts payable', 'Deferred revenues', 'Accrued payroll and related benefits', 'Income taxes payable', 'Lease liabilities', 'Other accrued liabilities' (2,288,540); NON-CURRENT: 'Long-term debt', 'Deferred revenues', 'Retirement obligation', 'Deferred tax liabilities', 'Income taxes payable', 'Lease liabilities', 'Other non-current liabilities' (1,212,853). No asset retirement or decommissioning caption; 'asset retirement', 'decommission', 'dilapidation' and 'restoration' appear nowhere in the filing (full-text search, 2026-10-17).",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "E81: the same Consolidated Balance Sheets as of August 31, 2026, every liability caption enumerated above -- no prepaid-offtake or prepaid-delivery caption; 'prepaid' appears nowhere and 'streaming' only as a client industry. 'Deferred revenues' are billings in advance of services, working capital, NOT this leg. A caption zero",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 12831471000.0,
+   "provenance": "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "other_current_financial_assets",
+   "value": 6298000.0,
+   "provenance": "sources/ACN_FY2026_annual-report-10k_2026-10-16_en_a0.htm, Consolidated Balance Sheets as of August 31, 2026: 'Short-term investments 6,298 5,945'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "operating_lease_liabilities",
+   "value": 3285232000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2024 capex_combined",
+   "value": -516509000.0,
+   "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2023-09-01..2024-08-31] 10-K 0001467373-25-000217 filed 2025-10-10",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2024 operating_cash_flow",
+   "value": 9131027000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2023-09-01..2024-08-31] 10-K 0001467373-25-000217 filed 2025-10-10",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2024 working_capital_change",
+   "value": -2272966000.0,
+   "provenance": "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -601,935,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -853,202,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 46,512,000 + us-gaap:IncreaseDecreaseInEmployeeRelatedLiabilities [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -614,771,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 28,401,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -277,971,000 = -2,272,966,000 (cash effect: an asset increase negated, a liability increase kept)",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2024 sbc",
+   "value": 1941590000.0,
+   "provenance": "us-gaap:ShareBasedCompensation [2023-09-01..2024-08-31] 10-K 0001467373-25-000217 filed 2025-10-10",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2024 acquisitions_paid",
+   "value": -6582702000.0,
+   "provenance": "us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2025 capex_combined",
+   "value": -600039000.0,
+   "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2024-09-01..2025-08-31] 10-K 0001467373-25-000217 filed 2025-10-10",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2025 operating_cash_flow",
+   "value": 11474399000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2024-09-01..2025-08-31] 10-K 0001467373-25-000217 filed 2025-10-10",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2025 working_capital_change",
+   "value": -750097000.0,
+   "provenance": "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -1,021,191,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -1,067,698,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -110,554,000 + us-gaap:IncreaseDecreaseInEmployeeRelatedLiabilities [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 904,322,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 706,585,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -161,561,000 = -750,097,000 (cash effect: an asset increase negated, a liability increase kept)",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2025 sbc",
+   "value": 2093878000.0,
+   "provenance": "us-gaap:ShareBasedCompensation [2024-09-01..2025-08-31] 10-K 0001467373-25-000217 filed 2025-10-10",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2025 acquisitions_paid",
+   "value": -1471255000.0,
+   "provenance": "us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2026 capex_combined",
+   "value": -742748000.0,
+   "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2026 operating_cash_flow",
+   "value": 12363346000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2026 working_capital_change",
+   "value": -651656000.0,
+   "provenance": "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -1,282,203,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -652,262,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 270,211,000 + us-gaap:IncreaseDecreaseInEmployeeRelatedLiabilities [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 1,177,578,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 520,558,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -685,538,000 = -651,656,000 (cash effect: an asset increase negated, a liability increase kept)",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2026 sbc",
+   "value": 2100433000.0,
+   "provenance": "us-gaap:ShareBasedCompensation [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2026 acquisitions_paid",
+   "value": -4940884000.0,
+   "provenance": "us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  }
+ ],
+ "tool_commit": "vss strike 2026-10-27-check, e4b1402",
+ "notes": "E142-E147 after the method check's fixes (reference/reviews/method/2026-10-27-CHECK.md)",
+ "money_unit": "whole",
+ "nci_dividends_paid": -3779000.0,
+ "undetermined": [],
+ "fcf_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_debt_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_income": {
+  "value": 8367056000.0,
+  "page": "us-gaap:NetIncomeLoss [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16",
+  "verified": true
+ },
+ "lease": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0001467373 (Accenture plc) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001467373.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 842-20-45-5(a): a lessee classifies payments for operating leases within OPERATING activities, so this filer's `operating_cash_flow` already bears them; the stated cash paid is `us-gaap:OperatingLeasePayments`, written as `operating_lease_payments` where tagged. No filer-specific tag states the classification because the standard leaves no choice",
+  "principal_added_back": null,
+  "leg": "none -- the operating cash flow bears the rent (E117)",
+  "rule": "E117",
+  "lease_cash_deducted": null,
+  "principal_paid": null,
+  "interest_paid": null,
+  "liability_excluded": 3285232000.0
+ },
+ "e140": {
+  "years": [
+   {
+    "label": "annual FY2024",
+    "operating_cash_flow": 9131027000.0,
+    "working_capital": -2272966000.0,
+    "capex": -516509000.0,
+    "sbc": 1941590000.0,
+    "acquisitions": -6582702000.0,
+    "lease_cash": null
+   },
+   {
+    "label": "annual FY2025",
+    "operating_cash_flow": 11474399000.0,
+    "working_capital": -750097000.0,
+    "capex": -600039000.0,
+    "sbc": 2093878000.0,
+    "acquisitions": -1471255000.0,
+    "lease_cash": null
+   },
+   {
+    "label": "annual FY2026",
+    "operating_cash_flow": 12363346000.0,
+    "working_capital": -651656000.0,
+    "capex": -742748000.0,
+    "sbc": 2100433000.0,
+    "acquisitions": -4940884000.0,
+    "lease_cash": null
+   }
+  ],
+  "tax_country": "US",
+  "tax_rate": 0.25,
+  "ledger": "reference/events/ACN.yaml",
+  "ledger_dated": "2026-10-27",
+  "cut": "2026-08-31",
+  "deals": [
+   {
+    "name": "Mjolner Informatics, Sagacity, McCoy (pending), NetRise/IndX (status unconfirmed) -- prices NOT DISCLOSED; range is the session estimate",
+    "closed": null,
+    "low": 50000000.0,
+    "high": 500000000.0,
+    "fcf": 0.0,
+    "source": "Accenture newsroom (subagent sweep)"
+   }
+  ],
+  "deals_in_balance_sheet": [],
+  "rolled_from": null,
+  "wc_since_year_end": null,
+  "wc_since_page": "",
+  "e142": {
+   "history": "config/history/ACN.yaml",
+   "repeat_buyer": true,
+   "acquisitions_mean": 4331613666.666667,
+   "roiic_base": 0.09977874971218577,
+   "roiic_bear": 0.07139425885353275,
+   "roiic_base_how": "operating profit 5,300,208,667 (2016-2018 mean) -> 10,409,157,000 (2024-2026 mean); organic x1.422 (8 of 8 years at the view's 4.5%); after tax 25.0%: 2,153,795,255 on acquisitions 21,585,711,000 = 9.98%",
+   "roiic_bear_how": "operating profit 6,305,074,000 (2019) -> 9,595,847,000 (2024); organic x1.246 (5 of 5 years at the view's 4.5%); after tax 25.0%: 1,303,933,249 on acquisitions 18,263,839,000 = 7.14%",
+   "cyclical": false,
+   "level_base": 1.0,
+   "level_bear": 0.9367986100673219,
+   "level_how": "not cyclical (E143(3)); bear level x0.937: the weakest E140 year 8,945,894,000 over the mean 9,549,431,333 (E143(4))",
+   "growth_how": "VIEW, NOT DERIVED (E144(4)): fewer than five organic years in config/history/ACN.yaml; the registered view reference/growth-views/ACN.md",
+   "pension_after_tax": true
+  }
+ }
+}

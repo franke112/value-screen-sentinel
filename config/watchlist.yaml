@@ -506,7 +506,7 @@ tickers:
     #   thing that must not happen while a fair value is rebuilt is that the
     #   position goes unwatched.
     # E141 decision 2026-10-27: the E140 record reference/run-records/LIAB.ST-2026-10-27.json struck -33.97 (acquisitions mean 702m over a 567m flow); fv_base takes only a positive level (E24), and the name is sold, so the field keeps its 2026-09-19 value and record below.
-    fv_base: 65.93     # E142-E145 re-strike 2026-10-27, reference/LIAB.ST-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 68.97 -- E117 with E120's STAND-IN (lease interest 66, FY2025 note 30), struck 2026-09-19, reference/LIAB.ST-STRIKE-2026-09-19-e117.md; the exit decided 2026-09-19 stands. EARLIER: 133.48 -- was 102.66 (E39-nulled 2026-08-26). 133.48 = RESTRIKE-2026-08-26-b, Method C (E28) on the R12M to 2026-06-30 basis; RE-STRUCK 2026-08-30 under E34, E35/E35.1, E65-E68 and E70 (tools/restrike_liab_2026_08_30.py, reference/LIAB.ST-STRIKE-2026-08-30.md) at the SAME 133.48 -- the rulings since 08-26 NAME legs (finance leases inside the stated 1,410, E65; borrowings 5 + 3,378, E66/E67; ARO 0 by E68.1; declaration 3.1 'no', IFRS 16.50(b), E70) and MOVE nothing. LINKED to the record below, which replays to it (item 9)
+    fv_base: 66.68     # re-struck after the method check 2026-10-27, reference/LIAB.ST-STRIKE-2026-10-27-check.md (E141). EARLIER: 65.93 -- E142-E145 re-strike 2026-10-27, reference/LIAB.ST-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 68.97 -- E117 with E120's STAND-IN (lease interest 66, FY2025 note 30), struck 2026-09-19, reference/LIAB.ST-STRIKE-2026-09-19-e117.md; the exit decided 2026-09-19 stands. EARLIER: 133.48 -- was 102.66 (E39-nulled 2026-08-26). 133.48 = RESTRIKE-2026-08-26-b, Method C (E28) on the R12M to 2026-06-30 basis; RE-STRUCK 2026-08-30 under E34, E35/E35.1, E65-E68 and E70 (tools/restrike_liab_2026_08_30.py, reference/LIAB.ST-STRIKE-2026-08-30.md) at the SAME 133.48 -- the rulings since 08-26 NAME legs (finance leases inside the stated 1,410, E65; borrowings 5 + 3,378, E66/E67; ARO 0 by E68.1; declaration 3.1 'no', IFRS 16.50(b), E70) and MOVE nothing. LINKED to the record below, which replays to it (item 9)
     # THE EXIT TEST (owner, 2026-09-20): C4 / E42 run the exit against the
     #   BULL case, and the exit decided 2026-09-19 was decided on exactly
     #   that -- "the close 119.70 is above FV_bull at every end of the
@@ -515,8 +515,8 @@ tickers:
     #   basis as fv_base above. A HELD entry without this is now REFUSED by
     #   config.load_watchlist: a holding whose exit test cannot run is not
     #   a holding this framework can carry.
-    fv_bull: 122.39     # the E142 record's bull case, for the C4 / E42 exit test. EARLIER: 86.42
-    run_record: reference/run-records/LIAB.ST-2026-10-27-e142.json     # E142 record. EARLIER: reference/run-records/LIAB.ST-2026-09-19-e117.json
+    fv_bull: 123.14     # the method-check record's bull case. EARLIER: 122.39 -- the E142 record's bull case, for the C4 / E42 exit test. EARLIER: 86.42
+    run_record: reference/run-records/LIAB.ST-2026-10-27-check.json     # the method-check record. EARLIER: reference/run-records/LIAB.ST-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/LIAB.ST-2026-09-19-e117.json
     # Tier RULED A 2026-08-26 (Build 2 item 5): re-entered as an INPUT,
     # carried from pre-REVIEW-4 scoring; section 4.4 untouched by the review.
     # Not a re-score. E39 nulled it with fv_base; a tier is a 4.4 SCORE and
@@ -1418,8 +1418,8 @@ tickers:
     # been through §3, so nothing about it was ever disqualified -- the
     # alert is the whole of its state.
     status: WATCH-PRICED
-    fv_base: 392.62     # E142-E145 re-strike 2026-10-27, reference/MC.PA-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 342.63 -- E140/E140.1 re-strike 2026-10-27, reference/MC.PA-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 321.94 -- first strike 2026-09-19 (owner A4): reference/MC.PA-STRIKE-2026-09-19.md, FY2025 basis, E117
-    run_record: reference/run-records/MC.PA-2026-10-27-e142.json     # E142 record. EARLIER: reference/run-records/MC.PA-2026-10-27.json
+    fv_base: 392.95     # re-struck after the method check 2026-10-27, reference/MC.PA-STRIKE-2026-10-27-check.md (E141). EARLIER: 392.62 -- E142-E145 re-strike 2026-10-27, reference/MC.PA-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 342.63 -- E140/E140.1 re-strike 2026-10-27, reference/MC.PA-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 321.94 -- first strike 2026-09-19 (owner A4): reference/MC.PA-STRIKE-2026-09-19.md, FY2025 basis, E117
+    run_record: reference/run-records/MC.PA-2026-10-27-check.json     # the method-check record. EARLIER: reference/run-records/MC.PA-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/MC.PA-2026-10-27.json
     tier:
     stop_price:
     catalyst_date:
@@ -1709,7 +1709,7 @@ tickers:
     #   before any comparison, so a tier here gives an MBP in pence against
     #   a close in pence; fv_base stays written in GBP, the record's unit.
     #   Golden case G17 pins it.
-    fv_base: 4.99     # E142-E145 re-strike 2026-10-27, reference/AUTO.L-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 4.84 -- E140/E140.1 re-strike 2026-10-27, reference/AUTO.L-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 4.84
+    fv_base: 4.99     # re-struck after the method check 2026-10-27, reference/AUTO.L-STRIKE-2026-10-27-check.md (E141). EARLIER: 4.99 -- E142-E145 re-strike 2026-10-27, reference/AUTO.L-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 4.84 -- E140/E140.1 re-strike 2026-10-27, reference/AUTO.L-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 4.84
     # TIER 3, owner 2026-09-19 (AUTO.L-T). Section 4.4 score 5 -> tier 2 on
     #   the scale (tier 1 fails on the tailwind), SHIFTED ONE TIER STRICTER
     #   UNDER E77 (regime ELEVATED, standing) -> tier 3, MBP 314.36p (483.63p x 0.65; the 314.2p first quoted was a rounding slip). NO REGIME
@@ -1719,7 +1719,7 @@ tickers:
     #   485.8-514.9p against a value of 484p are at or above value -- the test
     #   that withheld GDDY's ASR. Tier is 3 either way.
     tier: 3
-    run_record: reference/run-records/AUTO.L-2026-10-27-e142.json     # E142 record. EARLIER: reference/run-records/AUTO.L-2026-10-27.json
+    run_record: reference/run-records/AUTO.L-2026-10-27-check.json     # the method-check record. EARLIER: reference/run-records/AUTO.L-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/AUTO.L-2026-10-27.json
     catalyst_date: 2026-11-05
     catalyst_event: >-
       Half-year results 2026-11-05 -- the reassessment point. The name also
@@ -1947,8 +1947,8 @@ tickers:
     #   the base 2.5% is the owner's own figure (raised from a proposed 2),
     #   bear -3 / bull 6.5 explicitly approved -- reference/growth-views/NVR.md
     #   stands as written.
-    fv_base: 7682.75     # E142-E145 re-strike 2026-10-27, reference/NVR-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 6614.83 -- E140/E140.1 re-strike 2026-10-27, reference/NVR-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 4867.82
-    run_record: reference/run-records/NVR-2026-10-27-e142.json     # E142 record. EARLIER: reference/run-records/NVR-2026-10-27.json
+    fv_base: 7682.75     # re-struck after the method check 2026-10-27, reference/NVR-STRIKE-2026-10-27-check.md (E141). EARLIER: 7682.75 -- E142-E145 re-strike 2026-10-27, reference/NVR-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 6614.83 -- E140/E140.1 re-strike 2026-10-27, reference/NVR-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 4867.82
+    run_record: reference/run-records/NVR-2026-10-27-check.json     # the method-check record. EARLIER: reference/run-records/NVR-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/NVR-2026-10-27.json
     dd_at_entry: 0.2546
     peak_date: 2025-09-08
     notes: |2-
@@ -2139,7 +2139,7 @@ tickers:
     cik: 1058290    # SEC EDGAR company search, confirmed 2026-08-27:
                     # CIK 0001058290, Teaneck NJ, SIC 7371, most recent
                     # filing dated 2026-08-27
-    fv_base: 73.82     # E142-E145 re-strike 2026-10-27, reference/CTSH-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 57.89 -- E140/E140.1 re-strike 2026-10-27, reference/CTSH-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 84.16
+    fv_base: 73.96     # re-struck after the method check 2026-10-27, reference/CTSH-STRIKE-2026-10-27-check.md (E141). EARLIER: 73.82 -- E142-E145 re-strike 2026-10-27, reference/CTSH-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 57.89 -- E140/E140.1 re-strike 2026-10-27, reference/CTSH-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 84.16
     tier: 3     # E145 Q4 (ROIIC -1.9% against r 9.5%) lowers the tier one step, E141 decision 2026-10-27. EARLIER: 2
     # stop 2026-08-30 (owner, stop session): 58.92 = 64.04 (settled close
     #   2026-08-28, the entry the AT/BELOW-MBP signal prices) x 0.92 -- C1's
@@ -2157,15 +2157,15 @@ tickers:
     #   bull of the SAME record as fv_base, replayed at the pre-registered
     #   g_bull 7% -- `vss strike --ticker CTSH --dry-run`, 2026-10-05,
     #   reproduces fv_base 84.16 exactly and gives bear 63.25 / bull 104.66.
-    fv_bull: 109.81     # the E142 record's bull case, for the C4 / E42 exit test. EARLIER: 72.41 -- of the E140 record 2026-10-27, bear 43.07 (was 104.66 on the E117 record)
-    run_record: reference/run-records/CTSH-2026-10-27-e142.json     # E142 record. EARLIER: reference/run-records/CTSH-2026-10-27.json
+    fv_bull: 109.95     # the method-check record's bull case. EARLIER: 109.81 -- the E142 record's bull case, for the C4 / E42 exit test. EARLIER: 72.41 -- of the E140 record 2026-10-27, bear 43.07 (was 104.66 on the E117 record)
+    run_record: reference/run-records/CTSH-2026-10-27-check.json     # the method-check record. EARLIER: reference/run-records/CTSH-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/CTSH-2026-10-27.json
     catalyst_date: 2026-10-28          # Q3 2026 results -- the next scheduled section 6.4 reassessment (owner, 2026-08-30); E77's regime adjustment applies at that re-score, not before (E77, decided 2026-08-30)
     catalyst_event: >-
       Q3 2026 results, due 2026-10-28 -- the next scheduled reassessment.
       Re-scored then under E77 (regime elevated, one tier stricter). E145 Q4
       (ROIIC below r, E141 decision 2026-10-27) already took the tier 2 -> 3,
       and there is no tier below 3, so MBP (E90: base x cushion, on the E142
-      strike of 2026-10-27, fv_base 73.82) 47.98 -> 47.98 USD (on the E140
+      strike of 2026-10-27 after the method check, fv_base 73.96) 48.07 -> 48.07 USD (on the E140
       strike it read 43.41 -> 37.63, on the E117 strike 63.12 -> 54.70). (Arithmetic corrected
       2026-08-30 at E90; the E28-era prediction here read 46.78 -> 40.10.)
     notes: |2-
@@ -2204,7 +2204,7 @@ tickers:
     cik: 1609711    # https://www.sec.gov/files/company_tickers.json fetched
                     # 2026-08-30: row 836 {cik_str: 1609711, ticker: GDDY,
                     # title: GoDaddy Inc.}; Delaware, SIC 7373, Tempe AZ
-    fv_base: 79.99     # E142-E145 re-strike 2026-10-27, reference/GDDY-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 77.03 -- E140/E140.1 re-strike 2026-10-27, reference/GDDY-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 129.03
+    fv_base: 79.99     # re-struck after the method check 2026-10-27, reference/GDDY-STRIKE-2026-10-27-check.md (E141). EARLIER: 79.99 -- E142-E145 re-strike 2026-10-27, reference/GDDY-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 77.03 -- E140/E140.1 re-strike 2026-10-27, reference/GDDY-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 129.03
     # TIER 3 -> 2 on 2026-09-01, under E99. NOT a re-score: the section 4.4
     #   score of 2026-08-30 stands at 6 and no figure in it moved. Gate 4
     #   left the DENOMINATOR (it has never been evaluable for any name), so
@@ -2238,7 +2238,7 @@ tickers:
     #   owner's act, recorded here only. The Avanza order is the owner's;
     #   the field is the tool's requirement, not the order.
     stop_price:
-    run_record: reference/run-records/GDDY-2026-10-27-e142.json     # E142 record. EARLIER: reference/run-records/GDDY-2026-10-27.json
+    run_record: reference/run-records/GDDY-2026-10-27-check.json     # the method-check record. EARLIER: reference/run-records/GDDY-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/GDDY-2026-10-27.json
     catalyst_date: 2026-11-09
     catalyst_event: >-
       Q3 2026 results -- the reassessment point. Expected before the 10-Q
@@ -2645,8 +2645,8 @@ tickers:
     status: DROPPED      # E145 (E141 decision 2026-10-27): Q1 tangible ROIC fails -- reference/ACAD.ST-STRIKE-2026-10-27-e142.md. Was PIPELINE
     dd_at_entry: 0.0
     peak_date: 2026-10-19
-    fv_base: 173.63     # E142-E145 re-strike 2026-10-27, reference/ACAD.ST-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 25.91 -- E140/E140.1 re-strike 2026-10-27, reference/ACAD.ST-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 152.32 -- vss strike 2026-10-24 on the registered view 4.5/3.5/7 (bear 140.19, bull 187.01), basis annual FY2026, close 110.40, g* 0.66%
-    run_record: reference/run-records/ACAD.ST-2026-10-27-e142.json     # E142 record. EARLIER: reference/run-records/ACAD.ST-2026-10-27.json
+    fv_base: 158.74     # re-struck after the method check 2026-10-27, reference/ACAD.ST-STRIKE-2026-10-27-check.md (E141). EARLIER: 173.63 -- E142-E145 re-strike 2026-10-27, reference/ACAD.ST-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 25.91 -- E140/E140.1 re-strike 2026-10-27, reference/ACAD.ST-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 152.32 -- vss strike 2026-10-24 on the registered view 4.5/3.5/7 (bear 140.19, bull 187.01), basis annual FY2026, close 110.40, g* 0.66%
+    run_record: reference/run-records/ACAD.ST-2026-10-27-check.json     # the method-check record. EARLIER: reference/run-records/ACAD.ST-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/ACAD.ST-2026-10-27.json
     notes: >-
       STRUCK 2026-10-24 (owner: "ja kör acad") once the AR 2025/26 gave the
       five legs: fv_base 152.32 against 110.40. FCF0 982 excludes the
@@ -2684,8 +2684,8 @@ tickers:
     status: DROPPED      # E145 (E141 decision 2026-10-27): Q2 stability and Q3 debt fail -- reference/ALV-STRIKE-2026-10-27-e142.md. Was PIPELINE
     dd_at_entry: 0.11542261596053782
     peak_date: 2026-06-02
-    fv_base: 68.15     # E142-E145 re-strike 2026-10-27, reference/ALV-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 85.89 -- E140/E140.1 re-strike 2026-10-27, reference/ALV-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 134.34 -- vss strike 2026-10-20 on the registered view 1/3/5 (bear 112.88, bull 159.37), close 116.49, g* 1.36%
-    run_record: reference/run-records/ALV-2026-10-27-e142.json     # E142 record. EARLIER: reference/run-records/ALV-2026-10-27.json
+    fv_base: 71.74     # re-struck after the method check 2026-10-27, reference/ALV-STRIKE-2026-10-27-check.md (E141). EARLIER: 68.15 -- E142-E145 re-strike 2026-10-27, reference/ALV-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 85.89 -- E140/E140.1 re-strike 2026-10-27, reference/ALV-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 134.34 -- vss strike 2026-10-20 on the registered view 1/3/5 (bear 112.88, bull 159.37), close 116.49, g* 1.36%
+    run_record: reference/run-records/ALV-2026-10-27-check.json     # the method-check record. EARLIER: reference/run-records/ALV-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/ALV-2026-10-27.json
     notes: >-
       Store config/manual/ALV.yaml (SEC XBRL FY2021-FY2025 plus 10-K hand
       legs, commit 13e4533), basis annual FY2025: FCF0 793m, net debt
@@ -2712,9 +2712,9 @@ tickers:
     status: HELD         # BOUGHT 2026-10-20: 30 shares at 36.73 USD, the owner's word in the session (account and SEK amount not yet stated; book from the Avanza transaction list). ADDED 2026-10-23: 46 shares at 39.22 USD, 18,027.42 SEK (owner, reported 2026-10-24). ADDED 2026-10-26: 51 shares at 39.33 USD, 20,063 SEK (owner, reported 2026-10-27); 148 held
     dd_at_entry: 0.11847285072337377
     peak_date: 2026-08-06
-    fv_base: 40.19     # E142-E145 re-strike 2026-10-27, reference/CENTA-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 28.6 -- E140/E140.1 re-strike 2026-10-27, reference/CENTA-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 61.83 -- vss strike 2026-10-20 on the registered view 2/-1/3.5 (bear 48.69), basis annual FY2025, close 35.79, g* -4.84%
-    fv_bull: 54.7     # the E142 record's bull case, for the C4 / E42 exit test. EARLIER: 33.82 -- the struck bull case, for the C4 / E42 exit test -- of the E140 record 2026-10-27 (was 69.64)
-    run_record: reference/run-records/CENTA-2026-10-27-e142.json     # E142 record. EARLIER: reference/run-records/CENTA-2026-10-27.json
+    fv_base: 40.19     # re-struck after the method check 2026-10-27, reference/CENTA-STRIKE-2026-10-27-check.md (E141). EARLIER: 40.19 -- E142-E145 re-strike 2026-10-27, reference/CENTA-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 28.6 -- E140/E140.1 re-strike 2026-10-27, reference/CENTA-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 61.83 -- vss strike 2026-10-20 on the registered view 2/-1/3.5 (bear 48.69), basis annual FY2025, close 35.79, g* -4.84%
+    fv_bull: 54.7     # the method-check record's bull case. EARLIER: 54.7 -- the E142 record's bull case, for the C4 / E42 exit test. EARLIER: 33.82 -- the struck bull case, for the C4 / E42 exit test -- of the E140 record 2026-10-27 (was 69.64)
+    run_record: reference/run-records/CENTA-2026-10-27-check.json     # the method-check record. EARLIER: reference/run-records/CENTA-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/CENTA-2026-10-27.json
     # No tier, no mbp, no stop_price: the tier is the owner's (section 4.4),
     #   and a HELD name with no stop is reported by the missing-stop blocker.
     notes: >-

@@ -1,0 +1,437 @@
+{
+ "ticker": "RMV.L",
+ "currency": "GBP",
+ "run_ts": "2026-10-27T15:28:59+01:00",
+ "basis": "2025-FY",
+ "shares": {
+  "count": 756031940.0,
+  "basis": "weighted-average DILUTED count for roll-forward balance sheet 2026-06-30, the same window as the flows (E38)",
+  "as_of": "2026-06-30",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 8539.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "Annual report and accounts 2025 (audited); Half-year Financial Report 2026 (RNS, unaudited) p.117, consolidated statement of cash flows: 'Financial expenses paid (535)' sits INSIDE cash flows from operating activities, between 'Cash generated from operating activities 308,015' and 'Net cash from operating activities 236,299' (beside 'Income taxes paid (71,181)'); 'Interest received on cash and cash equivalents 2,435' sits in cash flows used in INVESTING activities, outside. So the operating cash flow already bears every finance cost PAID (note 8, p.128: the \u00a3557k charge is 'Bank charges 455', 'Interest unwind on lease liabilities 90', 'Interest unwind on dilapidations 12') and does not contain the interest RECEIVED -- the conservative side. The interim keeps the placement: 'Financial expenses paid (272)' in operating, 'Interest received on cash and cash equivalents 1,116' in investing",
+  "net_interest_paid": -1900.0,
+  "source": "cash_flow_statement"
+ },
+ "bridge": {
+  "net_debt": -32628.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 0.0,
+   "pensions": 0.0,
+   "asset_retirement_obligations": 1717.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+  },
+  "note": "borrowings 0 + 0 + leases 0 -- the IFRS 16 liability 5,361 LEAVES net debt whole (E117: its cash is in the flow; one lessee model, no split) + pension deficit 0 (E35.1) + asset retirement obligations 1,717 (E68) + prepaid delivery obligations 0 (E81) - cash 34,345 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: split: capex_ppe + capex_intangibles, as the accounts print them"
+ },
+ "dates": {
+  "flows_window_end": "2025-12-31",
+  "balance_sheet": "2026-06-30",
+  "share_count": "2026-06-30",
+  "price": "2026-10-26"
+ },
+ "growth": {
+  "base": 0.03,
+  "view_file": "reference/growth-views/RMV.L.md",
+  "view_date": "2026-08-30",
+  "bear": 0.0,
+  "bull": 0.06
+ },
+ "operating_cash_flow": 236299.0,
+ "capex": -10179.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_ppe",
+   "value": -903.0,
+   "provenance": "p.117, cash flows used in investing activities: 'Acquisition of property, plant and equipment 12 (903)'; note 12, p.130: 'Additions ... 903' (leased asset additions 4,159 are separate, non-cash); cross-checked against the ESEF/iXBRL package, tag ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities, context c-1, scale 3: 903, sign attribute absent -- same magnitude, sign by convention (outflow tagged positive; this field signs it negative), not a discrepancy. E40 cross_document",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "capex_intangibles",
+   "value": -9276.0,
+   "provenance": "p.117, cash flows used in investing activities: 'Acquisition of intangible assets 13 (9,276)'; note 13, p.130: 'Additions \u2013 6,509 2,767 \u2013 9,276' (computer software 6,509, software development 2,767); cross-checked against the ESEF/iXBRL package, tag ifrs-full:PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities, context c-1, scale 3: 9,276, sign attribute absent -- same magnitude, sign by convention, not a discrepancy. E40 cross_document",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 236299.0,
+   "provenance": "p.117, consolidated statement of cash flows: 'Net cash from operating activities 236,299' (2024: 211,270) -- after 'Financial expenses paid (535)' and 'Income taxes paid (71,181)'. operating_cash_flow_pretax is deliberately NOT entered: the statement presents the flow after tax, and its pre-tax subtotal 'Cash generated from operating activities 308,015' is also pre-interest, so pretax-plus-tax would not reproduce this line; cross-checked against the ESEF/iXBRL package, tag ifrs-full:CashFlowsFromUsedInOperatingActivities, context c-1, scale 3: 236,299 -- agrees (E40 cross_document)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "sbc",
+   "value": 8539.0,
+   "provenance": "p.117, adjustments to profit: 'Share-based payments 23 8,539'; note 23, p.135: 'The Group recognised a total share-based payments charge for the year of \u00a38,539,000' -- Sharesave 500, PSP 336, DSP 3,244, SIP 1,606, RSP 2,853 = 'Total share-based payments charge 8,539'; the 'NI on applicable share-based incentives at 15.0% 1,276' that lifts it to the income statement's 9,815 is a cash cost the flow already bears and is excluded (E36; AUTO.L convention). All schemes equity-settled (p.123); cross-checked against the ESEF/iXBRL package, tag ifrs-full:AdjustmentsForSharebasedPayments, context c-1, scale 3: 8,539 -- agrees; the package tags the income-statement line separately as ifrs-full:ExpenseFromSharebasedPaymentTransactionsWithEmployees 9,815, the charge plus NI, which this field deliberately does not enter (E40 cross_document)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "net_interest_paid",
+   "value": -1900.0,
+   "provenance": "E18: finance_costs_paid - finance_income_received, both on 2025-FY",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 756031940.0,
+   "provenance": "RNS, note 7 'Weighted average number of ordinary shares (diluted)': basic 753,445,230 + 'Dilutive impact of share-based incentives outstanding 2,586,710' = 756,031,940 (the total row: '756,031,940 779,865,102 775,356,560') for the SIX MONTHS ended 30 June 2026 (June 2025: 779,865,102; year 2025: 775,356,560). A six-month average, not a twelve-month window average (E38/E75)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 0.0,
+   "provenance": "RNS, condensed interim statement of financial position, current liabilities: 'Trade and other payables 13 (40,647)', 'Lease liabilities (2,865)', 'Contract liabilities 4 (3,157)', 'Income tax payable (276)', 'Other current liabilities - - (428)' -- no borrowings caption; the deferred consideration was settled ('Settlement of deferred consideration (400)', investing)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 0.0,
+   "provenance": "RNS, condensed interim statement of financial position, non-current liabilities: 'Lease liabilities (2,496)', 'Provisions (1,724)', 'Other non-current liabilities - (423) -' -- no borrowings caption",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 5361.0,
+   "provenance": "RNS, condensed interim statement of financial position: 'Lease liabilities (2,865)' (current) and 'Lease liabilities (2,496)' (non-current) -- two stated parts added (E71): no total is printed in the condensed statements, and the narrative's summary balance sheet prints the same liability as one line, 'Lease liabilities (5.3)' \u00a3m, which 5,361 rounds to",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 0.0,
+   "provenance": "CARRIED from the fiscal year-end 2025-12-31 onto the roll-forward 2026-06-30 (E140.1(3): measured once a year (E41); the interim balance sheet does not restate it) -- p.123, note 2 material accounting policy information, Employee benefits (i) Pensions: 'The Group provides access to stakeholder pension schemes (defined contribution pension plans). Obligations for contributions to defined contribution pension plans are recognised as an employee benefit expense in the income statement when they are incurred.' No pension caption on p.116; note 6, p.128: 'Pension costs 3,730'. E35.1's note form",
+   "entered_by": "store",
+   "verified": "VERIFIED (caption_statement)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 1717.0,
+   "provenance": "CARRIED from the fiscal year-end 2025-12-31 onto the roll-forward 2026-06-30 (E140.1(3): measured once a year (E41); the interim balance sheet does not restate it) -- note 20 PROVISIONS, p.133: 'The dilapidations provision is in respect of any of the Group's leased properties where the Group has obligations to make good dilapidations' -- 'At 1 January 853', 'Charged 852', 'Unwinding of discount 12', 'At 31 December 1,717', 'Current \u2013', 'Non-current 1,717'; p.116 'Provisions 20 (1,717)'. Entered under E68 via E69 on AUTO.L's dilapidations precedent (E68.1 applications table); cross-checked against the ESEF/iXBRL package, tag ifrs-full:NoncurrentProvisions, context c-3, scale 3: 1,717 -- agrees; note 20 states the dilapidations provision is the only provision (Current \u2013, Non-current 1,717), so the tagged caption IS this figure (E40 cross_document)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "CARRIED from the fiscal year-end 2025-12-31 onto the roll-forward 2026-06-30 (E140.1(3): a NAMED ZERO at the year-end, a structural absence; the interim balance sheet does not restate it) -- E81 (2026-08-30): p.116, consolidated statement of financial position at 31 December 2025, liabilities presented: 'Trade and other payables (32,568)', 'Lease liabilities (3,562)', 'Contract liabilities (3,485)', 'Income tax payable (501)', 'Other current liabilities (428)', 'Other non-current liabilities -', 'Lease liabilities (3,622)', 'Provisions (1,717)' -- no streaming, prepaid-offtake or prepaid-delivery caption. 'Contract liabilities 3,485' is subscription revenue billed in advance (note 4), the ordinary contract liability of a property portal, working capital and NOT this leg, named here. A caption zero. Cross-checked against the ESEF/iXBRL package (E59, component sum): the tagged liability captions at context c-3 are TradeAndOtherCurrentPayables 32,568, CurrentLeaseLiabilities 3,562, CurrentContractLiabilities 3,485, CurrentTaxLiabilities 501, OtherCurrentLiabilities 428 (= CurrentLiabilities 40,544 exactly), NoncurrentLeaseLiabilities 3,622, NoncurrentProvisions 1,717, OtherNoncurrentFinancialLiabilities \u2013 (= NoncurrentLiabilities 5,339 exactly), Liabilities 45,883 = 40,544 + 5,339 -- the tagged captions exhaust the total, leaving no room for a prepaid-delivery caption. The absence is read a second time from the tagged balance sheet; cross_document",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 34345.0,
+   "provenance": "RNS, condensed interim statement of financial position: 'Cash and cash equivalents 34,345 36,817 37,223'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "lease_payments_capital",
+   "value": -3146.0,
+   "provenance": "p.117, cash flows used in financing activities: 'Payment of principal portion of lease liabilities 19 (3,146)'; note 19, p.133, reconciliation of lease liabilities: 'Payment of lease liabilities \u2013 capital (3,146)' and '\u2013 interest (80)'. A MEMO under E70; cross-checked against the ESEF/iXBRL package, tag ifrs-full:PaymentsOfLeaseLiabilitiesClassifiedAsFinancingActivities, context c-1, scale 3: 3,146, sign attribute absent -- same magnitude, sign by convention, not a discrepancy. E40 cross_document",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "lease_interest_paid",
+   "value": 80.0,
+   "provenance": "RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf pdf p.135, note 19 reconciliation of lease liabilities: 'Payment of lease liabilities - interest (80)' -- CASH PAID (the income statement's expense is 90). Interest is paid within operating 'Financial expenses paid (535)', which E34 adds back, so E117 deducts it here once",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "annual FY2023 capex_ppe",
+   "value": -2018.0,
+   "provenance": "pdf p.134, investing activities: 'Acquisition of property, plant and equipment 12 (1,055) (2,018)' (2023 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2023 capex_intangibles",
+   "value": -1328.0,
+   "provenance": "pdf p.134: 'Acquisition of intangible assets 13 (8,023) (1,328)' (2023 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2023 lease_payments_capital",
+   "value": -2530.0,
+   "provenance": "pdf p.134, financing activities: 'Payment of principal portion of lease liabilities 19 (2,781) (2,530)' (2023 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2023 lease_interest_paid",
+   "value": 187.0,
+   "provenance": "pdf p.150, note 19 reconciliation of lease liabilities: 'Payment of lease liabilities \u2013 interest (141) (187)' (2023 column) -- CASH PAID, as the 2025 basis year. E117 leg",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2023 operating_cash_flow",
+   "value": 206711.0,
+   "provenance": "pdf p.134, consolidated cash flow statement: 'Net cash from operating activities 211,270 206,711' (2023 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2023 working_capital_change",
+   "value": -734.0,
+   "provenance": "E140(1), pdf p.134: 'Decrease/(increase) in trade and other receivables 16 2,429 (4,503)', 'Increase in trade and other payables 18 2,299 3,863', 'Increase in contract assets 4 (511) (305)', 'Increase in contract liabilities 4 632 211' = - 4,503 + 3,863 - 305 + 211 = 734 absorbed, entered as -734 (2023 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2023 sbc",
+   "value": 5886.0,
+   "provenance": "pdf p.134, operating activities: 'Share-based payments 23 7,439 5,886' (2023 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2023 acquisitions_paid",
+   "value": 0.0,
+   "provenance": "E140.1(1), pdf p.134, investing activities: 'Acquisition of subsidiary, net of cash received 25 (7,552) -' -- the 2023 column is a dash",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 capex_ppe",
+   "value": -1055.0,
+   "provenance": "pdf p.119, investing activities: 'Acquisition of property, plant and equipment 12 (903) (1,055)' (2024 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 capex_intangibles",
+   "value": -8023.0,
+   "provenance": "pdf p.119: 'Acquisition of intangible assets 13 (9,276) (8,023)' (2024 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 lease_payments_capital",
+   "value": -2781.0,
+   "provenance": "pdf p.119, financing activities: 'Payment of principal portion of lease liabilities 19 (3,146) (2,781)' (2024 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 lease_interest_paid",
+   "value": 141.0,
+   "provenance": "pdf p.135, note 19 reconciliation of lease liabilities: 'Payment of lease liabilities \u2013 interest (80) (141)' (2024 column) -- CASH PAID, as the 2025 basis year. E117 leg",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 operating_cash_flow",
+   "value": 211270.0,
+   "provenance": "pdf p.119, consolidated cash flow statement: 'Net cash from operating activities 236,299 211,270' (2024 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 working_capital_change",
+   "value": 4849.0,
+   "provenance": "E140(1), pdf p.119: '(Increase)/decrease in trade and other receivables 16 (3,446) 2,429', 'Increase in trade and other payables 18 5,532 2,299', 'Decrease/(increase) in contract assets 4 19 (511)', 'Increase in contract liabilities 4 317 632' = 2,429 + 2,299 - 511 + 632 = 4,849 (2024 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 sbc",
+   "value": 7439.0,
+   "provenance": "pdf p.119, operating activities: 'Share-based payments 23 8,539 7,439' (2024 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 acquisitions_paid",
+   "value": -7552.0,
+   "provenance": "E140.1(1), pdf p.119, investing activities: 'Acquisition of subsidiary, net of cash received 25 - (7,552)' (2024 column). 'Acquisition of investment 25 - (3,000)' is an equity investment, not a business, and is not in it",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "2025-FY capex_ppe",
+   "value": -903.0,
+   "provenance": "p.117, cash flows used in investing activities: 'Acquisition of property, plant and equipment 12 (903)'; note 12, p.130: 'Additions ... 903' (leased asset additions 4,159 are separate, non-cash); cross-checked against the ESEF/iXBRL package, tag ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities, context c-1, scale 3: 903, sign attribute absent -- same magnitude, sign by convention (outflow tagged positive; this field signs it negative), not a discrepancy. E40 cross_document",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "2025-FY capex_intangibles",
+   "value": -9276.0,
+   "provenance": "p.117, cash flows used in investing activities: 'Acquisition of intangible assets 13 (9,276)'; note 13, p.130: 'Additions \u2013 6,509 2,767 \u2013 9,276' (computer software 6,509, software development 2,767); cross-checked against the ESEF/iXBRL package, tag ifrs-full:PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities, context c-1, scale 3: 9,276, sign attribute absent -- same magnitude, sign by convention, not a discrepancy. E40 cross_document",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "2025-FY lease_payments_capital",
+   "value": -3146.0,
+   "provenance": "p.117, cash flows used in financing activities: 'Payment of principal portion of lease liabilities 19 (3,146)'; note 19, p.133, reconciliation of lease liabilities: 'Payment of lease liabilities \u2013 capital (3,146)' and '\u2013 interest (80)'. A MEMO under E70; cross-checked against the ESEF/iXBRL package, tag ifrs-full:PaymentsOfLeaseLiabilitiesClassifiedAsFinancingActivities, context c-1, scale 3: 3,146, sign attribute absent -- same magnitude, sign by convention, not a discrepancy. E40 cross_document",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "2025-FY lease_interest_paid",
+   "value": 80.0,
+   "provenance": "RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf pdf p.135, note 19 reconciliation of lease liabilities: 'Payment of lease liabilities - interest (80)' -- CASH PAID (the income statement's expense is 90). Interest is paid within operating 'Financial expenses paid (535)', which E34 adds back, so E117 deducts it here once",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "2025-FY operating_cash_flow",
+   "value": 236299.0,
+   "provenance": "p.117, consolidated statement of cash flows: 'Net cash from operating activities 236,299' (2024: 211,270) -- after 'Financial expenses paid (535)' and 'Income taxes paid (71,181)'. operating_cash_flow_pretax is deliberately NOT entered: the statement presents the flow after tax, and its pre-tax subtotal 'Cash generated from operating activities 308,015' is also pre-interest, so pretax-plus-tax would not reproduce this line; cross-checked against the ESEF/iXBRL package, tag ifrs-full:CashFlowsFromUsedInOperatingActivities, context c-1, scale 3: 236,299 -- agrees (E40 cross_document)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "2025-FY working_capital_change",
+   "value": 2422.0,
+   "provenance": "E140(1), pdf p.119, consolidated cash flow statement: '(Increase)/decrease in trade and other receivables 16 (3,446) 2,429', 'Increase in trade and other payables 18 5,532 2,299', 'Decrease/(increase) in contract assets 4 19 (511)', 'Increase in contract liabilities 4 317 632' = - 3,446 + 5,532 + 19 + 317 = 2,422",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "2025-FY sbc",
+   "value": 8539.0,
+   "provenance": "p.117, adjustments to profit: 'Share-based payments 23 8,539'; note 23, p.135: 'The Group recognised a total share-based payments charge for the year of \u00a38,539,000' -- Sharesave 500, PSP 336, DSP 3,244, SIP 1,606, RSP 2,853 = 'Total share-based payments charge 8,539'; the 'NI on applicable share-based incentives at 15.0% 1,276' that lifts it to the income statement's 9,815 is a cash cost the flow already bears and is excluded (E36; AUTO.L convention). All schemes equity-settled (p.123); cross-checked against the ESEF/iXBRL package, tag ifrs-full:AdjustmentsForSharebasedPayments, context c-1, scale 3: 8,539 -- agrees; the package tags the income-statement line separately as ifrs-full:ExpenseFromSharebasedPaymentTransactionsWithEmployees 9,815, the charge plus NI, which this field deliberately does not enter (E40 cross_document)",
+   "entered_by": "store",
+   "verified": "VERIFIED (cross_document)"
+  },
+  {
+   "name": "2025-FY acquisitions_paid",
+   "value": 0.0,
+   "provenance": "E140.1(1), pdf p.119, investing activities: 'Acquisition of subsidiary, net of cash received 25 - (7,552)' -- the 2025 column is a dash",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "working_capital_change 2025-12-31..2026-06-30",
+   "value": 2373.0,
+   "provenance": "year to date roll-forward 2026-06-30: condensed consolidated interim cash flow statement, six months to 30 June 2026: 'Increase in trade and other receivables 11 (3,702) (3,720) (3,446)', 'Increase in trade and other payables' '6,648 5,886 5,532', '(Increase)/decrease in contract assets 4 (245) (115) 19', '(Decrease)/increase in contract liabilities 4 (328) (109) 317' = - 3,702 + 6,648 - 245 - 328 = 2,373",
+   "entered_by": "store",
+   "verified": ""
+  }
+ ],
+ "tool_commit": "vss strike 2026-10-27-check, 0a83c55",
+ "notes": "E142-E147 after the method check's fixes (reference/reviews/method/2026-10-27-CHECK.md)",
+ "money_unit": "thousands",
+ "nci_dividends_paid": 0.0,
+ "undetermined": [],
+ "fcf_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_debt_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_income": {
+  "value": 217067.0,
+  "page": "p.115: 'Profit for the year being total comprehensive income 217,067' (2024: 192,713), all attributable to equity holders of the Parent; cross-checked against the ESEF/iXBRL package, tag ifrs-full:ProfitLoss, context c-1, scale 3: 217,067 (ifrs-full:ProfitLossAttributableToOwnersOfParent also 217,067) -- agrees (E40 cross_document)",
+  "verified": true
+ },
+ "lease": {
+  "in_operating_cash_flow": false,
+  "page": "FRAMEWORK-EDITS E70, applied 2026-08-30 to an IFRS 16 filer IFRS 16.50(b): a lessee classifies cash payments for the principal portion of the lease liability within FINANCING activities; p.117 shows exactly that, 'Payment of principal portion of lease liabilities 19 (3,146)' under cash flows used in financing activities. The interest portion follows the filer's IAS 7 policy, which `interest_in_ocf` records (80 inside 'Financial expenses paid'). The standard leaves no choice on the principal",
+  "principal_added_back": null,
+  "leg": "`lease_payments_capital` + `lease_interest_paid`, DEDUCTED (E117: the IFRS 16 principal and lease interest)",
+  "rule": "E117",
+  "lease_cash_deducted": 3226.0,
+  "principal_paid": 3146.0,
+  "interest_paid": 80.0,
+  "liability_excluded": 5361.0
+ },
+ "e140": {
+  "years": [
+   {
+    "label": "annual FY2023",
+    "operating_cash_flow": 206711.0,
+    "working_capital": -734.0,
+    "capex": -3346.0,
+    "sbc": 5886.0,
+    "acquisitions": 0.0,
+    "lease_cash": 2717.0
+   },
+   {
+    "label": "annual FY2024",
+    "operating_cash_flow": 211270.0,
+    "working_capital": 4849.0,
+    "capex": -9078.0,
+    "sbc": 7439.0,
+    "acquisitions": -7552.0,
+    "lease_cash": 2922.0
+   },
+   {
+    "label": "2025-FY",
+    "operating_cash_flow": 236299.0,
+    "working_capital": 2422.0,
+    "capex": -10179.0,
+    "sbc": 8539.0,
+    "acquisitions": 0.0,
+    "lease_cash": 3226.0
+   }
+  ],
+  "tax_country": "GB",
+  "tax_rate": 0.25,
+  "ledger": "reference/events/RMV.L.yaml",
+  "ledger_dated": "2026-10-27",
+  "cut": "2026-06-30",
+  "deals": [],
+  "deals_in_balance_sheet": [],
+  "rolled_from": "2025-12-31",
+  "wc_since_year_end": 2373.0,
+  "wc_since_page": "year to date roll-forward 2026-06-30: condensed consolidated interim cash flow statement, six months to 30 June 2026: 'Increase in trade and other receivables 11 (3,702) (3,720) (3,446)', 'Increase in trade and other payables' '6,648 5,886 5,532', '(Increase)/decrease in contract assets 4 (245) (115) 19', '(Decrease)/increase in contract liabilities 4 (328) (109) 317' = - 3,702 + 6,648 - 245 - 328 = 2,373",
+  "e142": {
+   "history": "config/history/RMV.L.yaml",
+   "repeat_buyer": false,
+   "acquisitions_mean": 2517.3333333333335,
+   "roiic_base": null,
+   "roiic_bear": null,
+   "roiic_base_how": "",
+   "roiic_bear_how": "",
+   "cyclical": true,
+   "level_base": 1.0,
+   "level_bear": 0.8413779355104405,
+   "level_how": "CYCLICAL (revenue fell -29% in a year): owner-earnings margin median 59.8%, last three 53.6%, lowest 45.1% -> base level x1.000, bear x0.841",
+   "growth_how": "VIEW, NOT DERIVED (E144(4)): fewer than five organic years in config/history/RMV.L.yaml; the registered view reference/growth-views/RMV.L.md",
+   "pension_after_tax": true
+  }
+ }
+}

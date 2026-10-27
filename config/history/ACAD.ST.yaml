@@ -2,72 +2,260 @@ ticker: ACAD.ST
 currency: SEK
 money_unit: millions
 fiscal_year_end: 06-30
-business: {text: 'AcadeMedia runs preschools, compulsory and upper secondary schools and adult education, mainly in Sweden.', source: ar2026_bs, quote: 'Today, AcadeMedia is Europe’s largest education provider. We conduct operations along the entire education ladder, from preschool to adult education.'}
+business:
+  text: AcadeMedia runs preschools, compulsory and upper secondary schools and adult education, mainly in Sweden.
+  source: ar2026_bs
+  quote: Today, AcadeMedia is Europe’s largest education provider. We conduct operations along the entire education ladder, from preschool to adult education.
 sources:
-  ar2026: {file: sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf, page: 121}
-  ar2021: {file: sources/ACAD.ST_2021-FY_annual-financial-report_2021-10-29_en_a0.pdf, page: 112}
-  ar2026_bs: {file: sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf, page: 11}
+  ar2026:
+    file: sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf
+    page: 121
+  ar2021:
+    file: sources/ACAD.ST_2021-FY_annual-financial-report_2021-10-29_en_a0.pdf
+    page: 112
+  ar2026_bs:
+    file: sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf
+    page: 11
 rows:
 - field: revenue
   source: ar2026
-  years: [2026, 2025, 2024, 2023, 2022, 2021]
-  values: [20360, 19021, 17332, 15539, 14339, 13340]
+  years:
+  - 2026
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 20360
+  - 19021
+  - 17332
+  - 15539
+  - 14339
+  - 13340
   quote: Net sales 20,360 19,021 17,332 15,539 14,339 13,340
 - field: organic_growth_pct
   source: ar2026
-  years: [2026, 2025, 2024, 2023, 2022, 2021]
-  values: [5.8, 5.8, 7.3, 6.0, 5.2, 8.1]
+  years:
+  - 2026
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 5.8
+  - 5.8
+  - 7.3
+  - 6.0
+  - 5.2
+  - 8.1
   quote: Organic growth incl. minor acquisitions, % 5.8% 5.8% 7.3% 6.0% 5.2% 8.1%
 - field: operating_profit
   source: ar2026
-  years: [2026, 2025, 2024, 2023, 2022, 2021]
-  values: [1947, 1752, 1490, 1270, 1224, 1174]
+  years:
+  - 2026
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 1947
+  - 1752
+  - 1490
+  - 1270
+  - 1224
+  - 1174
   quote: Operating profit (EBIT) 1,947 1,752 1,490 1,270 1,224 1,174
 - field: invested_capital
   source: ar2026
-  years: [2026, 2025, 2024, 2023, 2022, 2021]
-  values: [10603, 8947, 9105, 8322, 8181, 7705]
+  years:
+  - 2026
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 10603
+  - 8947
+  - 9105
+  - 8322
+  - 8181
+  - 7705
   quote: Capital employed 10,603 8,947 9,105 8,322 8,181 7,705
 - field: equity
   source: ar2026
-  years: [2026, 2025, 2024, 2023, 2022, 2021]
-  values: [7018, 6626, 6265, 6134, 5758, 5305]
+  years:
+  - 2026
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 7018
+  - 6626
+  - 6265
+  - 6134
+  - 5758
+  - 5305
   quote: Equity 7,018 6,626 6,265 6,134 5,758 5,305
 - field: net_debt
   source: ar2026
-  years: [2026, 2025, 2024, 2023, 2022, 2021]
-  values: [1918, 953, 1020, 825, 987, 1222]
+  years:
+  - 2026
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 1918
+  - 953
+  - 1020
+  - 825
+  - 987
+  - 1222
   quote: Net debt 1,918 953 1,020 825 987 1,222
   note: issuer net debt excluding IFRS 16 lease liabilities
 - field: revenue
   source: ar2021
-  years: [2021, 2020, 2019, 2018, 2017, 2016]
-  values: [13340, 12271, 11715, 10810, 9520, 8611]
+  years:
+  - 2021
+  - 2020
+  - 2019
+  - 2018
+  - 2017
+  - 2016
+  values:
+  - 13340
+  - 12271
+  - 11715
+  - 10810
+  - 9520
+  - 8611
   quote: Net sales 13,340 12,271 11,715 10,810 9,520 8,611
 - field: organic_growth_pct
   source: ar2021
-  years: [2021, 2020, 2019, 2018, 2017, 2016]
-  values: [8.1, 5.4, 4.4, 5.8, 9.0, 6.4]
+  years:
+  - 2021
+  - 2020
+  - 2019
+  - 2018
+  - 2017
+  - 2016
+  values:
+  - 8.1
+  - 5.4
+  - 4.4
+  - 5.8
+  - 9.0
+  - 6.4
   quote: acquisitions, % 8.1% 5.4% 4.4% 5.8% 9.0% 6.4%
   note: 'label wraps in the PDF: Organic growth incl. minor bolt-on acquisitions, %'
 - field: operating_profit
   source: ar2021
-  years: [2021, 2020, 2019, 2018, 2017, 2016]
-  values: [1169, 973, 635, 622, 615, 535]
+  years:
+  - 2021
+  - 2020
+  - 2019
+  - 2018
+  - 2017
+  - 2016
+  values:
+  - 1169
+  - 973
+  - 635
+  - 622
+  - 615
+  - 535
   quote: Operating profit/loss (EBIT) 1,169 973 635 622 615 535
 - field: invested_capital
   source: ar2021
-  years: [2021, 2020, 2019, 2018, 2017, 2016]
-  values: [7718, 7250, 7386, 7144, 6158, 5674]
+  years:
+  - 2021
+  - 2020
+  - 2019
+  - 2018
+  - 2017
+  - 2016
+  values:
+  - 7718
+  - 7250
+  - 7386
+  - 7144
+  - 6158
+  - 5674
   quote: Capital employed 7,718 7,250 7,386 7,144 6,158 5,674
 - field: equity
   source: ar2021
-  years: [2021, 2020, 2019, 2018, 2017, 2016]
-  values: [5317, 4807, 4589, 4262, 3443, 2990]
+  years:
+  - 2021
+  - 2020
+  - 2019
+  - 2018
+  - 2017
+  - 2016
+  values:
+  - 5317
+  - 4807
+  - 4589
+  - 4262
+  - 3443
+  - 2990
   quote: Equity 5,317 4,807 4,589 4,262 3,443 2,990
 - field: net_debt
   source: ar2021
-  years: [2021, 2020, 2019, 2018, 2017, 2016]
-  values: [1222, 1797, 2266, 2179, 2133, 2342]
+  years:
+  - 2021
+  - 2020
+  - 2019
+  - 2018
+  - 2017
+  - 2016
+  values:
+  - 1222
+  - 1797
+  - 2266
+  - 2179
+  - 2133
+  - 2342
   quote: Net debt 1,222 1,797 2,266 2,179 2,133 2,342
   note: issuer net debt excluding IFRS 16 lease liabilities
+- field: operating_profit_adjusted
+  source: ar2026
+  years:
+  - 2026
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 1487
+  - 1281
+  - 1097
+  - 964
+  - 1001
+  - 939
+  quote: Adjusted EBIT, SEK m. 1,487 1,281 1,097 964 1,001 939
+  note: excludes IFRS 16 and items affecting comparability (method check 4.1, 2026-10-27)
+- field: operating_profit_adjusted
+  source: ar2021
+  years:
+  - 2021
+  - 2020
+  - 2019
+  - 2018
+  - 2017
+  - 2016
+  values:
+  - 934
+  - 728
+  - 634
+  - 670
+  - 638
+  - 567
+  quote: Adjusted EBIT, SEK m. 934 728 634 670 638 567

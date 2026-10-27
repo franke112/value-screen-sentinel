@@ -254,9 +254,9 @@ def test_e27_mc_pa_alert_is_labelled_not_an_mbp():
     # 2026-09-19 (owner, A4): MC.PA was struck -- fv_base 321.94 off its own
     # store -- but it still has NO TIER, so still no MBP; the 440 alert
     # remains no buy price
-    # 2026-10-27 (E142-E145, E141): re-struck on the E142 record at 392.62;
+    # 2026-10-27 (E142-E145, E141): re-struck on the method-check record at 392.95;
     # still no tier, so still no MBP
-    assert row.get("fv_base") == 392.62 and row.get("tier") is None
+    assert row.get("fv_base") == 392.95 and row.get("tier") is None
     notes = row["notes"].upper()
     assert "NOT AN MBP" in notes
     assert "NOT BUYABLE" in notes

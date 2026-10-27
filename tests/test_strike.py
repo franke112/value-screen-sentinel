@@ -145,7 +145,7 @@ def test_the_prior_record_stands_and_the_new_strike_is_E142s(tmp_path):
     assert [d.name.split()[0] for d in block.deals] == ["DyFlex"]
     parts = struck.record.e142_parts()
     assert parts["deal_credit"] == 0.0 and parts["programme"] < 0
-    assert struck.fv == pytest.approx(73.82, abs=0.01)
+    assert struck.fv == pytest.approx(73.96, abs=0.01)   # 73.82 before E146 credited the pension leg after tax
 
 
 # --- the table: link 5 ----------------------------------------------------

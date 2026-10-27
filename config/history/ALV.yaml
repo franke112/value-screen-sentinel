@@ -9,6 +9,27 @@ sources:
   tenk:
     file: sources/ALV_FY2025_annual-report-10k_2026-02-19_en_a0.htm
     kind: pdf
+  tenk2025:
+    file: sources/ALV_FY2025_annual-report-10k_2026-02-19_en_a0.htm
+    kind: pdf
+  tenk2024:
+    file: sources/ALV_FY2024_annual-report-10k_2025-02-20_en_a0.htm
+    kind: pdf
+  tenk2023:
+    file: sources/ALV_FY2023_annual-report-10k_2024-02-20_en_a0.htm
+    kind: pdf
+  tenk2022:
+    file: sources/ALV_FY2022_annual-report-10k_2023-02-16_en_a0.htm
+    kind: pdf
+  tenk2021:
+    file: sources/ALV_FY2021_annual-report-10k_2022-02-22_en_a0.htm
+    kind: pdf
+  tenk2020:
+    file: sources/ALV_FY2020_annual-report-10k_2021-02-19_en_a0.htm
+    kind: pdf
+  tenk2019:
+    file: sources/ALV_FY2019_annual-report-10k_2020-02-21_en_a0.htm
+    kind: pdf
 rows:
 - field: revenue
   source: xbrl
@@ -274,6 +295,62 @@ rows:
   - 1364000000.0
   - 1579000000.0
   - 1549000000.0
+- field: organic_growth_pct
+  source: tenk2025
+  years:
+  - 2025
+  values:
+  - 3.4
+  quote: Total $ 10,815 $ 10,390 4.1 % 0.7 % 3.4 %
+  note: 'Components of change in net sales, Total row: reported change, currency effects, ORGANIC (the last figure)'
+- field: organic_growth_pct
+  source: tenk2024
+  years:
+  - 2024
+  values:
+  - 0.4
+  quote: Total $ 10,390 $ 10,475 (0.8 )% (1.2 )% 0.4 %
+  note: 'Components of change in net sales, Total row: reported change, currency effects, ORGANIC (the last figure)'
+- field: organic_growth_pct
+  source: tenk2023
+  years:
+  - 2023
+  values:
+  - 18
+  quote: Total $ 10,475 $ 8,842 18 % 0.3 % 18 %
+  note: 'Components of change in net sales, Total row: reported change, currency effects, ORGANIC (the last figure)'
+- field: organic_growth_pct
+  source: tenk2022
+  years:
+  - 2022
+  values:
+  - 14.0
+  quote: Total $ 8,842 $ 8,230 7.4 % (6.1 )% 14.0 %
+  note: 'Components of change in net sales, Total row: reported change, currency effects, ORGANIC (the last figure)'
+- field: organic_growth_pct
+  source: tenk2021
+  years:
+  - 2021
+  values:
+  - 7.9
+  quote: Total $ 8,230 $ 7,447 10.5 % 2.6 % 7.9 %
+  note: 'Components of change in net sales, Total row: reported change, currency effects, ORGANIC (the last figure)'
+- field: organic_growth_pct
+  source: tenk2020
+  years:
+  - 2020
+  values:
+  - -12.0
+  quote: Total $ 7,447 $ 8,548 (12.9 )% (0.9 )% (12.0 )%
+  note: 'Components of change in net sales, Total row: reported change, currency effects, ORGANIC (the last figure)'
+- field: organic_growth_pct
+  source: tenk2019
+  years:
+  - 2019
+  values:
+  - 1.2
+  quote: Total $ 8,548 $ 8,678 (1.5 )% (2.7 )% 1.2 %
+  note: 'Components of change in net sales, Total row: reported change, currency effects, ORGANIC (the last figure)'
 business:
   text: Autoliv makes airbags, steering wheels and seatbelts for car makers, who keep buying because safety systems are designed in for each vehicle platform.
   source: tenk

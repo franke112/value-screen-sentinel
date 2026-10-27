@@ -924,7 +924,8 @@ def _fully_populated_record() -> R.RunRecord:
                 acquisitions_mean=5_000.0, roiic_base=0.071, roiic_bear=0.02,
                 roiic_base_how="round-trip base", roiic_bear_how="round-trip bear",
                 cyclical=True, level_base=0.9, level_bear=0.6,
-                level_how="round-trip level", growth_how="round-trip growth")))
+                level_how="round-trip level", growth_how="round-trip growth",
+                pension_after_tax=True)))
 
 
 def test_from_dict_reads_back_EVERY_field_to_dict_writes():

@@ -1,0 +1,50 @@
+# CPRT -- struck 2026-10-27
+
+*Struck by `vss strike` off `config/manual/CPRT.yaml` on the pre-registered growth view 6.00% / 1.00% / 10.00%, carried from CPRT-2026-10-27-e142.json. Nothing here writes the watchlist: fv_base, tier, mbp and stop_price are the owner's.*
+
+- **basis:** annual FY2026
+- **fv_base:** 26.96 -> **26.96** (bear 18.33, bull 35.84)
+- **FCF0:** 1,059,154,750
+- **net debt:** -4,487,076,000 on the balance sheet of 2026-07-31
+- **E140 FCF0:** mean of annual FY2024 1,112,739,000; annual FY2025 1,141,735,000; annual FY2026 1,332,317,000 = 1,195,597,000; acquisitions mean 2,075,667 NOT deducted -- valued as the deal programme (E142); + interest after tax -136,442,250 at 0.25 (US); - minority dividends 0
+- **bridge (E140(3), deals at the HIGH end):** net debt -4,487,076,000 on the balance sheet + deals 1,950,000,000 + working capital neutralised 0 = -2,537,076,000
+- **growth (E144):** VIEW, NOT DERIVED (E144(4)): fewer than five organic years in config/history/CPRT.yaml; the registered view reference/growth-views/CPRT.md
+- **cycle and level (E143):** not cyclical (E143(3)); bear level x0.931: the weakest E140 year 1,112,739,000 over the mean 1,195,597,000 (E143(4))
+- **deal programme (E142):** repeat buyer, A = 2,075,667/yr; ROIIC base 23.70% -- operating profit 406,470,000 (2016) -> 716,475,000 (2019); organic x1.191 (3 of 3 years at the view's 6.0%); after tax 25.0%: 174,272,045 on capital added 735,455,000 = 23.70%; bear 23.70% -- operating profit 406,470,000 (2016) -> 716,475,000 (2019); organic x1.191 (3 of 3 years at the view's 6.0%); after tax 25.0%: 174,272,045 on capital added 735,455,000 = 23.70%
+- **bear:** flow 1,059,154,750 x level 0.931 x (1 + 1.00%) = FCF0 995,610,080; programme 0 (+0.00/sh); deals 1,950,000,000 credited back 1,950,000,000 at ROIIC 23.70% (+2.04/sh) -> **18.33**
+- **base:** flow 1,059,154,750 x level 1.000 x (1 + 6.00%) = FCF0 1,122,704,035; programme 0 (+0.00/sh); deals 1,950,000,000 credited back 1,950,000,000 at ROIIC 23.70% (+2.04/sh) -> **26.96**
+- **bull:** flow 1,059,154,750 x level 1.000 x (1 + 10.00%) = FCF0 1,165,070,225; programme 0 (+0.00/sh); deals 1,950,000,000 credited back 1,950,000,000 at ROIIC 9.50% (+2.04/sh) -> **35.84**
+- **events ledger** `reference/events/CPRT.yaml` dated 2026-10-27, cut at 2026-07-31: ACV Auctions ($10.50/share tender; aggregate per secondary sources ~1.9bn; low/high bound the share count) 1,800,000,000..1,950,000,000
+- **divisor:** 956,860,000
+- **lease:** RENT IS AN OPERATING COST (E117): the operating cash flow bears the operating lease payments (ASC 842-20-45-5(a)) and NOTHING is added back; the lease liability 85,641,000 LEFT net debt; finance leases stay in net debt
+- **close 2026-10-26:** 29.15; g* 7.12%
+- **store's newest period:** --
+- **anchors:** g* 7.12%; the base case returns ~8.9% a year at today's price against r 9.5%; tangible ROIC median 31.3% over 4 years against 15%
+- **would Warren own it (E145):**
+  - Q1 tangible ROIC: **PASS** -- median 31.3% over 4 years against 15%
+  - Q2 stability: **PASS** -- owner earnings negative in no year; operating profit at most 3% below its running peak
+  - Q3 debt: **PASS** -- net debt -2.3x FCF0 against 4.5x (stable class)
+  - Q4 capital allocation: **PASS** -- ROIIC 23.7% against r 9.5%
+  - Q5 understandable: **PASS** -- Copart runs online auctions of salvage and used vehicles for insurers and sellers, with buyers worldwide; its yard network and bidder base keep sellers coming.
+
+```
+CPRT — strike 2026-10-27   against CPRT-2026-10-27-e142.json
+
+                                               before           after     move
+fv_base                                         26.96           26.96    +0.0%
+  bear                                          18.33           18.33    +0.0%
+  bull                                          35.84           35.84    +0.0%
+MBP (E90)  tier -- -> --                           --              --         
+g*                                                              7.12%         
+  fv_base, deals at LOW end (E140(3))                           26.96         
+
+WHICH LEG MOVED
+  unchanged: FCF0, net debt, divisor (shares), basis, growth view, discount rate, lease treatment
+
+WHAT THE TWO SIDES STAND ON
+  basis window end        2026-07-31 -> 2026-07-31
+  settled close           2026-10-26 -> 2026-10-26  (29.15)
+  store's newest period, today: --
+```
+
+Record: `reference/run-records/CPRT-2026-10-27-check.json`

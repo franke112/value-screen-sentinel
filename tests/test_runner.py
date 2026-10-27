@@ -378,14 +378,14 @@ def test_e90_LIAB_ST_prints_51_73_from_its_run_record():
     assert [f.shares for f in entry.sales] == [121] and entry.sales[0].price == 120.70
     # 2026-10-27: re-struck under E142 (the E117 record's 68.97 was the
     # figure before; E140 struck -33.97, which never reached the entry)
-    assert entry.fv_base == 65.93
-    assert entry.run_record == "reference/run-records/LIAB.ST-2026-10-27-e142.json"
+    assert entry.fv_base == 66.68
+    assert entry.run_record == "reference/run-records/LIAB.ST-2026-10-27-check.json"
     fetched = F.FetchResult("LIAB.ST", _series(last_close=123.60, last_volume=1000.0),
                             F.SOURCE_LIVE)
     row = RUN.build_row(entry, fetched, date(2026, 8, 20), date(2026, 8, 20))
-    assert row.fv_base == 65.93 and row.fv_refused is None
-    assert row.fv_bear == pytest.approx(-6.03, abs=0.005)   # information (E143: the bear lowers the level)
-    assert row.assessment.mbp == 49.45 and row.assessment.mbp_superseded is False
+    assert row.fv_base == 66.68 and row.fv_refused is None
+    assert row.fv_bear == pytest.approx(-5.29, abs=0.005)   # information (E143: the bear lowers the level)
+    assert row.assessment.mbp == 50.01 and row.assessment.mbp_superseded is False
 
 
 def test_e90_a_record_without_a_bear_case_prints_the_same_unmarked_figure(tmp_path):
