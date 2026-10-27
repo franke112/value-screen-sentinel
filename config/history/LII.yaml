@@ -1,0 +1,275 @@
+ticker: LII
+currency: USD
+money_unit: whole
+sources:
+  xbrl:
+    kind: sec-xbrl
+    url: https://data.sec.gov/api/xbrl/companyfacts/
+    fetched: '2026-10-27'
+  tenk:
+    file: sources/LII_FY2025_annual-report-10k_2026-02-17_en_a0.htm
+    kind: pdf
+rows:
+- field: revenue
+  source: xbrl
+  tag: Revenues
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 3641600000.0
+  - 3839600000.0
+  - 3883900000.0
+  - 3807200000.0
+  - 3634100000.0
+  - 4194100000.0
+  - 4718400000.0
+  - 4981900000.0
+  - 5341300000.0
+  - 5195300000.0
+- field: revenue
+  source: xbrl
+  tag: SalesRevenueNet
+  years:
+  - 2015
+  values:
+  - 3467400000.0
+- field: operating_profit
+  source: xbrl
+  tag: OperatingIncomeLoss
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 305400000.0
+  - 429400000.0
+  - 494500000.0
+  - 509900000.0
+  - 656900000.0
+  - 478500000.0
+  - 590300000.0
+  - 656200000.0
+  - 791500000.0
+  - 1040400000.0
+  - 1041500000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivities
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 353600000.0
+  - 373900000.0
+  - 325100000.0
+  - 495500000.0
+  - 396100000.0
+  - 612400000.0
+  - 515500000.0
+  - 302300000.0
+  - 736200000.0
+  - 945700000.0
+  - 757600000.0
+- field: capex
+  source: xbrl
+  tag: PaymentsToAcquirePropertyPlantAndEquipment
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 69900000.0
+  - 84300000.0
+  - 98300000.0
+  - 95200000.0
+  - 105600000.0
+  - 78500000.0
+  - 106800000.0
+  - 101100000.0
+  - 250200000.0
+  - 163600000.0
+  - 118800000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesNetOfCashAcquired
+  years:
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 0.0
+  - 94900000.0
+  - 1800000.0
+  - 545000000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesGross
+  years:
+  - 2021
+  values:
+  - 0.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: 'searched: no acquisition element tagged (zero)'
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  values:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquity
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 101600000.0
+  - 38000000.0
+  - 50100000.0
+  - -149600000.0
+  - -170200000.0
+  - -17100000.0
+  - -269000000.0
+  - -203100000.0
+  - 393000000.0
+  - 962100000.0
+  - 1163100000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 195100000.0
+  - 195100000.0
+  - 200500000.0
+  - 186600000.0
+  - 186500000.0
+  - 186900000.0
+  - 186600000.0
+  - 186300000.0
+  - 222100000.0
+  - 220000000.0
+  - 497200000.0
+- field: shares
+  source: xbrl
+  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 45600000.0
+  - 44000000.0
+  - 42800000.0
+  - 41100000.0
+  - 39400000.0
+  - 38600000.0
+  - 37500000.0
+  - 35800000.0
+  - 35700000.0
+  - 35800000.0
+  - 35400000.0
+  unit: whole
+- field: net_debt
+  source: xbrl
+  tag: 'derived: LongTermDebt (or its parts) + short-term borrowings - CashAndCashEquivalentsAtCarryingValue'
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 196200000.0
+  - 202300000.0
+  - -34700000.0
+  - 254500000.0
+  - 284600000.0
+  - -114000000.0
+  - -19700000.0
+  - 658000000.0
+  - 101400000.0
+  - -100600000.0
+  - 210100000.0
+business:
+  text: Lennox makes heating, cooling and refrigeration equipment sold through dealers and distributors to homes and buildings; installer relationships and replacement demand recur.
+  source: tenk
+  quote: We design, manufacture and market a broad range of products for the heating, ventilation, air conditioning and refrigeration

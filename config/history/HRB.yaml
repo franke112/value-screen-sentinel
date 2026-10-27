@@ -1,0 +1,275 @@
+ticker: HRB
+currency: USD
+money_unit: whole
+sources:
+  xbrl:
+    kind: sec-xbrl
+    url: https://data.sec.gov/api/xbrl/companyfacts/
+    fetched: '2026-10-27'
+  tenk:
+    file: sources/HRB_FY2026_annual-report-10k_2026-08-14_en_a0.htm
+    kind: pdf
+rows:
+- field: revenue
+  source: xbrl
+  tag: Revenues
+  years:
+  - 2016
+  - 2017
+  - 2018
+  values:
+  - 3038153000.0
+  - 3036314000.0
+  - 3159931000.0
+- field: revenue
+  source: xbrl
+  tag: RevenueFromContractWithCustomerExcludingAssessedTax
+  years:
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 3094881000.0
+  - 2639720000.0
+  - 3413987000.0
+  - 3463270000.0
+  - 3472185000.0
+  - 3610347000.0
+  - 3760995000.0
+  - 3945392000.0
+- field: operating_profit
+  source: xbrl
+  tag: 'E147: IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments + InterestExpenseBorrowings'
+  years:
+  - 2016
+  values:
+  - 638441000.0
+- field: operating_profit
+  source: xbrl
+  tag: 'E147: IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments + InterestExpenseDebt'
+  years:
+  - 2017
+  - 2018
+  - 2019
+  values:
+  - 722238000.0
+  - 758104000.0
+  - 632211000.0
+- field: operating_profit
+  source: xbrl
+  tag: 'E147: IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest + InterestExpenseDebt'
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 92720000.0
+  - 869192000.0
+  - 747351000.0
+  - 784190000.0
+  - 841402000.0
+  - 859516000.0
+  - 934499000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivities
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 544553000.0
+  - 552197000.0
+  - 850003000.0
+  - 606538000.0
+  - 108961000.0
+  - 625928000.0
+  - 808537000.0
+  - 821841000.0
+  - 720860000.0
+  - 680883000.0
+  - 838695000.0
+- field: capex
+  source: xbrl
+  tag: PaymentsToAcquirePropertyPlantAndEquipment
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 99923000.0
+  - 89255000.0
+  - 98583000.0
+  - 95490000.0
+  - 81685000.0
+  - 52792000.0
+  - 61955000.0
+  - 69698000.0
+  - 63678000.0
+  - 82034000.0
+  - 82614000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesNetOfCashAcquired
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 88776000.0
+  - 54816000.0
+  - 42539000.0
+  - 43637000.0
+  - 450242000.0
+  - 43400000.0
+  - 35920000.0
+  - 48246000.0
+  - 43358000.0
+  - 35518000.0
+  - 57639000.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquity
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 23103000.0
+  - -60883000.0
+  - 393711000.0
+  - 541527000.0
+  - 71041000.0
+  - 352401000.0
+  - 211631000.0
+  - 32064000.0
+  - 90594000.0
+  - 88896000.0
+  - 117488000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 470757000.0
+  - 491207000.0
+  - 507871000.0
+  - 519937000.0
+  - 712138000.0
+  - 757659000.0
+  - 760401000.0
+  - 775453000.0
+  - 785226000.0
+  - 802053000.0
+  - 812543000.0
+- field: shares
+  source: xbrl
+  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 250818000.0
+  - 214095000.0
+  - 210213000.0
+  - 206724000.0
+  - 198108000.0
+  - 188777000.0
+  - 171435000.0
+  - 157248000.0
+  - 143890000.0
+  - 137340000.0
+  - 128866000.0
+  unit: whole
+- field: net_debt
+  source: xbrl
+  tag: 'derived: LongTermDebt (or its parts) + short-term borrowings - CashAndCashEquivalentsAtCarryingValue'
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 595400000.0
+  - 482667000.0
+  - -49309000.0
+  - -79521000.0
+  - 833343000.0
+  - 555788000.0
+  - 601861000.0
+  - 502000000.0
+  - 437769000.0
+  - 509921000.0
+  - 532787000.0
+business:
+  text: H&R Block prepares taxes (assisted and DIY) and offers financial and small-business services to consumers; trust and annual habit bring clients back.
+  source: tenk
+  quote: through global tax preparation services, financial products, and small business solutions

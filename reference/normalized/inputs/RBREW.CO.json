@@ -1,0 +1,283 @@
+{
+ "ticker": "RBREW.CO",
+ "unit": "mDKK",
+ "years": {
+  "FY2025": {
+   "ocf": {
+    "caption": "Cash flows from operating activities",
+    "value": 2385,
+    "quote": "Cash flows from operating activities                    2,385    2,189",
+    "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+    "page": 138,
+    "note": "Total printed by the statement: 'Cash flows from operating activities' (after interest and tax)"
+   },
+   "wc_lines": [
+    {
+     "caption": "Change in working capital",
+     "value": 134,
+     "quote": "Change in working capital                                 134       216",
+     "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+     "page": 138,
+     "note": "Single line; no breakdown in notes"
+    }
+   ],
+   "capex_lines": [
+    {
+     "caption": "Purchase of property, plant and equipment",
+     "value": -797,
+     "quote": "Purchase of property, plant and equipment         12     -797     -761",
+     "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+     "page": 138
+    },
+    {
+     "caption": "Purchase of intangible assets",
+     "value": -44,
+     "quote": "Purchase of intangible assets                      11     -44      -58",
+     "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+     "page": 138
+    }
+   ],
+   "lease_principal": {
+    "caption": "Repayment on lease facilities",
+    "value": -177,
+    "quote": "Repayment on lease facilities                                                           18            -177             -166",
+    "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+    "page": 138
+   },
+   "lease_interest": {
+    "caption": "Financial expenses related to leasing",
+    "value": -12,
+    "quote": "Financial expenses related to leasing                      -12       -11",
+    "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+    "page": 138
+   },
+   "interest_paid": {
+    "caption": "Paid financial expenses",
+    "value": -268,
+    "quote": "Paid financial expenses                                  -268    -304",
+    "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+    "page": 138
+   },
+   "interest_received": {
+    "caption": "Received financial income",
+    "value": 26,
+    "quote": "Received financial income                                   26        15",
+    "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+    "page": 138
+   },
+   "tax_paid": {
+    "caption": "Corporation tax paid",
+    "value": -461,
+    "quote": "Corporation tax paid                                     -461     -384",
+    "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+    "page": 138
+   },
+   "sbc": {
+    "caption": "Share-based payments and remuneration",
+    "value": 35,
+    "quote": "Share-based payments and remuneration                           35      23",
+    "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+    "page": 167
+   },
+   "acquisitions": {
+    "caption": "Acquisition of enterprises, net",
+    "value": -167,
+    "quote": "Acquisition of enterprises, net                   22     -167      -80",
+    "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+    "page": 138
+   },
+   "disposals": {
+    "caption": "Sale of property, plant and equipment",
+    "value": 11,
+    "quote": "Sale of property, plant and equipment                       11      18",
+    "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+    "page": 138,
+    "note": "Sale of PPE; the separate line 'Cash receipts from sales of equity instruments of other entities' is 35 (2025) and 201 (2024, Polish breweries)"
+   }
+  },
+  "FY2024": {
+   "ocf": {
+    "caption": "Cash flows from operating activities",
+    "value": 2189,
+    "quote": "Cash flows from operating activities                    2,385    2,189",
+    "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+    "page": 138,
+    "note": "Total printed: 'Cash flows from operating activities'"
+   },
+   "wc_lines": [
+    {
+     "caption": "Change in working capital",
+     "value": 216,
+     "quote": "Change in working capital                                 134       216",
+     "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+     "page": 138,
+     "note": "Single line"
+    }
+   ],
+   "capex_lines": [
+    {
+     "caption": "Purchase of property, plant and equipment",
+     "value": -761,
+     "quote": "Purchase of property, plant and equipment         12     -797     -761",
+     "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+     "page": 138
+    },
+    {
+     "caption": "Purchase of intangible assets",
+     "value": -58,
+     "quote": "Purchase of intangible assets                      11     -44      -58",
+     "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+     "page": 138
+    }
+   ],
+   "lease_principal": {
+    "caption": "Repayment on lease facilities",
+    "value": -166,
+    "quote": "Repayment on lease facilities                                                           18            -177             -166",
+    "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+    "page": 138
+   },
+   "lease_interest": {
+    "caption": "Financial expenses related to leasing",
+    "value": -11,
+    "quote": "Financial expenses related to leasing                      -12       -11",
+    "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+    "page": 138
+   },
+   "interest_paid": {
+    "caption": "Paid financial expenses",
+    "value": -304,
+    "quote": "Paid financial expenses                                  -268    -304",
+    "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+    "page": 138
+   },
+   "interest_received": {
+    "caption": "Received financial income",
+    "value": 15,
+    "quote": "Received financial income                                   26        15",
+    "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+    "page": 138
+   },
+   "tax_paid": {
+    "caption": "Corporation tax paid",
+    "value": -384,
+    "quote": "Corporation tax paid                                     -461     -384",
+    "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+    "page": 138
+   },
+   "sbc": {
+    "caption": "Share-based payments and remuneration",
+    "value": 23,
+    "quote": "Share-based payments and remuneration                           35      23",
+    "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+    "page": 167
+   },
+   "acquisitions": {
+    "caption": "Acquisition of enterprises, net",
+    "value": -80,
+    "quote": "Acquisition of enterprises, net                   22     -167      -80",
+    "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+    "page": 138
+   },
+   "disposals": {
+    "caption": "Sale of property, plant and equipment",
+    "value": 18,
+    "quote": "Sale of property, plant and equipment                       11      18",
+    "file": "~/vss/sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf",
+    "page": 138,
+    "note": "Sale of PPE; plus 'Cash receipts from sales of equity instruments of other entities' 201 (Polish breweries)"
+   }
+  },
+  "FY2023": {
+   "ocf": {
+    "caption": "Cash flows from operating activities",
+    "value": 1777,
+    "quote": "Cash flows from operating activities                    2,189      1,777",
+    "file": "<scratch>/e140/dl/RBREW_AR24.pdf",
+    "page": 155
+   },
+   "wc_lines": [
+    {
+     "caption": "Change in working capital",
+     "value": 55,
+     "quote": "Change in working capital                                  216        55",
+     "file": "<scratch>/e140/dl/RBREW_AR24.pdf",
+     "page": 155
+    }
+   ],
+   "lease_principal": {
+    "caption": "Repayment on lease facilities",
+    "value": -138,
+    "quote": "Repayment on lease facilities                                                      20           -166            -138",
+    "file": "<scratch>/e140/dl/RBREW_AR24.pdf",
+    "page": 155
+   },
+   "lease_interest": {
+    "caption": "Financial expenses related to leasing",
+    "value": -7,
+    "quote": "Financial expenses related to leasing                       -11       -7",
+    "file": "<scratch>/e140/dl/RBREW_AR24.pdf",
+    "page": 155
+   },
+   "interest_paid": {
+    "caption": "Paid financial expenses",
+    "value": -251,
+    "quote": "Paid financial expenses                                 -304        -251",
+    "file": "<scratch>/e140/dl/RBREW_AR24.pdf",
+    "page": 155
+   },
+   "interest_received": {
+    "caption": "Received financial income",
+    "value": 8,
+    "quote": "Received financial income                                    15        8",
+    "file": "<scratch>/e140/dl/RBREW_AR24.pdf",
+    "page": 155
+   },
+   "tax_paid": {
+    "caption": "Corporation tax paid",
+    "value": -250,
+    "quote": "Corporation tax paid                                     -384      -250",
+    "file": "<scratch>/e140/dl/RBREW_AR24.pdf",
+    "page": 155
+   },
+   "sbc": {
+    "caption": "Share-based payments and remuneration",
+    "value": 14,
+    "quote": "Share-based payments and remuneration                           23      14",
+    "file": "<scratch>/e140/dl/RBREW_AR24.pdf",
+    "page": 186
+   },
+   "acquisitions": {
+    "caption": "Acquisition of enterprises, net",
+    "value": -2419,
+    "quote": "Acquisition of enterprises, net                   24      -80     -2,419",
+    "file": "<scratch>/e140/dl/RBREW_AR24.pdf",
+    "page": 155
+   },
+   "disposals": {
+    "caption": "Sale of property, plant and equipment",
+    "value": 93,
+    "quote": "Sale of property, plant and equipment                      18        93",
+    "file": "<scratch>/e140/dl/RBREW_AR24.pdf",
+    "page": 155,
+    "note": "Sale of PPE; no equity-instrument sale in 2023 (0)"
+   },
+   "capex_lines": [
+    {
+     "caption": "Purchase of property, plant and equipment",
+     "value": -602,
+     "quote": "Purchase of property, plant and equipment         12     -761      -602",
+     "file": "<scratch>/e140/dl/RBREW_AR24.pdf",
+     "page": 155
+    },
+    {
+     "caption": "Purchase of intangible assets",
+     "value": null,
+     "note": "FY2023 cell is blank in the AR2024 statement (row prints only the 2024 value -58); the investing total -2,925 reconciles with 0 for this line"
+    }
+   ]
+  }
+ },
+ "post_basis_deals": [],
+ "notes": "FY2023 from Annual Report 2024 (downloaded from cms.unibrew.com/media/2xebchiw/annual-report-2024.pdf) POST-BASIS DEALS: none found. H1 2026 interim (sources/RBREW.CO_2026-H1_half-year-financial-report_2026-08-17_en_a1.pdf p.19, note 8): 'No events have occurred ... that materially affect'; H1 2026 cash flow 'Acquisition of enterprises, net' Q2 2026 blank, H1 2026 blank (H1 2025: -167 = Minttu DKK 155m closed 28 Feb 2025 + GiG DKK 12m, AR2025 note 22 p.169-ish). AR2025 note 22 'Events after the reporting period' (parent) none. Web search found no 2026 acquisition. The FY2023 purchase-of-intangibles cell is blank in the AR2024 statement."
+}

@@ -186,12 +186,14 @@ periods:
         zero_basis: note
         source: "E105 leg; E25 note basis"
         page: "sources/APN.L_2025-FY_final-results_2025-11-10_xx_a0.html, note 24 (share-based payments), on AN USA Holdings Inc.: 'it is concluded the AN USA Holdings Inc.'s CEO held no rights to AN USA Holdings Inc.'s equity outside of the predetermined formula, and thus NO NON-CONTROLLING INTEREST (NCI) EXISTED. No recognition of NCI was recognised as at 31 July 2025, nor was any recognised as at 31 July 2024.' The 10% holding a reader would take for a minority is accounted for as a cash-settled share-based payment, not as an NCI. A group with no minority distributes nothing to one."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       free_cash_flow_reported:
         value: 16.5
         source: "E103 automatic reference extraction (pdf (model-read))"
         page: "Key financial information table in final results announcement [printed in millions] -- verbatim: Free cash flow (£m) 16.5"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue:
         value: 107.1
         page: "Consolidated statement of comprehensive income, year ended 31 July 2025: 'Revenue 4 | 107.1' (2024: 86.2); ESEF ifrs-full:Revenue; cross-checked against the ESEF/iXBRL package (sources/APN.L_2025-FY_annual-financial-report_2025-11-27_xx_a0.zip, reports/213800KCP1IDX51ZHE47-2025-07-31-T01.xhtml, NSM NI-000134643; the tag's value string carries the xhtml's inserted spaces and was parsed mechanically, concept + context + scale + digits, before any comparison -- see the header), tag ifrs-full:Revenue, context c-1 (2024-08-01 to 2025-07-31), unit GBP, scale 6: 107.1 -- agrees (E40 cross_document)"
@@ -257,6 +259,11 @@ periods:
         page: "Consolidated statement of cash flows, financing: 'Principal paid on lease liability 14 (0.3)'; note 14 lease-liability roll-forward: 'Lease payments (0.4)' of which interest 0.1. A MEMO under E70; cross-checked against the ESEF/iXBRL package, tag ifrs-full:PaymentsOfLeaseLiabilitiesClassifiedAsFinancingActivities, context c-1 (2024-08-01 to 2025-07-31), unit GBP, scale 6: 0.3 -- same magnitude; the concept is inherently an outflow tagged as a positive magnitude by iXBRL convention while this field signs outflows negative, a convention difference and not a discrepancy (E58 precedent) (E40 cross_document)"
         status: VERIFIED
         verified_kind: cross_document
+      lease_interest_paid:
+        value: 0.1
+        page: "Consolidated statement of cash flows: 'Interest paid on lease liability 14 (0.1) (0.1)' -- cash INTEREST paid on the lease liability, FY2025 0.1 (FY2024 0.1); note 14 lease-liability roll-forward 'Lease payments (0.4)' of which interest 0.1, principal 0.3 (`lease_payments_capital`). E117 leg"
+        status: VERIFIED
+        verified_kind: machine_read_back
       sbc:
         value: 0
         zero_basis: caption
@@ -331,67 +338,83 @@ periods:
       revenue:
         value: 74.5
         page: "Condensed consolidated statement of comprehensive income, half year ended 31 January 2026: 'Revenue 3 | 74.5' (H1 FY25: 47.6)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_income:
         value: 20.7
         page: "Condensed consolidated statement of comprehensive income: 'Operating profit 20.7' (H1 FY25: 11.5); 'Adjusted operating profit 20.7' is equal this half (no IPO costs). E79: no statutory margin stated, `op_margin` blank; 20.7 / 74.5 = 27.8%"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_income:
         value: 15.4
         page: "Condensed consolidated statement of comprehensive income: 'Profit for the period attributable to equity shareholders 15.4' (H1 FY25: 8.9)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_eps:
         value: 6.2
         page: "Condensed consolidated statement of comprehensive income: 'Basic and diluted (p) 8 | 6.2' (H1 FY25: 3.5); note 8"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_weighted_average_shares:
         value: 250407125
         page: "Note 8 Earnings per share: 'Weighted average number of shares in issue during the period for the purposes of basic EPS 250,000,000', 'Effect of potentially dilutive items 407,125', 'Weighted average number of shares for the purposes of fully diluted EPS 250,407,125'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       depreciation_amortisation:
         value: 0.8
         page: "Condensed consolidated statement of cash flows: 'Depreciation and amortisation charges 0.8' (H1 FY25: 0.5)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       gross_profit:
         value: 34.8
         page: "Condensed consolidated statement of comprehensive income: 'Gross profit 34.8' (H1 FY25: 22.3) = revenue 74.5 less cost of sales (39.7)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       income_tax_paid:
         value: -2.3
         page: "Condensed consolidated statement of cash flows: 'Income tax paid (2.3)' (H1 FY25: (3.2)), entered as printed (an outflow, negative)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_cash_flow:
         value: 8.3
         page: "Condensed consolidated statement of cash flows: 'Net cash from operating activities 8.3' (H1 FY25: 7.1), after 'Income tax paid (2.3)'; no interest inside"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_combined:
         value: -0.2
         page: "Condensed consolidated statement of cash flows, investing: 'Purchase of tangible fixed assets (0.2)' (H1 FY25: (0.3)) -- the only purchase line (E23)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_paid:
         value: 0.1
         page: "Condensed consolidated statement of cash flows, FINANCING: 'Interest paid on lease liability (0.1)' (entered as a positive magnitude)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_received:
         value: 0.2
         page: "Condensed consolidated statement of cash flows, INVESTING: 'Interest received 0.2' (H1 FY25: 0.4), entered as a positive magnitude"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       lease_payments_capital:
         value: -0.4
         page: "Condensed consolidated statement of cash flows, financing: 'Principal paid on lease liability (0.4)' (H1 FY25: (0.1)). A MEMO under E70"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       sbc:
         value: 0.1
         page: "Condensed consolidated statement of cash flows: 'Share-based payment expense 0.1' (H1 FY25: -); CFO review: 'The administrative costs in H1 FY26 had £0.1m of share-based payment costs which have not been adjusted for in arriving at adjusted EBITDA'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_period:
         value: 0.1
         page: "Condensed consolidated statement of comprehensive income: 'Finance expense 6 (0.1)'; note 6: 'Interest on lease liabilities and dilapidations (0.1)'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_period:
         value: 0.3
         page: "Condensed consolidated statement of comprehensive income: 'Finance income 6 | 0.3'; note 6: 'Bank interest receivable 0.3'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       financial_liabilities_current:
         value: 0
         zero_basis: caption
@@ -409,7 +432,8 @@ periods:
       lease_liabilities:
         value: 3.1
         page: "Note 9 Financial instruments: 'Lease liabilities 3.1' (31 January 2025: 1.7; 31 July 2025: 3.0) -- E71 stated total; balance sheet captions (0.9) current + (2.2) non-current = 3.1"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       pension_deficit:
         value: 0
         zero_basis: note
@@ -420,19 +444,23 @@ periods:
       asset_retirement_obligation:
         value: 0.3
         page: "Condensed consolidated statement of financial position, non-current: 'Provision for liabilities (0.3)' (31 July 2025: (0.3)) -- the leasehold dilapidations provision of note 20 of the FY2025 accounts, the interim carrying no provisions note; note 6 'Interest on lease liabilities and dilapidations (0.1)'. E69 / E68 as on the annual entry"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       prepaid_delivery_obligation:
         value: 0
         zero_basis: caption
         page: "E81 (2026-08-30): Condensed consolidated statement of financial position at 31 January 2026: 'Lease liabilities (0.9)', 'Trade and other payables (25.9)', 'Lease liabilities (2.2)', 'Provision for liabilities (0.3)' -- no streaming, prepaid-offtake or prepaid-delivery caption; interim note 9 lists the financial liabilities in full. A caption zero"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       cash_and_equivalents:
         value: 26.4
         page: "Condensed consolidated statement of financial position: 'Cash and cash equivalents 26.4' (31 July 2025: 18.5); cash flow 'Cash and cash equivalents at end of period 26.4'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       shares_outstanding_period_end:
         value: 250000000
         page: "Note 10 Share capital and the EPS footnote: 'a total of 250 million ordinary shares in issue during each period'; note 8 basic count 250,000,000; no treasury shares exist or are mentioned"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
 
 annual: []

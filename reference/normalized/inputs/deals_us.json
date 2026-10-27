@@ -1,0 +1,710 @@
+{
+ "ACN": {
+  "deals": [
+   {
+    "ticker": "ACN",
+    "announced": "2026-08-25",
+    "closed": "pending (no closing report found as of 2026-10-27)",
+    "counterparty": "McCoy (Netherlands, SAP partner, 380+ staff)",
+    "price": "not disclosed",
+    "earnout": "not disclosed",
+    "retained_or_putcall": "none stated",
+    "financing": "not stated",
+    "source": "https://newsroom.accenture.com/news/2026/accenture-to-acquire-mccoy-strengthening-sap-expertise-and-ai-innovation-for-mid-market",
+    "accession": null
+   },
+   {
+    "ticker": "ACN",
+    "announced": "2026-08-27",
+    "closed": "2026-08-31 (per release note, on the boundary of the after-date)",
+    "counterparty": "COMWARE (Tokyo)",
+    "price": "not disclosed",
+    "earnout": "not disclosed",
+    "retained_or_putcall": "none stated",
+    "financing": "not stated",
+    "source": "https://newsroom.accenture.com/news/2026/accenture-to-acquire-comware-to-strengthen-accenture-edge-and-accelerate-digital-core-reinvention-for-mid-market-companies-in-japan",
+    "accession": null
+   },
+   {
+    "ticker": "ACN",
+    "announced": "announced earlier (not dated in sources)",
+    "closed": "2026-10-05",
+    "counterparty": "Mjolner Informatics (Denmark), bought from Norlys, ~400 staff",
+    "price": "not disclosed",
+    "earnout": "not disclosed",
+    "retained_or_putcall": "Accenture keeps providing IT services to Norlys",
+    "financing": "not stated",
+    "source": "https://newsroom.accenture.com/news/2026/accenture-completes-acquisition-of-mj-lner-informatics-bringing-deep-software-engineering-expertise-for-energy-utilities-and-manufacturing-clients-in-denmark",
+    "accession": null
+   },
+   {
+    "ticker": "ACN",
+    "announced": "2026-10-13",
+    "closed": "2026-10-13 (reported as completed)",
+    "counterparty": "Sagacity (London, data and customer intelligence, 140+ staff, joins Accenture Song)",
+    "price": "not disclosed",
+    "earnout": "not disclosed",
+    "retained_or_putcall": "none stated",
+    "financing": "not stated",
+    "source": "https://stocktwits.com/news-articles/Markets/Equity/accenture-acquires-sagacity-to-expand-ai-driven-customer-services-in-uk-ireland/cZxBLMKRBor",
+    "accession": null,
+    "note": "press-release only; no 8-K"
+   },
+   {
+    "ticker": "ACN",
+    "announced": "2026-06-18",
+    "closed": "pending as of 2026-09-20 per third-party report",
+    "counterparty": "NetRise (security)",
+    "price": "not disclosed",
+    "earnout": "not disclosed",
+    "retained_or_putcall": "none",
+    "financing": "not stated",
+    "source": "https://dealroom.co/news/154735-dig-netrise-accenture-not-closed-yet-premature-acq-removed/",
+    "accession": null,
+    "note": "announced before after-date; listed because possibly still open"
+   },
+   {
+    "ticker": "ACN",
+    "announced": "2026-06-17",
+    "closed": "no completion found",
+    "counterparty": "Industries eXcellence Group (IndX), division of Engineering Group",
+    "price": "not disclosed",
+    "earnout": "not disclosed",
+    "retained_or_putcall": "none",
+    "financing": "not stated",
+    "source": "https://newsroom.accenture.com/news/2026/accenture-to-strengthen-capabilities-for-software-and-automation-solutions-from-siemens-digital-industries-with-acquisition-of-industries-excellence-group",
+    "accession": null,
+    "note": "announced before after-date; possibly still open"
+   }
+  ],
+  "special_items": [
+   {
+    "ticker": "ACN",
+    "date": "FY2026 (to 2026-08-31)",
+    "kind": "acquisition spend",
+    "description": "FY2026 acquisitions total consideration $4,724.7m (17 deals per company); FY2025 $1,168.7m. Impairment of ~$295m tied to divestiture of two Americas acquisitions in a business-optimization line (FY2025/26 footnote, year not isolated).",
+    "source": "https://www.sec.gov/Archives/edgar/data/1467373/000146737326000049/acn-20260831.htm",
+    "accession": "0001467373-26-000049"
+   },
+   {
+    "ticker": "ACN",
+    "date": "2026-09-30",
+    "kind": "buyback",
+    "description": "Board approved +$6.0bn repurchase authority (total $6.94bn); dividend $1.71",
+    "source": "https://www.sec.gov/Archives/edgar/data/1467373/000146737326000049/acn-20260831.htm",
+    "accession": "0001467373-26-000049"
+   }
+  ],
+  "searched": [
+   "EDGAR submissions index (8-K 10-14, 10-K 10-16)",
+   "FY2026 10-K acquisition and subsequent-events notes",
+   "Accenture newsroom",
+   "web search (Sagacity, McCoy, Mjolner, COMWARE, NetRise)"
+  ],
+  "nothing_found": false
+ },
+ "ALV": {
+  "deals": [
+   {
+    "ticker": "ALV",
+    "announced": "2025-10-09 (before after-date)",
+    "closed": "status unverified (was expected Q1 2026 pending China approval)",
+    "counterparty": "Hangsheng Electric (HSAE) safety-electronics JV, Autoliv 40% / HSAE 60%",
+    "price": "not disclosed",
+    "earnout": "n/a",
+    "retained_or_putcall": "Autoliv 40% stake",
+    "financing": "not stated",
+    "source": "https://www.automotiveworld.com/news/autoliv-and-hsae-new-strategic-joint-venture-to-advance-automotive-safety-electronics/",
+    "accession": null,
+    "note": "10-Q 9M 2026 cash flow shows 'Acquisition of interest in affiliates' $2m, possibly seed capital"
+   },
+   {
+    "ticker": "ALV",
+    "announced": "2026-07-06/07",
+    "closed": "framework agreements, not M&A",
+    "counterparty": "Great Wall Motor and XPENG strategic cooperation frameworks",
+    "price": "none",
+    "earnout": "n/a",
+    "retained_or_putcall": "none",
+    "financing": "n/a",
+    "source": "https://www.sec.gov/Archives/edgar/data/0001034670/000119312526306698/alv-ex99_1.htm",
+    "accession": "0001193125-26-306698"
+   }
+  ],
+  "special_items": [
+   {
+    "ticker": "ALV",
+    "date": "2026-05-08",
+    "kind": "restructuring",
+    "description": "Closure of Turkiye plants, final pre-tax charge ~$142m ($129m cash), 2,200 jobs, $40m annual savings from 2027",
+    "source": "https://www.sec.gov/Archives/edgar/data/1034670/000119312526216107/alv-20260506.htm",
+    "accession": "0001193125-26-216107"
+   },
+   {
+    "ticker": "ALV",
+    "date": "9M 2026",
+    "kind": "debt/buyback",
+    "description": "Repaid LT debt $285m, issued $2m, buybacks $350m (10-Q)",
+    "source": "https://www.sec.gov/Archives/edgar/data/1034670/000119312526429588/alv-20260930.htm",
+    "accession": "0001193125-26-429588"
+   }
+  ],
+  "searched": [
+   "EDGAR 8-K list",
+   "Q3 10-Q",
+   "web search"
+  ],
+  "nothing_found": false
+ },
+ "AOS": {
+  "deals": [
+   {
+    "ticker": "AOS",
+    "announced": "2025-12 (not confirmed)",
+    "closed": "2026-01-06",
+    "counterparty": "LVC Holdco LLC (Leonard Valve)",
+    "price": "$470.0m cash, net of cash acquired; $2.0m escrow",
+    "earnout": "none stated",
+    "retained_or_putcall": "100% acquired",
+    "financing": "new $470m unsecured term loan, 2026-01-05, matures 2029-01-05, SOFR+0.875-1.375%",
+    "source": "https://www.sec.gov/Archives/edgar/data/91142/000009114226000098/aos-20260630.htm",
+    "accession": "0000091142-26-000098"
+   },
+   {
+    "ticker": "AOS",
+    "announced": "2026-04",
+    "closed": "expected late 2026",
+    "counterparty": "Sale of certain water-treatment assets (part of ~$20m North America restructuring)",
+    "price": "proceeds not disclosed",
+    "earnout": "n/a",
+    "retained_or_putcall": "n/a",
+    "financing": "n/a",
+    "source": "https://www.sec.gov/Archives/edgar/data/91142/000009114226000098/aos-20260630.htm",
+    "accession": "0000091142-26-000098"
+   }
+  ],
+  "special_items": [
+   {
+    "ticker": "AOS",
+    "date": "2026-01-05",
+    "kind": "debt",
+    "description": "$470m term loan, 8-K Item 2.03",
+    "source": "https://www.sec.gov/Archives/edgar/data/91142/000009114226000003/aos-20260105.htm",
+    "accession": "0000091142-26-000003"
+   },
+   {
+    "ticker": "AOS",
+    "date": "2026-04",
+    "kind": "restructuring",
+    "description": "Water treatment restructuring ~ $20m net",
+    "source": "https://www.sec.gov/Archives/edgar/data/91142/000009114226000098/aos-20260630.htm",
+    "accession": "0000091142-26-000098"
+   }
+  ],
+  "searched": [
+   "EDGAR 8-Ks",
+   "Q2 10-Q notes"
+  ],
+  "nothing_found": false
+ },
+ "CENTA": {
+  "deals": [
+   {
+    "ticker": "CENTA",
+    "announced": "2025-12-12 (close)",
+    "closed": "2025-12-12",
+    "counterparty": "U.S. assets of Champion USA LLC (cattle fly control)",
+    "price": "approx $57m cash (about $56m unallocated, in other assets)",
+    "earnout": "none stated",
+    "retained_or_putcall": "none",
+    "financing": "cash",
+    "source": "https://www.sec.gov/Archives/edgar/data/887733/000088773326000022/cent-20260627.htm",
+    "accession": "0000887733-26-000022"
+   },
+   {
+    "ticker": "CENTA",
+    "announced": "2026-04-13",
+    "closed": "2026-04-13",
+    "counterparty": "Pet Distribution business sold to Phillips Pet Food & Supplies (new partnership)",
+    "price": "cash ~$31m + note receivable $5m",
+    "earnout": "none stated",
+    "retained_or_putcall": "retained 20% of the partnership, fair value $26.1m, equity method",
+    "financing": "n/a",
+    "source": "https://www.sec.gov/Archives/edgar/data/887733/000088773326000022/cent-20260627.htm",
+    "accession": "0000887733-26-000022"
+   },
+   {
+    "ticker": "CENTA",
+    "announced": "2026-07-27",
+    "closed": "pending; expected first half of FY2027 (to ~Mar 2027), subject to regulatory approval",
+    "counterparty": "~80% of TRIXIE Heimtierbedarf GmbH & Co. KG (Germany) and related entities",
+    "price": "up to EUR 400m total: ~EUR 340m cash at closing",
+    "earnout": "earn-out up to EUR 60m on 2026 performance",
+    "retained_or_putcall": "sellers keep ~20%; put right for them after 3+ years, call right for CENTA if not exercised",
+    "financing": "not stated in 8-K",
+    "source": "https://www.sec.gov/Archives/edgar/data/887733/000119312526316953/d135866d8k.htm",
+    "accession": "0001193125-26-316953"
+   },
+   {
+    "ticker": "CENTA",
+    "announced": "announced 2026-10-19 (press release only, no 8-K)",
+    "closed": "2026-09-30",
+    "counterparty": "W. Atlee Burpee Company (seed and young plants), seller George Ball",
+    "price": "not disclosed",
+    "earnout": "not disclosed",
+    "retained_or_putcall": "none stated; Burpee runs separately under CEO Jamie Mattikow",
+    "financing": "not stated",
+    "source": "https://finviz.com/news/404034/central-garden-pet-acquires-burpee-an-iconic-brand-in-the-packet-seed-and-young-plant-categories",
+    "accession": null,
+    "note": "more detail promised on FY Q4 earnings call (~late Nov)"
+   }
+  ],
+  "special_items": [
+   {
+    "ticker": "CENTA",
+    "date": "2025-11-07",
+    "kind": "debt",
+    "description": "Fourth A&R credit agreement: $600m ABL revolver, +$400m accordion (Truist agent)",
+    "source": "https://www.sec.gov/Archives/edgar/data/887733/000119312525277476/d887382d8k.htm",
+    "accession": "0001193125-25-277476"
+   }
+  ],
+  "searched": [
+   "EDGAR 8-K list since 2025-09-27",
+   "Q3 FY26 10-Q notes 3 and 13",
+   "web search Burpee"
+  ],
+  "nothing_found": false
+ },
+ "CPRT": {
+  "deals": [
+   {
+    "ticker": "CPRT",
+    "announced": "2026-09-10",
+    "closed": "2026-10-16",
+    "counterparty": "ACV Auctions Inc. (100% via tender offer, then Sec 251(h) merger)",
+    "price": "$10.50/share cash, ~$1.9bn equity value; 116.8m shares tendered = 68.43% (incl. shares already held by Copart)",
+    "earnout": "none",
+    "retained_or_putcall": "100% owned, ACV runs as independent subsidiary",
+    "financing": "cash on hand, no financing condition",
+    "source": "https://www.sec.gov/Archives/edgar/data/900075/000119312526423478/d129535d8k.htm",
+    "accession": "0001193125-26-423478 (closing), 0001193125-26-388064 (agreement)"
+   }
+  ],
+  "special_items": [],
+  "searched": [
+   "EDGAR 8-Ks and 10-K list",
+   "web search"
+  ],
+  "nothing_found": false
+ },
+ "CROX": {
+  "deals": [],
+  "special_items": [
+   {
+    "ticker": "CROX",
+    "date": "H1 2026",
+    "kind": "impairment",
+    "description": "Asset impairments $3.3m in H1 2026 (vs $431m asset + $307m goodwill impairment in Q2 2025)",
+    "source": "https://www.sec.gov/Archives/edgar/data/1334036/000133403626000052/crox-20260630.htm",
+    "accession": "0001334036-26-000052"
+   }
+  ],
+  "searched": [
+   "EDGAR list",
+   "Q2 10-Q",
+   "web search"
+  ],
+  "nothing_found": true
+ },
+ "CTSH": {
+  "deals": [
+   {
+    "ticker": "CTSH",
+    "announced": "2025-12-31 (escrow)",
+    "closed": "2026-01-01",
+    "counterparty": "3Cloud (Microsoft Azure services)",
+    "price": "$733m cash placed in escrow 2025-12-31; purchase price $728m",
+    "earnout": "not disclosed",
+    "retained_or_putcall": "100%",
+    "financing": "cash",
+    "source": "https://www.sec.gov/Archives/edgar/data/1058290/000105829026000031/ctsh-20260630.htm",
+    "accession": "0001058290-26-000031"
+   },
+   {
+    "ticker": "CTSH",
+    "announced": "agreement 2026-04-25; announced 2026-04-29",
+    "closed": "2026-06-22",
+    "counterparty": "Astreya Partners Inc.",
+    "price": "~$600m cash; sources give total purchase price $634m-$665m incl. contingent consideration",
+    "earnout": "yes, contingent earn-out (amount not disclosed in sources)",
+    "retained_or_putcall": "100%",
+    "financing": "revolver borrowing $1.0bn funded 2026-05-20",
+    "source": "https://news.cognizant.com/2026-06-22-Cognizant-Completes-Acquisition-of-Astreya,-Expanding-AI-Infrastructure-and-Managed-Services-Capabilities?asPDF=1",
+    "accession": "0001058290-26-000020 (8-K 2.03)"
+   },
+   {
+    "ticker": "CTSH",
+    "announced": "2026-10-21 (release; some outlets 10-22)",
+    "closed": "pending; expected Q1 2027, subject to regulatory approval",
+    "counterparty": "DyFlex Solutions (Australia, SAP services, 300+ staff)",
+    "price": "not disclosed (press estimate $100-150m, unconfirmed)",
+    "earnout": "not disclosed",
+    "retained_or_putcall": "100%",
+    "financing": "not stated",
+    "source": "https://www.placera.se/pressmeddelanden/cognizant-technology-solutions-cognizant-to-acquire-dyflex-solutions-accelerating-ai-led-enterprise-transformation-for-sap-clients-in-australia-and-new-zealand-20261022",
+    "accession": null,
+    "note": "press release only so far; no 8-K found"
+   }
+  ],
+  "special_items": [
+   {
+    "ticker": "CTSH",
+    "date": "2026-10-05",
+    "kind": "debt",
+    "description": "New credit agreement: $550m term loan + $1.85bn revolver (unsecured, matures 2031-10-03); ~$1.0bn drawn on revolver to repay old facilities",
+    "source": "https://www.sec.gov/Archives/edgar/data/1058290/000105829026000033/ctsh-20261005.htm",
+    "accession": "0001058290-26-000033"
+   },
+   {
+    "ticker": "CTSH",
+    "date": "2026-05-20",
+    "kind": "debt",
+    "description": "$1.0bn revolver draw",
+    "source": "https://www.sec.gov/Archives/edgar/data/1058290/000105829026000020/ctsh-20260515.htm",
+    "accession": "0001058290-26-000020"
+   }
+  ],
+  "searched": [
+   "EDGAR 8-Ks",
+   "Q2 10-Q business combinations",
+   "web search"
+  ],
+  "nothing_found": false
+ },
+ "DECK": {
+  "deals": [],
+  "special_items": [
+   {
+    "ticker": "DECK",
+    "date": "2026-08-27",
+    "kind": "debt",
+    "description": "First Amendment to credit agreement (Citibank agent); amount/terms not extracted",
+    "source": "https://www.sec.gov/Archives/edgar/data/910521/000091052126000024/deck-20260827.htm",
+    "accession": "0000910521-26-000024"
+   }
+  ],
+  "searched": [
+   "EDGAR 8-K, 10-K, 10-Q",
+   "web search"
+  ],
+  "nothing_found": true
+ },
+ "GDDY": {
+  "deals": [
+   {
+    "ticker": "GDDY",
+    "announced": "early Oct 2026 (FT report; unconfirmed by either company)",
+    "closed": "no deal",
+    "counterparty": "GoDaddy as TARGET: unsolicited preliminary approach by Gen Digital, reported ~$11.8-12bn",
+    "price": "reports only; terms not disclosed",
+    "earnout": "n/a",
+    "retained_or_putcall": "n/a",
+    "financing": "Gen Digital net debt ~ $8bn, cash $564m (analyst commentary)",
+    "source": "https://hoodline.com/2026/10/tempe-s-gen-digital-eyes-godaddy-in-11-8b-deal-markets-react-fast/",
+    "accession": null,
+    "note": "rumour, not an agreement"
+   }
+  ],
+  "special_items": [
+   {
+    "ticker": "GDDY",
+    "date": "2026-07-31",
+    "kind": "debt",
+    "description": "13th Amendment: revolving credit facility upsize and extension (8-K 2026-08-04); size not extracted",
+    "source": "https://www.sec.gov/Archives/edgar/data/1609711/000160971126000092/gddy-20260731.htm",
+    "accession": "0001609711-26-000092"
+   }
+  ],
+  "searched": [
+   "EDGAR 8-Ks and 10-Q",
+   "web search"
+  ],
+  "nothing_found": false
+ },
+ "HRB": {
+  "deals": [
+   {
+    "ticker": "HRB",
+    "announced": "FY2026 (Jul 2025-Jun 2026), ongoing",
+    "closed": "closed through year",
+    "counterparty": "Franchise offices bought",
+    "price": "$57.6m payments for business acquisitions net of cash (FY2025 $35.5m)",
+    "earnout": "not disclosed",
+    "retained_or_putcall": "n/a",
+    "financing": "cash",
+    "source": "https://www.sec.gov/Archives/edgar/data/12659/000001265926000026/hrb-20260630.htm",
+    "accession": "0000012659-26-000026"
+   }
+  ],
+  "special_items": [
+   {
+    "ticker": "HRB",
+    "date": "2026-08-05",
+    "kind": "restructuring",
+    "description": "Workforce restructuring, ~200 positions, complete by 2026-09-30 quarter-end (10-K note 14)",
+    "source": "https://www.sec.gov/Archives/edgar/data/12659/000001265926000026/hrb-20260630.htm",
+    "accession": "0000012659-26-000026"
+   },
+   {
+    "ticker": "HRB",
+    "date": "FY2026",
+    "kind": "tax",
+    "description": "IRS exam settlement for 2020 lowered tax expense by $54.4m",
+    "source": "https://www.sec.gov/Archives/edgar/data/12659/000001265926000026/hrb-20260630.htm",
+    "accession": "0000012659-26-000026"
+   }
+  ],
+  "searched": [
+   "EDGAR 8-K and 10-K",
+   "web search"
+  ],
+  "nothing_found": false
+ },
+ "LII": {
+  "deals": [
+   {
+    "ticker": "LII",
+    "announced": "2026-06-18",
+    "closed": "2026-07-13",
+    "counterparty": "Heat Controller LLC / Dusk Acquisition II Corp / Aitons Equipment ULC (from Platinum Equity; brands Comfort-Aire, Century)",
+    "price": "$205.0m excluding cash acquired, subject to working-capital adjustment",
+    "earnout": "none stated",
+    "retained_or_putcall": "100%",
+    "financing": "cash on hand and available borrowing capacity",
+    "source": "https://www.sec.gov/Archives/edgar/data/1069202/000106920226000087/lii-20260630.htm",
+    "accession": "0001069202-26-000087"
+   },
+   {
+    "ticker": "LII",
+    "announced": "2025-08 (before after-date)",
+    "closed": "2025-10",
+    "counterparty": "NSI Industries HVAC division (Duro Dyne and Supco)",
+    "price": "total investment $553.6m after +$2.3m working-capital adjustment in Q1 2026",
+    "earnout": "none",
+    "retained_or_putcall": "100%",
+    "financing": "not stated",
+    "source": "https://www.sec.gov/Archives/edgar/data/1069202/000106920226000087/lii-20260630.htm",
+    "accession": "0001069202-26-000087",
+    "note": "before after-date; only the 2026 price adjustment falls in window"
+   }
+  ],
+  "special_items": [
+   {
+    "ticker": "LII",
+    "date": "H1 2026",
+    "kind": "debt",
+    "description": "Commercial paper borrowings $910m, repayments $724m (cash flow)",
+    "source": "https://www.sec.gov/Archives/edgar/data/1069202/000106920226000087/lii-20260630.htm",
+    "accession": "0001069202-26-000087"
+   }
+  ],
+  "searched": [
+   "EDGAR list",
+   "Q2 10-Q notes 13, 14",
+   "web search"
+  ],
+  "nothing_found": false
+ },
+ "LOPE": {
+  "deals": [],
+  "special_items": [
+   {
+    "ticker": "LOPE",
+    "date": "2026-09-28",
+    "kind": "debt",
+    "description": "New $100m five-year senior secured revolver (Zions/National Bank of Arizona), intended mainly to fund buybacks; Orbis Education is guarantor",
+    "source": "https://www.sec.gov/Archives/edgar/data/1434588/000110465926112835/lope-20260928x8k.htm",
+    "accession": "0001104659-26-112835"
+   }
+  ],
+  "searched": [
+   "EDGAR 8-K and 10-Q",
+   "web search"
+  ],
+  "nothing_found": true
+ },
+ "MUSA": {
+  "deals": [],
+  "special_items": [
+   {
+    "ticker": "MUSA",
+    "date": "2026-05-27",
+    "kind": "debt",
+    "description": "$500m 5.875% senior notes due 2034 (144A, issuer Murphy Oil USA) used to redeem $300m 5.625% notes due 2027 and pay down revolver",
+    "source": "https://www.sec.gov/Archives/edgar/data/1573516/000157351626000145/musa-20260527.htm",
+    "accession": "0001573516-26-000145"
+   }
+  ],
+  "searched": [
+   "EDGAR 8-Ks",
+   "Q2 10-Q cash flow (no acquisitions line)",
+   "web search"
+  ],
+  "nothing_found": true
+ },
+ "NVR": {
+  "deals": [],
+  "special_items": [
+   {
+    "ticker": "NVR",
+    "date": "H1 2026",
+    "kind": "impairment",
+    "description": "Lot deposit impairments $31m H1 2026 (+44% y/y), buybacks $998m (third-party summary)",
+    "source": "https://www.panabee.com/news/nvr-earnings-q2-2026-report",
+    "accession": "0000906163-26-000093"
+   }
+  ],
+  "searched": [
+   "EDGAR list",
+   "web search"
+  ],
+  "nothing_found": true
+ },
+ "PEP": {
+  "deals": [],
+  "special_items": [
+   {
+    "ticker": "PEP",
+    "date": "2026-02-04/11",
+    "kind": "debt",
+    "description": "EUR 2.5bn senior notes (floating 2028, 3.30% 2034, 3.70% 2038, 4.15% 2047)",
+    "source": "https://www.sec.gov/Archives/edgar/data/77476/000110465926013379/tm265086d1_8k.htm",
+    "accession": "0001104659-26-013379"
+   },
+   {
+    "ticker": "PEP",
+    "date": "2026-05-22",
+    "kind": "debt",
+    "description": "New $5bn 364-day credit agreement replaces 2025 one",
+    "source": "https://www.sec.gov/Archives/edgar/data/77476/000110465926065758/tm2615167d1_8k.htm",
+    "accession": "0001104659-26-065758"
+   },
+   {
+    "ticker": "PEP",
+    "date": "2026-10-09 (issued 10-16)",
+    "kind": "debt",
+    "description": "EUR 1.0bn senior notes (3.75% 2029, 4.25% 2035), net ~EUR 994m, repay commercial paper",
+    "source": "https://www.sec.gov/Archives/edgar/data/77476/000110465926116626/tm2627433d2_8k.htm",
+    "accession": "0001104659-26-116626"
+   },
+   {
+    "ticker": "PEP",
+    "date": "36 weeks to 2026-09-05",
+    "kind": "acquisition spend",
+    "description": "Acquisitions/investments cash only $148m vs $3,176m prior year (Siete, poppi were 2025); acquisition and divestiture credits $254m",
+    "source": "https://www.sec.gov/Archives/edgar/data/77476/000007747626000048/pep-20260905.htm",
+    "accession": "0000077476-26-000048"
+   }
+  ],
+  "searched": [
+   "EDGAR 8-Ks and Q3 10-Q",
+   "web search (no 2026 M&A found)"
+  ],
+  "nothing_found": true
+ },
+ "ULTA": {
+  "deals": [],
+  "special_items": [
+   {
+    "ticker": "ULTA",
+    "date": "H1 FY2026",
+    "kind": "note",
+    "description": "No acquisitions in H1 FY2026 (Space NK was July 2025, $387m prior-year); Target shop-in-shop partnership ended Aug 2026 (announced Aug 2025); buybacks $791m",
+    "source": "https://www.sec.gov/Archives/edgar/data/1403568/000110465926102442/ulta-20260801x10q.htm",
+    "accession": "0001104659-26-102442"
+   }
+  ],
+  "searched": [
+   "EDGAR list",
+   "10-Q cash flow",
+   "web search"
+  ],
+  "nothing_found": true
+ },
+ "SAP": {
+  "deals": [
+   {
+    "ticker": "SAP",
+    "announced": "2026-05-04",
+    "closed": "2026-07-06",
+    "counterparty": "Dremio (data lakehouse)",
+    "price": "roughly EUR 0.5bn cash (H1 report)",
+    "earnout": "not disclosed",
+    "retained_or_putcall": "100%",
+    "financing": "not stated",
+    "source": "https://www.sec.gov/Archives/edgar/data/0001000184/000110465926087251/tm2621275d1_ex99-2.htm",
+    "accession": "0001104659-26-087251"
+   },
+   {
+    "ticker": "SAP",
+    "announced": "2026-05-04",
+    "closed": "2026-07-16",
+    "counterparty": "Prior Labs GmbH (tabular foundation model)",
+    "price": "not disclosed; SAP commits >EUR 1bn over four years to scale it",
+    "earnout": "not disclosed",
+    "retained_or_putcall": "stays independent entity",
+    "financing": "not stated",
+    "source": "https://news.sap.com/?p=246020",
+    "accession": null
+   },
+   {
+    "ticker": "SAP",
+    "announced": "2026-03-27",
+    "closed": "2026-05-07 (before after-date)",
+    "counterparty": "Reltio (master data management)",
+    "price": "not disclosed",
+    "earnout": "not disclosed",
+    "retained_or_putcall": "100%",
+    "financing": "not stated",
+    "source": "https://seekingalpha.com/news/4569766",
+    "accession": null,
+    "note": "out of window"
+   }
+  ],
+  "special_items": [
+   {
+    "ticker": "SAP",
+    "date": "Q3 2026",
+    "kind": "note",
+    "description": "Reltio, Dremio, Prior Labs: revenue +EUR49m, IFRS operating profit -EUR59m, non-IFRS -EUR39m in Q3",
+    "source": "https://www.sec.gov/Archives/edgar/data/1000184/000110465926118617/tm2628113d1_6k.htm",
+    "accession": "0001104659-26-118617"
+   }
+  ],
+  "searched": [
+   "EDGAR 6-K list",
+   "web search"
+  ],
+  "nothing_found": false
+ },
+ "DE": {
+  "deals": [],
+  "special_items": [
+   {
+    "ticker": "DE",
+    "date": "note",
+    "kind": "out of window",
+    "description": "Tenna LLC (construction tech) announced 2025-12-22, closed 2026-02-18, $439m net of cash; 9M acquisitions $455m; Risutec Oy IP Feb 2026; FTC repair-access settlement 2026-07-08 - all before 2026-08-02",
+    "source": "https://www.sec.gov/Archives/edgar/data/315189/000110465926102213/de-20260802x10q.htm",
+    "accession": "0001104659-26-102213"
+   }
+  ],
+  "searched": [
+   "EDGAR list (8-K 8-20, 10-Q 8-27)",
+   "10-Q note",
+   "web search"
+  ],
+  "nothing_found": true
+ }
+}

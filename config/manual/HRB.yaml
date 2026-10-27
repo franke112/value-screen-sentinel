@@ -150,6 +150,16 @@ annual:
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2021-07-01..2022-06-30] 10-K 0001838862-24-000030 filed 2024-08-15"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: 14671000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2021-07-01..2022-06-30] 10-K 0001838862-24-000030 filed 2024-08-15 = -37,889,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2021-07-01..2022-06-30] 10-K 0001838862-24-000030 filed 2024-08-15 = -1,944,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2021-07-01..2022-06-30] 10-K 0001838862-24-000030 filed 2024-08-15 = -19,645,000 + us-gaap:IncreaseDecreaseInOtherCurrentLiabilities [2021-07-01..2022-06-30] 10-K 0001838862-24-000030 filed 2024-08-15 = 7,342,000 + us-gaap:ProvisionForDoubtfulAccounts [2021-07-01..2022-06-30] 10-K 0001838862-23-000027 filed 2023-08-17 = 66,807,000 = 14,671,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -35920000
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2021-07-01..2022-06-30] 10-K 0001838862-24-000030 filed 2024-08-15"
+        status: VERIFIED
+        verified_kind: tagged
   - fiscal_year: 2023
     period_end: 2023-06-30
     document: "SEC XBRL companyfacts for CIK 0000012659 (H&R BLOCK INC) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000012659.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
@@ -219,6 +229,16 @@ annual:
       diluted_weighted_average_shares:
         value: 157248000
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2022-07-01..2023-06-30] 10-K 0001605297-25-000016 filed 2025-08-15"
+        status: VERIFIED
+        verified_kind: tagged
+      working_capital_change:
+        value: -84365000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2022-07-01..2023-06-30] 10-K 0001605297-25-000016 filed 2025-08-15 = -57,244,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2022-07-01..2023-06-30] 10-K 0001605297-25-000016 filed 2025-08-15 = -7,011,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2022-07-01..2023-06-30] 10-K 0001605297-25-000016 filed 2025-08-15 = -67,627,000 + us-gaap:IncreaseDecreaseInOtherCurrentLiabilities [2022-07-01..2023-06-30] 10-K 0001605297-25-000016 filed 2025-08-15 = -4,773,000 + us-gaap:ProvisionForDoubtfulAccounts [2022-07-01..2023-06-30] 10-K 0001838862-24-000030 filed 2024-08-15 = 52,290,000 = -84,365,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -48246000
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2022-07-01..2023-06-30] 10-K 0001605297-25-000016 filed 2025-08-15"
         status: VERIFIED
         verified_kind: tagged
   - fiscal_year: 2024
@@ -292,6 +312,16 @@ annual:
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2023-07-01..2024-06-30] 10-K 0000012659-26-000026 filed 2026-08-14"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -66283000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-07-01..2024-06-30] 10-K 0000012659-26-000026 filed 2026-08-14 = -108,394,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2023-07-01..2024-06-30] 10-K 0000012659-26-000026 filed 2026-08-14 = -7,287,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2023-07-01..2024-06-30] 10-K 0000012659-26-000026 filed 2026-08-14 = -4,662,000 + us-gaap:IncreaseDecreaseInOtherCurrentLiabilities [2023-07-01..2024-06-30] 10-K 0000012659-26-000026 filed 2026-08-14 = -28,507,000 + us-gaap:ProvisionForDoubtfulAccounts [2023-07-01..2024-06-30] 10-K 0001605297-25-000016 filed 2025-08-15 = 82,567,000 = -66,283,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -43358000
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2023-07-01..2024-06-30] 10-K 0000012659-26-000026 filed 2026-08-14"
+        status: VERIFIED
+        verified_kind: tagged
   - fiscal_year: 2025
     period_end: 2025-06-30
     document: "SEC XBRL companyfacts for CIK 0000012659 (H&R BLOCK INC) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000012659.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
@@ -360,6 +390,16 @@ annual:
       diluted_weighted_average_shares:
         value: 137340000
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2024-07-01..2025-06-30] 10-K 0000012659-26-000026 filed 2026-08-14"
+        status: VERIFIED
+        verified_kind: tagged
+      working_capital_change:
+        value: -18457000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-07-01..2025-06-30] 10-K 0000012659-26-000026 filed 2026-08-14 = -62,247,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2024-07-01..2025-06-30] 10-K 0000012659-26-000026 filed 2026-08-14 = 3,183,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2024-07-01..2025-06-30] 10-K 0000012659-26-000026 filed 2026-08-14 = -23,009,000 + us-gaap:IncreaseDecreaseInOtherCurrentLiabilities [2024-07-01..2025-06-30] 10-K 0000012659-26-000026 filed 2026-08-14 = -1,575,000 + us-gaap:ProvisionForDoubtfulAccounts [2024-07-01..2025-06-30] 10-K 0000012659-26-000026 filed 2026-08-14 = 65,191,000 = -18,457,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -35518000
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2024-07-01..2025-06-30] 10-K 0000012659-26-000026 filed 2026-08-14"
         status: VERIFIED
         verified_kind: tagged
   - fiscal_year: 2026
@@ -474,5 +514,15 @@ annual:
       diluted_weighted_average_shares:
         value: 128866000
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2025-07-01..2026-06-30] 10-K 0000012659-26-000026 filed 2026-08-14"
+        status: VERIFIED
+        verified_kind: tagged
+      working_capital_change:
+        value: 37554000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-07-01..2026-06-30] 10-K 0000012659-26-000026 filed 2026-08-14 = -69,094,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2025-07-01..2026-06-30] 10-K 0000012659-26-000026 filed 2026-08-14 = -5,324,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2025-07-01..2026-06-30] 10-K 0000012659-26-000026 filed 2026-08-14 = 13,565,000 + us-gaap:IncreaseDecreaseInOtherCurrentLiabilities [2025-07-01..2026-06-30] 10-K 0000012659-26-000026 filed 2026-08-14 = 33,529,000 + us-gaap:ProvisionForDoubtfulAccounts [2025-07-01..2026-06-30] 10-K 0000012659-26-000026 filed 2026-08-14 = 64,878,000 = 37,554,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -57639000
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2025-07-01..2026-06-30] 10-K 0000012659-26-000026 filed 2026-08-14"
         status: VERIFIED
         verified_kind: tagged

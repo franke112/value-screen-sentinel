@@ -1,0 +1,265 @@
+ticker: ACN
+currency: USD
+money_unit: whole
+sources:
+  xbrl:
+    kind: sec-xbrl
+    url: https://data.sec.gov/api/xbrl/companyfacts/
+    fetched: '2026-10-27'
+  tenk:
+    file: sources/ACN_FY2026_annual-report-10k_2026-10-16_en_a0.htm
+    kind: pdf
+rows:
+- field: revenue
+  source: xbrl
+  tag: Revenues
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 34797661000.0
+  - 36176841000.0
+  - 40992534000.0
+  - 43215013000.0
+  - 44327039000.0
+  - 50533389000.0
+  - 61594305000.0
+  - 64111745000.0
+  - 64896464000.0
+  - 69672977000.0
+  - 74183445000.0
+- field: operating_profit
+  source: xbrl
+  tag: OperatingIncomeLoss
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 4810445000.0
+  - 5191402000.0
+  - 5898779000.0
+  - 6305074000.0
+  - 6513644000.0
+  - 7621529000.0
+  - 9367181000.0
+  - 8809889000.0
+  - 9595847000.0
+  - 10225664000.0
+  - 11405960000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivities
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 4667400000.0
+  - 4973039000.0
+  - 6026691000.0
+  - 6626953000.0
+  - 8215152000.0
+  - 8975148000.0
+  - 9541129000.0
+  - 9524268000.0
+  - 9131027000.0
+  - 11474399000.0
+  - 12363346000.0
+- field: capex
+  source: xbrl
+  tag: PaymentsToAcquirePropertyPlantAndEquipment
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 496566000.0
+  - 515919000.0
+  - 619187000.0
+  - 599009000.0
+  - 599132000.0
+  - 580132000.0
+  - 717998000.0
+  - 528172000.0
+  - 516509000.0
+  - 600039000.0
+  - 742748000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesNetOfCashAcquired
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  values:
+  - 932542000.0
+  - 1704188000.0
+  - 657546000.0
+  - 1193071000.0
+  - 1531599000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesAndInterestInAffiliates
+  years:
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 4171123000.0
+  - 3447552000.0
+  - 2530863000.0
+  - 6582702000.0
+  - 1471255000.0
+  - 4940884000.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquity
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 7555262000.0
+  - 8949477000.0
+  - 10364753000.0
+  - 14409008000.0
+  - 17000536000.0
+  - 19529454000.0
+  - 22106097000.0
+  - 25692839000.0
+  - 28288646000.0
+  - 31195446000.0
+  - 31567256000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 3609437000.0
+  - 5002352000.0
+  - 5383012000.0
+  - 6205550000.0
+  - 7709820000.0
+  - 11125861000.0
+  - 13133293000.0
+  - 15573003000.0
+  - 21120179000.0
+  - 22536416000.0
+  - 26819458000.0
+- field: shares
+  source: xbrl
+  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 667770274.0
+  - 660463227.0
+  - 655296150.0
+  - 650204873.0
+  - 647797003.0
+  - 645909042.0
+  - 642839181.0
+  - 638591616.0
+  - 635940044.0
+  - 632435108.0
+  - 617498483.0
+  unit: whole
+- field: net_debt
+  source: xbrl
+  tag: 'derived: LongTermDebt (or its parts) + short-term borrowings - CashAndCashEquivalentsAtCarryingValue'
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - -4902836000.0
+  - -4123953000.0
+  - -5056023000.0
+  - -6120442000.0
+  - -8407510000.0
+  - -8156094000.0
+  - -7880658000.0
+  - -8940222000.0
+  - -3126733000.0
+  - -11264282000.0
+  - -12618692000.0
+business:
+  text: Accenture sells consulting, managed services, proprietary platforms and software to large companies and governments, who return because it embeds in their technology and operations.
+  source: tenk
+  quote: We deliver this expertise through consulting, managed services, proprietary assets and platforms, and increasingly, software

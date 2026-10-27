@@ -1,0 +1,154 @@
+ticker: BOUV.OL
+currency: NOK
+money_unit: thousands
+business:
+  text: Bouvet is a Scandinavian IT and digital communication consultancy serving private and public clients.
+  source: ar2020_bs
+  quote: We are a Scandinavian consultancy in the field of IT and digital communication.
+sources:
+  ar2025:
+    file: sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf
+    page: 3
+  ar2020:
+    file: sources/BOUV.OL_2020-FY_annual-financial-report_2021-04-23_en_a0.pdf
+    page: 91
+  ar2020_bs:
+    file: sources/BOUV.OL_2020-FY_annual-financial-report_2021-04-23_en_a0.pdf
+    page: 4
+rows:
+- field: revenue
+  source: ar2025
+  years:
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 3912343
+  - 3921399
+  - 3525761
+  - 3085470
+  - 2695124
+  quote: Operating revenue 3 912 343 3 921 399 3 525 761 3 085 470 2 695 124
+- field: operating_profit
+  source: ar2025
+  years:
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 473430
+  - 490361
+  - 406992
+  - 401692
+  - 340086
+  quote: Operating profit (EBIT) 473 430 490 361 406 992 401 692 340 086
+- field: equity
+  source: ar2025
+  years:
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 423992
+  - 464844
+  - 458374
+  - 456966
+  - 449255
+  quote: Equity 423 992 464 844 458 374 456 966 449 255
+- field: operating_cash_flow
+  source: ar2025
+  years:
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 347111
+  - 838330
+  - 506085
+  - 321878
+  - 294144
+  quote: Net cash flow operations 347 111 838 330 506 085 321 878 294 144
+- field: shares
+  source: ar2025
+  years:
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 103800637
+  - 103800637
+  - 103800637
+  - 103800637
+  - 103800637
+  quote: Number of shares 103 800 637 103 800 637 103 800 637 103 800 637 103 800 637
+  unit: whole
+- field: revenue
+  source: ar2020
+  years:
+  - 2020
+  - 2019
+  - 2018
+  - 2017
+  - 2016
+  values:
+  - 2401844
+  - 2132052
+  - 1846711
+  - 1607353
+  - 1330811
+  quote: Operating revenue 2 401 844 2 132 052 1 846 711 1 607 353 1 330 811
+- field: operating_profit
+  source: ar2020
+  years:
+  - 2020
+  - 2019
+  - 2018
+  - 2017
+  - 2016
+  values:
+  - 314559
+  - 232051
+  - 191562
+  - 144137
+  - 106298
+  quote: Operating profit (EBIT) 314 559 232 051 191 562 144 137 106 298
+- field: equity
+  source: ar2020
+  years:
+  - 2020
+  - 2019
+  - 2018
+  - 2017
+  - 2016
+  values:
+  - 422921
+  - 317751
+  - 276993
+  - 220408
+  - 176158
+  quote: Equity 422 921 317 751 276 993 220 408 176 158
+- field: operating_cash_flow
+  source: ar2020
+  years:
+  - 2020
+  - 2019
+  - 2018
+  - 2017
+  - 2016
+  values:
+  - 450876
+  - 277054
+  - 218971
+  - 149035
+  - 113462
+  quote: Net cash flow operations 450 876 277 054 218 971 149 035 113 462

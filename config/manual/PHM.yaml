@@ -70,6 +70,14 @@ operating_asset_is_inventory:
   source: "sources/PHM_FY2025_annual-report-10k_2026-02-04_en_a0.htm"
   page: "consolidated balance sheet: 'House and land inventory 12,925,413' is 71.6 per cent of total assets 18,048,423; the consolidated statement of cash flows presents the increase in inventory INSIDE operating activities, so buying the operating asset is an operating outflow. E123's factual test, answered from the accounts"
 
+# E124 (owner, 2026-09-20): ONE debt caption, no current / non-current
+# split. 'Notes payable' enters the non-current leg whole, the current leg
+# stays absent, and net debt adds the two.
+unclassified_balance_sheet:
+  value: true
+  source: "sources/PHM_FY2025_annual-report-10k_2026-02-04_en_a0.htm"
+  page: "consolidated balance sheet: PulteGroup presents an UNCLASSIFIED balance sheet -- no 'Total current assets' or 'Total current liabilities' subtotal -- with one borrowing caption, 'Notes payable 1,631,098' ($000s), reconciled by note 5 to total senior notes 1,583,913 + other notes payable 47,185. 'Financial Services debt 532,338' is the captive arm's, carried apart under E124 (3)-(4) and not in net debt"
+
 annual:
   - fiscal_year: 2021
     period_end: 2021-12-31

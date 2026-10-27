@@ -1,0 +1,249 @@
+{
+ "ticker": "BOUV.OL",
+ "unit": "NOK 1 000",
+ "years": {
+  "FY2025": {
+   "unit": "NOK 1 000",
+   "statement_pdf_page": 64,
+   "ocf": {
+    "value": 347111,
+    "quote": "Net cash flow from operating activities                                          347 111    838 330",
+    "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+    "page": 64,
+    "columns": "[current,prior]=['347 111', '838 330']",
+    "caption": "Net cash flow from operating activities"
+   },
+   "wc_lines": [
+    {
+     "value": -98757,
+     "quote": "Changes in work in progress, accounts receivable and accounts payable             -98 757   201 159",
+     "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+     "page": 64,
+     "columns": "[current,prior]=['-98 757', '201 159']",
+     "caption": "Changes in work in progress, accounts receivable and accounts payable"
+    },
+    {
+     "value": -7542,
+     "quote": "Changes in other accruals                                                          -7 542   125 460",
+     "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+     "page": 64,
+     "columns": "[current,prior]=['-7 542', '125 460']",
+     "caption": "Changes in other accruals"
+    },
+    {
+     "value": -22849,
+     "quote": "Interest income and interest cost                                                 -22 849    -24 245",
+     "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+     "page": 64,
+     "columns": "[current,prior]=['-22 849', '-24 245']",
+     "caption": "Interest income and interest cost (non-cash/reclass adj.)"
+    }
+   ],
+   "capex_lines": [
+    {
+     "value": -26257,
+     "quote": "Purchase of fixed assets                                                 15       -26 257    -29 751",
+     "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+     "page": 64,
+     "columns": "[current,prior]=['-26 257', '-29 751']",
+     "caption": "Purchase of fixed assets"
+    },
+    {
+     "value": -63,
+     "quote": "Payments made to develop software                                        14          -63      -6 750",
+     "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+     "page": 64,
+     "columns": "[current,prior]=['-63', '-6 750']",
+     "caption": "Payments made to develop software"
+    }
+   ],
+   "lease_principal": {
+    "value": -57412,
+    "quote": "Payments on lease liabilities                                            16       -57 412    -56 513",
+    "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+    "page": 64,
+    "columns": "[current,prior]=['-57 412', '-56 513']",
+    "caption": "Payments on lease liabilities"
+   },
+   "interest_paid": {
+    "value": -1093,
+    "quote": "Interest payments                                                                  -1 093     -1 014",
+    "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+    "page": 64,
+    "columns": "[current,prior]=['-1 093', '-1 014']",
+    "caption": "Interest payments"
+   },
+   "interest_received": {
+    "value": 23942,
+    "quote": "Received interest payments                                                        23 942     25 259",
+    "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+    "page": 64,
+    "columns": "[current,prior]=['23 942', '25 259']",
+    "caption": "Received interest payments"
+   },
+   "tax_paid": {
+    "value": -117013,
+    "quote": "Taxes paid                                                               10      -117 013    -93 159",
+    "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+    "page": 64,
+    "columns": "[current,prior]=['-117 013', '-93 159']",
+    "caption": "Taxes paid"
+   },
+   "sbc": {
+    "value": 21824,
+    "quote": "Share based payments                                                              21 824     17 775",
+    "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+    "page": 64,
+    "columns": "[current,prior]=['21 824', '17 775']",
+    "caption": "Share based payments"
+   },
+   "acquisitions": {
+    "value": -1912,
+    "quote": "Repayment of financial receivables / acquisition of business                       -1 912         0",
+    "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+    "page": 64,
+    "columns": "[current,prior]=['-1 912', '0']",
+    "caption": "Repayment of financial receivables / acquisition of business"
+   },
+   "divestments": {
+    "value": 303,
+    "quote": "Sale of fixed assets                                                                 303        185",
+    "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+    "page": 64,
+    "columns": "[current,prior]=['303', '185']",
+    "caption": "Sale of fixed assets"
+   },
+   "lease_interest": {
+    "value": -24386,
+    "quote": "Payments interests on lease liabilities                                  16       -24 386    -22 650",
+    "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+    "page": 64,
+    "columns": "[current,prior]=['-24 386', '-22 650']"
+   }
+  },
+  "FY2024": {
+   "unit": "NOK 1 000",
+   "statement_pdf_page": 64,
+   "ocf": {
+    "value": 838330,
+    "quote": "Net cash flow from operating activities                                          347 111    838 330",
+    "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+    "page": 64,
+    "columns": "[current,prior]=['347 111', '838 330']",
+    "caption": "Net cash flow from operating activities"
+   },
+   "wc_lines": [
+    {
+     "value": 201159,
+     "quote": "Changes in work in progress, accounts receivable and accounts payable             -98 757   201 159",
+     "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+     "page": 64,
+     "columns": "[current,prior]=['-98 757', '201 159']",
+     "caption": "Changes in work in progress, accounts receivable and accounts payable"
+    },
+    {
+     "value": 125460,
+     "quote": "Changes in other accruals                                                          -7 542   125 460",
+     "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+     "page": 64,
+     "columns": "[current,prior]=['-7 542', '125 460']",
+     "caption": "Changes in other accruals"
+    },
+    {
+     "value": -24245,
+     "quote": "Interest income and interest cost                                                 -22 849    -24 245",
+     "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+     "page": 64,
+     "columns": "[current,prior]=['-22 849', '-24 245']",
+     "caption": "Interest income and interest cost (non-cash/reclass adj.)"
+    }
+   ],
+   "capex_lines": [
+    {
+     "value": -29751,
+     "quote": "Purchase of fixed assets                                                 15       -26 257    -29 751",
+     "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+     "page": 64,
+     "columns": "[current,prior]=['-26 257', '-29 751']",
+     "caption": "Purchase of fixed assets"
+    },
+    {
+     "value": -6750,
+     "quote": "Payments made to develop software                                        14          -63      -6 750",
+     "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+     "page": 64,
+     "columns": "[current,prior]=['-63', '-6 750']",
+     "caption": "Payments made to develop software"
+    }
+   ],
+   "lease_principal": {
+    "value": -56513,
+    "quote": "Payments on lease liabilities                                            16       -57 412    -56 513",
+    "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+    "page": 64,
+    "columns": "[current,prior]=['-57 412', '-56 513']",
+    "caption": "Payments on lease liabilities"
+   },
+   "interest_paid": {
+    "value": -1014,
+    "quote": "Interest payments                                                                  -1 093     -1 014",
+    "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+    "page": 64,
+    "columns": "[current,prior]=['-1 093', '-1 014']",
+    "caption": "Interest payments"
+   },
+   "interest_received": {
+    "value": 25259,
+    "quote": "Received interest payments                                                        23 942     25 259",
+    "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+    "page": 64,
+    "columns": "[current,prior]=['23 942', '25 259']",
+    "caption": "Received interest payments"
+   },
+   "tax_paid": {
+    "value": -93159,
+    "quote": "Taxes paid                                                               10      -117 013    -93 159",
+    "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+    "page": 64,
+    "columns": "[current,prior]=['-117 013', '-93 159']",
+    "caption": "Taxes paid"
+   },
+   "sbc": {
+    "value": 17775,
+    "quote": "Share based payments                                                              21 824     17 775",
+    "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+    "page": 64,
+    "columns": "[current,prior]=['21 824', '17 775']",
+    "caption": "Share based payments"
+   },
+   "acquisitions": {
+    "value": 0,
+    "quote": "Repayment of financial receivables / acquisition of business                       -1 912         0",
+    "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+    "page": 64,
+    "columns": "[current,prior]=['-1 912', '0']",
+    "caption": "Repayment of financial receivables / acquisition of business"
+   },
+   "divestments": {
+    "value": 185,
+    "quote": "Sale of fixed assets                                                                 303        185",
+    "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+    "page": 64,
+    "columns": "[current,prior]=['303', '185']",
+    "caption": "Sale of fixed assets"
+   },
+   "lease_interest": {
+    "value": -22650,
+    "quote": "Payments interests on lease liabilities                                  16       -24 386    -22 650",
+    "file": "~/vss/sources/BOUV.OL_2025-FY_annual-financial-report_2026-04-16_en_a0.pdf",
+    "page": 64,
+    "columns": "[current,prior]=['-24 386', '-22 650']"
+   }
+  },
+  "FY2023": {
+   "note": "NOT OBTAINED. Bouvet Annual Report 2024 EN PDF link (en.bouvet.no/investor/_/attachment/inline/fe38c41f-...) returns an HTML error/404 and the page's own links are broken; no primary FY2023 cash flow statement read. Third-party aggregators (stockanalysis.com) show FY2023 OCF ~NOK 506m and FY2024 ~841m (note: aggregator 841 differs from the 838 330 printed in the FY2025 report) - NOT primary, not used."
+  }
+ },
+ "post_basis_deals": [],
+ "notes": "'divestments' holds 'Sale of fixed assets' (asset sales, not subsidiaries). 'acquisitions' holds 'Repayment of financial receivables / acquisition of business' (combined caption). Interest received is in investing, interest on leases and other interest in financing. Q2 2026 report (2026-08-19) note 07 'Events after the balance sheet date' says no events significantly affecting the financial position; no acquisition or divestment found in Q1/Q2 2026 reports or web search for Aug-Oct 2026. Q3 2026 report not in sources/. Working-capital in Bouvet's statement is two aggregate lines only. Last interest-line in the 'wc_lines' list is an OCF adjustment shown for completeness."
+}

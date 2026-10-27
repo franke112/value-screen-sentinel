@@ -1,0 +1,326 @@
+{
+ "ticker": "PNDORA.CO",
+ "unit": "DKK million",
+ "years": {
+  "FY2025": {
+   "ocf": {
+    "caption": "Cash flows from operating activities, net",
+    "value": 7361,
+    "quote": "Cash flows from operating activities, net                                                             7,361    8,721",
+    "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+    "page": 103
+   },
+   "wc_lines": [
+    {
+     "caption": "Change in inventories",
+     "value": -565,
+     "quote": "Change in inventories                                                                     3.5    -565     -126",
+     "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+     "page": 103
+    },
+    {
+     "caption": "Change in receivables",
+     "value": -424,
+     "quote": "Change in receivables                                                                     3.6    -424      106",
+     "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+     "page": 103
+    },
+    {
+     "caption": "Change in payables and other liabilities",
+     "value": 559,
+     "quote": "Change in payables and other liabilities                                                  3.9     559      932",
+     "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+     "page": 103
+    }
+   ],
+   "capex_lines": [
+    {
+     "caption": "Purchase of intangible assets",
+     "value": -462,
+     "quote": "Purchase of intangible assets                                                                    -462     -343",
+     "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+     "page": 103
+    },
+    {
+     "caption": "Purchase of property, plant and equipment",
+     "value": -1449,
+     "quote": "Purchase of property, plant and equipment                                                       -1,449   -1,336",
+     "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+     "page": 103
+    }
+   ],
+   "lease_principal": {
+    "caption": "Repayment of lease commitments",
+    "value": -1260,
+    "quote": "Repayment of lease commitments                                                                       -1,260    -1,162",
+    "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+    "page": 103
+   },
+   "lease_interest": {
+    "caption": "Interest expenses",
+    "value": 422,
+    "quote": "Interest expenses                                      422         381",
+    "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+    "page": 123,
+    "note": "Lease interest (note 4.3 'Other items relating to leases'); included in Finance costs paid, not shown separately in the cash flow statement"
+   },
+   "interest_paid": {
+    "caption": "Finance costs paid",
+    "value": -1009,
+    "quote": "Finance costs paid                                                                        4.6   -1,009    -922",
+    "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+    "page": 103
+   },
+   "interest_received": {
+    "caption": "Finance income received",
+    "value": 174,
+    "quote": "Finance income received                                                                   4.6     174       19",
+    "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+    "page": 103
+   },
+   "tax_paid": {
+    "caption": "Income tax paid",
+    "value": -1881,
+    "quote": "Income tax paid                                                                           2.4   -1,881   -1,738",
+    "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+    "page": 103
+   },
+   "sbc": {
+    "caption": "Share-based payments",
+    "value": 103,
+    "quote": "Share-based payments                                                                      2.3     103      166",
+    "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+    "page": 103
+   },
+   "acquisitions": {
+    "caption": "Acquisition of subsidiaries and activities, net of cash acquired",
+    "value": -373,
+    "quote": "Acquisition of subsidiaries and activities, net of cash acquired                          3.4    -373     -194",
+    "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+    "page": 103
+   },
+   "disposals": {
+    "caption": "Proceeds from sale of property, plant and equipment",
+    "value": 7,
+    "quote": "Proceeds from sale of property, plant and equipment                                                 7       14",
+    "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+    "page": 103
+   }
+  },
+  "FY2024": {
+   "ocf": {
+    "caption": "Cash flows from operating activities, net",
+    "value": 8721,
+    "quote": "Cash flows from operating activities, net                                                             7,361    8,721",
+    "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+    "page": 103
+   },
+   "wc_lines": [
+    {
+     "caption": "Change in inventories",
+     "value": -126,
+     "quote": "Change in inventories                                                                     3.5    -565     -126",
+     "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+     "page": 103
+    },
+    {
+     "caption": "Change in receivables",
+     "value": 106,
+     "quote": "Change in receivables                                                                     3.6    -424      106",
+     "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+     "page": 103
+    },
+    {
+     "caption": "Change in payables and other liabilities",
+     "value": 932,
+     "quote": "Change in payables and other liabilities                                                  3.9     559      932",
+     "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+     "page": 103
+    }
+   ],
+   "capex_lines": [
+    {
+     "caption": "Purchase of intangible assets",
+     "value": -343,
+     "quote": "Purchase of intangible assets                                                                    -462     -343",
+     "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+     "page": 103
+    },
+    {
+     "caption": "Purchase of property, plant and equipment",
+     "value": -1336,
+     "quote": "Purchase of property, plant and equipment                                                       -1,449   -1,336",
+     "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+     "page": 103
+    }
+   ],
+   "lease_principal": {
+    "caption": "Repayment of lease commitments",
+    "value": -1162,
+    "quote": "Repayment of lease commitments                                                                       -1,260    -1,162",
+    "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+    "page": 103
+   },
+   "lease_interest": {
+    "caption": "Interest expenses",
+    "value": 381,
+    "quote": "Interest expenses                                      422         381",
+    "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+    "page": 123,
+    "note": "Lease interest (note 4.3 'Other items relating to leases'); included in Finance costs paid, not shown separately in the cash flow statement"
+   },
+   "interest_paid": {
+    "caption": "Finance costs paid",
+    "value": -922,
+    "quote": "Finance costs paid                                                                        4.6   -1,009    -922",
+    "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+    "page": 103
+   },
+   "interest_received": {
+    "caption": "Finance income received",
+    "value": 19,
+    "quote": "Finance income received                                                                   4.6     174       19",
+    "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+    "page": 103
+   },
+   "tax_paid": {
+    "caption": "Income tax paid",
+    "value": -1738,
+    "quote": "Income tax paid                                                                           2.4   -1,881   -1,738",
+    "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+    "page": 103
+   },
+   "sbc": {
+    "caption": "Share-based payments",
+    "value": 166,
+    "quote": "Share-based payments                                                                      2.3     103      166",
+    "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+    "page": 103
+   },
+   "acquisitions": {
+    "caption": "Acquisition of subsidiaries and activities, net of cash acquired",
+    "value": -194,
+    "quote": "Acquisition of subsidiaries and activities, net of cash acquired                          3.4    -373     -194",
+    "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+    "page": 103
+   },
+   "disposals": {
+    "caption": "Proceeds from sale of property, plant and equipment",
+    "value": 14,
+    "quote": "Proceeds from sale of property, plant and equipment                                                 7       14",
+    "file": "~/vss/sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf",
+    "page": 103
+   }
+  },
+  "FY2023": {
+   "ocf": {
+    "caption": "Cash flows from operating activities, net",
+    "value": 7384,
+    "quote": "Cash flows from operating activities, net                                                       5,725          4,821          8,721         7,384",
+    "file": "~/vss/sources/PNDORA.CO_2024-Q4_half-year-financial-report_2025-02-05_en_a1.pdf",
+    "page": 30,
+    "note": "FY2023 taken from the Q4 2024 interim report's full-year column (not the AR2024); may differ if restated in AR2024"
+   },
+   "wc_lines": [
+    {
+     "caption": "Change in inventories",
+     "value": 210,
+     "quote": "Change in inventories                                                                            625             585           -126           210",
+     "file": "~/vss/sources/PNDORA.CO_2024-Q4_half-year-financial-report_2025-02-05_en_a1.pdf",
+     "page": 30
+    },
+    {
+     "caption": "Change in receivables",
+     "value": 56,
+     "quote": "Change in receivables                                                                           -450            -450            106            56",
+     "file": "~/vss/sources/PNDORA.CO_2024-Q4_half-year-financial-report_2025-02-05_en_a1.pdf",
+     "page": 30
+    },
+    {
+     "caption": "Change in payables and other liabilities",
+     "value": 454,
+     "quote": "Change in payables and other liabilities 1                                                      1,947          1,844           932            454",
+     "file": "~/vss/sources/PNDORA.CO_2024-Q4_half-year-financial-report_2025-02-05_en_a1.pdf",
+     "page": 30
+    }
+   ],
+   "capex_lines": [
+    {
+     "caption": "Purchase of intangible assets",
+     "value": -359,
+     "quote": "Purchase of intangible assets                                                                     -97            -83          -343           -359",
+     "file": "~/vss/sources/PNDORA.CO_2024-Q4_half-year-financial-report_2025-02-05_en_a1.pdf",
+     "page": 30
+    },
+    {
+     "caption": "Purchase of property, plant and equipment",
+     "value": -1129,
+     "quote": "Purchase of property, plant and equipment                                                       -396            -391         -1,336         -1,129",
+     "file": "~/vss/sources/PNDORA.CO_2024-Q4_half-year-financial-report_2025-02-05_en_a1.pdf",
+     "page": 30
+    }
+   ],
+   "lease_principal": {
+    "caption": "Repayment of lease commitments",
+    "value": -1107,
+    "quote": "Repayment of lease commitments                                                                   -312           -333          -1,162        -1,107",
+    "file": "~/vss/sources/PNDORA.CO_2024-Q4_half-year-financial-report_2025-02-05_en_a1.pdf",
+    "page": 30
+   },
+   "lease_interest": {
+    "caption": "Interest expenses",
+    "value": 270,
+    "quote": "Interest expenses                                      381        270",
+    "file": "<scratch>/e140/dl/PA_AR24.pdf",
+    "page": 127,
+    "note": "Lease interest, AR2024 note; included in Finance costs paid"
+   },
+   "interest_paid": {
+    "caption": "Finance costs paid",
+    "value": -683,
+    "quote": "Finance costs paid                                                                               -226           -256           -922          -683",
+    "file": "~/vss/sources/PNDORA.CO_2024-Q4_half-year-financial-report_2025-02-05_en_a1.pdf",
+    "page": 30
+   },
+   "interest_received": {
+    "caption": "Finance income received",
+    "value": 19,
+    "quote": "Finance income received                                                                             5              6             19            19",
+    "file": "~/vss/sources/PNDORA.CO_2024-Q4_half-year-financial-report_2025-02-05_en_a1.pdf",
+    "page": 30
+   },
+   "tax_paid": {
+    "caption": "Income taxes paid",
+    "value": -1832,
+    "quote": "Income taxes paid                                                                                -992          -1,163        -1,738         -1,832",
+    "file": "~/vss/sources/PNDORA.CO_2024-Q4_half-year-financial-report_2025-02-05_en_a1.pdf",
+    "page": 30
+   },
+   "sbc": {
+    "caption": "Share-based payments",
+    "value": 105,
+    "quote": "Share-based payments                                                                              49               21           166           105",
+    "file": "~/vss/sources/PNDORA.CO_2024-Q4_half-year-financial-report_2025-02-05_en_a1.pdf",
+    "page": 30
+   },
+   "acquisitions": {
+    "caption": "net of cash acquired",
+    "value": -349,
+    "quote": "net of cash acquired                                                                 6            -23            -37           -194          -349",
+    "file": "~/vss/sources/PNDORA.CO_2024-Q4_half-year-financial-report_2025-02-05_en_a1.pdf",
+    "page": 30,
+    "note": "caption 'Acquisitions of subsidiaries and activities, net of cash acquired' wraps over two lines"
+   },
+   "disposals": {
+    "caption": "Proceeds from sale of property, plant and equipment",
+    "value": 0,
+    "quote": "Proceeds from sale of property, plant and equipment                                                 2               -            14              -",
+    "file": "~/vss/sources/PNDORA.CO_2024-Q4_half-year-financial-report_2025-02-05_en_a1.pdf",
+    "page": 30,
+    "note": "printed as '-' for FY2023"
+   }
+  }
+ },
+ "post_basis_deals": [],
+ "notes": "POST-BASIS DEALS: none found. Q1 2026 report (sources/PNDORA.CO_2026-Q1_interim-report-q1-and-q3_2026-05-06_en_a0.pdf p.11 and p.36): 'Pandora did not acquire any stores from partners' in Q1 2026; 'No business combinations of significance to Pandora took place after the reporting period'. Q2/H1 2026 report (sources/PNDORA.CO_2026-Q2_inside-information_2026-08-12_en_a1.pdf p.11): 'Pandora did not acquire any stores from partners during the quarter'; note 12 p.40: no events after 30 June 2026 expected to materially impact (only US customs IEEPA refund claims). Web search found no 2026 Pandora acquisition/divestment. Nothing after 12 Aug 2026 could be checked. FY2025 statement note 'Events occurring after the reporting period': none. The FY2025 report balance-sheet date is 31 Dec 2025 (task text said 2026-06-30; H1 2026 interim covered through that date). FY2023 figures are from the Q4 2024 interim report's full-year column, not from the AR2024 cash flow statement (AR2024 pdf was downloaded only for lease interest)."
+}

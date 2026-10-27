@@ -142,6 +142,11 @@ annual:
         page: "us-gaap:OperatingLeaseLiability [as of 2022-05-31] 10-K 0000320187-22-000038 filed 2022-07-21"
         status: VERIFIED
         verified_kind: tagged
+      operating_lease_liabilities:
+        value: 3197000000
+        page: "us-gaap:OperatingLeaseLiability [as of 2022-05-31] 10-K 0000320187-22-000038 filed 2022-07-21"
+        status: VERIFIED
+        verified_kind: tagged
       diluted_weighted_average_shares:
         value: 1610800000
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2021-06-01..2022-05-31] 10-K 0000320187-24-000044 filed 2024-07-25"
@@ -225,6 +230,11 @@ annual:
         page: "us-gaap:OperatingLeaseLiability [as of 2023-05-31] 10-K 0000320187-23-000039 filed 2023-07-20"
         status: VERIFIED
         verified_kind: tagged
+      operating_lease_liabilities:
+        value: 3211000000
+        page: "us-gaap:OperatingLeaseLiability [as of 2023-05-31] 10-K 0000320187-23-000039 filed 2023-07-20"
+        status: VERIFIED
+        verified_kind: tagged
       diluted_weighted_average_shares:
         value: 1569800000
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2022-06-01..2023-05-31] 10-K 0000320187-25-000047 filed 2025-07-17"
@@ -303,6 +313,11 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       lease_liabilities:
+        value: 3043000000
+        page: "us-gaap:OperatingLeaseLiability [as of 2024-05-31] 10-K 0000320187-24-000044 filed 2024-07-25"
+        status: VERIFIED
+        verified_kind: tagged
+      operating_lease_liabilities:
         value: 3043000000
         page: "us-gaap:OperatingLeaseLiability [as of 2024-05-31] 10-K 0000320187-24-000044 filed 2024-07-25"
         status: VERIFIED
@@ -390,6 +405,11 @@ annual:
         page: "us-gaap:OperatingLeaseLiability [as of 2025-05-31] 10-K 0000320187-25-000047 filed 2025-07-17"
         status: VERIFIED
         verified_kind: tagged
+      operating_lease_liabilities:
+        value: 3052000000
+        page: "us-gaap:OperatingLeaseLiability [as of 2025-05-31] 10-K 0000320187-25-000047 filed 2025-07-17"
+        status: VERIFIED
+        verified_kind: tagged
       diluted_weighted_average_shares:
         value: 1487600000
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2024-06-01..2025-05-31] 10-K 0000320187-26-000088 filed 2026-07-15"
@@ -413,7 +433,8 @@ annual:
         zero_basis: searched
         source: "E105 leg; E107 searched absence"
         page: "E107 SEARCHED ABSENCE. Document: sources/NKE_FY2026_annual-report-10k_2026-07-15_en_a0.htm (the FY2026 Form 10-K as filed with the SEC, filed 2026-07-15, period end 2026-05-31; 418,067 characters of extracted text). Searched 2026-09-04 for the terms 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- ZERO occurrences of any of them. Nike's SEC companyfacts tag no NCI distribution element in any year either. The group states no non-controlling interest, so it distributes none (E106 clause 5: a determined zero)."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # E110 (2026-09-04): THE ISSUER'S OWN WORD. Nike does have contract
       # liabilities and states that they are IMMATERIAL, which is a claim
       # about its own accounts and not a silence (E110).
@@ -422,20 +443,23 @@ annual:
         zero_basis: note
         source: "E110 (2026-09-04); E25 note basis"
         page: "sources/NKE_FY2026_annual-report-10k_2026-07-15_en_a0.htm (the FY2026 Form 10-K as filed with the SEC, filed 2026-07-15, period end 2026-05-31; 418,067 characters of extracted text), revenue recognition note: 'As of May 31, 2026 and 2025, the Company did not have any contract assets and had an IMMATERIAL AMOUNT OF CONTRACT LIABILITIES recorded in Accrued liabilities on the Consolidated Balance Sheets.' The sentence names the concept this field holds and both balance sheet dates, and the balance is inside Accrued liabilities -- a caption the bridge does not read."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # E35.1 (2026-09-04): a DEFINED CONTRIBUTION plan carries no deficit.
       pension_deficit:
         value: 0
         zero_basis: note
         source: "intake sweep 2026-09-04; E25 note basis"
         page: "sources/NKE_FY2026_annual-report-10k_2026-07-15_en_a0.htm (the FY2026 Form 10-K as filed with the SEC, filed 2026-07-15, period end 2026-05-31; 418,067 characters of extracted text), NOTE 11 -- BENEFIT PLANS: 'The Company has a qualified 401(k) Savings and Profit Sharing Plan, in which all U.S. employees are able to participate. The Company matches a portion of employee contributions to the savings plan. Company contributions to the savings plan were $139 million, $151 million and $153 million'. Searched 2026-09-04: 'pension', 'defined benefit' and 'postretirement' each ZERO occurrences in the whole document. E35.1 holds the recognised net DEFINED-BENEFIT liability and Nike has no such plan; the obligation on a defined-contribution plan is discharged when the contribution is made."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       asset_retirement_obligation:
         value: 0
         zero_basis: searched
         source: "intake sweep 2026-09-04; E25 named zero on an E107 search"
         page: "E107 SEARCHED ABSENCE. Document: sources/NKE_FY2026_annual-report-10k_2026-07-15_en_a0.htm (the FY2026 Form 10-K as filed with the SEC, filed 2026-07-15, period end 2026-05-31; 418,067 characters of extracted text). Searched 2026-09-04 for 'asset retirement', 'restoration' and 'decommission' -- ZERO occurrences of any of them, and no such caption on the balance sheet. Nike tags no `us-gaap:AssetRetirementObligation` in any year."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue:
         value: 46398000000
         page: "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax [2025-06-01..2026-05-31] 10-K 0000320187-26-000088 filed 2026-07-15"
@@ -497,6 +521,11 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       lease_liabilities:
+        value: 3091000000
+        page: "us-gaap:OperatingLeaseLiability [as of 2026-05-31] 10-K 0000320187-26-000088 filed 2026-07-15"
+        status: VERIFIED
+        verified_kind: tagged
+      operating_lease_liabilities:
         value: 3091000000
         page: "us-gaap:OperatingLeaseLiability [as of 2026-05-31] 10-K 0000320187-26-000088 filed 2026-07-15"
         status: VERIFIED

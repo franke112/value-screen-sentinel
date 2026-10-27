@@ -25,7 +25,7 @@ import zlib
 import urllib.error
 import urllib.request
 from dataclasses import dataclass, field, replace
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from . import env
 from .env import ENV_FILE
 
@@ -145,6 +145,10 @@ class Figure:
     #: arithmetic -- and `components` carries the Figures it was built from.
     composite: str = ""
     components: tuple = ()
+    #: E25 / E107: where the figure is a ZERO resting on a RECORDED SEARCH
+    #: rather than a tagged nil -- `searched` -- the writer states that form
+    #: instead of `caption`. The search itself is the composite.
+    zero_basis: str = ""
 
     @property
     def provenance(self) -> str:
@@ -824,6 +828,89 @@ def run_xbrl(*, ticker: str, cik: int | None = None, limit: int = 8,
 ANNUAL_MIN_DAYS = 350
 ANNUAL_MAX_DAYS = 380
 
+#: E140.1(1): the acquisition elements, in the order they answer.
+E140_ACQUISITION_TAGS = ("PaymentsToAcquireBusinessesNetOfCashAcquired",
+                         "PaymentsToAcquireBusinessesAndInterestInAffiliates",
+                         "PaymentsToAcquireBusinessesGross")
+IFRS_E140_ACQUISITION_TAGS = (
+    "CashFlowsUsedInObtainingControlOfSubsidiariesOrOtherBusinesses"
+    "ClassifiedAsInvestingActivities",)
+
+#: E140(1) (2026-10-27): the OPERATING WORKING-CAPITAL elements of a US
+#: GAAP cash flow statement. us-gaap tags the CHANGE ITSELF: a positive
+#: `IncreaseDecreaseIn<asset>` is an increase that USED cash (-1), a
+#: positive `IncreaseDecreaseIn<liability>` one that PROVIDED it (+1).
+#: Income-tax, lease and long-term lines are NOT here -- E140 leaves them in
+#: the flow (a tax-reserve release is not a swing; HRB FY2026).
+E140_WC_ASSETS = (
+    "IncreaseDecreaseInAccountsReceivable", "IncreaseDecreaseInReceivables",
+    "IncreaseDecreaseInAccountsAndOtherReceivables",
+    "IncreaseDecreaseInAccountsAndNotesReceivable",
+    "IncreaseDecreaseInInventories", "IncreaseDecreaseInRetailRelatedInventories",
+    "IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets",
+    "IncreaseDecreaseInPrepaidExpense", "IncreaseDecreaseInOtherCurrentAssets",
+    "IncreaseDecreaseInOtherOperatingAssets",
+    "IncreaseDecreaseInPrepaidExpensesOther",
+    "IncreaseDecreaseInContractWithCustomerAsset")
+E140_WC_LIABILITIES = (
+    "IncreaseDecreaseInAccountsPayable", "IncreaseDecreaseInAccountsPayableTrade",
+    "IncreaseDecreaseInAccruedLiabilities",
+    "IncreaseDecreaseInAccountsPayableAndAccruedLiabilities",
+    "IncreaseDecreaseInAccountsPayableAndOtherOperatingLiabilities",
+    "IncreaseDecreaseInAccruedLiabilitiesAndOtherOperatingLiabilities",
+    "IncreaseDecreaseInEmployeeRelatedLiabilities",
+    "IncreaseDecreaseInContractWithCustomerLiability",
+    "IncreaseDecreaseInDeferredRevenue",
+    "IncreaseDecreaseInOtherCurrentLiabilities",
+    "IncreaseDecreaseInOtherOperatingLiabilities",
+    "IncreaseDecreaseInOtherAccruedLiabilities")
+#: The one-line totals, read only where no component is tagged, in this
+#: order. An increase USES cash. The second is A. O. Smith's: its 10-Q
+#: prints working capital as ONE line ("Current assets and liabilities")
+#: and its 10-K's note splits the same line into the components above plus
+#: income taxes -- so the one line carries the tax movement E140 would
+#: leave in the flow, and the page says so.
+E140_WC_TOTALS = ("IncreaseDecreaseInOperatingCapital",
+                  "IncreaseDecreaseInOtherCurrentAssetsAndLiabilitiesNet")
+#: E140(1) "a combined tag": where a combined element AND one of its own
+#: components are tagged for one year, the combined one is dropped -- read
+#: together they count the movement twice (Autoliv FY2023: payables 255 +
+#: accrued 172 beside their sum 426).
+E140_WC_COMBINED: dict[str, tuple[str, ...]] = {
+    "IncreaseDecreaseInAccountsPayableAndAccruedLiabilities":
+        ("IncreaseDecreaseInAccountsPayable", "IncreaseDecreaseInAccountsPayableTrade",
+         "IncreaseDecreaseInAccruedLiabilities"),
+    "IncreaseDecreaseInAccruedLiabilitiesAndOtherOperatingLiabilities":
+        ("IncreaseDecreaseInAccruedLiabilities",
+         "IncreaseDecreaseInOtherOperatingLiabilities"),
+    "IncreaseDecreaseInAccountsPayableAndOtherOperatingLiabilities":
+        ("IncreaseDecreaseInAccountsPayable",
+         "IncreaseDecreaseInOtherOperatingLiabilities"),
+    "IncreaseDecreaseInReceivables": ("IncreaseDecreaseInAccountsReceivable",),
+    "IncreaseDecreaseInAccountsAndOtherReceivables":
+        ("IncreaseDecreaseInAccountsReceivable",),
+}
+#: E123's shape: where the operating asset IS inventory, the inventory line
+#: stays in the flow and is not part of the figure.
+E140_INVENTORY_TAGS = ("IncreaseDecreaseInInventories",
+                       "IncreaseDecreaseInRetailRelatedInventories")
+#: The filers E140's own text names as E123's shape ("where the operating
+#: asset is inventory (NVR, PHM)"), whether or not the store carries E123's
+#: declaration -- NVR's does not, and its homes would otherwise be stripped
+#: as a swing (335m released in FY2025).
+E140_INVENTORY_IS_THE_BUSINESS = ("NVR", "PHM")
+#: E140(1) "a loan book's receivable": the provision for losses added back
+#: above a stripped receivable is deducted with it, or the credit loss is
+#: counted as cash earned (HRB's Emerald Advance). The same arithmetic holds
+#: for any receivable whose provision is added back above its change.
+E140_RECEIVABLE_TAGS = ("IncreaseDecreaseInAccountsReceivable",
+                        "IncreaseDecreaseInReceivables",
+                        "IncreaseDecreaseInAccountsAndOtherReceivables",
+                        "IncreaseDecreaseInAccountsAndNotesReceivable")
+E140_PROVISION_TAGS = ("ProvisionForDoubtfulAccounts",
+                       "ProvisionForLoanLeaseAndOtherLosses",
+                       "ProvisionForLoanAndLeaseLosses")
+
 #: How many fiscal years to write. Section 5 stands on ONE twelve-month
 #: basis (E19) and reads the newest; the rest are history a reader can see
 #: the trend in, and they cost nothing because the basis never touches them.
@@ -914,6 +1001,20 @@ ANNUAL_FIELDS: tuple[AnnualField, ...] = (
              "`place_capex` keeps that and drops this: the PP&E line is "
              "the narrower concept. The element states a POSITIVE payment "
              "and the sign is flipped, as on `capex_ppe`."),
+    AnnualField(
+        "acquisitions_paid", E140_ACQUISITION_TAGS, MONEY, "duration",
+        negate=True,
+        note="E140.1(1) (2026-10-27): CASH PAID FOR BUSINESSES, net of cash "
+             "acquired. `PaymentsToAcquireBusinessesNetOfCashAcquired` is "
+             "the common line; Accenture and PepsiCo tag the broader "
+             "`PaymentsToAcquireBusinessesAndInterestInAffiliates` for the "
+             "same caption, and a few filers tag only the gross element. "
+             "Read in that order, the first present answering. The element "
+             "states a POSITIVE payment and the sign is flipped. A year with "
+             "none of the three tagged is written as a SEARCHED ZERO (E107) "
+             "by `apply_e140`, the search named on the page: a filer tags "
+             "every line of its cash flow statement, and a year with no "
+             "acquisition line has none to tag."),
     AnnualField(
         "nci_dividends_paid", ("PaymentsOfDividendsMinorityInterest",
                                "PaymentsToMinorityShareholders",
@@ -1402,6 +1503,12 @@ IFRS_ANNUAL_FIELDS: tuple[AnnualField, ...] = (
              "`CurrentLeaseLiabilities` and `NoncurrentLeaseLiabilities` and "
              "never their total, this field is DATA MISSING and both "
              "components are named in the report."),
+    AnnualField(
+        "acquisitions_paid", IFRS_E140_ACQUISITION_TAGS, MONEY, "duration",
+        negate=True,
+        note="E140.1(1): IAS 7.39's line, cash flows used in obtaining "
+             "control of subsidiaries or other businesses. A POSITIVE "
+             "payment, sign flipped."),
     AnnualField(
         "nci_dividends_paid",
         ("DividendsPaidToNoncontrollingInterestsClassifiedAsFinancing"
@@ -1920,7 +2027,9 @@ def fiscal_year_ends(facts: dict, fy_end_month: int, *,
 
 def build_annual(facts: dict, *, limit: int = ANNUAL_LIMIT,
                  taxonomy: Taxonomy | None = None,
-                 currency: str | None = None) -> tuple[list, list]:
+                 currency: str | None = None,
+                 inventory_is_business: bool = False,
+                 searched_on: str = "") -> tuple[list, list]:
     """(the most recent ``limit`` fiscal years, the windows passed over).
 
     Oldest first. A year appears when at least one mapped field answers at
@@ -1987,7 +2096,7 @@ def build_annual(facts: dict, *, limit: int = ANNUAL_LIMIT,
                 if value == 0 and spec.field in ZERO_REFUSED:
                     continue
                 year.figures[spec.field] = Figure(
-                    value=-value if spec.negate else value, tag=tag,
+                    value=(-value if spec.negate else value) + 0.0, tag=tag,
                     start=entry.get("start"), end=entry["end"],
                     accession=entry["accn"], form=entry.get("form", ""),
                     filed=entry.get("filed", ""),
@@ -2003,6 +2112,12 @@ def build_annual(facts: dict, *, limit: int = ANNUAL_LIMIT,
         year.capex_shape = place_capex(year, taxonomy)
         apply_debt_rulings(facts, year, taxonomy, currency)
         year.interest = interest_classification(facts, year, taxonomy, currency)
+        # E140 / E140.1 (2026-10-27): the working-capital figure, and a
+        # searched zero where no acquisition element is tagged.
+        if year.figures:
+            apply_e140(facts, year, taxonomy, currency,
+                       inventory_is_business=inventory_is_business,
+                       searched_on=searched_on)
         # `capex_combined` is "missing" only when NO capex leg resolved: a
         # filer that tags the split pair has no combined line to lack, and
         # which capex shape a filer tags is reported as a sentence anyway.
@@ -2429,6 +2544,277 @@ def apply_debt_rulings(facts: dict, year: "AnnualYear", taxonomy: "Taxonomy",
                      "MISSING until read from the filing (E69)")
 
 
+def _window_figure(facts: dict, tag: str, unit: str, start_s: str | None,
+                   end_s: str, taxonomy: "Taxonomy") -> "Figure | None":
+    """One DURATION fact as a Figure: the annual-length window ending
+    ``end_s`` where ``start_s`` is None, otherwise exactly ``start_s`` to
+    ``end_s`` (a 10-Q's year to date). None where untagged or slipped."""
+    if start_s is None:
+        entries = _annual_groups(facts, tag, unit, taxonomy=taxonomy.name).get(end_s)
+    else:
+        entries = [e for e in _entries(facts, tag, unit, taxonomy=taxonomy.name)
+                   if e.get("start") == start_s and e["end"] == end_s]
+    if not entries or _slip_in(entries):
+        return None
+    entry, restated = _pick(entries)
+    return Figure(value=float(entry["val"]), tag=tag, start=entry.get("start"),
+                  end=entry["end"], accession=entry["accn"],
+                  form=entry.get("form", ""), filed=entry.get("filed", ""),
+                  restated_from=restated, taxonomy=taxonomy.name,
+                  concept_note=CONCEPT_NOTES.get(tag, ""))
+
+
+def e140_working_capital(facts: dict, end_s: str, currency: str,
+                         taxonomy: "Taxonomy", *, start_s: str | None = None,
+                         inventory_is_business: bool = False
+                         ) -> tuple["Figure | None", str]:
+    """E140(1)'s `working_capital_change` for one window: the CASH EFFECT
+    of the operating working-capital lines, as one composite Figure whose
+    page names every line, its sign and the arithmetic.
+
+    US GAAP only: an IFRS filer's working-capital lines are read by hand
+    (SAP tags its payables line under its own extension, which the
+    companyfacts API does not carry). Returns (figure, why); the figure is
+    None where nothing is tagged, and `why` says so.
+    """
+    if taxonomy.name != US_GAAP:
+        return None, ("E140: an IFRS filer's working-capital lines are read "
+                      "by hand -- extension elements are not in companyfacts")
+    get = {t: _window_figure(facts, t, currency, start_s, end_s, taxonomy)
+           for t in E140_WC_ASSETS + E140_WC_LIABILITIES
+           + E140_WC_TOTALS + E140_PROVISION_TAGS}
+    present = {t for t in E140_WC_ASSETS + E140_WC_LIABILITIES if get[t] is not None}
+    skip = {c for c, parts in E140_WC_COMBINED.items()
+            if c in present and present & set(parts)}
+    if inventory_is_business:
+        skip |= set(E140_INVENTORY_TAGS)
+    parts = []
+    for tags, sign in ((E140_WC_ASSETS, -1.0), (E140_WC_LIABILITIES, +1.0)):
+        for t in tags:
+            if get[t] is not None and t not in skip:
+                parts.append(replace(get[t], value=sign * get[t].value))
+    notes = []
+    if not parts:
+        total = next((get[t] for t in E140_WC_TOTALS if get[t] is not None), None)
+        if total is None:
+            return None, (f"no operating working-capital element is tagged "
+                          f"for the window ending {end_s}")
+        parts = [replace(total, value=-total.value)]
+        notes.append("ONE NET LINE, no component tagged: any income-tax "
+                     "movement inside it cannot be taken out")
+    if skip & present:
+        notes.append("dropped as combined or as E123 inventory: "
+                     + ", ".join(sorted(skip & present)))
+    stripped = any(p.tag in E140_RECEIVABLE_TAGS for p in parts)
+    provision = next((get[t] for t in E140_PROVISION_TAGS if get[t] is not None),
+                     None)
+    if stripped and provision is not None:
+        # AS TAGGED, sign and all: the provision line is deducted exactly
+        # as the reconciliation added it back, so a release (Autoliv FY2025
+        # -6m) comes back out as the release it was.
+        parts.append(provision)
+        notes.append(f"the provision `{provision.tag}` is deducted with the "
+                     f"stripped receivable (E140(1): otherwise the credit loss "
+                     f"is counted as cash earned)")
+    extra = (" (cash effect: an asset increase negated, a liability increase "
+             "kept" + ("; " + "; ".join(notes) if notes else "") + ")")
+    if len(parts) == 1:
+        only = parts[0]
+        return replace(only, composite=f"E140(1): {only.provenance} = "
+                                       f"{only.value:,.0f}{extra}"), ""
+    return _summed("E140(1)", parts, extra), ""
+
+
+def apply_e140(facts: dict, year: "AnnualYear", taxonomy: "Taxonomy",
+               currency: str, *, inventory_is_business: bool = False,
+               searched_on: str = "") -> None:
+    """E140 / E140.1 on one fiscal year: `working_capital_change`, and a
+    SEARCHED ZERO for `acquisitions_paid` where no acquisition element is
+    tagged (E107: the document, the scope and the date on the page)."""
+    end_s = year.end.isoformat()
+    if taxonomy.name == US_GAAP:
+        wc, _ = e140_working_capital(facts, end_s, currency, taxonomy,
+                                     inventory_is_business=inventory_is_business)
+        if wc is not None:
+            year.figures["working_capital_change"] = wc
+    if "acquisitions_paid" not in year.figures:
+        tags = (E140_ACQUISITION_TAGS if taxonomy.name == US_GAAP
+                else IFRS_E140_ACQUISITION_TAGS)
+        ocf = year.figures.get("operating_cash_flow")
+        where = (f"the {ocf.form} {ocf.accession} filed {ocf.filed}"
+                 if ocf is not None else "this year's annual filing")
+        day = searched_on or date.today().isoformat()
+        year.figures["acquisitions_paid"] = Figure(
+            value=0.0, tag="", start=None, end=end_s,
+            accession=getattr(ocf, "accession", ""), form=getattr(ocf, "form", ""),
+            filed=getattr(ocf, "filed", ""), taxonomy=taxonomy.name,
+            zero_basis="searched",
+            composite=(f"E107 searched zero: SEC XBRL companyfacts for {where}, "
+                       f"fiscal year to {end_s}, searched on {day} for "
+                       f"{', '.join(f'{taxonomy.name}:{t}' for t in tags)} -- "
+                       f"none tagged for the year. A filer tags every line of "
+                       f"its cash flow statement; an extension element would "
+                       f"not be seen by this search"))
+
+
+@dataclass
+class RollForwardSheet:
+    """E140.1(3): the latest 10-Q balance sheet after the newest fiscal year."""
+
+    end: date
+    from_year_end: date
+    form: str
+    accession: str
+    figures: dict = field(default_factory=dict)   # field name -> Figure
+    missing: list = field(default_factory=list)
+
+
+#: The STOCK fields a roll-forward carries: the bridge's legs. Flows are
+#: never rolled -- FCF0 stays on the fiscal years.
+ROLL_FORWARD_STOCKS = ("cash_and_equivalents", "other_current_financial_assets",
+                       "financial_liabilities_current",
+                       "financial_liabilities_noncurrent",
+                       "operating_lease_liabilities", "lease_liabilities",
+                       "pension_deficit", "asset_retirement_obligation",
+                       "prepaid_delivery_obligation", "net_debt_reported")
+
+
+#: Words that make a debt-sounding element NOT a borrowing on the balance
+#: sheet: an asset held, a facility's capacity, a memo of fair value or of
+#: maturities, a flow.
+_NOT_BORROWING = ("Securities", "Investment", "Asset", "Receivable", "Capacity",
+                  "Maximum", "Remaining", "FairValue", "Maturit", "Proceeds",
+                  "Repayment", "Payments", "Issuance", "Interest", "Covenant",
+                  "Ratio", "Percentage", "Rate", "Term", "Fee", "Unamortized",
+                  "Instrument", "Gain", "Loss", "Expense", "Extinguishment")
+
+
+def _debt_candidate(tag: str, leg: str) -> bool:
+    """Could ``tag`` state the borrowing ``leg`` on a balance sheet?"""
+    if not any(k in tag for k in ("Debt", "Borrowing", "LineOfCredit",
+                                  "LinesOfCredit", "CommercialPaper",
+                                  "NotesPayable", "SeniorNotes")):
+        return False
+    if any(k in tag for k in _NOT_BORROWING):
+        return False
+    current = ("Current" in tag and "Noncurrent" not in tag) or tag in (
+        "ShortTermBorrowings", "CommercialPaper", "LinesOfCreditCurrent")
+    return current if leg.endswith("_current") else not current
+
+
+def build_roll_forward(facts: dict, years: list, taxonomy: "Taxonomy",
+                       currency: str, *, inventory_is_business: bool = False
+                       ) -> "RollForwardSheet | None":
+    """The newest 10-Q balance sheet dated after the newest fiscal year, its
+    stocks on that date (E65-E68 applied as for a year end), the diluted
+    count of its own quarter, and the year-to-date working capital since
+    the fiscal year-end. None where no 10-Q is newer, or for an IFRS filer
+    (no 10-Q)."""
+    if taxonomy.name != US_GAAP or not years:
+        return None
+    fy_end = years[-1].end
+    # THE DATE comes off the balance sheet's own totals, which every filer
+    # tags: the cash element differs between filers (GoDaddy and NVR tag
+    # cash with restricted cash in their 10-Qs), and a date found through
+    # one field's map would miss a balance sheet that exists.
+    ends = set()
+    for tag in ("Assets", "LiabilitiesAndStockholdersEquity"):
+        for e in _entries(facts, tag, currency, taxonomy=taxonomy.name):
+            if (not e.get("start") and e.get("form", "").startswith("10-Q")
+                    and date.fromisoformat(e["end"]) > fy_end):
+                ends.add(e["end"])
+    if not ends:
+        return None
+    end_s = max(ends)
+    sheet = AnnualYear(fiscal_year=date.fromisoformat(end_s).year,
+                       end=date.fromisoformat(end_s))
+    for spec in taxonomy.fields:
+        if spec.kind != "instant" or spec.field not in ROLL_FORWARD_STOCKS:
+            continue
+        unit = resolve_unit(spec, currency)
+        for tag in spec.tags:
+            figure = _instant_figure(facts, tag, unit, end_s, taxonomy)
+            if figure is not None:
+                sheet.figures[spec.field] = figure
+                break
+    apply_debt_rulings(facts, sheet, taxonomy, currency)
+    # The quarter's own diluted weighted-average count.
+    q_start = None
+    for spec in taxonomy.fields:
+        if spec.field != "diluted_weighted_average_shares":
+            continue
+        unit = resolve_unit(spec, currency)
+        for tag in spec.tags:
+            entries = [e for e in _entries(facts, tag, unit, taxonomy=taxonomy.name)
+                       if e.get("start") and e["end"] == end_s
+                       and QUARTER_MIN_DAYS <= (date.fromisoformat(e["end"])
+                                                - date.fromisoformat(e["start"])).days
+                       <= QUARTER_MAX_DAYS]
+            if entries:
+                entry, restated = _pick(entries)
+                sheet.figures["diluted_weighted_average_shares"] = Figure(
+                    value=float(entry["val"]), tag=tag, start=entry["start"],
+                    end=entry["end"], accession=entry["accn"],
+                    form=entry.get("form", ""), filed=entry.get("filed", ""),
+                    restated_from=restated, taxonomy=taxonomy.name)
+                q_start = entry["start"]
+                break
+    # A BORROWING LEG THE 10-Q DOES NOT TAG. Searched PER LEG: where no
+    # debt element that could answer THAT leg is tagged on the date, the
+    # leg is a SEARCHED ZERO (E107) with the search on its page -- Crocs
+    # tags its long-term notes and no current portion; Ulta has drawn a
+    # short-term facility and holds no long-term debt; Grand Canyon holds
+    # debt SECURITIES, an asset, and owes nothing. Any candidate element
+    # tagged and not placed by the map leaves the leg DATA MISSING.
+    on_date = [t for t, node in (facts.get("facts", {}).get(taxonomy.name) or {}).items()
+               if any(not e.get("start") and e["end"] == end_s and e.get("val")
+                      for u in node["units"].values() for e in u)]
+    for leg in ("financial_liabilities_current", "financial_liabilities_noncurrent"):
+        if leg in sheet.figures:
+            continue
+        candidates = [t for t in on_date if _debt_candidate(t, leg)]
+        if candidates:
+            sheet.missing.append(f"{leg}: tagged but not placed by the map -- "
+                                 f"{', '.join(sorted(candidates))}")
+            continue
+        first = next(iter(sheet.figures.values()), None)
+        sheet.figures[leg] = Figure(
+            value=0.0, tag="", start=None, end=end_s,
+            accession=getattr(first, "accession", ""),
+            form=getattr(first, "form", "10-Q"), filed=getattr(first, "filed", ""),
+            taxonomy=taxonomy.name, zero_basis="searched",
+            composite=(f"E107 searched zero: SEC XBRL facts of the "
+                       f"{getattr(first, 'form', '10-Q')} "
+                       f"{getattr(first, 'accession', '')} balance sheet as of "
+                       f"{end_s}, searched on {date.today().isoformat()} for "
+                       f"every {taxonomy.name} element that could state "
+                       f"{'CURRENT' if leg.endswith('_current') else 'NON-CURRENT'} "
+                       f"borrowings (Debt, Borrowing, LineOfCredit, "
+                       f"CommercialPaper, NotesPayable; assets, capacities "
+                       f"and fair-value memos excluded) -- none is tagged "
+                       f"on that date with a value"))
+    # The year to date: from the day after the fiscal year-end.
+    ytd_start = (fy_end + timedelta(days=1)).isoformat()
+    wc, why = e140_working_capital(facts, end_s, currency, taxonomy,
+                                   start_s=ytd_start,
+                                   inventory_is_business=inventory_is_business)
+    if wc is not None:
+        sheet.figures["working_capital_change"] = wc
+    else:
+        sheet.missing.append(f"working_capital_change: {why}")
+    keep = {k: v for k, v in sheet.figures.items()
+            if k in ROLL_FORWARD_STOCKS + ("diluted_weighted_average_shares",
+                                           "working_capital_change")}
+    first = keep.get("cash_and_equivalents") or next(iter(keep.values()), None)
+    for name in ROLL_FORWARD_STOCKS:
+        if name not in keep:
+            sheet.missing.append(name)
+    return RollForwardSheet(end=sheet.end, from_year_end=fy_end,
+                            form=getattr(first, "form", "10-Q"),
+                            accession=getattr(first, "accession", ""),
+                            figures=keep, missing=sheet.missing)
+
+
 def lease_parts(facts: dict, year: "AnnualYear",
                 taxonomy: "Taxonomy | None" = None,
                 currency: str | None = None) -> dict:
@@ -2486,7 +2872,8 @@ def _number(value: float) -> str:
 def manual_yaml(*, ticker: str, name: str, cik: int, quote_currency: str | None,
                 years: list, run_ts, facts: dict | None = None,
                 taxonomy: "Taxonomy | None" = None,
-                currency: str | None = None) -> str:
+                currency: str | None = None,
+                roll_forward: "RollForwardSheet | None" = None) -> str:
     """The filled `config/manual/<TICKER>.yaml`, deterministic byte for byte.
 
     Stable field order (the schema's own, through ANNUAL_FIELDS) and stable
@@ -2705,12 +3092,37 @@ def manual_yaml(*, ticker: str, name: str, cik: int, quote_currency: str | None,
             # filer listing the line and stating nil, which is exactly the
             # `caption` form -- and it is evidence the filer supplied, not a
             # reader's failure to find the line.
-            if figure.value == 0 and spec.field in ZERO_NEEDS_BASIS:
+            if figure.zero_basis:
+                out.append(f"        zero_basis: {figure.zero_basis}")
+            elif figure.value == 0 and spec.field in ZERO_NEEDS_BASIS:
                 out.append(f"        zero_basis: {ZERO_CAPTION}")
         if not wrote:
             out.append("      {}")
+    if roll_forward is not None:
+        out += roll_forward_yaml(roll_forward, document=document, url=url)
     out.append("")
     return "\n".join(out)
+
+
+def roll_forward_yaml(sheet: "RollForwardSheet", *, document: str,
+                      url: str) -> list[str]:
+    """The `roll_forward:` block's lines (E140.1(3))."""
+    from .manual import FIELDS
+    out = ["",
+           "# E140.1(3): THE LATEST FILED BALANCE SHEET after the newest fiscal",
+           "# year. The bridge's stocks and the divisor are read here; the",
+           "# year-to-date working capital since the fiscal year-end is",
+           "# NEUTRALISED in the bridge. Flows stay on the fiscal years.",
+           "roll_forward:",
+           f"  period_end: {sheet.end.isoformat()}",
+           f"  from_year_end: {sheet.from_year_end.isoformat()}",
+           f"  document: {_yaml_scalar(document)}",
+           f"  url: {_yaml_scalar(url)}",
+           "  figures:"]
+    order = [f.name for f in FIELDS]
+    for name in sorted(sheet.figures, key=order.index):
+        out += _figure_lines(name, sheet.figures[name], 4)
+    return out
 
 
 #: Rule 5. A date-only backup loses the earlier of two runs made on one day,
@@ -2804,6 +3216,252 @@ def write_manual_file(text: str, target, *, run_ts, force: bool = False):
     target.write_text(text, encoding="utf-8")
     log.info("wrote %s%s", target, f" (backup {backup})" if backup else "")
     return target, backup
+
+
+#: The figures `fill_e140` owns in an existing store. Nothing else in the
+#: file is touched.
+E140_FILL_FIELDS = ("working_capital_change", "acquisitions_paid")
+
+
+def _figure_lines(name: str, figure: "Figure", indent: int) -> list[str]:
+    from .manual import KIND_TAGGED, STATUS_VERIFIED, ZERO_CAPTION, ZERO_NEEDS_BASIS
+    pad = " " * indent
+    out = [f"{pad}{name}:",
+           f"{pad}  value: {_number(figure.value)}",
+           f"{pad}  page: {_yaml_scalar(figure.provenance)}"]
+    if figure.zero_basis:
+        # E107: a searched zero is a reading of the filing's tags, not a
+        # tagged fact; it carries the search and no `tagged` kind.
+        out += [f"{pad}  status: UNVERIFIED",
+                f"{pad}  zero_basis: {figure.zero_basis}"]
+    else:
+        out += [f"{pad}  status: {STATUS_VERIFIED}",
+                f"{pad}  verified_kind: {KIND_TAGGED}"]
+        if figure.value == 0 and name in ZERO_NEEDS_BASIS:
+            out.append(f"{pad}  zero_basis: {ZERO_CAPTION}")
+    return out
+
+
+#: The comment lines `roll_forward_yaml` writes above its block, so a second
+#: fill removes them with the block instead of stacking them.
+_ROLL_FORWARD_HEADER = ("# E140.1(3): THE LATEST FILED BALANCE SHEET",
+                        "# year. The bridge's stocks and the divisor",
+                        "# year-to-date working capital since the fiscal",
+                        "# NEUTRALISED in the bridge. Flows stay on")
+
+
+def _drop_roll_forward(lines: list[str]) -> list[str]:
+    """The lines without a `roll_forward:` block and its header comment."""
+    if "roll_forward:" not in lines:
+        return lines
+    at = lines.index("roll_forward:")
+    stop = at + 1
+    while stop < len(lines) and (not lines[stop] or lines[stop].startswith(" ")):
+        stop += 1
+    begin = at
+    while begin > 0 and (lines[begin - 1].startswith(_ROLL_FORWARD_HEADER)
+                         or not lines[begin - 1].strip()):
+        begin -= 1
+    return lines[:begin] + [""] + lines[stop:]
+
+
+def fill_e140_text(text: str, years: list, sheet: "RollForwardSheet | None",
+                   *, document: str, url: str) -> str:
+    """The store's text with E140's figures put into its `annual:` entries
+    and its `roll_forward:` block replaced -- every other line kept as it
+    was, comments included. A figure already present under one of
+    `E140_FILL_FIELDS` is replaced, so a second run is idempotent."""
+    by_year = {y.fiscal_year: y for y in years}
+    out: list[str] = []
+    current: int | None = None
+    in_figures = skip = False
+
+    def flush() -> None:
+        y = by_year.get(current)
+        if y is None or not in_figures:
+            return
+        blanks = 0
+        while out and not out[-1].strip():
+            out.pop()
+            blanks += 1
+        for name in E140_FILL_FIELDS:
+            if name in y.figures:
+                out.extend(_figure_lines(name, y.figures[name], 6))
+        out.extend([""] * blanks)
+
+    for line in _drop_roll_forward(text.split("\n")):
+        top = bool(line) and line[0] not in " #"
+        if top or line.startswith("  - fiscal_year:"):
+            flush()
+            in_figures = skip = False
+            current = (int(line.split(":", 1)[1].strip())
+                       if line.startswith("  - fiscal_year:") else None)
+        elif current is not None and line == "    figures:":
+            in_figures = True
+        elif in_figures and line.startswith("      ") and line[6] != " ":
+            skip = line.strip().rstrip(":") in E140_FILL_FIELDS
+        if skip and (line.startswith("      ")):
+            continue
+        out.append(line)
+    flush()
+    while out and not out[-1].strip():
+        out.pop()
+    if sheet is not None:
+        out += roll_forward_yaml(sheet, document=document, url=url)
+    out.append("")
+    return "\n".join(out)
+
+
+def _dashed(accession: str) -> str:
+    a = accession.replace("-", "")
+    return f"{a[:10]}-{a[10:12]}-{a[12:]}"
+
+
+def latest_filing_facts(facts: dict, cik: int, ticker: str) -> tuple[dict, str]:
+    """The facts, with the NEWEST 10-Q / 10-K read off the filing itself
+    where companyfacts does not yet hold it (E140.1(3): the latest FILED
+    balance sheet, not the latest compiled one).
+
+    The filing is downloaded into `sources/` with its manifest entry, its
+    inline XBRL read (`vss.ixbrl`), and its facts merged under its own
+    accession. Returns (facts, a sentence saying what was done, or "").
+    """
+    from .ixbrl import IxbrlError, facts_from_inline, merge_facts
+    from .reference_figures import (ReferenceError, download_filing,
+                                    list_filings)
+
+    try:
+        filings = list_filings(cik, forms=("10-Q", "10-K", "10-Q/A", "10-K/A"))
+    except ReferenceError as exc:
+        return facts, f"EDGAR's filing list was not reachable ({exc}); companyfacts alone"
+    if not filings:
+        return facts, ""
+    newest = filings[0]
+    held = {e.get("accn") for tags in (facts.get("facts") or {}).values()
+            for node in tags.values() for es in node["units"].values() for e in es}
+    if _dashed(newest.accession) in held:
+        return facts, ""
+    try:
+        path = download_filing(newest, ticker, newest.period_end)
+        extra = facts_from_inline(path.read_bytes(),
+                                  accession=_dashed(newest.accession),
+                                  form=newest.form, filed=newest.filed)
+    except (ReferenceError, IxbrlError, OSError) as exc:
+        raise XbrlError(
+            f"{ticker}: the newest filing, {newest.form} {newest.filed} for "
+            f"{newest.period_end} ({_dashed(newest.accession)}), is NOT in "
+            f"companyfacts and could not be read from EDGAR ({exc}). A "
+            f"roll-forward on the older balance sheet would not be the "
+            f"latest filed one (E140.1(3)); nothing is written") from exc
+    return (merge_facts(facts, extra),
+            f"companyfacts LAGS: {newest.form} {_dashed(newest.accession)} filed "
+            f"{newest.filed} for {newest.period_end} read from its own inline "
+            f"XBRL ({path.name})")
+
+
+def _searched_zero_only_where_zero(sheet: "RollForwardSheet", year_end) -> None:
+    """A borrowing leg the 10-Q's tags do not reach is a SEARCHED ZERO only
+    where the same leg is ZERO at the fiscal year-end. NVR's senior notes
+    (908m at 2026-06-30) are tagged under the filer's own extension, which
+    no search of the standard elements sees: an absent tag beside a
+    non-zero year-end leg is a reading still to be made, not a nil."""
+    for leg in ("financial_liabilities_current", "financial_liabilities_noncurrent"):
+        figure = sheet.figures.get(leg)
+        if figure is None or not figure.zero_basis:
+            continue
+        before = year_end.value(leg) if year_end is not None else None
+        if before is None or before != 0:
+            del sheet.figures[leg]
+            sheet.missing.append(
+                f"{leg}: no standard element on the 10-Q and the year-end leg "
+                f"is {'absent' if before is None else f'{before:,.0f}'} -- READ "
+                f"IT off the balance sheet (an extension element is not "
+                f"searched)")
+
+
+def fill_e140(ticker: str, *, cik: int, manual_dir=None, write: bool = False,
+              fetcher=None, run_ts=None, as_of: date | None = None
+              ) -> tuple[str, str]:
+    """E140's figures into an EXISTING `sec-xbrl` store, nothing else moved.
+
+    `vss xbrl --annual --write` regenerates a whole file and would drop the
+    blocks a person added beside the tagged facts (`market:`, `periods:`,
+    E123's declaration). This reads the same facts through the same map,
+    and puts in only `working_capital_change` and `acquisitions_paid` for
+    each fiscal year the file already holds, and the `roll_forward:` block
+    (E140.1(3)). The result is parsed back through the manual loader before
+    anything is written, and the old file is backed up.
+
+    Returns (the new text, a one-paragraph report).
+    """
+    from pathlib import Path
+
+    import yaml
+
+    from .manual import MANUAL_DIR, ORIGIN_XBRL, parse_manual
+
+    run_ts = run_ts or datetime.now().astimezone()
+    as_of = as_of or run_ts.date()
+    target = Path(manual_dir or MANUAL_DIR) / f"{ticker}.yaml"
+    text = target.read_text(encoding="utf-8")
+    existing = parse_manual(yaml.safe_load(text), path=target)
+    if existing.origin != ORIGIN_XBRL:
+        raise XbrlError(f"{target} is origin `{existing.origin}`; E140's "
+                        f"tagged fill is for `{ORIGIN_XBRL}` stores. A hand "
+                        f"store takes its figures through `vss manual`")
+    facts = (fetcher or fetch_company_facts)(int(cik))
+    lag = ""
+    if fetcher is None:
+        facts, lag = latest_filing_facts(facts, int(cik), ticker)
+    taxonomy = pick_taxonomy(facts)
+    currency = reporting_currency(facts, taxonomy)
+    inventory = (existing.operating_asset_is_inventory is not None
+                 or ticker in E140_INVENTORY_IS_THE_BUSINESS)
+    years, _ = build_annual(facts, limit=12, taxonomy=taxonomy,
+                            currency=currency, inventory_is_business=inventory,
+                            searched_on=as_of.isoformat())
+    held = {e.fiscal_year: e.period_end for e in existing.annual}
+    years = [y for y in years if held.get(y.fiscal_year) == y.end]
+    sheet = build_roll_forward(facts, years, taxonomy, currency,
+                               inventory_is_business=inventory)
+    if sheet is not None and existing.annual and \
+            sheet.from_year_end != existing.annual[-1].period_end:
+        sheet = None
+    if sheet is not None:
+        _searched_zero_only_where_zero(sheet, existing.annual[-1])
+    url = API_URL.format(cik=int(cik))
+    document = (f"SEC XBRL companyfacts for CIK {int(cik):010d} "
+                f"({existing.name}) -- {url}. The filing each figure came out "
+                f"of is named on the figure itself, with its tag and context "
+                f"period.")
+    new = fill_e140_text(text, years, sheet, document=document, url=url)
+    parse_manual(yaml.safe_load(new), path=target)      # refuses before writing
+    lines = [f"{ticker}: E140 fill, {len(years)} fiscal year(s) matched"]
+    if lag:
+        lines.append(f"  {lag}")
+    for y in years[-3:]:
+        wc = y.figures.get("working_capital_change")
+        acq = y.figures.get("acquisitions_paid")
+        lines.append(f"  FY{y.fiscal_year} {y.end}: working_capital_change "
+                     f"{'MISSING' if wc is None else f'{wc.value:,.0f}'}; "
+                     f"acquisitions_paid "
+                     f"{'MISSING' if acq is None else f'{acq.value:,.0f}'}"
+                     + (" (searched zero)" if acq is not None and acq.zero_basis else ""))
+    if sheet is None:
+        lines.append("  roll_forward: none (no 10-Q after the newest fiscal year)")
+    else:
+        wc = sheet.figures.get("working_capital_change")
+        lines.append(f"  roll_forward {sheet.end} from {sheet.from_year_end}: "
+                     f"{len(sheet.figures)} figure(s); ytd working capital "
+                     f"{'MISSING' if wc is None else f'{wc.value:,.0f}'}; "
+                     f"not tagged: {', '.join(sheet.missing) or 'none'}")
+    if write:
+        import shutil
+        backup = backup_name(target, run_ts)
+        shutil.copy2(target, backup)
+        target.write_text(new, encoding="utf-8")
+        lines.append(f"  wrote {target} (backup {backup.name})")
+    return new, "\n".join(lines)
 
 
 # --- the report -----------------------------------------------------------
@@ -3218,8 +3876,25 @@ def run_xbrl_annual(*, ticker: str, cik: int | None = None,
             filed = str(facts.get("entityName") or "").strip()
             if filed:
                 entry = replace(entry, name=filed)
-        years, passed_over = build_annual(facts, limit=limit,
-                                          taxonomy=taxonomy, currency=currency)
+        # E140(1): E123's inventory shape is a STORE declaration; where the
+        # existing file makes it, the inventory line stays in the flow.
+        inventory_is_business = entry.ticker.upper() in E140_INVENTORY_IS_THE_BUSINESS
+        if target.exists() and not inventory_is_business:
+            try:
+                inventory_is_business = parse_manual(
+                    yaml.safe_load(target.read_text(encoding="utf-8")),
+                    path=target).operating_asset_is_inventory is not None
+            except ConfigError:
+                pass
+        years, passed_over = build_annual(
+            facts, limit=limit, taxonomy=taxonomy, currency=currency,
+            inventory_is_business=inventory_is_business,
+            searched_on=as_of.isoformat())
+        roll_forward = build_roll_forward(
+            facts, years, taxonomy, currency,
+            inventory_is_business=inventory_is_business)
+        if roll_forward is not None:
+            _searched_zero_only_where_zero(roll_forward, years[-1])
         if not years:
             raise XbrlError(
                 f"no annual facts found for CIK {cik} in the `{taxonomy.name}` "
@@ -3228,7 +3903,8 @@ def run_xbrl_annual(*, ticker: str, cik: int | None = None,
         text = manual_yaml(ticker=entry.ticker.upper(), name=entry.name,
                            cik=int(cik), quote_currency=entry.currency,
                            years=years, run_ts=run_ts, facts=facts,
-                           taxonomy=taxonomy, currency=currency)
+                           taxonomy=taxonomy, currency=currency,
+                           roll_forward=roll_forward)
 
         # Parsed back through the MANUAL loader before anything is written.
         # The checks are imported rather than repeated, so this path cannot

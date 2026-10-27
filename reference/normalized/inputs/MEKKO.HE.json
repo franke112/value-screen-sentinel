@@ -1,0 +1,305 @@
+{
+ "ticker": "MEKKO.HE",
+ "unit": "EUR million (FY2025, FY2024); EUR thousand (FY2023, from the 2024 report)",
+ "years": {
+  "FY2025": {
+   "unit": "EUR million",
+   "statement_pdf_page": 86,
+   "ocf": {
+    "value": 34.5,
+    "quote": "CASH FLOW FROM OPERATING ACTIVITIES                                     34.5                   29.1",
+    "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+    "page": 86,
+    "columns": "[current,prior]=['34.5', '29.1']",
+    "caption": "CASH FLOW FROM OPERATING ACTIVITIES(?=\\s{3,}[\\d])"
+   },
+   "wc_lines": [
+    {
+     "value": -0.9,
+     "quote": "Change in working capital                                                -0.9                  -4.4",
+     "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+     "page": 86,
+     "columns": "[current,prior]=['-0.9', '-4.4']",
+     "caption": "Change in working capital (total)"
+    },
+    {
+     "value": -3.1,
+     "quote": "non-interest-bearing trade receivables                        -3.1                  2.0",
+     "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+     "page": 86,
+     "columns": "[current,prior]=['-3.1', '2.0']",
+     "caption": "Increase (-) / decrease (+) in current non-interest-bearing trade receivables"
+    },
+    {
+     "value": -0.3,
+     "quote": "in inventories                              -0.3                   -6.1",
+     "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+     "page": 86,
+     "columns": "[current,prior]=['-0.3', '-6.1']",
+     "caption": "Increase (-) / decrease (+) in inventories"
+    },
+    {
+     "value": 2.5,
+     "quote": "non-interest-bearing liabilities                              2.5                  -0.3",
+     "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+     "page": 86,
+     "columns": "[current,prior]=['2.5', '-0.3']",
+     "caption": "Increase (+) / decrease (-) in current non-interest-bearing liabilities"
+    }
+   ],
+   "capex_lines": [
+    {
+     "value": -2.9,
+     "quote": "Investments in tangible and intangible assets                                   -2.9                      -2.3",
+     "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+     "page": 86,
+     "columns": "[current,prior]=['-2.9', '-2.3']",
+     "caption": "Investments in tangible and intangible assets"
+    }
+   ],
+   "lease_principal": {
+    "value": -8.7,
+    "quote": "Payments of lease liabilities                                                    -8.7                     -8.0",
+    "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+    "page": 86,
+    "columns": "[current,prior]=['-8.7', '-8.0']",
+    "caption": "Payments of lease liabilities"
+   },
+   "interest_paid": {
+    "value": -1.3,
+    "quote": "Paid interest and payments on other financial expenses                    -1.3                 -1.4",
+    "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+    "page": 86,
+    "columns": "[current,prior]=['-1.3', '-1.4']",
+    "caption": "Paid interest and payments on other financial expenses"
+   },
+   "interest_received": {
+    "value": 0.5,
+    "quote": "Interest received and payments on other financial income                  0.5                   0.6",
+    "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+    "page": 86,
+    "columns": "[current,prior]=['0.5', '0.6']",
+    "caption": "Interest received and payments on other financial income"
+   },
+   "tax_paid": {
+    "value": -6.1,
+    "quote": "Taxes paid                                                               -6.1                  -6.9",
+    "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+    "page": 86,
+    "columns": "[current,prior]=['-6.1', '-6.9']",
+    "caption": "Taxes paid"
+   },
+   "sbc": {
+    "value": 0.5,
+    "quote": "Share-based payments                                                     0.5                   0.5",
+    "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+    "page": 86,
+    "columns": "[current,prior]=['0.5', '0.5']",
+    "caption": "Share-based payments"
+   },
+   "acquisitions": null,
+   "divestments": null,
+   "lease_interest": null
+  },
+  "FY2024": {
+   "unit": "EUR million",
+   "statement_pdf_page": 86,
+   "ocf": {
+    "value": 29.1,
+    "quote": "CASH FLOW FROM OPERATING ACTIVITIES                                     34.5                   29.1",
+    "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+    "page": 86,
+    "columns": "[current,prior]=['34.5', '29.1']",
+    "caption": "CASH FLOW FROM OPERATING ACTIVITIES(?=\\s{3,}[\\d])"
+   },
+   "wc_lines": [
+    {
+     "value": -4.4,
+     "quote": "Change in working capital                                                -0.9                  -4.4",
+     "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+     "page": 86,
+     "columns": "[current,prior]=['-0.9', '-4.4']",
+     "caption": "Change in working capital (total)"
+    },
+    {
+     "value": 2.0,
+     "quote": "non-interest-bearing trade receivables                        -3.1                  2.0",
+     "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+     "page": 86,
+     "columns": "[current,prior]=['-3.1', '2.0']",
+     "caption": "Increase (-) / decrease (+) in current non-interest-bearing trade receivables"
+    },
+    {
+     "value": -6.1,
+     "quote": "in inventories                              -0.3                   -6.1",
+     "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+     "page": 86,
+     "columns": "[current,prior]=['-0.3', '-6.1']",
+     "caption": "Increase (-) / decrease (+) in inventories"
+    },
+    {
+     "value": -0.3,
+     "quote": "non-interest-bearing liabilities                              2.5                  -0.3",
+     "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+     "page": 86,
+     "columns": "[current,prior]=['2.5', '-0.3']",
+     "caption": "Increase (+) / decrease (-) in current non-interest-bearing liabilities"
+    }
+   ],
+   "capex_lines": [
+    {
+     "value": -2.3,
+     "quote": "Investments in tangible and intangible assets                                   -2.9                      -2.3",
+     "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+     "page": 86,
+     "columns": "[current,prior]=['-2.9', '-2.3']",
+     "caption": "Investments in tangible and intangible assets"
+    }
+   ],
+   "lease_principal": {
+    "value": -8.0,
+    "quote": "Payments of lease liabilities                                                    -8.7                     -8.0",
+    "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+    "page": 86,
+    "columns": "[current,prior]=['-8.7', '-8.0']",
+    "caption": "Payments of lease liabilities"
+   },
+   "interest_paid": {
+    "value": -1.4,
+    "quote": "Paid interest and payments on other financial expenses                    -1.3                 -1.4",
+    "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+    "page": 86,
+    "columns": "[current,prior]=['-1.3', '-1.4']",
+    "caption": "Paid interest and payments on other financial expenses"
+   },
+   "interest_received": {
+    "value": 0.6,
+    "quote": "Interest received and payments on other financial income                  0.5                   0.6",
+    "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+    "page": 86,
+    "columns": "[current,prior]=['0.5', '0.6']",
+    "caption": "Interest received and payments on other financial income"
+   },
+   "tax_paid": {
+    "value": -6.9,
+    "quote": "Taxes paid                                                               -6.1                  -6.9",
+    "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+    "page": 86,
+    "columns": "[current,prior]=['-6.1', '-6.9']",
+    "caption": "Taxes paid"
+   },
+   "sbc": {
+    "value": 0.5,
+    "quote": "Share-based payments                                                     0.5                   0.5",
+    "file": "~/vss/sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf",
+    "page": 86,
+    "columns": "[current,prior]=['0.5', '0.5']",
+    "caption": "Share-based payments"
+   },
+   "acquisitions": null,
+   "divestments": null,
+   "lease_interest": null
+  },
+  "FY2023": {
+   "unit": "EUR thousand (EUR 1,000)",
+   "statement_pdf_page": 72,
+   "ocf": {
+    "value": 29427,
+    "quote": "CASH FLOW FROM OPERATING ACTIVITIES                                    29,107                29,427",
+    "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+    "page": 72,
+    "columns": "[current,prior]=['29,107', '29,427']",
+    "caption": "CASH FLOW FROM OPERATING ACTIVITIES(?=\\s{3,}[\\d])"
+   },
+   "wc_lines": [
+    {
+     "value": -3342,
+     "quote": "Change in working capital                                              -4,443                -3,342",
+     "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+     "page": 72,
+     "columns": "[current,prior]=['-4,443', '-3,342']",
+     "caption": "Change in working capital (total)"
+    },
+    {
+     "value": -7690,
+     "quote": "non-interest-bearing trade receivables                                 2,046                 -7,690",
+     "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+     "page": 72,
+     "columns": "[current,prior]=['2,046', '-7,690']",
+     "caption": "Increase (-) / decrease (+) in current non-interest-bearing trade receivables"
+    },
+    {
+     "value": 4449,
+     "quote": "in inventories                             -6,140                4,449",
+     "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+     "page": 72,
+     "columns": "[current,prior]=['-6,140', '4,449']",
+     "caption": "Increase (-) / decrease (+) in inventories"
+    },
+    {
+     "value": -101,
+     "quote": "non-interest-bearing liabilities                                        -348                   -101",
+     "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+     "page": 72,
+     "columns": "[current,prior]=['-348', '-101']",
+     "caption": "Increase (+) / decrease (-) in current non-interest-bearing liabilities"
+    }
+   ],
+   "capex_lines": [
+    {
+     "value": -2025,
+     "quote": "Investments in tangible and intangible assets                                  -2,330                         -2,025",
+     "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+     "page": 72,
+     "columns": "[current,prior]=['-2,330', '-2,025']",
+     "caption": "Investments in tangible and intangible assets"
+    }
+   ],
+   "lease_principal": {
+    "value": -7381,
+    "quote": "Payments of lease liabilities                                                   -7,978                         -7,381",
+    "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+    "page": 72,
+    "columns": "[current,prior]=['-7,978', '-7,381']",
+    "caption": "Payments of lease liabilities"
+   },
+   "interest_paid": {
+    "value": -1532,
+    "quote": "Paid interest and payments on other financial expenses                  -1,418                -1,532",
+    "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+    "page": 72,
+    "columns": "[current,prior]=['-1,418', '-1,532']",
+    "caption": "Paid interest and payments on other financial expenses"
+   },
+   "interest_received": {
+    "value": 223,
+    "quote": "Interest received and payments on other financial income                  633                    223",
+    "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+    "page": 72,
+    "columns": "[current,prior]=['633', '223']",
+    "caption": "Interest received and payments on other financial income"
+   },
+   "tax_paid": {
+    "value": -6919,
+    "quote": "Taxes paid                                                             -6,900                 -6,919",
+    "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+    "page": 72,
+    "columns": "[current,prior]=['-6,900', '-6,919']",
+    "caption": "Taxes paid"
+   },
+   "sbc": {
+    "value": 417,
+    "quote": "Share-based payments                                                     510                    417",
+    "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+    "page": 72,
+    "columns": "[current,prior]=['510', '417']",
+    "caption": "Share-based payments"
+   },
+   "acquisitions": null,
+   "divestments": null,
+   "lease_interest": null
+  }
+ },
+ "post_basis_deals": [],
+ "notes": "FY2023 from Marimekko's year 2024 report (company.marimekko.com), reported in EUR 1,000. No acquisition or divestment lines exist in the cash flow statement (null). Lease interest not stated separately (interest paid line includes everything). Post-2025-12-31: no acquisition or divestment found in Q1 (2026-05-13) or Q2 (2026-08-13) reports or by web search; only own-share buybacks (not deals). Q3 2026 report not in sources/."
+}

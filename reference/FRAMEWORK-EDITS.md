@@ -12370,3 +12370,638 @@ restricted cash sits in that combined caption, the cash-flow
 reconciliation (same 1,907,901) or the fair-value and credit-risk
 boilerplate -- no figure. Entered 1,907,901,000 USD.
 
+
+### E130 — an unstated figure may be taken as ZERO by the owner's ruling, named as GENEROUS
+
+**RULED 2026-10-12 by the owner, on GNTX.**
+
+**THE RULE.** Where a figure a leg needs is **stated nowhere** in the filing,
+and the owner judges its true size immaterial, the owner may rule it **zero**.
+It is entered with `zero_basis: ruled`, and the page must carry the ruling
+(E130), its date, and the word **generous**, naming which way the zero errs
+and roughly by how much. It is **not evidence about the filing**: caption, note,
+subtotal and searched (E25, E107) all claim the issuer showed a zero; `ruled`
+claims only that the owner decided. It is superseded as soon as the filer
+states the figure.
+
+**WHY.** The owner, on GNTX: the choice was to leave the name blocked
+indefinitely over a figure Gentex never prints, or accept a zero that reads
+the value roughly 1.5–2% high. The owner took the zero, *on the condition
+that the flattery is on the record.* E129 made the same trade for a cash
+caption; this is the same trade for a zero, which E25 otherwise forbids
+without evidence.
+
+**APPLIED 2026-10-12, GNTX FY2025, `net_interest_paid`.** The 10-K states no
+interest paid or received as a figure. Paid: the only debt is the 3.8m
+Onkyo shareholder loan; the Revolver was undrawn at both year ends.
+Received: interest on about 260m of cash and fixed-income investments
+(estimated at about 10m) sits unstated inside *Investment (loss) income,
+net*. E34.1 would remove that net income from FCF0; the zero leaves it in.
+**Generous by roughly 10m against operating cash flow of about 587m.**
+
+**WHICH EARLIER RULING THIS AMENDS.** **E25**, by adding a fifth zero basis.
+E107's searched form is unchanged and is not to be used for this case.
+
+### E131 — the read-back of a hand-read figure is done by the machine; the owner gets only the judgment calls
+
+**RULED 2026-10-12 by the owner:** *"let a script check the facts, i only
+want judgment calls."*
+
+**THE RULE.** A hand-read figure is VERIFIED with `verified_kind:
+machine_read_back` when `vss/quotecheck.py` finds **every quote on its page
+in the cited filing** (whitespace, dashes and PDF hyphenation normalised; a
+table row with only columns between its words counts; another of the
+issuer's own filings counts), **every recorded zero search re-counts as
+stated**, and **its value is among the numbers it quotes** (or the sum of
+stated parts the page adds). A figure the script cannot pass stays
+UNVERIFIED and is listed for the session to resolve, not handed to the owner
+as a lookup. **It checks transcription only.** A figure that rests on a
+judgment -- is this caption debt, is this zero immaterial -- carries a
+`judgment:` line stating the question, and that question goes to the owner
+in plain words.
+
+**WHY.** The owner's read-back was Ctrl+F: a lookup a script does exactly and
+every time. The second reader E40 asks for exists to catch a quote that is
+not on the page; the script catches that better than a person skimming.
+
+**APPLIED 2026-10-12.** Over the 995 UNVERIFIED figures in 30 stores: 923
+passed and were marked; 72 did not (17 with no saved filing, 33 with nothing
+quoted, 13 with the value written outside the quotes, 9 with a quote not
+verbatim) and stay UNVERIFIED. The pass over already-VERIFIED hand reads
+found IMB.L's treasury count entered as 62,600,000 "to the issuer's
+precision" where the same annual report states 62,589,137.
+
+**WHICH EARLIER RULING THIS AMENDS.** **E40**, by adding a fifth kind.
+
+### E132 — a figure the issuer never prints may be WORKED OUT from its own stated figures, labelled as worked out
+
+**RULED 2026-10-13 by the owner, on RKT.L.**
+
+**THE RULE.** Where a leg is printed nowhere but follows from the issuer's
+own stated figures by plain arithmetic, the owner may rule that it be worked
+out. The page writes the arithmetic out (`a + b - c = value`), quotes every
+operand, says **WORKED OUT, not printed**, and names what the arithmetic
+cannot see and which way that could move it. `vss/quotecheck.py` verifies
+the operands and the sum (E131); whether the working is the right one is
+this ruling. It is superseded as soon as the filer prints the figure.
+
+**APPLIED 2026-10-13, RKT.L FY2025, `lease_payments_capital` = -97.**
+Reckitt repays leases inside `Repayment of borrowings` and prints no lease
+principal. Note 19 gives the lease liability at 300 and 274, and the net debt
+bridge gives `New lease liabilities (71)`: 300 + 71 - 274 = 97. Interest
+accrued and paid (13, note 6 and note 19) cancel. Currency and other movements
+on the lease book are not stated, so the figure is uncertain by a few
+million either way, on lease cash of about 110 against free cash flow of
+1,709. RKT.L was UNVERIFIED UNDER E117 (E120's last paragraph) and is now
+READY.
+
+**WHICH EARLIER RULING THIS AMENDS.** **E22** and **E26**, for the ruled case
+only: a figure the accounts do not print may be entered when the owner rules
+the working.
+
+### E133 — a once-a-year stock (E41) may be read at the year end inside the window, even where a looser bound sits at the window end
+
+**RULED 2026-10-13 by the owner, on PNDORA.CO.**
+
+**THE RULE.** Where an E41 annual-only stock -- the pension deficit, the
+asset retirement obligation -- is stated at a year end INSIDE the window and
+the window end states only a ceiling, the year-end figure is entered on the
+annual entry and read, dated, under E41. It is not refused as stale, and the
+E106 bound it replaces is dropped (kept in the file as a comment).
+
+**APPLIED 2026-10-13, PNDORA.CO, `pension_deficit` = 187 (DKK m, 2025-12-31).**
+The FY2025 annual report states the defined-benefit obligation (Thai plans)
+at 187 (2024: 145). It is the obligation with no plan assets netted, so the
+deficit can be no larger. The 556 ceiling (total provisions at 2026-06-30)
+moved fv_base 9.27%, and with other legs 12%, past E106's 3.5%, and refused
+the name. A session on 2026-09-04 declined the 187 as six months stale; the
+owner overruled it: even growth at 2025's pace moves the value under 1%.
+PNDORA.CO is READY.
+
+**WHICH EARLIER RULING THIS AMENDS.** None. It settles how **E41** and **E35.1**
+read against **E19/E20**'s window-end stock, for the case where the window end
+states only a bound.
+
+### E134 — where two of the issuer's reports disagree, the reading on the issuer's own stated definition is entered
+
+**RULED 2026-10-13 by the owner, on BOUV.OL.**
+
+**THE RULE.** Where two of the issuer's documents give a figure two values,
+and one of them follows the definition the issuer itself states (and that
+its other periods follow), that one is entered and the other is named on the
+page as not used. E104's withdrawal still governs where neither reading can
+be tied to the issuer's definition.
+
+**APPLIED 2026-10-13, BOUV.OL 2026-Q1, `ebitda` = 152,508 (NOK thousands).**
+The Q1 2026 report prints `EBITDA 134 659`, which leaves out `Depreciation of
+right-of-use assets 17 849` against its own definition table ('Operating
+profit + depreciation fixed assets and intangible assets'). The Q2 2026
+report's Jan-Jun 300 361 less Apr-Jun 147 853 gives 152 508 on that
+definition, the same basis as every other quarter and FY2025. The figure
+reads only into the leverage ratio, and Bouvet has no borrowings, so the
+test passes on either reading. The gap had refused the name on mixed periods
+(the FY2025 EBITDA standing in). BOUV.OL is READY.
+
+**WHICH EARLIER RULING THIS AMENDS.** **E104**, by narrowing it.
+
+### E135 — where net interest paid is stated only annually, the latest annual figure stands in, marked STAND-IN
+
+**RULED 2026-10-13 by the owner, on BETS-B.ST. Extends E120 from lease
+interest to net interest paid.**
+
+**THE RULE.** Where a filer whose interest is inside operating cash flow
+states interest paid and received only in its ANNUAL cash flow statement,
+the latest annual net (`net_interest_paid`, marked `stand_in: true` on the
+annual entry) stands in for the trailing-twelve-month window, on E120's
+terms. The figure's date is printed beside it on the record.
+
+**APPLIED 2026-10-13, BETS-B.ST, `net_interest_paid` = 12.1 (EUR m, FY2025).**
+The annual report gives interest paid 15.6 and received 3.5 beneath the cash
+flow statement, and no interim report states either. The add-back is about
+5-6% of operating cash flow; the alternative was a zero, which would have read
+the value about 5% low.
+
+**IN THE ENGINE.** `manual.STAND_IN_FIELDS` names the two fields;
+`manual.stand_in()` generalises `lease_interest_stand_in()`; `runrecord`
+reads the stand-in where `interest_legs` is `net_interest_paid` and the basis
+states none. Test: `tests/test_e135_interest_stand_in.py`.
+
+**WHICH EARLIER RULING THIS AMENDS.** **E120**, by extending it; **E20**, for
+this leg.
+
+### E136 — customer money held and owed back on demand is net debt
+
+**RULED 2026-10-13 by the owner, on BETS-B.ST. Applies E81.**
+
+**THE RULE.** Balances a company holds for its customers and must pay back
+on demand -- player accounts, stored-value balances -- are a net debt leg,
+entered in E81's `prepaid_delivery_obligation` field at the window end. The
+cash that backs them is not the owner's.
+
+**APPLIED 2026-10-13, BETS-B.ST, 54.4 (EUR m, 2026-06-30).** The H1 2026
+report: 'Customer balances and reserves for accumulated jackpots, were EUR
+54.4 (57.5) million', inside 'Other current liabilities 315.7'. Betsson's
+own net debt definition adds 'customer liabilities'. Counting it lowers the
+value, the cautious direction. With E135, BETS-B.ST is READY — NEEDS GROWTH
+VIEW.
+
+**WHICH EARLIER RULING THIS AMENDS.** None; an application of **E81**.
+
+### E137 — an income-statement interest line that carries "and other" is E34.1's net, with the unitemised part named
+
+**RULED 2026-10-19 by the owner ("kör på b"), on PEP. Applies E34.1.**
+
+**THE CASE.** PepsiCo FY2025 (10-K 0000077476-26-000007, filed 2026-02-03)
+states interest PAID, 1,748m (`InterestPaidNet`), and no interest received.
+Its income statement prints one interest line, *"Net interest expense and
+other ( 1,121 )"*, and itemises neither the interest income inside it nor
+the "other". Interest income is never stated as a figure. The full text was
+searched for *interest income*, *interest received* and *investment income*.
+The only hits are in the ROIC non-GAAP reconciliation, where the line is
+reversed whole. The cash flow supplement gives interest paid and nothing
+received. E34.1 names *"Interest expense (income), net"* and a stated pair.
+It does not name a net that carries "and other". E115 is for a filer with no
+income-statement net at all, and E34.1 forbids interest paid alone as the
+net.
+
+**THE CHOICE PUT TO THE OWNER.** A: interest paid, 1,748. This reads the value
+high, because the interest PepsiCo earns on its cash is never removed. B: the
+printed net, 1,121, with the "and other" unknown in both size and sign. The
+gap is about 630m, about 8% of FCF0. **The owner chose B.**
+
+**THE RULE.** Where a filer's income statement prints its interest as ONE
+net line that also carries an unitemised "and other", that line is E34.1's
+`net_finance_costs` (`interest_source: income_statement_net`), and the figure
+is printed as an accrual proxy. **The figure's page quotes the caption whole
+and says the "and other" is not itemised.** Where the filer itemises the
+"other", the interest components are entered instead and the store subtracts
+(E18).
+
+**APPLIED 2026-10-19, PEP FY2025, `net_finance_costs` = 1,121,000,000**
+(VERIFIED, machine_read_back, E131). The MD&A explains the year's change only
+by debt balances, interest rates and cash balances, which is evidence that
+the line is interest.
+
+**WHICH EARLIER RULING THIS AMENDS.** None; an application of **E34.1**. E115
+is unchanged.
+
+### E138 — a deposit on returnable packaging is working capital, not net debt
+
+**RULED 2026-10-19 by the owner ("A på fråga 2"), on RBREW.CO. Marks a
+boundary of E136.**
+
+**THE CASE.** Royal Unibrew, note 17 of the Annual Report 2025: "Deposit,
+returnable packaging 251" sits inside "Other payables". It is the obligation
+to repay customers' deposits when crates, bottles and kegs come back. The
+packaging itself is an asset in property, plant and equipment.
+
+**THE RULE.** A deposit owed back on returnable packaging is NOT E136's
+customer money. It turns over with the packaging in the ordinary course,
+and the asset it pays for sits on the balance sheet beside it. It stays in
+working capital, which the flow already carries. `prepaid_delivery_obligation`
+is a caption zero that names it. Counting it as debt would have lowered
+the value by about 1%.
+
+**WHICH EARLIER RULING THIS AMENDS.** None; it bounds **E136** and applies
+**E81**.
+
+### E139 — a value name may enter the watchlist without a drawdown
+
+**RULED 2026-10-20 by the owner, on ACAD.ST. Recorded as given:**
+
+> "vi skiter i gate 1 o vi skiter i ras vi vill ha värdebolag jag vill ha
+> med det nu"
+
+**THE CASE.** AcadeMedia came from a one-off scan of names *not* in the
+15-50% band. It sits at its 52-week high. A preliminary strike, made in
+scratch with prior-year stand-ins, put the settled close of 114.80 below
+the value in all three cases: base 152, bear 140, bull 187, g\* 1.1%.
+Gate 1 kept it off the watchlist.
+
+**THE RULE.**
+
+> A name the owner promotes on value may enter the watchlist **without a
+> drawdown**. Gate 1 is **not** a condition of entry for it. E12 still
+> stamps `dd_at_entry` and `peak_date` at entry, so the record shows where
+> the price stood. The stamp is a record, not a test.
+
+**WHAT THIS DOES NOT DO, stated so nobody assumes it:**
+
+- **The screener is unchanged.** It still fetches fundamentals only for
+  names in the 15-50% band (`rules.py` DISLOCATION). A name outside the
+  band reaches the watchlist only through a scan like the one of
+  2026-10-20 and the owner's promotion.
+- **Gate 1 is still scored** in §4.4 conviction where the code scores it.
+  How a value entry's tier treats a Gate 1 FAIL is not decided here.
+- **B1 is unchanged** for holdings.
+
+**WHICH EARLIER RULING THIS AMENDS.** **E12**, by removing Gate 1 as an
+entry condition for a value promotion (the freeze and the stamp remain),
+and **§3 Gate 1**, as a precondition. E111 still applies: the promotion is
+the owner's act.
+
+---
+
+### E140 — FCF0 is a three-year mean with working capital taken out, interest is added back after tax, and every deal after the basis enters the bridge
+
+**RULED 2026-10-27 by the owner.** Two independent reviews of CENTA found
+that the struck FCF0 was built on years swollen by inventory sell-down. The
+owner then said:
+
+> "fixa metodiken, och räkna om ... ingenting får missas som vi nu gjort
+> FLERA gånger om burpee, trixie o champion"
+
+He chose each part from options the session put to him, with each option's
+effect stated:
+
+- normal-year cash flow: **"3-årssnitt utan lager/rörelsekapital"**;
+- interest: **"Lägg tillbaka efter skatt"**;
+- deals after the basis: **"Priset i skulden, deras vinst bara om den står i
+  dokument"**.
+
+**THE CASE.**
+
+- **CENTA's flows.** Operating working capital released USD 126.6m in FY2023,
+  143.6m in FY2024 and 50.6m in FY2025, as the 2021-22 inventory build was
+  sold down. A single-year FCF0 of 301.5m capitalised that release as if it
+  would recur for ten years.
+- **What the fix does to the value.** On the three-year mean with working
+  capital out, FCF0 is 216.6m and fv_base falls from 61.83 to 43.06, before
+  any deal.
+- **Missed deals.** The strike of 2026-10-20 also missed four deals made
+  after the basis: Champion, the Pet Distribution contribution, TRIXIE and
+  Burpee. Burpee was announced the day before the strike.
+
+**THE RULE.**
+
+> **(1) FCF0** is the MEAN of the last three fiscal years of:
+>
+> > operating cash flow, LESS the cash effect of the change in operating
+> > working capital, LESS capex, LESS SBC where SBC is deducted.
+>
+> - **What counts as operating working capital:** receivables,
+>   inventories, prepaid and other operating assets, payables, accrued
+>   liabilities, and deferred revenue or contract liabilities.
+> - **What stays in the flow:** income-tax lines, lease lines and
+>   long-term lines. A tax-reserve release is not a swing. HRB's discrete
+>   FY2026 benefit of 84.1m is reversed on its tax line, so it never
+>   reached operating cash flow.
+> - **A loan book's receivable.** Where a stripped receivable is a loan
+>   book whose provision for losses is added back above it, the provision
+>   is deducted with it. Otherwise the credit loss is counted as cash
+>   earned (HRB's Emerald Advance).
+> - **A combined tag.** Where a combined tag and one of its own components
+>   are both stated, the combined tag is dropped. Otherwise the movement is
+>   counted twice (ALV FY2023).
+> - **E123's shape.** Where the operating asset is inventory (NVR, PHM),
+>   the inventory line stays in the flow, because buying it is the business.
+>
+> **(2) The interest add-back** of E34, E34.1 and E115 is taken **after
+> tax**, at the statutory rate of the filer's home country:
+>
+> | Country | Rate |
+> |---|---|
+> | US (federal and typical state) | 25% |
+> | SE | 20.6% |
+> | GB | 25% |
+> | DK | 22% |
+> | NO | 22% |
+> | FI | 20% |
+> | FR | 25.8% |
+> | DE | 30% |
+>
+> E105's deduction of dividends paid to minorities stands unchanged.
+>
+> **(3) Every acquisition, divestiture or partnership contribution after
+> the basis's balance-sheet date enters the net-debt bridge** at its
+> price:
+>
+> - cash paid;
+> - earn-out at its MAXIMUM;
+> - a put on a retained stake at its pro-rata value;
+> - LESS cash received.
+>
+> The acquired business's cash flow enters FCF0 **only where the issuer
+> has filed figures for it**. Otherwise it is zero, and the zero is named.
+> An undisclosed price is a **LOW-HIGH range** and is never left out. The
+> value is printed at both ends.
+>
+> **(4) No value is struck or printed without an EVENTS LEDGER,**
+> `reference/events/<TICKER>.yaml`. The ledger lists every deal after the
+> basis, or states that none was found. It also records what was searched:
+>
+> - the issuer's press releases;
+> - every 8-K, 10-Q and 10-K, or the local equivalent, filed after the
+>   basis;
+> - a news search.
+>
+> It is dated. `tools/normalize_e140.py` refuses a name without one.
+
+**WHAT THIS DOES NOT DO, stated so nobody assumes it:**
+
+- **It does not rewrite any run record.** Records are statements made on
+  the rules of their date (E87). The E140 value is printed beside the
+  record's value, from `tools/normalize_e140.py`, until the engine carries
+  it natively.
+- **It does not write any `fv_base`.** Writing one is the owner's act.
+- **It does not decide that deferred-revenue growth is a swing for a
+  subscription business.** For GDDY the rule takes it out, which is the
+  conservative reading. The value with it kept in is printed as
+  sensitivity.
+- **It does not settle the CENTA/CENT price gap.** Since 2024 the two
+  classes have traded at a ratio of 0.85-0.89. That ratio is reported
+  beside the value, never netted into it.
+
+**WHICH EARLIER RULINGS THIS AMENDS.**
+
+- **E31 and E41**, for FCF0: the single basis-year flow is replaced by
+  the three-year mean.
+- **E34, E34.1 and E115**: the add-back is taken after tax.
+- **E35's bridge**: post-basis deals are added.
+
+### E140.1 — the four questions E140 left open: acquisition spend is capex for a repeat buyer, deferred revenue stays a swing, the bridge rolls to the latest balance sheet with its working capital neutralised, and fv_base is rewritten from new records
+
+**RULED 2026-10-27 by the owner**, in the session after E140, on the four
+questions E140's results left open (HANDOFF-2026-10-27 items 6-9) and one
+follow-up the session put to him on the third. Each was put once, with its
+effect on the values stated, and he took the recommended option each time.
+
+**THE RULE.**
+
+> **(1) A repeat buyer's acquisition spend is capex.** Where the filer paid
+> cash for acquisitions in **at least two of the three fiscal years** of
+> E140(1), FCF0 is also reduced by the **three-year mean** of cash paid for
+> acquisitions, net of cash acquired. Every year counts toward the mean,
+> including a year with no spend, which counts as zero.
+>
+> - **No threshold.** The test is whether the spend recurs, not how big it is,
+>   and the test decides, not a list. The question put to the owner listed
+>   shares of FCF0 (ACAD 69%, ACN 46%, LII 30%, CTSH 29%, PEP 14%, ULTA 12%,
+>   AOS 10%, CENTA 10%). On E140's tagged figures the test **catches** ACN,
+>   AOS, CENTA, CPRT, CTSH, HRB, LII and PEP. It does **not** catch ULTA,
+>   which paid in one year of three (Space NK, FY2025). Non-US names are
+>   tested on their stores the same way.
+> - **A year whose net figure is a receipt** (cash acquired exceeding cash
+>   paid, as in CPRT's FY2023 at -17.7m) counts as zero. It is neither
+>   spend nor recurring income.
+> - **Divestiture proceeds are not credited** to FCF0. Proceeds received
+>   after the basis enter the bridge under E140(3).
+> - **Deals after the basis stay in the bridge** under E140(3). The overlap
+>   of about one year is accepted as the conservative side.
+> - **One deal in three years** is not a pattern. It stays where it is:
+>   inside net debt if it was paid before the basis, or in the bridge if it
+>   was paid after.
+>
+> **(2) GDDY's deferred-revenue growth stays out of FCF0**, as E140(1)
+> takes it out. No rule changes. The value with it kept in is printed as
+> sensitivity. No decision hung on it: the price is above the value either
+> way, and the framework changes only when a name is blocked.
+>
+> **(3) The bridge rolls to the latest filed balance sheet.**
+>
+> - **Which balance sheet.** At strike time, net debt, every other bridge
+>   leg and the share count are taken from the latest filed balance sheet:
+>   a 10-Q, an interim report or the annual report, whichever is latest. All
+>   are read from that one date. FCF0 stays on the three fiscal years of
+>   E140(1).
+> - **Working capital is neutralised.** The cash effect of the change in
+>   operating working capital between the fiscal year-end and that balance
+>   sheet is added back to net debt, with the sign that undoes it. This uses
+>   E140(1)'s definition and is read from the interim cash-flow statement's
+>   year-to-date lines. Only cash earned without working capital is
+>   credited, so a seasonal trough in net debt does not enter the value.
+> - **The ledger is cut at that date.** A deal closed on or before the
+>   balance-sheet date is already in it, and is not added again. A deal
+>   closed after it, or announced and not yet closed, enters under E140(3).
+>
+> **(4) fv_base is rewritten from a NEW RECORD, never from a side table.**
+>
+> - **The order.** Once the engine carries E140 and (1)-(3) natively, every
+>   struck name is re-struck as a new run record (E87). Its fv_base is then
+>   written from that record, on the owner's word given here.
+> - **Old records stand.** They are statements on the rules of their date,
+>   and are not rewritten.
+> - **The side tool's figures.** `reference/normalized/E140-ALL-2026-10-27.md`
+>   and `tools/normalize_e140.py` stay as the evidence of 2026-10-27. Nothing
+>   is ever typed from them into fv_base.
+
+**WHICH EARLIER RULINGS THIS AMENDS.**
+
+- **E140(1):** the acquisition leg is added.
+- **E35's bridge date:** the basis balance sheet is replaced by the latest
+  filed one, with the working-capital neutralisation.
+- **E140(3):** the ledger cut-off moves to that date.
+
+---
+
+### E141 — the owner hands every open judgment call to the session, to be decided as Warren Buffett would
+
+**RULED 2026-10-27 by the owner**, after the session put four open calls to
+him (RBREW's June debt, BOUV's earn-out, fv_base, the UMG.AS commit):
+
+> "vet du vad låt warren ta besluten jag vill inte ta några beslut längre"
+
+**THE RULE.**
+
+> **(1)** A call the rules leave to the owner -- an open case the rules do
+> not settle, accepting a record's fv_base, tier, mbp, stop_price, a
+> status move, a hold/trim/sell view -- is **decided by the session**, as
+> Warren Buffett would decide it: on the filed documents only, the
+> conservative reading where two are honest, nothing credited that is not
+> shown in cash, and inaction preferred to activity.
+>
+> **(2) Every such decision is written down with its reason** in the commit
+> and, where it is a rule, here, marked `E141 decision`. The owner is told
+> what was decided, not asked.
+>
+> **(3) What the session cannot do stays with the owner as an act, not a
+> decision:** placing a buy or sell order, moving money, and pushing a
+> repository. The session hands him the order or the command ready to run.
+>
+> **(4) The rules stand.** E141 decides open calls; it does not loosen a
+> refusal, a guardrail or a validator. A blocked name stays blocked until
+> the data clears it.
+
+**FIRST DECISIONS, 2026-10-27 (E141 decision):**
+
+- **RBREW.CO, debt at 2026-06-30:** the interim's printed borrowings,
+  leasing inside them, are entered as printed. No figure the filing does not
+  print is typed, and the double count of the lease is the conservative side.
+- **BOUV.OL, the Headit earn-out:** the literal reading stands (a repeat
+  buyer, about 1 NOK). It is the conservative one.
+- **fv_base:** written from each new record under E140.1(4), including the
+  values that fell.
+- **UMG.AS:** the owner's own status move is committed as he made it.
+
+### E142 — acquisitions leave the flow AND the growth; the deal programme and every pending deal are valued at the acquirer's own record
+
+**DECIDED 2026-10-27 by the session under E141**, on the method review
+`reference/reviews/method/2026-10-27-REBUILD.md` (findings F1, F2, F5; rule
+R5). The owner: "bara kör o fixa allt i ett svep". **Replaces E140.1(1) and
+the `fcf: 0` of E140(3) for every record struck from here; records struck
+before replay as struck.**
+
+**THE FAULT.** E140.1(1) deducted a repeat buyer's mean acquisition spend
+from FCF0 while the growth the value used was ORGANIC. The company paid for
+growth it was never credited with: LIAB.ST −33.97 and RBREW.CO −24.08 on
+businesses that earn money every year. E140(3) did the same to a pending
+deal: its price into net debt, its earnings at zero.
+
+**THE RULE.**
+
+> **(1) The base value is organic.** FCF0 is E140's mean WITHOUT the
+> acquisition deduction; the growth is organic (E144).
+>
+> **(2) The deal programme is valued separately, at the record.** For a
+> repeat buyer (E140.1's test, unchanged), programme value =
+> A × (min(ROIIC, r) / r − 1) × Σ_{t=1..10} ((1+g)/(1+r))^t, where A is the
+> E140 three-year mean spend and ROIIC is the after-tax return on the
+> capital the company added over the history window, after the organic
+> part of the profit increase is taken out:
+> ROIIC = (EBIT_end − EBIT_start × Π(1 + organic_t)) × (1 − statutory tax)
+> / max(invested capital_end − invested capital_start, Σ acquisitions).
+>
+> **(3) Never credited upward.** A ROIIC above r counts as r: future deals
+> are worth at most what they cost. A ROIIC below zero counts as zero.
+>
+> **(4) A pending deal** stays in the bridge at its price (E140(3), the high
+> end), and its value is credited back at price × min(ROIIC, r) / r -- the
+> acquirer's own record standing in for a target that files no profit.
+>
+> **(5) The cases.** Base at the full-window ROIIC; bear at the worst
+> five-year window's; bull neutral (ROIIC = r).
+>
+> **(6) A repeat buyer with no history** (E143's file) is DATA MISSING and
+> refuses. A ROIIC is never assumed. **E106's floor applies:** where the
+> programme struck at a ROIIC of ZERO moves the value by less than 3.5%
+> against the neutral programme, the absent ROIIC is struck at zero -- the
+> conservative end -- and named, rather than refusing.
+
+**A net-receipt year (F5)** no longer matters: nothing is deducted.
+
+### E143 — the three-year mean is rolled one year forward, a cyclical business is normalised over its cycle, and the bear case lowers the LEVEL
+
+**DECIDED 2026-10-27 by the session under E141** (findings F3, F4; rule R6).
+
+> **(1)** E140's mean sits at the middle year; FCF0 is the mean × (1 + g)
+> of the case being struck.
+>
+> **(2) The history file.** `config/history/<TICKER>.yaml` carries up to ten
+> fiscal years from the issuer's own multi-year summaries (two annual
+> reports) or SEC companyfacts: revenue, organic growth where stated,
+> operating profit (adjusted where the summary states it for every year),
+> invested capital, goodwill, operating cash flow, capex, acquisitions,
+> shares. A hand-read row carries the row as printed, and the machine
+> checks each value against the PDF text (E131's principle, `vss history
+> --check`).
+>
+> **(3) Cyclical** = revenue fell more than 10% in a year, or the
+> operating margin fell from an earlier peak to a later year below half of
+> it (or into a loss). A margin that only ROSE is not a cycle. For a cyclical name the base level is
+> min(1, median owner-earnings margin / mean of the last three years').
+>
+> **(4) Bear level.** A non-cyclical name's bear flow is its weakest E140
+> year over the three-year mean; a cyclical name's, its weakest
+> owner-earnings margin over the last three years' mean, floored at zero.
+> The bull level is 1.
+
+### E144 — the growth view is DERIVED from the issuer's own history
+
+**DECIDED 2026-10-27 by the session under E141** (rule R9). Amends E28's
+source of g, keeps its order: the derivation is deterministic and run
+before g\* is solved, so the price cannot steer it.
+
+> **(1) Organic growth per year** as the issuer states it; where it does
+> not (most US filers), the revenue growth of a year in which neither that
+> year nor the one before paid more than 1% of revenue for acquisitions,
+> marked PROXY.
+>
+> **(2) Base** = min(organic CAGR over the window, organic CAGR of the last five years, CAGR of owner earnings
+> (operating cash flow − capex) per share between the means of the first
+> and last three years), capped at 4% -- 8% where organic growth exceeded
+> 4% in at least seven years -- and floored at −3%.
+>
+> **(3) Bear** = the worst rolling three-year organic CAGR, floored at −3%,
+> never above base. **Bull** = the best rolling five-year organic CAGR,
+> capped as base, never below it.
+>
+> **(4)** Fewer than five organic years: the registered view stands,
+> marked `VIEW, NOT DERIVED`.
+
+### E145 — would Warren own it: the quality tests on every record
+
+**DECIDED 2026-10-27 by the session under E141** (rule R10).
+
+> **Q1** median after-tax return on tangible invested capital (operating
+> profit × (1 − statutory tax) / (invested capital − goodwill)) ≥ 15%.
+> **Q2** owner earnings positive in every year, and operating profit never
+> below half its running peak UNLESS the peak was regained within three
+> years (a shut-down year repaired is not a moat failing). **Q3** the
+> bridge's net debt ≤ 3 × FCF0, or 4.5 × where operating profit never fell
+> more than 15% below its running peak. Under E117 the rent is already in
+> FCF0, so the lease liability is not added to the debt a second time. **Q4** ROIIC ≥ r for a repeat buyer. **Q5** a sentence from the
+> issuer's own report on what it sells, to whom, and why the customer
+> returns.
+>
+> A watched name failing Q1, Q2 or Q3 is DROPPED; a held one is sold once
+> the price reaches base. Q4 lowers the tier one step. The tests are
+> printed with their figures on every strike; they never change a value.
+
+### E146 — a pension deficit enters net debt AFTER TAX
+
+**DECIDED 2026-10-27 by the session under E141** (rule R3). Amends E35.1's
+amount, not its standing: the deficit × (1 − statutory tax), because the
+contributions that close it are deductible. Applied from the next store
+change; no struck value in the 2026-10-27 set carries a material pension
+leg.
+
+### E147 — where a filer states no operating profit, it is pre-tax profit plus interest expense, as stated
+
+**DECIDED 2026-10-27 by the session under E141** (rule R7). Gate 3's
+coverage limb for NVR (and any filer like it) reads that sum. NVR leaves
+DATA MISSING on that limb.
+
+**E141 DECISIONS ON THE RULEBOOK'S KEPT RULES (R1, R2, R4, R8):** E117
+(leases), contingent consideration as printed, E105 (minorities), and r
+9.5% flat with E90's cushions all stand. Conservatism comes from the
+cushion, not from errors in the flow.

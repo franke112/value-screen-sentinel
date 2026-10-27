@@ -1,0 +1,21 @@
+ticker: SAP.DE
+dated: '2026-10-27'
+ruling: E140(3)-(4)
+money: EUR whole
+money_unit: whole
+basis_balance_sheet: '2026-06-30'
+searched:
+- issuer annual and interim reports in sources/ (cash-flow statements read by subagent, quotes machine-checked against
+  pdftotext)
+- issuer press releases and news search (2026-10-27)
+deals:
+- name: Dremio (~EUR 0.5bn) and Prior Labs (EUR 1bn+ committed over four years; price unclear) -- range
+  date: 2026-07-06 / 2026-07-16
+  status: closed
+  closed: '2026-07-16'
+  low: 500000000.0
+  high: 1500000000.0
+  fcf: 0
+  source: SAP Q2 statement (dilution note) and press (subagent sweep)
+none_found: false
+notes: Reltio closed 2026-05-07, inside the basis. Business combinations 1,168 / 1,114 / 702 EUR m FY2023-25.

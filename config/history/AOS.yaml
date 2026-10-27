@@ -1,0 +1,270 @@
+ticker: AOS
+currency: USD
+money_unit: whole
+sources:
+  xbrl:
+    kind: sec-xbrl
+    url: https://data.sec.gov/api/xbrl/companyfacts/
+    fetched: '2026-10-27'
+  tenk:
+    file: sources/AOS_FY2025_annual-report-10k_2026-02-10_en_a0.htm
+    kind: pdf
+rows:
+- field: revenue
+  source: xbrl
+  tag: RevenueFromContractWithCustomerExcludingAssessedTax
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 2685900000.0
+  - 2996700000.0
+  - 3187900000.0
+  - 2992700000.0
+  - 2895300000.0
+  - 3538900000.0
+  - 3753900000.0
+  - 3852800000.0
+  - 3818100000.0
+  - 3830200000.0
+- field: revenue
+  source: xbrl
+  tag: SalesRevenueGoodsNet
+  years:
+  - 2015
+  values:
+  - 2536500000.0
+- field: operating_profit
+  source: xbrl
+  tag: OperatingIncomeLoss
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 452900000.0
+  - 515000000.0
+  - 577900000.0
+  - 613400000.0
+  - 529100000.0
+  - 503200000.0
+  - 682000000.0
+  - 362000000.0
+  - 745500000.0
+  - 707700000.0
+  - 728600000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivities
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 351700000.0
+  - 446600000.0
+  - 326400000.0
+  - 448900000.0
+  - 456200000.0
+  - 562100000.0
+  - 641100000.0
+  - 391400000.0
+  - 670300000.0
+  - 581800000.0
+  - 616800000.0
+- field: capex
+  source: xbrl
+  tag: PaymentsToAcquireProductiveAssets
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 72700000.0
+  - 80700000.0
+  - 94200000.0
+  - 85200000.0
+  - 64400000.0
+  - 56800000.0
+  - 75100000.0
+  - 70300000.0
+  - 72600000.0
+  - 108000000.0
+  - 70800000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesNetOfCashAcquired
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 90800000.0
+  - 43100000.0
+  - 0.0
+  - 107000000.0
+  - 0.0
+  - 207600000.0
+  - 8000000.0
+  - 16800000.0
+  - 145900000.0
+  - 0.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: 'searched: no acquisition element tagged (zero)'
+  years:
+  - 2015
+  values:
+  - 0.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquity
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 1442300000.0
+  - 1511400000.0
+  - 1644900000.0
+  - 1717000000.0
+  - 1666800000.0
+  - 1848300000.0
+  - 1832200000.0
+  - 1747700000.0
+  - 1844400000.0
+  - 1883500000.0
+  - 1858000000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 420900000.0
+  - 491500000.0
+  - 516700000.0
+  - 513000000.0
+  - 546000000.0
+  - 546800000.0
+  - 627800000.0
+  - 619700000.0
+  - 633400000.0
+  - 761700000.0
+  - 710600000.0
+- field: shares
+  source: xbrl
+  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 179009180.0
+  - 176825280.0
+  - 174605189.0
+  - 172194040.0
+  - 166710897.0
+  - 162604149.0
+  - 161319902.0
+  - 155779364.0
+  - 151015574.0
+  - 147084080.0
+  - 141914840.0
+  unit: whole
+- field: net_debt
+  source: xbrl
+  tag: 'derived: LongTermDebt (or its parts) + short-term borrowings - CashAndCashEquivalentsAtCarryingValue'
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - -74600000.0
+  - -6800000.0
+  - 63800000.0
+  - -38300000.0
+  - -90000000.0
+  - -459900000.0
+  - -246600000.0
+  - -46700000.0
+  - -212600000.0
+  - -46400000.0
+  - -19500000.0
+business:
+  text: A. O. Smith makes water heaters, boilers and water treatment products for homes and businesses; replacement need and installer loyalty bring repeat sales.
+  source: tenk
+  quote: Both segments manufacture and market comprehensive lines of residential and commercial gas and electric water heaters, boilers, heat pumps, tanks and water treatment products.

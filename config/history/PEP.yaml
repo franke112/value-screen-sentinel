@@ -1,0 +1,265 @@
+ticker: PEP
+currency: USD
+money_unit: whole
+sources:
+  xbrl:
+    kind: sec-xbrl
+    url: https://data.sec.gov/api/xbrl/companyfacts/
+    fetched: '2026-10-27'
+  tenk:
+    file: sources/PEP_FY2025_annual-report-10k_2026-02-03_en_a0.htm
+    kind: pdf
+rows:
+- field: revenue
+  source: xbrl
+  tag: Revenues
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 62799000000.0
+  - 63525000000.0
+  - 64661000000.0
+  - 67161000000.0
+  - 70372000000.0
+  - 79474000000.0
+  - 86392000000.0
+  - 91471000000.0
+  - 91854000000.0
+  - 93925000000.0
+- field: revenue
+  source: xbrl
+  tag: SalesRevenueNet
+  years:
+  - 2015
+  values:
+  - 63056000000.0
+- field: operating_profit
+  source: xbrl
+  tag: OperatingIncomeLoss
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 8353000000.0
+  - 9804000000.0
+  - 10276000000.0
+  - 10110000000.0
+  - 10291000000.0
+  - 10080000000.0
+  - 11162000000.0
+  - 11512000000.0
+  - 11986000000.0
+  - 12887000000.0
+  - 11498000000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivities
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 10864000000.0
+  - 10663000000.0
+  - 10030000000.0
+  - 9415000000.0
+  - 9649000000.0
+  - 10613000000.0
+  - 11616000000.0
+  - 10811000000.0
+  - 13442000000.0
+  - 12507000000.0
+  - 12087000000.0
+- field: capex
+  source: xbrl
+  tag: PaymentsToAcquireProductiveAssets
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 2758000000.0
+  - 3040000000.0
+  - 2969000000.0
+  - 3282000000.0
+  - 4232000000.0
+  - 4240000000.0
+  - 4625000000.0
+  - 5207000000.0
+  - 5518000000.0
+  - 5318000000.0
+  - 4415000000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesAndInterestInAffiliates
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 86000000.0
+  - 212000000.0
+  - 61000000.0
+  - 1496000000.0
+  - 2717000000.0
+  - 6372000000.0
+  - 61000000.0
+  - 873000000.0
+  - 314000000.0
+  - 256000000.0
+  - 3391000000.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquity
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 12068000000.0
+  - 11246000000.0
+  - 11045000000.0
+  - 14518000000.0
+  - 14786000000.0
+  - 13454000000.0
+  - 16043000000.0
+  - 17149000000.0
+  - 18503000000.0
+  - 18041000000.0
+  - 20406000000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 14177000000.0
+  - 14430000000.0
+  - 14744000000.0
+  - 14808000000.0
+  - 15501000000.0
+  - 18757000000.0
+  - 18381000000.0
+  - 18202000000.0
+  - 17728000000.0
+  - 17534000000.0
+  - 18916000000.0
+- field: shares
+  source: xbrl
+  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 1485000000.0
+  - 1452000000.0
+  - 1438000000.0
+  - 1425000000.0
+  - 1407000000.0
+  - 1392000000.0
+  - 1389000000.0
+  - 1387000000.0
+  - 1383000000.0
+  - 1378000000.0
+  - 1373000000.0
+  unit: whole
+- field: net_debt
+  source: xbrl
+  tag: 'derived: LongTermDebt (or its parts) + short-term borrowings - CashAndCashEquivalentsAtCarryingValue'
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 23996000000.0
+  - 27553000000.0
+  - 28591000000.0
+  - 23527000000.0
+  - 26487000000.0
+  - 35543000000.0
+  - 34302000000.0
+  - 33799000000.0
+  - 31808000000.0
+  - 32723000000.0
+  - 37192000000.0
+business:
+  text: PepsiCo makes and sells snacks and beverages to retailers and consumers worldwide; strong brands and distribution drive repeat buying.
+  source: tenk
+  quote: we make, market, distribute and sell a wide variety of beverages and convenient foods, serving customers and consumers in more than 200 countries and territories

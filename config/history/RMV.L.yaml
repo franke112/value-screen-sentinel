@@ -1,0 +1,439 @@
+ticker: RMV.L
+currency: GBP
+money_unit: thousands
+business:
+  text: Rightmove runs the UK's largest property portal, earning fees from estate agents and developers who advertise homes on it.
+  source: ar2025_biz
+  quote: As the UK’s largest property portal
+sources:
+  ar2025_is:
+    file: sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf
+    page: 117
+  ar2025_bs:
+    file: sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf
+    page: 118
+  ar2025_cf:
+    file: sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf
+    page: 119
+  ar2023_is:
+    file: sources/RMV.L_2023-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 130
+    url: https://plc.rightmove.co.uk/content/uploads/2024/03/Rightmove-plc-Annual-Report-2023.pdf
+  ar2023_bs:
+    file: sources/RMV.L_2023-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 131
+    url: https://plc.rightmove.co.uk/content/uploads/2024/03/Rightmove-plc-Annual-Report-2023.pdf
+  ar2023_cf:
+    file: sources/RMV.L_2023-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 133
+    url: https://plc.rightmove.co.uk/content/uploads/2024/03/Rightmove-plc-Annual-Report-2023.pdf
+  ar2021_is:
+    file: sources/RMV.L_2021-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 116
+    url: https://plc.rightmove.co.uk/content/uploads/2023/09/rightmove-annual-report-2021.pdf
+  ar2021_bs:
+    file: sources/RMV.L_2021-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 117
+    url: https://plc.rightmove.co.uk/content/uploads/2023/09/rightmove-annual-report-2021.pdf
+  ar2021_cf:
+    file: sources/RMV.L_2021-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 119
+    url: https://plc.rightmove.co.uk/content/uploads/2023/09/rightmove-annual-report-2021.pdf
+  ar2019_is:
+    file: sources/RMV.L_2019-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 102
+    url: https://plc.rightmove.co.uk/content/uploads/2023/09/rightmove-annual-report-2019.pdf
+  ar2019_bs:
+    file: sources/RMV.L_2019-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 103
+    url: https://plc.rightmove.co.uk/content/uploads/2023/09/rightmove-annual-report-2019.pdf
+  ar2019_cf:
+    file: sources/RMV.L_2019-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 105
+    url: https://plc.rightmove.co.uk/content/uploads/2023/09/rightmove-annual-report-2019.pdf
+  ar2018_is:
+    file: sources/RMV.L_2018-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 92
+    url: https://plc.rightmove.co.uk/content/uploads/2023/09/rightmove-annual-report-2018.pdf
+  ar2018_bs:
+    file: sources/RMV.L_2018-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 93
+    url: https://plc.rightmove.co.uk/content/uploads/2023/09/rightmove-annual-report-2018.pdf
+  ar2018_cf:
+    file: sources/RMV.L_2018-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 95
+    url: https://plc.rightmove.co.uk/content/uploads/2023/09/rightmove-annual-report-2018.pdf
+  ar2017_is:
+    file: sources/RMV.L_2017-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 84
+    url: https://plc.rightmove.co.uk/content/uploads/2023/09/rightmove-annual-report-2017.pdf
+  ar2017_bs:
+    file: sources/RMV.L_2017-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 85
+    url: https://plc.rightmove.co.uk/content/uploads/2023/09/rightmove-annual-report-2017.pdf
+  ar2017_cf:
+    file: sources/RMV.L_2017-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 87
+    url: https://plc.rightmove.co.uk/content/uploads/2023/09/rightmove-annual-report-2017.pdf
+  ar2016_is:
+    file: sources/RMV.L_2016-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 80
+    url: https://plc.rightmove.co.uk/content/uploads/2023/09/rightmove-annual-report-2016.pdf
+  ar2016_bs:
+    file: sources/RMV.L_2016-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 81
+    url: https://plc.rightmove.co.uk/content/uploads/2023/09/rightmove-annual-report-2016.pdf
+  ar2016_cf:
+    file: sources/RMV.L_2016-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 83
+    url: https://plc.rightmove.co.uk/content/uploads/2023/09/rightmove-annual-report-2016.pdf
+  ar2025_biz:
+    file: sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf
+    page: 45
+rows:
+- field: revenue
+  source: ar2025_is
+  years:
+  - 2025
+  - 2024
+  values:
+  - 425129
+  - 389882
+  quote: Revenue 4 425,129 389,882
+- field: revenue
+  source: ar2023_is
+  years:
+  - 2023
+  - 2022
+  values:
+  - 364316
+  - 332622
+  quote: Revenue 4 364,316 332,622
+- field: revenue
+  source: ar2021_is
+  years:
+  - 2021
+  - 2020
+  values:
+  - 304886
+  - 205717
+  quote: Revenue 5 304,886 205,717
+- field: revenue
+  source: ar2019_is
+  years:
+  - 2019
+  values:
+  - 289320
+  quote: Revenue 289,320
+- field: revenue
+  source: ar2018_is
+  years:
+  - 2018
+  - 2017
+  values:
+  - 267821
+  - 243273
+  quote: Revenue 4, 5 267,821 243,273
+- field: revenue
+  source: ar2016_is
+  years:
+  - 2016
+  values:
+  - 219993
+  quote: Revenue 219,993
+- field: operating_profit
+  source: ar2025_is
+  years:
+  - 2025
+  - 2024
+  values:
+  - 287874
+  - 256330
+  quote: Operating profit 5 287,874 256,330
+- field: operating_profit
+  source: ar2023_is
+  years:
+  - 2023
+  - 2022
+  values:
+  - 258033
+  - 241343
+  quote: Operating profit 5 258,033 241,343
+- field: operating_profit
+  source: ar2021_is
+  years:
+  - 2021
+  - 2020
+  values:
+  - 226100
+  - 135142
+  quote: Operating profit 6 226,100 135,142
+- field: operating_profit
+  source: ar2019_is
+  years:
+  - 2019
+  values:
+  - 213730
+  quote: Operating profit 213,730
+- field: operating_profit
+  source: ar2018_is
+  years:
+  - 2018
+  values:
+  - 198590
+  quote: Operating profit 198,590
+- field: operating_profit
+  source: ar2017_is
+  years:
+  - 2017
+  values:
+  - 178301
+  quote: Operating profit 178,301
+- field: operating_profit
+  source: ar2016_is
+  years:
+  - 2016
+  values:
+  - 161647
+  quote: Operating profit 161,647
+- field: equity
+  source: ar2025_bs
+  years:
+  - 2025
+  - 2024
+  values:
+  - 82298
+  - 80862
+  quote: Total equity attributable to the equity holders of the Parent 82,298 80,862
+- field: equity
+  source: ar2023_bs
+  years:
+  - 2023
+  - 2022
+  values:
+  - 69356
+  - 68163
+  quote: Total equity attributable to the equity holders of the Parent 69,356 68,163
+- field: equity
+  source: ar2021_bs
+  years:
+  - 2021
+  - 2020
+  values:
+  - 70532
+  - 123145
+  quote: Total equity attributable to the equity holders of the Parent 70,532 123,145
+- field: equity
+  source: ar2019_bs
+  years:
+  - 2019
+  - 2018
+  values:
+  - 41340
+  - 12584
+  quote: Total equity attributable to the equity holders of the Parent 41,340 12,584
+- field: equity
+  source: ar2018_bs
+  years:
+  - 2018
+  - 2017
+  values:
+  - 12584
+  - 17183
+  quote: Total equity attributable to the equity holders of the parent 12,584 17,183
+- field: equity
+  source: ar2016_bs
+  years:
+  - 2016
+  - 2015
+  values:
+  - 8042
+  - 6637
+  quote: Total equity attributable to the equity holders of the parent 8,042 6,637
+- field: operating_cash_flow
+  source: ar2025_cf
+  years:
+  - 2025
+  - 2024
+  values:
+  - 236299
+  - 211270
+  quote: Net cash from operating activities 236,299 211,270
+- field: operating_cash_flow
+  source: ar2023_cf
+  years:
+  - 2023
+  - 2022
+  values:
+  - 206711
+  - 198093
+  quote: Net cash from operating activities 206,711 198,093
+- field: operating_cash_flow
+  source: ar2021_cf
+  years:
+  - 2021
+  - 2020
+  values:
+  - 195016
+  - 96291
+  quote: Net cash from operating activities 195,016 96,291
+- field: operating_cash_flow
+  source: ar2019_cf
+  years:
+  - 2019
+  - 2018
+  values:
+  - 184224
+  - 167440
+  quote: Net cash from operating activities 184,224 167,440
+- field: operating_cash_flow
+  source: ar2018_cf
+  years:
+  - 2018
+  values:
+  - 167440
+  quote: Net cash from operating activities 167,440
+- field: operating_cash_flow
+  source: ar2017_cf
+  years:
+  - 2017
+  - 2016
+  values:
+  - 150490
+  - 141234
+  quote: Net cash from operating activities 150,490 141,234
+- field: capex
+  source: ar2025_cf
+  years:
+  - 2025
+  - 2024
+  values:
+  - -903
+  - -1055
+  quote: Acquisition of property, plant and equipment 12 (903) (1,055)
+- field: capex
+  source: ar2023_cf
+  years:
+  - 2023
+  - 2022
+  values:
+  - -2018
+  - -835
+  quote: Acquisition of property, plant and equipment 12 (2,018) (835)
+- field: capex
+  source: ar2021_cf
+  years:
+  - 2021
+  - 2020
+  values:
+  - -700
+  - -2308
+  quote: Acquisition of property, plant and equipment 13 (700) (2,308)
+- field: capex
+  source: ar2019_cf
+  years:
+  - 2019
+  - 2018
+  values:
+  - -543
+  - -1614
+  quote: Acquisition of property, plant and equipment 13 (543) (1,614)
+- field: capex
+  source: ar2018_cf
+  years:
+  - 2018
+  - 2017
+  values:
+  - -1614
+  - -1755
+  quote: Acquisition of property, plant and equipment 13 (1,614) (1,755)
+- field: capex
+  source: ar2016_cf
+  years:
+  - 2016
+  - 2015
+  values:
+  - -1281
+  - -1593
+  quote: Acquisition of property, plant and equipment 13 (1,281) (1,593)
+- field: capex
+  source: ar2025_cf
+  years:
+  - 2025
+  - 2024
+  values:
+  - -9276
+  - -8023
+  quote: Acquisition of intangible assets 13 (9,276) (8,023)
+- field: capex
+  source: ar2023_cf
+  years:
+  - 2023
+  - 2022
+  values:
+  - -1328
+  - -2015
+  quote: Acquisition of intangible assets 13 (1,328) (2,015)
+- field: capex
+  source: ar2021_cf
+  years:
+  - 2021
+  - 2020
+  values:
+  - -19
+  - -1169
+  quote: Acquisition of intangible assets 14 (19) (1,169)
+- field: capex
+  source: ar2019_cf
+  years:
+  - 2019
+  - 2018
+  values:
+  - -236
+  - -128
+  quote: Acquisition of intangible assets 14 (236) (128)
+- field: capex
+  source: ar2018_cf
+  years:
+  - 2018
+  - 2017
+  values:
+  - -128
+  - -441
+  quote: Acquisition of intangible assets 14 (128) (441)
+- field: capex
+  source: ar2016_cf
+  years:
+  - 2016
+  - 2015
+  values:
+  - -478
+  - -179
+  quote: Acquisition of intangible assets 14 (478) (179)
+- field: acquisitions_paid
+  source: ar2025_cf
+  years:
+  - 2025
+  - 2024
+  values:
+  - 0
+  - -7552
+  quote: Acquisition of subsidiary, net of cash received 25 – (7,552)
+- field: acquisitions_paid
+  source: ar2019_cf
+  years:
+  - 2019
+  - 2018
+  values:
+  - -15627
+  - 0
+  quote: Acquisition of subsidiary, net of cash acquired 27 (15,627) –
+- field: acquisitions_paid
+  source: ar2016_cf
+  years:
+  - 2016
+  - 2015
+  values:
+  - -2088
+  - 0
+  quote: Acquisition of subsidiary (net of cash acquired) 27 (2,088) –

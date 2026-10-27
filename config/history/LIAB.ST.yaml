@@ -1,0 +1,208 @@
+ticker: LIAB.ST
+currency: SEK
+money_unit: millions
+business:
+  text: Lindab makes and distributes ventilation and indoor-climate products, sold mainly to installers in Europe.
+  source: ar2025
+  quote: targeting different markets and segments. Lindab is the largest brand.
+sources:
+  ar2025:
+    file: sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf
+    page: 78
+  ar2020:
+    file: sources/LIAB.ST_2020-FY_annual-financial-report_2021-03-22_en_a0.pdf
+    page: 76
+note: AR2025 rows are its TOTAL OPERATIONS section, the basis AR2020 reports (Building Systems included until its 2021 divestment).
+rows:
+- field: revenue
+  source: ar2025
+  years: &id001
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 12854
+  - 13323
+  - 13114
+  - 12366
+  - 10619
+  quote: Net sales 12,854 13,323 13,114 12,366 10,619
+- field: organic_growth_pct
+  source: ar2025
+  years: *id001
+  values:
+  - -4
+  - -5
+  - -9
+  - 10
+  - 17
+  quote: of which organic -4 -5 -9 10 17
+- field: operating_profit
+  source: ar2025
+  years: *id001
+  values:
+  - 1097
+  - 736
+  - 1178
+  - 1325
+  - 841
+  quote: Operating profit 1,097 736 1,178 1,325 841
+- field: operating_profit_adjusted
+  source: ar2025
+  years: *id001
+  values:
+  - 1027
+  - 1044
+  - 1178
+  - 1347
+  - 1297
+  quote: Adjusted operating profit 1,027 1,044 1,178 1,347 1,297
+- field: operating_cash_flow
+  source: ar2025
+  years: *id001
+  values:
+  - 1347
+  - 1438
+  - 1711
+  - 691
+  - 704
+  quote: Cash flow from operating activities 1,347 1,438 1,711 691 704
+- field: invested_capital
+  source: ar2025
+  years: *id001
+  values:
+  - 12114
+  - 12465
+  - 11141
+  - 10571
+  - 7920
+  quote: Capital employed 12,114 12,465 11,141 10,571 7,920
+- field: net_debt
+  source: ar2025
+  years: *id001
+  values:
+  - 4262
+  - 4510
+  - 3264
+  - 3310
+  - 1696
+  quote: Net debt 4,262 4,510 3,264 3,310 1,696
+- field: capex
+  source: ar2025
+  years: *id001
+  values:
+  - 331
+  - 229
+  - 294
+  - 359
+  - 395
+  quote: Intangible assets and tangible fixed assets 331 229 294 359 395
+- field: shares
+  source: ar2025
+  years: *id001
+  values:
+  - 77036
+  - 77036
+  - 76852
+  - 76642
+  - 76467
+  quote: Number of shares outstanding, thousands 77,036 77,036 76,852 76,642 76,467
+  unit: thousands
+- field: revenue
+  source: ar2020
+  years: &id002
+  - 2020
+  - 2019
+  - 2018
+  - 2017
+  - 2016
+  values:
+  - 9166
+  - 9872
+  - 9326
+  - 8242
+  - 7849
+  quote: Net sales 9,166 9,872 9,326 8,242 7,849
+- field: organic_growth_pct
+  source: ar2020
+  years: *id002
+  values:
+  - -6
+  - 3
+  - 8
+  - 4
+  - 4
+  quote: of which organic -6 3 8 4 4
+- field: operating_profit
+  source: ar2020
+  years: *id002
+  values:
+  - 846
+  - 915
+  - 547
+  - 492
+  - 483
+  quote: Operating profit 846 915 547 492 483
+- field: operating_profit_adjusted
+  source: ar2020
+  years: *id002
+  values:
+  - 916
+  - 915
+  - 634
+  - 511
+  - 511
+  quote: Adjusted operating profit 916 915 634 511 511
+- field: operating_cash_flow
+  source: ar2020
+  years: *id002
+  values:
+  - 1129
+  - 1017
+  - 593
+  - 410
+  - 499
+  quote: Cash flow from operating activities 1,129 1,017 593 410 499
+- field: invested_capital
+  source: ar2020
+  years: *id002
+  values:
+  - 7419
+  - 7383
+  - 5848
+  - 5826
+  - 5720
+  quote: Capital employed 7,419 7,383 5,848 5,826 5,720
+- field: net_debt
+  source: ar2020
+  years: *id002
+  values:
+  - 1640
+  - 1771
+  - 1052
+  - 1305
+  - 1396
+  quote: Net debt 1,640 1,771 1,052 1,305 1,396
+- field: shares
+  source: ar2020
+  years: *id002
+  values:
+  - 76357
+  - 76332
+  - 76332
+  - 76332
+  - 76332
+  quote: Number of shares outstanding, thousands 76,357 76,332 76,332 76,332 76,332
+  unit: thousands
+- field: capex
+  source: ar2020
+  years: *id002
+  values:
+  - 425
+  - 278
+  - 120
+  - 100
+  - 125
+  quote: Intangible assets and tangible fixed assets 425 278 120 100 125

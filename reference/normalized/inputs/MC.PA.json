@@ -1,0 +1,453 @@
+{
+ "ticker": "MC.PA",
+ "unit": "EUR millions",
+ "years": {
+  "FY2025": {
+   "ocf": {
+    "caption": "Net cash from/(used in) operating activities",
+    "value": 18874,
+    "quote": "Net cash from/(used in) operating activities                                                                             18,874                     18,924                   18,400",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 28,
+    "note": "Net cash from/(used in) operating activities, after interest and tax paid"
+   },
+   "wc_lines": [
+    {
+     "caption": "Change in inventories and work in progress",
+     "value": -1315,
+     "quote": "Change in inventories and work in progress                                                                   11        (1,315)    (1,114)   (4,230)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Change in trade accounts receivable",
+     "value": 213,
+     "quote": "Change in trade accounts receivable                                                                         12             213        137     (695)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Change in customer deposits and amounts owed to customers",
+     "value": 9,
+     "quote": "Change in customer deposits and amounts owed to customers                                                   22               9       106          24",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Change in trade accounts payable",
+     "value": 215,
+     "quote": "Change in trade accounts payable                                                                            22             215    (664)         434",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Change in other receivables and payables",
+     "value": 303,
+     "quote": "Change in other receivables and payables                                                                                  303     (389)        (107)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Change in working capital (a)",
+     "value": -576,
+     "quote": "Change in working capital (a)                                                                                           (576)    (1,925)    (4,577)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48,
+     "note": "Statement line 'Change in working capital' = sum of the five note-15.2 lines"
+    }
+   ],
+   "capex_lines": [
+    {
+     "caption": "Purchase of intangible assets",
+     "value": -819,
+     "quote": "Purchase of intangible assets                                                                                 3         (819)     (837)     (1,000)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Purchase of property, plant and equipment",
+     "value": -3851,
+     "quote": "Purchase of property, plant and equipment                                                                     6       (3,851)    (4,715)    (6,807)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Operating investments (a)",
+     "value": -4567,
+     "quote": "Operating investments (a)                                                                                             (4,567)    (5,531)    (7,478)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48,
+     "note": "Statement line 'Operating investments' (net of disposals, fixed-asset payables, deposits)"
+    }
+   ],
+   "lease_principal": {
+    "caption": "Repayment of lease liabilities",
+    "value": -2974,
+    "quote": "Repayment of lease liabilities                                                                     7.2                   (2,974)                   (2,915)                    (2,818)",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 28
+   },
+   "lease_interest": {
+    "caption": "Lease liabilities: interest paid",
+    "value": -545,
+    "quote": "Lease liabilities: interest paid                                                                                           (545)                      (483)                    (356)",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 28
+   },
+   "interest_paid": {
+    "caption": "Cost of net financial debt: interest paid",
+    "value": -290,
+    "quote": "Cost of net financial debt: interest paid                                                                                  (290)                       (357)                   (457)",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 28,
+    "note": "Cost of net financial debt: interest paid -- net of interest received (no separate interest-received line in the cash flow statement)"
+   },
+   "interest_received": {
+    "value": null,
+    "note": "not printed separately; 'Cost of net financial debt: interest paid' is stated net"
+   },
+   "tax_paid": {
+    "caption": "Tax paid",
+    "value": -4656,
+    "quote": "Tax paid                                                                                                                 (4,656)                     (5,531)                 (5,730)",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 28
+   },
+   "sbc": {
+    "caption": "Expense for the period",
+    "value": 165,
+    "quote": "Expense for the period                                                                             165                   191                117",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 52,
+    "note": "Note 17.2 total expense; 2024 includes EUR 64m employee share ownership plan; bonus share plans alone 165/127/117"
+   },
+   "acquisitions": {
+    "caption": "Purchase and proceeds from sale of consolidated investments",
+    "value": 149,
+    "quote": "Purchase and proceeds from sale of consolidated investments                                           2                      149                     (438)                       (721)",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 28,
+    "note": "Net line: purchases AND proceeds of consolidated investments in one row (positive = net inflow). Gross split not on the face of the statement"
+   },
+   "disposals": {
+    "caption": "Net cash from fixed asset disposals",
+    "value": 38,
+    "quote": "Net cash from fixed asset disposals                                                                                        38         21        136",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 48,
+    "note": "Net cash from fixed asset disposals (note 15.3); business disposals are inside the net 'consolidated investments' line"
+   }
+  },
+  "FY2024": {
+   "ocf": {
+    "caption": "Net cash from/(used in) operating activities",
+    "value": 18924,
+    "quote": "Net cash from/(used in) operating activities                                                                             18,874                     18,924                   18,400",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 28,
+    "note": "Net cash from/(used in) operating activities, after interest and tax paid"
+   },
+   "wc_lines": [
+    {
+     "caption": "Change in inventories and work in progress",
+     "value": -1114,
+     "quote": "Change in inventories and work in progress                                                                   11        (1,315)    (1,114)   (4,230)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Change in trade accounts receivable",
+     "value": 137,
+     "quote": "Change in trade accounts receivable                                                                         12             213        137     (695)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Change in customer deposits and amounts owed to customers",
+     "value": 106,
+     "quote": "Change in customer deposits and amounts owed to customers                                                   22               9       106          24",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Change in trade accounts payable",
+     "value": -664,
+     "quote": "Change in trade accounts payable                                                                            22             215    (664)         434",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Change in other receivables and payables",
+     "value": -389,
+     "quote": "Change in other receivables and payables                                                                                  303     (389)        (107)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Change in working capital (a)",
+     "value": -1925,
+     "quote": "Change in working capital (a)                                                                                           (576)    (1,925)    (4,577)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48,
+     "note": "Statement line 'Change in working capital' = sum of the five note-15.2 lines"
+    }
+   ],
+   "capex_lines": [
+    {
+     "caption": "Purchase of intangible assets",
+     "value": -837,
+     "quote": "Purchase of intangible assets                                                                                 3         (819)     (837)     (1,000)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Purchase of property, plant and equipment",
+     "value": -4715,
+     "quote": "Purchase of property, plant and equipment                                                                     6       (3,851)    (4,715)    (6,807)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Operating investments (a)",
+     "value": -5531,
+     "quote": "Operating investments (a)                                                                                             (4,567)    (5,531)    (7,478)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48,
+     "note": "Statement line 'Operating investments' (net of disposals, fixed-asset payables, deposits)"
+    }
+   ],
+   "lease_principal": {
+    "caption": "Repayment of lease liabilities",
+    "value": -2915,
+    "quote": "Repayment of lease liabilities                                                                     7.2                   (2,974)                   (2,915)                    (2,818)",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 28
+   },
+   "lease_interest": {
+    "caption": "Lease liabilities: interest paid",
+    "value": -483,
+    "quote": "Lease liabilities: interest paid                                                                                           (545)                      (483)                    (356)",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 28
+   },
+   "interest_paid": {
+    "caption": "Cost of net financial debt: interest paid",
+    "value": -357,
+    "quote": "Cost of net financial debt: interest paid                                                                                  (290)                       (357)                   (457)",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 28,
+    "note": "Cost of net financial debt: interest paid -- net of interest received (no separate interest-received line in the cash flow statement)"
+   },
+   "interest_received": {
+    "value": null,
+    "note": "not printed separately; 'Cost of net financial debt: interest paid' is stated net"
+   },
+   "tax_paid": {
+    "caption": "Tax paid",
+    "value": -5531,
+    "quote": "Tax paid                                                                                                                 (4,656)                     (5,531)                 (5,730)",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 28
+   },
+   "sbc": {
+    "caption": "Expense for the period",
+    "value": 191,
+    "quote": "Expense for the period                                                                             165                   191                117",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 52,
+    "note": "Note 17.2 total expense; 2024 includes EUR 64m employee share ownership plan; bonus share plans alone 165/127/117"
+   },
+   "acquisitions": {
+    "caption": "Purchase and proceeds from sale of consolidated investments",
+    "value": -438,
+    "quote": "Purchase and proceeds from sale of consolidated investments                                           2                      149                     (438)                       (721)",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 28,
+    "note": "Net line: purchases AND proceeds of consolidated investments in one row (positive = net inflow). Gross split not on the face of the statement"
+   },
+   "disposals": {
+    "caption": "Net cash from fixed asset disposals",
+    "value": 21,
+    "quote": "Net cash from fixed asset disposals                                                                                        38         21        136",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 48,
+    "note": "Net cash from fixed asset disposals (note 15.3); business disposals are inside the net 'consolidated investments' line"
+   }
+  },
+  "FY2023": {
+   "ocf": {
+    "caption": "Net cash from/(used in) operating activities",
+    "value": 18400,
+    "quote": "Net cash from/(used in) operating activities                                                                             18,874                     18,924                   18,400",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 28,
+    "note": "Net cash from/(used in) operating activities, after interest and tax paid"
+   },
+   "wc_lines": [
+    {
+     "caption": "Change in inventories and work in progress",
+     "value": -4230,
+     "quote": "Change in inventories and work in progress                                                                   11        (1,315)    (1,114)   (4,230)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Change in trade accounts receivable",
+     "value": -695,
+     "quote": "Change in trade accounts receivable                                                                         12             213        137     (695)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Change in customer deposits and amounts owed to customers",
+     "value": 24,
+     "quote": "Change in customer deposits and amounts owed to customers                                                   22               9       106          24",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Change in trade accounts payable",
+     "value": 434,
+     "quote": "Change in trade accounts payable                                                                            22             215    (664)         434",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Change in other receivables and payables",
+     "value": -107,
+     "quote": "Change in other receivables and payables                                                                                  303     (389)        (107)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Change in working capital (a)",
+     "value": -4577,
+     "quote": "Change in working capital (a)                                                                                           (576)    (1,925)    (4,577)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48,
+     "note": "Statement line 'Change in working capital' = sum of the five note-15.2 lines"
+    }
+   ],
+   "capex_lines": [
+    {
+     "caption": "Purchase of intangible assets",
+     "value": -1000,
+     "quote": "Purchase of intangible assets                                                                                 3         (819)     (837)     (1,000)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Purchase of property, plant and equipment",
+     "value": -6807,
+     "quote": "Purchase of property, plant and equipment                                                                     6       (3,851)    (4,715)    (6,807)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48
+    },
+    {
+     "caption": "Operating investments (a)",
+     "value": -7478,
+     "quote": "Operating investments (a)                                                                                             (4,567)    (5,531)    (7,478)",
+     "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+     "page": 48,
+     "note": "Statement line 'Operating investments' (net of disposals, fixed-asset payables, deposits)"
+    }
+   ],
+   "lease_principal": {
+    "caption": "Repayment of lease liabilities",
+    "value": -2818,
+    "quote": "Repayment of lease liabilities                                                                     7.2                   (2,974)                   (2,915)                    (2,818)",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 28
+   },
+   "lease_interest": {
+    "caption": "Lease liabilities: interest paid",
+    "value": -356,
+    "quote": "Lease liabilities: interest paid                                                                                           (545)                      (483)                    (356)",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 28
+   },
+   "interest_paid": {
+    "caption": "Cost of net financial debt: interest paid",
+    "value": -457,
+    "quote": "Cost of net financial debt: interest paid                                                                                  (290)                       (357)                   (457)",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 28,
+    "note": "Cost of net financial debt: interest paid -- net of interest received (no separate interest-received line in the cash flow statement)"
+   },
+   "interest_received": {
+    "value": null,
+    "note": "not printed separately; 'Cost of net financial debt: interest paid' is stated net"
+   },
+   "tax_paid": {
+    "caption": "Tax paid",
+    "value": -5730,
+    "quote": "Tax paid                                                                                                                 (4,656)                     (5,531)                 (5,730)",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 28
+   },
+   "sbc": {
+    "caption": "Expense for the period",
+    "value": 117,
+    "quote": "Expense for the period                                                                             165                   191                117",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 52,
+    "note": "Note 17.2 total expense; 2024 includes EUR 64m employee share ownership plan; bonus share plans alone 165/127/117"
+   },
+   "acquisitions": {
+    "caption": "Purchase and proceeds from sale of consolidated investments",
+    "value": -721,
+    "quote": "Purchase and proceeds from sale of consolidated investments                                           2                      149                     (438)                       (721)",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 28,
+    "note": "Net line: purchases AND proceeds of consolidated investments in one row (positive = net inflow). Gross split not on the face of the statement"
+   },
+   "disposals": {
+    "caption": "Net cash from fixed asset disposals",
+    "value": 136,
+    "quote": "Net cash from fixed asset disposals                                                                                        38         21        136",
+    "file": "~/vss/sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf",
+    "page": 48,
+    "note": "Net cash from fixed asset disposals (note 15.3); business disposals are inside the net 'consolidated investments' line"
+   }
+  }
+ },
+ "post_basis_deals": [
+  {
+   "date": "2026-01 (announced; completed March 2026 per H1 report p.8 'in March 2026')",
+   "target": "DFS Greater China retail business (Hong Kong and Macao stores + intangibles) sold to China Tourism Group Duty Free (CTG)",
+   "price": "not disclosed in LVMH reports; press reported c. USD 395m (unverified); LVMH also subscribed EUR 47m capital increase in China Tourism Group Duty Free",
+   "source": "sources/MC.PA_2026-H1_half-year-financial-report_2026-07-27_en_a0.pdf p.17 and note 2 p.28; FY2025 report note 2 p.36 (DFS divestment plan Jan 2026, asset EUR 1.2bn held for sale, EUR 0.5bn loss); https://fashionunited.com/news/business/lvmh-sells-its-travel-retail-business-dfs-in-china/2026012170153"
+  },
+  {
+   "date": "2026-03 (agreement signed; completion planned H2 2026)",
+   "target": "DFS Los Angeles and San Francisco airport concessions sold to Duty Free Americas",
+   "price": "not disclosed",
+   "source": "sources/MC.PA_2026-H1_half-year-financial-report_2026-07-27_en_a0.pdf note 2 p.28"
+  },
+  {
+   "date": "2026-06 (agreement signed; Avolta announced 2026-06-23; closing expected Q3 2026)",
+   "target": "DFS Okinawa sold to Avolta (100%)",
+   "price": "not disclosed",
+   "source": "sources/MC.PA_2026-H1_half-year-financial-report_2026-07-27_en_a0.pdf note 2 p.28; https://www.trbusiness.com/regional-news/asia-pacific/avolta-to-acquire-dfs-operations-in-okinawa/280112"
+  },
+  {
+   "date": "2026-05 (agreement; reported 2026-05-15)",
+   "target": "Marc Jacobs brand sold to WHP Global (and G-III per press, 50/50 IP JV)",
+   "price": "not disclosed in H1 report; press: USD 850m headline (one outlet says c. USD 925m); closing expected G-III fiscal Q3 2027 per press, one outlet claims completed (conflict, unverified)",
+   "source": "sources/MC.PA_2026-H1_half-year-financial-report_2026-07-27_en_a0.pdf p.14; https://finance.yahoo.com/markets/stocks/articles/lvmh-sell-marc-jacobs-whp-092043885.html"
+  },
+  {
+   "date": "2026-H1",
+   "target": "Acquisition of minority interests (unnamed)",
+   "price": "EUR 329m (H1 2026 'Purchase and proceeds from sale of minority interests'; FY2025 had Loro Piana 9% for EUR 1.0bn on 2025-07-31)",
+   "source": "sources/MC.PA_2026-H1_half-year-financial-report_2026-07-27_en_a0.pdf p. in MD&A 'acquisition of minority interests for 329 million euros'; cash flow statement line"
+  },
+  {
+   "date": "2026-01 (FY2025 report) / 2026-03 to 2026-06 (H1)",
+   "target": "Other DFS assets: investments in partnerships in Japan and Indonesia sold",
+   "price": "not disclosed",
+   "source": "sources/MC.PA_2026-H1_half-year-financial-report_2026-07-27_en_a0.pdf note 2 p.28"
+  }
+ ],
+ "notes": "All three years from the single 3-column FY2025 statement and notes 15.2/15.3/17.2. Note 2: 31 Jul 2025 Loro Piana stake raised 9% for EUR 1.0bn (financing line 'Purchase and proceeds from sale of minority interests' -1,091). H1 2026 note 33 (subsequent events) p.53: none between 30 Jun and 27 Jul 2026. Not checked: anything announced after 27 Jul 2026. Press prices are from web search snippets, not verified against primary documents."
+}

@@ -213,6 +213,16 @@ annual:
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2020-09-01..2021-08-31] 8-K 0001467373-24-000268 filed 2024-09-30"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -79466000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2020-09-01..2021-08-31] 10-K 0001467373-23-000324 filed 2023-10-12 = -1,471,613,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2020-09-01..2021-08-31] 10-K 0001467373-23-000324 filed 2023-10-12 = -591,836,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2020-09-01..2021-08-31] 10-K 0001467373-23-000324 filed 2023-10-12 = 825,472,000 + us-gaap:IncreaseDecreaseInEmployeeRelatedLiabilities [2020-09-01..2021-08-31] 10-K 0001467373-23-000324 filed 2023-10-12 = 1,445,010,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2020-09-01..2021-08-31] 10-K 0001467373-23-000324 filed 2023-10-12 = 554,830,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2020-09-01..2021-08-31] 10-K 0001467373-23-000324 filed 2023-10-12 = -841,329,000 = -79,466,000 (cash effect: an asset increase negated, a liability increase kept)"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -4171123000
+        page: "us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates [2020-09-01..2021-08-31] 10-K 0001467373-23-000324 filed 2023-10-12"
+        status: VERIFIED
+        verified_kind: tagged
   - fiscal_year: 2022
     period_end: 2022-08-31
     document: "SEC XBRL companyfacts for CIK 0001467373 (Accenture plc) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001467373.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
@@ -286,6 +296,16 @@ annual:
       diluted_weighted_average_shares:
         value: 642839181
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2021-09-01..2022-08-31] 10-K 0001467373-24-000278 filed 2024-10-10"
+        status: VERIFIED
+        verified_kind: tagged
+      working_capital_change:
+        value: -1279880000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2021-09-01..2022-08-31] 10-K 0001467373-24-000278 filed 2024-10-10 = -2,411,735,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2021-09-01..2022-08-31] 10-K 0001467373-24-000278 filed 2024-10-10 = -716,910,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2021-09-01..2022-08-31] 10-K 0001467373-24-000278 filed 2024-10-10 = 374,349,000 + us-gaap:IncreaseDecreaseInEmployeeRelatedLiabilities [2021-09-01..2022-08-31] 10-K 0001467373-24-000278 filed 2024-10-10 = 1,271,999,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2021-09-01..2022-08-31] 10-K 0001467373-24-000278 filed 2024-10-10 = 648,506,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2021-09-01..2022-08-31] 10-K 0001467373-24-000278 filed 2024-10-10 = -446,089,000 = -1,279,880,000 (cash effect: an asset increase negated, a liability increase kept)"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -3447552000
+        page: "us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates [2021-09-01..2022-08-31] 10-K 0001467373-24-000278 filed 2024-10-10"
         status: VERIFIED
         verified_kind: tagged
   - fiscal_year: 2023
@@ -363,6 +383,16 @@ annual:
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2022-09-01..2023-08-31] 10-K 0001467373-25-000217 filed 2025-10-10"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -1298614000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2022-09-01..2023-08-31] 10-K 0001467373-25-000217 filed 2025-10-10 = 87,669,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2022-09-01..2023-08-31] 10-K 0001467373-25-000217 filed 2025-10-10 = -526,228,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2022-09-01..2023-08-31] 10-K 0001467373-25-000217 filed 2025-10-10 = -171,217,000 + us-gaap:IncreaseDecreaseInEmployeeRelatedLiabilities [2022-09-01..2023-08-31] 10-K 0001467373-25-000217 filed 2025-10-10 = -261,913,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2022-09-01..2023-08-31] 10-K 0001467373-25-000217 filed 2025-10-10 = 159,819,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2022-09-01..2023-08-31] 10-K 0001467373-25-000217 filed 2025-10-10 = -586,744,000 = -1,298,614,000 (cash effect: an asset increase negated, a liability increase kept)"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -2530863000
+        page: "us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates [2022-09-01..2023-08-31] 10-K 0001467373-25-000217 filed 2025-10-10"
+        status: VERIFIED
+        verified_kind: tagged
   - fiscal_year: 2024
     period_end: 2024-08-31
     document: "SEC XBRL companyfacts for CIK 0001467373 (Accenture plc) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001467373.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
@@ -436,6 +466,16 @@ annual:
       diluted_weighted_average_shares:
         value: 635940044
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2023-09-01..2024-08-31] 10-K 0001467373-25-000217 filed 2025-10-10"
+        status: VERIFIED
+        verified_kind: tagged
+      working_capital_change:
+        value: -2272966000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -601,935,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -853,202,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 46,512,000 + us-gaap:IncreaseDecreaseInEmployeeRelatedLiabilities [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -614,771,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 28,401,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -277,971,000 = -2,272,966,000 (cash effect: an asset increase negated, a liability increase kept)"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -6582702000
+        page: "us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
         status: VERIFIED
         verified_kind: tagged
   - fiscal_year: 2025
@@ -585,7 +625,151 @@ annual:
         page: "E81 (2026-08-30): the same Consolidated Balance Sheets as of August 31, 2025 read for `asset_retirement_obligation` above, every liability caption enumerated there -- no streaming, prepaid-offtake or prepaid-delivery caption, and no such arrangement anywhere in the 10-K. 'Deferred revenues' (current and non-current) are billings in advance of consulting and outsourcing services -- working capital the flow already carries, NOT this leg -- and are named here so the reading is visible. A caption zero"
         status: VERIFIED
         verified_kind: same_page
+      working_capital_change:
+        value: -750097000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -1,021,191,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -1,067,698,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -110,554,000 + us-gaap:IncreaseDecreaseInEmployeeRelatedLiabilities [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 904,322,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 706,585,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -161,561,000 = -750,097,000 (cash effect: an asset increase negated, a liability increase kept)"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -1471255000
+        page: "us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
 
+  - fiscal_year: 2026
+    period_end: 2026-08-31
+    document: "SEC XBRL companyfacts for CIK 0001467373 (Accenture plc) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001467373.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
+    url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0001467373.json"
+    figures:
+      revenue:
+        value: 74183445000
+        page: "us-gaap:Revenues [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
+      net_income:
+        value: 8367056000
+        page: "us-gaap:NetIncomeLoss [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
+      diluted_eps:
+        value: 13.56
+        page: "us-gaap:EarningsPerShareDiluted [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
+      operating_cash_flow:
+        value: 12363346000
+        page: "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
+      capex_combined:
+        value: -742748000
+        page: "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
+      nci_dividends_paid:
+        value: -3779000
+        page: "us-gaap:PaymentsOfDividendsMinorityInterest [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
+      sbc:
+        value: 2100433000
+        page: "us-gaap:ShareBasedCompensation [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
+      finance_costs_paid:
+        value: 265799000
+        page: "us-gaap:InterestPaidNet [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
+      finance_income_period:
+        value: 363205000
+        page: "us-gaap:InvestmentIncomeInterest [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
+      operating_lease_payments:
+        value: 780204000
+        page: "us-gaap:OperatingLeasePayments [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
+      pension_deficit:
+        value: 1558775000
+        page: "us-gaap:PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent [as of 2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
+      cash_and_equivalents:
+        value: 12831471000
+        page: "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
+      financial_liabilities_current:
+        value: 113069000
+        page: "us-gaap:DebtCurrent [as of 2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 -- E66: the taxonomy's SUBTOTAL of current borrowings, read whole; tagged beside it as memo and never added: `CommercialPaper` 99,710,000"
+        status: VERIFIED
+        verified_kind: tagged
+      financial_liabilities_noncurrent:
+        value: 9998689000
+        page: "us-gaap:LongTermDebtAndCapitalLeaseObligations [as of 2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 -- E72: borrowings AND finance leases as one non-current caption, read WHOLE: the filer tags no finance-lease element at all, so the lease inside is stated only in the filing's words, which must be quoted on this figure by hand (E72); E65 adds nothing"
+        status: VERIFIED
+        verified_kind: tagged
+      operating_lease_liabilities:
+        value: 3285232000
+        page: "us-gaap:OperatingLeaseLiability [as of 2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
+      lease_liabilities:
+        value: 3285232000
+        page: "us-gaap:OperatingLeaseLiability [as of 2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
+      diluted_weighted_average_shares:
+        value: 617498483
+        page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
+      # Hand legs for FY2026, read 2026-10-17 from sources/ACN_FY2026_annual-report-10k_2026-10-16_en_a0.htm (in thousands of U.S. dollars), the same captions as FY2025.
+      operating_income:
+        value: 11405960000
+        page: "sources/ACN_FY2026_annual-report-10k_2026-10-16_en_a0.htm, Item 8, Consolidated Income Statements, year ended August 31, 2026: 'OPERATING INCOME 11,405,960 10,225,664 9,595,847'. Tagged in the inline document as us-gaap:OperatingIncomeLoss; companyfacts did not yet carry the annual fact at the 2026-10-17 pull"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      depreciation_amortisation:
+        value: 1561810000
+        page: "sources/ACN_FY2026_annual-report-10k_2026-10-16_en_a0.htm, segment note, Fiscal 2026 table: 'Depreciation and amortization (2) 749,520 601,780 210,510 1,561,810' (the total column), as FY2025's stated total"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      other_current_financial_assets:
+        value: 6298000
+        page: "sources/ACN_FY2026_annual-report-10k_2026-10-16_en_a0.htm, Consolidated Balance Sheets as of August 31, 2026: 'Short-term investments 6,298 5,945'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      finance_costs_period:
+        value: 303397000
+        page: "E69: sources/ACN_FY2026_annual-report-10k_2026-10-16_en_a0.htm, Item 8, Consolidated Income Statements, year ended August 31, 2026: 'Interest income 363,205 336,324 272,256 Interest expense ( 303,397 )'; Item 7: 'Interest expense for fiscal 2026 was $303 million, an increase of $75 million over fiscal 2025.' Read as the GROSS expense, as FY2025; the other half is tagged (finance_income_period 363,205,000)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      # E68.1: a caption-based ZERO, as FY2025.
+      asset_retirement_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E68.1: sources/ACN_FY2026_annual-report-10k_2026-10-16_en_a0.htm, Consolidated Balance Sheets as of August 31, 2026 -- CURRENT LIABILITIES: 'Current portion of long-term debt and bank borrowings', 'Accounts payable', 'Deferred revenues', 'Accrued payroll and related benefits', 'Income taxes payable', 'Lease liabilities', 'Other accrued liabilities' (2,288,540); NON-CURRENT: 'Long-term debt', 'Deferred revenues', 'Retirement obligation', 'Deferred tax liabilities', 'Income taxes payable', 'Lease liabilities', 'Other non-current liabilities' (1,212,853). No asset retirement or decommissioning caption; 'asset retirement', 'decommission', 'dilapidation' and 'restoration' appear nowhere in the filing (full-text search, 2026-10-17)."
+        status: VERIFIED
+        verified_kind: same_page
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81: the same Consolidated Balance Sheets as of August 31, 2026, every liability caption enumerated above -- no prepaid-offtake or prepaid-delivery caption; 'prepaid' appears nowhere and 'streaming' only as a client industry. 'Deferred revenues' are billings in advance of services, working capital, NOT this leg. A caption zero"
+        status: VERIFIED
+        verified_kind: same_page
+      working_capital_change:
+        value: -651656000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -1,282,203,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -652,262,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 270,211,000 + us-gaap:IncreaseDecreaseInEmployeeRelatedLiabilities [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 1,177,578,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 520,558,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -685,538,000 = -651,656,000 (cash effect: an asset increase negated, a liability increase kept)"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -4940884000
+        page: "us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
 periods:
   - period: 2026-Q1
     period_end: 2025-11-30
@@ -648,5 +832,26 @@ periods:
       revenue:
         value: 18718144000
         page: "us-gaap:Revenues [2026-03-01..2026-05-31] 10-Q 0001467373-26-000032 filed 2026-06-18"
+        status: VERIFIED
+        verified_kind: tagged
+  - period: 2026-Q4
+    period_end: 2026-08-31
+    period_basis: fiscal
+    document: "SEC XBRL companyfacts, CIK 0001467373 -- tagged facts, no document was rendered or transcribed"
+    url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0001467373.json"
+    figures:
+      diluted_eps:
+        value: 3.29
+        page: "us-gaap:EarningsPerShareDiluted [2026-06-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
+      operating_income:
+        value: 2863417000
+        page: "us-gaap:OperatingIncomeLoss [2026-06-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
+        status: VERIFIED
+        verified_kind: tagged
+      revenue:
+        value: 18679110000
+        page: "us-gaap:Revenues [2026-06-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
         status: VERIFIED
         verified_kind: tagged

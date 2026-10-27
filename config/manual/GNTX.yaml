@@ -328,6 +328,14 @@ annual:
     document: "SEC XBRL companyfacts for CIK 0000355811 (GENTEX CORPORATION) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000355811.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
     url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0000355811.json"
     figures:
+      # E130 (owner, 2026-10-12): interest is taken as ZERO, knowing it is
+      # GENEROUS. Gentex states no interest paid or received as a figure.
+      net_interest_paid:
+        value: 0
+        zero_basis: ruled
+        source: "E130 ruled zero; E34 / E34.1 leg"
+        page: "E130, ruled by the owner 2026-10-12: taken as zero, and the zero is GENEROUS. sources/GNTX_FY2025_annual-report-10k_2026-02-24_en_a0.htm states no cash paid for interest and no interest income as a figure. Paid side: the only debt is 'Short-term debt 3,795,925' (the Onkyo shareholder loan), and the Revolver had no balance outstanding at 2025-12-31 or 2024-12-31, so that side is about 0.2-0.4m a year. Received side: interest on about 260m of cash (145,645,715), short-term investments (5,386,566) and the fixed-income part of 'Long-term investments 272,975,939', estimated at about 10m a year, sits inside 'Investment (loss) income, net (1,289,250)' alongside 14.1m of impairments and is not stated. E34.1 would REMOVE that net income from FCF0; the zero leaves it in, so FCF0 and the value read roughly 1.5-2% HIGH (about 10m against operating cash flow of about 587m). Supersede if Gentex states either figure."
+        status: VERIFIED
       # E25 (2026-09-04, intake): the issuer says it IN WORDS, so this is
       # a `note` zero and not a searched one. The only debt Gentex carries
       # is the 3.8m Onkyo shareholder loan acquired with VOXX, and the
@@ -337,7 +345,8 @@ annual:
         zero_basis: note
         source: "intake 2026-09-04; E25 note basis"
         page: "sources/GNTX_FY2025_annual-report-10k_2026-02-24_en_a0.htm (the FY2025 Form 10-K as filed with the SEC, accession 0000355811-26-000010, filed 2026-02-24; 392,628 characters of extracted text), note (2) on the amended and restated Credit Agreement: 'As of December 31, 2025 and 2024, THERE WAS NO BALANCE OUTSTANDING ON THE REVOLVER. As of December 31, 2025, the Company was in compliance with all covenants under the Credit Agreement.' The Revolver is a 350.0 million unsecured facility maturing 2028-10-01. The only borrowing on the balance sheet is 'Short-term debt 3,795,925' -- the loan VOXX's Onkyo joint venture owes its shareholders, named in the same note: 'The loan balance outstanding at December 31, 2025, was $3.8 million and is included in Short-term debt'. Gentex's Consolidated Balance Sheet at 31 December 2025 ENUMERATES its liabilities: 'Accounts payable 248,983,498'; accrued liabilities -- 'Salaries, wages and vacation', 'Income taxes', 'Royalties', 'Dividends payable', 'Short-term debt 3,795,925', 'Other'; 'Total current liabilities 387,542,969'; then 'OTHER NON-CURRENT LIABILITIES 49,209,006', 'DEFERRED INCOME TAXES 908,922', 'TOTAL LIABILITIES 437,660,897'."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # E25 (2026-09-04, intake): three named zeros on a searched balance
       # sheet -- the captions do not exist and neither do the concepts.
       pension_deficit:
@@ -345,19 +354,22 @@ annual:
         zero_basis: searched
         source: "intake 2026-09-04; E25 named zero on an E107 search"
         page: "E107 SEARCHED ABSENCE. Document: sources/GNTX_FY2025_annual-report-10k_2026-02-24_en_a0.htm (the FY2025 Form 10-K as filed with the SEC, accession 0000355811-26-000010, filed 2026-02-24; 392,628 characters of extracted text). Searched 2026-09-04 for 'pension' -- ZERO occurrences in the whole document, and no post-retirement caption on the balance sheet. Gentex's Consolidated Balance Sheet at 31 December 2025 ENUMERATES its liabilities: 'Accounts payable 248,983,498'; accrued liabilities -- 'Salaries, wages and vacation', 'Income taxes', 'Royalties', 'Dividends payable', 'Short-term debt 3,795,925', 'Other'; 'Total current liabilities 387,542,969'; then 'OTHER NON-CURRENT LIABILITIES 49,209,006', 'DEFERRED INCOME TAXES 908,922', 'TOTAL LIABILITIES 437,660,897'."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       asset_retirement_obligation:
         value: 0
         zero_basis: searched
         source: "intake 2026-09-04; E25 named zero on an E107 search"
         page: "E107 SEARCHED ABSENCE. Document: sources/GNTX_FY2025_annual-report-10k_2026-02-24_en_a0.htm (the FY2025 Form 10-K as filed with the SEC, accession 0000355811-26-000010, filed 2026-02-24; 392,628 characters of extracted text). Searched 2026-09-04 for 'asset retirement' -- ZERO occurrences in the whole document, and no such caption on the balance sheet. Gentex's Consolidated Balance Sheet at 31 December 2025 ENUMERATES its liabilities: 'Accounts payable 248,983,498'; accrued liabilities -- 'Salaries, wages and vacation', 'Income taxes', 'Royalties', 'Dividends payable', 'Short-term debt 3,795,925', 'Other'; 'Total current liabilities 387,542,969'; then 'OTHER NON-CURRENT LIABILITIES 49,209,006', 'DEFERRED INCOME TAXES 908,922', 'TOTAL LIABILITIES 437,660,897'."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       prepaid_delivery_obligation:
         value: 0
         zero_basis: searched
         source: "intake 2026-09-04; E25 named zero on an E107 search"
         page: "E107 SEARCHED ABSENCE. Document: sources/GNTX_FY2025_annual-report-10k_2026-02-24_en_a0.htm (the FY2025 Form 10-K as filed with the SEC, accession 0000355811-26-000010, filed 2026-02-24; 392,628 characters of extracted text). Searched 2026-09-04 for 'deferred revenue' and 'contract liabilit' -- ZERO occurrences of either, and no prepaid-delivery caption on the balance sheet. Gentex sells mirrors to automakers against invoices, not against cash taken in advance. Gentex's Consolidated Balance Sheet at 31 December 2025 ENUMERATES its liabilities: 'Accounts payable 248,983,498'; accrued liabilities -- 'Salaries, wages and vacation', 'Income taxes', 'Royalties', 'Dividends payable', 'Short-term debt 3,795,925', 'Other'; 'Total current liabilities 387,542,969'; then 'OTHER NON-CURRENT LIABILITIES 49,209,006', 'DEFERRED INCOME TAXES 908,922', 'TOTAL LIABILITIES 437,660,897'."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # E105 (2026-09-04): GENTEX HAS NON-CONTROLLING INTERESTS AND PAID
       # THEM NOTHING, which is a different fact from having none -- so the
       # search is recorded rather than the concept being called absent.
@@ -369,7 +381,8 @@ annual:
         zero_basis: searched
         source: "E105 leg; E107 searched absence"
         page: "E107 SEARCHED ABSENCE. Document: sources/GNTX_FY2025_annual-report-10k_2026-02-24_en_a0.htm (the FY2025 Form 10-K as filed with the SEC, accession 0000355811-26-000010, filed 2026-02-24; 392,628 characters of extracted text). Searched 2026-09-04 for the terms 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- 44 occurrences, and NOT ONE IS A DISTRIBUTION. The concept is present because Gentex acquired VOXX on 2025-04-01 and with it a redeemable NCI in Onkyo and a non-redeemable one in EyeLock; the accounts then account for it three times over and never as cash out: (1) CASH FLOWS USED FOR FINANCING ACTIVITIES carries three lines and no other -- 'Issuance of common stock from stock plan transactions 14,460,201', 'Cash dividends paid (106,860,563)', 'Repurchases of common stock (315,499,459)' -- and no distribution to any minority; (2) the REDEEMABLE NON-CONTROLLING INTEREST roll-forward (note 11) runs from nil at 1 January 2025 through 'Acquisition of redeemable non-controlling interest at fair value on April 1, 2025 2,823,000', 'Net loss attributable to non-controlling interest (103,591)', 'Comprehensive loss attributable to non-controlling interest 488,224' and 'Foreign currency translation (105,420)' to 3,102,213 -- every movement non-cash; (3) the income statement's 'Less: Net loss attributable to non-controlling interests (159,290)' is an allocation of LOSS. A minority in its first nine months that made a loss took no dividend, and the accounts state each of those three things. E106 clause 5: a determined zero."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue:
         value: 2534268965
         page: "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax [2025-01-01..2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24"
@@ -411,6 +424,17 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       lease_liabilities:
+        value: 8728535
+        page: "us-gaap:OperatingLeaseLiability [as of 2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24"
+        status: VERIFIED
+        verified_kind: tagged
+      # E117 (2026-10-11): the operating leg, so net debt can leave it out.
+      # The same tagged fact as `lease_liabilities` above: the 10-K's lease
+      # note presents operating leases only -- 'Future minimum lease payments
+      # for operating leases ... Total future minimum lease payments
+      # $ 9,144,314 Less imputed interest ( 415,779 ) Total $ 8,728,535' --
+      # and 'finance lease' occurs nowhere in the filing.
+      operating_lease_liabilities:
         value: 8728535
         page: "us-gaap:OperatingLeaseLiability [as of 2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24"
         status: VERIFIED

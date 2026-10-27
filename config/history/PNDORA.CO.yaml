@@ -1,0 +1,90 @@
+ticker: PNDORA.CO
+currency: DKK
+money_unit: millions
+business: {text: 'Pandora designs, makes and sells jewellery, sold mainly through its own and partner stores worldwide.', source: ar2025_bs, quote: today the world’s largest jewellery brand. We sell}
+sources:
+  ar2025: {file: sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf, page: 14}
+  ar2020: {file: sources/PNDORA.CO_2020-FY_annual-financial-report_2021-02-04_en_a0.pdf, page: 9}
+  ar2025_bs: {file: sources/PNDORA.CO_2025-FY_annual-financial-report_2026-02-04_en_a1.pdf, page: 6}
+rows:
+- field: revenue
+  source: ar2025
+  years: [2025, 2024, 2023, 2022, 2021]
+  values: [32549, 31680, 28136, 26463, 23394]
+  quote: Revenue 32,549 31,680 28,136 26,463 23,394
+- field: organic_growth_pct
+  source: ar2025
+  years: [2025, 2024, 2023, 2022, 2021]
+  values: [6, 13, 8, 7, 23]
+  quote: Organic growth, % 6% 13% 8% 7% 23%
+- field: operating_profit
+  source: ar2025
+  years: [2025, 2024, 2023, 2022, 2021]
+  values: [7783, 7974, 7039, 6743, 5839]
+  quote: Operating profit (EBIT) 7,783 7,974 7,039 6,743 5,839
+- field: invested_capital
+  source: ar2025
+  years: [2025, 2024, 2023, 2022, 2021]
+  values: [19001, 16515, 15126, 13961, 9884]
+  quote: Invested capital 19,001 16,515 15,126 13,961 9,884
+- field: equity
+  source: ar2025
+  years: [2025, 2024, 2023, 2022, 2021]
+  values: [5282, 5508, 5355, 7167, 7001]
+  quote: Equity 5,282 5,508 5,355 7,167 7,001
+- field: net_debt
+  source: ar2025
+  years: [2025, 2024, 2023, 2022, 2021]
+  values: [13719, 11008, 9770, 6794, 2882]
+  quote: Net interest-bearing debt (NIBD) 13,719 11,008 9,770 6,794 2,882
+- field: operating_cash_flow
+  source: ar2025
+  years: [2025, 2024, 2023, 2022, 2021]
+  values: [7361, 8721, 7384, 4434, 6228]
+  quote: Cash flows from operating activities 7,361 8,721 7,384 4,434 6,228
+- field: capex
+  source: ar2025
+  years: [2025, 2024, 2023, 2022, 2021]
+  values: [1943, 1919, 1624, 1290, 641]
+  quote: Capital expenditure, total 1,943 1,919 1,624 1,290 641
+- field: revenue
+  source: ar2020
+  years: [2020, 2019, 2018, 2017, 2016]
+  values: [19009, 21868, 22806, 22781, 20281]
+  quote: Revenue 19,009 21,868 22,806 22,781 20,281
+- field: organic_growth_pct
+  source: ar2020
+  years: [2020, 2019, 2018, 2017]
+  values: [-11, -8, -2, 11]
+  quote: Organic growth, % -11% -8% -2% 11%
+  note: 2016 printed N/A
+- field: operating_profit
+  source: ar2020
+  years: [2020, 2019, 2018, 2017, 2016]
+  values: [2684, 3829, 6431, 7784, 7404]
+  quote: Operating profit (EBIT) 2,684 3,829 6,431 7,784 7,404
+- field: invested_capital
+  source: ar2020
+  years: [2020, 2019, 2018, 2017, 2016]
+  values: [10540, 14268, 12071, 11369, 9242]
+  quote: Invested capital7 10,540 14,268 12,071 11,369 9,242
+- field: equity
+  source: ar2020
+  years: [2020, 2019, 2018, 2017, 2016]
+  values: [7389, 5249, 6419, 6514, 6794]
+  quote: Equity 7,389 5,249 6,419 6,514 6,794
+- field: net_debt
+  source: ar2020
+  years: [2020, 2019, 2018, 2017, 2016]
+  values: [3151, 9019, 5652, 4855, 2448]
+  quote: Net interest-bearing debt (NIBD)7 3,151 9,019 5,652 4,855 2,448
+- field: operating_cash_flow
+  source: ar2020
+  years: [2020, 2019, 2018, 2017, 2016]
+  values: [5975, 6775, 6624, 6606, 6531]
+  quote: Cash flow from operating activities 5,975 6,775 6,624 6,606 6,531
+- field: capex
+  source: ar2020
+  years: [2020, 2019, 2018, 2017, 2016]
+  values: [491, 822, 1129, 1388, 1199]
+  quote: Capital expenditure – total 491 822 1,129 1,388 1,199

@@ -236,7 +236,8 @@ periods:
         value: -156
         source: "E105 leg, from the issuer's own free cash flow build"
         page: "Imperial Brands FY2025 preliminary results, cash flow build: 'Minority interest dividends (156)' between 'Cash interest (384)' and 'Free cash flow 2,749'. E101 reconciled that build to the pound (reports/FCF-RECONCILIATION-2026-09-04.md), which is how this leg was found at all."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_debt_reported:
         value: null
         source: "E104 WITHDRAWN -- two independent extractions did not agree"
@@ -246,7 +247,8 @@ periods:
         value: 2749
         source: "E103 automatic reference extraction (pdf (model-read))"
         page: "35 [printed in millions] -- verbatim: Free cash flow 2,749 2,434"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue:
         value: 32171
         page: "p.137, consolidated income statement, year ended 30 September 2025: 'Revenue 3 | 32,171' (2024: 32,411) -- gross of 'Duty and similar items (13,187)'; cross-checked against the ESEF/iXBRL package (sources/IMB.L_2025-FY_annual-financial-report_2025-12-11_xx_a0.zip, reports/549300DFVPOB67JL3A42-2025-09-30-T01.xhtml, NSM NI-000138519), tag ifrs-full:Revenue, context c-1 (2024-10-01 to 2025-09-30), unit GBP, scale 6: 32,171 -- agrees (E40 cross_document)"
@@ -317,6 +319,11 @@ periods:
         page: "p.141, financing: 'Lease liabilities paid (94)' (2024: (93)); note 14 p.163: lease liabilities cash flow (109) less accretion of interest 15. A MEMO under E70; cross-checked against the ESEF/iXBRL package, tag ifrs-full:PaymentsOfLeaseLiabilitiesClassifiedAsFinancingActivities, context c-1 (2024-10-01 to 2025-09-30), unit GBP, scale 6: 94 -- same magnitude; the concept is inherently an outflow tagged as a positive magnitude by iXBRL convention while this field signs outflows negative, a convention difference and not a discrepancy (E58 precedent) (E40 cross_document)"
         status: VERIFIED
         verified_kind: cross_document
+      lease_interest_paid:
+        value: 15
+        page: "note 14 p.163, lease liabilities roll-forward: 'At 1 October 2024 386 / Cash flow (109) / Accretion of interest 15'; the financing line 'Lease liabilities paid (94)' (p.141) is the principal, so 109 - 94 = 15 is the cash interest paid on leases, equal to the accretion 15 and to the income-statement line 'Interest on lease liabilities 15 14'. E117 leg"
+        status: VERIFIED
+        verified_kind: machine_read_back
       sbc:
         value: 35
         page: "p.141, operating: 'Share-based payments 35' (2024: 46) -- the cash-flow add-back; note 27 p.185 charges 36 to the income statement (Share Matching 2, LTIP 32, Sharesave 1, DSAP 1), 'predominantly equity settled', cash-settled liability £1.8m; cross-checked against the ESEF/iXBRL package, tag ifrs-full:AdjustmentsForSharebasedPayments, context c-1 (2024-10-01 to 2025-09-30), unit GBP, scale 6: 35 -- agrees (E40 cross_document)"
@@ -387,7 +394,8 @@ periods:
       employee_trust_shares_period_end:
         value: 3000000
         page: "Note 27 Employee Share Ownership Trusts, p.187, 'Millions of shares': 'At 1 October 0.3', 'Gift of shares from Treasury 5.7', 'Distribution of shares held by Employee Share Ownership Trusts (3.0)', 'At 30 September 3.0' -- stated to 0.1 million, entered as 3,000,000; 'the shares held by the Trusts are excluded from the calculation of basic earnings per share', which is E54's test. The store subtracts it as the third leg: 869,890,634 - 62,600,000 - 3,000,000 = 804,290,634 (E80). ESEF and E59 pass, 2026-08-30: NOT settled. No share count is tagged in the package, and the closing 3.0 million is stated ONCE, in note 27's own roll-forward ('At 30 September 3.0') and its narrative ('comprise ... 3.0 million (2024: 0.3 million) treasury shares gifted to the Trusts'); the 5.7 million gift ties to note 28's 'Gifted to Employee Share Ownership Trusts (5.7)', but that verifies the gift, not the closing balance after the 3.0 million distribution. Nothing outside note 27 restates the trusts' holding. Stays UNVERIFIED; the owner's second read or a later document is the route"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_debt_ebitda:
         value: 2.0
         page: "AR printed p.35, financial review: 'Adjusted net debt/EBITDA is 0.2x ahead of the prior year at 2.0x'; p.23: 'Adjusted net debt to EBITDA increased to 2.0x in FY25, at the low end of our 2.0-2.5x target range' -- the issuer's own APM, on its adjusted net debt definition. E59 (2026-08-30): the AR's separately-prepared APM table states 'Adjusted EBITDA 4,299' (2024: 4,205), 'Adjusted net debt ... £8,406 million (2024: £7,740 million)' and 'Adjusted net debt/EBITDA 2.0x' (2024: 1.8x); 8,406 / 4,299 = 1.96, which is 2.0 at the printed tenth -- the ratio the financial review states reconciles to its two stated components; not tagged (an APM); cross_document under E59"
@@ -403,27 +411,33 @@ periods:
       revenue:
         value: 14719
         page: "p.20, consolidated income statement, six months ended 31 March 2026: 'Revenue 3 | 14,719' (H1 2025: 14,604)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       gross_profit:
         value: 3167
         page: "p.20: 'Gross profit 3,167' (H1 2025: 3,132) = revenue 14,719 less cost of sales (11,552)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_income:
         value: 925
         page: "p.20, consolidated income statement: 'Operating profit 3 | 925' (H1 2025: 1,456), carrying the £312m Delaware settlement charge inside administrative and other expenses (note 13). E79: no statutory margin stated, `op_margin` blank; 925 / 14,719 = 6.3%"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_income:
         value: 475
         page: "p.20: 'Attributable to: Owners of the parent 475' ('Profit for the period 549' before non-controlling interests of 74). Operating profit 925 carries the £312m Delaware settlement charge (note 13)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_eps:
         value: 59.5
         page: "p.20: 'Earnings per ordinary share (pence) - Diluted 9 | 59.5' (H1 2025: 96.2); note 9 p.33"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_weighted_average_shares:
         value: 799000000
         page: "Note 9 Earnings per share, p.33, 'Millions of shares': 'Shares for basic earnings per share 793.3', 'Potentially dilutive share options 5.7', 'Shares for diluted earnings per share 799.0' -- printed in millions to one decimal, entered whole"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       depreciation_amortisation:
         value: null
         page: "E82 (2026-08-30): DATA MISSING, the combined line named -- p.25, cash flows from operating activities, six months to 31 March 2026: 'Depreciation, amortisation and impairment 326' (H1 2025: 329). The interim's APM note p.39 states 'Total amortisation and impairment for the period is £209 million' (acquired intangibles 173, internally generated 36); depreciation is stated nowhere apart, so nothing decomposes the line"
@@ -431,84 +445,104 @@ periods:
       income_tax_paid:
         value: -363
         page: "p.25, consolidated cash flow statement: 'Tax paid (363)' (H1 2025: (372)), entered as printed (an outflow, negative)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_cash_flow:
         value: -133
         page: "p.25: 'Net cash (used in)/generated from operating activities (133)' (H1 2025: (32); FY2025: 3,627) -- NEGATIVE, after a working-capital outflow of (1,336) (payables (914), receivables (300), inventories (122)) and tax paid (363); the half-year is the seasonal trough (duty payables unwind); no interest inside"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_ppe:
         value: -84
         page: "p.25, investing: 'Purchase of property, plant and equipment (84)' (H1 2025: (89)); footnote: purchases of non-current assets 182 disaggregated to 84 PPE and 98 intangibles"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_intangibles:
         value: -98
         page: "p.25, investing: 'Purchase of intangibles (98)' (H1 2025: (78)); 'Purchase of brands and operations -' this half"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_paid:
         value: 270
         page: "p.25, cash flows from FINANCING activities: 'Interest paid (270)' (H1 2025: (265)), entered as a positive magnitude"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_received:
         value: 9
         page: "p.25, cash flows from INVESTING activities: 'Interest received 9' (H1 2025: 26), entered as a positive magnitude"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       lease_payments_capital:
         value: -46
         page: "p.25, financing: 'Lease liabilities paid (46)' (H1 2025: (48)); note 10 p.34: lease liabilities cash flow 54 less accrued interest 8. A MEMO under E70"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       sbc:
         value: 15
         page: "p.25, operating: 'Share-based payments 15' (H1 2025: 16)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_period:
         value: 542
         page: "p.20: 'Finance costs (542)' (H1 2025: (418)); entered as presented (E5), the derivative fair-value leg inside it"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_period:
         value: 405
         page: "p.20: 'Investment income 405' (H1 2025: 256)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_finance_costs:
         value: 137
         page: "p.20: 'Net finance costs (137)' (H1 2025: (162)) = 542 - 405, as printed"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       financial_liabilities_current:
         value: 2169
         page: "p.22, consolidated balance sheet at 31 March 2026, current liabilities: 'Borrowings 10 (2,169)' (30 September 2025: (1,070)); note 10 p.34 net debt table 'Current borrowings ... At 31 March 2026 (2,169)' -- the EUR 650m notes repaid 30 December 2025 and 'a £1,016 million increase in short term borrowings for short term working capital requirements'. Lease liabilities are a separate caption (88)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       financial_liabilities_noncurrent:
         value: 8659
         page: "p.22, non-current liabilities: 'Borrowings 10 (8,659)' (30 September 2025: (8,524)); note 10: 'Non-current borrowings ... At 31 March 2026 (8,659)' after the EUR 900m 3.875% 2033 bond issued 2 February 2026. Lease liabilities are a separate caption (316)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       lease_liabilities:
         value: 404
         page: "Note 10 Net debt, p.34: 'Lease liabilities ... At 31 March 2026 (404)' (from 402: cash flow 54, accrued interest (8), new leases (49), exchange 1) -- E71 stated total; balance sheet p.22 'Lease liabilities 11 (88)' current + '(316)' non-current = 404"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       pension_deficit:
         value: 819
         page: "p.22, non-current liabilities: 'Retirement benefit liabilities 5 (819)' (30 September 2025: (801)); note 5 p.31: 'Retirement benefit assets 326', 'Retirement benefit liabilities (819)', 'Net retirement benefit liabilities (493)' -- the liability as presented is entered (E35.1), the net 493 recorded here; a £36m Langenhagen factory-closure liability is inside the 819"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       asset_retirement_obligation:
         value: 0
         zero_basis: caption
-        page: "p.22, condensed balance sheet: no asset retirement, decommissioning or restoration caption; note 4 p.30 Provisions at 31 March 2026: restructuring 223, employment related claims 85, other 38 = 346 (current 49, non-current 297) -- none a restoration obligation. E68.1 caption zero, as on the annual entry"
-        status: UNVERIFIED
+        page: "p.22, condensed balance sheet: no asset retirement, decommissioning or restoration caption; note 4 p.30 Provisions at 31 March 2026: restructuring 223, employment related claims 85, other 38 = 346 (current 49, non-current 297) -- none a restoration obligation. E68.1 caption zero, as on the annual entry. E107 SEARCH: sources/IMB.L_2026-H1_half-year-financial-report_2026-05-12_xx_a1.pdf (171,328 characters). Searched 2026-10-13 for 'asset retirement', 'decommission', 'dismantl', 'restoration' -- ZERO occurrences"
+        status: VERIFIED
+        verified_kind: machine_read_back
       prepaid_delivery_obligation:
         value: 0
         zero_basis: caption
-        page: "E81 (2026-08-30): p.22, condensed balance sheet at 31 March 2026, liabilities presented: borrowings 2,169 / 8,659, derivative financial instruments 43 / 715, lease liabilities 88 / 316, trade and other payables 9,099 / 140, current tax liabilities 471, provisions 49 / 297, liabilities held for sale 31, deferred tax liabilities 729, retirement benefit liabilities 819 -- no streaming, prepaid-offtake or prepaid-delivery caption. A caption zero"
-        status: UNVERIFIED
+        page: "E81 (2026-08-30): p.22, condensed balance sheet at 31 March 2026, liabilities presented: borrowings 2,169 / 8,659, derivative financial instruments 43 / 715, lease liabilities 88 / 316, trade and other payables 9,099 / 140, current tax liabilities 471, provisions 49 / 297, liabilities held for sale 31, deferred tax liabilities 729, retirement benefit liabilities 819 -- no streaming, prepaid-offtake or prepaid-delivery caption. A caption zero. E107 SEARCH: sources/IMB.L_2026-H1_half-year-financial-report_2026-05-12_xx_a1.pdf (171,328 characters). Searched 2026-10-13 for 'offtake', 'prepaid delivery', 'stream obligation' -- ZERO occurrences; the one use of the bare word stream is 'future profit streams arising from sales of associated branded products'"
+        status: VERIFIED
+        verified_kind: machine_read_back
       cash_and_equivalents:
         value: 497
         page: "p.22: 'Cash and cash equivalents 11 | 497' (30 September 2025: 1,439); cash flow p.25 'Cash and cash equivalents at end of period 497'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       shares_issued_period_end:
         value: 844313254
         page: "Note 6 Share capital, p.32: 'Authorised, issued and fully paid: 1 October 869,890,634; Shares cancelled (25,577,380); Closing period 844,313,254'. Treasury shares are not stated in the interim (62.6 million at 30 September 2025 per AR note 28), so no net count is printed"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_debt_ebitda:
         value: 2.4
         page: "H1 p.2 highlights: 'adjusted net debt to EBITDA on a 12-month basis remained flat at 2.4x'; p.14: 'On a 12-month basis, adjusted net debt/EBITDA remained at 2.4 times' -- the issuer's own APM on its adjusted net debt definition (reported net debt £10.9bn, note 10 (10,943))"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
 
 annual: []

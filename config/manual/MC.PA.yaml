@@ -29,6 +29,16 @@ periods:
     period_basis: calendar
     document: LVMH Financial Documents - December 31, 2025, sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf
     figures:
+      working_capital_change:
+        value: -576
+        page: "E140(1), sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 28, consolidated cash flow statement: 'Change in working capital 15.2 (576) (1,925) (4,577)' (inventories, trade receivables, customer deposits, trade payables, other receivables and payables, note 15.2)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      acquisitions_paid:
+        value: 149
+        page: "E140.1(1), sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf pdf page 28, investing activities: 'Purchase and proceeds from sale of consolidated investments 2 149 (438) (721)' -- a NET RECEIPT in 2025, which E140.1(1) counts as zero. 'Purchase and proceeds from sale of minority interests' (financing, the Loro Piana step-up) is not a business acquisition and is not in it"
+        status: VERIFIED
+        verified_kind: machine_read_back
       asset_retirement_obligation:
         value: 0
         zero_basis: note
@@ -177,4 +187,134 @@ periods:
         page: 'sources/MC.PA_2026-H1_half-year-financial-report_2026-07-27_en_a0.pdf pdf page 24: ''Long 13,041'' -- ''Long-term borrowings'''
         status: VERIFIED
         verified_kind: same_page
-annual: []
+annual:
+  # E140(1): the two fiscal years before 2025-FY (in periods:), the legs of
+  # the three-year mean only, off the FY2025 report's three-year columns.
+  # Entered 2026-10-27.
+  - fiscal_year: 2023
+    period_end: 2023-12-31
+    document: "LVMH Financial Documents - December 31, 2025, the 2023 column of its three-year statements"
+    url: "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf"
+    figures:
+      operating_cash_flow:
+        value: 18400
+        page: "pdf page 28, consolidated cash flow statement: 'Net cash from/(used in) operating activities 18,874 18,924 18,400' (2023 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      working_capital_change:
+        value: -4577
+        page: "E140(1), pdf page 28: 'Change in working capital 15.2 (576) (1,925) (4,577)' (2023 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      capex_combined:
+        value: -7478
+        page: "pdf page 28: 'Operating investments 15.3 (4,567) (5,531) (7,478)' (2023 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_payments_capital:
+        value: -2818
+        page: "pdf page 28, financing activities: 'Repayment of lease liabilities 7.2 (2,974) (2,915) (2,818)' (2023 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_interest_paid:
+        value: 0
+        zero_basis: note
+        page: "pdf page 28: 'Lease liabilities: interest paid (545) (483) (356)' is its own line INSIDE operating activities, so the operating cash flow already bears it and nothing more is deducted (as the 2025 basis year)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      sbc:
+        value: 117
+        page: "pdf page 52, share-based payment plans: 'Expense for the period 165 191 117' (2023 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      acquisitions_paid:
+        value: -721
+        page: "E140.1(1), pdf page 28, investing activities: 'Purchase and proceeds from sale of consolidated investments 2 149 (438) (721)' (2023 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+  - fiscal_year: 2024
+    period_end: 2024-12-31
+    document: "LVMH Financial Documents - December 31, 2025, the 2024 column of its three-year statements"
+    url: "sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf"
+    figures:
+      operating_cash_flow:
+        value: 18924
+        page: "pdf page 28, consolidated cash flow statement: 'Net cash from/(used in) operating activities 18,874 18,924 18,400' (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      working_capital_change:
+        value: -1925
+        page: "E140(1), pdf page 28: 'Change in working capital 15.2 (576) (1,925) (4,577)' (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      capex_combined:
+        value: -5531
+        page: "pdf page 28: 'Operating investments 15.3 (4,567) (5,531) (7,478)' (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_payments_capital:
+        value: -2915
+        page: "pdf page 28, financing activities: 'Repayment of lease liabilities 7.2 (2,974) (2,915) (2,818)' (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_interest_paid:
+        value: 0
+        zero_basis: note
+        page: "pdf page 28: 'Lease liabilities: interest paid (545) (483) (356)' is its own line INSIDE operating activities, so the operating cash flow already bears it and nothing more is deducted (as the 2025 basis year)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      sbc:
+        value: 191
+        page: "pdf page 52, share-based payment plans: 'Expense for the period 165 191 117' (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      acquisitions_paid:
+        value: -438
+        page: "E140.1(1), pdf page 28, investing activities: 'Purchase and proceeds from sale of consolidated investments 2 149 (438) (721)' (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+
+# E140.1(3): the bridge rolls to the latest filed balance sheet, the
+# half-year of 2026-06-30, with the half's working capital neutralised.
+# Pension and ARO are carried from the year-end (measured once a year).
+roll_forward:
+  period_end: 2026-06-30
+  from_year_end: 2025-12-31
+  document: "LVMH 2026 first-half financial report (unaudited)"
+  url: "sources/MC.PA_2026-H1_half-year-financial-report_2026-07-27_en_a0.pdf"
+  figures:
+    working_capital_change:
+      value: -2446
+      page: "pdf page 26, consolidated cash flow statement, first half 2026: 'Change in working capital 15.2 (2,446) (576) (1,990)'"
+      status: VERIFIED
+      verified_kind: machine_read_back
+    cash_and_equivalents:
+      value: 6803
+      page: "pdf page 24, consolidated balance sheet: 'Cash and cash equivalents 15 6,803 8,794 8,176'"
+      status: VERIFIED
+      verified_kind: machine_read_back
+    other_current_financial_assets:
+      value: 5399
+      page: "pdf page 24: 'Current available for sale financial assets 14 5,399 4,708 4,157'"
+      status: VERIFIED
+      verified_kind: machine_read_back
+    financial_liabilities_current:
+      value: 7444
+      page: "pdf page 24: 'Short-term borrowings 19 7,444 7,925 9,927'"
+      status: VERIFIED
+      verified_kind: machine_read_back
+    financial_liabilities_noncurrent:
+      value: 13041
+      page: "pdf page 24: 'Long-term borrowings 19 13,041 12,418 12,454'"
+      status: VERIFIED
+      verified_kind: machine_read_back
+    lease_liabilities:
+      value: 16261
+      page: "pdf page 24: 'Non-current lease liabilities 7 13,509 13,384 14,128' + 'Current lease liabilities 7 2,752 2,634 2,784' = 13,509 + 2,752 = 16,261 (E71: two stated parts of one liability)"
+      status: VERIFIED
+      verified_kind: machine_read_back
+    diluted_weighted_average_shares:
+      value: 494957592
+      page: "pdf page 54, earnings per share, first half 2026: 'Average number of shares on which the calculation after dilution is based 494,957,592 497,976,118 498,738,112'"
+      status: VERIFIED
+      verified_kind: machine_read_back

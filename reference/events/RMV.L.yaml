@@ -1,0 +1,12 @@
+ticker: RMV.L
+dated: '2026-10-27'
+ruling: E140(3)-(4)
+money: GBP thousands
+money_unit: thousands
+basis_balance_sheet: '2025-12-31'
+searched:
+- issuer annual and interim reports (cash-flow statements read by subagent; quotes regex-checked against pdftotext)
+- issuer press releases and news search (2026-10-27)
+deals: []
+none_found: true
+notes: Only a new GBP 200m RCF (2026-07-21).

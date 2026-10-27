@@ -1,0 +1,275 @@
+ticker: LOPE
+currency: USD
+money_unit: whole
+sources:
+  xbrl:
+    kind: sec-xbrl
+    url: https://data.sec.gov/api/xbrl/companyfacts/
+    fetched: '2026-10-27'
+  tenk:
+    file: sources/LOPE_FY2025_annual-report-10k_2026-02-18_en_a0.htm
+    kind: pdf
+rows:
+- field: revenue
+  source: xbrl
+  tag: RevenueFromContractWithCustomerExcludingAssessedTax
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 873344000.0
+  - 974134000.0
+  - 845501000.0
+  - 778643000.0
+  - 844096000.0
+  - 896564000.0
+  - 911306000.0
+  - 960899000.0
+  - 1033002000.0
+  - 1106070000.0
+- field: revenue
+  source: xbrl
+  tag: SalesRevenueNet
+  years:
+  - 2015
+  values:
+  - 778200000.0
+- field: operating_profit
+  source: xbrl
+  tag: OperatingIncomeLoss
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 210361000.0
+  - 237203000.0
+  - 282754000.0
+  - 258149000.0
+  - 265131000.0
+  - 277437000.0
+  - 282190000.0
+  - 237500000.0
+  - 249256000.0
+  - 275399000.0
+  - 265910000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivities
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 237761000.0
+  - 304898000.0
+  - 199085000.0
+  - 306344000.0
+  - 308823000.0
+  - 313119000.0
+  - 220819000.0
+  - 243662000.0
+  - 289958000.0
+  - 273491000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivitiesContinuingOperations
+  years:
+  - 2015
+  values:
+  - 185080000.0
+- field: capex
+  source: xbrl
+  tag: PaymentsToAcquireProductiveAssets
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 204718000.0
+  - 178292000.0
+  - 113586000.0
+  - 94527000.0
+  - 22391000.0
+  - 29418000.0
+  - 28875000.0
+  - 35232000.0
+  - 44537000.0
+  - 37248000.0
+  - 34843000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesNetOfCashAcquired
+  years:
+  - 2019
+  values:
+  - 361184000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: 'searched: no acquisition element tagged (zero)'
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquity
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 610251000.0
+  - 773686000.0
+  - 985951000.0
+  - 1213597000.0
+  - 1443433000.0
+  - 1574329000.0
+  - 1045047000.0
+  - 637619000.0
+  - 718014000.0
+  - 783853000.0
+  - 746933000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 2941000.0
+  - 2941000.0
+  - 2941000.0
+  - 2941000.0
+  - 160766000.0
+  - 160766000.0
+  - 160766000.0
+  - 160766000.0
+  - 160766000.0
+  - 160766000.0
+  - 160766000.0
+- field: shares
+  source: xbrl
+  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 47281000.0
+  - 47121000.0
+  - 48235000.0
+  - 48414000.0
+  - 48266000.0
+  - 47165000.0
+  - 43958000.0
+  - 32237000.0
+  - 30147000.0
+  - 29271000.0
+  - 28024000.0
+  unit: whole
+- field: net_debt
+  source: xbrl
+  tag: 'derived: LongTermDebt (or its parts) + short-term borrowings - CashAndCashEquivalentsAtCarryingValue'
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - -23036000.0
+  - -45976000.0
+  - -153474000.0
+  - -120346000.0
+  - 18646000.0
+  - -137995000.0
+  - -600941000.0
+  - -120409000.0
+  - -146475000.0
+  - -324623000.0
+  - -111762000.0
+business:
+  text: Grand Canyon Education provides services to universities, chiefly Grand Canyon University, for a share of revenue; long-term contracts keep the partnership.
+  source: tenk
+  quote: is a publicly traded education services company dedicated to serving colleges and universities

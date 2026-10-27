@@ -1,0 +1,372 @@
+{
+ "ticker": "AUTO.L",
+ "unit": "GBP million (fiscal years to 31 March)",
+ "years": {
+  "FY2026": {
+   "ocf": {
+    "caption": "Net cash generated from operating activities",
+    "value": 322.8,
+    "quote": "Net cash generated from operating activities                                                                           322.8           304.6",
+    "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+    "page": 107,
+    "note": "Net cash generated from operating activities (after tax paid); 'Cash generated from operations' before tax is 418.0"
+   },
+   "wc_lines": [
+    {
+     "caption": "Trade and other receivables",
+     "value": -0.5,
+     "quote": "Trade and other receivables                                                            (0.5)         0.6",
+     "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+     "page": 128
+    },
+    {
+     "caption": "Trade and other payables",
+     "value": 0.7,
+     "quote": "Trade and other payables                                                               0.7           (3.0)",
+     "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+     "page": 128
+    },
+    {
+     "caption": "Provisions",
+     "value": 0.2,
+     "quote": "Provisions                                                                             0.2           0.2",
+     "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+     "page": 128
+    },
+    {
+     "caption": "Inventory",
+     "value": -2.3,
+     "quote": "Inventory                                                                             (2.3)         0.6",
+     "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+     "page": 128
+    }
+   ],
+   "capex_lines": [
+    {
+     "caption": "Purchases of intangible assets",
+     "value": -0.1,
+     "quote": "Purchases of intangible assets                                                                                            (0.1)               –",
+     "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+     "page": 107
+    },
+    {
+     "caption": "Purchases of property, plant and equipment",
+     "value": -27.3,
+     "quote": "Purchases of property, plant and equipment                                                                              (27.3)            (4.0)",
+     "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+     "page": 107
+    }
+   ],
+   "lease_principal": {
+    "caption": "Payment of lease liabilities",
+    "value": -1.8,
+    "quote": "Payment of lease liabilities                                                                               14              (1.8)           (2.5)",
+    "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+    "page": 107
+   },
+   "lease_interest": {
+    "caption": "Interest on lease liabilities",
+    "value": 1.7,
+    "quote": "Interest on lease liabilities                                                                 1.7            0.1",
+    "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+    "page": 122,
+    "note": "Income-statement charge (note 14); lease cash interest not separately shown in the cash flow statement; 'Total cash outflow for leases' is the financing line 'Payment of lease liabilities'"
+   },
+   "interest_paid": {
+    "caption": "Payment of interest on borrowings",
+    "value": -2.8,
+    "quote": "Payment of interest on borrowings                                                                          31             (2.8)             (1.2)",
+    "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+    "page": 107,
+    "note": "'Payment of interest on borrowings' (financing section)"
+   },
+   "interest_received": {
+    "caption": "Interest received on cash and cash equivalents",
+    "value": 1.3,
+    "quote": "Interest received on cash and cash equivalents                                                                             1.3             0.9",
+    "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+    "page": 107
+   },
+   "tax_paid": {
+    "caption": "Income taxes paid",
+    "value": -95.2,
+    "quote": "Income taxes paid                                                                                                      (95.2)           (95.1)",
+    "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+    "page": 107
+   },
+   "sbc": {
+    "caption": "Share-based payments charge (excluding associated NI)",
+    "value": 9.2,
+    "quote": "Share-based payments charge (excluding associated NI)                                   9.2           9.7",
+    "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+    "page": 128
+   },
+   "acquisitions": {
+    "value": null,
+    "note": "no acquisition line in the cash flow statement for this year"
+   },
+   "disposals": {
+    "caption": "Proceeds from sale of property, plant and equipment",
+    "value": 4.5,
+    "quote": "Proceeds from sale of property, plant and equipment                                                                       4.5              0.3",
+    "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+    "page": 107,
+    "note": "Proceeds from sale of PPE; no business disposal line"
+   },
+   "cash_generated_from_operations": {
+    "caption": "Cash generated from operations",
+    "value": 418.0,
+    "quote": "Cash generated from operations                                                                             28          418.0           399.7",
+    "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+    "page": 107
+   }
+  },
+  "FY2025": {
+   "ocf": {
+    "caption": "Net cash generated from operating activities",
+    "value": 304.6,
+    "quote": "Net cash generated from operating activities                                                                           322.8           304.6",
+    "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+    "page": 107,
+    "note": "Net cash generated from operating activities (after tax paid); 'Cash generated from operations' before tax is 399.7"
+   },
+   "wc_lines": [
+    {
+     "caption": "Trade and other receivables",
+     "value": 0.6,
+     "quote": "Trade and other receivables                                                            (0.5)         0.6",
+     "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+     "page": 128
+    },
+    {
+     "caption": "Trade and other payables",
+     "value": -3.0,
+     "quote": "Trade and other payables                                                               0.7           (3.0)",
+     "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+     "page": 128
+    },
+    {
+     "caption": "Provisions",
+     "value": 0.2,
+     "quote": "Provisions                                                                             0.2           0.2",
+     "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+     "page": 128
+    },
+    {
+     "caption": "Inventory",
+     "value": 0.6,
+     "quote": "Inventory                                                                             (2.3)         0.6",
+     "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+     "page": 128
+    }
+   ],
+   "capex_lines": [
+    {
+     "caption": "Purchases of intangible assets",
+     "value": 0.0,
+     "quote": "Purchases of intangible assets                                                                                            (0.1)               –",
+     "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+     "page": 107
+    },
+    {
+     "caption": "Purchases of property, plant and equipment",
+     "value": -4.0,
+     "quote": "Purchases of property, plant and equipment                                                                              (27.3)            (4.0)",
+     "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+     "page": 107
+    }
+   ],
+   "lease_principal": {
+    "caption": "Payment of lease liabilities",
+    "value": -2.5,
+    "quote": "Payment of lease liabilities                                                                               14              (1.8)           (2.5)",
+    "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+    "page": 107
+   },
+   "lease_interest": {
+    "caption": "Interest on lease liabilities",
+    "value": 0.1,
+    "quote": "Interest on lease liabilities                                                                 1.7            0.1",
+    "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+    "page": 122,
+    "note": "Income-statement charge (note 14); lease cash interest not separately shown in the cash flow statement; 'Total cash outflow for leases' is the financing line 'Payment of lease liabilities'"
+   },
+   "interest_paid": {
+    "caption": "Payment of interest on borrowings",
+    "value": -1.2,
+    "quote": "Payment of interest on borrowings                                                                          31             (2.8)             (1.2)",
+    "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+    "page": 107,
+    "note": "'Payment of interest on borrowings' (financing section)"
+   },
+   "interest_received": {
+    "caption": "Interest received on cash and cash equivalents",
+    "value": 0.9,
+    "quote": "Interest received on cash and cash equivalents                                                                             1.3             0.9",
+    "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+    "page": 107
+   },
+   "tax_paid": {
+    "caption": "Income taxes paid",
+    "value": -95.1,
+    "quote": "Income taxes paid                                                                                                      (95.2)           (95.1)",
+    "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+    "page": 107
+   },
+   "sbc": {
+    "caption": "Share-based payments charge (excluding associated NI)",
+    "value": 9.7,
+    "quote": "Share-based payments charge (excluding associated NI)                                   9.2           9.7",
+    "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+    "page": 128
+   },
+   "acquisitions": {
+    "value": null,
+    "note": "no acquisition line in the cash flow statement for this year"
+   },
+   "disposals": {
+    "caption": "Proceeds from sale of property, plant and equipment",
+    "value": 0.3,
+    "quote": "Proceeds from sale of property, plant and equipment                                                                       4.5              0.3",
+    "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+    "page": 107,
+    "note": "Proceeds from sale of PPE; no business disposal line"
+   },
+   "cash_generated_from_operations": {
+    "caption": "Cash generated from operations",
+    "value": 399.7,
+    "quote": "Cash generated from operations                                                                             28          418.0           399.7",
+    "file": "~/vss/sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf",
+    "page": 107
+   }
+  },
+  "FY2024": {
+   "ocf": {
+    "caption": "Net cash generated from operating activities",
+    "value": 287.5,
+    "quote": "Net cash generated from operating activities                                                                                                                   304.6       287.5",
+    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "page": 132,
+    "note": "Net cash generated from operating activities (after tax paid); 'Cash generated from operations' before tax is 379.0"
+   },
+   "wc_lines": [
+    {
+     "caption": "Trade and other receivables",
+     "value": -10.4,
+     "quote": "Trade and other receivables                                                   0.6      (10.4)",
+     "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+     "page": 153
+    },
+    {
+     "caption": "Trade and other payables",
+     "value": 6.0,
+     "quote": "Trade and other payables                                                     (3.0)      6.0",
+     "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+     "page": 153
+    },
+    {
+     "caption": "Provisions",
+     "value": 0.1,
+     "quote": "Provisions                                                                    0.2        0.1",
+     "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+     "page": 153
+    },
+    {
+     "caption": "Inventory",
+     "value": 1.0,
+     "quote": "Inventory                                                                     0.6       1.0",
+     "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+     "page": 153
+    }
+   ],
+   "capex_lines": [
+    {
+     "caption": "Purchases of intangible assets",
+     "value": -0.2,
+     "quote": "Purchases of intangible assets                                                                                                                                       –        (0.2)",
+     "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+     "page": 132
+    },
+    {
+     "caption": "Purchases of property, plant and equipment",
+     "value": -3.6,
+     "quote": "Purchases of property, plant and equipment                                                                                                                       (4.0)        (3.6)",
+     "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+     "page": 132
+    }
+   ],
+   "lease_principal": {
+    "caption": "Payment of lease liabilities",
+    "value": -2.7,
+    "quote": "Payment of lease liabilities                                                                                                                        14            (2.5)       (2.7)",
+    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "page": 132
+   },
+   "lease_interest": {
+    "caption": "Interest on lease liabilities",
+    "value": 0.1,
+    "quote": "Interest on lease liabilities                                                                0.1             0.1",
+    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "page": 147,
+    "note": "Income-statement charge (note 14); lease cash interest not separately shown in the cash flow statement; 'Total cash outflow for leases' is the financing line 'Payment of lease liabilities'"
+   },
+   "interest_paid": {
+    "caption": "Payment of interest on borrowings",
+    "value": -3.4,
+    "quote": "Payment of interest on borrowings                                                                                                                   31             (1.2)      (3.4)",
+    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "page": 132,
+    "note": "'Payment of interest on borrowings' (financing section)"
+   },
+   "interest_received": {
+    "caption": "Interest received on cash and cash equivalents",
+    "value": 0.5,
+    "quote": "Interest received on cash and cash equivalents                                                                                                                    0.9          0.5",
+    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "page": 132
+   },
+   "tax_paid": {
+    "caption": "Income taxes paid",
+    "value": -91.5,
+    "quote": "Income taxes paid                                                                                                                                               (95.1)      (91.5)",
+    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "page": 132
+   },
+   "sbc": {
+    "caption": "Share-based payments charge (excluding associated NI)",
+    "value": 7.5,
+    "quote": "Share-based payments charge (excluding associated NI)                         9.7        7.5",
+    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "page": 153
+   },
+   "acquisitions": {
+    "value": null,
+    "note": "no acquisition line in the FY2024 cash flow statement (note 28 adds back 'Deferred contingent consideration' 10.4 as a non-cash item); 'Proceeds on disposal of shares in investment entities' 1.0 in investing"
+   },
+   "disposals": {
+    "caption": "Proceeds from sale of property, plant and equipment",
+    "value": 0.2,
+    "quote": "Proceeds from sale of property, plant and equipment                                                                                                               0.3          0.2",
+    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "page": 132,
+    "note": "Proceeds from sale of PPE; no business disposal line"
+   },
+   "cash_generated_from_operations": {
+    "caption": "Cash generated from operations",
+    "value": 379.0,
+    "quote": "Cash generated from operations                                                                                                                      28         399.7       379.0",
+    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "page": 132
+   },
+   "disposals_extra": {
+    "caption": "Proceeds on disposal of shares in investment entities",
+    "value": 1.0,
+    "quote": "Proceeds on disposal of shares in investment entities                                                                                                                –          1.0",
+    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "page": 132
+   }
+  }
+ },
+ "post_basis_deals": [],
+ "notes": "FY2024 (to Mar-2024) from the FY2025 annual report at plc.autotrader.co.uk/media/ujinai40/at-ar25-web.pdf, comparative column. In that PDF the cash-flow page text is interleaved with a contents sidebar. POST-BASIS DEALS: none found. Final results 2026-05-21 (sources/AUTO.L_2026-FY_final-results_2026-05-21_xx_a0.html) note 17 post balance sheet events: only 15 May 2026 exercise of the GBP 100m RCF accordion (facility now GBP 300m, fees GBP 0.7m); AR2026 pdf has no later deal. Web search shows only share buyback transactions in 2026. Nothing after June 2026 could be checked. The FY2025-annual-report pdf (FY2024 column source) has the cash-flow page text interleaved with a contents sidebar, so FY2024 quotes are from that interleaved text."
+}

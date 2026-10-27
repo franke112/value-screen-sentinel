@@ -277,6 +277,156 @@ def free_cash_flow_zero(*, operating_cash_flow: float | None,
     return base + float(net_interest_paid) - _require_nci(nci_dividends_paid)
 
 
+#: E140(2) (2026-10-27): the STATUTORY corporate rate of the filer's home
+#: country, at which the interest add-back of E34 / E34.1 / E115 is taken
+#: AFTER TAX. A table, not a per-filer reading: the ruling names the rate as
+#: statutory, and an effective rate would be a second estimated lever per
+#: name. A country not in the table is DATA MISSING, never a default.
+STATUTORY_TAX_RATE: dict[str, float] = {
+    "US": 0.25,     # federal and typical state
+    "SE": 0.206, "GB": 0.25, "DK": 0.22, "NO": 0.22, "FI": 0.20,
+    "FR": 0.258, "DE": 0.30,
+}
+
+#: E140(1): the number of fiscal years FCF0 is the mean of.
+E140_YEARS = 3
+#: E140.1(1): a filer that paid for acquisitions in at least this many of
+#: the E140 years is a REPEAT BUYER, and the mean of its spend is capex.
+E140_REPEAT_BUYER_YEARS = 2
+
+
+@dataclass(frozen=True)
+class NormalisedYear:
+    """One fiscal year's legs of E140's FCF0, each as the store states it.
+
+    ``capex`` and ``acquisitions`` are OUTFLOWS, negative; ``sbc`` and
+    ``lease_cash`` are magnitudes; ``working_capital`` is the CASH EFFECT,
+    positive where working capital released cash.
+    """
+
+    label: str
+    operating_cash_flow: float | None
+    working_capital: float | None
+    capex: float | None
+    sbc: float | None
+    acquisitions: float | None
+    #: E117: the IFRS 16 principal and lease interest the year deducts, or
+    #: None where the flow already bears the rent (a US GAAP filer).
+    lease_cash: float | None = None
+
+
+@dataclass(frozen=True)
+class NormalisedFlow:
+    """E140's FCF0 and every part of it, so the record can print the sum."""
+
+    years: tuple[float, ...]          # each year's flow ex working capital
+    mean: float
+    repeat_buyer: bool
+    acquisitions_mean: float          # a magnitude; deducted when repeat
+    interest_added_back: float        # after tax; 0 where interest is outside OCF
+    nci: float                        # a magnitude, deducted (E105)
+    fcf0: float
+
+
+def normalised_free_cash_flow_zero(
+        *, years: "tuple[NormalisedYear, ...] | list[NormalisedYear]",
+        interest_in_ocf: bool | None, net_interest_paid: float | None,
+        tax_rate: float | None,
+        nci_dividends_paid: float | None,
+        deduct_acquisitions: bool = True) -> NormalisedFlow:
+    """E140 / E140.1's FCF0. THE ONE PLACE THAT SUM IS FORMED.
+
+    (1) The MEAN over the last three fiscal years of operating cash flow
+        LESS the cash effect of the change in operating working capital,
+        LESS capex, LESS SBC, LESS the IFRS 16 lease cash where E117
+        deducts it.
+    E140.1(1) Where acquisitions were paid in at least two of the three
+        years, the three-year mean of that spend is deducted as capex. A
+        year whose net figure is a RECEIPT counts as zero.
+    (2) The interest add-back of E34 / E34.1 / E115, on the basis year's
+        figure, AFTER TAX at the statutory rate.
+    E105's minority dividends are deducted unchanged.
+
+    E142 (2026-10-27): ``deduct_acquisitions=False`` -- acquisitions leave
+    the flow AND the growth; the programme is valued in the bridge at the
+    acquirer's own record (`deal_programme_value`). The repeat-buyer test
+    and the mean are still formed and returned.
+
+    Every leg of every year must be stated; an absent one is DATA MISSING
+    and refuses. Fewer than three years refuses: a mean of two is not the
+    ruling's mean.
+    """
+    years = tuple(years)
+    if len(years) != E140_YEARS:
+        raise ValuationError(
+            f"E140 FCF0 is the mean of {E140_YEARS} fiscal years and "
+            f"{len(years)} are on the record. A mean of fewer is not the "
+            f"ruling's mean, and the missing year is DATA MISSING, never "
+            f"left out")
+    flows: list[float] = []
+    for y in years:
+        for leg, value in (("operating cash flow", y.operating_cash_flow),
+                           ("working capital change", y.working_capital),
+                           ("capex", y.capex), ("SBC", y.sbc),
+                           ("acquisitions paid", y.acquisitions)):
+            if value is None:
+                raise ValuationError(
+                    f"E140: {leg} for {y.label} is DATA MISSING -- every "
+                    f"leg of every year of the mean is stated, and a year "
+                    f"with no acquisitions states a NAMED ZERO")
+        flow = (float(y.operating_cash_flow) - float(y.working_capital)
+                + float(y.capex) - abs(float(y.sbc)))
+        if y.lease_cash is not None:
+            flow -= abs(float(y.lease_cash))
+        flows.append(flow)
+    spend = [max(-float(y.acquisitions), 0.0) for y in years]
+    repeat = sum(1 for x in spend if x > 0) >= E140_REPEAT_BUYER_YEARS
+    acq_mean = sum(spend) / len(spend)
+    mean = sum(flows) / len(flows)
+    if interest_in_ocf is None:
+        raise ValuationError("interest_in_ocf is DATA MISSING (E34)")
+    added = 0.0
+    if interest_in_ocf:
+        if net_interest_paid is None:
+            raise ValuationError("net_interest_paid is DATA MISSING and "
+                                 "`interest_in_ocf: yes` (E34)")
+        if tax_rate is None:
+            raise ValuationError(
+                "the statutory tax rate is DATA MISSING (E140(2)): the "
+                "interest add-back is taken AFTER TAX at the home country's "
+                "statutory rate, and this filer's country is not in the table")
+        added = float(net_interest_paid) * (1.0 - tax_rate)
+    nci = _require_nci(nci_dividends_paid)
+    fcf0 = mean - (acq_mean if (repeat and deduct_acquisitions) else 0.0) + added - nci
+    return NormalisedFlow(years=tuple(flows), mean=mean, repeat_buyer=repeat,
+                          acquisitions_mean=acq_mean,
+                          interest_added_back=added, nci=nci, fcf0=fcf0)
+
+
+def growth_annuity(growth: float, *, rate: float = HURDLE_RATE,
+                   years: int = DCF_YEARS) -> float:
+    """E142(2): sum over t = 1..years of ((1 + g) / (1 + r)) ** t."""
+    return sum(((1 + growth) / (1 + rate)) ** t for t in range(1, years + 1))
+
+
+def roiic_fraction(roiic: float | None, rate: float = HURDLE_RATE) -> float:
+    """E142(3)-(4): what a unit of deal spend is worth, at the record --
+    min(ROIIC, r) / r, with a ROIIC below zero counted as zero. None (no
+    record) is zero: nothing is credited that is not shown."""
+    if roiic is None:
+        return 0.0
+    return max(0.0, min(roiic, rate)) / rate
+
+
+def deal_programme_value(*, acquisitions_mean: float, roiic: float | None,
+                         growth: float, rate: float = HURDLE_RATE,
+                         years: int = DCF_YEARS) -> float:
+    """E142(2): A x (min(ROIIC, r)/r - 1) x the ten-year growth annuity.
+    Never positive: future deals are worth at most what they cost."""
+    return (abs(acquisitions_mean) * (roiic_fraction(roiic, rate) - 1.0)
+            * growth_annuity(growth, rate=rate, years=years))
+
+
 @dataclass(frozen=True)
 class Sensitivity:
     """One figure at three rates. E29 forbids reporting the middle alone.

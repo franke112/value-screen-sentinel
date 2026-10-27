@@ -192,8 +192,14 @@ KIND_SAME_PAGE = "same_page"
 #: stated nothing is not a number. Accepted ONLY on a zero carrying E25's
 #: `caption` or `note` form, and only with the sentence.
 KIND_CAPTION_STATEMENT = "caption_statement"
+#: E131 (2026-10-12): the read-back done by vss/quotecheck.py -- every
+#: quote on the page found in the cited filing, every recorded zero search
+#: re-counted, and the value found among the quoted numbers. A check of
+#: TRANSCRIPTION only: a figure that rests on a judgment carries a
+#: `judgment:` line and goes to the owner instead.
+KIND_MACHINE_READ_BACK = "machine_read_back"
 VERIFIED_KINDS = (KIND_TAGGED, KIND_CROSS_DOCUMENT, KIND_SAME_PAGE,
-                  KIND_CAPTION_STATEMENT)
+                  KIND_CAPTION_STATEMENT, KIND_MACHINE_READ_BACK)
 
 
 class ManualError(ConfigError):
@@ -330,6 +336,33 @@ FIELDS: tuple[FieldSpec, ...] = (
               "Net cash from operating activities, AFTER tax. Where the "
               "statement presents it before tax (Unilever does), enter the "
               "pre-tax line and the tax paid instead and leave this blank."),
+    FieldSpec("working_capital_change", "money", ("5.1C",),
+              "E140(1) (2026-10-27): the CASH EFFECT of the change in "
+              "OPERATING WORKING CAPITAL over the window, as the cash flow "
+              "statement's reconciliation prints it -- POSITIVE where working "
+              "capital RELEASED cash, negative where it absorbed it. FCF0 "
+              "takes it OUT of operating cash flow, year by year, before the "
+              "three-year mean.\n"
+              "WHAT IS IN IT: receivables, inventories, prepaid and other "
+              "operating assets, payables, accrued liabilities, deferred "
+              "revenue / contract liabilities. WHAT IS NOT: income-tax, "
+              "lease and long-term lines. Where a stripped receivable is a "
+              "LOAN BOOK whose provision for losses is added back above it, "
+              "the provision is deducted with it (HRB). Where the operating "
+              "asset IS inventory (E123), the inventory line stays in the "
+              "flow and is not in this figure.\n"
+              "Usually A SUM of several stated lines, and the page names "
+              "every line and its sign. In a `roll_forward:` block it is the "
+              "YEAR-TO-DATE change since the fiscal year-end (E140.1(3)), "
+              "which the bridge neutralises."),
+    FieldSpec("acquisitions_paid", "money", ("5.1C",),
+              "E140.1(1) (2026-10-27): cash paid for ACQUISITIONS of "
+              "businesses over the window, net of cash acquired, as the cash "
+              "flow statement prints it -- an OUTFLOW, NEGATIVE, the sign "
+              "capex is entered in. Where the filer paid in at least two of "
+              "the three E140 years, FCF0 deducts the three-year mean as "
+              "capex. A year with no acquisitions is a NAMED ZERO (E25); "
+              "absent is DATA MISSING."),
     FieldSpec("operating_cash_flow_pretax", "money", ("5.1C",),
               "Only for a statement that presents operating cash flow "
               "BEFORE income tax."),
@@ -802,6 +835,14 @@ ALLOWED_TOP_KEYS = frozenset({
     # purchase runs through operating cash flow. Where it is, Gate 3's FCF
     # and leverage limbs are DATA MISSING and section 4.4 rebases.
     "operating_asset_is_inventory",
+    # E124 (2026-09-20): the balance sheet is UNCLASSIFIED -- one debt
+    # caption, no current / non-current split. Where declared, an absent
+    # current borrowing leg is not DATA MISSING: the whole caption is in
+    # the non-current leg and net debt adds the two.
+    "unclassified_balance_sheet",
+    # E140.1(3) (2026-10-27): the LATEST FILED BALANCE SHEET after the
+    # newest fiscal year, which the run record's bridge rolls to.
+    "roll_forward",
 })
 
 #: THE UNIT A FILE'S FIGURES ARE STATED IN, declared once per file.
@@ -881,6 +922,10 @@ CASH_PAID_ONLY_LABEL = ("proxy (E115): interest PAID alone -- no interest "
 #: entry must never enter that reasoning.
 ALLOWED_ANNUAL_KEYS = frozenset({"fiscal_year", "period_end", "document",
                                  "url", "figures"})
+#: E140.1(3): the `roll_forward:` block -- one balance sheet, its date, the
+#: fiscal year-end it rolls from, and its figures.
+ALLOWED_ROLL_FORWARD_KEYS = frozenset({"period_end", "from_year_end",
+                                       "document", "url", "figures"})
 #: Only the identity. The EMPTY TEMPLATE is a valid file -- it loads,
 #: supplies nothing and refuses section 5 for having no periods -- and
 #: demanding a currency and a sector of a file with no figures in it
@@ -944,7 +989,13 @@ ZERO_SUBTOTAL = "subtotal"    # the components shown sum to the subtotal shown
 #: concept could not be recorded at all, and E106 clause 5 turns on that
 #: silence. Carries E85's three requirements, enforced at the load.
 ZERO_SEARCHED = "searched"
-VALID_ZERO_BASES = (ZERO_CAPTION, ZERO_NOTE, ZERO_SUBTOTAL, ZERO_SEARCHED)
+#: E130 (2026-10-12): the OWNER'S RULING that an unstated figure is taken
+#: as zero, knowing the zero is GENEROUS. Not evidence about the filing --
+#: the filing is silent -- and the page must say so: the ruling, the date
+#: and the word "generous" are enforced at the load.
+ZERO_RULED = "ruled"
+VALID_ZERO_BASES = (ZERO_CAPTION, ZERO_NOTE, ZERO_SUBTOTAL, ZERO_SEARCHED,
+                    ZERO_RULED)
 
 #: E25: the fields where a WRONG zero carries a name through a gate it
 #: should fail. Each improves a ratio: understated net debt, an interest
@@ -974,6 +1025,10 @@ ZERO_NEEDS_BASIS: frozenset[str] = frozenset({
     # of a group's distributions to its minorities, which is the same
     # shape and the same direction as a wrong zero on capex.
     "nci_dividends_paid",
+    # E140 / E140.1 (2026-10-27): a wrong zero on either raises FCF0 -- a
+    # working-capital outflow taken as nil, an acquirer's spend taken as
+    # none.
+    "working_capital_change", "acquisitions_paid",
     # E36 (added 2026-08-26): a wrong ZERO here says stock is free and
     # raises FCF0 by the whole charge -- the same shape as a wrong zero on
     # capex. A filer that grants no stock states so, and the sentence is
@@ -1432,6 +1487,34 @@ class AnnualEntry:
 
 
 @dataclass(frozen=True)
+class RollForward:
+    """E140.1(3): the LATEST FILED BALANCE SHEET after the newest fiscal
+    year -- a 10-Q, an interim report -- that the bridge rolls to.
+
+    It carries the STOCKS the bridge reads on that date, the diluted
+    weighted-average count of the latest quarter, and
+    `working_capital_change` for the YEAR TO DATE since `from_year_end`,
+    which the bridge NEUTRALISES so a seasonal trough in net debt does not
+    enter the value. Flows are never read from it: FCF0 stays on the three
+    fiscal years of E140(1).
+    """
+
+    period_end: date
+    from_year_end: date
+    document: str | None
+    url: str | None
+    figures: dict[str, ManualFigure] = field(default_factory=dict)
+
+    def value(self, name: str) -> float | None:
+        figure = self.figures.get(name)
+        return figure.value if figure and figure.present else None
+
+    @property
+    def label(self) -> str:
+        return f"roll-forward {self.period_end.isoformat()}"
+
+
+@dataclass(frozen=True)
 class InventoryOperatingAsset:
     """E123: the operating asset is inventory and its purchase runs through
     operating cash flow.
@@ -1446,6 +1529,25 @@ class InventoryOperatingAsset:
     other filer, and the limbs form as usual.
     """
 
+    value: bool
+    source: str
+    page: str
+
+
+@dataclass(frozen=True)
+class UnclassifiedBalanceSheet:
+    """E124: the filer presents an UNCLASSIFIED balance sheet -- one debt
+    caption and no current / non-current split.
+
+    The stated caption enters `financial_liabilities_noncurrent` WHOLE and
+    the current leg STAYS ABSENT: inventing a split would be fabrication,
+    and nothing in section 5 or Gate 3 reads the split -- net debt adds the
+    two legs. This declaration is what lets net debt form on that absence.
+    It never supplies a figure: the current leg is still absent in the
+    store, and where the non-current leg is absent too, net debt is DATA
+    MISSING as before. Absent is NOT `no`: it is the ordinary classified
+    filer, whose missing current leg is DATA MISSING.
+    """
     value: bool
     source: str
     page: str
@@ -1539,6 +1641,12 @@ class ManualFile:
     operating_leases_in_ocf: "LeaseClassification | None" = None
     #: E123: the declaration that takes two Gate 3 limbs out of the count.
     operating_asset_is_inventory: "InventoryOperatingAsset | None" = None
+    #: E124: the declaration that lets net debt form on an absent current
+    #: borrowing leg.
+    unclassified_balance_sheet: "UnclassifiedBalanceSheet | None" = None
+    #: E140.1(3): the latest filed balance sheet after the newest fiscal
+    #: year, or None where the file holds none newer.
+    roll_forward: "RollForward | None" = None
     #: The scale the file's money figures and its share counts are stated
     #: in -- one of UNIT_SCALE, or None where the file does not say. See
     #: UNIT_SCALE: the run record divides on these and refuses without them.
@@ -1983,7 +2091,22 @@ def _parse_figure(raw: Any, name: str, period: str, period_end: date | None,
                   f"page; subtotal = the components shown sum to the subtotal "
                   f"shown, leaving no room for the line; searched = a "
                   f"RECORDED SEARCH of a named document for a named concept, "
-                  f"finding it absent (E107)")
+                  f"finding it absent (E107); ruled = the owner's ruling "
+                  f"that an unstated figure is taken as zero, named as "
+                  f"generous (E130)")
+        if zero_basis == ZERO_RULED:
+            evidence = (_as_text(raw.get("page")) or "")
+            for needle, what in ((r"\bE130\b", "the ruling, E130"),
+                                 (r"\d{4}-\d{2}-\d{2}", "the DATE of the "
+                                  "ruling, as YYYY-MM-DD"),
+                                 (r"generous", "the word `generous` -- the "
+                                  "direction the zero errs in")):
+                if not re.search(needle, evidence, re.I):
+                    _fail(path, where,
+                          f"{name}.zero_basis is `ruled` and the page does "
+                          f"not carry {what}. E130: a ruled zero is the "
+                          f"owner's decision, not evidence about the filing, "
+                          f"and the page must say so.")
         if zero_basis == ZERO_SEARCHED:
             # E107 carries E85's three requirements, and they are enforced
             # rather than requested. A search that found nothing is a fact
@@ -2076,30 +2199,46 @@ def _parse_figure(raw: Any, name: str, period: str, period_end: date | None,
                         stand_in=_parse_stand_in(raw, name, path, where))
 
 
+#: E120 (2026-09-19) lease interest; E135 (2026-10-13) net interest paid,
+#: where the filer states it only in the annual cash flow statement.
+STAND_IN_FIELDS = ("lease_interest_paid", "net_interest_paid")
+
+
 def _parse_stand_in(raw, name: str, path: Path, where: str) -> bool:
-    """E120: `stand_in: true` is permitted on `lease_interest_paid` alone."""
+    """E120 / E135: `stand_in: true` is permitted on STAND_IN_FIELDS alone."""
     flag = raw.get("stand_in") if isinstance(raw, dict) else None
     if flag in (None, False):
         return False
     if flag is not True:
         _fail(path, where, f"{name}.stand_in must be true or absent (E120)")
-    if name != "lease_interest_paid":
-        _fail(path, where, f"{name}: stand_in is E120's, and E120 reaches "
-                           f"lease_interest_paid only")
+    if name not in STAND_IN_FIELDS:
+        _fail(path, where, f"{name}: stand_in is E120's and E135's, and they "
+                           f"reach {' and '.join(STAND_IN_FIELDS)} only")
     return True
 
 
 def lease_interest_stand_in(parsed: "ManualFile", basis: "Basis | None") -> "ManualFigure | None":
-    """E120: the newest ANNUAL `lease_interest_paid` marked `stand_in`, at or
-    before the basis end -- used only where the basis's own periods state no
-    lease interest. None where there is none, or the basis states it."""
+    """E120: the lease interest standing in -- see `stand_in`."""
+    return stand_in(parsed, basis, "lease_interest_paid")
+
+
+def stand_ins_on_basis(parsed: "ManualFile", basis: "Basis | None") -> frozenset[str]:
+    """The STAND_IN_FIELDS an annual figure is standing in for on this basis."""
+    return frozenset(name for name in STAND_IN_FIELDS
+                     if stand_in(parsed, basis, name) is not None)
+
+
+def stand_in(parsed: "ManualFile", basis: "Basis | None", name: str) -> "ManualFigure | None":
+    """E120 / E135: the newest ANNUAL `name` marked `stand_in`, at or before
+    the basis end -- used only where the basis's own periods state none.
+    None where there is none, or the basis states it."""
     if basis is None:
         return None
-    if resolve_on_basis(parsed, basis, "lease_interest_paid").value is not None:
+    if resolve_on_basis(parsed, basis, name).value is not None:
         return None
     best = None
     for entry in getattr(parsed, "annual", ()) or ():
-        figure = entry.figures.get("lease_interest_paid")
+        figure = entry.figures.get(name)
         if (figure is not None and figure.stand_in and figure.value is not None
                 and entry.period_end is not None and entry.period_end <= basis.end
                 and (best is None or entry.period_end > best[0])):
@@ -2281,6 +2420,61 @@ def _parse_annual(raw: Any, path: Path, seen_fields: set[str]) -> tuple[AnnualEn
     return tuple(out)
 
 
+#: The roll-forward's figures: the bridge's stocks, the divisor, and the
+#: year-to-date working capital it neutralises. A flow other than that is
+#: refused -- FCF0 stays on the fiscal years (E140.1(3)).
+ROLL_FORWARD_FLOWS: frozenset[str] = frozenset({
+    "working_capital_change", "diluted_weighted_average_shares",
+    # E117's operating lease liability: a balance on the date, read by the
+    # bridge as the part of `lease_liabilities` that leaves net debt.
+    "operating_lease_liabilities"})
+
+
+def _parse_roll_forward(raw: Any, path: Path) -> "RollForward | None":
+    """The `roll_forward:` block (E140.1(3)), or None where absent."""
+    if raw is None:
+        return None
+    where = "roll_forward"
+    if not isinstance(raw, Mapping):
+        _fail(path, where, f"expected a mapping, got {type(raw).__name__}")
+    unknown = set(raw) - ALLOWED_ROLL_FORWARD_KEYS
+    if unknown:
+        _fail(path, where, f"unknown key(s) {', '.join(sorted(unknown))}. "
+                           f"Allowed: {', '.join(sorted(ALLOWED_ROLL_FORWARD_KEYS))}")
+    end = _as_date(raw.get("period_end"), path, where, "period_end")
+    start = _as_date(raw.get("from_year_end"), path, where, "from_year_end")
+    if end is None or start is None:
+        _fail(path, where, "period_end and from_year_end are both required: "
+                           "the balance sheet's date and the fiscal year-end "
+                           "the year-to-date working capital runs from")
+    if end <= start:
+        _fail(path, where, f"period_end {end} is not after from_year_end "
+                           f"{start}: a roll-forward is a LATER balance sheet")
+    document = _as_text(raw.get("document"))
+    raw_figures = raw.get("figures") or {}
+    if not isinstance(raw_figures, Mapping):
+        _fail(path, where, f"figures must be a mapping, got "
+                           f"{type(raw_figures).__name__}")
+    unknown = set(raw_figures) - FIGURE_KEYS
+    if unknown:
+        _fail(path, where, f"unknown figure(s) {', '.join(sorted(unknown))}")
+    stray = sorted(n for n in raw_figures
+                   if n not in STOCK_FIELDS and n not in ROLL_FORWARD_FLOWS)
+    if stray:
+        _fail(path, where,
+              f"{', '.join(stray)} is a flow. A roll-forward carries the "
+              f"bridge's STOCKS, the latest quarter's diluted count and the "
+              f"year-to-date `working_capital_change` -- FCF0 stays on the "
+              f"three fiscal years (E140.1(3))")
+    figures = {
+        name: _parse_figure(raw_figures.get(name), name,
+                            f"RF {end.isoformat()}", end, path, where, document)
+        for name in sorted(raw_figures)
+    }
+    return RollForward(period_end=end, from_year_end=start, document=document,
+                       url=_as_text(raw.get("url")), figures=figures)
+
+
 def _parse_interest_in_ocf(raw: Any, path: Path) -> "InterestClassification | None":
     """E34's `interest_in_ocf:` block, or None where the file omits it."""
     if raw is None:
@@ -2397,6 +2591,39 @@ def _parse_operating_asset_is_inventory(raw: Any, path: Path
               "4.4 for the name, and a claim that large is not made without "
               "the balance sheet and cash flow lines that carry it")
     return InventoryOperatingAsset(value=value, source=source, page=page)
+
+
+def _parse_unclassified_balance_sheet(raw: Any, path: Path
+                                      ) -> "UnclassifiedBalanceSheet | None":
+    """E124's `unclassified_balance_sheet:` block, or None where absent."""
+    if raw is None:
+        return None
+    if not isinstance(raw, Mapping):
+        _fail(path, "unclassified_balance_sheet",
+              f"expected a mapping with value/source/page, got "
+              f"{type(raw).__name__}. E124: whether a balance sheet splits its "
+              f"debt into current and non-current is a FACT about the "
+              f"accounts, so it carries a source and a page")
+    unknown = set(raw) - ALLOWED_LEASE_KEYS
+    if unknown:
+        _fail(path, "unclassified_balance_sheet",
+              f"unknown key(s) {', '.join(sorted(unknown))}. Allowed: "
+              f"{', '.join(sorted(ALLOWED_LEASE_KEYS))}")
+    value = raw.get("value")
+    if not isinstance(value, bool):
+        _fail(path, "unclassified_balance_sheet",
+              f"value must be yes or no, got {value!r}. There is no third "
+              f"state: a file that does not say is a classified filer, which "
+              f"is what leaving the whole block out means (E124)")
+    source = _as_text(raw.get("source"))
+    page = _as_text(raw.get("page"))
+    if not source or not page:
+        _fail(path, "unclassified_balance_sheet",
+              "source and page are both required (E124): this declaration "
+              "lets net debt form without a current borrowing leg, and a "
+              "claim that large is not made without the balance sheet line "
+              "that carries it")
+    return UnclassifiedBalanceSheet(value=value, source=source, page=page)
 
 
 def _parse_market(raw: Any, path: Path) -> tuple[dict[str, ManualFigure], date | None]:
@@ -2519,6 +2746,14 @@ def parse_manual(document: Any, *, path: Path) -> ManualFile:
         document.get("operating_leases_in_ocf"), path)
     operating_asset_is_inventory = _parse_operating_asset_is_inventory(
         document.get("operating_asset_is_inventory"), path)
+    unclassified_balance_sheet = _parse_unclassified_balance_sheet(
+        document.get("unclassified_balance_sheet"), path)
+    roll_forward = _parse_roll_forward(document.get("roll_forward"), path)
+    if roll_forward is not None and annual and \
+            roll_forward.period_end <= annual[-1].period_end:
+        _fail(path, "roll_forward",
+              f"period_end {roll_forward.period_end} is not after the newest "
+              f"annual entry ({annual[-1].period_end}): nothing to roll to")
 
     parsed_file = ManualFile(
         ticker=str(document["ticker"]).strip(),
@@ -2536,6 +2771,8 @@ def parse_manual(document: Any, *, path: Path) -> ManualFile:
         interest_in_ocf=interest_in_ocf,
         operating_leases_in_ocf=operating_leases_in_ocf,
         operating_asset_is_inventory=operating_asset_is_inventory,
+        unclassified_balance_sheet=unclassified_balance_sheet,
+        roll_forward=roll_forward,
         money_unit=money_unit,
         cik=cik,
         share_unit=share_unit,
@@ -3065,6 +3302,8 @@ class Basis:
             return f"annual FY{self.annual.fiscal_year}"
         if self.kind == "ttm":
             return "TTM " + "+".join(p.period for p in self.periods)
+        if self.kind == ROLL_FORWARD_KIND:
+            return f"roll-forward balance sheet {self.end.isoformat()}"
         return self.periods[0].period
 
 
@@ -3086,6 +3325,142 @@ class Resolved:
     #: The stored figures this answer was built from. E21 gates on these:
     #: what the basis READS is what the run can be wrong about.
     figures: tuple["ManualFigure", ...] = ()
+
+
+#: E140.1(3): the kind of a basis built on the `roll_forward:` block. It
+#: answers the bridge's STOCKS and the divisor, never a flow.
+ROLL_FORWARD_KIND = "roll forward"
+
+#: E140.1(3): bridge legs a 10-Q or interim report does not restate. Two
+#: kinds, and only these are CARRIED from the fiscal year-end onto the
+#: roll-forward, with the carry named on the figure's page:
+#:   * measured ONCE A YEAR (E41's annual-only legs) -- carried as stated;
+#:   * a NAMED ZERO at the year-end -- a structural absence (no plan, no
+#:     obligation, no stream) is carried as the zero it is. A NON-zero
+#:     balance of this kind is NOT carried: it moves between dates and is
+#:     read off the roll-forward or is DATA MISSING.
+ROLL_FORWARD_CARRIED = ("pension_deficit", "asset_retirement_obligation")
+ROLL_FORWARD_CARRIED_IF_ZERO = ("prepaid_delivery_obligation",)
+#: A US filer's 10-Q need not tag its lease liabilities (PepsiCo carries them
+#: inside other liabilities between year-ends). The PAIR is carried from the
+#: year-end where the roll-forward states NEITHER -- never one alone, since
+#: E117 keeps in net debt only their difference (the finance leases).
+ROLL_FORWARD_CARRIED_AS_PAIR = ("lease_liabilities", "operating_lease_liabilities")
+
+
+def roll_forward_basis(parsed: ManualFile,
+                       basis: "Basis | None") -> "Basis | None":
+    """The balance-sheet basis the bridge rolls to (E140.1(3)), or None.
+
+    None where the file holds no `roll_forward:` block, or where the block
+    is not newer than the flows' basis (a store whose newest annual entry
+    already IS the latest balance sheet has nothing to roll to). The
+    block's own fiscal year-end must be the basis end: a year-to-date
+    working-capital change run from another year-end neutralises the wrong
+    months.
+    """
+    rf = parsed.roll_forward
+    if rf is None or basis is None or rf.period_end <= basis.end:
+        return None
+    if rf.from_year_end != basis.end:
+        raise ManualError(
+            f"{parsed.path}: roll_forward runs from {rf.from_year_end} and the "
+            f"basis ends {basis.end}. The year-to-date working capital it "
+            f"neutralises must run from the basis's own year-end (E140.1(3))")
+    figures = dict(rf.figures)
+    pair_absent = not any(n in figures and figures[n].present
+                          for n in ROLL_FORWARD_CARRIED_AS_PAIR)
+    for name in (ROLL_FORWARD_CARRIED + ROLL_FORWARD_CARRIED_IF_ZERO
+                 + (ROLL_FORWARD_CARRIED_AS_PAIR if pair_absent else ())):
+        if name in figures and figures[name].present:
+            continue
+        got = resolve_on_basis(parsed, basis, name)
+        if got.value is None or not got.figures:
+            continue
+        if name in ROLL_FORWARD_CARRIED_IF_ZERO and got.value != 0:
+            continue
+        old = got.figures[0]
+        why = ("measured once a year (E41)" if name in ROLL_FORWARD_CARRIED
+               else "the lease pair, neither stated on the interim balance "
+                    "sheet" if name in ROLL_FORWARD_CARRIED_AS_PAIR
+               else "a NAMED ZERO at the year-end, a structural absence")
+        figures[name] = replace(
+            old, page=(f"CARRIED from the fiscal year-end {basis.end} onto the "
+                       f"roll-forward {rf.period_end} (E140.1(3): {why}; the "
+                       f"interim balance sheet does not restate it) -- "
+                       f"{old.page}"))
+    period = ManualPeriod(period=f"RF {rf.period_end.isoformat()}",
+                          period_end=rf.period_end, period_basis=None,
+                          document=rf.document, url=rf.url, figures=figures)
+    return Basis(ROLL_FORWARD_KIND, rf.period_end, (period,))
+
+
+def fiscal_year_bases(parsed: ManualFile, upto: date,
+                      count: int = 3) -> tuple[Basis, ...]:
+    """E140(1): the newest ``count`` FISCAL YEARS closing on or before
+    ``upto``, each as its own as-filed basis, oldest first.
+
+    A year is an `annual:` entry or a twelve-month `periods:` entry; where
+    both close on one date the period entry is the basis (E17's
+    periods-first rule) and `resolve_on_basis` still fills from the annual
+    block on the same end. Fewer than ``count`` are returned where the
+    file holds fewer -- the caller refuses, never this.
+    """
+    by_end: dict[date, Basis] = {}
+    for entry in parsed.annual:
+        if entry.period_end <= upto:
+            by_end[entry.period_end] = Basis("as filed", entry.period_end, (), entry)
+    for period in parsed.periods:
+        if (period_months(period.period) == ANNUAL_MONTHS
+                and period.period_end <= upto):
+            by_end[period.period_end] = Basis("as filed", period.period_end,
+                                              (period,))
+    ends = sorted(by_end)[-count:]
+    return tuple(by_end[e] for e in ends)
+
+
+def working_capital_since(parsed: ManualFile, year_end: date,
+                          balance_sheet: date) -> tuple[float | None, str]:
+    """E140.1(3): the working-capital cash effect from ``year_end`` to
+    ``balance_sheet``, which the rolled bridge neutralises.
+
+    From the `roll_forward:` block where it closes on that date (its
+    year-to-date figure), otherwise the SUM of the quarters between the two
+    dates -- every one present and contiguous, or DATA MISSING. Zero where
+    the dates agree: nothing to neutralise.
+    """
+    if balance_sheet <= year_end:
+        return 0.0, "the balance sheet is the fiscal year-end: nothing to neutralise"
+    rf = parsed.roll_forward
+    if rf is not None and rf.period_end == balance_sheet:
+        if rf.from_year_end != year_end:
+            return None, (f"the roll-forward runs from {rf.from_year_end}, "
+                          f"not {year_end}")
+        figure = rf.figures.get("working_capital_change")
+        if figure is None or not figure.present:
+            return None, (f"`working_capital_change` is not on the "
+                          f"roll-forward {rf.period_end}")
+        return figure.value, f"year to date {rf.label}: {figure.page}"
+    quarters = [p for p in parsed.periods
+                if period_months(p.period) == QUARTER_MONTHS
+                and year_end < p.period_end <= balance_sheet]
+    if not quarters:
+        return None, f"no quarter between {year_end} and {balance_sheet} on the file"
+    span = [year_end] + [q.period_end for q in quarters]
+    if (quarters[-1].period_end != balance_sheet or not all(
+            QUARTER_MIN_DAYS <= (b - a).days <= QUARTER_MAX_DAYS
+            for a, b in zip(span, span[1:]))):
+        return None, (f"the quarters {', '.join(q.period for q in quarters)} "
+                      f"do not run contiguously from {year_end} to "
+                      f"{balance_sheet}")
+    got = [q.figures.get("working_capital_change") for q in quarters]
+    if not all(f is not None and f.present for f in got):
+        lacking = [q.period for q, f in zip(quarters, got)
+                   if f is None or not f.present]
+        return None, f"`working_capital_change` is not on {', '.join(lacking)}"
+    return (float(sum(f.value for f in got)),
+            " + ".join(f"{q.period} {f.value:,.0f} ({f.page})"
+                       for q, f in zip(quarters, got)))
 
 
 def section5_basis(parsed: ManualFile) -> Basis | None:
@@ -3370,6 +3745,24 @@ def lease_excluded_legs(parsed: ManualFile) -> tuple[str, ...]:
     return ()
 
 
+def unsplit_current_leg(parsed: ManualFile, basis: "Basis | None") -> bool:
+    """E124: True where the current borrowing leg is absent BY DECLARATION.
+
+    The file declares an unclassified balance sheet, the current leg is not
+    on the basis, and the non-current leg -- the one stated caption -- is.
+    Net debt then adds nothing for the current leg. Never True for a
+    classified filer, and never where the non-current leg is missing too.
+    """
+    declared = parsed.unclassified_balance_sheet
+    if declared is None or not declared.value or basis is None:
+        return False
+    return (resolve_on_basis(parsed, basis, "financial_liabilities_current").value
+            is None
+            and resolve_on_basis(parsed, basis,
+                                 "financial_liabilities_noncurrent").value
+            is not None)
+
+
 def lease_in_net_debt(parsed: ManualFile, lease_liabilities: float,
                       operating: float | None) -> tuple[float | None, str]:
     """E117: the lease liability that STAYS in net debt, and the sentence.
@@ -3544,9 +3937,8 @@ def basis_bounds(parsed: ManualFile,
     # the tolerance for it would refuse a record on an uncertainty it does
     # not have.
     unread = set(non_valuation_fields(parsed))
-    # E120: a lease interest STANDING IN drops the E106 bound it replaces
-    if lease_interest_stand_in(parsed, basis) is not None:
-        unread.add("lease_interest_paid")
+    # E120 / E135: a figure STANDING IN drops the E106 bound it replaces
+    unread |= stand_ins_on_basis(parsed, basis)
     totals: dict[str, list[ManualFigure]] = {}
     for holder in basis.holders:
         for figure in holder.figures.values():
@@ -4115,17 +4507,20 @@ def _latest_net_debt(parsed: ManualFile) -> tuple[str, float | None, tuple[str, 
     borrowing legs. A leg that quarter does not restate is CARRIED from the
     newest period that does, and named -- never silently zero."""
     holders = _holders_newest_first(parsed)
+    # E124: an unclassified balance sheet states no current leg; the one
+    # caption is the non-current leg, and the current adds nothing.
+    declared = parsed.unclassified_balance_sheet
+    unsplit = declared is not None and declared.value
+    needed = (("cash_and_equivalents", "financial_liabilities_noncurrent")
+              if unsplit else
+              ("cash_and_equivalents", "financial_liabilities_current",
+               "financial_liabilities_noncurrent"))
     quarter = next((h for h in parsed.periods if all(
-        _stated(h, n) is not None for n in ("cash_and_equivalents",
-                                            "financial_liabilities_current",
-                                            "financial_liabilities_noncurrent"))),
-        None)
+        _stated(h, n) is not None for n in needed)), None)
     if quarter is None:
         return "", None, ()
     newest = max((h for h in parsed.periods if all(
-        _stated(h, n) is not None for n in ("cash_and_equivalents",
-                                            "financial_liabilities_current",
-                                            "financial_liabilities_noncurrent"))),
+        _stated(h, n) is not None for n in needed)),
         key=lambda h: h.period_end)
     carried: list[str] = []
 
@@ -4158,7 +4553,8 @@ def _latest_net_debt(parsed: ManualFile) -> tuple[str, float | None, tuple[str, 
     if kept is None or any(v is None for v in legs):
         return getattr(newest, "period", ""), None, tuple(carried)
     assets = _stated(newest, "other_current_financial_assets") or 0.0
-    total = (_stated(newest, "financial_liabilities_current")
+    current = _stated(newest, "financial_liabilities_current")
+    total = ((current if current is not None else 0.0)
              + _stated(newest, "financial_liabilities_noncurrent") + kept + sum(legs)
              - _stated(newest, "cash_and_equivalents") - assets)
     return newest.period, total, tuple(carried)
@@ -4522,6 +4918,11 @@ def net_debt_on_basis(parsed: ManualFile,
     # not -- a missing operating liability would leave rent charged twice.
     for name in lease_excluded_legs(parsed):
         legs[name] = resolve_on_basis(parsed, basis, name).value
+    # E124: the current leg of an unclassified balance sheet adds nothing --
+    # the one stated caption is the non-current leg.
+    unsplit = unsplit_current_leg(parsed, basis)
+    if unsplit:
+        legs["financial_liabilities_current"] = 0.0
     absent = [name for name, value in legs.items() if value is None]
     if absent:
         return None, f"{', '.join(sorted(absent))} is not on the basis {basis.label}"
@@ -4537,14 +4938,18 @@ def net_debt_on_basis(parsed: ManualFile,
              + legs["prepaid_delivery_obligation"]
              - legs["cash_and_equivalents"]
              - (assets or 0.0))
-    why = (f"borrowings {legs['financial_liabilities_current']:,.0f} + "
-           f"{legs['financial_liabilities_noncurrent']:,.0f} + {lease_why} "
-           f"+ pension "
-           f"deficit {legs['pension_deficit']:,.0f} (E35.1) + asset retirement "
-           f"obligations {legs['asset_retirement_obligation']:,.0f} (E68) + "
-           f"prepaid delivery obligations "
-           f"{legs['prepaid_delivery_obligation']:,.0f} (E81) - cash "
-           f"{legs['cash_and_equivalents']:,.0f}")
+    why = ((f"borrowings {legs['financial_liabilities_noncurrent']:,.0f} (E124: "
+            f"UNCLASSIFIED balance sheet, one stated caption, no current leg) "
+            f"+ {lease_why} ")
+           if unsplit else
+           (f"borrowings {legs['financial_liabilities_current']:,.0f} + "
+            f"{legs['financial_liabilities_noncurrent']:,.0f} + {lease_why} "))
+    why += (f"+ pension "
+            f"deficit {legs['pension_deficit']:,.0f} (E35.1) + asset retirement "
+            f"obligations {legs['asset_retirement_obligation']:,.0f} (E68) + "
+            f"prepaid delivery obligations "
+            f"{legs['prepaid_delivery_obligation']:,.0f} (E81) - cash "
+            f"{legs['cash_and_equivalents']:,.0f}")
     if assets is None:
         why += (" - other current financial assets DATA MISSING, so nothing "
                 "is subtracted for them: omitting an ASSET raises net debt "
@@ -4589,8 +4994,8 @@ def ratio_states(parsed: ManualFile,
         # E120: a lease interest STANDING IN is an annual figure inside a
         # TTM window BY RULING -- its mismatch is the one E120 permits, and
         # it is printed with its date on the record, not refused here.
-        if lease_interest_stand_in(parsed, basis) is not None:
-            mismatched = [leg for leg in mismatched if leg != "lease_interest_paid"]
+        standing = stand_ins_on_basis(parsed, basis)          # E135 too
+        mismatched = [leg for leg in mismatched if leg not in standing]
         absent = [leg for leg, r in resolved.items() if r.state == RATIO_MISSING]
         # E18: A NET THE ACCOUNTS PRINT IN TWO HALVES IS STILL ON THE BASIS.
         # `resolve_on_basis` answers for the FIELD; where the file holds the
@@ -4608,9 +5013,13 @@ def ratio_states(parsed: ManualFile,
         # run at all is `RunRecord.tolerance`'s question, asked on the
         # record, and it is NOT re-asked here.
         bounded = {f.name for f in basis_bounds(parsed, basis)}
-        if lease_interest_stand_in(parsed, basis) is not None:
-            bounded.add("lease_interest_paid")          # E120: stands in
+        bounded |= standing                     # E120 / E135: stands in
         absent = [leg for leg in absent if leg not in bounded]
+        # E124: an unclassified balance sheet's current leg is absent BY
+        # DECLARATION, its one caption being in the non-current leg.
+        if unsplit_current_leg(parsed, basis):
+            absent = [leg for leg in absent
+                      if leg != "financial_liabilities_current"]
         if absent:
             detail = f"{', '.join(absent)} is not on the basis {basis.label}"
             if INTEREST_UNCLASSIFIED in absent:

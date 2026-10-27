@@ -1,0 +1,383 @@
+ticker: AUTO.L
+currency: GBP
+money_unit: millions
+fiscal_year_end: 03-31
+business:
+  text: Auto Trader runs the UK's largest automotive marketplace, earning mostly subscription revenue from car retailers and manufacturers.
+  source: ar2026
+  quote: Creating value as the UK’s largest automotive marketplace
+sources:
+  ar2026:
+    file: sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf
+    page: 143
+  ar2026_fs:
+    file: sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf
+    page: 103
+  ar2026_bs:
+    file: sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf
+    page: 105
+  ar2026_cf:
+    file: sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf
+    page: 107
+  ar2025:
+    file: sources/AUTO.L_2025-FY_annual-financial-report_2025-06-26_xx_a0.pdf
+    page: 169
+  ar2024_is:
+    file: sources/AUTO.L_2024-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 13
+    url: https://plc.autotrader.co.uk/media/uvkn3k0c/financial-statements-2024.pdf
+  ar2024_cf:
+    file: sources/AUTO.L_2024-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 17
+    url: https://plc.autotrader.co.uk/media/uvkn3k0c/financial-statements-2024.pdf
+  ar2022_is:
+    file: sources/AUTO.L_2022-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 121
+    url: https://plc.autotrader.co.uk/media/w0tnuzhv/at-ar22.pdf
+  ar2022_cf:
+    file: sources/AUTO.L_2022-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 125
+    url: https://plc.autotrader.co.uk/media/w0tnuzhv/at-ar22.pdf
+  ar2020_is:
+    file: sources/AUTO.L_2020-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 7
+    url: https://plc.autotrader.co.uk/media/1qzbfk4z/financial-statements-2020.pdf
+  ar2020_bs:
+    file: sources/AUTO.L_2020-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 9
+    url: https://plc.autotrader.co.uk/media/1qzbfk4z/financial-statements-2020.pdf
+  ar2020_cf:
+    file: sources/AUTO.L_2020-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 11
+    url: https://plc.autotrader.co.uk/media/1qzbfk4z/financial-statements-2020.pdf
+  ar2018_is:
+    file: sources/AUTO.L_2018-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 90
+    url: https://plc.autotrader.co.uk/media/c0jpqzni/aut_ar2018.pdf
+  ar2018_bs:
+    file: sources/AUTO.L_2018-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 92
+    url: https://plc.autotrader.co.uk/media/c0jpqzni/aut_ar2018.pdf
+  ar2018_cf:
+    file: sources/AUTO.L_2018-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 94
+    url: https://plc.autotrader.co.uk/media/c0jpqzni/aut_ar2018.pdf
+rows:
+- field: revenue
+  source: ar2026
+  years:
+  - 2026
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  values:
+  - 624.3
+  - 601.1
+  - 570.9
+  - 500.2
+  - 432.7
+  quote: Revenue 624.3 601.1 570.9 500.2 432.7
+- field: revenue
+  source: ar2025
+  years:
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 601.1
+  - 570.9
+  - 500.2
+  - 432.7
+  - 262.8
+  quote: Revenue 601.1 570.9 500.2 432.7 262.8
+- field: revenue
+  source: ar2024_is
+  years:
+  - 2024
+  - 2023
+  values:
+  - 570.9
+  - 500.2
+  quote: Revenue 5 570.9 500.2
+- field: revenue
+  source: ar2022_is
+  years:
+  - 2022
+  - 2021
+  values:
+  - 432.7
+  - 262.8
+  quote: Revenue 5 432.7 262.8
+- field: revenue
+  source: ar2020_is
+  years:
+  - 2020
+  - 2019
+  values:
+  - 368.9
+  - 355.1
+  quote: Revenue 5 368.9 355.1
+- field: revenue
+  source: ar2018_is
+  years:
+  - 2018
+  - 2017
+  values:
+  - 330.1
+  - 311.4
+  quote: Revenue 3 330.1 311.4
+- field: operating_profit
+  source: ar2026
+  years:
+  - 2026
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  values:
+  - 392.7
+  - 376.8
+  - 348.7
+  - 277.6
+  - 303.6
+  quote: Operating profit 392.7 376.8 348.7 277.6 303.6
+- field: operating_profit
+  source: ar2025
+  years:
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 376.8
+  - 348.7
+  - 277.6
+  - 303.6
+  - 161.2
+  quote: Operating profit 376.8 348.7 277.6 303.6 161.2
+- field: operating_profit
+  source: ar2020_is
+  years:
+  - 2020
+  - 2019
+  values:
+  - 258.9
+  - 243.7
+  quote: Operating profit 6 258.9 243.7
+- field: operating_profit
+  source: ar2018_is
+  years:
+  - 2018
+  - 2017
+  values:
+  - 220.6
+  - 203.1
+  quote: Operating profit 4 220.6 203.1
+- field: equity
+  source: ar2026
+  years:
+  - 2026
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  values:
+  - 407.1
+  - 569.4
+  - 552.3
+  - 527.3
+  - 472.5
+  quote: Net assets 407.1 569.4 552.3 527.3 472.5
+- field: equity
+  source: ar2025
+  years:
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 569.4
+  - 552.3
+  - 527.3
+  - 472.5
+  - 458.7
+  quote: Net assets 569.4 552.3 527.3 472.5 458.7
+- field: equity
+  source: ar2020_bs
+  years:
+  - 2020
+  - 2019
+  values:
+  - 141.6
+  - 59.0
+  quote: Total equity 141.6 59.0
+- field: equity
+  source: ar2018_bs
+  years:
+  - 2018
+  - 2017
+  values:
+  - 4.6
+  - -21.4
+  quote: Total equity 4.6 (21.4)
+- field: net_debt
+  source: ar2026
+  years:
+  - 2026
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  values:
+  - 146.8
+  - -15.3
+  - 11.3
+  - 43.4
+  - -51.3
+  quote: Net bank debt/(cash) (gross bank debt less cash) 146.8 (15.3) 11.3 43.4 (51.3)
+- field: net_debt
+  source: ar2025
+  years:
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - -15.3
+  - 11.3
+  - 43.4
+  - -51.3
+  - -15.7
+  quote: Net bank debt/(cash) (gross bank debt less cash) (15.3) 11.3 43.4 (51.3) (15.7)
+- field: operating_cash_flow
+  source: ar2026_cf
+  years:
+  - 2026
+  - 2025
+  values:
+  - 322.8
+  - 304.6
+  quote: Net cash generated from operating activities 322.8 304.6
+- field: operating_cash_flow
+  source: ar2024_cf
+  years:
+  - 2024
+  - 2023
+  values:
+  - 287.5
+  - 266.9
+  quote: Net cash generated from operating activities 287.5 266.9
+- field: operating_cash_flow
+  source: ar2022_cf
+  years:
+  - 2022
+  - 2021
+  values:
+  - 271.9
+  - 124.7
+  quote: Net cash generated from operating activities 271.9 124.7
+- field: operating_cash_flow
+  source: ar2020_cf
+  years:
+  - 2020
+  - 2019
+  values:
+  - 195.7
+  - 216.3
+  quote: Net cash generated from operating activities 195.7 216.3
+- field: operating_cash_flow
+  source: ar2018_cf
+  years:
+  - 2018
+  - 2017
+  values:
+  - 186.7
+  - 178.1
+  quote: Net cash generated from operating activities 186.7 178.1
+- field: capex
+  source: ar2026_cf
+  years:
+  - 2026
+  - 2025
+  values:
+  - -27.3
+  - -4.0
+  quote: Purchases of property, plant and equipment (27.3) (4.0)
+- field: capex
+  source: ar2024_cf
+  years:
+  - 2024
+  - 2023
+  values:
+  - -3.6
+  - -2.4
+  quote: Purchases of property, plant and equipment (3.6) (2.4)
+- field: capex
+  source: ar2022_cf
+  years:
+  - 2022
+  - 2021
+  values:
+  - -2.8
+  - -1.3
+  quote: Purchases of property, plant and equipment (2.8) (1.3)
+- field: capex
+  source: ar2020_cf
+  years:
+  - 2020
+  - 2019
+  values:
+  - -1.3
+  - -1.7
+  quote: Purchases of property, plant and equipment (1.3) (1.7)
+- field: capex
+  source: ar2018_cf
+  years:
+  - 2018
+  - 2017
+  values:
+  - -2.3
+  - -2.5
+  quote: Purchases of property, plant and equipment (2.3) (2.5)
+- field: acquisitions_paid
+  source: ar2024_cf
+  years:
+  - 2024
+  - 2023
+  values:
+  - 0
+  - -144.2
+  quote: Payment for acquisition of subsidiary, net of cash acquired 31 – (144.2)
+- field: acquisitions_paid
+  source: ar2022_cf
+  years:
+  - 2022
+  - 2021
+  values:
+  - 0
+  - -10.0
+  quote: Payment for acquisition of subsidiary, net of cash acquired 29 – (10.0)
+- field: acquisitions_paid
+  source: ar2020_cf
+  years:
+  - 2020
+  - 2019
+  values:
+  - -25.3
+  - 0
+  quote: Payment for acquisition of subsidiary, net of cash acquired 30 (25.3) –
+- field: acquisitions_paid
+  source: ar2018_cf
+  years:
+  - 2018
+  - 2017
+  values:
+  - -11.9
+  - 0
+  quote: Net cash outflow on acquisition of subsidiary 26 (11.9) –

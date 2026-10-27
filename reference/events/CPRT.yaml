@@ -1,0 +1,21 @@
+ticker: CPRT
+dated: '2026-10-27'
+ruling: E140(3)-(4)
+money: whole units of the reporting currency
+money_unit: whole
+basis_balance_sheet: '2026-07-31'
+searched:
+- 'EDGAR submissions: every 8-K, 10-Q and 10-K filed after the basis balance-sheet date, deal sentences extracted
+  by tools (scan 2026-10-27)'
+- issuer press releases and news search (subagent sweep 2026-10-27)
+deals:
+- name: ACV Auctions ($10.50/share tender; aggregate per secondary sources ~1.9bn; low/high bound the share count)
+  date: '2026-10-16'
+  status: closed
+  closed: '2026-10-16'
+  low: 1800000000.0
+  high: 1950000000.0
+  fcf: 0
+  source: 8-K 2026-10-16 item 2.01; 8-K 2026-09-10 item 1.01
+none_found: false
+notes: ''

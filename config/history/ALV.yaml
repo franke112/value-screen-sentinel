@@ -1,0 +1,280 @@
+ticker: ALV
+currency: USD
+money_unit: whole
+sources:
+  xbrl:
+    kind: sec-xbrl
+    url: https://data.sec.gov/api/xbrl/companyfacts/
+    fetched: '2026-10-27'
+  tenk:
+    file: sources/ALV_FY2025_annual-report-10k_2026-02-19_en_a0.htm
+    kind: pdf
+rows:
+- field: revenue
+  source: xbrl
+  tag: RevenueFromContractWithCustomerExcludingAssessedTax
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 7921600000.0
+  - 8136800000.0
+  - 8678200000.0
+  - 8548000000.0
+  - 7447000000.0
+  - 8230000000.0
+  - 8842000000.0
+  - 10475000000.0
+  - 10390000000.0
+  - 10815000000.0
+- field: revenue
+  source: xbrl
+  tag: SalesRevenueGoodsNet
+  years:
+  - 2015
+  values:
+  - 9169600000.0
+- field: operating_profit
+  source: xbrl
+  tag: OperatingIncomeLoss
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 727800000.0
+  - 831000000.0
+  - 859600000.0
+  - 686000000.0
+  - 726000000.0
+  - 382000000.0
+  - 675000000.0
+  - 659000000.0
+  - 690000000.0
+  - 979000000.0
+  - 1088000000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivities
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 868400000.0
+  - 935900000.0
+  - 590600000.0
+  - 641000000.0
+  - 849000000.0
+  - 754000000.0
+  - 713000000.0
+  - 982000000.0
+  - 1059000000.0
+  - 1157000000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivitiesContinuingOperations
+  years:
+  - 2015
+  values:
+  - 750500000.0
+- field: capex
+  source: xbrl
+  tag: PaymentsToAcquirePropertyPlantAndEquipment
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 465800000.0
+  - 506800000.0
+  - 580100000.0
+  - 560000000.0
+  - 483000000.0
+  - 344000000.0
+  - 458000000.0
+  - 585000000.0
+  - 573000000.0
+  - 579000000.0
+  - 441000000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesNetOfCashAcquired
+  years:
+  - 2015
+  - 2016
+  - 2017
+  values:
+  - 98900000.0
+  - 226300000.0
+  - 13800000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesAndInterestInAffiliates
+  years:
+  - 2018
+  values:
+  - 72000000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: 'searched: no acquisition element tagged (zero)'
+  years:
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquity
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 3455600000.0
+  - 3677200000.0
+  - 4035100000.0
+  - 1883700000.0
+  - 2109200000.0
+  - 2409000000.0
+  - 2633000000.0
+  - 2613000000.0
+  - 2557000000.0
+  - 2276000000.0
+  - 2572000000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 1666300000.0
+  - 1380600000.0
+  - 1397000000.0
+  - 1389900000.0
+  - 1388000000.0
+  - 1398000000.0
+  - 1387000000.0
+  - 1375000000.0
+  - 1378000000.0
+  - 1368000000.0
+  - 1379000000.0
+- field: shares
+  source: xbrl
+  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 88400000.0
+  - 88400000.0
+  - 87700000.0
+  - 87300000.0
+  - 87400000.0
+  - 87500000.0
+  - 87700000.0
+  - 87200000.0
+  - 85200000.0
+  - 80400000.0
+  - 76900000.0
+  unit: whole
+- field: net_debt
+  source: xbrl
+  tag: 'derived: LongTermDebt (or its parts) + short-term borrowings - CashAndCashEquivalentsAtCarryingValue'
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - -1050900000.0
+  - 536500000.0
+  - 401600000.0
+  - 1613900000.0
+  - 1649500000.0
+  - 1234000000.0
+  - 1039000000.0
+  - 1171000000.0
+  - 1364000000.0
+  - 1579000000.0
+  - 1549000000.0
+business:
+  text: Autoliv makes airbags, steering wheels and seatbelts for car makers, who keep buying because safety systems are designed in for each vehicle platform.
+  source: tenk
+  quote: The Company is a leading developer, manufacturer, and supplier of passive safety systems to the automotive industry with a broad range of product offerings.

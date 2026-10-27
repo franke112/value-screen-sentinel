@@ -1,0 +1,436 @@
+{
+ "ticker": "RBREW.CO",
+ "currency": "DKK",
+ "run_ts": "2026-10-27T14:23:51+01:00",
+ "basis": "2025-FY",
+ "shares": {
+  "count": 48661324.0,
+  "basis": "weighted-average DILUTED count for roll-forward balance sheet 2026-06-30, the same window as the flows (E38)",
+  "as_of": "2026-06-30",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 35.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "Annual Report 2025 (audited); Interim Report H1 2026 (unaudited) AR pdf p.138, Consolidated cash flow statement: 'Received financial income 26 15', 'Paid financial expenses -268 -304', 'Financial expenses related to leasing -12 -11', 'Corporation tax paid -461 -384', 'Cash flows from operating activities 2,385 2,189' -- all three interest lines INSIDE operating activities. H1 pdf p.15, the same placement: 'Received financial income 2 5 6 13 26', 'Paid financial expenses -64 -80 -119 -141 -268'",
+  "net_interest_paid": 254.0,
+  "source": "cash_flow_statement"
+ },
+ "bridge": {
+  "net_debt": 6610.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 0.0,
+   "pensions": 0.0,
+   "asset_retirement_obligations": 0.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+  },
+  "note": "borrowings 1,282 + 5,382 + leases 0 -- the IFRS 16 liability 447 LEAVES net debt whole (E117: its cash is in the flow; one lessee model, no split) + pension deficit 0 (E35.1) + asset retirement obligations 0 (E68) + prepaid delivery obligations 0 (E81) - cash 54 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: split: capex_ppe + capex_intangibles, as the accounts print them"
+ },
+ "dates": {
+  "flows_window_end": "2025-12-31",
+  "balance_sheet": "2026-06-30",
+  "share_count": "2026-06-30",
+  "price": "2026-10-26"
+ },
+ "growth": {
+  "base": 0.04,
+  "view_file": "E144: derived from config/history/RBREW.CO.yaml",
+  "view_date": "2026-10-27",
+  "bear": 0.022130941667201753,
+  "bull": 0.04
+ },
+ "operating_cash_flow": 2385.0,
+ "capex": -841.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": null,
+  "premium": null,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_ppe",
+   "value": -797.0,
+   "provenance": "pdf p.138, investing activities: 'Purchase of property, plant and equipment 12 -797 -761'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "capex_intangibles",
+   "value": -44.0,
+   "provenance": "pdf p.138: 'Purchase of intangible assets 11 -44 -58'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 2385.0,
+   "provenance": "pdf p.138, Consolidated cash flow statement: 'Cash flows from operating activities 2,385 2,189' -- after 'Received financial income 26', 'Paid financial expenses -268', 'Financial expenses related to leasing -12' and 'Corporation tax paid -461'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "sbc",
+   "value": 35.0,
+   "provenance": "pdf p.167, note 19: 'Share-based payments and remuneration 35 23' -- the non-cash add-back as the issuer labels it",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "net_interest_paid",
+   "value": 254.0,
+   "provenance": "pdf p.139, cash flow commentary: 'net interest paid of DKK 254m (2024: DKK 300m)'. The issuer's own net of the three operating lines on pdf p.138: 'Paid financial expenses -268' + 'Financial expenses related to leasing -12' - 'Received financial income 26' = 254. Includes the lease interest 12 on purpose (see the file header): the E34 add-back takes all interest out of the flow and E117 deducts the lease interest once",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 48661324.0,
+   "provenance": "pdf p.19, note 7: 'The average number of shares in circulation, incl. restricted shares amounted to (number) 48,661,324 49,946,426' (the issuer's diluted definition, as FY2025)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 1282.0,
+   "provenance": "pdf p.14, current liabilities at June 30, 2026: 'Mortgage debt 0 27 0' + 'Credit institutions 1,282 1,104 379' = 0 + 1,282 = 1,282, as printed (E141 decision, as the non-current leg)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 5382.0,
+   "provenance": "pdf p.14, non-current liabilities at June 30, 2026: 'Mortgage debt 1,009 973 1,009' + 'Credit institutions 4,373 4,344 4,424' = 1,009 + 4,373 = 5,382, AS PRINTED: the interim states no lease liability, so the leasing the year-end note puts inside 'Credit institutions' stays in (E141 decision 2026-10-27: no figure the filing does not print is typed; the lease is then counted twice, the conservative side)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 447.0,
+   "provenance": "CARRIED from the fiscal year-end 2025-12-31 onto the roll-forward 2026-06-30 (E140.1(3): the lease pair, neither stated on the interim balance sheet; the interim balance sheet does not restate it) -- pdf p.166, note 18: 'Interest-bearing debt: leasing 462 31 -177 134 -3 447' (long-term 315, short-term 132); '* Leasing debt is included in the balance sheets as credit institutions.' One IFRS 16 liability (E65)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 0.0,
+   "provenance": "CARRIED from the fiscal year-end 2025-12-31 onto the roll-forward 2026-06-30 (E140.1(3): measured once a year (E41); the interim balance sheet does not restate it) -- E25, note form: pdf p.152, note 6, Staff expenses: 'Contributions to pension schemes 240 222' -- contributions expensed and nothing more. No defined-benefit obligation, plan asset or pension liability is presented: the balance sheet pdf p.136 has no pension caption, and 'defined benefit' occurs NOWHERE in the filing (full-text search, 2026-10-19)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "CARRIED from the fiscal year-end 2025-12-31 onto the roll-forward 2026-06-30 (E140.1(3): measured once a year (E41); the interim balance sheet does not restate it) -- E68.1: pdf p.136, Consolidated balance sheet, every liability caption: non-current 'Deferred tax 16 1,277', 'Mortgage debt 3, 18 1,009', 'Credit institutions 3, 18 4,424'; current 'Credit institutions 3, 18 379', 'Trade payables 3 2,482', 'Corporation tax 10 35', 'Other payables 17 1,950'. No provisions caption at all. 'asset retirement' occurs NOWHERE in the filing, 'decommission' occurs NOWHERE and 'dismantl' occurs NOWHERE; 'restoration' occurs only in the sustainability statement (freshwater systems). 'Other payables' is itemised in note 17 pdf p.165 ('VAT, excise duties, etc. 1,068', 'Other payables 631', 'Deposit, returnable packaging 251') and holds no restoration obligation",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "CARRIED from the fiscal year-end 2025-12-31 onto the roll-forward 2026-06-30 (E140.1(3): a NAMED ZERO at the year-end, a structural absence; the interim balance sheet does not restate it) -- E81: the same balance sheet, every liability caption enumerated for asset_retirement_obligation above -- no prepaid-offtake or prepaid-delivery caption. NAMED HERE because it is the nearest thing: note 17 pdf p.165, 'Deposit, returnable packaging 251 228', 'the obligation to repay the deposit when the packaging in circulation is taken back on inventory is recognized in other payables', and 'Plastic crates, bottles, and kegs in circulation and held in inventory are recognized in property, plant and equipment'. Read as working capital that turns over with the packaging, not customer money held (E136). A caption zero; the owner ruled it working capital, E138 (2026-10-19)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 54.0,
+   "provenance": "pdf p.14, balance sheet at June 30, 2026: 'Cash and cash equivalents 54 74 82'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "lease_payments_capital",
+   "value": -177.0,
+   "provenance": "pdf p.138, financing activities: 'Repayment on lease facilities 18 -177 -166'; note 18 pdf p.166: 'Interest-bearing debt: leasing 462 31 -177 134 -3 447'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "lease_interest_paid",
+   "value": 12.0,
+   "provenance": "pdf p.138, operating activities: 'Financial expenses related to leasing -12 -11'. E117 leg, deducted beside the principal",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2023 capex_ppe",
+   "value": -602.0,
+   "provenance": "pdf p.155, investing activities: 'Purchase of property, plant and equipment 12 -761 -602' (2023 column; the Vrumona acquisition)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2023 capex_intangibles",
+   "value": 0.0,
+   "provenance": "pdf p.155: 'Purchase of intangible assets 11 -58' prints no 2023 figure; the 2023 investing lines 'Dividends received from associates 13 11 13', 'Sale of property, plant and equipment 18 93', 'Purchase of property, plant and equipment 12 -761 -602', 'Acquisition of enterprises, net 24 -80 -2,419', 'of other entities 201 0' and 'Development on financial asset investment 18 -10' sum to 13 + 93 - 602 - 2,419 + 0 - 10 = -2,925, the printed 'Cash flows from investing activities -651 -2,925': no room for an intangibles purchase",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2023 lease_payments_capital",
+   "value": -138.0,
+   "provenance": "pdf p.155, financing activities: 'Repayment on lease facilities 20 -166 -138' (2023 column; the Vrumona acquisition)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2023 lease_interest_paid",
+   "value": 7.0,
+   "provenance": "pdf p.155, operating activities: 'Financial expenses related to leasing -11 -7' (2023 column; the Vrumona acquisition). E117 leg, deducted beside the principal (as the 2025 basis year)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2023 operating_cash_flow",
+   "value": 1777.0,
+   "provenance": "pdf p.155, consolidated cash flow statement: 'Cash flows from operating activities 2,189 1,777' (2023 column; the Vrumona acquisition)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2023 working_capital_change",
+   "value": 55.0,
+   "provenance": "E140(1), pdf p.155: 'Change in working capital 216 55' (2023 column; the Vrumona acquisition)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2023 sbc",
+   "value": 14.0,
+   "provenance": "pdf p.186: 'Share-based payments and remuneration 23 14' (2023 column; the Vrumona acquisition)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2023 acquisitions_paid",
+   "value": -2419.0,
+   "provenance": "E140.1(1), pdf p.155, investing activities: 'Acquisition of enterprises, net 24 -80 -2,419' (2023 column; the Vrumona acquisition)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 capex_ppe",
+   "value": -761.0,
+   "provenance": "pdf p.138, investing activities: 'Purchase of property, plant and equipment 12 -797 -761' (2024 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 capex_intangibles",
+   "value": -58.0,
+   "provenance": "pdf p.138: 'Purchase of intangible assets 11 -44 -58' (2024 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 lease_payments_capital",
+   "value": -166.0,
+   "provenance": "pdf p.138, financing activities: 'Repayment on lease facilities 18 -177 -166' (2024 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 lease_interest_paid",
+   "value": 11.0,
+   "provenance": "pdf p.138, operating activities: 'Financial expenses related to leasing -12 -11' (2024 column). E117 leg, deducted beside the principal (as the 2025 basis year)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 operating_cash_flow",
+   "value": 2189.0,
+   "provenance": "pdf p.138, consolidated cash flow statement: 'Cash flows from operating activities 2,385 2,189' (2024 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 working_capital_change",
+   "value": 216.0,
+   "provenance": "E140(1), pdf p.138: 'Change in working capital 134 216' (2024 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 sbc",
+   "value": 23.0,
+   "provenance": "pdf p.167: 'Share-based payments and remuneration 35 23' (2024 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 acquisitions_paid",
+   "value": -80.0,
+   "provenance": "E140.1(1), pdf p.138, investing activities: 'Acquisition of enterprises, net 22 -167 -80' (2024 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "2025-FY capex_ppe",
+   "value": -797.0,
+   "provenance": "pdf p.138, investing activities: 'Purchase of property, plant and equipment 12 -797 -761'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "2025-FY capex_intangibles",
+   "value": -44.0,
+   "provenance": "pdf p.138: 'Purchase of intangible assets 11 -44 -58'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "2025-FY lease_payments_capital",
+   "value": -177.0,
+   "provenance": "pdf p.138, financing activities: 'Repayment on lease facilities 18 -177 -166'; note 18 pdf p.166: 'Interest-bearing debt: leasing 462 31 -177 134 -3 447'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "2025-FY lease_interest_paid",
+   "value": 12.0,
+   "provenance": "pdf p.138, operating activities: 'Financial expenses related to leasing -12 -11'. E117 leg, deducted beside the principal",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "2025-FY operating_cash_flow",
+   "value": 2385.0,
+   "provenance": "pdf p.138, Consolidated cash flow statement: 'Cash flows from operating activities 2,385 2,189' -- after 'Received financial income 26', 'Paid financial expenses -268', 'Financial expenses related to leasing -12' and 'Corporation tax paid -461'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "2025-FY working_capital_change",
+   "value": 134.0,
+   "provenance": "E140(1), pdf p.138, consolidated cash flow statement: 'Change in working capital 134 216'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "2025-FY sbc",
+   "value": 35.0,
+   "provenance": "pdf p.167, note 19: 'Share-based payments and remuneration 35 23' -- the non-cash add-back as the issuer labels it",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "2025-FY acquisitions_paid",
+   "value": -167.0,
+   "provenance": "E140.1(1), pdf p.138, investing activities: 'Acquisition of enterprises, net 22 -167 -80'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "working_capital_change 2025-12-31..2026-06-30",
+   "value": -225.0,
+   "provenance": "year to date roll-forward 2026-06-30: pdf p.15, cash flow statement, H1 2026 column: 'Change in working capital 263 426 -225 -70 134' (Q2 2026, Q2 2025, H1 2026, H1 2025, FY 2025)",
+   "entered_by": "store",
+   "verified": ""
+  }
+ ],
+ "tool_commit": "vss strike 2026-10-27-e142, dab720b",
+ "notes": "E142-E145 method rebuild (reference/reviews/method/2026-10-27-REBUILD.md); re-struck after E145's Q2/Q3 correction",
+ "money_unit": "millions",
+ "nci_dividends_paid": 0.0,
+ "undetermined": [],
+ "fcf_reported": {
+  "value": 1413.0,
+  "page": "pdf p.138, the issuer's free cash flow under the cash flow statement: 'Free cash flow* 1,413 1,434' (operating cash flow less investing excluding acquisitions, less lease payments). Reference only",
+  "verified": true
+ },
+ "net_debt_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_income": {
+  "value": 1560.0,
+  "page": "pdf p.133: 'Net profit for the year 1,560 1,464'. No non-controlling interests are presented",
+  "verified": true
+ },
+ "lease": {
+  "in_operating_cash_flow": false,
+  "page": "FRAMEWORK-EDITS E70, applied 2026-10-19 to an IFRS 16 filer IFRS 16.50(b): lease principal is a financing flow. AR pdf p.138, financing activities: 'Repayment on lease facilities 18 -177 -166'; the lease interest is in operating activities, 'Financial expenses related to leasing -12 -11'",
+  "principal_added_back": null,
+  "leg": "`lease_payments_capital` + `lease_interest_paid`, DEDUCTED (E117: the IFRS 16 principal and lease interest)",
+  "rule": "E117",
+  "lease_cash_deducted": 189.0,
+  "principal_paid": 177.0,
+  "interest_paid": 12.0,
+  "liability_excluded": 447.0
+ },
+ "e140": {
+  "years": [
+   {
+    "label": "annual FY2023",
+    "operating_cash_flow": 1777.0,
+    "working_capital": 55.0,
+    "capex": -602.0,
+    "sbc": 14.0,
+    "acquisitions": -2419.0,
+    "lease_cash": 145.0
+   },
+   {
+    "label": "annual FY2024",
+    "operating_cash_flow": 2189.0,
+    "working_capital": 216.0,
+    "capex": -819.0,
+    "sbc": 23.0,
+    "acquisitions": -80.0,
+    "lease_cash": 177.0
+   },
+   {
+    "label": "2025-FY",
+    "operating_cash_flow": 2385.0,
+    "working_capital": 134.0,
+    "capex": -841.0,
+    "sbc": 35.0,
+    "acquisitions": -167.0,
+    "lease_cash": 189.0
+   }
+  ],
+  "tax_country": "DK",
+  "tax_rate": 0.22,
+  "ledger": "reference/events/RBREW.CO.yaml",
+  "ledger_dated": "2026-10-27",
+  "cut": "2026-06-30",
+  "deals": [],
+  "deals_in_balance_sheet": [],
+  "rolled_from": "2025-12-31",
+  "wc_since_year_end": -225.0,
+  "wc_since_page": "year to date roll-forward 2026-06-30: pdf p.15, cash flow statement, H1 2026 column: 'Change in working capital 263 426 -225 -70 134' (Q2 2026, Q2 2025, H1 2026, H1 2025, FY 2025)",
+  "e142": {
+   "history": "config/history/RBREW.CO.yaml",
+   "repeat_buyer": true,
+   "acquisitions_mean": 888.6666666666666,
+   "roiic_base": 0.02426951181797032,
+   "roiic_bear": 0.0,
+   "roiic_base_how": "operating profit 1,136,333,333 (2016-2018 mean) -> 1,936,000,000 (2023-2025 mean); organic x1.464; after tax 22.0%: 212,900,248 on capital added 8,772,333,333 = 2.43%",
+   "roiic_bear_how": "operating profit 1,339,000,000 (2018) -> 1,638,000,000 (2023); organic x1.267; after tax 22.0%: -45,307,557 on capital added 7,507,000,000 = -0.60%",
+   "cyclical": false,
+   "level_base": 1.0,
+   "level_bear": 0.9229280877136407,
+   "level_how": "not cyclical (E143(3)); bear level x0.923: the weakest E140 year 954 over the mean 1,034 (E143(4))",
+   "growth_how": "E144: organic 4.80%/yr over 10 years, last five 7.14% (2016-2025); owner earnings per share not derivable; cap 4%; worst 3-year 2.21%, best 5-year 7.14%"
+  }
+ }
+}

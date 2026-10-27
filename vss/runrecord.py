@@ -69,9 +69,12 @@ from .manual import (ACCRUAL_PROXY_LABEL, BOUND_EITHER, BOUND_RAISES,
                      SENSITIVITY_FLOOR as _SENSITIVITY_FLOOR,
                      SENSITIVITY_PERTURBATION as _SENSITIVITY_PERTURBATION)
 from .valuation import (DCF_YEARS, HURDLE_RATE, HURDLE_SENSITIVITY,
-                        TERMINAL_GROWTH, Sensitivity, ValuationError,
+                        STATUTORY_TAX_RATE, TERMINAL_GROWTH, NormalisedFlow,
+                        NormalisedYear, Sensitivity, ValuationError,
                         equity_value_per_share, fair_value,
-                        free_cash_flow_zero, rate_declaration)
+                        free_cash_flow_zero, normalised_free_cash_flow_zero,
+                        rate_declaration, deal_programme_value,
+                        roiic_fraction)
 
 #: Where a figure in the record came from. `store` is a file `vss` wrote or
 #: a person filled; `hand` is a fact stated in a filing that no field of the
@@ -777,7 +780,120 @@ RECORD_DECLARATIONS_SINCE: dict[str, datetime] = {
     # supersedes the watchlist figure when the store can no longer rebuild
     # it, and E105's affected names are re-struck rather than patched.
     "nci": datetime(2026, 9, 4, 0, 0, tzinfo=timezone.utc),
+    # E140 / E140.1 (2026-10-27): the normalised flow, the after-tax
+    # interest, the rolled bridge and the events ledger. Every record kept
+    # was struck before the engine carried them, and stays complete AS
+    # STRUCK (E87); every record from this instant on carries the block.
+    "e140": datetime(2026, 10, 27, 7, 0, tzinfo=timezone.utc),
 }
+
+#: E140(2): the listing suffix -> the home country whose statutory rate
+#: the interest add-back is taken at. A US listing has no suffix.
+TAX_COUNTRY_BY_SUFFIX: dict[str, str] = {
+    ".ST": "SE", ".L": "GB", ".CO": "DK", ".OL": "NO", ".HE": "FI",
+    ".PA": "FR", ".DE": "DE",
+}
+
+
+def tax_country(ticker: str) -> str | None:
+    """The home country of E140(2)'s table, from the listing; None where
+    the suffix is not one the table knows (DATA MISSING, never a default)."""
+    if "." not in ticker:
+        return "US"
+    suffix = ticker[ticker.rindex("."):].upper()
+    return TAX_COUNTRY_BY_SUFFIX.get(suffix)
+
+
+@dataclass(frozen=True)
+class DealLeg:
+    """One deal of the events ledger that is IN the bridge (E140(3))."""
+
+    name: str
+    closed: date | None
+    low: float
+    high: float
+    fcf: float = 0.0
+    source: str = ""
+
+
+@dataclass(frozen=True)
+class E142Params:
+    """E142 / E143 / E144 on one record: what the history gave the value.
+
+    Present on every record struck from 2026-10-27 under the method
+    rebuild; absent on one struck before, which replays as struck (the
+    E140.1(1) deduction and the deals at zero flow)."""
+
+    history: str                      # the file, or "" where the name has none
+    repeat_buyer: bool
+    acquisitions_mean: float          # E140's three-year mean, a magnitude
+    roiic_base: float | None
+    roiic_bear: float | None
+    roiic_base_how: str = ""
+    roiic_bear_how: str = ""
+    cyclical: bool = False
+    level_base: float = 1.0
+    level_bear: float = 1.0
+    level_how: str = ""
+    growth_how: str = ""
+
+    def level(self, case: str) -> float:
+        return {"bull": 1.0, "base": self.level_base,
+                "bear": self.level_bear}[case]
+
+    def roiic(self, case: str, rate: float) -> float | None:
+        return {"bull": rate, "base": self.roiic_base,
+                "bear": self.roiic_bear}[case]
+
+
+@dataclass(frozen=True)
+class E140Block:
+    """E140 / E140.1 on one record: the three years, the rate, the rolled
+    bridge and the ledger -- every input of the normalised value.
+
+    The record's own `operating_cash_flow`, `capex` and `bridge` stay the
+    BASIS year's and the balance sheet's as stated, so the construction
+    checks still compare like with like. This block is what moves them:
+    `fcf0` reads `years`, and `legs` adds `added_debt` to the bridge.
+    """
+
+    years: tuple[NormalisedYear, ...]
+    tax_country: str | None
+    tax_rate: float | None
+    #: The events ledger, its date, and the balance-sheet date deals are cut
+    #: at (E140.1(3)): closed on or before it -> already in the balance sheet.
+    ledger: str
+    ledger_dated: date
+    cut: date
+    deals: tuple[DealLeg, ...] = ()
+    #: Deals the cut took out, by name, so the reader sees what was not added.
+    deals_in_balance_sheet: tuple[str, ...] = ()
+    #: E140.1(3): the fiscal year-end the bridge rolled FROM, or None where
+    #: the basis balance sheet is the latest one.
+    rolled_from: date | None = None
+    #: E140.1(3): the YEAR-TO-DATE working-capital cash effect since
+    #: `rolled_from`, NEUTRALISED by adding it to net debt.
+    wc_since_year_end: float | None = None
+    wc_since_page: str = ""
+    #: E142 (2026-10-27): the method rebuild's legs, or None on a record
+    #: struck before it.
+    e142: "E142Params | None" = None
+
+    def deal_price(self, end: str = "high") -> float:
+        return float(sum((d.high if end == "high" else d.low) for d in self.deals))
+
+    @property
+    def deal_fcf(self) -> float:
+        return float(sum(d.fcf for d in self.deals))
+
+    def added_debt(self, end: str = "high") -> float | None:
+        """What the bridge adds to the balance sheet's net debt: the deals
+        at one end of their ranges, plus the neutralised working capital.
+        None where a rolled bridge has no working-capital figure."""
+        if self.rolled_from is not None and self.wc_since_year_end is None:
+            return None
+        deals = sum((d.high if end == "high" else d.low) for d in self.deals)
+        return float(deals) + float(self.wc_since_year_end or 0.0)
 
 
 def struck_before(run_ts: datetime, since: datetime) -> bool:
@@ -833,6 +949,9 @@ class RunRecord:
     #: E70 (declaration 3.1). Defaults to NOT RECORDED so a record struck
     #: before the ruling reads back; `missing()` dates the requirement.
     lease: LeaseTreatment = field(default_factory=lambda: LeaseTreatment(None, ""))
+    #: E140 / E140.1. None on every record struck before the engine carried
+    #: it -- complete AS STRUCK; required on every record after.
+    e140: "E140Block | None" = None
 
     def __post_init__(self) -> None:
         if self.money_unit is not None and self.money_unit not in UNIT_SCALE:
@@ -931,6 +1050,13 @@ class RunRecord:
         if self.interest.in_operating_cash_flow and \
                 self.interest.net_interest_paid is None:
             gaps.append("net interest paid (declaration 3)")
+        if self.e140 is None:
+            if not struck_before(self.run_ts, RECORD_DECLARATIONS_SINCE["e140"]):
+                gaps.append("the E140 block -- three normalised years, the "
+                            "after-tax interest, the rolled bridge and the "
+                            "events ledger (E140 / E140.1)")
+        else:
+            gaps.extend(self._e140_gaps())
         # E106 clause 4, asked AFTER every hard gap: legs that are each
         # inside the tolerance may still exceed it between them.
         if self.undetermined and not gaps:
@@ -980,6 +1106,27 @@ class RunRecord:
                 gaps.append(f"a value for `{entry.name}` (declaration 8)")
         return tuple(gaps)
 
+    def _e140_gaps(self) -> list[str]:
+        """What the E140 block cannot answer, one line per absent leg."""
+        block = self.e140
+        gaps: list[str] = []
+        try:
+            self.normalised_flow()
+        except ValuationError as exc:
+            gaps.append(f"E140 FCF0 -- {exc}")
+        if block.rolled_from is not None and block.wc_since_year_end is None:
+            gaps.append("the year-to-date working-capital change since "
+                        f"{block.rolled_from.isoformat()}, which the rolled "
+                        "bridge neutralises (E140.1(3))")
+        p = block.e142
+        if p is not None and p.repeat_buyer and (p.roiic_base is None or p.roiic_bear is None):
+            gaps.append("the acquirer's ROIIC (E142(6)): a repeat buyer's deal "
+                        "programme is valued at its own record, and "
+                        + ("there is no history file" if not p.history else
+                           f"{p.history} does not derive one")
+                        + " -- a ROIIC is never assumed")
+        return gaps
+
     @property
     def complete(self) -> bool:
         return not self.missing()
@@ -1003,8 +1150,22 @@ class RunRecord:
                 and struck_before(self.run_ts,
                                   RECORD_DECLARATIONS_SINCE["nci"]))
 
+    def normalised_flow(self) -> NormalisedFlow:
+        """E140 / E140.1's FCF0 with every part, off the record's block."""
+        return normalised_free_cash_flow_zero(
+            years=self.e140.years,
+            interest_in_ocf=self.interest.in_operating_cash_flow,
+            net_interest_paid=self.interest.net_interest_paid,
+            tax_rate=self.e140.tax_rate,
+            nci_dividends_paid=self.nci_dividends_paid,
+            deduct_acquisitions=self.e140.e142 is None)
+
     def fcf0(self) -> float:
-        """FCF0 under E34, E36 and E105, from this record's own inputs."""
+        """FCF0 under E34, E36 and E105, from this record's own inputs --
+        and, on a record carrying E140's block, E140 / E140.1's normalised
+        flow plus the filed FCF of any acquired business (E140(3))."""
+        if self.e140 is not None:
+            return self.normalised_flow().fcf0 + self.e140.deal_fcf
         return free_cash_flow_zero(
             operating_cash_flow=self.operating_cash_flow,
             capex=self.capex,
@@ -1046,14 +1207,82 @@ class RunRecord:
                 f"nobody can check")
         money = UNIT_SCALE[self.money_unit]
         count = UNIT_SCALE[self.shares.unit]
+        net_cash = self.bridge.net_cash
+        if self.e140 is not None:
+            added = self.e140.added_debt(self._deal_end)
+            if added is None:
+                raise RecordError(
+                    f"{self.ticker}: the bridge rolled to "
+                    f"{self.dates.balance_sheet} and the year-to-date "
+                    f"working capital it neutralises is DATA MISSING "
+                    f"(E140.1(3))")
+            net_cash = net_cash - added
         return Legs(fcf0=self.fcf0() * money,
-                    net_cash=self.bridge.net_cash * money,
+                    net_cash=net_cash * money,
                     shares=self.shares.count * count)
+
+    #: E140(3): which end of the deal ranges the value is struck at. HIGH --
+    #: the most debt, the lower value; `at_deal_end` gives the other.
+    _deal_end = "high"
+
+    def at_deal_end(self, end: str, growth: float | None = None) -> float:
+        """The value with every deal at one end of its range (E140(3):
+        "the value is printed at both ends"). Unchecked, like the band's
+        ends: `strike` is what refuses an incomplete record."""
+        if end not in ("low", "high"):
+            raise RecordError(f"deal end must be low or high, got {end!r}")
+        if self.e140 is None:
+            return self._strike_unchecked(growth)
+        if self.e140.e142 is not None:
+            return self._strike_unchecked(growth, deal_end=end)
+        shift = (self.e140.added_debt("high") or 0.0) - (self.e140.added_debt(end) or 0.0)
+        return self._strike_unchecked(growth, net_cash_adjustment=shift)
+
+    def case_of(self, growth: float | None) -> str:
+        """Which E142 case a growth rate strikes: the bear and bull rates
+        strike their own level and ROIIC; any other rate strikes base's."""
+        if growth is None:
+            return "base"
+        if self.growth.bear is not None and abs(growth - self.growth.bear) < 1e-12 \
+                and abs(growth - self.growth.base) > 1e-12:
+            return "bear"
+        if self.growth.bull is not None and abs(growth - self.growth.bull) < 1e-12 \
+                and abs(growth - self.growth.base) > 1e-12:
+            return "bull"
+        return "base"
+
+    def e142_parts(self, growth: float | None = None, case: str | None = None,
+                   *, rate: float | None = None, deal_end: str = "high") -> dict:
+        """E142's value in its parts, WHOLE units: the core flow and the
+        three bridge additions. Only on a record carrying E142."""
+        p = self.e140.e142
+        g = self.growth.base if growth is None else growth
+        case = case or self.case_of(growth)
+        r = self.rate.rate if rate is None else rate
+        money = UNIT_SCALE[self.money_unit]
+        flow = self.fcf0() * money
+        level = p.level(case)
+        fcf0 = flow * level * (1 + g)
+        roiic = p.roiic(case, r)
+        programme = (deal_programme_value(
+            acquisitions_mean=p.acquisitions_mean * money, roiic=roiic,
+            growth=g, rate=r, years=self.conventions.horizon_years)
+            if p.repeat_buyer else 0.0)
+        price = self.e140.deal_price(deal_end) * money
+        credit = price * roiic_fraction(roiic, r)
+        shift = (self.e140.deal_price("high") - self.e140.deal_price(deal_end)) * money
+        return {"case": case, "growth": g, "rate": r, "flow": flow,
+                "level": level, "fcf0": fcf0, "roiic": roiic,
+                "programme": programme, "deal_price": price,
+                "deal_credit": credit, "deal_end_shift": shift}
 
     def _strike_unchecked(self, growth: float | None = None, *,
                           fcf0_adjustment: float = 0.0,
                           net_cash_adjustment: float = 0.0,
-                          shares_adjustment: float = 0.0) -> float:
+                          shares_adjustment: float = 0.0,
+                          rate: float | None = None,
+                          deal_end: str = "high",
+                          case: str | None = None) -> float:
         """The arithmetic alone, with no completeness check.
 
         `strike` asks `missing`, `missing` asks `tolerance`, and `tolerance`
@@ -1073,12 +1302,28 @@ class RunRecord:
         legs = self.legs()
         money = UNIT_SCALE[self.money_unit]
         shares = legs.shares + shares_adjustment * UNIT_SCALE[self.shares.unit]
+        r = self.rate.rate if rate is None else rate
+        g = self.growth.base if growth is None else growth
+        if self.e140 is not None and self.e140.e142 is not None:
+            # E142 / E143: the flow at the case's level, rolled one year;
+            # the programme and the deal credit join the bridge.
+            parts = self.e142_parts(growth, case, rate=r, deal_end=deal_end)
+            level = parts["level"]
+            return equity_value_per_share(
+                fcf0=(legs.fcf0 + fcf0_adjustment * money) * level * (1 + g),
+                growth=g,
+                net_cash=(legs.net_cash + net_cash_adjustment * money
+                          + parts["programme"] + parts["deal_credit"]
+                          + parts["deal_end_shift"]),
+                shares=shares, rate=r,
+                terminal=self.conventions.terminal_growth,
+                years=self.conventions.horizon_years)
         return equity_value_per_share(
             fcf0=legs.fcf0 + fcf0_adjustment * money,
-            growth=self.growth.base if growth is None else growth,
+            growth=g,
             net_cash=legs.net_cash + net_cash_adjustment * money,
             shares=shares,
-            rate=self.rate.rate, terminal=self.conventions.terminal_growth,
+            rate=r, terminal=self.conventions.terminal_growth,
             years=self.conventions.horizon_years)
 
     def leg_values(self) -> dict[str, tuple[float, str]]:
@@ -1180,7 +1425,7 @@ class RunRecord:
             out[name] = max(moves) / abs(base)
         return out
 
-    def strike(self, growth: float | None = None) -> float:
+    def strike(self, growth: float | None = None, case: str | None = None) -> float:
         """The fair value per share. REFUSES on an incomplete record.
 
         A run without a complete record does not print a fair value: the
@@ -1201,6 +1446,8 @@ class RunRecord:
                 "`equity_value_per_share` is end-of-year. The convention is "
                 "declared so that a change fails LOUDLY rather than moving "
                 "every stored figure in silence; wire it before declaring it")
+        if self.e140 is not None and self.e140.e142 is not None:
+            return self._strike_unchecked(growth, case=case)
         legs = self.legs()
         return equity_value_per_share(
             fcf0=legs.fcf0, growth=self.growth.base if growth is None else growth,
@@ -1208,10 +1455,35 @@ class RunRecord:
             rate=self.rate.rate, terminal=self.conventions.terminal_growth,
             years=self.conventions.horizon_years)
 
+    def implied_growth(self, price: float) -> float | None:
+        """E28's g* on an E142 record: the base case's growth at which the
+        value meets the price (level, roll and programme all moving with
+        g). None where no rate in [-50%, +100%] reaches it."""
+        lo, hi = -0.5, 1.0
+        f = lambda g: self._strike_unchecked(g) - price  # noqa: E731
+        try:
+            if f(lo) > 0 or f(hi) < 0:
+                return None
+        except (ValuationError, RecordError):
+            return None
+        for _ in range(200):
+            mid = (lo + hi) / 2
+            if f(mid) < 0:
+                lo = mid
+            else:
+                hi = mid
+        return (lo + hi) / 2
+
     def band(self, growth: float | None = None) -> Sensitivity:
         """E29's triple, across the +/- 0.5% display band."""
         if self.missing():
             self.strike()                      # raises with the same message
+        if self.e140 is not None and self.e140.e142 is not None:
+            r, d = self.rate.rate, self.rate.band
+            return Sensitivity(low=self._strike_unchecked(growth, rate=r - d),
+                               mid=self._strike_unchecked(growth, rate=r),
+                               high=self._strike_unchecked(growth, rate=r + d),
+                               rate=r, delta=d)
         legs = self.legs()
         return fair_value(
             fcf0=legs.fcf0, growth=self.growth.base if growth is None else growth,
@@ -1299,7 +1571,8 @@ class RunRecord:
             # check nobody ran.
             fcf_reported=_comparator_from(data.get("fcf_reported")),
             net_debt_reported=_comparator_from(data.get("net_debt_reported")),
-            net_income=_comparator_from(data.get("net_income")))
+            net_income=_comparator_from(data.get("net_income")),
+            e140=_e140_from(data.get("e140")))
 
         # THE GUARD. Not a style check -- the defect above was exactly this
         # set being non-empty, and nothing in the codebase could see it.
@@ -1563,6 +1836,106 @@ class RunRecord:
         return "\n".join(out)
 
 
+def _e140_block(parsed, basis, bs_basis, ledger, inputs: list, kinds_of
+                ) -> "E140Block":
+    """E140 / E140.1's block off the store and the ledger.
+
+    Every figure read lands in ``inputs`` with its page, so the record's
+    provenance table shows each year's legs. An absent leg is left None
+    and `missing` names it; nothing is defaulted here.
+    """
+    from . import manual as M
+
+    if ledger.money_unit != parsed.money_unit:
+        raise RecordError(
+            f"{parsed.ticker}: the events ledger states money in "
+            f"{ledger.money_unit} and the store in {parsed.money_unit} -- a "
+            f"deal added across two scales is out by their ratio")
+
+    def read(name: str, on) -> float | None:
+        got = M.resolve_on_basis(parsed, on, name)
+        if got.value is None:
+            return None
+        pages = "; ".join(f.page_provenance for f in got.figures
+                          if f.page_provenance)
+        inputs.append(Input(f"{on.label} {name}", got.value,
+                            pages or f"{got.source}", "store",
+                            kinds_of(got.figures)))
+        return got.value
+
+    ifrs_lease = (parsed.operating_leases_in_ocf is not None
+                  and not parsed.operating_leases_in_ocf.value)
+    years = []
+    fiscal = M.fiscal_year_bases(parsed, bs_basis.end)
+    for year in fiscal:
+        legs, why = M.capex_legs(parsed, year)
+        capex_parts = [read(n, year) for n in legs]
+        capex = (None if not capex_parts or any(v is None for v in capex_parts)
+                 else float(sum(capex_parts)))
+        lease_cash = None
+        if ifrs_lease:
+            principal = read("lease_payments_capital", year)
+            interest = read("lease_interest_paid", year)
+            lease_cash = (abs(principal) + abs(interest)
+                          if principal is not None and interest is not None
+                          else None)
+            if lease_cash is None:
+                # An IFRS 16 year with no lease cash is DATA MISSING; the
+                # NormalisedYear has no slot for "missing", so the year's
+                # capex is withheld and the refusal names the year.
+                capex = None
+        years.append(NormalisedYear(
+            label=year.label,
+            operating_cash_flow=read("operating_cash_flow", year),
+            working_capital=read("working_capital_change", year),
+            capex=capex, sbc=read("sbc", year),
+            acquisitions=read("acquisitions_paid", year),
+            lease_cash=lease_cash))
+    cut = bs_basis.end
+    in_bridge = ledger.in_bridge(cut)
+    year_end = fiscal[-1].end if fiscal else None
+    rolled_from = year_end if year_end is not None and cut > year_end else None
+    wc_since, wc_page = (None, "")
+    if rolled_from is not None:
+        wc_since, wc_page = M.working_capital_since(parsed, rolled_from, cut)
+        if wc_since is not None:
+            inputs.append(Input(
+                f"working_capital_change {rolled_from.isoformat()}..{cut.isoformat()}",
+                wc_since, wc_page, "store"))
+    country = tax_country(parsed.ticker)
+    return E140Block(
+        years=tuple(years), tax_country=country,
+        tax_rate=STATUTORY_TAX_RATE.get(country) if country else None,
+        ledger=ledger.path, ledger_dated=ledger.dated, cut=cut,
+        deals=tuple(DealLeg(name=d.name, closed=d.closed, low=d.low,
+                            high=d.high, fcf=d.fcf, source=d.source)
+                    for d in in_bridge),
+        deals_in_balance_sheet=tuple(d.name for d in ledger.deals
+                                     if d not in in_bridge),
+        rolled_from=rolled_from, wc_since_year_end=wc_since,
+        wc_since_page=wc_page)
+
+
+def _e140_from(raw: Mapping[str, Any] | None) -> "E140Block | None":
+    """E140's block read back, or None for a record struck before it."""
+    if not raw:
+        return None
+    return E140Block(
+        years=tuple(NormalisedYear(**y) for y in raw["years"]),
+        tax_country=raw.get("tax_country"), tax_rate=raw.get("tax_rate"),
+        ledger=raw["ledger"], ledger_dated=date.fromisoformat(raw["ledger_dated"]),
+        cut=date.fromisoformat(raw["cut"]),
+        deals=tuple(DealLeg(name=d["name"], closed=_as_date(d.get("closed")),
+                            low=d["low"], high=d["high"], fcf=d.get("fcf", 0.0),
+                            source=d.get("source", ""))
+                    for d in raw.get("deals") or ()),
+        deals_in_balance_sheet=tuple(raw.get("deals_in_balance_sheet") or ()),
+        rolled_from=_as_date(raw.get("rolled_from")),
+        wc_since_year_end=raw.get("wc_since_year_end"),
+        wc_since_page=raw.get("wc_since_page", ""),
+        e142=(E142Params(**raw["e142"]) if raw.get("e142") else None))
+
+
 def _as_date(value: Any) -> date | None:
     if value is None or isinstance(value, date):
         return value
@@ -1625,7 +1998,8 @@ def from_store(parsed, basis, *, growth: "Growth", run_ts: datetime,
                price_date: date | None = None,
                rate: "Rate | None" = None,
                conventions: "Conventions | None" = None,
-               tool_commit: str = "", notes: str = "") -> "RunRecord":
+               tool_commit: str = "", notes: str = "",
+               ledger=None) -> "RunRecord":
     """A record built from a `config/manual/<TICKER>.yaml` and the choices.
 
     EVERYTHING THE FILE CAN ANSWER COMES OFF THE FILE, with the page the
@@ -1642,8 +2016,21 @@ def from_store(parsed, basis, *, growth: "Growth", run_ts: datetime,
     read off the file's declarations, and every division normalises on
     them (`legs`). A file that declares neither builds a record that is
     INCOMPLETE on the division, not one that divides raw.
+
+    E140 / E140.1. ``ledger`` is the events ledger (`vss.events.Ledger`).
+    Given, the record carries E140's block and its FCF0 is the normalised
+    one, AND THE BRIDGE ROLLS (E140.1(3)): where the store holds a
+    `roll_forward:` balance sheet newer than the basis, every STOCK leg,
+    the divisor and the net-debt comparator are read there; the flows stay
+    on the basis.
     """
     from . import manual as M
+
+    # E140.1(3): the balance sheet the bridge stands on. The roll is part of
+    # E140's regime and comes with its block: a record built without a
+    # ledger is the pre-E140 construction, on the basis's own balance sheet.
+    bs_basis = ((M.roll_forward_basis(parsed, basis) if ledger is not None
+                 else None) or basis)
 
     hand = {entry.name: entry for entry in hand_inputs}
     inputs: list[Input] = []
@@ -1661,7 +2048,8 @@ def from_store(parsed, basis, *, growth: "Growth", run_ts: datetime,
             return "NOT PRESENTED (E85)"
         return "UNVERIFIED"
 
-    def leg(name: str) -> float | None:
+    def leg(name: str, on=None) -> float | None:
+        on = on or basis
         if name in hand:
             entry = hand[name]
             if not entry.verified:
@@ -1669,11 +2057,11 @@ def from_store(parsed, basis, *, growth: "Growth", run_ts: datetime,
                               entry.entered_by, "hand")
             inputs.append(entry)
             return entry.value
-        resolved = M.resolve_on_basis(parsed, basis, name)
+        resolved = M.resolve_on_basis(parsed, on, name)
         value = resolved.value
         if value is None:
             rule = next((r for r in M.SUBTRACTIONS if r.net == name), None)
-            got = parsed.basis_subtraction(basis, rule) if rule else None
+            got = parsed.basis_subtraction(on, rule) if rule else None
             if got is not None:
                 value, a, b, c = got
                 # E54's optional third leg has never reached this path -- it
@@ -1689,7 +2077,7 @@ def from_store(parsed, basis, *, growth: "Growth", run_ts: datetime,
                     verify_figures += list(c.figures)
                     spread = "all"
                 inputs.append(Input(
-                    name, value, f"{detail}, {spread} on {basis.label}",
+                    name, value, f"{detail}, {spread} on {on.label}",
                     "store", kinds_of(verify_figures)))
                 return value
             return None
@@ -1697,7 +2085,7 @@ def from_store(parsed, basis, *, growth: "Growth", run_ts: datetime,
         pages = "; ".join(f.page_provenance for f in resolved.figures
                           if f.page_provenance)
         inputs.append(Input(name, value,
-                            pages or f"{resolved.source} on {basis.label}",
+                            pages or f"{resolved.source} on {on.label}",
                             "store", kinds_of(resolved.figures)))
         return value
 
@@ -1730,15 +2118,25 @@ def from_store(parsed, basis, *, growth: "Growth", run_ts: datetime,
     interest_leg = [name for name in M.interest_legs(parsed)
                     if name != M.INTEREST_UNCLASSIFIED]
     net_interest = leg(interest_leg[0]) if interest_leg else None
+    # E135 (2026-10-13): where the filer states net interest paid only in
+    # its annual cash flow statement, the newest annual figure marked
+    # STAND-IN is read, on E120's terms and with its date on the record.
+    if net_interest is None and interest_leg == ["net_interest_paid"]:
+        stand = M.stand_in(parsed, basis, "net_interest_paid")
+        if stand is not None:
+            net_interest = stand.value
+            inputs.append(Input("net_interest_paid", net_interest,
+                                f"STAND-IN (E135): {stand.period} -- {stand.page}",
+                                "store", kinds_of([stand])))
     # THE BRIDGE ITEMS AND THE LEASE FIGURE, resolved once for the record.
-    leases_on_basis = M.resolve_on_basis(parsed, basis, "lease_liabilities").value
+    leases_on_basis = M.resolve_on_basis(parsed, bs_basis, "lease_liabilities").value
     if leases_on_basis is None and "lease_liabilities" in hand:
         leases_on_basis = hand["lease_liabilities"].value
-    pension_on_basis = M.resolve_on_basis(parsed, basis, "pension_deficit").value
+    pension_on_basis = M.resolve_on_basis(parsed, bs_basis, "pension_deficit").value
     if pension_on_basis is None and "pension_deficit" in hand:
         pension_on_basis = hand["pension_deficit"].value
     # E68: the asset-retirement leg, on the pension leg's terms.
-    aro_on_basis = M.resolve_on_basis(parsed, basis,
+    aro_on_basis = M.resolve_on_basis(parsed, bs_basis,
                                       "asset_retirement_obligation").value
     if aro_on_basis is None and "asset_retirement_obligation" in hand:
         aro_on_basis = hand["asset_retirement_obligation"].value
@@ -1747,7 +2145,7 @@ def from_store(parsed, basis, *, growth: "Growth", run_ts: datetime,
     nci_on_basis = M.resolve_on_basis(parsed, basis, "nci_dividends_paid").value
     if nci_on_basis is None and "nci_dividends_paid" in hand:
         nci_on_basis = hand["nci_dividends_paid"].value
-    pdo_on_basis = M.resolve_on_basis(parsed, basis,
+    pdo_on_basis = M.resolve_on_basis(parsed, bs_basis,
                                       "prepaid_delivery_obligation").value
     if pdo_on_basis is None and "prepaid_delivery_obligation" in hand:
         pdo_on_basis = hand["prepaid_delivery_obligation"].value
@@ -1756,7 +2154,7 @@ def from_store(parsed, basis, *, growth: "Growth", run_ts: datetime,
     # average where no window average is stated (E75, 2026-08-30); the
     # annual average stands only where nothing at the window end is stated,
     # and then carries ITS OWN date, which the record prints as such.
-    divisor = M.share_divisor_on_basis(parsed, basis)
+    divisor = M.share_divisor_on_basis(parsed, bs_basis)
     if divisor.divisor_basis == M.DIVISOR_WINDOW_DAY_WEIGHTED:
         # E91: the four stated quarterly counts, day-weighted by the code;
         # the window's own average, so the share date is the basis end.
@@ -1764,7 +2162,7 @@ def from_store(parsed, basis, *, growth: "Growth", run_ts: datetime,
         count_as_of = divisor.as_of
         inputs.append(Input(
             "diluted_weighted_average_shares", count,
-            divisor.provenance or f"on {basis.label}",
+            divisor.provenance or f"on {bs_basis.label}",
             "store", kinds_of(list(divisor.figures))))
     elif divisor.divisor_basis in (M.DIVISOR_PERIOD_END_DILUTED,
                                    M.DIVISOR_PERIOD_END_BASIC):
@@ -1773,21 +2171,21 @@ def from_store(parsed, basis, *, growth: "Growth", run_ts: datetime,
         inputs.append(Input(
             (M.DILUTED_SHARES if divisor.divisor_basis == M.DIVISOR_PERIOD_END_DILUTED
              else M.NET_SHARES), count,
-            divisor.provenance or f"on {basis.label}",
+            divisor.provenance or f"on {bs_basis.label}",
             "store", kinds_of(list(divisor.figures))))
     else:
-        count = leg("diluted_weighted_average_shares")
+        count = leg("diluted_weighted_average_shares", bs_basis)
         count_as_of = (divisor.as_of if count is not None and divisor.as_of
-                       else basis.end)
+                       else bs_basis.end)
     sbc_resolved = M.resolve_on_basis(parsed, basis, "sbc")
     sbc_basis = (sbc_resolved.source
                  if sbc_resolved.value is not None
                  and sbc_resolved.end != basis.end else "")
-    memo = leg("shares_point_in_time")
+    memo = leg("shares_point_in_time", bs_basis)
     for name in M.NET_DEBT_LEGS:
-        leg(name)
-    assets = leg("other_current_financial_assets")
-    net_debt, bridge_why = M.net_debt_on_basis(parsed, basis)
+        leg(name, bs_basis)
+    assets = leg("other_current_financial_assets", bs_basis)
+    net_debt, bridge_why = M.net_debt_on_basis(parsed, bs_basis)
     if net_debt is None:
         # A HAND INPUT FILLS A LEG THE STORE CANNOT HOLD, and only that leg.
         # DECK's borrowings are nil by a SENTENCE in a 10-Q; its cash and its
@@ -1795,12 +2193,12 @@ def from_store(parsed, basis, *, growth: "Growth", run_ts: datetime,
         legs = {}
         for name in M.NET_DEBT_LEGS:
             legs[name] = (hand[name].value if name in hand
-                          else M.resolve_on_basis(parsed, basis, name).value)
+                          else M.resolve_on_basis(parsed, bs_basis, name).value)
         consolidated = hand.get("financial_liabilities_consolidated")
         excluded_hand = (
             (hand["operating_lease_liabilities"].value
              if "operating_lease_liabilities" in hand
-             else M.resolve_on_basis(parsed, basis,
+             else M.resolve_on_basis(parsed, bs_basis,
                                      "operating_lease_liabilities").value)
             if M.lease_excluded_legs(parsed) else None)
         kept_hand = (M.lease_in_net_debt(parsed, legs["lease_liabilities"],
@@ -1818,7 +2216,7 @@ def from_store(parsed, basis, *, growth: "Growth", run_ts: datetime,
                               if n in hand)
             bridge_why = (f"E35's legs (E35.1 pension, E68 asset retirement, "
                           f"E81 prepaid delivery), "
-                          f"{named} and the rest off the store on {basis.label}")
+                          f"{named} and the rest off the store on {bs_basis.label}")
         elif (consolidated is not None
               and legs["cash_and_equivalents"] is not None
               and legs["pension_deficit"] is not None
@@ -1929,7 +2327,7 @@ def from_store(parsed, basis, *, growth: "Growth", run_ts: datetime,
             interest_paid=abs(interest) if interest is not None else None,
             liability_excluded=excluded)
     else:
-        operating = leg("operating_lease_liabilities")
+        operating = leg("operating_lease_liabilities", bs_basis)
         if isinstance(leases_on_basis, (int, float)) and operating is not None:
             leases_kept = M.lease_in_net_debt(parsed, leases_on_basis,
                                               operating)[0]
@@ -1937,13 +2335,16 @@ def from_store(parsed, basis, *, growth: "Growth", run_ts: datetime,
             True, f"{lease_class.source} {lease_class.page}",
             leg="none -- the operating cash flow bears the rent (E117)",
             rule="E117", liability_excluded=operating)
+    e140 = (_e140_block(parsed, basis, bs_basis, ledger, inputs, kinds_of)
+            if ledger is not None else None)
     return RunRecord(
+        e140=e140,
         ticker=parsed.ticker, currency=parsed.reporting_currency,
         run_ts=run_ts, basis=basis.label,
         shares=ShareBasis(
             count=count, basis=divisor.why,
             as_of=count_as_of, point_in_time=memo,
-            point_in_time_as_of=basis.end if memo is not None else None,
+            point_in_time_as_of=bs_basis.end if memo is not None else None,
             unit=parsed.share_unit,
             divisor_basis=divisor.divisor_basis or "weighted_average",
             prior_average=divisor.prior_average, drift=divisor.drift),
@@ -1988,7 +2389,7 @@ def from_store(parsed, basis, *, growth: "Growth", run_ts: datetime,
                 "non_controlling_interests": NCI_IN_THE_FLOW,
             },
             note=f"{bridge_why}. Capex legs: {capex_why}"),
-        dates=AsOfDates(flows_window_end=basis.end, balance_sheet=basis.end,
+        dates=AsOfDates(flows_window_end=basis.end, balance_sheet=bs_basis.end,
                         share_count=count_as_of, price=price_date),
         growth=growth,
         operating_cash_flow=ocf, capex=capex,
@@ -2003,6 +2404,6 @@ def from_store(parsed, basis, *, growth: "Growth", run_ts: datetime,
         fcf_reported=Comparator(
             *_comparator(parsed, basis, hand, "free_cash_flow_reported")),
         net_debt_reported=Comparator(
-            *_comparator(parsed, basis, hand, "net_debt_reported")),
+            *_comparator(parsed, bs_basis, hand, "net_debt_reported")),
         net_income=Comparator(
             *_comparator(parsed, basis, hand, "net_income")))

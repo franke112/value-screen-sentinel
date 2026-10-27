@@ -423,7 +423,8 @@ annual:
         zero_basis: searched
         source: "E105 leg; E107 searched absence"
         page: "E107 SEARCHED ABSENCE. Document: EXE_FY2025_annual-report-10k_2026-02-18_en_a0.htm (the FY2025 Form 10-K as filed with the SEC, filed 2026-02-18, period end 2025-12-31) (453,505 characters of extracted text). Searched 2026-09-04 for the terms 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- ZERO occurrences of any of them. THIS FILER USED TO HAVE MINORITIES AND NO LONGER DOES, which is why the search matters rather than the taxonomy: Expand Energy (formerly Chesapeake) tagged us-gaap:PaymentsOfDividendsMinorityInterest every year from 2009 to 2019 -- 218,000,000 in FY2012, 4,000,000 in FY2019 -- and has tagged NO NCI element for any year since. The FY2025 accounts carry no such interest at all (E106 clause 5: a determined zero)."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue:
         value: 12124000000
         page: "us-gaap:Revenues [2025-01-01..2025-12-31] 10-K 0000895126-26-000011 filed 2026-02-18"

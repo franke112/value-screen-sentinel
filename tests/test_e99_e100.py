@@ -83,7 +83,7 @@ def test_the_rebase_moves_no_name_GDDY_corrected_2026_09_19():
     assert tiers["GDDY"] == 3, "score 6 without fortress/tailwind is not tier 1"
     # unchanged by E99, each for its own recorded reason
     assert tiers["SAP.DE"] == 1      # score 7, tier 1 on both scales
-    assert tiers["CTSH"] == 2        # score 5, tier 2 on both scales
+    assert tiers["CTSH"] == 3        # score 5, tier 2 on both scales; E145 Q4 lowered it a step 2026-10-27
     assert tiers["LIAB.ST"] == 2     # no score on file -- carried, not guessed
     assert tiers["UNA.AS"] == 2      # score 7, held on the other two conditions
 

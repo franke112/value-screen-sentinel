@@ -1,0 +1,29 @@
+ticker: LIAB.ST
+dated: '2026-10-27'
+ruling: E140(3)-(4)
+money: SEK millions
+money_unit: millions
+basis_balance_sheet: '2026-06-30'
+searched:
+- issuer annual and interim reports in sources/ (cash-flow statements read by subagent, quotes machine-checked against
+  pdftotext)
+- issuer press releases and news search (2026-10-27)
+deals:
+- name: Lindab SRL Romania divested (SEK 42m, instalments over 3 years)
+  date: '2026-06-16'
+  status: closed
+  closed: '2026-06-16'
+  low: -42
+  high: -42
+  fcf: 0
+  source: Q2 2026 report note 3
+- name: Connaught Ventilation Supplies (IE, sales ~EUR 2m; price NOT DISCLOSED, range estimate)
+  date: '2026-07-13'
+  status: closed
+  closed: '2026-07-13'
+  low: 10
+  high: 30
+  fcf: 0
+  source: Q2 2026 report note 3
+none_found: false
+notes: 'Q3 2026 report (2026-10-23) not yet read. Serial acquirer: 473 / 1,382 / 251 SEK m FY2023-25.'

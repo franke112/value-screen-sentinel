@@ -1,0 +1,386 @@
+{
+ "ticker": "RMV.L",
+ "unit": "GBP thousand (£000)",
+ "years": {
+  "FY2025": {
+   "ocf": {
+    "caption": "Net cash from operating activities",
+    "value": 236299,
+    "quote": "Net cash from operating activities                             236,299     211,270",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 119,
+    "note": "Net cash from operating activities (after interest paid and tax)"
+   },
+   "cash_generated_from_operating_activities": {
+    "caption": "Cash generated from operating activities",
+    "value": 308015,
+    "quote": "Cash generated from operating activities                       308,015     277,617",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 119
+   },
+   "wc_lines": [
+    {
+     "caption": "(Increase)/decrease in trade and other receivables",
+     "value": -3446,
+     "quote": "(Increase)/decrease in trade and other receivables       16     (3,446)       2,429",
+     "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+     "page": 119
+    },
+    {
+     "caption": "Increase in trade and other payables",
+     "value": 5532,
+     "quote": "Increase in trade and other payables                     18      5,532       2,299",
+     "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+     "page": 119
+    },
+    {
+     "caption": "Decrease/(increase) in contract assets",
+     "value": 19,
+     "quote": "Decrease/(increase) in contract assets                    4         19        (511)",
+     "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+     "page": 119
+    },
+    {
+     "caption": "Increase in contract liabilities",
+     "value": 317,
+     "quote": "Increase in contract liabilities                          4        317         632",
+     "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+     "page": 119
+    }
+   ],
+   "capex_lines": [
+    {
+     "caption": "Acquisition of property, plant and equipment",
+     "value": -903,
+     "quote": "Acquisition of property, plant and equipment             12       (903)     (1,055)",
+     "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+     "page": 119
+    },
+    {
+     "caption": "Acquisition of intangible assets",
+     "value": -9276,
+     "quote": "Acquisition of intangible assets                         13     (9,276)     (8,023)",
+     "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+     "page": 119
+    }
+   ],
+   "lease_principal": {
+    "caption": "Payment of principal portion of lease liabilities",
+    "value": -3146,
+    "quote": "Payment of principal portion of lease liabilities                           19      (3,146)       (2,781)",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 119
+   },
+   "lease_interest": {
+    "caption": "Payment of lease liabilities – interest",
+    "value": -80,
+    "quote": "Payment of lease liabilities – interest                                                   (80)       (141)",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 135,
+    "note": "note 19 reconciliation of lease liabilities to cash flows; statement shows only the principal"
+   },
+   "interest_paid": {
+    "caption": "Financial expenses paid",
+    "value": -535,
+    "quote": "Financial expenses paid                                           (535)       (538)",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 119,
+    "note": "'Financial expenses paid' (bank charges and interest; includes lease interest per note 19 only if classified there)"
+   },
+   "interest_received": {
+    "caption": "Interest received on cash and cash equivalents",
+    "value": 2435,
+    "quote": "Interest received on cash and cash equivalents                   2,435       2,404",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 119
+   },
+   "tax_paid": {
+    "caption": "Income taxes paid",
+    "value": -71181,
+    "quote": "Income taxes paid                                              (71,181)    (65,809)",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 119
+   },
+   "sbc": {
+    "caption": "Share-based payments",
+    "value": 8539,
+    "quote": "Share-based payments                                     23       8,539       7,439",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 119,
+    "note": "Non-cash add-back in the operating section of the statement"
+   },
+   "acquisitions": {
+    "caption": "Acquisition of subsidiary, net of cash received",
+    "value": 0,
+    "quote": "Acquisition of subsidiary, net of cash received          25          –      (7,552)",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 119
+   },
+   "disposals": {
+    "value": null,
+    "note": "no disposal-proceeds line in the statement"
+   },
+   "investment_acquisition": {
+    "caption": "Acquisition of investment",
+    "value": 0,
+    "quote": "Acquisition of investment                                25          –      (3,000)",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 119
+   }
+  },
+  "FY2024": {
+   "ocf": {
+    "caption": "Net cash from operating activities",
+    "value": 211270,
+    "quote": "Net cash from operating activities                             236,299     211,270",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 119,
+    "note": "Net cash from operating activities (after interest paid and tax)"
+   },
+   "cash_generated_from_operating_activities": {
+    "caption": "Cash generated from operating activities",
+    "value": 277617,
+    "quote": "Cash generated from operating activities                       308,015     277,617",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 119
+   },
+   "wc_lines": [
+    {
+     "caption": "(Increase)/decrease in trade and other receivables",
+     "value": 2429,
+     "quote": "(Increase)/decrease in trade and other receivables       16     (3,446)       2,429",
+     "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+     "page": 119
+    },
+    {
+     "caption": "Increase in trade and other payables",
+     "value": 2299,
+     "quote": "Increase in trade and other payables                     18      5,532       2,299",
+     "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+     "page": 119
+    },
+    {
+     "caption": "Decrease/(increase) in contract assets",
+     "value": -511,
+     "quote": "Decrease/(increase) in contract assets                    4         19        (511)",
+     "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+     "page": 119
+    },
+    {
+     "caption": "Increase in contract liabilities",
+     "value": 632,
+     "quote": "Increase in contract liabilities                          4        317         632",
+     "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+     "page": 119
+    }
+   ],
+   "capex_lines": [
+    {
+     "caption": "Acquisition of property, plant and equipment",
+     "value": -1055,
+     "quote": "Acquisition of property, plant and equipment             12       (903)     (1,055)",
+     "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+     "page": 119
+    },
+    {
+     "caption": "Acquisition of intangible assets",
+     "value": -8023,
+     "quote": "Acquisition of intangible assets                         13     (9,276)     (8,023)",
+     "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+     "page": 119
+    }
+   ],
+   "lease_principal": {
+    "caption": "Payment of principal portion of lease liabilities",
+    "value": -2781,
+    "quote": "Payment of principal portion of lease liabilities                           19      (3,146)       (2,781)",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 119
+   },
+   "lease_interest": {
+    "caption": "Payment of lease liabilities – interest",
+    "value": -141,
+    "quote": "Payment of lease liabilities – interest                                                   (80)       (141)",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 135,
+    "note": "note 19 reconciliation of lease liabilities to cash flows; statement shows only the principal"
+   },
+   "interest_paid": {
+    "caption": "Financial expenses paid",
+    "value": -538,
+    "quote": "Financial expenses paid                                           (535)       (538)",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 119,
+    "note": "'Financial expenses paid' (bank charges and interest; includes lease interest per note 19 only if classified there)"
+   },
+   "interest_received": {
+    "caption": "Interest received on cash and cash equivalents",
+    "value": 2404,
+    "quote": "Interest received on cash and cash equivalents                   2,435       2,404",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 119
+   },
+   "tax_paid": {
+    "caption": "Income taxes paid",
+    "value": -65809,
+    "quote": "Income taxes paid                                              (71,181)    (65,809)",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 119
+   },
+   "sbc": {
+    "caption": "Share-based payments",
+    "value": 7439,
+    "quote": "Share-based payments                                     23       8,539       7,439",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 119,
+    "note": "Non-cash add-back in the operating section of the statement"
+   },
+   "acquisitions": {
+    "caption": "Acquisition of subsidiary, net of cash received",
+    "value": -7552,
+    "quote": "Acquisition of subsidiary, net of cash received          25          –      (7,552)",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 119
+   },
+   "disposals": {
+    "value": null,
+    "note": "no disposal-proceeds line in the statement"
+   },
+   "investment_acquisition": {
+    "caption": "Acquisition of investment",
+    "value": -3000,
+    "quote": "Acquisition of investment                                25          –      (3,000)",
+    "file": "~/vss/sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf",
+    "page": 119
+   }
+  },
+  "FY2023": {
+   "ocf": {
+    "caption": "Net cash from operating activities",
+    "value": 206711,
+    "quote": "Net cash from operating activities                             211,270     206,711",
+    "file": "<scratch>/e140/dl/RMV_AR24.pdf",
+    "page": 134,
+    "note": "Net cash from operating activities (after interest paid and tax)"
+   },
+   "cash_generated_from_operating_activities": {
+    "caption": "Cash generated from operating activities",
+    "value": 268169,
+    "quote": "Cash generated from operating activities                       277,617     268,169",
+    "file": "<scratch>/e140/dl/RMV_AR24.pdf",
+    "page": 134
+   },
+   "wc_lines": [
+    {
+     "caption": "Decrease/(increase) in trade and other receivables",
+     "value": -4503,
+     "quote": "Decrease/(increase) in trade and other receivables       16      2,429       (4,503)",
+     "file": "<scratch>/e140/dl/RMV_AR24.pdf",
+     "page": 134
+    },
+    {
+     "caption": "Increase in trade and other payables",
+     "value": 3863,
+     "quote": "Increase in trade and other payables                     18      2,299        3,863",
+     "file": "<scratch>/e140/dl/RMV_AR24.pdf",
+     "page": 134
+    },
+    {
+     "caption": "Increase in contract assets",
+     "value": -305,
+     "quote": "Increase in contract assets                               4       (511)        (305)",
+     "file": "<scratch>/e140/dl/RMV_AR24.pdf",
+     "page": 134
+    },
+    {
+     "caption": "Increase in contract liabilities",
+     "value": 211,
+     "quote": "Increase in contract liabilities                          4        632          211",
+     "file": "<scratch>/e140/dl/RMV_AR24.pdf",
+     "page": 134
+    }
+   ],
+   "capex_lines": [
+    {
+     "caption": "Acquisition of property, plant and equipment",
+     "value": -2018,
+     "quote": "Acquisition of property, plant and equipment             12      (1,055)     (2,018)",
+     "file": "<scratch>/e140/dl/RMV_AR24.pdf",
+     "page": 134
+    },
+    {
+     "caption": "Acquisition of intangible assets",
+     "value": -1328,
+     "quote": "Acquisition of intangible assets                         13      (8,023)     (1,328)",
+     "file": "<scratch>/e140/dl/RMV_AR24.pdf",
+     "page": 134
+    }
+   ],
+   "lease_principal": {
+    "caption": "Payment of principal portion of lease liabilities",
+    "value": -2530,
+    "quote": "Payment of principal portion of lease liabilities        19      (2,781)     (2,530)",
+    "file": "<scratch>/e140/dl/RMV_AR24.pdf",
+    "page": 134
+   },
+   "lease_interest": {
+    "caption": "Payment of lease liabilities – interest",
+    "value": -187,
+    "quote": "Payment of lease liabilities – interest                                                 (141)        (187)",
+    "file": "<scratch>/e140/dl/RMV_AR24.pdf",
+    "page": 150,
+    "note": "note 19 reconciliation of lease liabilities to cash flows; statement shows only the principal"
+   },
+   "interest_paid": {
+    "caption": "Financial expenses paid",
+    "value": -479,
+    "quote": "Financial expenses paid                                            (538)       (479)",
+    "file": "<scratch>/e140/dl/RMV_AR24.pdf",
+    "page": 134,
+    "note": "'Financial expenses paid' (bank charges and interest; includes lease interest per note 19 only if classified there)"
+   },
+   "interest_received": {
+    "caption": "Interest received on cash and cash equivalents",
+    "value": 1694,
+    "quote": "Interest received on cash and cash equivalents                    2,404       1,694",
+    "file": "<scratch>/e140/dl/RMV_AR24.pdf",
+    "page": 134
+   },
+   "tax_paid": {
+    "caption": "Income taxes paid",
+    "value": -60979,
+    "quote": "Income taxes paid                                               (65,809)    (60,979)",
+    "file": "<scratch>/e140/dl/RMV_AR24.pdf",
+    "page": 134
+   },
+   "sbc": {
+    "caption": "Share-based payments",
+    "value": 5886,
+    "quote": "Share-based payments                                     23       7,439       5,886",
+    "file": "<scratch>/e140/dl/RMV_AR24.pdf",
+    "page": 134,
+    "note": "Non-cash add-back in the operating section of the statement"
+   },
+   "acquisitions": {
+    "caption": "Acquisition of subsidiary, net of cash received",
+    "value": 0,
+    "quote": "Acquisition of subsidiary, net of cash received          25      (7,552)          –",
+    "file": "<scratch>/e140/dl/RMV_AR24.pdf",
+    "page": 134
+   },
+   "disposals": {
+    "value": null,
+    "note": "no disposal-proceeds line in the statement"
+   },
+   "investment_acquisition": {
+    "caption": "Acquisition of investment",
+    "value": 0,
+    "quote": "Acquisition of investment                                25      (3,000)          –",
+    "file": "<scratch>/e140/dl/RMV_AR24.pdf",
+    "page": 134
+   }
+  }
+ },
+ "post_basis_deals": [],
+ "notes": "FY2023 from Annual Report 2024 (plc.rightmove.co.uk/content/uploads/2025/06/RIG001_2024AR_WEB_250603.pdf) POST-BASIS DEALS: none found. H1 2026 report (sources/RMV.L_2026-H1_half-year-financial-report_2026-07-31_xx_a0.html) note 16 subsequent events: only 21 July 2026 new GBP 200m RCF (maturity July 2029, undrawn). No acquisition or disposal in the H1 2026 cash flow. Web search found no 2026 Rightmove acquisition. Prior-period acquisitions: 2024 'Acquisition of subsidiary' GBP 7.552m net and 'Acquisition of investment' GBP 3.0m (HomeViews, Feb 2024). Rightmove reports 'Financial expenses paid' (bank charges incl. lease interest unwind GBP 90k/138k) separately from interest received; lease interest cash GBP 80k (2025), 141k (2024), 187k (2023) from the lease-liability reconciliation notes."
+}

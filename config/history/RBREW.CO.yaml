@@ -1,0 +1,202 @@
+ticker: RBREW.CO
+currency: DKK
+money_unit: millions
+business:
+  text: Royal Unibrew brews and sells beer, soft drinks and other beverages, mainly in the Nordic and Baltic countries, Italy, France and Canada.
+  source: ar2025
+  quote: Royal Unibrew is a leading regional beverage company with strong multi-beverage
+sources:
+  ar2025:
+    file: sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf
+    page: 12
+  ar2020:
+    file: sources/RBREW.CO_2020-FY_annual-financial-report_2021-03-03_en_a1.pdf
+    page: 9
+rows:
+- field: revenue
+  source: ar2025
+  years: &id001
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 15723
+  - 15036
+  - 12927
+  - 11487
+  - 8746
+  quote: Net revenue 15,723 15,036 12,927 11,487 8,746
+- field: organic_growth_pct
+  source: ar2025
+  years: *id001
+  values:
+  - 3
+  - 6
+  - 4
+  - 11
+  - 12
+  quote: Organic growth net revenue (%) 3 6 4 11 12
+- field: operating_profit
+  source: ar2025
+  years: *id001
+  values:
+  - 2202
+  - 1968
+  - 1638
+  - 1516
+  - 1652
+  quote: Earnings before interest and tax (EBIT) 2,202 1,968 1,638 1,516 1,652
+- field: equity
+  source: ar2025
+  years: *id001
+  values:
+  - 6713
+  - 6408
+  - 5748
+  - 5158
+  - 3342
+  quote: Equity 6,713 6,408 5,748 5,158 3,342
+- field: net_debt
+  source: ar2025
+  years: *id001
+  values:
+  - 5730
+  - 5696
+  - 6426
+  - 4460
+  - 3536
+  quote: Net interest-bearing debt 5,730 5,696 6,426 4,460 3,536
+- field: invested_capital
+  source: ar2025
+  years: *id001
+  values:
+  - 13655
+  - 13296
+  - 13342
+  - 10451
+  - 7449
+  quote: Invested capital 13,655 13,296 13,342 10,451 7,449
+- field: operating_cash_flow
+  source: ar2025
+  years: *id001
+  values:
+  - 2385
+  - 2189
+  - 1777
+  - 1135
+  - 1753
+  quote: Cash flows from operating activities 2,385 2,189 1,777 1,135 1,753
+- field: capex
+  source: ar2025
+  years: *id001
+  values:
+  - 1007
+  - 967
+  - 647
+  - 585
+  - 478
+  quote: CAPEX 1,007 967 647 585 478
+- field: revenue
+  source: ar2020
+  years: &id002
+  - 2020
+  - 2019
+  - 2018
+  - 2017
+  - 2016
+  values:
+  - 7557
+  - 7692
+  - 7298
+  - 6384
+  - 6340
+  quote: Net revenue 7,557 7,692 7,298 6,384 6,340
+- field: organic_growth_pct
+  source: ar2020
+  years: *id002
+  values:
+  - -3
+  - 1
+  - 9
+  - 1
+  - 5
+  quote: Organic growth net revenue (%) -3% 1% 9% 1% 5
+- field: operating_profit
+  source: ar2020
+  years: *id002
+  values:
+  - 1515
+  - 1469
+  - 1339
+  - 1069
+  - 1001
+  quote: Earnings before interest and tax (EBIT) 1,515 1,469 1,339 1,069 1,001
+- field: equity
+  source: ar2020
+  years: *id002
+  values:
+  - 3332
+  - 3106
+  - 2908
+  - 2814
+  - 2911
+  quote: Equity 3,332 3,106 2,908 2,814 2,911
+- field: net_debt
+  source: ar2020
+  years: *id002
+  values:
+  - 2193
+  - 2705
+  - 2522
+  - 975
+  - 991
+  quote: Net interest-bearing debt 2,193 2,705 2,522 975 991
+- field: invested_capital
+  source: ar2020
+  years: *id002
+  values:
+  - 5930
+  - 6211
+  - 5835
+  - 4030
+  - 4111
+  quote: Invested capital 5,930 6,211 5,835 4,030 4,111
+- field: operating_cash_flow
+  source: ar2020
+  years: *id002
+  values:
+  - 1738
+  - 1402
+  - 1214
+  - 1168
+  - 985
+  quote: Operating activities 1,738 1,402 1,214 1,168 985
+- field: shares
+  source: ar2020
+  years: *id002
+  values:
+  - 49.4
+  - 50.1
+  - 51
+  - 52.7
+  - 54.1
+  quote: Number of shares (million) 49.4 50.1 51.0 52.7 54.1
+  unit: millions
+- field: shares
+  source: ar2025
+  years:
+  - 2025
+  - 2024
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 50.2
+  - 50.2
+  - 50.2
+  - 50.2
+  - 48.8
+  quote: Number of shares (million) 50.2 50.2 50.2 50.2 48.8
+  unit: millions

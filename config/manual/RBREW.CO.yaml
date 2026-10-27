@@ -1,0 +1,526 @@
+# config/manual/RBREW.CO.yaml -- Royal Unibrew A/S, hand-read from the
+# documents the issuer filed on Nasdaq Copenhagen's disclosure feed
+# (sources/manifest.json; config/nordic_issuers.yaml, "Royal UNIBREW A/S").
+# Built 2026-10-19. IFRS as adopted by the EU; calendar year.
+#
+# DOCUMENTS:
+#   1. Annual Report 2025 (audited), released 2026-02-26, 205 pp.
+#      sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf
+#   2. Interim Report H1 2026 (unaudited), released 2026-08-17.
+#      sources/RBREW.CO_2026-H1_half-year-financial-report_2026-08-17_en_a1.pdf
+#   (The H1 2025 report is on file too. Nothing is read from it here: the
+#   H1 2026 report prints the H1 2025 comparatives beside its own.)
+#
+# Page numbers are PDF pages, not the printed folios.
+#
+# REPORTING FREQUENCY: half-yearly. The Q1 and Q3 releases are trading
+# statements ("Q1 2026 trading statement", 2026-04-21; "Q3 2025 trading
+# statement", 2025-11-12) with no cash flow statement and no balance
+# sheet. Under E31 section 5 stands on the year as filed, FY2025, and the
+# report names the H1 2026 period it passes over.
+#
+# INTEREST. Inside operating activities, three lines: 'Received financial
+# income 26', 'Paid financial expenses -268', 'Financial expenses related
+# to leasing -12'. The lease interest is its OWN line and is NOT inside
+# the -268. So the E34 leg is the issuer's own stated net, 'net interest
+# paid of DKK 254m' (= 268 + 12 - 26), which takes ALL interest out of
+# the flow once, and E117 then deducts the lease cash (principal 177 +
+# interest 12) once. Entering 268 - 26 = 242 would leave the 12 in the
+# flow AND deduct it again under E117.
+#
+# LEASES. IFRS 16, no separate caption: 'Leasing debt is included in the
+# balance sheets as credit institutions' (note 18). Note 18 states the
+# ex-lease and lease parts apart, and those are what is entered.
+#
+# DILUTED SHARE COUNT. The issuer defines diluted EPS on 'average number of
+# shares in circulation including restricted shares "in-the-money"', and
+# note 15 prints that count, 49,650,160. Profit 1,560 / 49,650,160 =
+# 31.42, which is the printed BASIC EPS 31.4, not the printed diluted
+# 31.3 (1,560 / 31.3 would imply about 49.84m). The issuer's two figures
+# do not reconcile to the decimal. E134: the count on the issuer's own
+# stated definition is entered. The gap is about 0.4% of the divisor.
+#
+# DEPOSIT ON RETURNABLE PACKAGING, 251 (note 17, inside 'Other payables').
+# NOT entered as a net-debt leg. See prepaid_delivery_obligation: it is
+# working capital that turns over with every crate and keg returned, and
+# the packaging in circulation is an asset in PP&E. QUESTION PUT TO THE
+# OWNER 2026-10-19, because E136 (customer money owed back on demand)
+# comes close to it. RULED A by the owner the same day (E138): working
+# capital, not net debt.
+
+ticker: RBREW.CO
+name: Royal Unibrew A/S
+reporting_currency: DKK
+money_unit: millions
+share_unit: whole
+quote_currency: DKK
+sector: Consumer Defensive   # the screener's own string (data/screener_snapshots/2026-10-17/fundamentals.sqlite, field sector) -- not from these documents
+reporting_frequency: half_yearly
+origin: manual
+
+interest_in_ocf:
+  value: yes
+  source: "Annual Report 2025 (audited); Interim Report H1 2026 (unaudited)"
+  page: "AR pdf p.138, Consolidated cash flow statement: 'Received financial income 26 15', 'Paid financial expenses -268 -304', 'Financial expenses related to leasing -12 -11', 'Corporation tax paid -461 -384', 'Cash flows from operating activities 2,385 2,189' -- all three interest lines INSIDE operating activities. H1 pdf p.15, the same placement: 'Received financial income 2 5 6 13 26', 'Paid financial expenses -64 -80 -119 -141 -268'"
+  interest_source: cash_flow_statement
+
+operating_leases_in_ocf:
+  value: no
+  source: "FRAMEWORK-EDITS E70, applied 2026-10-19 to an IFRS 16 filer"
+  page: "IFRS 16.50(b): lease principal is a financing flow. AR pdf p.138, financing activities: 'Repayment on lease facilities 18 -177 -166'; the lease interest is in operating activities, 'Financial expenses related to leasing -12 -11'"
+
+periods:
+  - period: 2025-FY
+    period_end: 2025-12-31
+    document: "Annual Report 2025 (audited)"
+    url: "sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf"
+    figures:
+      working_capital_change:
+        value: 134
+        page: "E140(1), pdf p.138, consolidated cash flow statement: 'Change in working capital 134 216'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      acquisitions_paid:
+        value: -167
+        page: "E140.1(1), pdf p.138, investing activities: 'Acquisition of enterprises, net 22 -167 -80'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      nci_dividends_paid:
+        value: 0
+        zero_basis: caption
+        source: "E105 leg; E25 named zero"
+        page: "E25, caption form: pdf p.136, Consolidated balance sheet, the equity captions are 'Share capital 100 100', 'Other reserves 1,416 1,407', 'Retained earnings 4,394 4,148', 'Proposed dividend 803 753', 'Equity 15 6,713 6,408' -- no non-controlling interests caption; the cash flow statement pdf p.138 pays only 'Dividends paid to shareholders -749 -726'. 'non-controlling' occurs once, in the accounting policies, and 'minority interests' once, in a ratio definition; no amount is attributed to either anywhere"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      revenue:
+        value: 15723
+        page: "pdf p.133, Consolidated income statement for January 1 - December 31, mDKK: 'Net revenue 5 15,723 15,036'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      gross_profit:
+        value: 6766
+        page: "pdf p.133: 'Gross profit 6,766 6,388'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      operating_income:
+        value: 2202
+        page: "pdf p.133: 'Earnings before interest and tax (EBIT) 2,202 1,968'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      op_margin:
+        value: 0.140
+        page: "pdf p.12, five-year summary: 'EBIT margin (%) 14.0 13.1 12.7 13.2 18.9' (2,202 / 15,723 = 14.00%)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      ebitda:
+        value: 2931
+        page: "pdf p.12, five-year summary: 'EBITDA 2,931 2,634 2,208 1,997 2,020'. The issuer's own figure; EBIT 2,202 plus note 19's amortisation 120 and depreciation 614 is 2,936, and the 5 between is the 'Profit and loss from sale of property, plant and equipment -5'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      net_debt_ebitda:
+        value: 2.0
+        page: "pdf p.12: 'Net interest-bearing debt/EBITDA (times) 2.0 2.2 2.9 2.2 1.7'. The issuer's APM"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      net_income:
+        value: 1560
+        page: "pdf p.133: 'Net profit for the year 1,560 1,464'. No non-controlling interests are presented"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      diluted_eps:
+        value: 31.3
+        page: "pdf p.133: 'Diluted earnings per share (DKK) 15 31.3 29.2'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      finance_costs_period:
+        value: 280
+        page: "pdf p.133: 'Financial expenses 9 -280 -326'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      finance_income_period:
+        value: 26
+        page: "pdf p.133: 'Financial income 8 26 229' (2024 includes the gain of DKK 204m on the Polish shareholdings)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      total_assets:
+        value: 18269
+        page: "pdf p.136, Consolidated balance sheet, Assets at December 31: 'Assets 18,269 17,886'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      net_ppe:
+        value: 5120
+        page: "pdf p.136: 'Property, plant and equipment 12 5,120 4,749' (includes right-of-use assets and returnable packaging)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      depreciation_amortisation:
+        value: 734
+        page: "pdf p.167, note 19, adjustments for non-cash operating items: 'Amortization and impairment of intangible assets 120 106' and 'Depreciation of property, plant and equipment 614 560'; 120 + 614 = 734, two stated parts added. No impairment is inside the 120: note 11 pdf p.157 'Amortization for the year 0 0 -23 -46 -51 -120' and 'the impairment test in 2025 did not show any impairment losses'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      operating_cash_flow:
+        value: 2385
+        page: "pdf p.138, Consolidated cash flow statement: 'Cash flows from operating activities 2,385 2,189' -- after 'Received financial income 26', 'Paid financial expenses -268', 'Financial expenses related to leasing -12' and 'Corporation tax paid -461'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      net_interest_paid:
+        value: 254
+        page: "pdf p.139, cash flow commentary: 'net interest paid of DKK 254m (2024: DKK 300m)'. The issuer's own net of the three operating lines on pdf p.138: 'Paid financial expenses -268' + 'Financial expenses related to leasing -12' - 'Received financial income 26' = 254. Includes the lease interest 12 on purpose (see the file header): the E34 add-back takes all interest out of the flow and E117 deducts the lease interest once"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_interest_paid:
+        value: 12
+        page: "pdf p.138, operating activities: 'Financial expenses related to leasing -12 -11'. E117 leg, deducted beside the principal"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_payments_capital:
+        value: -177
+        page: "pdf p.138, financing activities: 'Repayment on lease facilities 18 -177 -166'; note 18 pdf p.166: 'Interest-bearing debt: leasing 462 31 -177 134 -3 447'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      income_tax_paid:
+        value: -461
+        page: "pdf p.138: 'Corporation tax paid -461 -384'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      capex_ppe:
+        value: -797
+        page: "pdf p.138, investing activities: 'Purchase of property, plant and equipment 12 -797 -761'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      capex_intangibles:
+        value: -44
+        page: "pdf p.138: 'Purchase of intangible assets 11 -44 -58'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      proceeds_from_disposals_ppe:
+        value: 11
+        page: "pdf p.138: 'Sale of property, plant and equipment 11 18'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      sbc:
+        value: 35
+        page: "pdf p.167, note 19: 'Share-based payments and remuneration 35 23' -- the non-cash add-back as the issuer labels it"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      free_cash_flow_reported:
+        value: 1413
+        page: "pdf p.138, the issuer's free cash flow under the cash flow statement: 'Free cash flow* 1,413 1,434' (operating cash flow less investing excluding acquisitions, less lease payments). Reference only"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      net_debt_reported:
+        value: 5730
+        page: "pdf p.12, five-year summary: 'Net interest-bearing debt 5,730 5,696 6,426 4,460 3,536'. Reference only; includes leasing debt"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      cash_and_equivalents:
+        value: 82
+        page: "pdf p.136: 'Cash and cash equivalents 82 103'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      financial_liabilities_current:
+        value: 247
+        page: "pdf p.166, note 18, Changes to interest-bearing debts, column 12/31 2025: 'Interest-bearing short-term debts 982 0 -776 42 -1 247' -- mortgage and credit institutions EXCLUDING leasing (E14, E71). Reconciles to the balance sheet pdf p.136: current 'Credit institutions 3, 18 379' (mortgage debt current blank) less note 18's 'Interest-bearing short-term leasing debt* 120 11 -120 121 132' = 247"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      financial_liabilities_noncurrent:
+        value: 5118
+        page: "pdf p.166, note 18, column 12/31 2025: 'Interest-bearing long-term debts 4,355 0 -111 867 7 5,118' -- EXCLUDING leasing. Reconciles to the balance sheet pdf p.136: 'Mortgage debt 3, 18 1,009' + 'Credit institutions 3, 18 4,424' less 'Interest-bearing long-term leasing debt* 342 20 -57 13 -3 315' = 5,118"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_liabilities:
+        value: 447
+        page: "pdf p.166, note 18: 'Interest-bearing debt: leasing 462 31 -177 134 -3 447' (long-term 315, short-term 132); '* Leasing debt is included in the balance sheets as credit institutions.' One IFRS 16 liability (E65)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      pension_deficit:
+        value: 0
+        zero_basis: note
+        page: "E25, note form: pdf p.152, note 6, Staff expenses: 'Contributions to pension schemes 240 222' -- contributions expensed and nothing more. No defined-benefit obligation, plan asset or pension liability is presented: the balance sheet pdf p.136 has no pension caption, and 'defined benefit' occurs NOWHERE in the filing (full-text search, 2026-10-19)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      asset_retirement_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E68.1: pdf p.136, Consolidated balance sheet, every liability caption: non-current 'Deferred tax 16 1,277', 'Mortgage debt 3, 18 1,009', 'Credit institutions 3, 18 4,424'; current 'Credit institutions 3, 18 379', 'Trade payables 3 2,482', 'Corporation tax 10 35', 'Other payables 17 1,950'. No provisions caption at all. 'asset retirement' occurs NOWHERE in the filing, 'decommission' occurs NOWHERE and 'dismantl' occurs NOWHERE; 'restoration' occurs only in the sustainability statement (freshwater systems). 'Other payables' is itemised in note 17 pdf p.165 ('VAT, excise duties, etc. 1,068', 'Other payables 631', 'Deposit, returnable packaging 251') and holds no restoration obligation"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      prepaid_delivery_obligation:
+        value: 0
+        zero_basis: caption
+        page: "E81: the same balance sheet, every liability caption enumerated for asset_retirement_obligation above -- no prepaid-offtake or prepaid-delivery caption. NAMED HERE because it is the nearest thing: note 17 pdf p.165, 'Deposit, returnable packaging 251 228', 'the obligation to repay the deposit when the packaging in circulation is taken back on inventory is recognized in other payables', and 'Plastic crates, bottles, and kegs in circulation and held in inventory are recognized in property, plant and equipment'. Read as working capital that turns over with the packaging, not customer money held (E136). A caption zero; the owner ruled it working capital, E138 (2026-10-19)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      diluted_weighted_average_shares:
+        value: 49650160
+        page: "pdf p.163, note 15: 'The average number of shares in circulation incl. restricted shares amounted to (number) 49,650,160 50,055,426'; the issuer's definition pdf p.192: 'Diluted earnings per share Parent company shareholders' share of profit for the year/average number of shares in circulation including restricted shares \"in-the- money\"'. E134: entered on the issuer's own stated definition; it does not reproduce the printed 31.3 to the decimal (see the file header)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      shares_issued_period_end:
+        value: 50200000
+        page: "pdf p.62, share ratios: 'Number of shares 50,200,000 50,200,000 50,200,000'; note 15 pdf p.163: share capital 12/31 '100,400,000', 'distributed in shares of DKK 2 each'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      treasury_shares_period_end:
+        value: 1199542
+        page: "pdf p.163, note 15, treasury shares held by the parent company: 'Portfolio at December 31, 2025 1,199,542 3 2.4'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+
+  - period: 2026-H1
+    period_end: 2026-06-30
+    document: "Interim Report H1 2026 (unaudited)"
+    url: "sources/RBREW.CO_2026-H1_half-year-financial-report_2026-08-17_en_a1.pdf"
+    figures:
+      revenue:
+        value: 7737
+        page: "pdf p.13, Consolidated Income Statement, columns Q2 2026, Q2 2025, H1 2026, H1 2025, FY 2025: 'Net revenue 4,426 4,438 7,737 7,644 15,723'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      gross_profit:
+        value: 3387
+        page: "pdf p.13: 'Gross profit 2,043 1,991 3,387 3,275 6,766'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      operating_income:
+        value: 1026
+        page: "pdf p.13: 'EBIT 753 740 1,026 959 2,202'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      net_income:
+        value: 707
+        page: "pdf p.13: 'Net profit for the period 537 530 707 657 1,560'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      diluted_eps:
+        value: 14.5
+        page: "pdf p.13: 'Diluted earnings per share (DKK) 11.0 10.6 14.5 13.1 31.3'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      finance_costs_period:
+        value: 125
+        page: "pdf p.13: 'Financial expenses -66 -83 -125 -146 -280'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      finance_income_period:
+        value: 6
+        page: "pdf p.13: 'Financial income 2 5 6 13 26'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      total_assets:
+        value: 19263
+        page: "pdf p.14, Consolidated balance sheet, columns June 30 2026, June 30 2025, December 31 2025: 'Assets 19,263 18,962 18,269'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      net_ppe:
+        value: 5236
+        page: "pdf p.14: 'Property, plant and equipment 5,236 5,020 5,120'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      depreciation_amortisation:
+        value: 391
+        page: "pdf p.18, note 6: 'Amortization of intangible assets 65 58 120' and 'Depreciation of property, plant and equipment 326 290 614'; 65 + 326 = 391, two stated parts added"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      operating_cash_flow:
+        value: 908
+        page: "pdf p.15, Consolidated Cash Flow Statement, columns Q2 2026, Q2 2025, H1 2026, H1 2025, FY 2025: 'Cash flows from operating activities 1,100 1,212 908 931 2,385'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      finance_costs_paid:
+        value: 124
+        page: "pdf p.15, H1 2026 column: 'Paid financial expenses -64 -80 -119 -141 -268' plus 'Financial expenses related to leasing -2 -3 -5 -6 -12'; 119 + 5 = 124, ALL interest paid inside operating activities (see the file header on why the lease line is included)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      finance_income_received:
+        value: 6
+        page: "pdf p.15: 'Received financial income 2 5 6 13 26'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_interest_paid:
+        value: 5
+        page: "pdf p.15: 'Financial expenses related to leasing -2 -3 -5 -6 -12'. E117 leg"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_payments_capital:
+        value: -83
+        page: "pdf p.15: 'Repayment on leasing facilities -38 -49 -83 -88 -177'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      income_tax_paid:
+        value: -187
+        page: "pdf p.15: 'Corporation tax paid -60 -62 -187 -192 -461'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      capex_ppe:
+        value: -356
+        page: "pdf p.15: 'Purchase of property, plant and equipment -157 -187 -356 -408 -797'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      capex_intangibles:
+        value: -22
+        page: "pdf p.15: 'Purchase of intangible assets -11 -7 -22 -11 -44'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      sbc:
+        value: 20
+        page: "pdf p.18, note 6: 'Share-based payments and remuneration 20 18 35'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      free_cash_flow_reported:
+        value: 458
+        page: "pdf p.15: 'Free cash flow 903 1,001 458 458 1,413'. Reference only"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      net_debt_reported:
+        value: 6610
+        page: "pdf p.6: 'Net interest-bearing debt (NIBD) 6,610 6,374 3.7 5,730'. Reference only; includes leasing debt"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      net_debt_ebitda:
+        value: 2.2
+        page: "pdf p.6: 'NIBD/EBITDA, trailing 12 months (times) 2.2 2.3 2.0'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      cash_and_equivalents:
+        value: 54
+        page: "pdf p.14: 'Cash and cash equivalents 54 74 82'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      diluted_weighted_average_shares:
+        value: 48661324
+        page: "pdf p.19, note 7: 'The average number of shares in circulation, incl. restricted shares amounted to (number) 48,661,324 49,946,426'. The issuer's diluted definition, as FY2025 (E134); 707 / 48,661,324 = 14.53, the printed 14.5"
+        status: VERIFIED
+        verified_kind: machine_read_back
+
+annual:
+  # E140(1): the two fiscal years before 2025-FY (in periods:), the legs of
+  # the three-year mean only. Entered 2026-10-27: FY2024 off the Annual
+  # Report 2025's comparative column, FY2023 off the Annual Report 2024
+  # (Nasdaq 1345210).
+  - fiscal_year: 2023
+    period_end: 2023-12-31
+    document: "Royal Unibrew Annual Report 2024 (audited, Nasdaq release 1345210, 2025-02-25), comparative column 2023"
+    url: "sources/RBREW.CO_2024-FY_annual-financial-report_2025-02-25_en_a0.pdf"
+    figures:
+      operating_cash_flow:
+        value: 1777
+        page: "pdf p.155, consolidated cash flow statement: 'Cash flows from operating activities 2,189 1,777' (2023 column; the Vrumona acquisition)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      working_capital_change:
+        value: 55
+        page: "E140(1), pdf p.155: 'Change in working capital 216 55' (2023 column; the Vrumona acquisition)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      capex_ppe:
+        value: -602
+        page: "pdf p.155, investing activities: 'Purchase of property, plant and equipment 12 -761 -602' (2023 column; the Vrumona acquisition)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      capex_intangibles:
+        value: 0
+        zero_basis: subtotal
+        page: "pdf p.155: 'Purchase of intangible assets 11 -58' prints no 2023 figure; the 2023 investing lines 'Dividends received from associates 13 11 13', 'Sale of property, plant and equipment 18 93', 'Purchase of property, plant and equipment 12 -761 -602', 'Acquisition of enterprises, net 24 -80 -2,419', 'of other entities 201 0' and 'Development on financial asset investment 18 -10' sum to 13 + 93 - 602 - 2,419 + 0 - 10 = -2,925, the printed 'Cash flows from investing activities -651 -2,925': no room for an intangibles purchase"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_payments_capital:
+        value: -138
+        page: "pdf p.155, financing activities: 'Repayment on lease facilities 20 -166 -138' (2023 column; the Vrumona acquisition)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_interest_paid:
+        value: 7
+        page: "pdf p.155, operating activities: 'Financial expenses related to leasing -11 -7' (2023 column; the Vrumona acquisition). E117 leg, deducted beside the principal (as the 2025 basis year)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      sbc:
+        value: 14
+        page: "pdf p.186: 'Share-based payments and remuneration 23 14' (2023 column; the Vrumona acquisition)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      acquisitions_paid:
+        value: -2419
+        page: "E140.1(1), pdf p.155, investing activities: 'Acquisition of enterprises, net 24 -80 -2,419' (2023 column; the Vrumona acquisition)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+  - fiscal_year: 2024
+    period_end: 2024-12-31
+    document: "Royal Unibrew Annual Report 2025 (audited), comparative column 2024"
+    url: "sources/RBREW.CO_2025-FY_annual-financial-report_2026-02-26_en_a0.pdf"
+    figures:
+      operating_cash_flow:
+        value: 2189
+        page: "pdf p.138, consolidated cash flow statement: 'Cash flows from operating activities 2,385 2,189' (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      working_capital_change:
+        value: 216
+        page: "E140(1), pdf p.138: 'Change in working capital 134 216' (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      capex_ppe:
+        value: -761
+        page: "pdf p.138, investing activities: 'Purchase of property, plant and equipment 12 -797 -761' (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      capex_intangibles:
+        value: -58
+        page: "pdf p.138: 'Purchase of intangible assets 11 -44 -58' (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_payments_capital:
+        value: -166
+        page: "pdf p.138, financing activities: 'Repayment on lease facilities 18 -177 -166' (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_interest_paid:
+        value: 11
+        page: "pdf p.138, operating activities: 'Financial expenses related to leasing -12 -11' (2024 column). E117 leg, deducted beside the principal (as the 2025 basis year)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      sbc:
+        value: 23
+        page: "pdf p.167: 'Share-based payments and remuneration 35 23' (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      acquisitions_paid:
+        value: -80
+        page: "E140.1(1), pdf p.138, investing activities: 'Acquisition of enterprises, net 22 -167 -80' (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+
+# E140.1(3): the bridge rolls to the latest filed balance sheet, the
+# half-year of 2026-06-30, with the half's working capital neutralised.
+# Pension and ARO are carried from the year-end (measured once a year), and
+# the lease pair with them: the interim states no lease liability.
+roll_forward:
+  period_end: 2026-06-30
+  from_year_end: 2025-12-31
+  document: "Royal Unibrew Interim Report H1 2026 (unaudited)"
+  url: "sources/RBREW.CO_2026-H1_half-year-financial-report_2026-08-17_en_a1.pdf"
+  figures:
+    working_capital_change:
+      value: -225
+      page: "pdf p.15, cash flow statement, H1 2026 column: 'Change in working capital 263 426 -225 -70 134' (Q2 2026, Q2 2025, H1 2026, H1 2025, FY 2025)"
+      status: VERIFIED
+      verified_kind: machine_read_back
+    cash_and_equivalents:
+      value: 54
+      page: "pdf p.14, balance sheet at June 30, 2026: 'Cash and cash equivalents 54 74 82'"
+      status: VERIFIED
+      verified_kind: machine_read_back
+    financial_liabilities_noncurrent:
+      value: 5382
+      page: "pdf p.14, non-current liabilities at June 30, 2026: 'Mortgage debt 1,009 973 1,009' + 'Credit institutions 4,373 4,344 4,424' = 1,009 + 4,373 = 5,382, AS PRINTED: the interim states no lease liability, so the leasing the year-end note puts inside 'Credit institutions' stays in (E141 decision 2026-10-27: no figure the filing does not print is typed; the lease is then counted twice, the conservative side)"
+      status: VERIFIED
+      verified_kind: machine_read_back
+    financial_liabilities_current:
+      value: 1282
+      page: "pdf p.14, current liabilities at June 30, 2026: 'Mortgage debt 0 27 0' + 'Credit institutions 1,282 1,104 379' = 0 + 1,282 = 1,282, as printed (E141 decision, as the non-current leg)"
+      status: VERIFIED
+      verified_kind: machine_read_back
+    diluted_weighted_average_shares:
+      value: 48661324
+      page: "pdf p.19, note 7: 'The average number of shares in circulation, incl. restricted shares amounted to (number) 48,661,324 49,946,426' (the issuer's diluted definition, as FY2025)"
+      status: VERIFIED
+      verified_kind: machine_read_back

@@ -1,0 +1,22 @@
+ticker: ACAD.ST
+dated: '2026-10-27'
+ruling: E140(3)-(4)
+money: SEK millions
+money_unit: millions
+basis_balance_sheet: '2026-06-30'
+searched:
+- issuer annual and interim reports in sources/ (cash-flow statements read by subagent, quotes machine-checked against
+  pdftotext)
+- issuer press releases and news search (2026-10-27)
+deals:
+- name: Kindernet (NL, 40 preschools, 2025 sales ~EUR 18.4m); Florencius (NL, ~EUR 3m); Kids&Co (PL, 34 preschools,
+    ~PLN 99m) -- prices NOT DISCLOSED; range is the session estimate at ~0.5-1.0x sales
+  date: 2026-07-01 / 2026-07-31 or 08-20 / after 2026-08-07
+  status: closed, dates not all confirmed (Kids&Co 'after 2026-08-07')
+  closed: null
+  low: 265
+  high: 640
+  fcf: 0
+  source: AR 2025/26 administration report and note G33; Q4 release 2026-08-31
+none_found: false
+notes: 'Serial acquirer: acquisitions FY2024-26 560 / 333 / 1,036 SEK m against E140 FCF0 931.'

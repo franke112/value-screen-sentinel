@@ -59,8 +59,8 @@ it keeps the record of what you decided and why.
 
 ## Disclosure
 
-**I own shares in Cognizant (CTSH) and Cirrus Logic (CRUS)** as of
-2026-10-05, and the record in this repository shows when I bought and sold
+**I own shares in Cognizant (CTSH) and Central Garden & Pet (CENTA)** as of
+2026-10-27 (Cirrus Logic, CRUS, was sold in full on 2026-10-23), and the record in this repository shows when I bought and sold
 others. The fair values, buy limits (MBP) and stops in
 `config/watchlist.yaml` are my personal working notes, written for my own
 decisions. **Nothing here is a recommendation to buy, sell or hold any

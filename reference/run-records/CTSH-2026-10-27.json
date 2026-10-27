@@ -1,0 +1,357 @@
+{
+ "ticker": "CTSH",
+ "currency": "USD",
+ "run_ts": "2026-10-27T10:18:01+01:00",
+ "basis": "annual FY2025",
+ "shares": {
+  "count": 466000000.0,
+  "basis": "weighted-average DILUTED count for roll-forward balance sheet 2026-06-30, the same window as the flows (E38)",
+  "as_of": "2026-06-30",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 181000000.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0001058290 (Cognizant Technology Solutions Corporation) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001058290.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+  "net_interest_paid": 37000000.0,
+  "source": "interest_expense_only"
+ },
+ "bridge": {
+  "net_debt": 782000000.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 0.0,
+   "pensions": 260000000.0,
+   "asset_retirement_obligations": 0.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+  },
+  "note": "borrowings 33,000,000 + 1,527,000,000 + finance leases 0 (E117: the operating lease liability 534,000,000 LEAVES net debt, its rent being in the flow; finance leases stay) + pension deficit 260,000,000 (E35.1) + asset retirement obligations 0 (E68) + prepaid delivery obligations 0 (E81) - cash 1,038,000,000 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+ },
+ "dates": {
+  "flows_window_end": "2025-12-31",
+  "balance_sheet": "2026-06-30",
+  "share_count": "2026-06-30",
+  "price": "2026-10-26"
+ },
+ "growth": {
+  "base": 0.04,
+  "view_file": "reference/growth-views/CTSH.md",
+  "view_date": "2026-08-27",
+  "bear": 0.0,
+  "bull": 0.07
+ },
+ "operating_cash_flow": 2883000000.0,
+ "capex": -288000000.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_combined",
+   "value": -288000000.0,
+   "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 2883000000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "sbc",
+   "value": 181000000.0,
+   "provenance": "us-gaap:ShareBasedCompensation [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "finance_costs_period",
+   "value": 37000000.0,
+   "provenance": "us-gaap:InterestExpenseNonoperating [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 466000000.0,
+   "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2026-04-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 33000000.0,
+   "provenance": "us-gaap:ShortTermBorrowings [as of 2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 1527000000.0,
+   "provenance": "us-gaap:LongTermDebtNoncurrent [as of 2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 534000000.0,
+   "provenance": "E71 -- the lease liability from two stated parts the filer never totals, current and non-current portions of one liability by the taxonomy's own definition: us-gaap:OperatingLeaseLiabilityCurrent [as of 2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = 145,000,000 + us-gaap:OperatingLeaseLiabilityNoncurrent [as of 2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = 389,000,000 = 534,000,000",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 260000000.0,
+   "provenance": "CARRIED from the fiscal year-end 2025-12-31 onto the roll-forward 2026-06-30 (E140.1(3): measured once a year (E41); the interim balance sheet does not restate it) -- FRAMEWORK-EDITS E62 (ruled 2026-08-27): the SUM of two defined-benefit plans presented under the SAME note. (1) $55,000,000 -- Note 15, Employee Benefits, 10-K 0001058290-26-000008 filed 2026-02-12: 'Defined Benefit Pension Plans... the net liability recognized on the balance sheet for our pension plans was $55 million'; tagged us-gaap:DefinedBenefitPensionPlanLiabilitiesNoncurrent [as of 2025-12-31]. (2) $205,000,000 -- the same Note 15, 'Other Defined Benefit Plans': 'we offer a gratuity plan in India that is a statutory defined benefit plan... the amount accrued under the gratuity plan was $205 million... which is net of fund assets of $250 million' -- NOT TAGGED under any us-gaap concept in this filer's facts (checked against the full companyfacts JSON); sits inside the balance sheet's 'Other noncurrent liabilities' ($847m) with no reconciling note splitting it out. ONE-OFF NOTED: the India leg was $80 million at 2024-12-31; the note states the $125m increase is driven by 'the Labor Code reforms implemented by the Government of India' in Q4 2025, a $147 million charge 'recognized as a component of other comprehensive income' -- a regulatory reform, not an operating deterioration, and a later-year comparison must read the base effect accordingly, not as debt getting worse.",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "CARRIED from the fiscal year-end 2025-12-31 onto the roll-forward 2026-06-30 (E140.1(3): measured once a year (E41); the interim balance sheet does not restate it) -- E68.1: Item 8, CONSOLIDATED STATEMENTS OF FINANCIAL POSITION as of December 31, 2025, 10-K 0001058290-26-000008 filed 2026-02-12 -- liabilities presented: 'Accounts payable', 'Deferred revenue', 'Short-term debt', 'Operating lease liabilities', 'Accrued expenses and other current liabilities', 'Deferred revenue, noncurrent', 'Operating lease liabilities, noncurrent', 'Deferred income tax liabilities, net', 'Long-term debt', 'Other noncurrent liabilities'; no asset retirement or decommissioning caption, and neither term appears anywhere in the filing (full-text search of the primary document, 2026-08-29). An IT-services business owning nothing that requires decommissioning: the absence is evidence. 'Other noncurrent liabilities' $847m is a caption with room (E25), named here.",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "CARRIED from the fiscal year-end 2025-12-31 onto the roll-forward 2026-06-30 (E140.1(3): a NAMED ZERO at the year-end, a structural absence; the interim balance sheet does not restate it) -- E81 (2026-08-30): the same CONSOLIDATED STATEMENTS OF FINANCIAL POSITION as of December 31, 2025 read for `asset_retirement_obligation` above, every liability caption enumerated there -- no streaming, prepaid-offtake or prepaid-delivery caption. 'Deferred revenue' (current and non-current) is services billed in advance, working capital and NOT this leg, named here. A caption zero",
+   "entered_by": "store",
+   "verified": "VERIFIED (same_page)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 1038000000.0,
+   "provenance": "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_lease_liabilities",
+   "value": 534000000.0,
+   "provenance": "E71 -- the lease liability from two stated parts the filer never totals, current and non-current portions of one liability by the taxonomy's own definition: us-gaap:OperatingLeaseLiabilityCurrent [as of 2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = 145,000,000 + us-gaap:OperatingLeaseLiabilityNoncurrent [as of 2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = 389,000,000 = 534,000,000",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2023 capex_combined",
+   "value": -317000000.0,
+   "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2023-01-01..2023-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2023 operating_cash_flow",
+   "value": 2330000000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2023-01-01..2023-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2023 working_capital_change",
+   "value": -177000000.0,
+   "provenance": "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-01-01..2023-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -43,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2023-01-01..2023-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = 123,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2023-01-01..2023-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -23,000,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2023-01-01..2023-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -4,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2023-01-01..2023-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -242,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2023-01-01..2023-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = 12,000,000 = -177,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2023 sbc",
+   "value": 176000000.0,
+   "provenance": "us-gaap:ShareBasedCompensation [2023-01-01..2023-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2023 acquisitions_paid",
+   "value": -409000000.0,
+   "provenance": "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2023-01-01..2023-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2024 capex_combined",
+   "value": -297000000.0,
+   "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2024-01-01..2024-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2024 operating_cash_flow",
+   "value": 2124000000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2024-01-01..2024-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2024 working_capital_change",
+   "value": -498000000.0,
+   "provenance": "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-01-01..2024-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -49,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2024-01-01..2024-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -386,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2024-01-01..2024-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -23,000,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2024-01-01..2024-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = 44,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2024-01-01..2024-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -96,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2024-01-01..2024-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = 12,000,000 = -498,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2024 sbc",
+   "value": 175000000.0,
+   "provenance": "us-gaap:ShareBasedCompensation [2024-01-01..2024-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2024 acquisitions_paid",
+   "value": -1615000000.0,
+   "provenance": "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2024-01-01..2024-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2025 capex_combined",
+   "value": -288000000.0,
+   "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2025 operating_cash_flow",
+   "value": 2883000000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2025 working_capital_change",
+   "value": -327000000.0,
+   "provenance": "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -366,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -118,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -2,000,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = 55,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = 93,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = 11,000,000 = -327,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2025 sbc",
+   "value": 181000000.0,
+   "provenance": "us-gaap:ShareBasedCompensation [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2025 acquisitions_paid",
+   "value": 0.0,
+   "provenance": "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "working_capital_change 2025-12-31..2026-06-30",
+   "value": -984000000.0,
+   "provenance": "year to date roll-forward 2026-06-30: E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2026-01-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = -274,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2026-01-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = -219,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2026-01-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = 29,000,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2026-01-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = -20,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2026-01-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = -498,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2026-01-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = -2,000,000 = -984,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))",
+   "entered_by": "store",
+   "verified": ""
+  }
+ ],
+ "tool_commit": "vss strike 2026-10-27, dd6fa33",
+ "notes": "E140/E140.1 re-strike (step 2): normalised three-year FCF0, acquisitions as capex for a repeat buyer, bridge rolled with the events ledger",
+ "money_unit": "whole",
+ "nci_dividends_paid": 0.0,
+ "undetermined": [],
+ "fcf_reported": {
+  "value": 2665000000.0,
+  "page": "Non-GAAP Financial Measures reconciliation table and Cash Flow Statement (Other Cash Flow Information section) [printed in millions] -- verbatim: Free cash flow $ 2,665. DOCUMENT NAMED 2026-09-19 by the E103 provenance audit, which the model-read route had left out: 10-K 0001058290-26-000008 filed 2026-02-12 (ctsh-20251231.htm, https://www.sec.gov/Archives/edgar/data/1058290/000105829026000008/ctsh-20251231.htm), where the table reads 'Net cash provided by operating activities $ 2,883 $ 2,124 / Purchases of property and equipment (288) (297) / Proceeds from sale of property and equipment 70 - / Free cash flow $ 2,665 $ 1,827'. THE 70 IS WHY IT DOES NOT EQUAL OCF MINUS CAPEX (2,595): this filer's own definition, stated in the same filing, is 'cash flows from operating activities plus proceeds from sale' of property and equipment, so the figure is the ISSUER'S REFERENCE FIGURE as printed (E101, E103) and is not reconciled to the store's own legs. Left UNVERIFIED: naming a document is not a reading.",
+  "verified": true
+ },
+ "net_debt_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_income": {
+  "value": 2230000000.0,
+  "page": "us-gaap:NetIncomeLoss [2025-01-01..2025-12-31] DEF 14A 0001308179-26-000290 filed 2026-04-17",
+  "verified": true
+ },
+ "lease": {
+  "in_operating_cash_flow": true,
+  "page": "FRAMEWORK-EDITS E70, applied 2026-08-30 to a us-gaap filer ASC 842-20-45-5(a): a lessee classifies payments for operating leases within OPERATING activities, so this filer's `operating_cash_flow` already bears them; the stated cash paid is `us-gaap:OperatingLeasePayments` ('cash paid for amounts included in the measurement of operating lease liabilities'), written as `operating_lease_payments` where tagged. No filer-specific tag states the classification because the standard leaves no choice",
+  "principal_added_back": null,
+  "leg": "none -- the operating cash flow bears the rent (E117)",
+  "rule": "E117",
+  "lease_cash_deducted": null,
+  "principal_paid": null,
+  "interest_paid": null,
+  "liability_excluded": 534000000.0
+ },
+ "e140": {
+  "years": [
+   {
+    "label": "annual FY2023",
+    "operating_cash_flow": 2330000000.0,
+    "working_capital": -177000000.0,
+    "capex": -317000000.0,
+    "sbc": 176000000.0,
+    "acquisitions": -409000000.0,
+    "lease_cash": null
+   },
+   {
+    "label": "annual FY2024",
+    "operating_cash_flow": 2124000000.0,
+    "working_capital": -498000000.0,
+    "capex": -297000000.0,
+    "sbc": 175000000.0,
+    "acquisitions": -1615000000.0,
+    "lease_cash": null
+   },
+   {
+    "label": "annual FY2025",
+    "operating_cash_flow": 2883000000.0,
+    "working_capital": -327000000.0,
+    "capex": -288000000.0,
+    "sbc": 181000000.0,
+    "acquisitions": 0.0,
+    "lease_cash": null
+   }
+  ],
+  "tax_country": "US",
+  "tax_rate": 0.25,
+  "ledger": "reference/events/CTSH.yaml",
+  "ledger_dated": "2026-10-27",
+  "cut": "2026-06-30",
+  "deals": [
+   {
+    "name": "DyFlex Solutions (Australia; price NOT DISCLOSED; range is the session estimate)",
+    "closed": null,
+    "low": 50000000.0,
+    "high": 300000000.0,
+    "fcf": 0.0,
+    "source": "press release 2026-10-21 (no 8-K)"
+   }
+  ],
+  "deals_in_balance_sheet": [
+   "3Cloud",
+   "Astreya Partners (incl. contingent 25m)"
+  ],
+  "rolled_from": "2025-12-31",
+  "wc_since_year_end": -984000000.0,
+  "wc_since_page": "year to date roll-forward 2026-06-30: E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2026-01-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = -274,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2026-01-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = -219,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2026-01-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = 29,000,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2026-01-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = -20,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2026-01-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = -498,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2026-01-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = -2,000,000 = -984,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+ }
+}

@@ -1,0 +1,14 @@
+ticker: PEP
+dated: '2026-10-27'
+ruling: E140(3)-(4)
+money: whole units of the reporting currency
+money_unit: whole
+basis_balance_sheet: '2025-12-27'
+searched:
+- 'EDGAR submissions: every 8-K, 10-Q and 10-K filed after the basis balance-sheet date, deal sentences extracted
+  by tools (scan 2026-10-27)'
+- issuer press releases and news search (subagent sweep 2026-10-27)
+deals: []
+none_found: true
+notes: No 2026 deal found (Siete and poppi closed in FY2025, inside the basis). Acquisition cash 148m in the 36
+  weeks to 2026-09-05.

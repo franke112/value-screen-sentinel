@@ -1,0 +1,117 @@
+ticker: MEKKO.HE
+currency: EUR
+money_unit: thousands
+business: {text: 'Marimekko is a Finnish design company selling its own-print clothing, bags, accessories and home decor.', source: ar2025_bs, quote: 'Our product portfolio includes high-quality clothing, bags and accessories as well as home décor items ranging from textiles to tableware.'}
+sources:
+  ar2025: {file: sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf, page: 30}
+  ar2022: {file: sources/MEKKO.HE_2022-FY_annual-financial-report_2023-03-22_en_a1.pdf, page: 23}
+  ar2020: {file: sources/MEKKO.HE_2020-FY_annual-financial-report_2021-03-23_en_a1.pdf, page: 21}
+  ar2019: {file: sources/MEKKO.HE_2019-FY_annual-financial-report_2020-03-17_en_a2.pdf, page: 22}
+  ar2025_bs: {file: sources/MEKKO.HE_2025-FY_annual-financial-report_2026-03-18_en_a0.pdf, page: 2}
+rows:
+- field: revenue
+  source: ar2025
+  years: [2025, 2024, 2023]
+  values: [189.6, 182.6, 174.1]
+  quote: Net sales, EUR million 189.6 182.6 174.1
+  unit: millions
+- field: operating_profit
+  source: ar2025
+  years: [2025, 2024, 2023]
+  values: [31.8, 31.4, 31.4]
+  quote: Operating profit, EUR million 31.8 31.4 31.4
+  unit: millions
+- field: operating_profit_adjusted
+  source: ar2025
+  years: [2025, 2024, 2023]
+  values: [32.3, 31.9, 32.0]
+  quote: Comparable operating profit, EUR million 32.3 31.9 32.0
+  unit: millions
+- field: equity
+  source: ar2025
+  years: [2025, 2024, 2023]
+  values: [74.3, 75.5, 65.7]
+  quote: Shareholders' equity, EUR million 74.3 75.5 65.7
+  unit: millions
+- field: capex
+  source: ar2025
+  years: [2025, 2024, 2023]
+  values: [2.9, 2.3, 2.0]
+  quote: Gross investments, EUR million 2.9 2.3 2.0
+  unit: millions
+- field: revenue
+  source: ar2022
+  years: [2022, 2021, 2020]
+  values: [166515, 152227, 123568]
+  quote: Net sales, EUR 1,000 166,515 152,227 123,568
+- field: operating_profit
+  source: ar2022
+  years: [2022, 2021, 2020]
+  values: [30236, 31249, 18772]
+  quote: Operating profit, EUR 1,000¹ 30,236 31,249 18,772
+  note: 2020 restated vs ar2020
+- field: operating_profit_adjusted
+  source: ar2022
+  years: [2022, 2021, 2020]
+  values: [30382, 31249, 19600]
+  quote: Comparable operating profit, EUR 1,000¹ 30,382 31,249 19,600
+- field: equity
+  source: ar2022
+  years: [2022, 2021, 2020]
+  values: [55425, 69833, 52323]
+  quote: Shareholders’ equity, EUR 1,000¹ 55,425 69,833 52,323
+- field: capex
+  source: ar2022
+  years: [2022, 2021, 2020]
+  values: [999, 207, 1533]
+  quote: Gross investments, EUR 1,000¹ 999 207 1,533
+- field: revenue
+  source: ar2020
+  years: [2020, 2019]
+  values: [123568, 125419]
+  quote: Net sales, EUR 1,000 123,568 125,419
+- field: operating_profit
+  source: ar2020
+  years: [2020, 2019]
+  values: [19345, 17117]
+  quote: Operating profit, EUR 1,000 19,345 17,117
+- field: operating_profit_adjusted
+  source: ar2020
+  years: [2020, 2019]
+  values: [20173, 17117]
+  quote: Comparable operating profit, EUR 1,000 20,173 17,117
+- field: equity
+  source: ar2020
+  years: [2020, 2019]
+  values: [52781, 38925]
+  quote: Shareholders’ equity, EUR 1,000 52,781 38,925
+- field: capex
+  source: ar2020
+  years: [2020, 2019]
+  values: [2143, 2594]
+  quote: Gross investments, EUR 1,000 2,143 2,594
+- field: revenue
+  source: ar2019
+  years: [2019, 2018, 2017]
+  values: [125419, 111879, 102324]
+  quote: Net sales, EUR 1,000 125,419 111,879 102,324
+- field: operating_profit
+  source: ar2019
+  years: [2019, 2018, 2017]
+  values: [17117, 17721, 8360]
+  quote: Operating profit, EUR 1,000 17,117 17,721 8,360
+- field: operating_profit_adjusted
+  source: ar2019
+  years: [2019, 2018, 2017]
+  values: [17117, 12199, 8596]
+  quote: Comparable operating profit, EUR 1,000 17,117 12,199 8,596
+- field: equity
+  source: ar2019
+  years: [2019, 2018, 2017]
+  values: [38925, 40005, 30669]
+  quote: Shareholders’ equity, EUR 1,000 38,925 40,005 30,669
+- field: capex
+  source: ar2019
+  years: [2019, 2018, 2017]
+  values: [2594, 1280, 1210]
+  quote: Gross investments, EUR 1,000 2,594 1,280 1,210

@@ -1,0 +1,345 @@
+{
+ "ticker": "LOPE",
+ "currency": "USD",
+ "run_ts": "2026-10-27T10:18:12+01:00",
+ "basis": "annual FY2025",
+ "shares": {
+  "count": 26221000.0,
+  "basis": "weighted-average DILUTED count for roll-forward balance sheet 2026-06-30, the same window as the flows (E38)",
+  "as_of": "2026-06-30",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 13639000.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0001434588 (GRAND CANYON EDUCATION,\u00a0INC.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001434588.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+  "net_interest_paid": 0.0,
+  "source": "cash_flow_statement"
+ },
+ "bridge": {
+  "net_debt": -171060000.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 0.0,
+   "pensions": 0.0,
+   "asset_retirement_obligations": 0.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+  },
+  "note": "borrowings 0 + 0 + finance leases 0 (E117: the operating lease liability 104,212,000 LEAVES net debt, its rent being in the flow; finance leases stay) + pension deficit 0 (E35.1) + asset retirement obligations 0 (E68) + prepaid delivery obligations 0 (E81) - cash 171,060,000 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+ },
+ "dates": {
+  "flows_window_end": "2025-12-31",
+  "balance_sheet": "2026-06-30",
+  "share_count": "2026-06-30",
+  "price": "2026-10-26"
+ },
+ "growth": {
+  "base": 0.03,
+  "view_file": "reference/growth-views/LOPE.md",
+  "view_date": "2026-09-04",
+  "bear": 0.02,
+  "bull": 0.05
+ },
+ "operating_cash_flow": 273491000.0,
+ "capex": -34843000.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": 0.07,
+  "premium": 0.025,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_combined",
+   "value": -34843000.0,
+   "provenance": "us-gaap:PaymentsToAcquireProductiveAssets [2025-01-01..2025-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 -- CONCEPT: the filer's ONE capital-expenditure line, tagged under the broader 'productive assets' element and not the PP&E one; E23's combined line, a record of the issuer's presentation and not a claim about what is inside it",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 273491000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-01-01..2025-12-31] 10-K 0001104659-26-017047 filed 2026-02-18",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "sbc",
+   "value": 13639000.0,
+   "provenance": "us-gaap:AllocatedShareBasedCompensationExpense [2025-01-01..2025-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 -- CONCEPT: the INCOME-STATEMENT share-based compensation CHARGE, taken because this filer tags no `ShareBasedCompensation` (the cash-flow statement's non-cash add-back). E36 subtracts the cost either way; the two elements state one charge from two statements and can differ by any capitalised or discontinued portion",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "net_interest_paid",
+   "value": 0.0,
+   "provenance": "sources/LOPE_FY2025_annual-report-10k_2026-02-18_en_a0.htm (the FY2025 Form 10-K as filed with the SEC, accession 0001104659-26-017047, filed 2026-02-18; 388,046 characters of extracted text), Consolidated Statements of Cash Flows, 'Supplemental disclosure of cash flow information': 'Cash paid for interest $ -- $ 4 $ 33' for 2025 / 2024 / 2023 (in thousands) -- A DASH IN THE 2025 COLUMN, beside 'Cash paid for income taxes $ 53,896 $ 65,261 $ 59,026'. Grand Canyon carries no borrowings at 31 December 2025 and the caption is printed and nil, which is why the filer tags no `us-gaap:InterestPaidNet` for the year and did for each of the four before it.",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 26221000.0,
+   "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2026-04-01..2026-06-30] 10-Q 0001104659-26-088674 filed 2026-07-30",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 0.0,
+   "provenance": "E107 searched zero: SEC XBRL facts of the 10-Q 0001104659-26-088674 balance sheet as of 2026-06-30, searched on 2026-10-27 for every us-gaap element that could state CURRENT borrowings (Debt, Borrowing, LineOfCredit, CommercialPaper, NotesPayable; assets, capacities and fair-value memos excluded) -- none is tagged on that date with a value",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 0.0,
+   "provenance": "E107 searched zero: SEC XBRL facts of the 10-Q 0001104659-26-088674 balance sheet as of 2026-06-30, searched on 2026-10-27 for every us-gaap element that could state NON-CURRENT borrowings (Debt, Borrowing, LineOfCredit, CommercialPaper, NotesPayable; assets, capacities and fair-value memos excluded) -- none is tagged on that date with a value",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 104212000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2026-06-30] 10-Q 0001104659-26-088674 filed 2026-07-30",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 0.0,
+   "provenance": "CARRIED from the fiscal year-end 2025-12-31 onto the roll-forward 2026-06-30 (E140.1(3): measured once a year (E41); the interim balance sheet does not restate it) -- E107 SEARCHED ABSENCE. Document: sources/LOPE_FY2025_annual-report-10k_2026-02-18_en_a0.htm (the FY2025 Form 10-K as filed with the SEC, accession 0001104659-26-017047, filed 2026-02-18; 388,046 characters of extracted text). Searched 2026-09-04 -- no pension or post-retirement caption exists, and the document uses the word 'pension' nowhere. Grand Canyon's Consolidated Balance Sheet at 31 December 2025 ENUMERATES its liabilities and there is no borrowing among them: 'Accounts payable', 'Accrued liabilities', 'Income taxes payable', 'Deferred revenue' (a dash in both years), 'Current portion of lease liability', 'Total current liabilities 109,752'; then 'Deferred income taxes, noncurrent', 'Other long-term liability 1,439', 'Lease liability, less current portion 92,755', 'Total liabilities 245,372' (in thousands). Corroborated by the cash flow statement, whose supplemental disclosure prints 'Cash paid for interest $ --' for 2025.",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "CARRIED from the fiscal year-end 2025-12-31 onto the roll-forward 2026-06-30 (E140.1(3): measured once a year (E41); the interim balance sheet does not restate it) -- E107 SEARCHED ABSENCE. Document: sources/LOPE_FY2025_annual-report-10k_2026-02-18_en_a0.htm (the FY2025 Form 10-K as filed with the SEC, accession 0001104659-26-017047, filed 2026-02-18; 388,046 characters of extracted text). Searched 2026-09-04 -- no asset-retirement caption exists, and the phrase 'asset retirement' appears nowhere in the document. Grand Canyon's Consolidated Balance Sheet at 31 December 2025 ENUMERATES its liabilities and there is no borrowing among them: 'Accounts payable', 'Accrued liabilities', 'Income taxes payable', 'Deferred revenue' (a dash in both years), 'Current portion of lease liability', 'Total current liabilities 109,752'; then 'Deferred income taxes, noncurrent', 'Other long-term liability 1,439', 'Lease liability, less current portion 92,755', 'Total liabilities 245,372' (in thousands). Corroborated by the cash flow statement, whose supplemental disclosure prints 'Cash paid for interest $ --' for 2025.",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "CARRIED from the fiscal year-end 2025-12-31 onto the roll-forward 2026-06-30 (E140.1(3): a NAMED ZERO at the year-end, a structural absence; the interim balance sheet does not restate it) -- E107 SEARCHED ABSENCE. Document: sources/LOPE_FY2025_annual-report-10k_2026-02-18_en_a0.htm (the FY2025 Form 10-K as filed with the SEC, accession 0001104659-26-017047, filed 2026-02-18; 388,046 characters of extracted text). Searched 2026-09-04 -- no prepaid-delivery or deferred-revenue liability stands at the year end -- 'Deferred revenue' is printed and is a DASH in both 2025 and 2024. Grand Canyon's Consolidated Balance Sheet at 31 December 2025 ENUMERATES its liabilities and there is no borrowing among them: 'Accounts payable', 'Accrued liabilities', 'Income taxes payable', 'Deferred revenue' (a dash in both years), 'Current portion of lease liability', 'Total current liabilities 109,752'; then 'Deferred income taxes, noncurrent', 'Other long-term liability 1,439', 'Lease liability, less current portion 92,755', 'Total liabilities 245,372' (in thousands). Corroborated by the cash flow statement, whose supplemental disclosure prints 'Cash paid for interest $ --' for 2025.",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 171060000.0,
+   "provenance": "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2026-06-30] 10-Q 0001104659-26-088674 filed 2026-07-30",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_lease_liabilities",
+   "value": 104212000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2026-06-30] 10-Q 0001104659-26-088674 filed 2026-07-30",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2023 capex_combined",
+   "value": -44537000.0,
+   "provenance": "us-gaap:PaymentsToAcquireProductiveAssets [2023-01-01..2023-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 -- CONCEPT: the filer's ONE capital-expenditure line, tagged under the broader 'productive assets' element and not the PP&E one; E23's combined line, a record of the issuer's presentation and not a claim about what is inside it",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2023 operating_cash_flow",
+   "value": 243662000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2023-01-01..2023-12-31] 10-K 0001104659-26-017047 filed 2026-02-18",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2023 working_capital_change",
+   "value": -8120000.0,
+   "provenance": "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-01-01..2023-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = -1,398,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2023-01-01..2023-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = -1,639,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade [2023-01-01..2023-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = -3,109,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2023-01-01..2023-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = -1,974,000 = -8,120,000 (cash effect: an asset increase negated, a liability increase kept)",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2023 sbc",
+   "value": 13204000.0,
+   "provenance": "us-gaap:AllocatedShareBasedCompensationExpense [2023-01-01..2023-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 -- CONCEPT: the INCOME-STATEMENT share-based compensation CHARGE, taken because this filer tags no `ShareBasedCompensation` (the cash-flow statement's non-cash add-back). E36 subtracts the cost either way; the two elements state one charge from two statements and can differ by any capitalised or discontinued portion",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2023 acquisitions_paid",
+   "value": 0.0,
+   "provenance": "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001104659-26-017047 filed 2026-02-18, fiscal year to 2023-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "annual FY2024 capex_combined",
+   "value": -37248000.0,
+   "provenance": "us-gaap:PaymentsToAcquireProductiveAssets [2024-01-01..2024-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 -- CONCEPT: the filer's ONE capital-expenditure line, tagged under the broader 'productive assets' element and not the PP&E one; E23's combined line, a record of the issuer's presentation and not a claim about what is inside it",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2024 operating_cash_flow",
+   "value": 289958000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2024-01-01..2024-12-31] 10-K 0001104659-26-017047 filed 2026-02-18",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2024 working_capital_change",
+   "value": 10949000.0,
+   "provenance": "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-01-01..2024-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = -4,137,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2024-01-01..2024-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = 1,170,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade [2024-01-01..2024-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = 9,664,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2024-01-01..2024-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = 4,252,000 = 10,949,000 (cash effect: an asset increase negated, a liability increase kept)",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2024 sbc",
+   "value": 14225000.0,
+   "provenance": "us-gaap:AllocatedShareBasedCompensationExpense [2024-01-01..2024-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 -- CONCEPT: the INCOME-STATEMENT share-based compensation CHARGE, taken because this filer tags no `ShareBasedCompensation` (the cash-flow statement's non-cash add-back). E36 subtracts the cost either way; the two elements state one charge from two statements and can differ by any capitalised or discontinued portion",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2024 acquisitions_paid",
+   "value": 0.0,
+   "provenance": "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001104659-26-017047 filed 2026-02-18, fiscal year to 2024-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "annual FY2025 capex_combined",
+   "value": -34843000.0,
+   "provenance": "us-gaap:PaymentsToAcquireProductiveAssets [2025-01-01..2025-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 -- CONCEPT: the filer's ONE capital-expenditure line, tagged under the broader 'productive assets' element and not the PP&E one; E23's combined line, a record of the issuer's presentation and not a claim about what is inside it",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2025 operating_cash_flow",
+   "value": 273491000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-01-01..2025-12-31] 10-K 0001104659-26-017047 filed 2026-02-18",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2025 working_capital_change",
+   "value": -6781000.0,
+   "provenance": "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-01-01..2025-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = -1,330,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2025-01-01..2025-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = -4,192,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade [2025-01-01..2025-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = -3,451,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2025-01-01..2025-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = 2,192,000 = -6,781,000 (cash effect: an asset increase negated, a liability increase kept)",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2025 sbc",
+   "value": 13639000.0,
+   "provenance": "us-gaap:AllocatedShareBasedCompensationExpense [2025-01-01..2025-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 -- CONCEPT: the INCOME-STATEMENT share-based compensation CHARGE, taken because this filer tags no `ShareBasedCompensation` (the cash-flow statement's non-cash add-back). E36 subtracts the cost either way; the two elements state one charge from two statements and can differ by any capitalised or discontinued portion",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "annual FY2025 acquisitions_paid",
+   "value": 0.0,
+   "provenance": "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001104659-26-017047 filed 2026-02-18, fiscal year to 2025-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search",
+   "entered_by": "store",
+   "verified": "UNVERIFIED"
+  },
+  {
+   "name": "working_capital_change 2025-12-31..2026-06-30",
+   "value": 40997000.0,
+   "provenance": "year to date roll-forward 2026-06-30: E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2026-01-01..2026-06-30] 10-Q 0001104659-26-088674 filed 2026-07-30 = 50,041,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2026-01-01..2026-06-30] 10-Q 0001104659-26-088674 filed 2026-07-30 = -2,095,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade [2026-01-01..2026-06-30] 10-Q 0001104659-26-088674 filed 2026-07-30 = -7,841,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2026-01-01..2026-06-30] 10-Q 0001104659-26-088674 filed 2026-07-30 = 892,000 = 40,997,000 (cash effect: an asset increase negated, a liability increase kept)",
+   "entered_by": "store",
+   "verified": ""
+  }
+ ],
+ "tool_commit": "vss strike 2026-10-27, dd6fa33",
+ "notes": "E140/E140.1 re-strike (step 2): normalised three-year FCF0, acquisitions as capex for a repeat buyer, bridge rolled with the events ledger",
+ "money_unit": "whole",
+ "nci_dividends_paid": 0.0,
+ "undetermined": [],
+ "fcf_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_debt_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_income": {
+  "value": 216170000.0,
+  "page": "us-gaap:NetIncomeLoss [2025-01-01..2025-12-31] 10-K 0001104659-26-017047 filed 2026-02-18",
+  "verified": true
+ },
+ "lease": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0001434588 (GRAND CANYON EDUCATION,\u00a0INC.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001434588.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 842-20-45-5(a): a lessee classifies payments for operating leases within OPERATING activities, so this filer's `operating_cash_flow` already bears them; the stated cash paid is `us-gaap:OperatingLeasePayments`, written as `operating_lease_payments` where tagged. No filer-specific tag states the classification because the standard leaves no choice",
+  "principal_added_back": null,
+  "leg": "none -- the operating cash flow bears the rent (E117)",
+  "rule": "E117",
+  "lease_cash_deducted": null,
+  "principal_paid": null,
+  "interest_paid": null,
+  "liability_excluded": 104212000.0
+ },
+ "e140": {
+  "years": [
+   {
+    "label": "annual FY2023",
+    "operating_cash_flow": 243662000.0,
+    "working_capital": -8120000.0,
+    "capex": -44537000.0,
+    "sbc": 13204000.0,
+    "acquisitions": 0.0,
+    "lease_cash": null
+   },
+   {
+    "label": "annual FY2024",
+    "operating_cash_flow": 289958000.0,
+    "working_capital": 10949000.0,
+    "capex": -37248000.0,
+    "sbc": 14225000.0,
+    "acquisitions": 0.0,
+    "lease_cash": null
+   },
+   {
+    "label": "annual FY2025",
+    "operating_cash_flow": 273491000.0,
+    "working_capital": -6781000.0,
+    "capex": -34843000.0,
+    "sbc": 13639000.0,
+    "acquisitions": 0.0,
+    "lease_cash": null
+   }
+  ],
+  "tax_country": "US",
+  "tax_rate": 0.25,
+  "ledger": "reference/events/LOPE.yaml",
+  "ledger_dated": "2026-10-27",
+  "cut": "2026-06-30",
+  "deals": [],
+  "deals_in_balance_sheet": [],
+  "rolled_from": "2025-12-31",
+  "wc_since_year_end": 40997000.0,
+  "wc_since_page": "year to date roll-forward 2026-06-30: E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2026-01-01..2026-06-30] 10-Q 0001104659-26-088674 filed 2026-07-30 = 50,041,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2026-01-01..2026-06-30] 10-Q 0001104659-26-088674 filed 2026-07-30 = -2,095,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade [2026-01-01..2026-06-30] 10-Q 0001104659-26-088674 filed 2026-07-30 = -7,841,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2026-01-01..2026-06-30] 10-Q 0001104659-26-088674 filed 2026-07-30 = 892,000 = 40,997,000 (cash effect: an asset increase negated, a liability increase kept)"
+ }
+}

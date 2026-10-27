@@ -1,0 +1,13 @@
+ticker: MUSA
+dated: '2026-10-27'
+ruling: E140(3)-(4)
+money: whole units of the reporting currency
+money_unit: whole
+basis_balance_sheet: '2025-12-31'
+searched:
+- 'EDGAR submissions: every 8-K, 10-Q and 10-K filed after the basis balance-sheet date, deal sentences extracted
+  by tools (scan 2026-10-27)'
+- issuer press releases and news search (subagent sweep 2026-10-27)
+deals: []
+none_found: true
+notes: No deal. $500m 5.875% notes 2026-05-27 refinanced the 2027 notes.

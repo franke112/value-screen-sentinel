@@ -19,6 +19,7 @@ import pytest
 
 from vss import manual as M
 from vss import runrecord as R
+from vss import valuation as V
 
 RUN_TS = datetime(2026, 8, 26, 22, 30, tzinfo=ZoneInfo("Europe/Stockholm"))
 
@@ -904,7 +905,26 @@ def _fully_populated_record() -> R.RunRecord:
         lease=R.LeaseTreatment(False, "IFRS 16.50(b)", None, "none",
                                rule="E117", lease_cash_deducted=31.5,
                                principal_paid=27.0, interest_paid=4.5,
-                               liability_excluded=210.0))
+                               liability_excluded=210.0),
+        e140=R.E140Block(
+            years=tuple(V.NormalisedYear(f"FY{y}", 30_000_000.0 + y, 1_000.0 + y,
+                                         -2_000_000.0, 1_100_000.0, -5_000.0,
+                                         lease_cash=31.0 + y)
+                        for y in (2023, 2024, 2025)),
+            tax_country="FI", tax_rate=0.2,
+            ledger="reference/events/RT.TEST.yaml", ledger_dated=date(2026, 9, 7),
+            cut=date(2026, 6, 30),
+            deals=(R.DealLeg("ROUND-TRIP DEAL", date(2026, 7, 1), 10.0, 20.0,
+                             fcf=3.0, source="p.3"),),
+            deals_in_balance_sheet=("an earlier deal",),
+            rolled_from=date(2025, 12, 31), wc_since_year_end=-44.0,
+            wc_since_page="Q2 p.20",
+            e142=R.E142Params(
+                history="config/history/RT.TEST.yaml", repeat_buyer=True,
+                acquisitions_mean=5_000.0, roiic_base=0.071, roiic_bear=0.02,
+                roiic_base_how="round-trip base", roiic_bear_how="round-trip bear",
+                cyclical=True, level_base=0.9, level_bear=0.6,
+                level_how="round-trip level", growth_how="round-trip growth")))
 
 
 def test_from_dict_reads_back_EVERY_field_to_dict_writes():

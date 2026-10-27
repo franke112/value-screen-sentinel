@@ -149,7 +149,8 @@ periods:
       revenue:
         value: 392
         page: "p.7, Group income statement, Jul-Sep 25/26: 'Net sales 392' (Jul-Sep 24/25: 350); operating income 392 with 'Other operating income 0'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # operating_income / op_margin: NOT ENTERED. p.7 'Operating profit (EBIT)
       #   75'; p.2 'EBIT margin* 19.0%'. 75 / 392 = 19.13%, 0.13pp from the
       #   printed margin because the components are whole millions -- over the
@@ -161,61 +162,75 @@ periods:
       gross_profit:
         value: 273
         page: "p.2, key figures, Jul-Sep 25/26: 'Gross profit* 273' (an APM: net sales less goods for resale, 392 - 119; the income statement prints no gross-profit line)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue_yoy:
         value: 0.12
         page: "p.2, key figures, Jul-Sep 25/26: 'Net sales 392 350 12%'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       depreciation_amortisation:
         value: 3
         page: "p.7, Jul-Sep 25/26: 'Depreciation and amortisation of tangible and intangible assets -3'; p.10 cash flow 'Depreciation and amortisation 3'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_income:
         value: 58
         page: "p.7, Jul-Sep 25/26: 'Profit for the period 58', 'Attributable to parent company's shareholders 58'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_eps:
         value: 0.53
         page: "p.7, Jul-Sep 25/26: 'Earnings per share after dilution, SEK 0.53'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_cash_flow:
         value: 27
         page: "p.10, Group statement on cash flow, Jul-Sep 25/26: 'Cash flow from operating activities 27' (Jul-Sep 24/25: -82) -- after interest and 'Paid income tax -24'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_paid:
         value: 1
         page: "p.10, operating activities, Jul-Sep 25/26: 'Interest paid -1' (positive magnitude)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_received:
         value: 0
         page: "p.10, operating activities, Jul-Sep 25/26: 'Interest received 0' -- printed 0, i.e. under SEK 0.5 million (rounding convention, year-end report p.20); a stated figure, not an absence"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       income_tax_paid:
         value: -24
         page: "p.10, Jul-Sep 25/26: 'Paid income tax -24' -- memo"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_ppe:
         value: 0
         zero_basis: caption
         page: "p.10, investing activities, Jul-Sep 25/26: 'Acquisition of tangible assets -0' -- an outflow under SEK 0.5 million printed as -0"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_intangibles:
         value: 0
         zero_basis: caption
         page: "p.10, investing activities, Jul-Sep 25/26: 'Acquisition of intangible assets -0' -- under SEK 0.5 million, printed -0 ('Cash flow from investing activities -1' for the two together)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       lease_payments_capital:
         value: -2
         page: "p.10, financing activities, Jul-Sep 25/26: 'Amortisation of lease liabilities -2'. A MEMO under E70"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_period:
         value: 1
         page: "p.7, Jul-Sep 25/26: 'Financial expenses -1' (positive magnitude)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_period:
         value: 0
         page: "p.7, Jul-Sep 25/26: 'Financial income 0' -- printed 0, under SEK 0.5 million"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
 
   - period: 2026-Q2
     period_end: 2025-12-31
@@ -226,72 +241,89 @@ periods:
       revenue:
         value: 726
         page: "p.9, Group income statement, Oct-Dec 25/26: 'Net sales 726' (Oct-Dec 24/25: 684); 'Other operating income -'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_income:
         value: 177
         page: "p.9, Oct-Dec 25/26: 'Operating profit (EBIT) 177' (Oct-Dec 24/25: 158); adjusted EBIT 180 (items affecting comparability 2, LTIP-related), entered nowhere"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       op_margin:
         value: 0.244
         page: "p.2, key figures, Oct-Dec 25/26: 'EBIT margin* 24.4%' (177 / 726 = 24.38%)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       gross_profit:
         value: 506
         page: "p.2, key figures, Oct-Dec 25/26: 'Gross profit* 506' (APM: 726 - 219 goods for resale, p.9)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue_yoy:
         value: 0.06
         page: "p.2, key figures, Oct-Dec 25/26: 'Net sales 726 684 6%'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       depreciation_amortisation:
         value: 3
         page: "p.9, Oct-Dec 25/26: 'Depreciation and amortisation of tangible and intangible assets -3'; p.12 cash flow 'Depreciation and amortisation 3'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_income:
         value: 140
         page: "p.9, Oct-Dec 25/26: 'Profit for the period 140', attributable in full"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_eps:
         value: 1.29
         page: "p.9, Oct-Dec 25/26: 'Earnings per share after dilution, SEK 1.29' (basic 1.30)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_cash_flow:
         value: 360
         page: "p.12, Group statement on cash flow, Oct-Dec 25/26: 'Cash flow from operating activities 360' (Oct-Dec 24/25: 327)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_paid:
         value: 1
         page: "p.12, operating activities, Oct-Dec 25/26: 'Interest paid -1' (positive magnitude)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_received:
         value: 1
         page: "p.12, operating activities, Oct-Dec 25/26: 'Interest received 1'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       income_tax_paid:
         value: -26
         page: "p.12, Oct-Dec 25/26: 'Paid income tax -26' -- memo"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_ppe:
         value: -1
         page: "p.12, investing activities, Oct-Dec 25/26: 'Acquisition of tangible assets -1'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_intangibles:
         value: 0
         zero_basis: caption
         page: "p.12, investing activities, Oct-Dec 25/26: 'Acquisition of intangible assets -0' -- under SEK 0.5 million, printed -0"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       lease_payments_capital:
         value: -2
         page: "p.12, financing activities, Oct-Dec 25/26: 'Amortisation of lease liabilities -2'. A MEMO under E70"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_period:
         value: 1
         page: "p.9, Oct-Dec 25/26: 'Financial expenses -1' (positive magnitude)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_period:
         value: 1
         page: "p.9, Oct-Dec 25/26: 'Financial income 1'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
 
   - period: 2026-Q3
     period_end: 2026-03-31
@@ -302,7 +334,8 @@ periods:
       revenue:
         value: 487
         page: "p.10, Group income statement, Jan-Mar 25/26: 'Net sales 487' (Jan-Mar 24/25: 486); 'Other operating income 1' beside it"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # operating_income / op_margin: NOT ENTERED. p.10 'Operating profit
       #   (EBIT) 105'; p.2 'EBIT margin amounted to 21.4 (16.4) percent'. 105 /
       #   487 = 21.56%, 0.16pp from the printed margin (whole-million
@@ -312,60 +345,74 @@ periods:
       gross_profit:
         value: 345
         page: "p.2, highlights, Jan-Mar 25/26: 'Gross profit amounted to SEK 345 (337) million' and the key figures 'Gross profit* 345' (APM: 487 - 141 goods for resale)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue_yoy:
         value: 0.0
         page: "p.2, key figures, Jan-Mar 25/26: 'Net sales 487 486 0%' (growth 5% in local currencies)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       depreciation_amortisation:
         value: 3
         page: "p.10, Jan-Mar 25/26: 'Depreciation and amortisation of tangible and intangible assets -3'; p.13 cash flow 'Depreciation and amortisation 3'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_income:
         value: 83
         page: "p.10, Jan-Mar 25/26: 'Profit for the period 83', attributable in full"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_eps:
         value: 0.77
         page: "p.10, Jan-Mar 25/26: 'Earnings per share after dilution, SEK 0.77'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_cash_flow:
         value: 18
         page: "p.13, Group statement on cash flow, Jan-Mar 25/26: 'Cash flow from operating activities 18' (Jan-Mar 24/25: -110) -- a seasonal working-capital quarter ('operating liabilities -154')"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_paid:
         value: 1
         page: "p.13, operating activities, Jan-Mar 25/26: 'Interest paid -1' (positive magnitude)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_received:
         value: 1
         page: "p.13, operating activities, Jan-Mar 25/26: 'Interest received 1'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       income_tax_paid:
         value: -22
         page: "p.13, Jan-Mar 25/26: 'Paid income tax -22' -- memo"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_ppe:
         value: 0
         zero_basis: caption
         page: "p.13, investing activities, Jan-Mar 25/26: 'Acquisition of tangible assets -0' -- under SEK 0.5 million, printed -0"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_intangibles:
         value: -1
         page: "p.13, investing activities, Jan-Mar 25/26: 'Acquisition of intangible assets -1'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       lease_payments_capital:
         value: -2
         page: "p.13, financing activities, Jan-Mar 25/26: 'Amortisation of lease liabilities -2'. A MEMO under E70"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_period:
         value: 1
         page: "p.10, Jan-Mar 25/26: 'Financial expenses -1' (positive magnitude)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_period:
         value: 1
         page: "p.10, Jan-Mar 25/26: 'Financial income 1'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
 
   - period: 2026-Q4
     period_end: 2026-06-30
@@ -377,71 +424,87 @@ periods:
         value: -313
         source: "E103 automatic reference extraction (pdf (model-read))"
         page: "19 [printed in millions] -- verbatim: Net debt(+)/Net cash (-) -313 -177 -313 -177"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # --- read by the E6 RANKING KEY ---------------------------------
       revenue:
         value: 414
         page: "p.10, Group income statement, Apr-Jun 25/26: 'Net sales 414' (Apr-Jun 24/25: 405); operating income 414, no other operating income"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_income:
         value: 66
         page: "p.10, Apr-Jun 25/26: 'Operating profit (EBIT) 66' (Apr-Jun 24/25: 63); p.19 reconciliation 'Adjusted EBIT 66' -- no items affecting comparability this quarter"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       op_margin:
         value: 0.159
         page: "p.19, reconciliation tables, EBIT margin, Apr-Jun 25/26: 'EBIT Margin 15.9%' (66 / 414 = 15.94%); p.2 'EBIT margin and adjusted EBIT margin amounted to 15.9 (15.5) percent'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       gross_profit:
         value: 299
         page: "p.19, reconciliation tables, Apr-Jun 25/26: 'Net sales 414', 'Goods for resale (-) -115', 'Gross profit 299' -- the issuer's APM, stated; the income statement prints no gross-profit line"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue_yoy:
         value: 0.02
         page: "p.2, key figures, Apr-Jun 25/26: 'Net sales 414 405 2%' (3 percent in local currencies)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       total_assets:
         value: 1724
         page: "p.11, Group statement of financial position, 30/06/2026: 'TOTAL ASSETS 1,724' (30/06/2025: 1,561)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_ppe:
         value: 20
         page: "p.11, 30/06/2026, tangible assets subtotal 20 = 'Expenditures on third-party property 3' + 'Equipment, tools and installations 2' + 'Right of use assets 15' -- the balance sheet's own subtotal, right-of-use assets inside it"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # --- section 5.1 C: the cash the reverse DCF discounts -----------
       operating_cash_flow:
         value: 31
         page: "p.13, Group statement on cash flow, Apr-Jun 25/26: 'Cash flow from operating activities 31' (Apr-Jun 24/25: 85; Jul-Jun 25/26: 435) -- an inventory build of 111 in the quarter"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_paid:
         value: 1
         page: "p.13, operating activities, Apr-Jun 25/26: 'Interest paid -1' (positive magnitude)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_received:
         value: 1
         page: "p.13, operating activities, Apr-Jun 25/26: 'Interest received 1'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       income_tax_paid:
         value: -18
         page: "p.13, Apr-Jun 25/26: 'Paid income tax -18' -- memo"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_ppe:
         value: -1
         page: "p.13, investing activities, Apr-Jun 25/26: 'Acquisition of tangible assets -1'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_intangibles:
         value: 0
         zero_basis: caption
         page: "p.13, investing activities, Apr-Jun 25/26: 'Acquisition of intangible assets -0' -- under SEK 0.5 million, printed -0"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       lease_payments_capital:
         value: -2
         page: "p.13, financing activities, Apr-Jun 25/26: 'Amortisation of lease liabilities -2'. A MEMO under E70"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # --- section 5.1 C: net debt, the bridge from EV to equity --------
       cash_and_equivalents:
         value: 328
         page: "p.11, 30/06/2026: 'Cash and cash equivalents 328'; p.13 'Cash and cash equivalents at end of period 328'; p.19 net debt table 'Cash and cash equivalents (-) -328'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       financial_liabilities_current:
         value: 0
         zero_basis: note
@@ -459,24 +522,28 @@ periods:
       lease_liabilities:
         value: 15
         page: "p.19, net debt table, 30/06/2026: 'Interest-bearing debt * 15' -- '* Is composed of leasing liabilities': the STATED total. The balance sheet's parts, p.12 'Lease liabilities 8' (long-term) and 'Lease liabilities 8' (current), add to 16 -- one off from whole-million rounding (the year-end report rounds every line); the stated total is entered, the parts named. One IFRS 16 liability (E65)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       asset_retirement_obligation:
         value: 0
         zero_basis: caption
-        page: "p.12, Group statement of financial position (cont.), 30/06/2026: the liabilities presented are lease liabilities, deferred tax liabilities, accounts payable, other current liabilities, tax liabilities, repayment liabilities and prepaid income and accrued expenses -- no provision caption of any kind. An online apparel retailer with no restoration provision recognised; E68.1's caption form, not on its refuse list"
-        status: UNVERIFIED
+        page: "p.12, Group statement of financial position (cont.), 30/06/2026: the liabilities presented are lease liabilities, deferred tax liabilities, accounts payable, other current liabilities, tax liabilities, repayment liabilities and prepaid income and accrued expenses -- no provision caption of any kind. An online apparel retailer with no restoration provision recognised; E68.1's caption form, not on its refuse list. E107 SEARCH: sources/RVRC.ST_2026-Q4_financial-statement-release_2026-08-11_en_a0.pdf (49,032 characters). Searched 2026-10-13 for 'asset retirement', 'decommission', 'dismantl', 'restoration' -- ZERO occurrences"
+        status: VERIFIED
+        verified_kind: machine_read_back
       prepaid_delivery_obligation:
         value: 0
         zero_basis: caption
         page: "E81 (2026-08-30): year-end report p.12, Group statement of financial position (cont.), 30/06/2026, liabilities presented: lease liabilities, deferred tax liabilities, accounts payable, other current liabilities, tax liabilities, repayment liabilities and 'prepaid income and accrued expenses' -- no streaming, prepaid-offtake or prepaid-delivery caption. 'Prepaid income' here is customer payments received before dispatch, the ordinary contract liability of an online apparel retailer, working capital and NOT this leg, named. A caption zero"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # pension_deficit: on the FY2026 annual entry (annual-only, E41), a
       #   zero on the note form; see the header for the year-old sentence.
       # --- share counts ----------------------------------------------------
       shares_outstanding_period_end:
         value: 104596200
         page: "note 5, p.22, Number of shares: 'At the end of the quarter the total number of outstanding shares (total number of shares reduced by treasury shares) amounts to 104,596,200' -- the NET count as printed; total shares 107,359,430 (closing balance 30/06/2026) less 2,763,230 treasury shares ('At the end of the period the company holds 2,763,230 treasury shares'). E75's window-end divisor, basic"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # diluted_weighted_average_shares: DATA MISSING -- note 5 p.22 prints only
       #   'Weighted average number of shares 107,347,924' (Apr-Jun 25/26), a
       #   BASIC average; diluted EPS 0.49 = basic 0.49 this quarter, 3.09 vs
@@ -485,23 +552,28 @@ periods:
       depreciation_amortisation:
         value: 3
         page: "p.10, Apr-Jun 25/26: 'Depreciation and amortisation of tangible and intangible assets -3'; p.13 'Depreciation and amortisation 3'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_income:
         value: 53
         page: "p.10, Apr-Jun 25/26: 'Profit for the period 53', 'Attributable to parent company's shareholders 53'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_eps:
         value: 0.49
         page: "p.10, Apr-Jun 25/26: 'Earnings per share after dilution, SEK 0.49' (basic 0.49)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_period:
         value: 1
         page: "p.10, Apr-Jun 25/26: 'Financial expenses -1' (positive magnitude)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_period:
         value: 1
         page: "p.10, Apr-Jun 25/26: 'Financial income 1'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
 
 annual:
   - fiscal_year: 2026
@@ -512,59 +584,73 @@ annual:
       revenue:
         value: 2018
         page: "p.10, Group income statement, Jul-Jun 25/26: 'Net sales 2,018' (Jul-Jun 24/25: 1,925)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_income:
         value: 422
         page: "p.10, Jul-Jun 25/26: 'Operating profit (EBIT) 422' (Jul-Jun 24/25: 357); p.19 'Adjusted EBIT 425' after 'Expenses mainly related to LTIP and stay-on-bonus 2'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       op_margin:
         value: 0.209
         page: "p.19, reconciliation tables, EBIT margin, Jul-Jun 25/26: 'EBIT Margin 20.9%' (422 / 2,018 = 20.91%); p.2 'EBIT margin amounted to 20.9 (18.6) percent'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       gross_profit:
         value: 1423
         page: "p.19, reconciliation tables, Jul-Jun 25/26: 'Net sales 2,018', 'Goods for resale (-) -595', 'Gross profit 1,423' (gross margin 70.5%)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue_yoy:
         value: 0.05
         page: "p.2, key figures, Jul-Jun 25/26: 'Net sales 2,018 1,925 5%' (8 percent in local currencies)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       total_assets:
         value: 1724
         page: "p.11, 30/06/2026: 'TOTAL ASSETS 1,724'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_ppe:
         value: 20
-        page: "p.11, 30/06/2026, tangible assets subtotal 20 (including right of use assets 15)"
-        status: UNVERIFIED
+        page: "p.11, 30/06/2026, tangible assets subtotal 20 (including right of use assets 15): 'Expenditures on third-party property 3 2', 'Equipment, tools and installations 2 2', 'Right of use assets 15 11', '20 15'"
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_cash_flow:
         value: 435
         page: "p.13, Group statement on cash flow, Jul-Jun 25/26: 'Cash flow from operating activities 435' (Jul-Jun 24/25: 219); the four quarters 27 + 360 + 18 + 31 = 436, one off from rounding"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_paid:
         value: 4
         page: "p.13, operating activities, Jul-Jun 25/26: 'Interest paid -4' (positive magnitude)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_received:
         value: 4
         page: "p.13, operating activities, Jul-Jun 25/26: 'Interest received 4'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       income_tax_paid:
         value: -90
         page: "p.13, Jul-Jun 25/26: 'Paid income tax -90' -- memo"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_ppe:
         value: -3
         page: "p.13, investing activities, Jul-Jun 25/26: 'Acquisition of tangible assets -3'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_intangibles:
         value: -2
         page: "p.13, investing activities, Jul-Jun 25/26: 'Acquisition of intangible assets -2'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       lease_payments_capital:
         value: -8
         page: "p.13, financing activities, Jul-Jun 25/26: 'Amortisation of lease liabilities -8'. A MEMO under E70"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       sbc:
         value: 0
         zero_basis: note
@@ -575,7 +661,8 @@ annual:
       cash_and_equivalents:
         value: 328
         page: "p.11, 30/06/2026: 'Cash and cash equivalents 328'; p.13 year column 'Cash and cash equivalents at end of period 328'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       financial_liabilities_current:
         value: 0
         zero_basis: note
@@ -593,7 +680,8 @@ annual:
       lease_liabilities:
         value: 15
         page: "p.19, 30/06/2026: 'Interest-bearing debt * 15', composed of leasing liabilities -- the stated total; p.12 parts 8 + 8 (rounded), named"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       pension_deficit:
         value: 0
         zero_basis: note
@@ -604,17 +692,20 @@ annual:
       asset_retirement_obligation:
         value: 0
         zero_basis: caption
-        page: "p.12, 30/06/2026: no provision caption of any kind on the balance sheet (E68.1 caption form; see the 2026-Q4 entry)"
-        status: UNVERIFIED
+        page: "p.12, 30/06/2026: no provision caption of any kind on the balance sheet (E68.1 caption form; see the 2026-Q4 entry). E107 SEARCH: sources/RVRC.ST_2026-Q4_financial-statement-release_2026-08-11_en_a0.pdf (49,032 characters). Searched 2026-10-13 for 'asset retirement', 'decommission', 'dismantl', 'restoration' -- ZERO occurrences"
+        status: VERIFIED
+        verified_kind: machine_read_back
       prepaid_delivery_obligation:
         value: 0
         zero_basis: caption
         page: "E81 (2026-08-30): year-end report p.12, 30/06/2026: as on the 2026-Q4 entry -- no streaming, prepaid-offtake or prepaid-delivery caption; 'prepaid income and accrued expenses' is working capital, named. A caption zero"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       shares_outstanding_period_end:
         value: 104596200
         page: "note 5, p.22: 'the total number of outstanding shares (total number of shares reduced by treasury shares) amounts to 104,596,200' at 30 June 2026 (107,359,430 total less 2,763,230 treasury)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # diluted_weighted_average_shares: DATA MISSING -- only the basic
       #   'Weighted average number of shares 107,904,719' (Jul-Jun 25/26) is
       #   printed; diluted EPS 3.09 against basic 3.10 shows a diluted count
@@ -622,20 +713,25 @@ annual:
       depreciation_amortisation:
         value: 11
         page: "p.10, Jul-Jun 25/26: 'Depreciation and amortisation of tangible and intangible assets -11'; p.13 'Depreciation and amortisation 11' (the quarters print 3 + 3 + 3 + 3 = 12, rounding)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_income:
         value: 334
         page: "p.10, Jul-Jun 25/26: 'Profit for the period 334', attributable in full"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_eps:
         value: 3.09
         page: "p.10, Jul-Jun 25/26: 'Earnings per share after dilution, SEK 3.09' (basic 3.10)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_period:
         value: 4
         page: "p.10, Jul-Jun 25/26: 'Financial expenses -4' (positive magnitude)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_period:
         value: 4
         page: "p.10, Jul-Jun 25/26: 'Financial income 4'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back

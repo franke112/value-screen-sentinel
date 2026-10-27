@@ -1,0 +1,37 @@
+ticker: CTSH
+dated: '2026-10-27'
+ruling: E140(3)-(4)
+money: whole units of the reporting currency
+money_unit: whole
+basis_balance_sheet: '2025-12-31'
+searched:
+- 'EDGAR submissions: every 8-K, 10-Q and 10-K filed after the basis balance-sheet date, deal sentences extracted
+  by tools (scan 2026-10-27)'
+- issuer press releases and news search (subagent sweep 2026-10-27)
+deals:
+- name: 3Cloud
+  date: '2026-01-01'
+  status: closed
+  closed: '2026-01-01'
+  low: 728000000.0
+  high: 728000000.0
+  fcf: 0
+  source: '10-Q 2026-03-31 note 3: purchase price $728'
+- name: Astreya Partners (incl. contingent 25m)
+  date: '2026-06-22'
+  status: closed
+  closed: '2026-06-22'
+  low: 634000000.0
+  high: 665000000.0
+  fcf: 0
+  source: '10-Q 2026-06-30: purchase price $634 million incl. contingent $25 million; high end from secondary sources'
+- name: DyFlex Solutions (Australia; price NOT DISCLOSED; range is the session estimate)
+  date: 2026-10-21 announced
+  status: pending
+  closed: null
+  low: 50000000.0
+  high: 300000000.0
+  fcf: 0
+  source: press release 2026-10-21 (no 8-K)
+none_found: false
+notes: ''

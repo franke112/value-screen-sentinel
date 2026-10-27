@@ -1,0 +1,441 @@
+ticker: MC.PA
+currency: EUR
+money_unit: millions
+business:
+  text: 'LVMH is a luxury group with six business groups: wines and spirits, fashion and leather goods, perfumes and cosmetics, watches and jewelry, selective retailing, and other.'
+  source: fd2025_seg
+  quote: The Group’s brands and trade names are organized into six
+sources:
+  fd2025_hl:
+    file: sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf
+    page: 4
+  fd2025_is:
+    file: sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf
+    page: 24
+  fd2025_bs:
+    file: sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf
+    page: 26
+  fd2025_cf:
+    file: sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf
+    page: 28
+  fd2025_seg:
+    file: sources/MC.PA_2025-FY_annual-financial-report_2026-01-27_en_a0.pdf
+    page: 60
+  fd2023_hl:
+    file: sources/MC.PA_2023-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 4
+    url: https://lvmh-com.cdn.prismic.io/lvmh-com/ZmMq-pm069VX1j0w_financial-documents-lvmh-december-31-2023.pdf
+  fd2023_is:
+    file: sources/MC.PA_2023-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 24
+    url: https://lvmh-com.cdn.prismic.io/lvmh-com/ZmMq-pm069VX1j0w_financial-documents-lvmh-december-31-2023.pdf
+  fd2023_bs:
+    file: sources/MC.PA_2023-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 26
+    url: https://lvmh-com.cdn.prismic.io/lvmh-com/ZmMq-pm069VX1j0w_financial-documents-lvmh-december-31-2023.pdf
+  fd2023_cf:
+    file: sources/MC.PA_2023-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 28
+    url: https://lvmh-com.cdn.prismic.io/lvmh-com/ZmMq-pm069VX1j0w_financial-documents-lvmh-december-31-2023.pdf
+  urd2021_hl:
+    file: sources/MC.PA_2021-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 4
+    url: https://lvmh-com.cdn.prismic.io/lvmh-com/ZmxAjJm069VX1wo-_lvmh-deu-2021_va.pdf
+  urd2021_is:
+    file: sources/MC.PA_2021-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 208
+    url: https://lvmh-com.cdn.prismic.io/lvmh-com/ZmxAjJm069VX1wo-_lvmh-deu-2021_va.pdf
+  urd2021_bs:
+    file: sources/MC.PA_2021-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 210
+    url: https://lvmh-com.cdn.prismic.io/lvmh-com/ZmxAjJm069VX1wo-_lvmh-deu-2021_va.pdf
+  urd2021_cf:
+    file: sources/MC.PA_2021-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 212
+    url: https://lvmh-com.cdn.prismic.io/lvmh-com/ZmxAjJm069VX1wo-_lvmh-deu-2021_va.pdf
+  fs2017_is:
+    file: sources/MC.PA_2017-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 4
+    url: https://www.lvmh.com/proxyApi/v1/wordpress/attachment/comptes-consolides-2017-lvmh-va.pdf
+  fs2017_bs:
+    file: sources/MC.PA_2017-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 6
+    url: https://www.lvmh.com/proxyApi/v1/wordpress/attachment/comptes-consolides-2017-lvmh-va.pdf
+  fs2017_cf:
+    file: sources/MC.PA_2017-FY_annual-financial-report_2026-10-27_en_a0.pdf
+    page: 8
+    url: https://www.lvmh.com/proxyApi/v1/wordpress/attachment/comptes-consolides-2017-lvmh-va.pdf
+rows:
+- field: revenue
+  source: fd2025_is
+  years:
+  - 2025
+  - 2024
+  - 2023
+  values:
+  - 80807
+  - 84683
+  - 86153
+  quote: Revenue 24 80,807 84,683 86,153
+- field: operating_profit
+  source: fd2025_is
+  years:
+  - 2025
+  - 2024
+  - 2023
+  values:
+  - 17099
+  - 18907
+  - 22560
+  quote: Operating profit 17,099 18,907 22,560
+- field: operating_profit_adjusted
+  source: fd2025_is
+  years:
+  - 2025
+  - 2024
+  - 2023
+  values:
+  - 17755
+  - 19571
+  - 22802
+  quote: Profit from recurring operations 24 17,755 19,571 22,802
+- field: goodwill
+  source: fd2025_bs
+  years:
+  - 2025
+  - 2024
+  - 2023
+  values:
+  - 18315
+  - 20307
+  - 24022
+  quote: Goodwill 4 18,315 20,307 24,022
+- field: equity
+  source: fd2025_bs
+  years:
+  - 2025
+  - 2024
+  - 2023
+  values:
+  - 67472
+  - 67517
+  - 61017
+  quote: Equity, Group share 16 67,472 67,517 61,017
+- field: operating_cash_flow
+  source: fd2025_cf
+  years:
+  - 2025
+  - 2024
+  - 2023
+  values:
+  - 18874
+  - 18924
+  - 18400
+  quote: Net cash from/(used in) operating activities 18,874 18,924 18,400
+- field: capex
+  source: fd2025_cf
+  years:
+  - 2025
+  - 2024
+  - 2023
+  values:
+  - -4567
+  - -5531
+  - -7478
+  quote: Operating investments 15.3 (4,567) (5,531) (7,478)
+- field: acquisitions_paid
+  source: fd2025_cf
+  years:
+  - 2025
+  - 2024
+  - 2023
+  values:
+  - 149
+  - -438
+  - -721
+  quote: Purchase and proceeds from sale of consolidated investments 2 149 (438) (721)
+- field: revenue
+  source: fd2023_is
+  years:
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 86153
+  - 79184
+  - 64215
+  quote: Revenue 24 86,153 79,184 64,215
+- field: operating_profit
+  source: fd2023_is
+  years:
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 22560
+  - 21001
+  - 17155
+  quote: Operating profit 22,560 21,001 17,155
+- field: operating_profit_adjusted
+  source: fd2023_is
+  years:
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 22802
+  - 21055
+  - 17151
+  quote: Profit from recurring operations 24 22,802 21,055 17,151
+- field: goodwill
+  source: fd2023_bs
+  years:
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 24022
+  - 24782
+  - 25904
+  quote: Goodwill 4 24,022 24,782 25,904
+- field: equity
+  source: fd2023_bs
+  years:
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 61017
+  - 55111
+  - 47119
+  quote: Equity, Group share 16 61,017 55,111 47,119
+- field: operating_cash_flow
+  source: fd2023_cf
+  years:
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - 18400
+  - 17833
+  - 18648
+  quote: Net cash from/(used in) operating activities 18,400 17,833 18,648
+- field: capex
+  source: fd2023_cf
+  years:
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - -7478
+  - -4969
+  - -2664
+  quote: Operating investments 15.3 (7,478) (4,969) (2,664)
+- field: acquisitions_paid
+  source: fd2023_cf
+  years:
+  - 2023
+  - 2022
+  - 2021
+  values:
+  - -721
+  - -809
+  - -13226
+  quote: Purchase and proceeds from sale of consolidated investments 2 (721) (809) (13,226)
+- field: revenue
+  source: urd2021_is
+  years:
+  - 2021
+  - 2020
+  - 2019
+  values:
+  - 64215
+  - 44651
+  - 53670
+  quote: Revenue 24‑25 64,215 44,651 53,670
+- field: operating_profit
+  source: urd2021_is
+  years:
+  - 2021
+  - 2020
+  - 2019
+  values:
+  - 17155
+  - 7972
+  - 11273
+  quote: Operating profit 17,155 7,972 11,273
+- field: operating_profit_adjusted
+  source: urd2021_is
+  years:
+  - 2021
+  - 2020
+  - 2019
+  values:
+  - 17151
+  - 8305
+  - 11504
+  quote: Profit from recurring operations 24‑25 17,151 8,305 11,504
+- field: goodwill
+  source: urd2021_bs
+  years:
+  - 2021
+  - 2020
+  - 2019
+  values:
+  - 25904
+  - 16042
+  - 16034
+  quote: Goodwill 4 25,904 16,042 16,034
+- field: equity
+  source: urd2021_bs
+  years:
+  - 2021
+  - 2020
+  - 2019
+  values:
+  - 47119
+  - 37412
+  - 36586
+  quote: Equity, Group share 16.1 47,119 37,412 36,586
+- field: operating_cash_flow
+  source: urd2021_cf
+  years:
+  - 2021
+  - 2020
+  - 2019
+  values:
+  - 18648
+  - 10897
+  - 11648
+  quote: Net cash from/(used in) operating activities 18,648 10,897 11,648
+- field: capex
+  source: urd2021_cf
+  years:
+  - 2021
+  - 2020
+  - 2019
+  values:
+  - -2664
+  - -2478
+  - -3294
+  quote: Operating investments 15.3 (2,664) (2,478) (3,294)
+- field: acquisitions_paid
+  source: urd2021_cf
+  years:
+  - 2021
+  - 2020
+  - 2019
+  values:
+  - -13226
+  - -536
+  - -2478
+  quote: Purchase and proceeds from sale of consolidated investments 2 (13,226) (536) (2,478)
+- field: revenue
+  source: fs2017_is
+  years:
+  - 2017
+  - 2016
+  - 2015
+  values:
+  - 42636
+  - 37600
+  - 35664
+  quote: Revenue 23-24 42,636 37,600 35,664
+- field: operating_profit
+  source: fs2017_is
+  years:
+  - 2017
+  - 2016
+  - 2015
+  values:
+  - 8113
+  - 6904
+  - 6384
+  quote: Operating profit 8,113 6,904 6,384
+- field: operating_profit_adjusted
+  source: fs2017_is
+  years:
+  - 2017
+  - 2016
+  - 2015
+  values:
+  - 8293
+  - 7026
+  - 6605
+  quote: Profit from recurring operations 23-24 8,293 7,026 6,605
+- field: goodwill
+  source: fs2017_bs
+  years:
+  - 2017
+  - 2016
+  - 2015
+  values:
+  - 16514
+  - 10401
+  - 10122
+  quote: Goodwill 4 16,514 10,401 10,122
+- field: equity
+  source: fs2017_bs
+  years:
+  - 2017
+  - 2016
+  - 2015
+  values:
+  - 28852
+  - 26393
+  - 24339
+  quote: Equity, Group share 28,852 26,393 24,339
+- field: operating_cash_flow
+  source: fs2017_cf
+  years:
+  - 2017
+  - 2016
+  - 2015
+  values:
+  - 7030
+  - 6239
+  - 5634
+  quote: Net cash from operating activities 7,030 6,239 5,634
+- field: capex
+  source: fs2017_cf
+  years:
+  - 2017
+  - 2016
+  - 2015
+  values:
+  - -2276
+  - -2265
+  - -1955
+  quote: Operating investments 14.4 (2,276) (2,265) (1,955)
+- field: acquisitions_paid
+  source: fs2017_cf
+  years:
+  - 2017
+  - 2016
+  - 2015
+  values:
+  - -6306
+  - 310
+  - -240
+  quote: Impact of purchase and sale of consolidated investments 2.4 (6,306) 310 (240)
+- field: organic_growth_pct
+  source: fd2025_hl
+  years:
+  - 2025
+  values:
+  - -1
+  quote: Total 80,807 84,683 -5% -1% 86,153
+- field: organic_growth_pct
+  source: fd2023_hl
+  years:
+  - 2023
+  values:
+  - 13
+  quote: Total 86,153 79,184 9% 13% 64,215
+- field: organic_growth_pct
+  source: urd2021_hl
+  years:
+  - 2021
+  values:
+  - 36
+  quote: Total 64,215 44,651 44% 36% 53,670

@@ -294,12 +294,14 @@ periods:
         zero_basis: searched
         source: "E105 leg; E107 searched absence"
         page: "E107 SEARCHED ABSENCE. Document: AUTO.L_2026-FY_final-results_2026-05-21_xx_a0.pdf (104,991 characters of extracted text). Searched 2026-09-04 for the terms 'non-controlling', 'noncontrolling', 'minority interest', 'minority interests' -- ZERO occurrences of any of them. The group states no non-controlling interest, so it distributes none (E106 clause 5: a determined zero, not an undetermined leg)."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_debt_reported:
         value: 188.3
         source: "E103 automatic reference extraction (pdf (model-read))"
         page: "131 [printed in millions] -- verbatim: Net debt/(cash) (12.7) 157.5 43.5 188.3"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # --- read by the E6 RANKING KEY ---------------------------------
       revenue:
         value: 624.3
@@ -320,7 +322,8 @@ periods:
       net_ppe:
         value: 73.0
         page: "p.103, consolidated balance sheet: 'Property, plant and equipment 13 73.0'; note 13, p.119 confirms: 'Net book value at 31 March 2026 66.4 6.4 0.2 – 73.0'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # --- section 5.1 C: the cash the reverse DCF discounts -----------
       operating_cash_flow:
         value: 322.8
@@ -335,7 +338,8 @@ periods:
       income_tax_paid:
         value: -95.2
         page: "p.105: 'Income taxes paid (95.2)'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
         # FRAMEWORK-EDITS E59 -- does NOT get verified_kind: cross_document.
         # Note 10 (p.116) states 'Total current taxation 95.2', which ties
         # numerically to this field at the printed rounding, but the two are
@@ -359,7 +363,8 @@ periods:
       proceeds_from_disposals_ppe:
         value: 4.5
         page: "p.105: 'Proceeds from sale of property, plant and equipment 4.5'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
         # FRAMEWORK-EDITS E59 -- does NOT get verified_kind: cross_document.
         # Note 13's disposal schedule (p.119: cost disposals 21.0, accumulated
         # depreciation disposals 16.1, narrative NBVs for individual disposals)
@@ -383,7 +388,8 @@ periods:
       finance_costs_paid:
         value: 2.8
         page: "p.105, cash flows from FINANCING activities: 'Payment of interest on borrowings 31 (2.8)' (entered as a positive magnitude). Note 30 (p.131) separately states interest paid was £2.4m on borrowings and £0.3m on the vehicle stocking loan -- £2.7m combined, £0.1m short of this cash-flow-statement figure. The cash flow statement is this field's own required source and is what is entered; the £0.1m gap is a fact about the accounts, not corrected here"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
         # FRAMEWORK-EDITS E59 -- does NOT get verified_kind: cross_document.
         # The would-be reconciling note (30, p.131) does NOT tie: £2.4m
         # borrowings interest + £0.3m vehicle stocking loan interest = £2.7m
@@ -541,10 +547,120 @@ periods:
       op_margin:
         value: 0.63
         page: "p.21, financial review: 'Group operating profit margin 63% 63% 0% pts'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue_yoy:
         value: 0.04
         page: "p.21, financial review: 'Revenue 624.3 601.1 4%'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
+      working_capital_change:
+        value: -2.1
+        page: "E140(1), PDF p.128, note 28, changes in working capital: 'Trade and other receivables (0.5) 0.6' + 'Trade and other payables 0.7 (3.0)' + 'Inventory (2.3) 0.6' = - 0.5 + 0.7 - 2.3 = 2.1 absorbed, entered as -2.1. 'Provisions 0.2 0.2' stays in the flow (E140(1): a provision is not operating working capital)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      acquisitions_paid:
+        value: 0
+        zero_basis: subtotal
+        page: "E140.1(1), PDF p.107, consolidated statement of cash flows, investing activities: 'Purchases of intangible assets (0.1)', 'Purchases of property, plant and equipment (27.3)', 'Proceeds from sale of property, plant and equipment 4.5', 'Dividends received from joint ventures 15 4.9', 'Interest received on cash and cash equivalents 1.3' = -16.7, and 'Net cash used in investing activities (16.7)': no acquisition line"
+        status: VERIFIED
+        verified_kind: machine_read_back
 
-annual: []
+annual:
+  # E140(1): the two fiscal years before the basis (2026-FY, in periods:),
+  # the legs of the three-year mean only. Entered 2026-10-27.
+  - fiscal_year: 2024
+    period_end: 2024-03-31
+    document: "Annual Report and Financial Statements 2025 (audited; comparative column for the year to 31 March 2024)"
+    url: "sources/AUTO.L_2025-FY_annual-financial-report_2025-06-26_xx_a0.pdf"
+    figures:
+      operating_cash_flow:
+        value: 287.5
+        page: "PDF p.132, consolidated statement of cash flows: 'Net cash generated from operating activities 304.6 287.5'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      working_capital_change:
+        value: -3.4
+        page: "E140(1), PDF p.153, note 28: 'Trade and other receivables 0.6 (10.4)' + 'Trade and other payables (3.0) 6.0' + 'Inventory 0.6 1.0' = - 10.4 + 6.0 + 1.0 = 3.4 absorbed, entered as -3.4 (2024 column). 'Provisions 0.2 0.1' stays in the flow"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      capex_ppe:
+        value: -3.6
+        page: "PDF p.132: 'Purchases of property, plant and equipment (4.0) (3.6)'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      capex_intangibles:
+        value: -0.2
+        page: "PDF p.132: 'Purchases of intangible assets - (0.2)'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_payments_capital:
+        value: -2.7
+        page: "PDF p.132, financing activities: 'Payment of lease liabilities 14 (2.5) (2.7)'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_interest_paid:
+        value: 0
+        zero_basis: note
+        page: "PDF p.147, note 14: 'Total cash outflow for leases 2.5 2.7' (IFRS 16.53(g)) -- the same figure as the financing line 'Payment of lease liabilities (2.7)', so the filer's whole lease cash outflow is that one line and no separate lease interest is paid outside it (as the 2026 basis year)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      sbc:
+        value: 7.5
+        page: "PDF p.153, note 28: 'Share-based payments charge (excluding associated NI) 9.7 7.5'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      acquisitions_paid:
+        value: 0
+        zero_basis: subtotal
+        page: "E140.1(1), PDF p.132, investing activities, 2024 column: 'Purchases of intangible assets - (0.2)', 'Purchases of property, plant and equipment (4.0) (3.6)', 'Proceeds from sale of property, plant and equipment 0.3 0.2', 'Dividends received from joint ventures 15 4.4 3.9', 'Interest received on cash and cash equivalents 0.9 0.5', 'Proceeds on disposal of shares in investment entities - 1.0' = 1.8, and 'Net cash used in investing activities 1.6 1.8': no acquisition line"
+        status: VERIFIED
+        verified_kind: machine_read_back
+  - fiscal_year: 2025
+    period_end: 2025-03-31
+    document: "Annual Report and Financial Statements 2026 (audited; comparative column for the year to 31 March 2025)"
+    url: "sources/AUTO.L_2026-FY_annual-financial-report_2026-06-08_xx_a0.pdf"
+    figures:
+      operating_cash_flow:
+        value: 304.6
+        page: "PDF p.107, consolidated statement of cash flows: 'Net cash generated from operating activities 322.8 304.6'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      working_capital_change:
+        value: -1.8
+        page: "E140(1), PDF p.128, note 28: 'Trade and other receivables (0.5) 0.6' + 'Trade and other payables 0.7 (3.0)' + 'Inventory (2.3) 0.6' = 0.6 - 3.0 + 0.6 = -1.8 (2025 column). 'Provisions 0.2 0.2' stays in the flow"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      capex_ppe:
+        value: -4.0
+        page: "PDF p.107: 'Purchases of property, plant and equipment (27.3) (4.0)'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      capex_intangibles:
+        value: 0
+        zero_basis: caption
+        page: "PDF p.107: 'Purchases of intangible assets (0.1) -' -- the 2025 column is a dash"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_payments_capital:
+        value: -2.5
+        page: "PDF p.107, financing activities: 'Payment of lease liabilities 14 (1.8) (2.5)'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_interest_paid:
+        value: 0
+        zero_basis: note
+        page: "PDF p.122, note 14: 'Total cash outflow for leases 1.8 2.5' (IFRS 16.53(g)) -- the same figure as the financing line 'Payment of lease liabilities (2.5)', so no separate lease interest is paid outside it (as the 2026 basis year)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      sbc:
+        value: 9.7
+        page: "PDF p.128, note 28: 'Share-based payments charge (excluding associated NI) 9.2 9.7'"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      acquisitions_paid:
+        value: 0
+        zero_basis: subtotal
+        page: "E140.1(1), PDF p.107, investing activities, 2025 column: 'Purchases of property, plant and equipment (27.3) (4.0)', 'Proceeds from sale of property, plant and equipment 4.5 0.3', 'Dividends received from joint ventures 15 4.9 4.4', 'Interest received on cash and cash equivalents 1.3 0.9' = 1.6, and 'Net cash used in investing activities (16.7) 1.6': no acquisition line"
+        status: VERIFIED
+        verified_kind: machine_read_back

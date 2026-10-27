@@ -340,7 +340,8 @@ periods:
       nci_dividends_paid:
         value: -5000000
         page: "sap-q12026.pdf p.9, (C) Consolidated Statements of Cash Flows, Q1 2026 column: 'Dividends paid on non-controlling interests -5' (EUR millions), between 'Dividends paid 0' and 'Purchase of treasury shares -2,279'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
   - period: 2026-Q2
     period_end: 2026-06-30
     period_basis: calendar
@@ -552,6 +553,11 @@ annual:
         page: "ifrs-full:AdjustedWeightedAverageShares [2021-01-01..2021-12-31] 20-F 0001104659-24-029038 filed 2024-02-29"
         status: VERIFIED
         verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "E107 searched zero: SEC XBRL companyfacts for the 20-F 0001104659-24-029038 filed 2024-02-29, fiscal year to 2021-12-31, searched on 2026-10-27 for ifrs-full:CashFlowsUsedInObtainingControlOfSubsidiariesOrOtherBusinessesClassifiedAsInvestingActivities -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
+        status: UNVERIFIED
+        zero_basis: searched
   - fiscal_year: 2022
     period_end: 2022-12-31
     document: "SEC XBRL companyfacts for CIK 0001000184 (SAP SE) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001000184.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
@@ -632,11 +638,21 @@ annual:
         page: "ifrs-full:AdjustedWeightedAverageShares [2022-01-01..2022-12-31] 20-F 0001104659-25-017815 filed 2025-02-27"
         status: VERIFIED
         verified_kind: tagged
+      acquisitions_paid:
+        value: -679000000
+        page: "ifrs-full:CashFlowsUsedInObtainingControlOfSubsidiariesOrOtherBusinessesClassifiedAsInvestingActivities [2022-01-01..2022-12-31] 20-F 0001104659-25-017815 filed 2025-02-27"
+        status: VERIFIED
+        verified_kind: tagged
   - fiscal_year: 2023
     period_end: 2023-12-31
     document: "SEC XBRL companyfacts for CIK 0001000184 (SAP SE) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001000184.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
     url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0001000184.json"
     figures:
+      working_capital_change:
+        value: -27000000
+        page: "E140(1), HAND READ (an IFRS filer; SAP tags its payables line under its own extension): sources/SAP.DE_FY2025_annual-report-20f_2026-02-26_en_a0.htm, consolidated statements of cash flows, EUR millions, columns 2025 2024 2023: 'Increase/decrease in allowances on trade receivables 11 30 -10', 'Increase/decrease in trade and other receivables -388 -247 -393', 'Increase/decrease in other assets -1,315 -632 -700', 'Increase/decrease in trade payables, provisions, and other liabilities -308 603 633', 'Increase/decrease in contract liabilities 1,336 869 443'. 2023: - 393 - 700 + 633 + 443 - 10 = 27 absorbed, entered as -27 (EUR millions). The allowance add-back is taken with the receivables, as the US engine takes ProvisionForDoubtfulAccounts (E140(1)); the payables line carries provisions inside it and cannot be split, so it is taken as printed"
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue:
         value: 31207000000
         page: "ifrs-full:Revenue [2023-01-01..2023-12-31] 20-F 0001104659-26-020058 filed 2026-02-26"
@@ -712,11 +728,21 @@ annual:
         page: "ifrs-full:AdjustedWeightedAverageShares [2023-01-01..2023-12-31] 20-F 0001104659-26-020058 filed 2026-02-26"
         status: VERIFIED
         verified_kind: tagged
+      acquisitions_paid:
+        value: -1168000000
+        page: "ifrs-full:CashFlowsUsedInObtainingControlOfSubsidiariesOrOtherBusinessesClassifiedAsInvestingActivities [2023-01-01..2023-12-31] 20-F 0001104659-26-020058 filed 2026-02-26"
+        status: VERIFIED
+        verified_kind: tagged
   - fiscal_year: 2024
     period_end: 2024-12-31
     document: "SEC XBRL companyfacts for CIK 0001000184 (SAP SE) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001000184.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
     url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0001000184.json"
     figures:
+      working_capital_change:
+        value: 623000000
+        page: "E140(1), HAND READ (an IFRS filer; SAP tags its payables line under its own extension): sources/SAP.DE_FY2025_annual-report-20f_2026-02-26_en_a0.htm, consolidated statements of cash flows, EUR millions, columns 2025 2024 2023: 'Increase/decrease in allowances on trade receivables 11 30 -10', 'Increase/decrease in trade and other receivables -388 -247 -393', 'Increase/decrease in other assets -1,315 -632 -700', 'Increase/decrease in trade payables, provisions, and other liabilities -308 603 633', 'Increase/decrease in contract liabilities 1,336 869 443'. 2024: - 247 - 632 + 603 + 869 + 30 = 623 (EUR millions). The allowance add-back is taken with the receivables, as the US engine takes ProvisionForDoubtfulAccounts (E140(1)); the payables line carries provisions inside it and cannot be split, so it is taken as printed"
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue:
         value: 34176000000
         page: "ifrs-full:Revenue [2024-01-01..2024-12-31] 20-F 0001104659-26-020058 filed 2026-02-26"
@@ -792,11 +818,21 @@ annual:
         page: "ifrs-full:AdjustedWeightedAverageShares [2024-01-01..2024-12-31] 20-F 0001104659-26-020058 filed 2026-02-26"
         status: VERIFIED
         verified_kind: tagged
+      acquisitions_paid:
+        value: -1114000000
+        page: "ifrs-full:CashFlowsUsedInObtainingControlOfSubsidiariesOrOtherBusinessesClassifiedAsInvestingActivities [2024-01-01..2024-12-31] 20-F 0001104659-26-020058 filed 2026-02-26"
+        status: VERIFIED
+        verified_kind: tagged
   - fiscal_year: 2025
     period_end: 2025-12-31
     document: "SEC XBRL companyfacts for CIK 0001000184 (SAP SE) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001000184.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
     url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0001000184.json"
     figures:
+      working_capital_change:
+        value: -664000000
+        page: "E140(1), HAND READ (an IFRS filer; SAP tags its payables line under its own extension): sources/SAP.DE_FY2025_annual-report-20f_2026-02-26_en_a0.htm, consolidated statements of cash flows, EUR millions, columns 2025 2024 2023: 'Increase/decrease in allowances on trade receivables 11 30 -10', 'Increase/decrease in trade and other receivables -388 -247 -393', 'Increase/decrease in other assets -1,315 -632 -700', 'Increase/decrease in trade payables, provisions, and other liabilities -308 603 633', 'Increase/decrease in contract liabilities 1,336 869 443'. 2025: - 388 - 1,315 - 308 + 1,336 + 11 = 664 absorbed, entered as -664 (EUR millions). The allowance add-back is taken with the receivables, as the US engine takes ProvisionForDoubtfulAccounts (E140(1)); the payables line carries provisions inside it and cannot be split, so it is taken as printed"
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue:
         value: 36800000000
         page: "ifrs-full:Revenue [2025-01-01..2025-12-31] 20-F 0001104659-26-020058 filed 2026-02-26"
@@ -873,3 +909,23 @@ annual:
         page: "ifrs-full:AdjustedWeightedAverageShares [2025-01-01..2025-12-31] 20-F 0001104659-26-020058 filed 2026-02-26"
         status: VERIFIED
         verified_kind: tagged
+      acquisitions_paid:
+        value: -702000000
+        page: "ifrs-full:CashFlowsUsedInObtainingControlOfSubsidiariesOrOtherBusinessesClassifiedAsInvestingActivities [2025-01-01..2025-12-31] 20-F 0001104659-26-020058 filed 2026-02-26"
+        status: VERIFIED
+        verified_kind: tagged
+
+# E140.1(3): the half-year's working capital, which the bridge rolled to
+# the 2026-Q2 balance sheet neutralises. The balance sheet itself is the
+# 2026-Q2 period's; this block carries the year-to-date flow only.
+roll_forward:
+  period_end: 2026-06-30
+  from_year_end: 2025-12-31
+  document: "SAP Half-Year Report 2026 (sources/sap-2026-half-year-report.pdf)"
+  url: "sources/sap-2026-half-year-report.pdf"
+  figures:
+    working_capital_change:
+      value: 1620000000
+      page: "consolidated statements of cash flows, January-June 2026, EUR millions: 'Increase/decrease in allowances on trade receivables 31 18', 'Increase/decrease in trade and other receivables –224 103', 'Increase/decrease in other assets 75 –154', 'Increase/decrease in trade payables, provisions, and other liabilities –1,252 –1,843', 'Increase/decrease in contract liabilities 2,990 3,121' = - 224 + 75 - 1,252 + 2,990 + 31 = 1,620 (the first-quarter billing of support contracts, released through the year)"
+      status: VERIFIED
+      verified_kind: machine_read_back

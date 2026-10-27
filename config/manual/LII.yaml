@@ -185,6 +185,17 @@ annual:
         page: "us-gaap:OperatingLeasePayments [2021-01-01..2021-12-31] 10-K 0001628280-24-004446 filed 2024-02-13"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -34700000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsAndNotesReceivable [2021-01-01..2021-12-31] 10-K 0001628280-24-004446 filed 2024-02-13 = -68,800,000 + us-gaap:IncreaseDecreaseInInventories [2021-01-01..2021-12-31] 10-K 0001628280-24-004446 filed 2024-02-13 = -71,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2021-01-01..2021-12-31] 10-K 0001628280-24-004446 filed 2024-02-13 = -19,200,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2021-01-01..2021-12-31] 10-K 0001628280-24-004446 filed 2024-02-13 = 55,200,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2021-01-01..2021-12-31] 10-K 0001628280-24-004446 filed 2024-02-13 = 64,200,000 + us-gaap:ProvisionForDoubtfulAccounts [2021-01-01..2021-12-31] 10-K 0001628280-24-004446 filed 2024-02-13 = 4,900,000 = -34,700,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "us-gaap:PaymentsToAcquireBusinessesGross [2021-01-01..2021-12-31] 10-K 0001628280-24-004446 filed 2024-02-13"
+        status: VERIFIED
+        verified_kind: tagged
+        zero_basis: caption
 
   - fiscal_year: 2022
     period_end: 2022-12-31
@@ -277,6 +288,17 @@ annual:
         page: "us-gaap:OperatingLeasePayments [2022-01-01..2022-12-31] 10-K 0001628280-25-004859 filed 2025-02-11"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -320200000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsAndNotesReceivable [2022-01-01..2022-12-31] 10-K 0001628280-25-004859 filed 2025-02-11 = -112,400,000 + us-gaap:IncreaseDecreaseInInventories [2022-01-01..2022-12-31] 10-K 0001628280-25-004859 filed 2025-02-11 = -249,300,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2022-01-01..2022-12-31] 10-K 0001628280-25-004859 filed 2025-02-11 = -7,300,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2022-01-01..2022-12-31] 10-K 0001628280-25-004859 filed 2025-02-11 = 28,200,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2022-01-01..2022-12-31] 10-K 0001628280-25-004859 filed 2025-02-11 = 13,700,000 + us-gaap:ProvisionForDoubtfulAccounts [2022-01-01..2022-12-31] 10-K 0001628280-25-004859 filed 2025-02-11 = 6,900,000 = -320,200,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2022-01-01..2022-12-31] 10-K 0001628280-25-004859 filed 2025-02-11"
+        status: VERIFIED
+        verified_kind: tagged
+        zero_basis: caption
 
   - fiscal_year: 2023
     period_end: 2023-12-31
@@ -367,6 +389,16 @@ annual:
       operating_lease_payments:
         value: 70500000
         page: "us-gaap:OperatingLeasePayments [2023-01-01..2023-12-31] 10-K 0001069202-26-000028 filed 2026-02-17"
+        status: VERIFIED
+        verified_kind: tagged
+      working_capital_change:
+        value: 29700000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsAndNotesReceivable [2023-01-01..2023-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = -32,700,000 + us-gaap:IncreaseDecreaseInInventories [2023-01-01..2023-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = 9,700,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2023-01-01..2023-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = 7,100,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2023-01-01..2023-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = -29,200,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2023-01-01..2023-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = 65,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2023-01-01..2023-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = 9,800,000 = 29,700,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -94900000
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2023-01-01..2023-12-31] 10-K 0001069202-26-000028 filed 2026-02-17"
         status: VERIFIED
         verified_kind: tagged
 
@@ -461,6 +493,16 @@ annual:
         page: "us-gaap:OperatingLeasePayments [2024-01-01..2024-12-31] 10-K 0001069202-26-000028 filed 2026-02-17"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: 49100000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsAndNotesReceivable [2024-01-01..2024-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = -80,400,000 + us-gaap:IncreaseDecreaseInInventories [2024-01-01..2024-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = -15,600,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2024-01-01..2024-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = -8,300,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2024-01-01..2024-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = 115,000,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2024-01-01..2024-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = 30,400,000 + us-gaap:ProvisionForDoubtfulAccounts [2024-01-01..2024-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = 8,000,000 = 49,100,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 1800000
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2024-01-01..2024-12-31] 10-K 0001069202-26-000028 filed 2026-02-17"
+        status: VERIFIED
+        verified_kind: tagged
 
   - fiscal_year: 2025
     period_end: 2025-12-31
@@ -489,7 +531,8 @@ annual:
         zero_basis: searched
         source: "E105 leg; E107 searched absence"
         page: "E107 SEARCHED ABSENCE. Document: LII_FY2025_annual-report-10k_2026-02-17_en_a0.htm (the FY2025 Form 10-K as filed with the SEC, filed 2026-02-17, period end 2025-12-31) (325,092 characters of extracted text). Searched 2026-09-04 for the terms 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- ZERO occurrences of any of them. Lennox last tagged us-gaap:PaymentsToMinorityShareholders for FY2012, and that value was 0; no NCI element is tagged for any year since. The group states no non-controlling interest, so it distributes none (E106 clause 5: a determined zero)."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue:
         value: 5195300000
         page: "us-gaap:Revenues [2025-01-01..2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17"
@@ -595,3 +638,64 @@ annual:
         page: "us-gaap:OperatingLeasePayments [2025-01-01..2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -292700000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsAndNotesReceivable [2025-01-01..2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = 108,900,000 + us-gaap:IncreaseDecreaseInInventories [2025-01-01..2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = -228,200,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2025-01-01..2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = -27,800,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2025-01-01..2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = -74,200,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2025-01-01..2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = -69,500,000 + us-gaap:ProvisionForDoubtfulAccounts [2025-01-01..2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17 = -1,900,000 = -292,700,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -545000000
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2025-01-01..2025-12-31] 10-K 0001069202-26-000028 filed 2026-02-17"
+        status: VERIFIED
+        verified_kind: tagged
+
+# E140.1(3): THE LATEST FILED BALANCE SHEET after the newest fiscal
+# year. The bridge's stocks and the divisor are read here; the
+# year-to-date working capital since the fiscal year-end is
+# NEUTRALISED in the bridge. Flows stay on the fiscal years.
+roll_forward:
+  period_end: 2026-06-30
+  from_year_end: 2025-12-31
+  document: "SEC XBRL companyfacts for CIK 0001069202 (LENNOX INTERNATIONAL INC) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001069202.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
+  url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0001069202.json"
+  figures:
+    working_capital_change:
+      value: -269000000
+      page: "E140(1): us-gaap:IncreaseDecreaseInAccountsAndNotesReceivable [2026-01-01..2026-06-30] 10-Q 0001069202-26-000087 filed 2026-07-29 = -345,200,000 + us-gaap:IncreaseDecreaseInInventories [2026-01-01..2026-06-30] 10-Q 0001069202-26-000087 filed 2026-07-29 = -7,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2026-01-01..2026-06-30] 10-Q 0001069202-26-000087 filed 2026-07-29 = -7,800,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2026-01-01..2026-06-30] 10-Q 0001069202-26-000087 filed 2026-07-29 = 93,500,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2026-01-01..2026-06-30] 10-Q 0001069202-26-000087 filed 2026-07-29 = -5,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2026-01-01..2026-06-30] 10-Q 0001069202-26-000087 filed 2026-07-29 = 2,500,000 = -269,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+      status: VERIFIED
+      verified_kind: tagged
+    operating_lease_liabilities:
+      value: 443400000
+      page: "E71 -- the lease liability from two stated parts the filer never totals, current and non-current portions of one liability by the taxonomy's own definition: us-gaap:OperatingLeaseLiabilityCurrent [as of 2026-06-30] 10-Q 0001069202-26-000087 filed 2026-07-29 = 87,200,000 + us-gaap:OperatingLeaseLiabilityNoncurrent [as of 2026-06-30] 10-Q 0001069202-26-000087 filed 2026-07-29 = 356,200,000 = 443,400,000"
+      status: VERIFIED
+      verified_kind: tagged
+    cash_and_equivalents:
+      value: 51500000
+      page: "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2026-06-30] 10-Q 0001069202-26-000087 filed 2026-07-29"
+      status: VERIFIED
+      verified_kind: tagged
+    financial_liabilities_current:
+      value: 432100000
+      page: "E66 -- two stated current-borrowing captions, added: us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent [as of 2026-06-30] 10-Q 0001069202-26-000087 filed 2026-07-29 -- E67: borrowings AND finance leases as one current caption, read whole because the filer tags no borrowings-only current element; 20,100,000 of it is `FinanceLeaseLiabilityCurrent` and E65 does not add that again = 20,100,000 + us-gaap:CommercialPaper [as of 2026-06-30] 10-Q 0001069202-26-000087 filed 2026-07-29 -- CONCEPT: commercial paper outstanding, read as the current borrowing because this filer tags neither a current-maturities nor a short-term-borrowings element at this year end = 412,000,000 = 432,100,000"
+      status: VERIFIED
+      verified_kind: tagged
+    financial_liabilities_noncurrent:
+      value: 1149200000
+      page: "us-gaap:LongTermDebtAndCapitalLeaseObligations [as of 2026-06-30] 10-Q 0001069202-26-000087 filed 2026-07-29 -- E67: borrowings AND finance leases as one non-current caption, read whole because the filer tags no borrowings-only element; 54,600,000 of it is `FinanceLeaseLiabilityNoncurrent` and E65 does not add that again"
+      status: VERIFIED
+      verified_kind: tagged
+    lease_liabilities:
+      value: 443400000
+      page: "E65 -- operating and finance lease liabilities: E71 -- the lease liability from two stated parts the filer never totals, current and non-current portions of one liability by the taxonomy's own definition: us-gaap:OperatingLeaseLiabilityCurrent [as of 2026-06-30] 10-Q 0001069202-26-000087 filed 2026-07-29 = 87,200,000 + us-gaap:OperatingLeaseLiabilityNoncurrent [as of 2026-06-30] 10-Q 0001069202-26-000087 filed 2026-07-29 = 356,200,000 = 443,400,000 = 443,400,000 + E65 -- finance lease liability from two stated parts (E66's precedence): us-gaap:FinanceLeaseLiabilityCurrent [as of 2026-06-30] 10-Q 0001069202-26-000087 filed 2026-07-29 = 20,100,000 + us-gaap:FinanceLeaseLiabilityNoncurrent [as of 2026-06-30] 10-Q 0001069202-26-000087 filed 2026-07-29 = 54,600,000 = 74,700,000 = 74,700,000, of which 20,100,000 already inside `financial_liabilities_current` (E67) and 54,600,000 already inside `financial_liabilities_noncurrent` (E67), so 0 is added = 443,400,000"
+      status: VERIFIED
+      verified_kind: tagged
+    pension_deficit:
+      value: 20100000
+      page: "us-gaap:DefinedBenefitPensionPlanLiabilitiesNoncurrent [as of 2026-06-30] 10-Q 0001069202-26-000087 filed 2026-07-29"
+      status: VERIFIED
+      verified_kind: tagged
+    diluted_weighted_average_shares:
+      value: 34800000
+      page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2026-04-01..2026-06-30] 10-Q 0001069202-26-000087 filed 2026-07-29"
+      status: VERIFIED
+      verified_kind: tagged

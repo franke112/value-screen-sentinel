@@ -202,6 +202,16 @@ annual:
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2021-01-01..2021-12-31] 10-K 0000906163-24-000033 filed 2024-02-14"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: 158707000
+        page: "E140(1): us-gaap:IncreaseDecreaseInReceivables [2021-01-01..2021-12-31] 10-K 0000906163-24-000033 filed 2024-02-14 = 1,956,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2021-01-01..2021-12-31] 10-K 0000906163-24-000033 filed 2024-02-14 = -19,954,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability [2021-01-01..2021-12-31] 10-K 0000906163-24-000033 filed 2024-02-14 = 176,705,000 = 158,707,000 (cash effect: an asset increase negated, a liability increase kept; dropped as combined or as E123 inventory: IncreaseDecreaseInInventories)"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0000906163-24-000033 filed 2024-02-14, fiscal year to 2021-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
+        status: UNVERIFIED
+        zero_basis: searched
   - fiscal_year: 2022
     period_end: 2022-12-31
     document: "SEC XBRL companyfacts for CIK 0000906163 (NVR, Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000906163.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
@@ -267,6 +277,16 @@ annual:
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2022-01-01..2022-12-31] 10-K 0000906163-25-000011 filed 2025-02-12"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -144820000
+        page: "E140(1): us-gaap:IncreaseDecreaseInReceivables [2022-01-01..2022-12-31] 10-K 0000906163-25-000011 filed 2025-02-12 = -27,384,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2022-01-01..2022-12-31] 10-K 0000906163-25-000011 filed 2025-02-12 = -13,777,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability [2022-01-01..2022-12-31] 10-K 0000906163-25-000011 filed 2025-02-12 = -103,659,000 = -144,820,000 (cash effect: an asset increase negated, a liability increase kept; dropped as combined or as E123 inventory: IncreaseDecreaseInInventories)"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0000906163-25-000011 filed 2025-02-12, fiscal year to 2022-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
+        status: UNVERIFIED
+        zero_basis: searched
   - fiscal_year: 2023
     period_end: 2023-12-31
     document: "SEC XBRL companyfacts for CIK 0000906163 (NVR, Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000906163.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
@@ -332,6 +352,16 @@ annual:
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2023-01-01..2023-12-31] 10-K 0000906163-26-000018 filed 2026-02-11"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: 10089000
+        page: "E140(1): us-gaap:IncreaseDecreaseInReceivables [2023-01-01..2023-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = -59,653,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2023-01-01..2023-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = 49,105,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability [2023-01-01..2023-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = 20,637,000 = 10,089,000 (cash effect: an asset increase negated, a liability increase kept; dropped as combined or as E123 inventory: IncreaseDecreaseInInventories)"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0000906163-26-000018 filed 2026-02-11, fiscal year to 2023-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
+        status: UNVERIFIED
+        zero_basis: searched
   - fiscal_year: 2024
     period_end: 2024-12-31
     document: "SEC XBRL companyfacts for CIK 0000906163 (NVR, Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000906163.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
@@ -397,6 +427,16 @@ annual:
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2024-01-01..2024-12-31] 10-K 0000906163-26-000018 filed 2026-02-11"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -32066000
+        page: "E140(1): us-gaap:IncreaseDecreaseInReceivables [2024-01-01..2024-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = 62,664,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2024-01-01..2024-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = -83,215,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability [2024-01-01..2024-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = -11,515,000 = -32,066,000 (cash effect: an asset increase negated, a liability increase kept; dropped as combined or as E123 inventory: IncreaseDecreaseInInventories)"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0000906163-26-000018 filed 2026-02-11, fiscal year to 2024-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
+        status: UNVERIFIED
+        zero_basis: searched
   - fiscal_year: 2025
     period_end: 2025-12-31
     document: "SEC XBRL companyfacts for CIK 0000906163 (NVR, Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000906163.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
@@ -420,7 +460,8 @@ annual:
         zero_basis: searched
         source: "E105 leg; E107 searched absence"
         page: "E107 SEARCHED ABSENCE. Document: NVR_FY2025_annual-report-10k_2026-02-11_en_a0.htm (the FY2025 Form 10-K as filed with the SEC, filed 2026-02-11, period end 2025-12-31) (238,564 characters of extracted text). Searched 2026-09-04 for the terms 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- ONE occurrence of 'non-controlling' and none of the other four, and THE ONE IS NOT THIS CONCEPT: 'we acquire finished lots using joint venture limited liability corporations (JVs). The JVs are typically structured such that WE ARE A NON-CONTROLLING MEMBER' -- NVR is the minority in somebody else's vehicle, which is the opposite relation and produces no distribution BY NVR. No minority interest appears in NVR's own consolidated equity, and NVR last tagged us-gaap:PaymentsToMinorityShareholders for FY2020, at 0 (E106 clause 5: a determined zero)."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue:
         value: 10323959000
         page: "us-gaap:Revenues [2025-01-01..2025-12-31] 10-K 0000906163-26-000018 filed 2026-02-11"
@@ -537,6 +578,16 @@ annual:
         page: "E71 / E69: Item 8, Note 2 (segment information), reconciliation of homebuilding segment profit to consolidated profit before taxes, year ended December 31, 2025, 10-K 0000906163-26-000018 filed 2026-02-11 (in thousands): 'Corporate interest income | 84,158' (the note: reconciling items include 'external corporate interest income and expense'; on the face of the Consolidated Statements of Income it sits inside Homebuilding 'Other income | 96,260') + Consolidated Statements of Income, Mortgage Banking 'Interest income | 17,886' = 102,044. Interest EARNED, not received -- the pair operand of `finance_costs_period` (E18): net interest 28,835 - 102,044 = -73,209, a net INCOME. Tagged under no us-gaap element."
         status: VERIFIED
         verified_kind: same_page
+      working_capital_change:
+        value: -273352000
+        page: "E140(1): us-gaap:IncreaseDecreaseInReceivables [2025-01-01..2025-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = -57,368,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2025-01-01..2025-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = -142,268,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability [2025-01-01..2025-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = -73,716,000 = -273,352,000 (cash effect: an asset increase negated, a liability increase kept; dropped as combined or as E123 inventory: IncreaseDecreaseInInventories)"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0000906163-26-000018 filed 2026-02-11, fiscal year to 2025-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
+        status: UNVERIFIED
+        zero_basis: searched
 
 periods:
   - period: 2026-Q1
@@ -571,3 +622,39 @@ periods:
         page: "us-gaap:Revenues [2026-04-01..2026-06-30] 10-Q 0000906163-26-000093 filed 2026-08-05"
         status: VERIFIED
         verified_kind: tagged
+
+# E140.1(3): THE LATEST FILED BALANCE SHEET after the newest fiscal
+# year. The bridge's stocks and the divisor are read here; the
+# year-to-date working capital since the fiscal year-end is
+# NEUTRALISED in the bridge. Flows stay on the fiscal years.
+roll_forward:
+  period_end: 2026-06-30
+  from_year_end: 2025-12-31
+  document: "SEC XBRL companyfacts for CIK 0000906163 (NVR, Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000906163.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
+  url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0000906163.json"
+  figures:
+    financial_liabilities_noncurrent:
+      value: 908162000
+      page: "E140.1(3): sources/NVR_2026-06-30_quarterly-report-10q_2026-08-05_en_a0.htm, Condensed Consolidated Balance Sheets (in thousands), Homebuilding liabilities, June 30, 2026: 'Senior notes 908,162 909,160'. The year-end leg (909,160) is the same caption; the filer tags it under its own extension element, which the standard tags do not reach. No current borrowing caption on either segment. Hand leg 2026-10-27"
+      status: VERIFIED
+      verified_kind: machine_read_back
+    cash_and_equivalents:
+      value: 1144674000
+      page: "E71 / E69 / E140.1(3): sources/NVR_2026-06-30_quarterly-report-10q_2026-08-05_en_a0.htm, Condensed Consolidated Balance Sheets (in thousands), June 30, 2026: Homebuilding 'Cash and cash equivalents $ 1,093,736 $ 1,883,844' + Mortgage Banking 'Cash and cash equivalents 50,938 32,642' = 1,144,674. THE RESTRICTED CASH IS EXCLUDED, as at the year-end: Homebuilding 'Restricted cash 44,562 34,348' and Mortgage Banking 'Restricted cash 8,023 6,047', escrowed and not available to service debt. Hand leg 2026-10-27"
+      status: VERIFIED
+      verified_kind: machine_read_back
+    working_capital_change:
+      value: 127690000
+      page: "E140(1): us-gaap:IncreaseDecreaseInReceivables [2026-01-01..2026-06-30] 10-Q 0000906163-26-000093 filed 2026-08-05 = 33,002,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2026-01-01..2026-06-30] 10-Q 0000906163-26-000093 filed 2026-08-05 = 49,200,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability [2026-01-01..2026-06-30] 10-Q 0000906163-26-000093 filed 2026-08-05 = 45,488,000 = 127,690,000 (cash effect: an asset increase negated, a liability increase kept; dropped as combined or as E123 inventory: IncreaseDecreaseInInventories)"
+      status: VERIFIED
+      verified_kind: tagged
+    financial_liabilities_current:
+      value: 0
+      page: "E107 searched zero: SEC XBRL facts of the 10-Q 0000906163-26-000093 balance sheet as of 2026-06-30, searched on 2026-10-27 for every us-gaap element that could state CURRENT borrowings (Debt, Borrowing, LineOfCredit, CommercialPaper, NotesPayable; assets, capacities and fair-value memos excluded) -- none is tagged on that date with a value"
+      status: UNVERIFIED
+      zero_basis: searched
+    diluted_weighted_average_shares:
+      value: 2816295
+      page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2026-04-01..2026-06-30] 10-Q 0000906163-26-000093 filed 2026-08-05"
+      status: VERIFIED
+      verified_kind: tagged

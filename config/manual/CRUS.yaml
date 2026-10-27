@@ -145,6 +145,11 @@ annual:
         page: "us-gaap:OperatingLeaseLiability [as of 2022-03-26] 10-K 0000772406-23-000019 filed 2023-05-19"
         status: VERIFIED
         verified_kind: tagged
+      operating_lease_liabilities:
+        value: 177842000
+        page: "us-gaap:OperatingLeaseLiability [as of 2022-03-26] 10-K 0000772406-23-000019 filed 2023-05-19"
+        status: VERIFIED
+        verified_kind: tagged
       shares_point_in_time:
         value: 56596000
         page: "us-gaap:CommonStockSharesOutstanding [as of 2022-03-26] 10-K 0000772406-23-000019 filed 2023-05-19"
@@ -216,6 +221,11 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       lease_liabilities:
+        value: 141073000
+        page: "us-gaap:OperatingLeaseLiability [as of 2023-03-25] 10-K 0000772406-24-000031 filed 2024-05-24"
+        status: VERIFIED
+        verified_kind: tagged
+      operating_lease_liabilities:
         value: 141073000
         page: "us-gaap:OperatingLeaseLiability [as of 2023-03-25] 10-K 0000772406-24-000031 filed 2024-05-24"
         status: VERIFIED
@@ -295,6 +305,11 @@ annual:
         page: "us-gaap:OperatingLeaseLiability [as of 2024-03-30] 10-K 0000772406-25-000014 filed 2025-05-23"
         status: VERIFIED
         verified_kind: tagged
+      operating_lease_liabilities:
+        value: 155216000
+        page: "us-gaap:OperatingLeaseLiability [as of 2024-03-30] 10-K 0000772406-25-000014 filed 2025-05-23"
+        status: VERIFIED
+        verified_kind: tagged
       shares_point_in_time:
         value: 53491000
         page: "us-gaap:CommonStockSharesOutstanding [as of 2024-03-30] 10-K 0000772406-25-000014 filed 2025-05-23"
@@ -370,6 +385,11 @@ annual:
         page: "us-gaap:OperatingLeaseLiability [as of 2025-03-29] 10-K 0000772406-26-000018 filed 2026-05-21"
         status: VERIFIED
         verified_kind: tagged
+      operating_lease_liabilities:
+        value: 143719000
+        page: "us-gaap:OperatingLeaseLiability [as of 2025-03-29] 10-K 0000772406-26-000018 filed 2026-05-21"
+        status: VERIFIED
+        verified_kind: tagged
       shares_point_in_time:
         value: 52291000
         page: "us-gaap:CommonStockSharesOutstanding [as of 2025-03-29] 10-K 0000772406-26-000018 filed 2026-05-21"
@@ -421,37 +441,43 @@ annual:
         zero_basis: note
         source: "hand-read at intake, 2026-09-08"
         page: "10-K 0000772406-26-000018 filed 2026-05-21, Item 8 / Item 1A: 'As of March 28, 2026, the Company had no amounts outstanding under the Revolving Credit Facility and was in compliance with all covenants under the Second Amended Credit Agreement.' The 10-K states it TWICE, in Item 7 and again beside Note 8 - Revolving Credit Facility. The only forward obligation the facility creates is a COMMITMENT FEE, and the filing sizes it: 'future interest payment obligations based on forecasted commitment fees under the Revolving Credit Facility were as follows (in thousands): Fiscal Year 2027 $ 276 2028 - 2029 -'. A fee on an undrawn facility is not a borrowing. E25 `note`"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       financial_liabilities_noncurrent:
         value: 0
         zero_basis: note
         source: "hand-read at intake, 2026-09-08"
         page: "10-K 0000772406-26-000018 filed 2026-05-21, Item 8 / Item 1A: the same sentence -- 'no amounts outstanding under the Revolving Credit Facility' at 2026-03-28. The revolver is the only borrowing arrangement the filing describes; the words 'term loan', 'notes payable' and 'bond' do not occur in it (searched 2026-09-08). E25 `note`"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       pension_deficit:
         value: 0
         zero_basis: note
         source: "hand-read at intake, 2026-09-08"
-        page: "E35.1. 10-K 0000772406-26-000018 filed 2026-05-21, Item 8 / Item 1A, Human Capital: 'Cirrus Logic provides retirement planning programs with matching contributions, such as a 401(k) plan in the United States and defined contribution pension plans for our employees in other countries.' DEFINED CONTRIBUTION only -- there is no defined-benefit obligation to carry. E107 SEARCH, 2026-09-08, of the same document (304,373 characters of extracted text) for 'defined benefit' and 'pension': 'defined benefit' ZERO occurrences, 'pension' ONE, and it is the sentence quoted. E25 `note`"
-        status: UNVERIFIED
+        page: "E35.1. 10-K 0000772406-26-000018 filed 2026-05-21, Item 8 / Item 1A, Human Capital: 'Cirrus Logic provides retirement planning programs with matching contributions, such as a 401(k) plan in the United States and defined contribution pension plans for our employees in other countries.' DEFINED CONTRIBUTION only -- there is no defined-benefit obligation to carry. E107 SEARCH of the same document (304,373 characters of extracted text): searched 2026-09-08 for 'defined benefit' -- ZERO occurrences; the word pension occurs ONCE, and it is the sentence quoted. E25 `note`"
+        status: VERIFIED
+        verified_kind: machine_read_back
       asset_retirement_obligation:
         value: 0
         zero_basis: searched
         source: "hand-read at intake, 2026-09-08; E107 searched absence"
         page: "E107 SEARCHED ABSENCE. Document: sources/_briefing_0000772406-26-000018_crus-20260328.htm.txt, the extracted text of 10-K 0000772406-26-000018 filed 2026-05-21, Item 8 / Item 1A (304,373 characters). Searched 2026-09-08 for 'asset retirement', 'decommission', 'dismantl', 'restoration' and 'environmental remediation': ZERO occurrences of any of the five. E68.1: a FABLESS semiconductor company on none of the refuse-until-read lists -- the 10-K says so in its own words, 'As a fabless semiconductor company, we contract with third parties for wafer fabrication and product assembly and test', so it owns no fab to decommission. The balance sheet presents no such provision"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       prepaid_delivery_obligation:
         value: 0
         zero_basis: note
         source: "hand-read at intake, 2026-09-08"
         page: "E81 and E110. 10-K 0000772406-26-000018 filed 2026-05-21, Item 8 / Item 1A, Revenue Recognition - Contract balances: 'There are no material contract liabilities recorded on the consolidated balance sheets.' E110 (2026-09-04) rules an issuer's own 'no material' to be evidence of the same class as a stated zero, on E25's `note` basis. E81 excludes ordinary contract liabilities in any case; here the issuer states there are none of material size to exclude. No streaming, offtake or prepaid-delivery arrangement is described anywhere in the filing"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       nci_dividends_paid:
         value: 0
         zero_basis: searched
         source: "E105 leg; E107 searched absence"
         page: "E107 SEARCHED ABSENCE. Document: sources/_briefing_0000772406-26-000018_crus-20260328.htm.txt, the extracted text of 10-K 0000772406-26-000018 filed 2026-05-21, Item 8 / Item 1A (304,373 characters). Searched 2026-09-08 for 'non-controlling', 'noncontrolling' and 'minority interest': ZERO occurrences of any of the three. The income statement carries no allocation line beneath net income and the equity statement carries no minority column. No minority exists; nothing to distribute to. A determined zero"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue:
         value: 1997379000
         page: "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax [2025-03-30..2026-03-28] 10-K 0000772406-26-000018 filed 2026-05-21"
@@ -508,6 +534,11 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       lease_liabilities:
+        value: 133977000
+        page: "us-gaap:OperatingLeaseLiability [as of 2026-03-28] 10-K 0000772406-26-000018 filed 2026-05-21"
+        status: VERIFIED
+        verified_kind: tagged
+      operating_lease_liabilities:
         value: 133977000
         page: "us-gaap:OperatingLeaseLiability [as of 2026-03-28] 10-K 0000772406-26-000018 filed 2026-05-21"
         status: VERIFIED

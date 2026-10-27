@@ -1,0 +1,270 @@
+ticker: CENTA
+currency: USD
+money_unit: whole
+sources:
+  xbrl:
+    kind: sec-xbrl
+    url: https://data.sec.gov/api/xbrl/companyfacts/
+    fetched: '2026-10-27'
+  tenk:
+    file: sources/CENTA_FY2025_annual-report-10k_2025-11-26_en_a0.htm
+    kind: pdf
+rows:
+- field: revenue
+  source: xbrl
+  tag: Revenues
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 1829017000.0
+  - 2054478000.0
+  - 2215362000.0
+  - 2383010000.0
+  - 2695509000.0
+  - 3303684000.0
+  - 3338588000.0
+  - 3310100000.0
+  - 3200500000.0
+  - 3129100000.0
+- field: revenue
+  source: xbrl
+  tag: SalesRevenueNet
+  years:
+  - 2015
+  values:
+  - 1650737000.0
+- field: operating_profit
+  source: xbrl
+  tag: OperatingIncomeLoss
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 91435000.0
+  - 129358000.0
+  - 156112000.0
+  - 167336000.0
+  - 152068000.0
+  - 197977000.0
+  - 254496000.0
+  - 260036000.0
+  - 210646000.0
+  - 185387000.0
+  - 250042000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivities
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 87449000.0
+  - 151426000.0
+  - 114309000.0
+  - 114112000.0
+  - 204974000.0
+  - 264273000.0
+  - 250844000.0
+  - -34030000.0
+  - 381634000.0
+  - 394892000.0
+  - 332506000.0
+- field: capex
+  source: xbrl
+  tag: PaymentsToAcquirePropertyPlantAndEquipment
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 22030000.0
+  - 27622000.0
+  - 44659000.0
+  - 37845000.0
+  - 31577000.0
+  - 43055000.0
+  - 80333000.0
+  - 115205000.0
+  - 53966000.0
+  - 43135000.0
+  - 41418000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesNetOfCashAcquired
+  years:
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 91244000.0
+  - 41161000.0
+  - 0.0
+  - 820453000.0
+  - 0.0
+  - 0.0
+  - 60226000.0
+  - 3318000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesAndInterestInAffiliates
+  years:
+  - 2015
+  - 2016
+  - 2017
+  values:
+  - 38384000.0
+  - 69001000.0
+  - 103880000.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquity
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 505286000.0
+  - 553014000.0
+  - 635686000.0
+  - 952449000.0
+  - 996007000.0
+  - 1076803000.0
+  - 1222249000.0
+  - 1333706000.0
+  - 1451353000.0
+  - 1555654000.0
+  - 1583268000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 209089000.0
+  - 231385000.0
+  - 256275000.0
+  - 281177000.0
+  - 286077000.0
+  - 289955000.0
+  - 369391000.0
+  - 546436000.0
+  - 546436000.0
+  - 551361000.0
+  - 554692000.0
+- field: shares
+  source: xbrl
+  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 49638000.0
+  - 51075000.0
+  - 51820000.0
+  - 53341000.0
+  - 57611000.0
+  - 54738000.0
+  - 55248000.0
+  - 68031000.0
+  - 66783000.0
+  - 66860000.0
+  - 63815000.0
+  unit: whole
+- field: net_debt
+  source: xbrl
+  tag: 'derived: LongTermDebt (or its parts) + short-term borrowings - CashAndCashEquivalentsAtCarryingValue'
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 349398000.0
+  - 302287000.0
+  - 363256000.0
+  - 210047000.0
+  - 195401000.0
+  - 41341000.0
+  - 759342000.0
+  - 1009120000.0
+  - 699473000.0
+  - 436498000.0
+  - 309215000.0
+business:
+  text: Central Garden & Pet sells branded pet supplies and lawn and garden consumables to retailers and consumers; consumables and trusted brands drive repeat purchases.
+  source: tenk
+  quote: Our Pet segment offers a broad range of products for dog and cat supplies, including treats and chews, toys, beds and containment, grooming items, waste management and training pads.

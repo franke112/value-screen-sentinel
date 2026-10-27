@@ -1,0 +1,258 @@
+ticker: MUSA
+currency: USD
+money_unit: whole
+sources:
+  xbrl:
+    kind: sec-xbrl
+    url: https://data.sec.gov/api/xbrl/companyfacts/
+    fetched: '2026-10-27'
+  tenk:
+    file: sources/MUSA_FY2025_annual-report-10k_2026-02-18_en_a0.htm
+    kind: pdf
+rows:
+- field: revenue
+  source: xbrl
+  tag: Revenues
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  values:
+  - 12699411000.0
+  - 11594600000.0
+  - 12826600000.0
+  - 14362900000.0
+  - 14034600000.0
+  - 11264300000.0
+  - 17360500000.0
+  - 23446100000.0
+  - 21529400000.0
+- field: operating_profit
+  source: xbrl
+  tag: OperatingIncomeLoss
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 250106000.0
+  - 388100000.0
+  - 283300000.0
+  - 325100000.0
+  - 268500000.0
+  - 559000000.0
+  - 604000000.0
+  - 968400000.0
+  - 826000000.0
+  - 742900000.0
+  - 718500000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivities
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 215838000.0
+  - 337400000.0
+  - 283600000.0
+  - 398700000.0
+  - 313300000.0
+  - 563700000.0
+  - 737400000.0
+  - 994700000.0
+  - 784000000.0
+  - 847600000.0
+  - 813900000.0
+- field: capex
+  source: xbrl
+  tag: PaymentsToAcquireProductiveAssets
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 205225000.0
+  - 262100000.0
+  - 258300000.0
+  - 204300000.0
+  - 204800000.0
+  - 230700000.0
+  - 274700000.0
+  - 305300000.0
+  - 335600000.0
+  - 458100000.0
+  - 439600000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesNetOfCashAcquired
+  years:
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  values:
+  - 0.0
+  - 0.0
+  - 641100000.0
+  - 0.0
+  - 0.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: 'searched: no acquisition element tagged (zero)'
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2024
+  - 2025
+  values:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquity
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 697000000.0
+  - 738400000.0
+  - 807300000.0
+  - 803000000.0
+  - 784100000.0
+  - 807200000.0
+  - 640700000.0
+  - 828900000.0
+  - 840100000.0
+  - 623500000.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest
+  years:
+  - 2015
+  values:
+  - 792200000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 0.0
+  - 328000000.0
+  - 328000000.0
+  - 328000000.0
+  - 328000000.0
+  - 328000000.0
+- field: shares
+  source: xbrl
+  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 43794000.0
+  - 39646000.0
+  - 36156000.0
+  - 32983000.0
+  - 31858000.0
+  - 29526000.0
+  - 26604000.0
+  - 23950000.0
+  - 21843000.0
+  - 20842000.0
+  - 19526000.0
+  unit: whole
+- field: net_debt
+  source: xbrl
+  tag: 'derived: LongTermDebt (or its parts) + short-term borrowings - CashAndCashEquivalentsAtCarryingValue'
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 459608000.0
+  - -153800000.0
+  - -170000000.0
+  - -184500000.0
+  - -280300000.0
+  - -163600000.0
+  - -256400000.0
+  - -60500000.0
+  - -117800000.0
+  - -47000000.0
+  - -28900000.0
+business:
+  text: Murphy USA sells motor fuel and convenience merchandise to drivers at about 1,800 stores, often next to Walmart; low prices and convenience bring repeat visits.
+  source: tenk
+  quote: Our business consists primarily of the marketing of retail motor fuel products and convenience merchandise through a network of 1,800 retail stores located in 27 states
+revenue_pass_through: 'E141 decision 2026-10-27: Murphy USA sells motor fuel at the pump price; its revenue moves with the price of gasoline (2020 -20%, 2022 +), not with how much business it does, so revenue growth and margin on revenue measure neither
+  growth nor the cycle'

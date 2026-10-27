@@ -143,6 +143,16 @@ annual:
         page: "us-gaap:OperatingLeasePayments [2021-04-01..2022-03-31] 10-K 0000910521-24-000017 filed 2024-05-24"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -294100000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2021-04-01..2022-03-31] 10-K 0000910521-24-000017 filed 2024-05-24 = -86,627,000 + us-gaap:IncreaseDecreaseInInventories [2021-04-01..2022-03-31] 10-K 0000910521-24-000017 filed 2024-05-24 = -228,554,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2021-04-01..2022-03-31] 10-K 0000910521-24-000017 filed 2024-05-24 = -19,095,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2021-04-01..2022-03-31] 10-K 0000910521-24-000017 filed 2024-05-24 = -28,296,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade [2021-04-01..2022-03-31] 10-K 0000910521-24-000017 filed 2024-05-24 = 89,184,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2021-04-01..2022-03-31] 10-K 0000910521-24-000017 filed 2024-05-24 = -20,370,000 + us-gaap:ProvisionForDoubtfulAccounts [2021-04-01..2022-03-31] 10-K 0000910521-24-000017 filed 2024-05-24 = -342,000 = -294,100,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0000910521-24-000017 filed 2024-05-24, fiscal year to 2022-03-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
+        status: UNVERIFIED
+        zero_basis: searched
 
   - fiscal_year: 2023
     period_end: 2023-03-31
@@ -220,6 +230,16 @@ annual:
         page: "us-gaap:OperatingLeasePayments [2022-04-01..2023-03-31] 10-K 0000910521-25-000017 filed 2025-05-23"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -79967000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2022-04-01..2023-03-31] 10-K 0000910521-25-000017 filed 2025-05-23 = -806,000 + us-gaap:IncreaseDecreaseInInventories [2022-04-01..2023-03-31] 10-K 0000910521-25-000017 filed 2025-05-23 = -26,056,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2022-04-01..2023-03-31] 10-K 0000910521-25-000017 filed 2025-05-23 = -5,609,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2022-04-01..2023-03-31] 10-K 0000910521-25-000017 filed 2025-05-23 = 13,240,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade [2022-04-01..2023-03-31] 10-K 0000910521-25-000017 filed 2025-05-23 = -74,247,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2022-04-01..2023-03-31] 10-K 0000910521-25-000017 filed 2025-05-23 = 11,528,000 + us-gaap:ProvisionForDoubtfulAccounts [2022-04-01..2023-03-31] 10-K 0000910521-25-000017 filed 2025-05-23 = 1,983,000 = -79,967,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0000910521-25-000017 filed 2025-05-23, fiscal year to 2023-03-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
+        status: UNVERIFIED
+        zero_basis: searched
 
   - fiscal_year: 2024
     period_end: 2024-03-31
@@ -297,6 +317,16 @@ annual:
         page: "us-gaap:OperatingLeasePayments [2023-04-01..2024-03-31] 10-K 0001628280-26-037664 filed 2026-05-22"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: 178143000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-04-01..2024-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = 4,157,000 + us-gaap:IncreaseDecreaseInInventories [2023-04-01..2024-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = 58,541,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2023-04-01..2024-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = -38,490,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2023-04-01..2024-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = -9,989,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade [2023-04-01..2024-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = 119,601,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2023-04-01..2024-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = 43,534,000 + us-gaap:ProvisionForDoubtfulAccounts [2023-04-01..2024-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = 789,000 = 178,143,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001628280-26-037664 filed 2026-05-22, fiscal year to 2024-03-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
+        status: UNVERIFIED
+        zero_basis: searched
 
   - fiscal_year: 2025
     period_end: 2025-03-31
@@ -374,6 +404,16 @@ annual:
         page: "us-gaap:OperatingLeasePayments [2024-04-01..2025-03-31] 10-K 0001628280-26-037664 filed 2026-05-22"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: 24719000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-04-01..2025-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = -41,339,000 + us-gaap:IncreaseDecreaseInInventories [2024-04-01..2025-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = -24,344,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2024-04-01..2025-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = 20,946,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2024-04-01..2025-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = 6,566,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade [2024-04-01..2025-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = 35,636,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2024-04-01..2025-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = 22,222,000 + us-gaap:ProvisionForDoubtfulAccounts [2024-04-01..2025-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = 5,032,000 = 24,719,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001628280-26-037664 filed 2026-05-22, fiscal year to 2025-03-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
+        status: UNVERIFIED
+        zero_basis: searched
 
   - fiscal_year: 2026
     period_end: 2026-03-31
@@ -391,9 +431,9 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       free_cash_flow_reported:
-        value: 3.87137e+08
-        source: "E103 automatic reference extraction (pdf (model-read))"
-        page: "MD&A [printed in thousands] -- verbatim: Free cash flow $387,137"
+        value: null
+        source: "E103 automatic reference extraction (pdf (model-read)) -- WITHDRAWN 2026-10-13 by the E131 machine read-back"
+        page: "WITHDRAWN: the extraction read 387,137,000 as 'MD&A [printed in thousands] -- verbatim: Free cash flow $387,137'. No such line is in sources/DECK_FY2026_annual-report-10k_2026-05-22_en_a0.htm: the phrase free cash flow occurs nowhere in it or in any saved Deckers filing, and 387,137 is the PRIOR year's 'Net change in cash and cash equivalents 18,061 387,137 520,256'. Deckers states no free cash flow, so there is no reference figure to compare against. A named absence, not a figure (E104, E25)"
         status: UNVERIFIED
       # E105 (2026-09-04): the leg, on the document fetched by the EDGAR
       # route the same day. A DETERMINED ZERO, not an inferred one.
@@ -402,7 +442,8 @@ annual:
         zero_basis: searched
         source: "E105 leg; E107 searched absence"
         page: "E107 SEARCHED ABSENCE. Document: DECK_FY2026_annual-report-10k_2026-05-22_en_a0.htm (the FY2026 Form 10-K as filed with the SEC, filed 2026-05-22, period end 2026-03-31) (364,514 characters of extracted text). Searched 2026-09-04 for the terms 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- ZERO occurrences of any of them. Deckers' SEC companyfacts tag no NCI distribution element in any year either. The group states no non-controlling interest, so it distributes none (E106 clause 5: a determined zero, not an undetermined leg)."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue:
         value: 5472296000
         page: "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax [2025-04-01..2026-03-31] 10-K 0001628280-26-037664 filed 2026-05-22"
@@ -512,6 +553,16 @@ annual:
         page: "E81 (2026-08-30): Consolidated Balance Sheets as of March 31, 2026, liabilities presented -- the six current and three long-term captions named on financial_liabilities_current / _noncurrent above; no streaming, prepaid-offtake or prepaid-delivery caption. Cross-checked against the 10-K's own tags under E59.1 (component sum): us-gaap:AccountsPayableTradeCurrent 384,529 + EmployeeRelatedLiabilitiesCurrent 119,597 + OperatingLeaseLiabilityCurrent 83,931 + OtherAccruedLiabilitiesCurrent 171,173 + AccruedIncomeTaxesCurrent 36,475 + deck:ValueAddedTaxPayable 8,369 (an issuer extension tagged in the 10-K's inline XBRL, not carried by companyfacts) = LiabilitiesCurrent 804,074 EXACTLY; OperatingLeaseLiabilityNoncurrent 291,263 + AccruedIncomeTaxesNoncurrent 26,313 + OtherLiabilitiesNoncurrent 66,477 = LiabilitiesNoncurrent 384,053 EXACTLY -- the tagged captions exhaust both totals, leaving no room for a prepaid-delivery caption. The wholesale sales return liability and the loyalty / gift-card contract liabilities inside 'Other accrued expenses' are E81's ordinary contract liabilities, named here and not this leg"
         status: VERIFIED
         verified_kind: cross_document
+      working_capital_change:
+        value: -41465000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-04-01..2026-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = 7,550,000 + us-gaap:IncreaseDecreaseInInventories [2025-04-01..2026-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = 8,208,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2025-04-01..2026-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = -23,804,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2025-04-01..2026-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = -28,832,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade [2025-04-01..2026-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = -27,865,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2025-04-01..2026-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = 16,933,000 + us-gaap:ProvisionForDoubtfulAccounts [2025-04-01..2026-03-31] 10-K 0001628280-26-037664 filed 2026-05-22 = 6,345,000 = -41,465,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001628280-26-037664 filed 2026-05-22, fiscal year to 2026-03-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
+        status: UNVERIFIED
+        zero_basis: searched
 
 periods:
   - period: 2027-Q1
@@ -535,3 +586,49 @@ periods:
         page: "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax [2026-04-01..2026-06-30] 10-Q 0000910521-26-000022 filed 2026-07-30"
         status: VERIFIED
         verified_kind: tagged
+
+# E140.1(3): THE LATEST FILED BALANCE SHEET after the newest fiscal
+# year. The bridge's stocks and the divisor are read here; the
+# year-to-date working capital since the fiscal year-end is
+# NEUTRALISED in the bridge. Flows stay on the fiscal years.
+roll_forward:
+  period_end: 2026-06-30
+  from_year_end: 2026-03-31
+  document: "SEC XBRL companyfacts for CIK 0000910521 (Deckers Brands) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000910521.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
+  url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0000910521.json"
+  figures:
+    working_capital_change:
+      value: -138667000
+      page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2026-04-01..2026-06-30] 10-Q 0000910521-26-000022 filed 2026-07-30 = -54,582,000 + us-gaap:IncreaseDecreaseInInventories [2026-04-01..2026-06-30] 10-Q 0000910521-26-000022 filed 2026-07-30 = -320,562,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2026-04-01..2026-06-30] 10-Q 0000910521-26-000022 filed 2026-07-30 = 9,572,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2026-04-01..2026-06-30] 10-Q 0000910521-26-000022 filed 2026-07-30 = -13,542,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade [2026-04-01..2026-06-30] 10-Q 0000910521-26-000022 filed 2026-07-30 = 341,579,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2026-04-01..2026-06-30] 10-Q 0000910521-26-000022 filed 2026-07-30 = -96,344,000 + us-gaap:ProvisionForDoubtfulAccounts [2026-04-01..2026-06-30] 10-Q 0000910521-26-000022 filed 2026-07-30 = -4,788,000 = -138,667,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+      status: VERIFIED
+      verified_kind: tagged
+    operating_lease_liabilities:
+      value: 472334000
+      page: "E71 -- the lease liability from two stated parts the filer never totals, current and non-current portions of one liability by the taxonomy's own definition: us-gaap:OperatingLeaseLiabilityCurrent [as of 2026-06-30] 10-Q 0000910521-26-000022 filed 2026-07-30 = 73,358,000 + us-gaap:OperatingLeaseLiabilityNoncurrent [as of 2026-06-30] 10-Q 0000910521-26-000022 filed 2026-07-30 = 398,976,000 = 472,334,000"
+      status: VERIFIED
+      verified_kind: tagged
+    cash_and_equivalents:
+      value: 1602589000
+      page: "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2026-06-30] 10-Q 0000910521-26-000022 filed 2026-07-30"
+      status: VERIFIED
+      verified_kind: tagged
+    financial_liabilities_current:
+      value: 0
+      page: "E107 searched zero: SEC XBRL facts of the 10-Q 0000910521-26-000022 balance sheet as of 2026-06-30, searched on 2026-10-27 for every us-gaap element that could state CURRENT borrowings (Debt, Borrowing, LineOfCredit, CommercialPaper, NotesPayable; assets, capacities and fair-value memos excluded) -- none is tagged on that date with a value"
+      status: UNVERIFIED
+      zero_basis: searched
+    financial_liabilities_noncurrent:
+      value: 0
+      page: "E107 searched zero: SEC XBRL facts of the 10-Q 0000910521-26-000022 balance sheet as of 2026-06-30, searched on 2026-10-27 for every us-gaap element that could state NON-CURRENT borrowings (Debt, Borrowing, LineOfCredit, CommercialPaper, NotesPayable; assets, capacities and fair-value memos excluded) -- none is tagged on that date with a value"
+      status: UNVERIFIED
+      zero_basis: searched
+    lease_liabilities:
+      value: 472334000
+      page: "E71 -- the lease liability from two stated parts the filer never totals, current and non-current portions of one liability by the taxonomy's own definition: us-gaap:OperatingLeaseLiabilityCurrent [as of 2026-06-30] 10-Q 0000910521-26-000022 filed 2026-07-30 = 73,358,000 + us-gaap:OperatingLeaseLiabilityNoncurrent [as of 2026-06-30] 10-Q 0000910521-26-000022 filed 2026-07-30 = 398,976,000 = 472,334,000"
+      status: VERIFIED
+      verified_kind: tagged
+    diluted_weighted_average_shares:
+      value: 138559000
+      page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2026-04-01..2026-06-30] 10-Q 0000910521-26-000022 filed 2026-07-30"
+      status: VERIFIED
+      verified_kind: tagged

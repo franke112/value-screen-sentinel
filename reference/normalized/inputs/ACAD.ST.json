@@ -1,0 +1,453 @@
+{
+ "ticker": "ACAD.ST",
+ "unit": "SEK m",
+ "years": {
+  "FY2026": {
+   "unit": "SEK m",
+   "statement_pdf_page": 79,
+   "ocf": {
+    "value": 3930,
+    "quote": "CASH FLOW FROM OPERATING ACTIVITIES                                                                         3,930                   3,742",
+    "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+    "page": 79,
+    "columns": "[current,prior]=['3,930', '3,742']",
+    "caption": "CASH FLOW FROM OPERATING ACTIVITIES"
+   },
+   "wc_lines": [
+    {
+     "value": -5,
+     "quote": "Change in inventories                                                                                          -5                       -1",
+     "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+     "page": 79,
+     "columns": "[current,prior]=['-5', '-1']",
+     "caption": "Change in inventories"
+    },
+    {
+     "value": -176,
+     "quote": "Change in operating receivables                                                                               -176                   -92",
+     "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+     "page": 79,
+     "columns": "[current,prior]=['-176', '-92']",
+     "caption": "Change in operating receivables"
+    },
+    {
+     "value": 118,
+     "quote": "Change in operating liabilities                                                                                118                     33",
+     "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+     "page": 79,
+     "columns": "[current,prior]=['118', '33']",
+     "caption": "Change in operating liabilities"
+    },
+    {
+     "value": -44,
+     "quote": "Changes in provisions                                                                                         -44                    -30",
+     "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+     "page": 79,
+     "columns": "[current,prior]=['-44', '-30']",
+     "caption": "Changes in provisions (non-cash adj., for reference)"
+    }
+   ],
+   "capex_lines": [
+    {
+     "value": -103,
+     "quote": "Investments in properties                                                                 G17                -103                    -54",
+     "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+     "page": 79,
+     "columns": "[current,prior]=['-103', '-54']",
+     "caption": "Investments in properties"
+    },
+    {
+     "value": -120,
+     "quote": "Investments in leasehold property                                                         G17                 -120                   -148",
+     "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+     "page": 79,
+     "columns": "[current,prior]=['-120', '-148']",
+     "caption": "Investments in leasehold property"
+    },
+    {
+     "value": -154,
+     "quote": "Investments in equipment                                                                  G17                -154                    -129",
+     "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+     "page": 79,
+     "columns": "[current,prior]=['-154', '-129']",
+     "caption": "Investments in equipment"
+    },
+    {
+     "value": -13,
+     "quote": "Investment in non-current intangible assets                                               G15                  -13                    -10",
+     "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+     "page": 79,
+     "columns": "[current,prior]=['-13', '-10']",
+     "caption": "Investment in non-current intangible assets"
+    }
+   ],
+   "lease_principal": {
+    "value": -1888,
+    "quote": "Amortisation of lease liability                                                           G28               -1,888              -1,897",
+    "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+    "page": 79,
+    "columns": "[current,prior]=['-1,888', '-1,897']",
+    "caption": "Amortisation of lease liability"
+   },
+   "interest_paid": {
+    "value": -769,
+    "quote": "Interest paid*                                                                                               -769                    -727",
+    "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+    "page": 79,
+    "columns": "[current,prior]=['-769', '-727']",
+    "caption": "Interest paid\\*"
+   },
+   "interest_received": {
+    "value": 6,
+    "quote": "Interest received                                                                                               6                      31",
+    "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+    "page": 79,
+    "columns": "[current,prior]=['6', '31']",
+    "caption": "Interest received"
+   },
+   "tax_paid": {
+    "value": -321,
+    "quote": "Tax paid                                                                                                      -321                  -273",
+    "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+    "page": 79,
+    "columns": "[current,prior]=['-321', '-273']",
+    "caption": "Tax paid"
+   },
+   "acquisitions": {
+    "value": -1036,
+    "quote": "Acquisition of subsidiaries                                                               G14               -1,036                  -333",
+    "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+    "page": 79,
+    "columns": "[current,prior]=['-1,036', '-333']",
+    "caption": "Acquisition of subsidiaries"
+   },
+   "divestments": {
+    "value": 0,
+    "quote": "Sale of property, plant and equipment                                                     G17                   0                       0",
+    "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+    "page": 79,
+    "columns": "[current,prior]=['0', '0']",
+    "caption": "Sale of property, plant and equipment"
+   },
+   "lease_interest": {
+    "caption": "footnote to cash flow statement",
+    "value": 670,
+    "quote": "Interest payments relating to lease liability total SEK 670 million (628).",
+    "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+    "page": 79
+   },
+   "sbc": {
+    "value": 1,
+    "quote": "During the financial year, the cost of share-based",
+    "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+    "page": 87,
+    "note": "text: cost of share-based payments attributable to the performance share programme amounted to SEK 1 million (-) [prior year nil], excl. social security; wording continues on next line"
+   },
+   "acquisitions_note": null
+  },
+  "FY2025": {
+   "unit": "SEK m",
+   "statement_pdf_page": 79,
+   "ocf": {
+    "value": 3742,
+    "quote": "CASH FLOW FROM OPERATING ACTIVITIES                                                                         3,930                   3,742",
+    "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+    "page": 79,
+    "columns": "[current,prior]=['3,930', '3,742']",
+    "caption": "CASH FLOW FROM OPERATING ACTIVITIES"
+   },
+   "wc_lines": [
+    {
+     "value": -1,
+     "quote": "Change in inventories                                                                                          -5                       -1",
+     "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+     "page": 79,
+     "columns": "[current,prior]=['-5', '-1']",
+     "caption": "Change in inventories"
+    },
+    {
+     "value": -92,
+     "quote": "Change in operating receivables                                                                               -176                   -92",
+     "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+     "page": 79,
+     "columns": "[current,prior]=['-176', '-92']",
+     "caption": "Change in operating receivables"
+    },
+    {
+     "value": 33,
+     "quote": "Change in operating liabilities                                                                                118                     33",
+     "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+     "page": 79,
+     "columns": "[current,prior]=['118', '33']",
+     "caption": "Change in operating liabilities"
+    },
+    {
+     "value": -30,
+     "quote": "Changes in provisions                                                                                         -44                    -30",
+     "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+     "page": 79,
+     "columns": "[current,prior]=['-44', '-30']",
+     "caption": "Changes in provisions (non-cash adj., for reference)"
+    }
+   ],
+   "capex_lines": [
+    {
+     "value": -54,
+     "quote": "Investments in properties                                                                 G17                -103                    -54",
+     "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+     "page": 79,
+     "columns": "[current,prior]=['-103', '-54']",
+     "caption": "Investments in properties"
+    },
+    {
+     "value": -148,
+     "quote": "Investments in leasehold property                                                         G17                 -120                   -148",
+     "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+     "page": 79,
+     "columns": "[current,prior]=['-120', '-148']",
+     "caption": "Investments in leasehold property"
+    },
+    {
+     "value": -129,
+     "quote": "Investments in equipment                                                                  G17                -154                    -129",
+     "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+     "page": 79,
+     "columns": "[current,prior]=['-154', '-129']",
+     "caption": "Investments in equipment"
+    },
+    {
+     "value": -10,
+     "quote": "Investment in non-current intangible assets                                               G15                  -13                    -10",
+     "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+     "page": 79,
+     "columns": "[current,prior]=['-13', '-10']",
+     "caption": "Investment in non-current intangible assets"
+    }
+   ],
+   "lease_principal": {
+    "value": -1897,
+    "quote": "Amortisation of lease liability                                                           G28               -1,888              -1,897",
+    "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+    "page": 79,
+    "columns": "[current,prior]=['-1,888', '-1,897']",
+    "caption": "Amortisation of lease liability"
+   },
+   "interest_paid": {
+    "value": -727,
+    "quote": "Interest paid*                                                                                               -769                    -727",
+    "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+    "page": 79,
+    "columns": "[current,prior]=['-769', '-727']",
+    "caption": "Interest paid\\*"
+   },
+   "interest_received": {
+    "value": 31,
+    "quote": "Interest received                                                                                               6                      31",
+    "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+    "page": 79,
+    "columns": "[current,prior]=['6', '31']",
+    "caption": "Interest received"
+   },
+   "tax_paid": {
+    "value": -273,
+    "quote": "Tax paid                                                                                                      -321                  -273",
+    "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+    "page": 79,
+    "columns": "[current,prior]=['-321', '-273']",
+    "caption": "Tax paid"
+   },
+   "acquisitions": {
+    "value": -333,
+    "quote": "Acquisition of subsidiaries                                                               G14               -1,036                  -333",
+    "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+    "page": 79,
+    "columns": "[current,prior]=['-1,036', '-333']",
+    "caption": "Acquisition of subsidiaries"
+   },
+   "divestments": {
+    "value": 0,
+    "quote": "Sale of property, plant and equipment                                                     G17                   0                       0",
+    "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+    "page": 79,
+    "columns": "[current,prior]=['0', '0']",
+    "caption": "Sale of property, plant and equipment"
+   },
+   "lease_interest": {
+    "caption": "footnote (prior-year figure) in FY2026 report",
+    "value": 628,
+    "quote": "Interest payments relating to lease liability total SEK 670 million (628).",
+    "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+    "page": 79
+   },
+   "sbc": {
+    "value": 0,
+    "quote": "During the financial year, the cost of share-based",
+    "file": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf",
+    "page": 87,
+    "note": "prior-year shown as (-) i.e. nil, same sentence"
+   },
+   "acquisitions_note": null
+  },
+  "FY2024": {
+   "unit": "SEK m",
+   "statement_pdf_page": 70,
+   "ocf": {
+    "value": 3505,
+    "quote": "CASH FLOW FROM OPERATING ACTIVITIES                                                                         3,742                   3,505",
+    "file": "~/vss/sources/ACAD.ST_2025-FY_annual-financial-report_2025-10-23_en_a0.pdf",
+    "page": 70,
+    "columns": "[current,prior]=['3,742', '3,505']",
+    "caption": "CASH FLOW FROM OPERATING ACTIVITIES"
+   },
+   "wc_lines": [
+    {
+     "value": 3,
+     "quote": "Change in inventories                                                                                           -1                     3",
+     "file": "~/vss/sources/ACAD.ST_2025-FY_annual-financial-report_2025-10-23_en_a0.pdf",
+     "page": 70,
+     "columns": "[current,prior]=['-1', '3']",
+     "caption": "Change in inventories"
+    },
+    {
+     "value": 23,
+     "quote": "Change in operating receivables                                                                              -92                      23",
+     "file": "~/vss/sources/ACAD.ST_2025-FY_annual-financial-report_2025-10-23_en_a0.pdf",
+     "page": 70,
+     "columns": "[current,prior]=['-92', '23']",
+     "caption": "Change in operating receivables"
+    },
+    {
+     "value": 87,
+     "quote": "Change in operating liabilities                                                                                33                     87",
+     "file": "~/vss/sources/ACAD.ST_2025-FY_annual-financial-report_2025-10-23_en_a0.pdf",
+     "page": 70,
+     "columns": "[current,prior]=['33', '87']",
+     "caption": "Change in operating liabilities"
+    },
+    {
+     "value": -4,
+     "quote": "Changes in provisions                                                                                        -30                      -4",
+     "file": "~/vss/sources/ACAD.ST_2025-FY_annual-financial-report_2025-10-23_en_a0.pdf",
+     "page": 70,
+     "columns": "[current,prior]=['-30', '-4']",
+     "caption": "Changes in provisions (non-cash adj., for reference)"
+    }
+   ],
+   "capex_lines": [
+    {
+     "value": -25,
+     "quote": "Investments in properties                                                                G17                 -54                     -25",
+     "file": "~/vss/sources/ACAD.ST_2025-FY_annual-financial-report_2025-10-23_en_a0.pdf",
+     "page": 70,
+     "columns": "[current,prior]=['-54', '-25']",
+     "caption": "Investments in properties"
+    },
+    {
+     "value": -120,
+     "quote": "Investments in leasehold property                                                        G17                 -148                    -120",
+     "file": "~/vss/sources/ACAD.ST_2025-FY_annual-financial-report_2025-10-23_en_a0.pdf",
+     "page": 70,
+     "columns": "[current,prior]=['-148', '-120']",
+     "caption": "Investments in leasehold property"
+    },
+    {
+     "value": -151,
+     "quote": "Investments in equipment                                                                 G17                 -129                    -151",
+     "file": "~/vss/sources/ACAD.ST_2025-FY_annual-financial-report_2025-10-23_en_a0.pdf",
+     "page": 70,
+     "columns": "[current,prior]=['-129', '-151']",
+     "caption": "Investments in equipment"
+    },
+    {
+     "value": -9,
+     "quote": "Investment in non-current intangible assets                                              G15                  -10                     -9",
+     "file": "~/vss/sources/ACAD.ST_2025-FY_annual-financial-report_2025-10-23_en_a0.pdf",
+     "page": 70,
+     "columns": "[current,prior]=['-10', '-9']",
+     "caption": "Investment in non-current intangible assets"
+    }
+   ],
+   "lease_principal": {
+    "value": -1705,
+    "quote": "Amortisation of lease liability                                                          G28               -1,897               -1,705",
+    "file": "~/vss/sources/ACAD.ST_2025-FY_annual-financial-report_2025-10-23_en_a0.pdf",
+    "page": 70,
+    "columns": "[current,prior]=['-1,897', '-1,705']",
+    "caption": "Amortisation of lease liability"
+   },
+   "interest_paid": {
+    "value": -671,
+    "quote": "Interest paid*                                                                                               -727                    -671",
+    "file": "~/vss/sources/ACAD.ST_2025-FY_annual-financial-report_2025-10-23_en_a0.pdf",
+    "page": 70,
+    "columns": "[current,prior]=['-727', '-671']",
+    "caption": "Interest paid\\*"
+   },
+   "interest_received": {
+    "value": 22,
+    "quote": "Interest received                                                                                              31                     22",
+    "file": "~/vss/sources/ACAD.ST_2025-FY_annual-financial-report_2025-10-23_en_a0.pdf",
+    "page": 70,
+    "columns": "[current,prior]=['31', '22']",
+    "caption": "Interest received"
+   },
+   "tax_paid": {
+    "value": -255,
+    "quote": "Tax paid                                                                                                     -273                   -255",
+    "file": "~/vss/sources/ACAD.ST_2025-FY_annual-financial-report_2025-10-23_en_a0.pdf",
+    "page": 70,
+    "columns": "[current,prior]=['-273', '-255']",
+    "caption": "Tax paid"
+   },
+   "acquisitions": {
+    "value": -560,
+    "quote": "Acquisition of subsidiaries                                                              G14                -333                    -560",
+    "file": "~/vss/sources/ACAD.ST_2025-FY_annual-financial-report_2025-10-23_en_a0.pdf",
+    "page": 70,
+    "columns": "[current,prior]=['-333', '-560']",
+    "caption": "Acquisition of subsidiaries"
+   },
+   "divestments": {
+    "value": 0,
+    "quote": "Sale of property, plant and equipment                                                    G17                    0                      0",
+    "file": "~/vss/sources/ACAD.ST_2025-FY_annual-financial-report_2025-10-23_en_a0.pdf",
+    "page": 70,
+    "columns": "[current,prior]=['0', '0']",
+    "caption": "Sale of property, plant and equipment"
+   },
+   "lease_interest": {
+    "caption": "footnote (prior-year figure) in FY2025 report",
+    "value": 568,
+    "quote": "Interest payments relating to lease liability total SEK 628 million (568).",
+    "file": "~/vss/sources/ACAD.ST_2025-FY_annual-financial-report_2025-10-23_en_a0.pdf",
+    "page": 70
+   },
+   "sbc": {
+    "value": null,
+    "note": "not searched/found in FY2025 or FY2026 report"
+   },
+   "acquisitions_note": null
+  }
+ },
+ "post_basis_deals": [
+  {
+   "date": "2026-07-01",
+   "target": "Kinderopvang Kindernet B.V. (NL; 40 preschools/leisure, ~1,430 places; 2025 net sales ~EUR 18.4m)",
+   "price": "not disclosed in sources read",
+   "source": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf note G33 / administration report; also Q4 release ~/vss/sources/ACAD.ST_2026-Q4_financial-statement-release_2026-08-31_en_a0.pdf"
+  },
+  {
+   "date": "2026-07-31 (AR text; note G33 bullet says 20 August)",
+   "target": "Florencius Vastgoed B.V. (NL; two compulsory schools + preschool/after-school, ~100 places; 2025 net sales ~EUR 3m)",
+   "price": "not disclosed in sources read",
+   "source": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf (administration report 'Significant events after the end of the financial year' says 31 July 2026; note G33 says 20 August - the two differ)"
+  },
+  {
+   "date": "2026-08-07 agreement; completed after quarter end (Q4 release: 'Following the end of the quarter, we acquired Kids&Co')",
+   "target": "Centrum Rozwoju Dziecka Sp. z o.o. (KIDS&Co., PL; 34 preschools, ~3,000 places; 2025 net sales ~PLN 99m)",
+   "price": "not disclosed in sources read",
+   "source": "~/vss/sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf note G33; Q4 release as above"
+  }
+ ],
+ "notes": "FY2024 comes from the FY2025 report comparative column (no download needed). Pages are PDF page indices from pdftotext form feeds (printed page numbers 80 and 71 follow the statement). Statement has no separate divestment line: 'divestments' holds 'Sale of property, plant and equipment' (0 in all three years). Interest paid and received sit in FINANCING activities in ACAD's statement. 'Interest paid' includes lease interest. FY2024 SBC not found. Deal prices: not looked up beyond the AR/Q4 release; web not searched for prices. Date conflict for Florencius (31 July vs 20 August) inside the same AR."
+}

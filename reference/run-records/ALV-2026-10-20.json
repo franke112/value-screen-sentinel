@@ -1,0 +1,199 @@
+{
+ "ticker": "ALV",
+ "currency": "USD",
+ "run_ts": "2026-10-20T15:19:44+02:00",
+ "basis": "annual FY2025",
+ "shares": {
+  "count": 76900000.0,
+  "basis": "weighted-average DILUTED count for annual FY2025, the same window as the flows (E38); `shares_point_in_time` 74,700,000 is on the file as a MEMO and is NOT the divisor (E38)",
+  "as_of": "2025-12-31",
+  "point_in_time": 74700000.0,
+  "point_in_time_as_of": "2025-12-31",
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 15000000.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0001034670 (AUTOLIV, INC.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001034670.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+  "net_interest_paid": 93000000.0,
+  "source": "income_statement_net"
+ },
+ "bridge": {
+  "net_debt": 1718000000.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 0.0,
+   "pensions": 169000000.0,
+   "asset_retirement_obligations": 0.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+  },
+  "note": "borrowings 419,000,000 + 1,734,000,000 + finance leases 0 (E117: the operating lease liability 165,000,000 LEAVES net debt, its rent being in the flow; finance leases stay) + pension deficit 169,000,000 (E35.1) + asset retirement obligations 0 (E68) + prepaid delivery obligations 0 (E81) - cash 604,000,000 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+ },
+ "dates": {
+  "flows_window_end": "2025-12-31",
+  "balance_sheet": "2025-12-31",
+  "share_count": "2025-12-31",
+  "price": "2026-10-19"
+ },
+ "growth": {
+  "base": 0.03,
+  "view_file": "reference/growth-views/ALV.md",
+  "view_date": "2026-10-20",
+  "bear": 0.01,
+  "bull": 0.05
+ },
+ "operating_cash_flow": 1157000000.0,
+ "capex": -441000000.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": null,
+  "premium": null,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_combined",
+   "value": -441000000.0,
+   "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2025-01-01..2025-12-31] 10-K 0001193125-26-058162 filed 2026-02-19",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 1157000000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-01-01..2025-12-31] 10-K 0001193125-26-058162 filed 2026-02-19",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "sbc",
+   "value": 15000000.0,
+   "provenance": "E36: sources/ALV_FY2025_annual-report-10k_2026-02-19_en_a0.htm, Consolidated Statements of Total Equity, year 2025 rows: 'Total Comprehensive Income 876 2 878' then 'Stock-based compensation 15 15 15' then 'Cash dividends declared (238 ) (238 ) (238 )'. 15m, the expense credited to equity; inside 'Other, net 44' in the cash flow, not itemised there. Hand leg 2026-10-20",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "net_finance_costs",
+   "value": 93000000.0,
+   "provenance": "E34.1: sources/ALV_FY2025_annual-report-10k_2026-02-19_en_a0.htm, Consolidated Statements of Net Income, 2025: 'Interest income 10 13 13' and 'Interest expense Note 15 (103 ) (108 ) (93 )' -- two stated lines, the net 103 - 10 = 93m. The filer states interest paid as cash (98m, finance_costs_paid) and no interest received, so E18's cash pair cannot form and E34.1's income-statement net is the add-back, an accrual proxy. Chosen over E115's paid-alone 98 because interest income IS stated; the net is the lower add-back. Hand leg 2026-10-20",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 76900000.0,
+   "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2025-01-01..2025-12-31] 10-K 0001193125-26-058162 filed 2026-02-19",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "shares_point_in_time",
+   "value": 74700000.0,
+   "provenance": "us-gaap:CommonStockSharesOutstanding [as of 2025-12-31] 10-K 0001193125-26-058162 filed 2026-02-19",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 419000000.0,
+   "provenance": "us-gaap:ShortTermBorrowings [as of 2025-12-31] 10-Q 0001193125-26-306974 filed 2026-07-17",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 1734000000.0,
+   "provenance": "us-gaap:LongTermDebtNoncurrent [as of 2025-12-31] 10-Q 0001193125-26-306974 filed 2026-07-17",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 165000000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2025-12-31] 10-K 0001193125-26-058162 filed 2026-02-19",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 169000000.0,
+   "provenance": "us-gaap:DefinedBenefitPensionPlanLiabilitiesNoncurrent [as of 2025-12-31] 10-Q 0001193125-26-306974 filed 2026-07-17",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "E68.1: sources/ALV_FY2025_annual-report-10k_2026-02-19_en_a0.htm, Consolidated Balance Sheets as of December 31, 2025, every liability caption: 'Short-term debt Note 15 419 387', 'Accounts payable Note 11 2,007 1,799', 'Accrued liabilities Notes 12, 13, 14 1,050 1,056', 'Income tax payable 133 120', 'Operating lease liabilities, current Note 3 43 41', 'Other current liabilities 271 231', 'Long-term debt Note 15 1,734 1,522', 'Pension liability Note 20 169 153', 'Operating lease liabilities, non-current Note 3 122 118', 'Other non-current liabilities 113 92'. No asset retirement caption; 'asset retirement' occurs NOWHERE in the filing and 'decommission' occurs NOWHERE (full-text search, 2026-10-20)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "E81: the same balance sheet, every liability caption enumerated for asset_retirement_obligation above -- no prepaid-delivery or customer-advance caption. 'prepaid' occurs on the asset side only: 'Prepaid expenses and accrued income 212 167'. A caption zero",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 604000000.0,
+   "provenance": "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2025-12-31] 10-Q 0001193125-26-306974 filed 2026-07-17",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_lease_liabilities",
+   "value": 165000000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2025-12-31] 10-K 0001193125-26-058162 filed 2026-02-19",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  }
+ ],
+ "tool_commit": "vss strike 2026-10-20, 13e4533",
+ "notes": "vss strike 2026-10-20: re-struck off the store on the record's pre-registered growth view (first strike: the view is the entry's)",
+ "money_unit": "whole",
+ "nci_dividends_paid": -1000000.0,
+ "undetermined": [],
+ "fcf_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_debt_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_income": {
+  "value": 735000000.0,
+  "page": "us-gaap:NetIncomeLoss [2025-01-01..2025-12-31] 10-K 0001193125-26-058162 filed 2026-02-19",
+  "verified": true
+ },
+ "lease": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0001034670 (AUTOLIV, INC.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001034670.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 842-20-45-5(a): a lessee classifies payments for operating leases within OPERATING activities, so this filer's `operating_cash_flow` already bears them; the stated cash paid is `us-gaap:OperatingLeasePayments`, written as `operating_lease_payments` where tagged. No filer-specific tag states the classification because the standard leaves no choice",
+  "principal_added_back": null,
+  "leg": "none -- the operating cash flow bears the rent (E117)",
+  "rule": "E117",
+  "lease_cash_deducted": null,
+  "principal_paid": null,
+  "interest_paid": null,
+  "liability_excluded": 165000000.0
+ }
+}

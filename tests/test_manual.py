@@ -2372,7 +2372,7 @@ def test_an_ordinary_buyback_is_not_flagged():
     assert share_basis_steps(parse(doc)) == ()
 
 
-def test_the_committed_DECK_file_is_flagged_and_the_flag_does_not_refuse():
+def test_the_committed_DECK_file_is_flagged_and_the_flag_does_not_refuse(tmp_path):
     parsed = load_manual("DECK", directory=MANUAL_DIR)
     gate = section5_gate(parsed, as_of=date(2026, 8, 26))
     # Three SHARE-BASIS fields, not two: E38's `shares_point_in_time` memo
@@ -2385,8 +2385,16 @@ def test_the_committed_DECK_file_is_flagged_and_the_flag_does_not_refuse():
             if f.kind != FLAG_EXEMPT} == {
         "diluted_eps", "diluted_weighted_average_shares",
         "shares_point_in_time"}
+    # E131 (2026-10-13) VERIFIED the E105 leg, so nothing of it is left to
+    # exempt. E140.1 (2026-10-27) adds the basis year's acquisition leg, a
+    # SEARCHED ZERO on the tags (E107) that no reading has verified -- the
+    # zero limb exempts it, and it is flagged, never refused.
     assert {f.subject for f in gate.flags if f.kind == FLAG_EXEMPT} == {
-        "FY2026 nci_dividends_paid"}
+        "FY2026 acquisitions_paid"}
+    before = section5_gate(load_manual("DECK", directory=_pre_e131_dir(tmp_path, "DECK")),
+                           as_of=date(2026, 8, 26))
+    assert {f.subject for f in before.flags if f.kind == FLAG_EXEMPT} == {
+        "FY2026 nci_dividends_paid", "FY2026 acquisitions_paid"}
     # A FLAG IS NOT A REFUSAL: the share-basis step is nowhere in the
     # refusal list, whatever else is (E34 puts `FCF0 DATA MISSING` there
     # for a US filer -- see tests/test_manual.py's E34 section).
@@ -2748,7 +2756,9 @@ def test_E40_synsam_carries_twenty_cross_document_flags_and_fifty_two_same_page(
     kinds = {}
     for f in verified:
         kinds[f.verified_kind] = kinds.get(f.verified_kind, 0) + 1
-    assert kinds == {"cross_document": 20, "same_page": 52}
+    # E131 (2026-10-13): the issuer's reported net debt, a memo, read back
+    # by the machine
+    assert kinds == {"cross_document": 20, "same_page": 52, "machine_read_back": 1}
     crossed = {f.name for f in verified if f.verified_kind == "cross_document"}
     assert crossed == {"revenue", "operating_income", "net_income",
                        "op_margin", "diluted_eps"}
@@ -3119,10 +3129,12 @@ def test_item_7_pandora_is_post_interest_and_its_sbc_sits_on_the_window():
     # obligation` is now the stated 225 (its own interim caption, refund
     # liabilities shown apart) and `pension_deficit` is an E106 clause 3
     # BOUND at 556 -- total provisions -- which moves fv_base by 9.27%,
-    # past the 3.5%. The name refuses, and it refuses on SIZE.
+    # past the 3.5%. The name refused, and it refused on SIZE -- until
+    # E133 (owner, 2026-10-13): the year-end 187 is read under E41 and the
+    # bound is dropped, so the name no longer refuses on the pension.
     from vss.manual import REFUSE_TOLERANCE
-    assert gate.refused
-    assert REFUSE_TOLERANCE in {r.kind for r in gate.refusals}
+    assert REFUSE_TOLERANCE not in {r.kind for r in gate.refusals}
+    assert resolve_on_basis(parsed, basis, "pension_deficit").value == 187.0
     # the annual 103 = the appendix's four 2025 quarters, and E17 keeps the
     # quarters first: the annual figure is not what the basis reads
     assert parsed.annual[-1].figures["sbc"].value == 103.0
@@ -3139,10 +3151,14 @@ def test_item_7_betsson_is_post_interest_but_its_interest_pair_is_annual_only():
     basis = section5_basis(parsed)
     assert resolve_on_basis(parsed, basis, "sbc").value == 1.3       # E41, equity-settled
     assert resolve_or_subtract(parsed, basis, "net_interest_paid") is None
+    # E135 (owner, 2026-10-13): the annual net 12.1 now STANDS IN, on E120's
+    # terms, so FCF0 forms; the basis itself still states no interest.
+    from vss.manual import stand_in
+    assert stand_in(parsed, basis, "net_interest_paid").value == 12.1
     gate = section5_gate(parsed, as_of=AS_OF)
-    assert REFUSE_NO_FCF0 in {r.kind for r in gate.refusals}
+    assert REFUSE_NO_FCF0 not in {r.kind for r in gate.refusals}
     state = next(r for r in gate.ratios if r.name == FCF0_RATIO)
-    assert state.state == RATIO_MISSING and "net_interest_paid" in state.detail
+    assert state.state != RATIO_MISSING
 
 
 def test_item_7_lindab_has_a_store_file_and_it_reaches_FCF0():
@@ -3751,7 +3767,8 @@ def test_E78_the_kind_on_disk():
     assert all("E68.2" in f.page for f in aro)
     by_period = {f.period: f for f in aro}
     assert by_period["2025-FY"].verified_kind == KIND_CROSS_DOCUMENT
-    assert not by_period["2026-H1"].verified
+    # E131 (2026-10-12): the 2026-H1 entry passed the machine read-back
+    assert by_period["2026-H1"].verified_kind == "machine_read_back"
 
 
 # --- E80 (2026-08-30): a net share count is issued less treasury where both
@@ -4052,10 +4069,28 @@ E117_BASIS = {"LIAB.ST": ("2025-Q3", "2025-Q4", "2026-Q1", "2026-Q2"),
               "RKT.L": ("2025-FY",)}
 
 
+def _pre_e131(text):
+    """The store as it stood before E131's machine read-back (2026-10-12):
+    the tests below exercise what the gate does with UNVERIFIED figures,
+    and the live stores no longer carry those figures unverified."""
+    import re
+    return re.sub(r"status: VERIFIED\n(\s+)verified_kind: machine_read_back",
+                  "status: UNVERIFIED", text)
+
+
+def _pre_e131_dir(tmp_path, ticker):
+    directory = tmp_path / "manual-pre-e131"
+    directory.mkdir(exist_ok=True)
+    (directory / f"{ticker}.yaml").write_text(
+        _pre_e131((MANUAL_DIR / f"{ticker}.yaml").read_text(encoding="utf-8")),
+        encoding="utf-8")
+    return directory
+
+
 def _e117_fixture(tmp_path, ticker):
     from vss import reference_figures as RF
     import re
-    text = (MANUAL_DIR / f"{ticker}.yaml").read_text(encoding="utf-8")
+    text = _pre_e131((MANUAL_DIR / f"{ticker}.yaml").read_text(encoding="utf-8"))
     # a bounded lease interest already on the store is replaced by the
     # fixture's named zero; a stated principal already there is kept
     text = re.sub(r"      lease_interest_paid:\n(?:        .*\n)+", "", text)
@@ -4873,9 +4908,9 @@ def test_E113_does_not_list_a_field_that_participates_for_some_filer_shape():
         assert field_name not in NON_VALUATION_FIELDS, field_name
 
 
-def test_E113_exempts_and_the_gate_SAYS_SO():
+def test_E113_exempts_and_the_gate_SAYS_SO(tmp_path):
     """An exemption nobody can see is the failure this area already had."""
-    parsed = load_manual("MEKKO.HE", directory=MANUAL_DIR)
+    parsed = load_manual("MEKKO.HE", directory=_pre_e131_dir(tmp_path, "MEKKO.HE"))
     gate = section5_gate(parsed, as_of=date(2026, 9, 8),
                          measured_exempt=registered_view_sensitivity(parsed))
     named = [f for f in gate.flags if "E113" in f.detail]
@@ -4913,14 +4948,14 @@ def test_E113_conditional_half_follows_the_file_s_own_declarations():
     assert "operating_lease_payments" in non_valuation_fields(us)
 
 
-def test_E113_leaves_every_real_valuation_leg_refusing_on_BOUV_OL():
+def test_E113_leaves_every_real_valuation_leg_refusing_on_BOUV_OL(tmp_path):
     """The exemption must not become a blanket pass.
 
-    BOUV.OL's store is entirely UNVERIFIED. After E108 and E113 the legs
-    still refused must be exactly the ones that MOVE the value -- the flow
-    legs, the capex pair and the divisor.
+    BOUV.OL's store was entirely UNVERIFIED before E131. After E108 and
+    E113 the legs still refused must be exactly the ones that MOVE the
+    value -- the flow legs, the capex pair and the divisor.
     """
-    parsed = load_manual("BOUV.OL", directory=MANUAL_DIR)
+    parsed = load_manual("BOUV.OL", directory=_pre_e131_dir(tmp_path, "BOUV.OL"))
     gate = section5_gate(parsed, as_of=date(2026, 9, 8),
                          measured_exempt=registered_view_sensitivity(parsed))
     still = {r.subject.split(" ", 1)[-1]

@@ -1,0 +1,240 @@
+ticker: CPRT
+currency: USD
+money_unit: whole
+sources:
+  xbrl:
+    kind: sec-xbrl
+    url: https://data.sec.gov/api/xbrl/companyfacts/
+    fetched: '2026-10-27'
+  tenk:
+    file: sources/CPRT_FY2026_annual-report-10k_2026-09-29_en_a0.htm
+    kind: pdf
+rows:
+- field: revenue
+  source: xbrl
+  tag: Revenues
+  years:
+  - 2016
+  - 2017
+  - 2018
+  values:
+  - 1268449000.0
+  - 1447981000.0
+  - 1805695000.0
+- field: operating_profit
+  source: xbrl
+  tag: OperatingIncomeLoss
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 406470000.0
+  - 461299000.0
+  - 584345000.0
+  - 716475000.0
+  - 816099000.0
+  - 1136426000.0
+  - 1374997000.0
+  - 1486569000.0
+  - 1572023000.0
+  - 1696714000.0
+  - 1652590000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivities
+  years:
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 492058000.0
+  - 535069000.0
+  - 646646000.0
+  - 917885000.0
+  - 990891000.0
+  - 1176683000.0
+  - 1364210000.0
+  - 1472564000.0
+  - 1799750000.0
+  - 1604492000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivitiesContinuingOperations
+  years:
+  - 2016
+  values:
+  - 332498000.0
+- field: capex
+  source: xbrl
+  tag: PaymentsToAcquirePropertyPlantAndEquipment
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 173917000.0
+  - 172178000.0
+  - 287910000.0
+  - 373883000.0
+  - 591972000.0
+  - 462996000.0
+  - 337448000.0
+  - 516636000.0
+  - 510990000.0
+  - 568990000.0
+  - 337363000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesNetOfCashAcquired
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 0.0
+  - 160812000.0
+  - 8787000.0
+  - 745000.0
+  - 11702000.0
+  - 5000000.0
+  - 106604000.0
+  - 0.0
+  - 17662000.0
+  - 1223000.0
+  - 5004000.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquity
+  years:
+  - 2016
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  values:
+  - 774456000.0
+  - 1778381000.0
+  - 2489516000.0
+  - 3529201000.0
+  - 4625599000.0
+  - 5987440000.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest
+  years:
+  - 2017
+  - 2018
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 1098600000.0
+  - 1581099000.0
+  - 7524011000.0
+  - 9187033000.0
+  - 9097295000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 260198000.0
+  - 340243000.0
+  - 337235000.0
+  - 333321000.0
+  - 343622000.0
+  - 355717000.0
+  - 401954000.0
+  - 394289000.0
+  - 513909000.0
+  - 517779000.0
+  - 511297000.0
+- field: shares
+  source: xbrl
+  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 244295000.0
+  - 237019000.0
+  - 241877000.0
+  - 240453000.0
+  - 238656000.0
+  - 961160000.0
+  - 964604000.0
+  - 966647000.0
+  - 974798000.0
+  - 977563000.0
+  - 956860000.0
+  unit: whole
+- field: net_debt
+  source: xbrl
+  tag: 'derived: LongTermDebt (or its parts) + short-term borrowings - CashAndCashEquivalentsAtCarryingValue'
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  values:
+  - 482151000.0
+  - 420900000.0
+  - 125480000.0
+  - 213681000.0
+business:
+  text: Copart runs online auctions of salvage and used vehicles for insurers and sellers, with buyers worldwide; its yard network and bidder base keep sellers coming.
+  source: tenk
+  quote: We are a leading global provider of online auctions and vehicle remarketing services

@@ -1,0 +1,199 @@
+{
+ "ticker": "PEP",
+ "currency": "USD",
+ "run_ts": "2026-10-19T11:00:39+02:00",
+ "basis": "annual FY2025",
+ "shares": {
+  "count": 1373000000.0,
+  "basis": "weighted-average DILUTED count for annual FY2025, the same window as the flows (E38); `shares_point_in_time` 1,366,649,053 is on the file as a MEMO and is NOT the divisor (E38)",
+  "as_of": "2025-12-27",
+  "point_in_time": 1366649053.0,
+  "point_in_time_as_of": "2025-12-27",
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 288000000.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0000077476 (PepsiCo) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000077476.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+  "net_interest_paid": 1121000000.0,
+  "source": "income_statement_net"
+ },
+ "bridge": {
+  "net_debt": 41395000000.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 0.0,
+   "pensions": 1372000000.0,
+   "asset_retirement_obligations": 0.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+  },
+  "note": "borrowings 6,861,000,000 + 42,321,000,000 + finance leases 0 (E117: the operating lease liability 3,846,000,000 LEAVES net debt, its rent being in the flow; finance leases stay) + pension deficit 1,372,000,000 (E35.1) + asset retirement obligations 0 (E68) + prepaid delivery obligations 0 (E81) - cash 9,159,000,000 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+ },
+ "dates": {
+  "flows_window_end": "2025-12-27",
+  "balance_sheet": "2025-12-27",
+  "share_count": "2025-12-27",
+  "price": "2026-10-16"
+ },
+ "growth": {
+  "base": 0.02,
+  "view_file": "reference/growth-views/PEP.md",
+  "view_date": "2026-10-19",
+  "bear": 0.01,
+  "bull": 0.04
+ },
+ "operating_cash_flow": 12087000000.0,
+ "capex": -4415000000.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": null,
+  "premium": null,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_combined",
+   "value": -4415000000.0,
+   "provenance": "us-gaap:PaymentsToAcquireProductiveAssets [2024-12-29..2025-12-27] 10-K 0000077476-26-000007 filed 2026-02-03 -- CONCEPT: the filer's ONE capital-expenditure line, tagged under the broader 'productive assets' element and not the PP&E one; E23's combined line, a record of the issuer's presentation and not a claim about what is inside it",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 12087000000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2024-12-29..2025-12-27] 10-K 0000077476-26-000007 filed 2026-02-03",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "sbc",
+   "value": 288000000.0,
+   "provenance": "us-gaap:ShareBasedCompensation [2024-12-29..2025-12-27] 10-K 0000077476-26-000007 filed 2026-02-03",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "net_finance_costs",
+   "value": 1121000000.0,
+   "provenance": "E34.1 as applied by E137: sources/PEP_FY2025_annual-report-10k_2026-02-03_en_a0.htm, Consolidated Statement of Income, fiscal year 2025: 'Net interest expense and other ( 1,121 ) ( 919 ) ( 819 )'. The income statement's ONE interest line, read as the net; interest income is stated nowhere as a figure and no interest received is stated in the cash flow (E115's search, recorded on E137). The 'and other' inside it is not itemised by the filer; MD&A explains the change only by debt balances, interest rates and cash balances: 'Net interest expense and other increased $202 million, due to higher average debt balances, higher interest rates on average debt balances and lower interest rates on average cash balances'. Printed as accrual proxy",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 1373000000.0,
+   "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2024-12-29..2025-12-27] 10-K 0000077476-26-000007 filed 2026-02-03",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "shares_point_in_time",
+   "value": 1366649053.0,
+   "provenance": "sources/PEP_FY2025_annual-report-10k_2026-02-03_en_a0.htm, cover page: 'The number of shares of PepsiCo, Inc. Common Stock outstanding as of January 23, 2026 was 1,366,649,053'. Memo (E38), never the divisor",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 6861000000.0,
+   "provenance": "us-gaap:DebtCurrent [as of 2025-12-27] 10-K 0000077476-26-000007 filed 2026-02-03 -- E66: the taxonomy's SUBTOTAL of current borrowings, read whole; tagged beside it as memo and never added: `ShortTermBorrowings` 6,861,000,000",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 42321000000.0,
+   "provenance": "us-gaap:LongTermDebtNoncurrent [as of 2025-12-27] 10-K 0000077476-26-000007 filed 2026-02-03",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 3846000000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2025-12-27] 10-K 0000077476-26-000007 filed 2026-02-03",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 1372000000.0,
+   "provenance": "E35.1 / E62: sources/PEP_FY2025_annual-report-10k_2026-02-03_en_a0.htm, pension and retiree medical note, the table headed 'Pension Retiree Medical U.S. International 2025 2024 2025 2024 2025 2024', rows 'Amounts recognized Other assets $ 413 $ 388 $ 983 $ 792 $ \u2014 $ \u2014' and 'Other current liabilities ( 61 ) ( 85 ) ( 14 ) ( 10 ) ( 55 ) ( 52 ) Other liabilities ( 585 ) ( 1,018 ) ( 244 ) ( 171 ) ( 413 ) ( 401 )'. The 2025 recognized liabilities summed, the surpluses (413 U.S., 983 International, in Other assets) NOT netted: 61 + 585 (U.S. pension) + 14 + 244 (International pension) + 55 + 413 (retiree medical) = 1,372. Checks against the stated 'Funded status $ ( 233 ) $ ( 715 ) $ 725 $ 611 $ ( 468 ) $ ( 453 )'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "E68.1: sources/PEP_FY2025_annual-report-10k_2026-02-03_en_a0.htm, Consolidated Balance Sheet as of December 27, 2025 -- the liability captions, all of them: 'Current Liabilities Short-term debt obligations $ 6,861 $ 7,082 Accounts payable and other current liabilities 25,903 24,454 Total Current Liabilities 32,764 31,536 Long-Term Debt Obligations 42,321 37,224 Deferred Income Taxes 3,802 3,484 Other Liabilities 7,965 9,052 Total Liabilities 86,852 81,296'. The current caption is itemised in the supplemental note: 'Accounts payable (c) $ 11,704 $ 10,997 Accrued marketplace spending 3,512 3,458 Accrued compensation and benefits 2,230 2,256 Dividends payable 1,967 1,885 Current lease liabilities 719 642 Other current liabilities (d) 5,771 5,216'. No asset retirement or decommissioning caption; 'asset retirement' occurs NOWHERE in the filing and 'decommission' occurs NOWHERE (full-text search, 2026-10-19). 'Other current liabilities' 5,771 and 'Other Liabilities' 7,965 are captions with room (E25), named here; the filing discloses no restoration obligation inside them",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "E81: the same Consolidated Balance Sheet as of December 27, 2025, every liability caption enumerated for asset_retirement_obligation above -- no prepaid-offtake, prepaid-delivery or customer-balance caption. 'prepaid' occurs only on the asset side ('Prepaid expenses and other current assets 1,068 921'). A caption zero",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 9159000000.0,
+   "provenance": "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2025-12-27] 10-Q 0000077476-26-000048 filed 2026-10-08",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_lease_liabilities",
+   "value": 3846000000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2025-12-27] 10-K 0000077476-26-000007 filed 2026-02-03",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  }
+ ],
+ "tool_commit": "vss strike 2026-10-19, 0563acd",
+ "notes": "First strike, off the watchlist: the registered view was read through a scratch watchlist holding only the growth block; config/watchlist.yaml untouched (E12).",
+ "money_unit": "whole",
+ "nci_dividends_paid": -44000000.0,
+ "undetermined": [],
+ "fcf_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_debt_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_income": {
+  "value": 8240000000.0,
+  "page": "us-gaap:NetIncomeLoss [2024-12-29..2025-12-27] 10-K 0000077476-26-000007 filed 2026-02-03",
+  "verified": true
+ },
+ "lease": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0000077476 (PepsiCo) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000077476.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 842-20-45-5(a): a lessee classifies payments for operating leases within OPERATING activities, so this filer's `operating_cash_flow` already bears them; the stated cash paid is `us-gaap:OperatingLeasePayments`, written as `operating_lease_payments` where tagged. No filer-specific tag states the classification because the standard leaves no choice",
+  "principal_added_back": null,
+  "leg": "none -- the operating cash flow bears the rent (E117)",
+  "rule": "E117",
+  "lease_cash_deducted": null,
+  "principal_paid": null,
+  "interest_paid": null,
+  "liability_excluded": 3846000000.0
+ }
+}

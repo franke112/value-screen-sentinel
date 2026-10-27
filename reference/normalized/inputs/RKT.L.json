@@ -1,0 +1,370 @@
+{
+ "ticker": "RKT.L",
+ "unit": "GBP million",
+ "years": {
+  "FY2025": {
+   "ocf": {
+    "caption": "Net cash generated from operating activities",
+    "value": 2297,
+    "quote": "Net cash generated from operating activities                                       2,297     2,682",
+    "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+    "page": 138,
+    "note": "Net cash generated from operating activities (after interest, tax and discontinued ops)"
+   },
+   "cash_generated_from_continuing_operations": {
+    "caption": "Cash generated from continuing operations",
+    "value": 3501,
+    "quote": "Cash generated from continuing operations                                          3,501     3,675",
+    "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+    "page": 138
+   },
+   "wc_lines": [
+    {
+     "caption": "(Increase)/decrease in inventories",
+     "value": -196,
+     "quote": "(Increase)/decrease in inventories                                                   (196)      61",
+     "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+     "page": 138
+    },
+    {
+     "caption": "Increase in trade and other receivables",
+     "value": -144,
+     "quote": "Increase in trade and other receivables                                             (144)     (133)",
+     "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+     "page": 138
+    },
+    {
+     "caption": "Increase/(decrease) in payables and provisions",
+     "value": 12,
+     "quote": "Increase/(decrease) in payables and provisions                                         12      (74)",
+     "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+     "page": 138
+    }
+   ],
+   "capex_lines": [
+    {
+     "caption": "Purchase of property, plant and equipment",
+     "value": -536,
+     "quote": "Purchase of property, plant and equipment                                           (536)     (370)",
+     "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+     "page": 138
+    },
+    {
+     "caption": "Purchase of intangible assets",
+     "value": -79,
+     "quote": "Purchase of intangible assets                                                 9      (79)      (95)",
+     "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+     "page": 138
+    }
+   ],
+   "lease_principal": {
+    "value": null,
+    "note": "not separately shown: lease principal sits within 'Repayment of borrowings' (note 17 financing-liabilities reconciliation); no separate lease cash-flow line found"
+   },
+   "lease_interest": {
+    "caption": "Interest charged on lease liabilities amounted to",
+    "value": 13,
+    "quote": "Interest charged on lease liabilities amounted to £13",
+    "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+    "page": 168,
+    "note": "Income-statement interest charge on leases (note 19); not a cash line"
+   },
+   "interest_paid": {
+    "caption": "Interest paid",
+    "value": -344,
+    "quote": "Interest paid                                                                       (344)    (350)",
+    "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+    "page": 138
+   },
+   "interest_received": {
+    "caption": "Interest received",
+    "value": 41,
+    "quote": "Interest received                                                                      41      58",
+    "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+    "page": 138
+   },
+   "tax_paid": {
+    "caption": "Tax paid",
+    "value": -897,
+    "quote": "Tax paid                                                                            (897)    (700)",
+    "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+    "page": 138
+   },
+   "sbc": {
+    "caption": "Share-based payments",
+    "value": 101,
+    "quote": "Share-based payments                                                         25       101      85",
+    "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+    "page": 138
+   },
+   "acquisitions": {
+    "value": null,
+    "note": "no acquisition line in the FY2025 statement; disposals dominate (Essential Home deconsolidation, note 29)"
+   },
+   "disposals": {
+    "caption": "equipment",
+    "value": 23,
+    "quote": "equipment                                                                             23        14",
+    "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+    "page": 138
+   },
+   "disposals_businesses": {
+    "caption": "businesses, net of cash disposed",
+    "value": 1786,
+    "quote": "businesses, net of cash disposed                                             29     1,786      57",
+    "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+    "page": 138
+   }
+  },
+  "FY2024": {
+   "ocf": {
+    "caption": "Net cash generated from operating activities",
+    "value": 2682,
+    "quote": "Net cash generated from operating activities                                       2,297     2,682",
+    "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+    "page": 138,
+    "note": "Net cash generated from operating activities (after interest, tax and discontinued ops)"
+   },
+   "cash_generated_from_continuing_operations": {
+    "caption": "Cash generated from continuing operations",
+    "value": 3675,
+    "quote": "Cash generated from continuing operations                                          3,501     3,675",
+    "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+    "page": 138
+   },
+   "wc_lines": [
+    {
+     "caption": "(Increase)/decrease in inventories",
+     "value": 61,
+     "quote": "(Increase)/decrease in inventories                                                   (196)      61",
+     "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+     "page": 138
+    },
+    {
+     "caption": "Increase in trade and other receivables",
+     "value": -133,
+     "quote": "Increase in trade and other receivables                                             (144)     (133)",
+     "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+     "page": 138
+    },
+    {
+     "caption": "Increase/(decrease) in payables and provisions",
+     "value": -74,
+     "quote": "Increase/(decrease) in payables and provisions                                         12      (74)",
+     "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+     "page": 138
+    }
+   ],
+   "capex_lines": [
+    {
+     "caption": "Purchase of property, plant and equipment",
+     "value": -370,
+     "quote": "Purchase of property, plant and equipment                                           (536)     (370)",
+     "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+     "page": 138
+    },
+    {
+     "caption": "Purchase of intangible assets",
+     "value": -95,
+     "quote": "Purchase of intangible assets                                                 9      (79)      (95)",
+     "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+     "page": 138
+    }
+   ],
+   "lease_principal": {
+    "value": null,
+    "note": "not separately shown: lease principal sits within 'Repayment of borrowings' (note 17 financing-liabilities reconciliation); no separate lease cash-flow line found"
+   },
+   "lease_interest": {
+    "caption": "Interest charged on lease liabilities amounted to",
+    "value": 13,
+    "quote": "Interest charged on lease liabilities amounted to £13",
+    "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+    "page": 168,
+    "note": "Income-statement interest charge on leases (note 19); not a cash line"
+   },
+   "interest_paid": {
+    "caption": "Interest paid",
+    "value": -350,
+    "quote": "Interest paid                                                                       (344)    (350)",
+    "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+    "page": 138
+   },
+   "interest_received": {
+    "caption": "Interest received",
+    "value": 58,
+    "quote": "Interest received                                                                      41      58",
+    "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+    "page": 138
+   },
+   "tax_paid": {
+    "caption": "Tax paid",
+    "value": -700,
+    "quote": "Tax paid                                                                            (897)    (700)",
+    "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+    "page": 138
+   },
+   "sbc": {
+    "caption": "Share-based payments",
+    "value": 85,
+    "quote": "Share-based payments                                                         25       101      85",
+    "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+    "page": 138
+   },
+   "acquisitions": {
+    "caption": "Acquisition of businesses, net of cash acquired",
+    "value": 0,
+    "quote": "Acquisition of businesses, net of cash acquired                               29        –      (81)",
+    "file": "<scratch>/e140/dl/RKT_AR24.pdf",
+    "page": 160,
+    "note": "printed as '–' for 2024"
+   },
+   "disposals": {
+    "caption": "equipment",
+    "value": 14,
+    "quote": "equipment                                                                             23        14",
+    "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+    "page": 138
+   },
+   "disposals_businesses": {
+    "caption": "businesses, net of cash disposed",
+    "value": 57,
+    "quote": "businesses, net of cash disposed                                             29     1,786      57",
+    "file": "~/vss/sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf",
+    "page": 138
+   }
+  },
+  "FY2023": {
+   "ocf": {
+    "caption": "Net cash generated from operating activities",
+    "value": 2636,
+    "quote": "Net cash generated from operating activities                                        2,682    2,636",
+    "file": "<scratch>/e140/dl/RKT_AR24.pdf",
+    "page": 160,
+    "note": "Net cash generated from operating activities (after interest, tax and discontinued ops)"
+   },
+   "cash_generated_from_continuing_operations": {
+    "caption": "Cash generated from continuing operations",
+    "value": 3829,
+    "quote": "Cash generated from continuing operations                                           3,675    3,829",
+    "file": "<scratch>/e140/dl/RKT_AR24.pdf",
+    "page": 160
+   },
+   "wc_lines": [
+    {
+     "caption": "Decrease in inventories",
+     "value": 118,
+     "quote": "Decrease in inventories                                                                61      118",
+     "file": "<scratch>/e140/dl/RKT_AR24.pdf",
+     "page": 160
+    },
+    {
+     "caption": "Increase in trade and other receivables",
+     "value": -87,
+     "quote": "Increase in trade and other receivables                                              (133)     (87)",
+     "file": "<scratch>/e140/dl/RKT_AR24.pdf",
+     "page": 160
+    },
+    {
+     "caption": "Decrease in payables and provisions",
+     "value": -91,
+     "quote": "Decrease in payables and provisions                                                   (74)     (91)",
+     "file": "<scratch>/e140/dl/RKT_AR24.pdf",
+     "page": 160
+    }
+   ],
+   "capex_lines": [
+    {
+     "caption": "Purchase of property, plant and equipment",
+     "value": -348,
+     "quote": "Purchase of property, plant and equipment                                     10     (370)   (348)",
+     "file": "<scratch>/e140/dl/RKT_AR24.pdf",
+     "page": 160
+    },
+    {
+     "caption": "Purchase of intangible assets",
+     "value": -101,
+     "quote": "Purchase of intangible assets                                                  9      (95)    (101)",
+     "file": "<scratch>/e140/dl/RKT_AR24.pdf",
+     "page": 160
+    }
+   ],
+   "lease_principal": {
+    "value": null,
+    "note": "not separately shown: lease principal sits within 'Repayment of borrowings' (note 17 financing-liabilities reconciliation); no separate lease cash-flow line found"
+   },
+   "lease_interest": {
+    "caption": "Interest charged on lease liabilities amounted to",
+    "value": 14,
+    "quote": "Interest charged on lease liabilities amounted to £13 million (2023: £14",
+    "file": "<scratch>/e140/dl/RKT_AR24.pdf",
+    "page": 189,
+    "note": "Income-statement interest charge on leases; not a cash line"
+   },
+   "interest_paid": {
+    "caption": "Interest paid",
+    "value": -293,
+    "quote": "Interest paid                                                                       (350)    (293)",
+    "file": "<scratch>/e140/dl/RKT_AR24.pdf",
+    "page": 160
+   },
+   "interest_received": {
+    "caption": "Interest received",
+    "value": 30,
+    "quote": "Interest received                                                                     58       30",
+    "file": "<scratch>/e140/dl/RKT_AR24.pdf",
+    "page": 160
+   },
+   "tax_paid": {
+    "caption": "Tax paid",
+    "value": -922,
+    "quote": "Tax paid                                                                            (700)     (922)",
+    "file": "<scratch>/e140/dl/RKT_AR24.pdf",
+    "page": 160
+   },
+   "sbc": {
+    "caption": "Share-based payments",
+    "value": 102,
+    "quote": "Share-based payments                                                          25      85       102",
+    "file": "<scratch>/e140/dl/RKT_AR24.pdf",
+    "page": 160
+   },
+   "acquisitions": {
+    "caption": "Acquisition of businesses, net of cash acquired",
+    "value": -81,
+    "quote": "Acquisition of businesses, net of cash acquired                               29        –      (81)",
+    "file": "<scratch>/e140/dl/RKT_AR24.pdf",
+    "page": 160
+   },
+   "disposals": {
+    "caption": "Proceeds from the sale of property, plant and equipment",
+    "value": 63,
+    "quote": "Proceeds from the sale of property, plant and equipment                                14      63",
+    "file": "<scratch>/e140/dl/RKT_AR24.pdf",
+    "page": 160
+   },
+   "disposals_businesses": {
+    "caption": "businesses, net of cash disposed",
+    "value": 1,
+    "quote": "businesses, net of cash disposed                                                      57         1",
+    "file": "<scratch>/e140/dl/RKT_AR24.pdf",
+    "page": 160
+   }
+  }
+ },
+ "post_basis_deals": [
+  {
+   "date": "2025-12-31 (completed; on the balance-sheet date, listed for context)",
+   "target": "Essential Home (Air Wick, Cillit Bang etc.) sold to Advent-led Lavender Dutch TopCo; Reckitt retains 30% equity plus USD 300m vendor loan note",
+   "price": "total consideration net of disposal costs GBP 2.2bn (cash GBP 2.1bn + vendor loan note + 30% shares); announced headline USD 4.8bn; pre-tax gain GBP 1.2bn; GBP 1,578m special dividend paid 20 Feb 2026",
+   "source": "sources/RKT.L_2025-FY_annual-financial-report_2026-03-25_xx_a0.pdf note 29 p.178; H1 2026 report sources/RKT.L_2026-H1_half-year-financial-report_2026-07-29_xx_a0.pdf note 10 p.30 / completion accounts adjustments GBP 28m"
+  },
+  {
+   "date": "2026-07-23 agreement (announced 2026-07-24); completion expected H2 2026",
+   "target": "Russian Hygiene business sold to Arnest Management LLC",
+   "price": "not disclosed; recoverable amount nil; GBP 125m pre-tax impairment/loss in H1 2026, c. GBP 175m expected full-year post-tax loss",
+   "source": "sources/RKT.L_2026-H1_half-year-financial-report_2026-07-29_xx_a0.pdf note 15 and note 17 p.30; https://www.reckitt.com/news/divestment-of-russia-hygiene-business/"
+  }
+ ],
+ "notes": "FY2023 from Annual Report 2024 (reckitt.com archive, contentstack asset reckitt-annual-report-and-accounts-2024.pdf). FY2025 operating cash flow includes £1,245m gain on Essential Home deconsolidation removed as a non-cash adjustment; 'Proceeds from the sale of intangible assets and related businesses, net of cash disposed' 1,786. Also: H1 2026 appendix mentions remeasurement of payments under an agreement to acquire remaining interests from minority shareholders (GBP 22m) and 'Acquisitions/disposals of subsidiaries and NCI (net of cash)' outflow GBP 82m in H1 2026 (RKT_H1 p.16), target/price not named. Mead Johnson Nutrition: press (April 2026, La Lettre/Alliance News via Morningstar) reported Danone interest and Reckitt strategic review; no signed deal found. FY2023 figures from the 2024 Annual Report as originally reported. Reckitt does not print lease principal separately in the cash flow statement (inside 'Repayment of borrowings'); lease interest is the income-statement charge from the lease note."
+}

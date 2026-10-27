@@ -1,0 +1,393 @@
+{
+ "ticker": "LIAB.ST",
+ "unit": "SEK m",
+ "years": {
+  "FY2025": {
+   "unit": "SEK m",
+   "statement_pdf_page": 72,
+   "ocf": {
+    "value": 1347,
+    "quote": "Cash flow from operating activities                                                1,347    1,438",
+    "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+    "page": 72,
+    "columns": "[current,prior]=['1,347', '1,438']",
+    "caption": "Cash flow from operating activities(?=\\s{3,}[\\d\u2013-])"
+   },
+   "wc_lines": [
+    {
+     "value": 39,
+     "quote": "Stock (increase \u2212 /decrease +)                                                       39      341",
+     "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+     "page": 72,
+     "columns": "[current,prior]=['39', '341']",
+     "caption": "Stock (increase \u2212 /decrease +)"
+    },
+    {
+     "value": 62,
+     "quote": "Operating receivables (increase \u2212 /decrease +)                                       62      140",
+     "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+     "page": 72,
+     "columns": "[current,prior]=['62', '140']",
+     "caption": "Operating receivables (increase \u2212 /decrease +)"
+    },
+    {
+     "value": -110,
+     "quote": "Operating liabilities (increase + /decrease \u2212)                                     \u2013110     \u2013196",
+     "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+     "page": 72,
+     "columns": "[current,prior]=['\u2013110', '\u2013196']",
+     "caption": "Operating liabilities (increase + /decrease \u2212)"
+    },
+    {
+     "value": -9,
+     "quote": "Total change in working capital                                                      \u20139      285",
+     "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+     "page": 72,
+     "columns": "[current,prior]=['\u20139', '285']",
+     "caption": "Total change in working capital"
+    }
+   ],
+   "capex_lines": [
+    {
+     "value": -137,
+     "quote": "Investments in intangible assets                                              17   \u2013137      \u201350",
+     "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+     "page": 72,
+     "columns": "[current,prior]=['\u2013137', '\u201350']",
+     "caption": "Investments in intangible assets"
+    },
+    {
+     "value": -194,
+     "quote": "Investments in tangible fixed assets                                         18    \u2013194     \u2013179",
+     "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+     "page": 72,
+     "columns": "[current,prior]=['\u2013194', '\u2013179']",
+     "caption": "Investments in tangible fixed assets"
+    }
+   ],
+   "lease_principal": {
+    "value": -387,
+    "quote": "Repayment of lease liabilities                                            28, 30   \u2013387     \u2013375",
+    "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+    "page": 72,
+    "columns": "[current,prior]=['\u2013387', '\u2013375']",
+    "caption": "Repayment of lease liabilities"
+   },
+   "interest_paid": {
+    "value": -220,
+    "quote": "Interest paid                                                                      \u2013220     \u2013251",
+    "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+    "page": 72,
+    "columns": "[current,prior]=['\u2013220', '\u2013251']",
+    "caption": "Interest paid"
+   },
+   "interest_received": {
+    "value": 13,
+    "quote": "Interest received                                                                    13        17",
+    "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+    "page": 72,
+    "columns": "[current,prior]=['13', '17']",
+    "caption": "Interest received"
+   },
+   "tax_paid": {
+    "value": -138,
+    "quote": "Tax paid                                                                           \u2013138     \u2013258",
+    "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+    "page": 72,
+    "columns": "[current,prior]=['\u2013138', '\u2013258']",
+    "caption": "Tax paid"
+   },
+   "acquisitions": {
+    "value": -251,
+    "quote": "Acquisition of Group companies                                                5    \u2013251    \u20131,382",
+    "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+    "page": 72,
+    "columns": "[current,prior]=['\u2013251', '\u20131,382']",
+    "caption": "Acquisition of Group companies"
+   },
+   "divestments": {
+    "value": 68,
+    "quote": "Divestment of Group companies                                                        68        \u2013",
+    "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+    "page": 72,
+    "columns": "[current,prior]=['68', '\u2013']",
+    "caption": "Divestment of Group companies"
+   },
+   "lease_interest": {
+    "caption": "Note 30 text, SEK 66 m (58)",
+    "value": 66,
+    "quote": "Recognised interest expenses regarding lease",
+    "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+    "page": 118,
+    "note": "note text: 'interest expenses regarding lease-related liabilities for total operations amount to SEK x m (y)'; excludes interest on short/low-value leases"
+   },
+   "sbc": {
+    "value": null,
+    "note": "report states share options do not constitute share-based remuneration for related parties; no IFRS 2 expense located"
+   }
+  },
+  "FY2024": {
+   "unit": "SEK m",
+   "statement_pdf_page": 72,
+   "ocf": {
+    "value": 1438,
+    "quote": "Cash flow from operating activities                                                1,347    1,438",
+    "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+    "page": 72,
+    "columns": "[current,prior]=['1,347', '1,438']",
+    "caption": "Cash flow from operating activities(?=\\s{3,}[\\d\u2013-])"
+   },
+   "wc_lines": [
+    {
+     "value": 341,
+     "quote": "Stock (increase \u2212 /decrease +)                                                       39      341",
+     "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+     "page": 72,
+     "columns": "[current,prior]=['39', '341']",
+     "caption": "Stock (increase \u2212 /decrease +)"
+    },
+    {
+     "value": 140,
+     "quote": "Operating receivables (increase \u2212 /decrease +)                                       62      140",
+     "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+     "page": 72,
+     "columns": "[current,prior]=['62', '140']",
+     "caption": "Operating receivables (increase \u2212 /decrease +)"
+    },
+    {
+     "value": -196,
+     "quote": "Operating liabilities (increase + /decrease \u2212)                                     \u2013110     \u2013196",
+     "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+     "page": 72,
+     "columns": "[current,prior]=['\u2013110', '\u2013196']",
+     "caption": "Operating liabilities (increase + /decrease \u2212)"
+    },
+    {
+     "value": 285,
+     "quote": "Total change in working capital                                                      \u20139      285",
+     "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+     "page": 72,
+     "columns": "[current,prior]=['\u20139', '285']",
+     "caption": "Total change in working capital"
+    }
+   ],
+   "capex_lines": [
+    {
+     "value": -50,
+     "quote": "Investments in intangible assets                                              17   \u2013137      \u201350",
+     "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+     "page": 72,
+     "columns": "[current,prior]=['\u2013137', '\u201350']",
+     "caption": "Investments in intangible assets"
+    },
+    {
+     "value": -179,
+     "quote": "Investments in tangible fixed assets                                         18    \u2013194     \u2013179",
+     "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+     "page": 72,
+     "columns": "[current,prior]=['\u2013194', '\u2013179']",
+     "caption": "Investments in tangible fixed assets"
+    }
+   ],
+   "lease_principal": {
+    "value": -375,
+    "quote": "Repayment of lease liabilities                                            28, 30   \u2013387     \u2013375",
+    "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+    "page": 72,
+    "columns": "[current,prior]=['\u2013387', '\u2013375']",
+    "caption": "Repayment of lease liabilities"
+   },
+   "interest_paid": {
+    "value": -251,
+    "quote": "Interest paid                                                                      \u2013220     \u2013251",
+    "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+    "page": 72,
+    "columns": "[current,prior]=['\u2013220', '\u2013251']",
+    "caption": "Interest paid"
+   },
+   "interest_received": {
+    "value": 17,
+    "quote": "Interest received                                                                    13        17",
+    "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+    "page": 72,
+    "columns": "[current,prior]=['13', '17']",
+    "caption": "Interest received"
+   },
+   "tax_paid": {
+    "value": -258,
+    "quote": "Tax paid                                                                           \u2013138     \u2013258",
+    "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+    "page": 72,
+    "columns": "[current,prior]=['\u2013138', '\u2013258']",
+    "caption": "Tax paid"
+   },
+   "acquisitions": {
+    "value": -1382,
+    "quote": "Acquisition of Group companies                                                5    \u2013251    \u20131,382",
+    "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+    "page": 72,
+    "columns": "[current,prior]=['\u2013251', '\u20131,382']",
+    "caption": "Acquisition of Group companies"
+   },
+   "divestments": {
+    "value": 0,
+    "quote": "Divestment of Group companies                                                        68        \u2013",
+    "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+    "page": 72,
+    "columns": "[current,prior]=['68', '\u2013']",
+    "caption": "Divestment of Group companies"
+   },
+   "lease_interest": {
+    "caption": "Note 30 text, prior year in FY2025 report",
+    "value": 58,
+    "quote": "Recognised interest expenses regarding lease",
+    "file": "~/vss/sources/LIAB.ST_2025-FY_annual-financial-report_2026-04-10_en_a0.pdf",
+    "page": 118,
+    "note": "note text: 'interest expenses regarding lease-related liabilities for total operations amount to SEK x m (y)'; excludes interest on short/low-value leases"
+   },
+   "sbc": {
+    "value": null,
+    "note": "report states share options do not constitute share-based remuneration for related parties; no IFRS 2 expense located"
+   }
+  },
+  "FY2023": {
+   "unit": "SEK m",
+   "statement_pdf_page": 76,
+   "ocf": {
+    "value": 1711,
+    "quote": "Cash flow from operating activities                                               1,438   1,711",
+    "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+    "page": 76,
+    "columns": "[current,prior]=['1,438', '1,711']",
+    "caption": "Cash flow from operating activities(?=\\s{3,}[\\d\u2013-])"
+   },
+   "wc_lines": [
+    {
+     "value": 471,
+     "quote": "Stock (increase \u2212 /decrease +)                                                     341     471",
+     "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+     "page": 76,
+     "columns": "[current,prior]=['341', '471']",
+     "caption": "Stock (increase \u2212 /decrease +)"
+    },
+    {
+     "value": 35,
+     "quote": "Operating receivables (increase \u2212 /decrease +)                                     140      35",
+     "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+     "page": 76,
+     "columns": "[current,prior]=['140', '35']",
+     "caption": "Operating receivables (increase \u2212 /decrease +)"
+    },
+    {
+     "value": -91,
+     "quote": "Operating liabilities (increase + /decrease \u2212)                                    \u2013196     \u201391",
+     "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+     "page": 76,
+     "columns": "[current,prior]=['\u2013196', '\u201391']",
+     "caption": "Operating liabilities (increase + /decrease \u2212)"
+    },
+    {
+     "value": 415,
+     "quote": "Total change in working capital                                                    285     415",
+     "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+     "page": 76,
+     "columns": "[current,prior]=['285', '415']",
+     "caption": "Total change in working capital"
+    }
+   ],
+   "capex_lines": [
+    {
+     "value": -43,
+     "quote": "Investments in intangible assets                                           17      \u201350     \u201343",
+     "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+     "page": 76,
+     "columns": "[current,prior]=['\u201350', '\u201343']",
+     "caption": "Investments in intangible assets"
+    },
+    {
+     "value": -251,
+     "quote": "Investments in tangible fixed assets                                       18      \u2013179   \u2013251",
+     "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+     "page": 76,
+     "columns": "[current,prior]=['\u2013179', '\u2013251']",
+     "caption": "Investments in tangible fixed assets"
+    }
+   ],
+   "lease_principal": {
+    "value": -327,
+    "quote": "Repayment of lease liabilities                                          28, 30    \u2013375    \u2013327",
+    "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+    "page": 76,
+    "columns": "[current,prior]=['\u2013375', '\u2013327']",
+    "caption": "Repayment of lease liabilities"
+   },
+   "interest_paid": {
+    "value": -175,
+    "quote": "Interest paid                                                                     \u2013251     \u2013175",
+    "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+    "page": 76,
+    "columns": "[current,prior]=['\u2013251', '\u2013175']",
+    "caption": "Interest paid"
+   },
+   "interest_received": {
+    "value": 12,
+    "quote": "Interest received                                                                   17      12",
+    "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+    "page": 76,
+    "columns": "[current,prior]=['17', '12']",
+    "caption": "Interest received"
+   },
+   "tax_paid": {
+    "value": -330,
+    "quote": "Tax paid                                                                          \u2013258    \u2013330",
+    "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+    "page": 76,
+    "columns": "[current,prior]=['\u2013258', '\u2013330']",
+    "caption": "Tax paid"
+   },
+   "acquisitions": {
+    "value": -473,
+    "quote": "Acquisition of Group companies                                              5    \u20131,382   \u2013473",
+    "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+    "page": 76,
+    "columns": "[current,prior]=['\u20131,382', '\u2013473']",
+    "caption": "Acquisition of Group companies"
+   },
+   "divestments": {
+    "value": 0,
+    "quote": "Divestment of Group companies                                                         \u2013       \u2013",
+    "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+    "page": 76,
+    "columns": "[current,prior]=['\u2013', '\u2013']",
+    "caption": "Divestment of Group companies"
+   },
+   "lease_interest": {
+    "caption": "Note 30 text, prior year in FY2024 report: SEK 58 m (38)",
+    "value": 38,
+    "quote": "Recognised interest expenses regarding lease",
+    "file": "<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+    "page": 125,
+    "note": "note text: 'interest expenses regarding lease-related liabilities for total operations amount to SEK x m (y)'; excludes interest on short/low-value leases"
+   },
+   "sbc": {
+    "value": null,
+    "note": "report states share options do not constitute share-based remuneration for related parties; no IFRS 2 expense located"
+   }
+  }
+ },
+ "post_basis_deals": [
+  {
+   "date": "2026-04-13 agreement announced (per MarketScreener via web search); completed 2026-07-13",
+   "target": "Connaught Ventilation Supplies Limited (Ireland, ventilation distributor, annual sales ~EUR 2m)",
+   "price": "not disclosed (not found in Q2 report)",
+   "source": "~/vss/sources/LIAB.ST_2026-Q2_half-year-financial-report_2026-07-17_en_a0.pdf (Note 3; summary p.1)"
+  },
+  {
+   "date": "2026-06-16",
+   "target": "Lindab SRL, Romania (divestment; final step of Eastern Europe Profile Systems restructuring)",
+   "price": "SEK 42 m agreed purchase price, partly settled through instalments over three years",
+   "source": "~/vss/sources/LIAB.ST_2026-Q2_half-year-financial-report_2026-07-17_en_a0.pdf Note 3 'Divestment of Lindab SRL'"
+  }
+ ],
+ "notes": "FY2023 from Lindab Annual Report 2024 (downloaded from mb.cision.com, press-release attachment). Pages are PDF page indices. Interest paid/received are inside operating activities (before working capital). Lease principal 'Repayment of lease liabilities' is in financing. Lease interest from note text, total operations. No SBC found. Q3 2026 report (Oct 2026) is not in sources/ and web search found nothing; deals after 2026-07-17 not checked beyond that search."
+}

@@ -1,0 +1,29 @@
+ticker: MC.PA
+dated: '2026-10-27'
+ruling: E140(3)-(4)
+money: EUR millions
+money_unit: millions
+basis_balance_sheet: '2025-12-31'
+searched:
+- issuer annual and interim reports (cash-flow statements read by subagent; quotes regex-checked against pdftotext)
+- issuer press releases and news search (2026-10-27)
+deals:
+- name: Minority-interest purchases (H1 2026)
+  date: 2026 H1
+  status: closed
+  closed: '2026-06-30'
+  low: 329
+  high: 329
+  fcf: 0
+  source: H1 2026 report
+- name: 'Divestments pending at the 2026-06-30 cut (DFS Greater China completed March 2026 and is in the H1 balance sheet): DFS LA/SF concessions and DFS Okinawa (completion planned H2 2026, H1 report p.28), Marc Jacobs to WHP (agreement May 2026; ~USD
+    850-925m press), DFS Japan/Indonesia stakes -- proceeds NOT VERIFIED; credited only at the low end'
+  date: 2026-03..06
+  status: mixed
+  closed: null
+  low: -1200
+  high: 0
+  fcf: 0
+  source: H1 2026 report; press
+none_found: false
+notes: 'Re-cut 2026-10-27 at the rolled balance sheet 2026-06-30 (E140.1(3)); the low end is still the session estimate. Divested units carried cash flow inside the FCF years; not separable from the filings.'

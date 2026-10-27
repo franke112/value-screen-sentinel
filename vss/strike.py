@@ -28,6 +28,10 @@ THE THREE REFUSALS (owner, 2026-09-20):
    and a sweep's behaviour as the default would go silent within a few
    quarters (the owner's words, deciding it).
 3. **A RECORD THAT WILL NOT FORM -> REFUSE**, naming the leg.
+4. **NO EVENTS LEDGER, OR ONE OLDER THAN A WEEK -> REFUSE** (E140(4),
+   2026-10-27). Every deal after the balance sheet enters the bridge from
+   `reference/events/<TICKER>.yaml`, and a strike on a stale sweep is how
+   CENTA's 2026-10-20 strike missed Burpee, announced the day before.
 
 WHAT IT PRINTS, and this is link 5 of the chain: fv_base, bear, bull, the
 MBP **with the tier on both sides**, g*, and WHICH LEG MOVED against the
@@ -42,12 +46,14 @@ import json
 import logging
 import re
 import subprocess
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import date, datetime
 from pathlib import Path
 from typing import Sequence
 
+from . import events as EV
 from . import fx
+from . import history as HI
 from . import manual as M
 from . import metrics as MT
 from . import runrecord as R
@@ -216,6 +222,9 @@ class Strike:
     gate_refusals: tuple[str, ...] = ()
     ignored_gate: bool = False
     legs: tuple[LegMove, ...] = ()
+    #: E145's tests and the three anchors, printed and never valued.
+    quality: tuple = ()
+    history_check: tuple[str, ...] = ()
 
     # --- the four values, after and before -----------------------------
     @property
@@ -223,14 +232,22 @@ class Strike:
         return self.record.strike()
 
     @property
+    def e142(self) -> bool:
+        return self.record.e140 is not None and self.record.e140.e142 is not None
+
+    @property
     def bear(self) -> float | None:
         g = self.record.growth.bear
-        return None if g is None else self.record.strike(g)
+        if g is None:
+            return None
+        return self.record.strike(g, case="bear") if self.e142 else self.record.strike(g)
 
     @property
     def bull(self) -> float | None:
         g = self.record.growth.bull
-        return None if g is None else self.record.strike(g)
+        if g is None:
+            return None
+        return self.record.strike(g, case="bull") if self.e142 else self.record.strike(g)
 
     def prior_value(self, growth: float | None = None) -> float | None:
         if self.prior is None:
@@ -250,6 +267,8 @@ class Strike:
     def g_star(self) -> float | None:
         if self.price is None:
             return None
+        if self.e142:
+            return self.record.implied_growth(self.price)
         try:
             legs = self.record.legs()
             return V.implied_growth(
@@ -283,7 +302,9 @@ def leg_moves(record: R.RunRecord, prior: R.RunRecord | None) -> tuple[LegMove, 
         LegMove("growth view",
                 None if prior is None else _growth_text(prior.growth),
                 _growth_text(record.growth),
-                note="E28: the view is the prior record's, unchanged by a strike"),
+                note=("E144: derived from the issuer's history"
+                      if record.growth.view_file.startswith("E144") else
+                      "E28: the view is the prior record's, unchanged by a strike")),
         LegMove("discount rate", None if prior is None else prior.rate.rate,
                 record.rate.rate),
         LegMove("lease treatment", None if prior is None else _first_sentence(prior.lease),
@@ -307,10 +328,30 @@ def strike_one(ticker: str, *, as_of: date, run_ts: datetime, stamp: str,
                entry=None, manual_dir: Path | None = None,
                records_dir: Path = RECORDS_DIR, ignore_gate: bool = False,
                note: str = "", cache_dir: Path | None = None,
-               db_path: Path | None = None) -> Strike:
+               db_path: Path | None = None,
+               events_dir: Path | None = None,
+               history_dir: Path | None = None) -> Strike:
     """Re-strike one name off its store. Raises StrikeError on a refusal."""
     prior_path, prior = latest_record(ticker, records_dir)
     growth = growth_for(entry, prior)
+    # E144: the view is DERIVED from the issuer's own history where it can
+    # be; the registered view stands, marked, where it cannot.
+    history = HI.load(ticker, directory=history_dir or HI.HISTORY_DIR)
+    derived = HI.derived_growth(history) if history is not None else None
+    if derived is not None:
+        growth = R.Growth(base=derived.base, bear=derived.bear, bull=derived.bull,
+                          view_file=f"E144: derived from {history.path}",
+                          view_date=as_of)
+    growth_how = (derived.how if derived is not None else
+                  "VIEW, NOT DERIVED (E144(4)): "
+                  + ("no history file" if history is None else
+                     "fewer than five organic years in " + history.path)
+                  + f"; the registered view {growth.view_file or '(entry)'}")
+    try:
+        ledger = EV.load_ledger(ticker, directory=events_dir or EV.EVENTS_DIR)
+        EV.check_fresh(ledger, as_of)
+    except EV.EventsError as exc:
+        raise StrikeError(f"{ticker}: {exc}. Nothing was written.") from exc
 
     try:
         parsed = M.load_manual(ticker, directory=manual_dir or M.MANUAL_DIR)
@@ -346,7 +387,8 @@ def strike_one(ticker: str, *, as_of: date, run_ts: datetime, stamp: str,
         price_date=price_date,
         rate=(prior.rate if prior else None),
         conventions=(prior.conventions if prior else None),
-        tool_commit=tool_commit(stamp), notes=notes)
+        tool_commit=tool_commit(stamp), notes=notes, ledger=ledger)
+    record, quality, history_check = apply_e142(record, history, growth_how)
     try:
         record.strike()
     except Exception as exc:  # noqa: BLE001 -- the leg is named, nothing written
@@ -362,7 +404,86 @@ def strike_one(ticker: str, *, as_of: date, run_ts: datetime, stamp: str,
         store_period=parsed.newest_period_end,
         prior_store_period=(prior.dates.flows_window_end if prior else None),
         gate_refusals=refusals, ignored_gate=bool(ignore_gate and gate.refused),
-        legs=leg_moves(record, prior))
+        legs=leg_moves(record, prior), quality=quality,
+        history_check=history_check)
+
+
+def apply_e142(record: R.RunRecord, history: "HI.History | None",
+               growth_how: str) -> tuple[R.RunRecord, tuple, tuple[str, ...]]:
+    """E142-E145 onto a freshly built record: the parameters the history
+    gives, and the quality tests. A record the E140 block could not form
+    is returned as it is, and refuses where it would have."""
+    if record.e140 is None:
+        return record, (), ()
+    try:
+        flow = record.normalised_flow()
+    except V.ValuationError:
+        return record, (), ()
+    tax = record.e140.tax_rate
+    fallback = record.growth.base
+    full = worst = None
+    if history is not None and tax is not None:
+        full, worst = HI.roiic(history, tax, fallback)
+    cyc = HI.cycle(history) if history is not None else HI.Cycle(
+        False, 1.0, None, "no history file: no cycle test (E143(3))")
+    flows = list(flow.years)
+    mean = sum(flows) / len(flows) if flows else 0.0
+    if cyc.level_bear is not None:
+        bear_level, bear_how = cyc.level_bear, ""
+    elif mean > 0:
+        bear_level = max(0.0, min(flows) / mean)
+        bear_how = (f"; bear level x{bear_level:.3f}: the weakest E140 year "
+                    f"{min(flows):,.0f} over the mean {mean:,.0f} (E143(4))")
+    else:
+        bear_level, bear_how = 0.0, "; bear level x0: the mean is not positive"
+    params = R.E142Params(
+        history=history.path if history is not None else "",
+        repeat_buyer=flow.repeat_buyer,
+        acquisitions_mean=flow.acquisitions_mean,
+        roiic_base=None if full is None else full.value,
+        roiic_bear=None if worst is None else max(0.0, worst.value),
+        roiic_base_how="" if full is None else full.how,
+        roiic_bear_how="" if worst is None else worst.how,
+        cyclical=cyc.cyclical, level_base=cyc.level_base, level_bear=bear_level,
+        level_how=cyc.how + bear_how, growth_how=growth_how)
+    record = replace(record, e140=replace(record.e140, e142=params))
+    if params.repeat_buyer and (params.roiic_base is None or params.roiic_bear is None):
+        # E142(6) with E106's floor: an absent ROIIC that cannot move the
+        # value 3.5% is struck at zero, the conservative end.
+        try:
+            neutral = replace(record, e140=replace(record.e140, e142=replace(
+                params, roiic_base=record.rate.rate, roiic_bear=record.rate.rate)))
+            zero = replace(record, e140=replace(record.e140, e142=replace(
+                params, roiic_base=0.0, roiic_bear=0.0)))
+            a, b = neutral._strike_unchecked(), zero._strike_unchecked()
+            move = abs(a - b) / abs(a) if a else float("inf")
+        except Exception:  # noqa: BLE001 -- refuses below as it would have
+            move = float("inf")
+        if move < R.INCOMPLETE_LEG_TOLERANCE:
+            why = (f"ROIIC NOT DERIVABLE ({'no history file' if history is None else 'the history has no profit and capital pair'}); "
+                   f"struck at ZERO, the conservative end: the programme at zero moves "
+                   f"the value {move:.1%}, inside E106's 3.5% (E142(6))")
+            params = replace(params,
+                             roiic_base=0.0 if params.roiic_base is None else params.roiic_base,
+                             roiic_bear=0.0 if params.roiic_bear is None else params.roiic_bear,
+                             roiic_base_how=params.roiic_base_how or why,
+                             roiic_bear_how=params.roiic_bear_how or why)
+            record = replace(record, e140=replace(record.e140, e142=params))
+    quality: tuple = ()
+    checks: tuple[str, ...] = ()
+    if history is not None:
+        checks = tuple(HI.check(history))
+        try:
+            legs = record.legs()
+            parts = record.e142_parts()
+            quality = HI.quality(history, tax=tax or 0.0, fcf0=parts["fcf0"],
+                                 net_debt=-legs.net_cash,
+                                 roiic_base=params.roiic_base,
+                                 repeat_buyer=params.repeat_buyer,
+                                 rate=record.rate.rate)
+        except Exception:  # noqa: BLE001 -- the record refuses elsewhere
+            quality = ()
+    return record, quality, checks
 
 
 # --- what it prints ------------------------------------------------------
@@ -400,6 +521,13 @@ def table(s: Strike) -> str:
         rows.append(("  of which the tier",
                      "", "", _move(s.mbp(s.tier_before, s.fv), mbp_after)))
     rows.append(("g*", "", _num(s.g_star, ".2%"), ""))
+    if s.record.e140 is not None and s.record.e140.deals:
+        try:
+            low_end = s.record.at_deal_end("low")
+        except Exception:  # noqa: BLE001 -- a memo
+            low_end = None
+        rows.append(("  fv_base, deals at LOW end (E140(3))", "",
+                     _num(low_end), ""))
 
     width = max(len(r[0]) for r in rows)
     out = [head, ""]
@@ -442,13 +570,123 @@ def table(s: Strike) -> str:
     return "\n".join(out)
 
 
+def e140_lines(record: R.RunRecord) -> list[str]:
+    """E140 / E140.1's parts, one bullet each, for the strike doc."""
+    b = record.e140
+    if b is None:
+        return []
+    try:
+        flow = record.normalised_flow()
+    except Exception as exc:  # noqa: BLE001 -- the record refuses elsewhere
+        return [f"- **E140:** the normalised flow will not form -- {exc}"]
+    years = "; ".join(f"{y.label} {v:,.0f}" for y, v in zip(b.years, flow.years))
+    out = [f"- **E140 FCF0:** mean of {years} = {flow.mean:,.0f}"
+           + (f"; acquisitions mean {flow.acquisitions_mean:,.0f} NOT deducted "
+              f"-- valued as the deal programme (E142)" if b.e142 is not None else
+              f"; LESS acquisitions mean {flow.acquisitions_mean:,.0f} "
+              f"(E140.1(1): a repeat buyer)" if flow.repeat_buyer else
+              f"; acquisitions mean {flow.acquisitions_mean:,.0f} NOT deducted "
+              f"(paid in fewer than two of three years)")
+           + f"; + interest after tax {flow.interest_added_back:,.0f} at "
+             f"{b.tax_rate if b.tax_rate is not None else 'DATA MISSING'} "
+             f"({b.tax_country}); - minority dividends {flow.nci:,.0f}"
+           + (f"; + acquired FCF filed {b.deal_fcf:,.0f}" if b.deal_fcf else "")]
+    if b.rolled_from is not None:
+        out.append(f"- **bridge rolled (E140.1(3)):** {b.rolled_from} -> "
+                   f"{record.dates.balance_sheet}; year-to-date working capital "
+                   f"{_num(b.wc_since_year_end, ',.0f')} neutralised (added to "
+                   f"net debt)")
+    added = b.added_debt("high")
+    if added is not None and record.bridge.net_debt is not None:
+        out.append(f"- **bridge (E140(3), deals at the HIGH end):** net debt "
+                   f"{record.bridge.net_debt:,.0f} on the balance sheet + deals "
+                   f"{added - (b.wc_since_year_end or 0.0):,.0f} + working capital "
+                   f"neutralised {(b.wc_since_year_end or 0.0):,.0f} = "
+                   f"{record.bridge.net_debt + added:,.0f}")
+    if b.e142 is not None:
+        out += e142_lines(record)
+    deals = "; ".join(f"{d.name} {d.low:,.0f}..{d.high:,.0f}" for d in b.deals)
+    out.append(f"- **events ledger** `{b.ledger}` dated {b.ledger_dated}, cut at "
+               f"{b.cut}: " + (deals if deals else "no deal in the bridge")
+               + (f"; already in the balance sheet: "
+                  f"{'; '.join(b.deals_in_balance_sheet)}"
+                  if b.deals_in_balance_sheet else ""))
+    return out
+
+
+def e142_lines(record: R.RunRecord) -> list[str]:
+    """E142-E144's chain, case by case, in the store's money unit."""
+    p = record.e140.e142
+    money = M.UNIT_SCALE[record.money_unit]
+    count = M.UNIT_SCALE[record.shares.unit]
+    shares = record.shares.count * count
+    out = [f"- **growth (E144):** {p.growth_how}",
+           f"- **cycle and level (E143):** {p.level_how}",
+           "- **deal programme (E142):** "
+           + (f"repeat buyer, A = {p.acquisitions_mean:,.0f}/yr; ROIIC base "
+              f"{_num(p.roiic_base, '.2%')} -- {p.roiic_base_how or 'not derivable'}; "
+              f"bear {_num(p.roiic_bear, '.2%')} -- {p.roiic_bear_how or 'not derivable'}"
+              if p.repeat_buyer else "not a repeat buyer: no programme")]
+    for case, g in (("bear", record.growth.bear), ("base", record.growth.base),
+                    ("bull", record.growth.bull)):
+        if g is None:
+            continue
+        try:
+            parts = record.e142_parts(g, case)
+            value = record._strike_unchecked(g, case=case)
+        except Exception as exc:  # noqa: BLE001 -- the record refuses elsewhere
+            out.append(f"- **{case}:** will not form -- {exc}")
+            continue
+        out.append(
+            f"- **{case}:** flow {parts['flow'] / money:,.0f} x level "
+            f"{parts['level']:.3f} x (1 + {g:.2%}) = FCF0 {parts['fcf0'] / money:,.0f}; "
+            f"programme {parts['programme'] / money:,.0f} "
+            f"({parts['programme'] / shares:+.2f}/sh); deals "
+            f"{parts['deal_price'] / money:,.0f} credited back "
+            f"{parts['deal_credit'] / money:,.0f} at ROIIC "
+            f"{_num(parts['roiic'], '.2%')} ({parts['deal_credit'] / shares:+.2f}/sh)"
+            f" -> **{value:,.2f}**")
+    return out
+
+
+def quality_lines(s: Strike) -> list[str]:
+    if not s.quality:
+        return ["- **would Warren own it (E145):** no history file -- not tested"]
+    out = ["- **would Warren own it (E145):**"]
+    for t in s.quality:
+        mark = "PASS" if t.passed else ("FAIL" if t.passed is False else "n/a")
+        out.append(f"  - {t.name}: **{mark}** -- {t.figure}")
+    return out
+
+
+def anchor_lines(s: Strike) -> list[str]:
+    """The three anchors (method review section 6): g*, the owner-earnings
+    yield at today's price plus base growth, and the tangible ROIC."""
+    if not s.e142 or s.price is None:
+        return []
+    try:
+        parts = s.record.e142_parts()
+        legs = s.record.legs()
+        ev = s.price * legs.shares - legs.net_cash
+        y = parts["fcf0"] / ev if ev > 0 else None
+    except Exception:  # noqa: BLE001
+        return []
+    q1 = next((t.figure for t in s.quality if t.name.startswith("Q1")), "no history")
+    return [f"- **anchors:** g* {_num(s.g_star, '.2%')}; owner-earnings yield on EV "
+            f"{_num(y, '.2%')} + base growth {s.record.growth.base:.2%} = expected "
+            f"return ~{_num(None if y is None else y + s.record.growth.base, '.1%')} "
+            f"against r {s.record.rate.rate:.1%}; tangible ROIC {q1}"]
+
+
 def document(s: Strike) -> str:
     """The strike doc, in the shape the dated scripts wrote."""
     prior_fv = s.prior_value()
     lines = [f"# {s.ticker} -- struck {s.as_of.isoformat()}", "",
              f"*Struck by `vss strike` off `config/manual/{s.ticker}.yaml` on "
-             f"the pre-registered growth view "
-             f"{_growth_text(s.record.growth)}"
+             + ("the growth DERIVED from the issuer's history (E144) "
+                if s.record.growth.view_file.startswith("E144") else
+                "the pre-registered growth view ")
+             + f"{_growth_text(s.record.growth)}"
              + (f", carried from {s.prior_path.name}" if s.prior_path
                 else " (first strike, from the entry)")
              + ". Nothing here writes the watchlist: fv_base, tier, mbp and "
@@ -457,7 +695,10 @@ def document(s: Strike) -> str:
              f"- **fv_base:** {_num(prior_fv)} -> **{_num(s.fv)}** "
              f"(bear {_num(s.bear)}, bull {_num(s.bull)})",
              f"- **FCF0:** {_num(s.record.fcf0(), ',.0f')}",
-             f"- **net debt:** {_num(s.record.bridge.net_debt, ',.0f')}",
+             f"- **net debt:** {_num(s.record.bridge.net_debt, ',.0f')}"
+             + (f" on the balance sheet of {s.record.dates.balance_sheet}"
+                if s.record.e140 is not None else ""),
+             *e140_lines(s.record),
              f"- **divisor:** {_num(s.record.shares.count, ',.0f')}",
              f"- **lease:** {getattr(s.record.lease, 'sentence', '')}"]
     mbp_after = s.mbp(s.tier_after, s.fv)
@@ -470,6 +711,11 @@ def document(s: Strike) -> str:
         lines.append(f"- **close {s.price_date}:** {_num(s.price)}; "
                      f"g* {_num(s.g_star, '.2%')}")
     lines.append(f"- **store's newest period:** {s.store_period or '--'}")
+    if s.e142:
+        lines += anchor_lines(s) + quality_lines(s)
+        if s.history_check:
+            lines.append(f"- **history read-back: {len(s.history_check)} FAIL** -- "
+                         + "; ".join(s.history_check[:5]))
     if s.ignored_gate:
         lines += ["", f"> **{IGNORE_GATE_NOTE}**", "",
                   *[f"> - {r}" for r in s.gate_refusals]]

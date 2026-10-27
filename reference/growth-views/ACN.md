@@ -34,3 +34,24 @@ of it.
 
 *Recorded, not assessed. A changed view is a new dated entry beneath this
 one; the three rates above are never edited.*
+
+## 2026-10-08 — the view STANDS on the FY2026 results (owner)
+
+**g_base 4.5% · g_bear 0% · g_bull 7.5% — unchanged.** The owner, 2026-10-08,
+after the FY2026 results (8-K 0001467373-26-000037, filed 2026-10-01; the
+10-K not yet filed): "this does not move our base, bear and bull".
+
+What the owner had seen first, stated because E28 cares about the order:
+- FY2026 from the 8-K: revenue 74.18bn (+6% USD, +5% local currency); OCF
+  less capex less SBC about 9.52bn, +8.4% on FY2025; about 6% a year over
+  FY2021-26, about 7% a year per share.
+- Capital use: acquisitions 4.94bn (1.47bn in FY2025), buybacks 7.52bn,
+  dividends 3.99bn, new debt 4.98bn; net cash about 4.48bn -> 0.87bn. The
+  owner's reading: part of the growth is bought, and borrowed for.
+- **A SCRATCH DRY-RUN STRIKE** on the 8-K's figures (not written, not a
+  record): fv_base 261.43 (bear 188.05, bull 326.48), g* 0.62% at 196.64.
+  So this confirmation was given AFTER a fair value on the FY2026 basis had
+  been printed -- a reconfirmation of an existing view, not a new one set
+  blind.
+
+*Recorded, not assessed.*

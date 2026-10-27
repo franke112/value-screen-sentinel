@@ -163,7 +163,8 @@ periods:
         value: 3180
         source: "E103 automatic reference extraction (pdf (model-read))"
         page: "1 (summary) and 11 (financial position) [printed in millions] -- verbatim: Net debt amounted to SEK 3,180 million (3,040) at the end of the period"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # --- flows, the newest quarter of the window ------------------------
       revenue:                     {value: 2081, page: "p.21 income statement, Q2 2026 column, `Total revenue`", status: VERIFIED, verified_kind: cross_document}
       operating_income:            {value: 290,  page: "p.21 income statement, Q2 2026 column, `EBIT`", status: VERIFIED, verified_kind: cross_document}

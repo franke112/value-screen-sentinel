@@ -1,0 +1,226 @@
+ticker: NVR
+currency: USD
+money_unit: whole
+sources:
+  xbrl:
+    kind: sec-xbrl
+    url: https://data.sec.gov/api/xbrl/companyfacts/
+    fetched: '2026-10-27'
+  tenk:
+    file: sources/NVR_FY2025_annual-report-10k_2026-02-11_en_a0.htm
+    kind: pdf
+rows:
+- field: revenue
+  source: xbrl
+  tag: Revenues
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 5159008000.0
+  - 5822544000.0
+  - 6305840000.0
+  - 7163674000.0
+  - 7388664000.0
+  - 7536923000.0
+  - 8951025000.0
+  - 10526434000.0
+  - 9518202000.0
+  - 10524479000.0
+  - 10323959000.0
+- field: operating_profit
+  source: xbrl
+  tag: 'E147: IncomeLossFromContinuingOperationsBeforeIncomeTaxesDomestic + InterestExpense'
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  values:
+  - 626771000.0
+  - 683404000.0
+  - 871096000.0
+  - 984813000.0
+  - 1051175000.0
+  - 1118905000.0
+  - 1643520000.0
+  - 2292718000.0
+  - 1956113000.0
+  - 2143289000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivities
+  years:
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 570354000.0
+  - 723126000.0
+  - 866535000.0
+  - 925269000.0
+  - 1242393000.0
+  - 1870101000.0
+  - 1497993000.0
+  - 1374462000.0
+  - 1121320000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivitiesContinuingOperations
+  years:
+  - 2015
+  - 2016
+  values:
+  - 226702000.0
+  - 392988000.0
+- field: capex
+  source: xbrl
+  tag: PaymentsToAcquirePropertyPlantAndEquipment
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 18277000.0
+  - 22369000.0
+  - 20269000.0
+  - 19665000.0
+  - 22699000.0
+  - 16119000.0
+  - 17875000.0
+  - 18428000.0
+  - 24877000.0
+  - 29212000.0
+  - 24508000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: 'searched: no acquisition element tagged (zero)'
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquity
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 1239165000.0
+  - 1304441000.0
+  - 1605492000.0
+  - 1808562000.0
+  - 2341244000.0
+  - 3103074000.0
+  - 3002378000.0
+  - 3506849000.0
+  - 4364725000.0
+  - 4210072000.0
+  - 3864869000.0
+- field: shares
+  source: xbrl
+  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 4255000.0
+  - 4104000.0
+  - 4240000.0
+  - 4092000.0
+  - 3973027.0
+  - 3916661.0
+  - 3858912.0
+  - 3508524.0
+  - 3435294.0
+  - 3319434.0
+  - 3069103.0
+  unit: whole
+- field: net_debt
+  source: xbrl
+  tag: 'derived: LongTermDebt (or its parts) + short-term borrowings - CashAndCashEquivalentsAtCarryingValue'
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  values:
+  - -450794000.0
+  - -416037000.0
+  - -689557000.0
+  - -732248000.0
+  - -1160804000.0
+  - -2809782000.0
+business:
+  text: NVR builds and sells single-family homes, townhomes and condos to homebuyers, mostly pre-sold, with mortgage and title services.
+  source: tenk
+  quote: Our primary business is the construction and sale of single-family detached homes, townhomes and condominium buildings, all of which are primarily constructed on a pre-sold basis.

@@ -113,6 +113,13 @@ def build_parser() -> argparse.ArgumentParser:
              "LISTING and not a tagged fact, so it is stated here or the "
              "intake refuses")
     xbrl_cmd.add_argument(
+        "--e140-fill", action="store_true",
+        help="E140 / E140.1: put `working_capital_change` and "
+             "`acquisitions_paid` into each fiscal year an EXISTING sec-xbrl "
+             "store holds, and its `roll_forward:` block (the latest 10-Q). "
+             "Nothing else in the file moves. Prints what it would write; "
+             "--write writes it, backing the old file up")
+    xbrl_cmd.add_argument(
         "--name", metavar="NAME", default=None,
         help="INTAKE only -- override the filer name. Left out, the SEC's "
              "own `entityName` is used, which is the filer's own")
@@ -431,6 +438,25 @@ def build_parser() -> argparse.ArgumentParser:
     strike_cmd.add_argument("--records-dir", metavar="PATH", default=None,
                             help="read and write run records elsewhere")
 
+    history_cmd = sub.add_parser(
+        "history",
+        help="the issuer's multi-year history (E143): build it from SEC "
+             "companyfacts (--xbrl), check every hand-read row against its "
+             "PDF (--check), or print what E142/E144/E145 derive from it")
+    history_cmd.add_argument("--ticker", metavar="X", required=True)
+    history_cmd.add_argument("--xbrl", action="store_true",
+                             help="build config/history/<TICKER>.yaml from "
+                                  "companyfacts (the entry's cik)")
+    history_cmd.add_argument("--write", action="store_true",
+                             help="with --xbrl: write the file (default: print)")
+    history_cmd.add_argument("--check", action="store_true",
+                             help="read back every hand-read row against its PDF")
+    history_cmd.add_argument("--dir", metavar="PATH", default=None,
+                             help="history directory (default config/history)")
+    history_cmd.add_argument("--cik", type=int, default=None,
+                             help="with --xbrl: the filer's CIK where the "
+                                  "watchlist entry carries none")
+
     review_cmd = sub.add_parser(
         "review",
         help="the review session's record: validate a "
@@ -734,6 +760,15 @@ def main(argv: list[str] | None = None) -> int:
             )
             print(report)
             return code
+        if args.command == "history":
+            from pathlib import Path as _Path
+            from .history import run_history
+            code, report = run_history(
+                ticker=args.ticker, xbrl=args.xbrl, write=args.write,
+                check_only=args.check, cik=args.cik,
+                directory=_Path(args.dir) if args.dir else None)
+            print(report)
+            return code
         if args.command == "strike":
             from datetime import date as _date
             from pathlib import Path as _Path
@@ -863,6 +898,24 @@ def main(argv: list[str] | None = None) -> int:
             return code
         if args.command == "xbrl":
             watchlist = overrides.get("watchlist_path", WATCHLIST_PATH)
+            if args.e140_fill:
+                from .config import load_watchlist
+                from .manual import MANUAL_DIR, load_manual
+                from .xbrl import fill_e140
+
+                directory = Path(args.manual_dir) if args.manual_dir else MANUAL_DIR
+                cik = args.cik or load_manual(args.ticker, directory=directory).cik
+                if cik is None:
+                    entry = next((e for e in load_watchlist(watchlist)
+                                  if e.ticker.upper() == args.ticker.upper()), None)
+                    cik = getattr(entry, "cik", None)
+                if cik is None:
+                    raise ConfigError(f"{args.ticker}: no cik on the store or the "
+                                      f"watchlist; pass --cik")
+                _, report = fill_e140(args.ticker.upper(), cik=int(cik),
+                                      manual_dir=directory, write=args.write)
+                print(report)
+                return 0
             if args.annual:
                 from .xbrl import ANNUAL_LIMIT, run_xbrl_annual
 

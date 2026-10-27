@@ -1,0 +1,602 @@
+########## ACN after 2026-08-31
+  10-K 2026-10-16: 19 sentences
+     - s focused on areas such as operational technology security (through our acquisition of Dragos), AI and decision intelligence (through our acquisition of Faculty), capital projects (through the launch of Accenture Construct), data centers (through our majority acquisition of DLB), education (through Accenture LearnVantage), data (through our acquisition of Ookla), health (through our acquisition of the digital health 
+     - Similarly, our reputation could be damaged by actions or statements of current or former clients, directors, employees, competitors, vendors, ecosystem partners, joint venture partners, adversaries in legal proceedings, legislators or government regulators, as well as members of the investment community or the media, including social media influencers and advocacy groups.
+     - The loss of key executives, employees or business partners of acquired businesses may adversely impact the value of those assets.
+     - In some cases, we have failed to, and may in the future fail to fully realize the expected benefits or strategic objectives of any acquisition, investment or joint venture we undertake.
+     - We may be adversely impacted by liabilities that we assume from a company we acquire or in which we invest, including from that company’s known and unknown obligations, IP or other assets, terminated employees, current or former clients or other third parties.
+     - In addition, we have a lesser degree of control over the business operations of the joint ventures and businesses in which we have made minority investments or in which we have acquired less than 100% of the equity.
+     - Litigation, indemnification claims and other unforeseen claims and liabilities may arise from the acquisition or operation of acquired businesses, including as a result of certain terms and conditions of the acquisition agreement, such as earnout payments or closing working capital adjustments.
+     - If we are unable to complete the number and kind of investments for which we plan, or if we are inefficient or unsuccessful at integrating acquired businesses into our operations, we may not be able to achieve our planned rates of growth or improve our market share, profitability or competitive position in specific markets or services.
+     - Divestitures could involve difficulties in the separation of operations, services, products and people, the diversion of management’s attention, the disruption of our business and the potential loss of key employees.
+     - Divestitures may also involve continued financial involvement in or liability with respect to the divested assets and businesses, such as indemnities or other financial obligations, in which the performance of the divested assets or businesses could impact our results of operations.
+     - Any divestiture we undertake could adversely affect our results of operations.
+     - 89 17,494,585 (1) Average price paid per share reflects the total cash outlay for the period, divided by the number of shares acquired, including those acquired by purchase or redemption for cash and any acquired by means of employee forfeiture.
+     - We provide information regarding our new bookings, which include new contracts, including those acquired through acquisitions, as well as renewals, extensions and changes to existing contracts, because we believe doing so provides useful trend information regarding changes in the volume of our new business over time.
+     - We may use our available or additional funds to, among other things: • facilitate purchases, redemptions and exchanges of shares and pay dividends; • acquire complementary businesses or technologies; • take advantage of opportunities, including more rapid expansion; • develop new solutions and services; or • repay outstanding borrowings and other debt.
+  8-K 2026-10-14 items 7.01,9.01
+  8-K 2026-10-01 items 2.02,9.01
+########## ALV after 2025-12-31
+  10-Q 2026-10-23: 2 sentences
+     - In addition, a number of the agreements entered into by the Company, including the agreements related to the spin-off of Veoneer, require Autoliv to indemnify the other parties for certain claims.
+     - (the "ARC Inflator Class Action") brought claims for fraud, breach of warranty, and violations of consumer protection and trade practices stemming from ARC inflators included in airbag modules that Autoliv or its subsidiaries allegedly supplied after Autoliv acquired certain Delphi assets (the “Delphi Acquisition”) in December 2009.
+  8-K 2026-10-23 items 2.02,7.01,9.01
+  10-Q 2026-07-17: 2 sentences
+     - In addition, a number of the agreements entered into by the Company, including the agreements related to the spin-off of Veoneer, require Autoliv to indemnify the other parties for certain claims.
+     - (the "ARC Inflator Class Action") brought claims for fraud, breach of warranty, and violations of consumer protection and trade practices stemming from ARC inflators included in airbag modules that Autoliv or its subsidiaries allegedly supplied after Autoliv acquired certain Delphi assets (the “Delphi Acquisition”) in December 2009.
+  8-K 2026-07-17 items 2.02,7.01,9.01
+  8-K 2026-06-30 items 5.02,9.01
+  8-K 2026-05-11 items 2.05,2.06,5.07,8.01,9.01
+  10-Q 2026-04-17: 3 sentences
+     - In addition, a number of the agreements entered into by the Company, including the agreements related to the spin-off of Veoneer, require Autoliv to indemnify the other parties for certain claims.
+     - (the "ARC Inflator Class Action") brought claims for fraud, breach of warranty, and violations of consumer protection and trade practices stemming from ARC inflators included in airbag modules that Autoliv or its subsidiaries allegedly supplied after Autoliv acquired certain Delphi assets (the “Delphi Acquisition”) in December 2009.
+     - The positive $15 million in 2025 related mainly to recycled accumulated currency translation differences related to the divestment of our idled operations in Russia while the negative $9 million in 2026 related mainly to restructuring costs in EMEA.
+  8-K 2026-04-17 items 2.02,7.01,9.01
+  8-K 2026-03-11 items 5.02,7.01,9.01
+  8-K 2026-02-20 items 5.02,9.01
+  10-K 2026-02-19: 18 sentences
+     - JSS is the result of the merger between Key Safety Systems (KSS) and Takata Corporation after KSS acquired Takata in 2018.
+     - The ever-evolving threats mean we and our third-party service providers and vendors must continually evaluate and adapt our respective systems and processes and overall security environment, as well as those of any companies we acquire.
+     - not be able to ensure that the pre-existing controls and procedures meant to prevent violations of these laws were effective, and violations may occur if we are unable to timely implement corrective and effective controls and procedures when integrating newly acquired businesses.
+     - We may not be able to successfully identify suitable acquisition and joint venture candidates or complete transactions on acceptable terms, integrate acquired operations into our existing operations or expand into new markets.
+     - In addition to our in-house research and development efforts, we seek to acquire rights to new intellectual property through corporate acquisitions, asset acquisitions, licensing and joint venture arrangements.
+     - As part of our business strategy, we may from time to time seek to acquire businesses or assets that provide us with additional intellectual property.
+     - We may experience problems integrating acquired technologies into our existing technologies and products, and such acquired intellectual property may be subject to known or contingent liabilities such as infringement claims.
+     - All of Autoliv’s production facilities and offices are owned or leased by operating (either subsidiary or joint venture) companies.
+     - dollar net sales on a comparable basis, allowing separate discussions of the impact of acquisitions/divestitures and exchange rates.
+     - The Company may also find itself subject, possibly due to changes in legislation or other regulation, to environmental liabilities based on the activities of its predecessor entities or of businesses acquired.
+     - The Company could also acquire companies where goodwill could turn out to be less resilient to deteriorations in external conditions.
+     - GOODWILL AND INTANGIBLE ASSETS Goodwill represents the excess of the fair value of consideration transferred over the fair value of net assets of businesses acquired.
+     - Other definite-lived intangible assets, principally related to acquired technology, are amortized over their useful lives which range from 3 to 25 years .
+     - December 31, AMORTIZABLE INTANGIBLES (Dollars in millions) 2025 2024 Gross carrying amount $ 401 $ 386 Accumulated amortization ( 393 ) ( 379 ) Carrying value $ 7 $ 7 At December 31, 2025, intangible assets subject to amortization mainly relate to acquired technology.
+  8-K 2026-01-30 items 2.02,7.01,9.01
+########## AOS after 2025-12-31
+  10-Q 2026-07-30: 20 sentences
+     - 4 ) Acquisition of business ( 470.
+     - 8 million in the three and six months ended June 30, 2026, respectively, related to the January 6, 2026 acquisition of Leonard Valve.
+     - Acquisitions 2026 Acquisition On January 6, 2026, the Company acquired 100 percent of the shares and related assets of LVC Holdco LLC (Leonard Valve) a leading manufacturer of water temperature and flow solutions.
+     - 0 million, net of cash acquired and subject to customary adjustments.
+     - Most of the combined purchase price for assets and operations acquired was recorded as intangibles and goodwill with the remaining portion allocated to identifiable assets acquired and liabilities assumed.
+     - " The following table summarizes the preliminary allocation of the fair value of the assets acquired and liabilities assumed at the date of acquisition.
+     - 3 Total assets acquired 476.
+     - 5 ) Net assets acquired $ 470.
+     - 8 million of acquired identifiable intangible assets, $ 39.
+     - The excess of the acquisition purchase price over the fair value assigned to the assets acquired and liabilities assumed was recorded as goodwill.
+     - 8 Acquired obligations 0.
+     - In January 2026, we acquired LVC Holdco LLC (Leonard Valve) for $470 million, subject to customary adjustments, and was funded with cash borrowed under a new term loan with a group of eight banks.
+     - Compared to the prior year quarter, our net sales decrease was primarily driven by lower sales in China due to continued weak consumer demand partially offset by the sales contribution from the acquisition of Leonard Valve, and the three percent organic growth in our North America business.
+     - Our net sales decrease in the first six months of 2026 was primarily driven by lower sales in China partially offset by the sales contribution from the acquisition of Leonard Valve, and the one percent organic growth in our North America business.
+  8-K 2026-07-30 items 2.02,9.01
+  8-K 2026-06-22 items 5.02,9.01
+  8-K 2026-05-19 items 5.02,9.01
+  10-Q 2026-04-30: 15 sentences
+     - 3 ) Acquisition of business ( 470.
+     - Acquisitions 2026 Acquisition On January 6, 2026, the Company acquired 100 percent of the shares and related assets of Leonard Valve a leading manufacturer of water temperature and flow solutions.
+     - 0 million, net of cash acquired and subject to customary adjustments.
+     - Most of the combined purchase price for assets and operations acquired was recorded as intangibles and goodwill with the remaining portion allocated to identifiable assets acquired and liabilities assumed.
+     - " The following table summarizes the preliminary allocation of the fair value of the assets acquired and liabilities assumed at the date of acquisition.
+     - 3 Total assets acquired 476.
+     - 5 ) Net assets acquired $ 470.
+     - 5 million of acquired identifiable intangible assets, $ 39.
+     - The excess of the acquisition purchase price over the fair value assigned to the assets acquired and liabilities assumed was recorded as goodwill.
+     - 4 Acquired obligations 0.
+     - In January 2026, we acquired LVC Holdco LLC (Leonard Valve) for $470 million, subject to customary adjustments, and was funded with cash borrowed under a new term loan with a group of eight banks.
+     - Lower sales volumes were partially offset by the favorable impact of pricing actions in 2025 as mentioned above, incremental sales of approximately $16 million from the 2026 acquisition of Leonard Valve, and a favorable foreign currency translation impact of approximately $11 million resulting from the appreciation of foreign currencies compared to the U.
+     - The increases in SG&A expenses in the first quarter of 2026 compared to the prior year period were primarily due to higher employee costs and transaction costs related to the acquisition of Leonard Valve.
+     - Compared to the prior year quarter, our net sales increase was primarily driven by the benefits of 2025 pricing actions and incremental sales of approximately $16 million from the 2026 acquisition of Leonard Valve largely offset by lower residential water heater volumes which were impacted by weather-related production and shipping constraints, particularly as a direct result of storm damage at the Company’s Ashland 
+  8-K 2026-04-30 items 2.02,9.01
+  8-K 2026-04-17 items 5.07,8.01
+  10-K 2026-02-10: 32 sentences
+     - In 2024, we expanded our product offerings and geographic footprint with the acquisition of Pureit, formerly a Unilever PLC business.
+     - Our ability to respond to these trends, timely transition our product portfolio, develop new and innovative products, and acquire and protect the necessary intellectual property rights is essential to our continued success, but cannot reasonably be assured.
+     - Further, a customer may be acquired by a customer of a competitor which could result in our loss of that customer.
+     - We may not be able to successfully integrate future acquired businesses or operate them profitably or accomplish our strategic objectives for those acquisitions.
+     - Our goodwill results from our acquisitions, representing the excess of the purchase prices we paid over the fair value of the net tangible and intangible assets we acquired.
+     - In November 2025, we announced that we signed a definitive agreement to acquire LVC Holdco LLC (Leonard Valve) for $470 million, subject to customary adjustments, and was funded with cash borrowed under a new term loan with a group of eight banks.
+     - On November 1, 2024, we acquired Pureit from Unilever for approximately $125 million, subject to customary adjustments.
+     - Additionally, the acquisition of Pureit in late 2024 contributed incremental sales of $54 million in 2025.
+     - Our net sales decrease in 2024 was due to lower volumes of our residential water treatment and water heater products in China that were partially offset by incremental sales of approximately $53 million related to our 2024 acquisition of Pureit.
+     - On January 6, 2026, we completed the acquisition of Leonard Valve for $470 million.
+     - 8 ) Acquired obligations 1.
+     - Acquisitions 2024 Acquisitions During the fourth quarter of 2024, the Company acquired Pureit, a residential water purification business in South Asia, from Unilever for an aggregate purchase price of $ 124.
+     - The acquired company is included in the Rest of World segment.
+     - The following table summarizes the final allocation of the fair value of the assets acquired and liabilities assumed at the date of acquisition.
+  8-K 2026-01-29 items 2.02,9.01
+  8-K 2026-01-06 items 2.03,8.01,9.01
+########## CENTA after 2025-09-27
+  8-K 2026-09-22 items 5.02
+  10-Q 2026-08-06: 42 sentences
+     - Acquisitions and Divestitures Acquisitions On December 12, 2025, the Company acquired the U.
+     - The Company has not yet finalized the allocation of the purchase price to the fair value of the tangible and intangible assets acquired.
+     - Divestitures On April 13, 2026, the Company completed the sale of substantially all of the assets and operations, excluding accounts receivable, comprising its Pet Distribution business to Phillips Pet Food & Supplies ("Phillips"), a leading national distributor of pet products.
+     - The Company divested net assets of $ 57 million, including inventory of $ 69 million and recognized a pre-tax gain of $ 2.
+     - The divestiture does not meet the criteria for discontinued operations presentation under ASC 205-20, as it does not represent a strategic shift having a major effect on the Company's operations and financial results.
+     - In connection with the divestiture of the Pet Distribution business, the Company entered into a Transition Services Agreement ("TSA") with Phillips, pursuant to which the Company provides certain transitional services following the closing of the transaction.
+     - See Note 3, Acquisitions and Divestitures , for additional information.
+     - Other Intangible Assets The following table summarizes the components of gross and net acquired intangible assets: Gross Accumulated Amortization Accumulated Impairment Net Carrying Value (in millions) June 27, 2026 Marketing-related intangible assets – amortizable $ 26.
+     - 7 Other acquired intangible assets – amortizable 40.
+     - 5 Other acquired intangible assets – nonamortizable 7.
+     - 0 Other acquired intangible assets – amortizable 41.
+     - 0 Other acquired intangible assets – nonamortizable 7.
+     - 9 Other acquired intangible assets – amortizable 41.
+     - 8 Other acquired intangible assets – nonamortizable 7.
+  8-K 2026-08-05 items 2.02,9.01
+  8-K 2026-07-27 items 8.01,9.01
+  10-Q 2026-05-07: 14 sentences
+     - Acquisitions On December 12, 2025, the Company acquired the U.
+     - The Company has not yet finalized the allocation of the purchase price to the fair value of the tangible and intangible assets acquired.
+     - Other Intangible Assets The following table summarizes the components of gross and net acquired intangible assets: Gross Accumulated Amortization Accumulated Impairment Net Carrying Value (in millions) March 28, 2026 Marketing-related intangible assets – amortizable $ 26.
+     - 8 Other acquired intangible assets – amortizable 41.
+     - 4 Other acquired intangible assets – nonamortizable 7.
+     - 2 Other acquired intangible assets – amortizable 41.
+     - 3 Other acquired intangible assets – nonamortizable 7.
+     - 9 Other acquired intangible assets – amortizable 41.
+     - 8 Other acquired intangible assets – nonamortizable 7.
+     - 6 Other acquired intangible assets include contract-based and technology-based intangible assets.
+     - s its acquired intangible assets with definite lives over periods ranging from five years to 25 years, over weighted average remaining lives of eight years for marketing-related intangibles, ten years for customer-related intangibles and seven years for other acquired intangibles.
+     - Estimated annual amortization expense related to acquired intangible assets in each of the succeeding five years is estimated to be approximately $ 24 million per year from fiscal 2026 through fiscal 2028 and $ 22 million per year from fiscal 2029 through fiscal 2030.
+     - Pet Distribution Divestiture On April 13, 2026, we entered into a strategic partnership with Phillips Pet Food & Supplies, a leading national distributor of pet products, to form a new pet distribution business.
+     - As part of our growth strategy, we have acquired a number of companies in the past, and we anticipate that we will continue to evaluate potential acquisition candidates in the future.
+  8-K 2026-05-06 items 2.02,9.01
+  8-K 2026-02-18 items 5.02,5.07,8.01,9.01
+  10-Q 2026-02-05: 14 sentences
+     - Acquisitions On December 12, 2025, the Company acquired the U.
+     - The Company has not yet finalized the allocation of the purchase price to the fair value of the tangible and intangible assets acquired.
+     - Other Intangible Assets The following table summarizes the components of gross and net acquired intangible assets: Gross Accumulated Amortization Accumulated Impairment Net Carrying Value (in millions) December 27, 2025 Marketing-related intangible assets – amortizable $ 26.
+     - 8 Other acquired intangible assets – amortizable 41.
+     - 5 Other acquired intangible assets – nonamortizable 7.
+     - 4 Other acquired intangible assets – amortizable 39.
+     - 3 Other acquired intangible assets – nonamortizable 7.
+     - 9 Other acquired intangible assets – amortizable 41.
+     - 8 Other acquired intangible assets – nonamortizable 7.
+     - 6 Other acquired intangible assets include contract-based and technology-based intangible assets.
+     - s its acquired intangible assets with definite lives over periods ranging from five years to 25 years, over weighted average remaining lives of eight years for marketing-related intangibles, ten years for customer-related intangibles and seven years for other acquired intangibles.
+     - Estimated annual amortization expense related to acquired intangible assets in each of the succeeding five years is estimated to be approximately $ 24 million per year from fiscal 2026 through fiscal 2028 and $ 22 million per year from fiscal 2029 through fiscal 2030.
+     - 20 Acquisitions In December 2025, we acquired the U.
+     - As part of our growth strategy, we have acquired a number of companies in the past, and we anticipate that we will continue to evaluate potential acquisition candidates in the future.
+  8-K 2026-02-04 items 2.02,9.01
+  10-K 2025-11-26: 37 sentences
+     - Recent examples include our fiscal 2023 acquisition of TDBBS, LLC ("TDBBS"), a leader in the attractive pet treat segment with robust eCommerce capabilities.
+     - For example, in fiscal 2023 we divested our low-margin distribution business servicing the independent garden channel.
+     - uring facilities, merged our outdoor cushion business with our pet bed business to leverage synergies in sourcing, manufacturing and innovation, consolidated legacy garden distribution locations into modern fulfillment centers, exited our pottery business and sold our U.
+     - Most recently, in November 2023, we acquired TDBBS, a provider of premium natural dog chews and treats, expanding our presence in bully and collagen sticks, bones and jerky, and enhancing our eCommerce and digital capabilities.
+     - It also supports rapid product launches, giving immediate visibility to new and acquired brands.
+     - sales and distribution network supports almost 10,000 retailer locations and over 5,600 veterinary offices, with services ranging from shelf placement and replenishment, to tailored retailer programs, product launches and exposure for acquired brands.
+     - continually develop innovative new products that appeal to consumers; • implement effective marketing and sales promotion programs; • maintain strict quality standards; • deliver products on a reliable basis at competitive prices; and • effectively integrate acquired businesses.
+     - If the balance of the implementation is not executed successfully, we could experience business interruptions or material weaknesses relating to IT controls of acquired companies.
+     - With our extensive acquisition history, we have acquired a number of manufacturing and distribution facilities, and most of these facilities have not been subjected to Phase II environmental tests to determine whether they are contaminated.
+     - logies, products and personnel of acquired companies; • initial dependence on unfamiliar supply chains or relatively small supply partners; • the potential loss of key employees, customers, distributors, vendors and other business partners of the companies we acquire after the acquisition; • the high cost and expenses of identifying, negotiating and completing acquisitions; and • risks associated with unanticipated e
+     - We cannot assure you that we will be able to identify, acquire or manage profitably additional businesses or to integrate successfully any acquired businesses into our existing business without substantial costs, delays or other operational or financial difficulties.
+     - The decrease in cash used in investing activities was due primarily to our acquisition of TDBBS, LLC in fiscal 2024.
+     - As part of our growth strategy, we have acquired a large number of businesses in the past, and we anticipate that we will continue to evaluate potential acquisition candidates in the future.
+     - (4) Possible performance-based payments associated with prior acquisitions of businesses are not included in the above table, because they are based on future performance of the businesses acquired, which is not yet known.
+  8-K 2025-11-24 items 2.02,9.01
+  8-K 2025-11-12 items 1.01,2.03,9.01
+########## CPRT after 2026-07-31
+  8-K 2026-10-16 items 5.02,9.01
+  8-K 2026-10-16 items 2.01,7.01,9.01
+  10-K 2026-09-29: 37 sentences
+     - We intend to pursue these strategies through both organic growth, primarily within our core insurance business, and inorganically through the development or acquisition of complementary businesses and facilities.
+     - We may pursue this growth through the development or acquisition of facilities, entry into new markets, expansion of existing operations, and the establishment of additional relationships with global, national, and regional insurance companies.
+     - For example, we entered into an Agreement and Plan of Merger (the “Merger Agreement”) with ACV Auctions Inc.
+     - , a Delaware corporation and our wholly owned subsidiary (“Merger Sub”) to acquire all of ACV’s outstanding shares of common stock for $10.
+     - Proven Ability to Acquire and Integrate Acquisitions We have a proven track record of successfully acquiring and integrating facilities and companies.
+     - We typically retain existing employees at acquired facilities in order to retain knowledge about, and respond to, the local market.
+     - Against these other vehicle remarketers, we face competition for long-term contractual commitments and various supply agreements with sellers, in addition to competition for the acquisition of vehicle storage facilities.
+     - In some cases, we may acquire land with existing environmental issues, including landfills as an example.
+     - We could incur substantial expenditures for preventative, investigative, or remedial action and could be exposed to liability arising from our operations, contamination by previous users of certain of our acquired facilities or facilities which we may acquire in the future, or the disposal of our waste at off-site locations.
+     - In addition to conducting environmental diligence on new site acquisitions, we also take such appropriate actions as may be necessary to avoid liability for activities of prior owners, and we have from time to time acquired insurance with respect to acquired facilities with known environmental risks.
+     - In addition to acquiring insurance in connection with certain acquisitions, we have also obtained indemnification for pre-existing environmental liabilities from many of the persons and entities from whom we have acquired facilities, but there can be no assurance that such indemnifications will be available or sufficient.
+     - In addition to the regulation of sales and acquisitions of vehicles, we are also subject to various local zoning requirements with regard to the location of our storage facilities, which generally make it more challenging and expensive to identify, acquire and develop new facilities.
+     - Any failure to successfully integrate businesses acquired or operational capabilities established outside the U.
+     - , Brazil, Germany, and Spain in fiscal 2013, expansions into Bahrain and Oman in fiscal 2015, expansion into the Republic of Ireland and India in fiscal 2016, an acquisition in Finland in fiscal 2018, and an acquisition of a parts recycler in the U.
+  8-K 2026-09-10 items 1.01,7.01,9.01
+  8-K 2026-09-10 items 2.02,9.01
+  8-K 2026-08-18 items 5.02,7.01,9.01
+########## CROX after 2025-12-31
+  10-Q 2026-07-30: 1 sentences
+     - The repurchase authorization does not have an expiration date and does not oblige us to acquire any particular amount of our common stock.
+  8-K 2026-07-30 items 2.02,8.01,9.01
+  8-K 2026-06-10 items 5.02,5.07,9.01
+  10-Q 2026-04-30: 0 sentences
+  8-K 2026-04-30 items 2.02,9.01
+  10-K 2026-02-12: 6 sentences
+     - The resulting effect on general economic conditions and on our business as a result of increases in prices for goods we import or our suppliers and vendors purchase to produce these items that we acquire through our supply chain are uncertain and depend on various factors, such as negotiations between the U.
+     - Governmental actions, investigations, or restrictions targeting specific platforms or their parent companies, including potential bans, limitations on app store availability, forced divestitures, or heightened data‑privacy and content‑moderation requirements, could impair or eliminate our access to certain platforms, reduce user engagement, or necessitate costly changes to our operations and technology.
+     - The failure of any significant investment to provide the returns or profitability we expect, or implementation issues, or the failure to integrate newly acquired businesses could have a material adverse effect on our financial results and divert management attention from more profitable business operations.
+     - We acquired HEYDUDE in 2022.
+     - The repurchase authorization does not have an expiration date and does not oblige us to acquire any particular amount of our common stock.
+     - The repurchase authorization does not have an expiration date and does not obligate us to acquire any amount of our common stock.
+  8-K 2026-02-12 items 2.02,9.01
+########## CTSH after 2025-12-31
+  8-K 2026-10-06 items 1.01,2.03,9.01
+  10-Q 2026-07-29: 7 sentences
+     - Note 3 — Business Combinations On January 1, 2026, pursuant to a purchase agreement, we acquired 100 % ownership in 3Cloud, one of the largest independent Microsoft Azure services providers and a global leader in Azure-dedicated AI enablement solutions and products.
+     - Cognizant Technology Solutions 13 June 30, 2026 Form 10-Q Table of Contents On June 22, 2026, pursuant to a purchase agreement, we acquired 100 % ownership in Astreya Partners, Inc.
+     - Goodwill from our acquisition of 3Cloud and Astreya have been allocated across all of our reportable segments.
+     - The primary items that generated goodwill are the acquired assembled workforce and synergies between the acquired companies and us, neither of which qualify as identifiable intangible assets.
+     - This approach calculates the fair value of such liabilities based on the probability-weighted expected performance of the acquired entity against the target performance metric, discounted to present value when appropriate.
+     - Specifically, segment operating profit now includes the allocation of corporate costs, which were previously included in "unallocated costs", including amortization expense related to acquired intangible assets.
+     - Additionally, we completed our acquisition of Astreya for a purchase price of $63 4 million, including contingent consideration of $25 million, net of cash acquired, while borrowing $1,000 million under our revolving credit facility.
+  8-K 2026-07-29 items 2.02,7.01,9.01
+  8-K 2026-07-10 items 7.01,9.01
+  8-K 2026-06-03 items 5.07
+  8-K 2026-05-21 items 2.03
+  8-K 2026-05-18 items 7.01,9.01
+  10-Q 2026-04-29: 6 sentences
+     - Note 3 — Business Combinations On January 1, 2026, pursuant to a purchase agreement, we acquired 100 % ownership in 3Cloud, one of the largest independent Microsoft Azure services providers and a global leader in Azure-dedicated AI enablement solutions and products.
+     - 0 year Other current liabilities ( 25 ) Deferred income tax liabilities, net ( 3 ) Purchase price $ 728 Goodwill from our acquisition of 3Cloud has been allocated across all of our reportable segments.
+     - The primary items that generated goodwill are the acquired assembled workforce and synergies between the acquired companies and us, neither of which qualify as identifiable intangible assets.
+     - Specifically, segment operating profit now includes the allocation of corporate costs, which were previously included in "unallocated costs", including amortization expense related to acquired intangible assets.
+     - Acquisition On April 25, 2026, we entered into a definitive agreement to acquire Astreya Partners, Inc.
+     - y Solutions 33 March 31, 2026 Form 10-Q Table of Contents Investing activities The increase in cash used in investing activities for the three months ended March 31, 2026, as compared to the three months ended March 31, 2025, was driven by the payment for the acquisition of 3Cloud in 2026 and the gain on sale of property and equipment in 2025.
+  8-K 2026-04-29 items 2.02,7.01,9.01
+  8-K 2026-02-26 items 5.02
+  10-K 2026-02-12: 26 sentences
+     - We face challenges related to growing our business organically as well as inorganically through acquisitions, and we may not be able to achieve our targeted growth rates or successfully acquire, invest in or integrate businesses.
+     - If we are unable to manage our growth effectively, complete acquisitions of the number, magnitude and nature we have targeted, or successfully integrate any acquired businesses into our operations, we may not be able to achieve our targeted growth rates or improve our market share, profitability or competitive position generally or in specific markets or services.
+     - Our acquisition of Belcan contributed 260 basis points to revenue growth.
+     - Additionally, revenues were positively impacted by growth in our Health Sciences and Financial Services segments, partially offset by weakness in our Products and Resources (excluding the acquisition of Belcan) and Communications Media and Technology segments.
+     - Margins were positively impacted by net savings generated from our NextGen program, operational efficiencies and the beneficial impact of foreign currency exchange rate movements, partially offset by increased compensation costs and the dilutive impact of the acquisition of Belcan.
+     - The increase, as a percentage of revenues, was driven by increased compensation costs, the dilutive impact of the acquisition of Belcan and resales of third-party products in connection with our integrated offerings strategy, partially offset by operational efficiencies and the beneficial impact of foreign currency exchange rate movements.
+     - The increase in amortization expense, driven by intangible assets related to our acquisition of Belcan, was partially offset by the decline of depreciation expense, which was driven by actions taken under our NextGen program.
+     - ng Margin 4 was primarily driven by net savings generated from our NextGen program, operational efficiencies and the beneficial impact of foreign currency exchange rate movements, partially offset by increased compensation costs and the dilutive impact of the acquisition of Belcan.
+     - Higher interest expense during 2024 was driven by the borrowing of $600 million under our revolving credit facility to partially fund the acquisition of Belcan during the third quarter of 2024.
+     - Financing activities The increase in cash used in financing activities in 2025 compared to 2024 was primarily driven by increased repurchases of common stock during 2025 and the borrowing under the revolving credit facility to finance the acquisition of Belcan in 2024.
+     - We account for business combinations using the acquisition method which requires us to estimate the fair value of identifiable assets acquired, liabilities assumed, including any contingent consideration, and any noncontrolling interest in the acquiree to properly allocate purchase price to the individual assets acquired and liabilities assumed.
+     - Deposits paid towards acquisition of long-lived assets and the cost of assets not put in use by the balance sheet date are disclosed under the caption "Capital work-in-progress" in Note 5 .
+     - r business combinations using the acquisition method, which requires the identification of the acquirer, the determination of the acquisition date and the allocation of the purchase price paid by the acquirer to the identifiable tangible and intangible assets acquired, the liabilities assumed, including any contingent consideration and any noncontrolling interest in the acquiree at their acquisition date fair values.
+     - Goodwill represents the excess of the purchase price over the fair value of net assets acquired, including the amount assigned to identifiable intangible assets.
+  8-K 2026-02-04 items 2.02,7.01,9.01
+########## DECK after 2026-03-31
+  8-K 2026-10-22 items 2.02,5.02,7.01,9.01
+  8-K 2026-09-15 items 5.07
+  8-K 2026-08-31 items 1.01,2.03,9.01
+  10-Q 2026-07-30: 3 sentences
+     - The stock repurchase program does not obligate the Company to acquire any amount of common stock and may be suspended at any time at the Company’s discretion.
+     - Our stock repurchase program does not obligate us to acquire any amount of common stock and may be suspended at any time at our discretion.
+     - Our stock repurchase program does no t obligate us to acquire any amount of common stock and may be suspended at any time at our discretion .
+  8-K 2026-07-23 items 2.02
+  10-K 2026-05-22: 11 sentences
+     - As part of our overall strategy, we may periodically consider strategic acquisitions to expand our brands into complementary product categories and markets, or to acquire new brands, technologies, intellectual property, or other assets.
+     - Table of Contents 20 Additionally, we may not be able to successfully integrate acquired businesses into our operations or achieve the expected benefits of such acquisitions.
+     - We may also face cannibalization of existing product sales by newly acquired products unless we successfully differentiate target consumers and increase our overall market share.
+     - Further, during fiscal year 2025 , we completed the sale of the Sanuk brand.
+     - The process of completing any acquisitions or divestitures may be time-consuming, involve significant costs and expenses, and the expected benefits of such acquisitions or divestitures may not be realized.
+     - Our stock repurchase program does not obligate us to acquire any amount of common stock and may be suspended at any time at our discretion.
+     - We believe demand for UGG brand products will continue to be driven by the following: • Successful acquisition of a diverse global consumer base, and focusing on key markets, through strategic marketing activations and collaborations that resonate with a fashionable consumer.
+     - • The Company completed the sale of the Sanuk brand during the second quarter of fiscal year 2025 .
+     - Goodwill represents the excess of the purchase price over the estimated fair value of net assets acquired in a business combination.
+     - The Company defers recognition of revenue for unredeemed loyalty awards acquired through qualifying purchases until the earlier of actual or estimated redemption or expiration.
+     - The stock repurchase program does not obligate the Company to acquire any amount of common stock and may be suspended at any time at the Company’s discretion.
+  8-K 2026-05-21 items 2.02,9.01
+########## GDDY after 2025-12-31
+  8-K 2026-08-04 items 1.01,2.03,9.01
+  10-Q 2026-07-31: 10 sentences
+     - Depreciation and amortization Depreciation and amortization expenses consist of charges relating to the depreciation of the property and equipment used in our operations and the amortization of acquired intangible assets.
+     - • Acquisitions and other strategic transactions, including investments or entries into new businesses, joint ventures, divestitures or other transactions, could require significant management attention, disrupt our business, dilute stockholder value and adversely affect our operating results.
+     - 34 Table of Contents • We rely on our marketing efforts and channels to maintain awareness of our brand and acquire new customers.
+     - Acquisitions and other strategic transactions, including investments or entries into new businesses, joint ventures, divestitures or other transactions, could require significant management attention, disrupt our business, dilute stockholder value and adversely affect our operating results.
+     - We rely on our marketing efforts and channels to maintain awareness of our brand and acquire new customers.
+     - , email backup and migration services provided by SkyKick (acquired by ConnectWise, LLC) and email archiving services provided by Barracuda Networks, Inc.
+     - Third parties may make infringement and similar or related claims after we have acquired or licensed technology that had not been asserted prior to our acquisition or license.
+     - Although we screen the domain names we acquire to mitigate the risk of third-party infringement claims, we, or our resellers, may inadvertently register or acquire domains that infringe or allegedly infringe third-party rights.
+     - Provisions of our charter and bylaws and Delaware law could make it more difficult for a third party to control or acquire us, even if doing so would be beneficial to our stockholders.
+     - We have also recently acquired, and may acquire in the future, companies that were not previously subject to Sarbanes-Oxley Act regulations and accordingly were not required to establish and maintain an internal control infrastructure compliant with the Sarbanes-Oxley Act.
+  8-K 2026-07-30 items 2.02,9.01
+  8-K 2026-06-05 items 5.02,5.07,9.01
+  10-Q 2026-05-01: 10 sentences
+     - Depreciation and amortization Depreciation and amortization expenses consist of charges relating to the depreciation of the property and equipment used in our operations and the amortization of acquired intangible assets.
+     - • Acquisitions and other strategic transactions, including investments or entries into new businesses, joint ventures, divestitures or other transactions, could require significant management attention, disrupt our business, dilute stockholder value and adversely affect our operating results.
+     - 34 Table of Contents • We rely on our marketing efforts and channels to maintain awareness of our brand and acquire new customers.
+     - Acquisitions and other strategic transactions, including investments or entries into new businesses, joint ventures, divestitures or other transactions, could require significant management attention, disrupt our business, dilute stockholder value and adversely affect our operating results.
+     - We rely on our marketing efforts and channels to maintain awareness of our brand and acquire new customers.
+     - , email backup and migration services provided by SkyKick (acquired by ConnectWise, LLC) and email archiving services provided by Barracuda Networks, Inc.
+     - Third parties may make infringement and similar or related claims after we have acquired or licensed technology that had not been asserted prior to our acquisition or license.
+     - Although we screen the domain names we acquire to mitigate the risk of third-party infringement claims, we, or our resellers, may inadvertently register or acquire domains that infringe or allegedly infringe third-party rights.
+     - Provisions of our charter and bylaws and Delaware law could make it more difficult for a third party to control or acquire us, even if doing so would be beneficial to our stockholders.
+     - We have also recently acquired, and may acquire in the future, companies that were not previously subject to Sarbanes-Oxley Act regulations and accordingly were not required to establish and maintain an internal control infrastructure compliant with the Sarbanes-Oxley Act.
+  8-K 2026-04-30 items 2.02,9.01
+  10-K 2026-02-25: 15 sentences
+     - We offer a range of marketing tools and services designed to help businesses acquire and engage customers and create content.
+     - In each of the five years ended December 31, 2025, our customer retention rate was approximately 85%, with the exception of the year ended December 31, 2024 when the retention rate was approximately 84% due to divestitures, migrations and end of life of certain products as part of our efforts to streamline brands outside of the GoDaddy platform.
+     - Our marketing efforts include metric-driven direct response marketing to acquire new customers and sell additional products and services to existing customers.
+     - • Acquisitions and other strategic transactions, including investments or entries into new businesses, joint ventures, divestitures or other transactions, could require significant management attention, disrupt our business, dilute stockholder value and adversely affect our operating results.
+     - • We rely on our marketing efforts and channels to maintain awareness of our brand and acquire new customers.
+     - 29 Table of Contents Acquisitions and other strategic transactions, including investments or entries into new businesses, joint ventures, divestitures or other transactions, could require significant management attention, disrupt our business, dilute stockholder value and adversely affect our operating results.
+     - We rely on our marketing efforts and channels to maintain awareness of our brand and acquire new customers.
+     - Third parties may make infringement and similar or related claims after we have acquired or licensed technology that had not been asserted prior to our acquisition or license.
+     - Although we screen the domain names we acquire to mitigate the risk of third-party infringement claims, we, or our resellers, may inadvertently register or acquire domains that infringe or allegedly infringe third-party rights.
+     - Provisions of our charter and bylaws and Delaware law could make it more difficult for a third party to control or acquire us, even if doing so would be beneficial to our stockholders.
+     - We have also recently acquired, and may acquire in the future, companies that were not previously subject to Sarbanes-Oxley Act regulations and accordingly were not required to establish and maintain an internal control infrastructure compliant with the Sarbanes-Oxley Act.
+     - For example, in 2017, we acquired approximately 5.
+     - Depreciation and amortization Depreciation and amortization expenses consist of charges relating to the depreciation of the property and equipment used in our operations and the amortization of acquired intangible assets.
+     - Estimates are used for, but not limited to, revenue recognition , valuation of acquired indefinite-lived intangibles and income taxes.
+  8-K 2026-02-24 items 2.02,9.01
+########## HRB after 2026-06-30
+  8-K 2026-08-14 items 5.02
+  10-K 2026-08-14: 13 sentences
+     - In addition, our small business solutions face intense competition, and we may be unsuccessful in competing with other providers, which may diminish our revenue and profitability, and harm our ability to acquire and retain clients.
+     - factors, including an inability to identify sufficient suitable acquisition candidates, an unwillingness of businesses to sell to us, an inability to generate the funds necessary to fully execute desired acquisitions, or an inability to successfully integrate acquired businesses into our business model and operate them effectively.
+     - These competitive factors may diminish our revenue and profitability, or harm our ability to acquire and retain clients, resulting in a material adverse effect on our business and our consolidated financial position, results of operations, and cash flows.
+     - Our intellectual property could be wrongfully acquired as a result of a cyberattack, other wrongful conduct by employees or third parties, or human error.
+     - We use our sources of liquidity primarily to fund working capital, service and repay debt, pay dividends, repurchase shares of our common stock, and acquire businesses.
+     - In addition to our capital expenditures, we also made payments to acquire businesses.
+     - We acquired franchise and competitor businesses totaling $57.
+     - ) $ ( 654,325 ) $ 32,064 Net income — — — — 595,317 — — 595,317 Other comprehensive loss — — — ( 11,746 ) — — — ( 11,746 ) Stock-based compensation — — 30,733 — — — — 30,733 Stock-based awards exercised or vested — — ( 33,794 ) — ( 3,703 ) 2,305 46,267 8,770 Acquisition of treasury shares (2) — — — — — ( 844 ) ( 29,449 ) ( 29,449 ) Repurchase and retirement of common shares ( 8,020 ) ( 80 ) ( 4,732 ) — ( 348,808 ) — 
+     - ( 31,325 ) $ ( 637,507 ) $ 90,594 Net income — — — — 605,773 — — 605,773 Other comprehensive income — — — 1,090 — — — 1,090 Stock-based compensation — — 31,132 — — — — 31,132 Stock-based awards exercised or vested — — ( 22,788 ) — ( 3,377 ) 1,492 30,490 4,325 Acquisition of treasury shares (2) — — — — — ( 587 ) ( 37,035 ) ( 37,035 ) Repurchase and retirement of common shares ( 6,549 ) ( 65 ) ( 3,929 ) — ( 400,104 ) —
+     - $ ( 644,052 ) $ 88,896 Net income — — — — 733,596 — — 733,596 Other comprehensive income — — — ( 16,333 ) — — — ( 16,333 ) Stock-based compensation — — 30,402 — — — — 30,402 Stock-based awards exercised or vested — — ( 6,821 ) — ( 2,521 ) 1,015 21,598 12,256 Acquisition of treasury shares (2) — — — — — ( 252 ) ( 12,653 ) ( 12,653 ) Repurchase and retirement of common shares ( 10,535 ) ( 106 ) ( 6,216 ) — ( 498,930 ) 
+     - GOODWILL AND INTANGIBLE ASSETS – Goodwill represents costs in excess of fair values assigned to the underlying net assets of acquired businesses.
+     - We made payments to acquire businesses totaling $ 57.
+     - Liabilities related to acquisitions for (1) estimated contingent consideration based on expected financial performance of the acquired business and economic conditions at the time of acquisition and (2) estimated accrued compensation related to continued employment of key employees were $ 26.
+  8-K 2026-08-11 items 2.02,7.01,9.01
+########## LII after 2025-12-31
+  8-K 2026-09-18 items 5.02,9.01
+  10-Q 2026-07-29: 11 sentences
+     - 6 ) Changes in assets and liabilities, net of effects of acquisitions and divestitures: Accounts and notes receivable ( 345.
+     - Prior Year Acquisitions: Duro Dyne and Supco In October 2025, we completed the acquisition of Duro Dyne and Supco, a robust portfolio of HVAC parts and supplies that complement our existing residential and commercial offerings.
+     - Under the terms of the purchase agreement, a final working capital adjustment was completed in the first quarter of 2026.
+     - The following table details the purchase price adjustments that were made during the first quarter of 2026 (in millions) : December 31, 2025 Adjustment June 30, 2026 Net tangible assets acquired $ 39.
+     - 9 Intangible assets acquired (1) 235.
+     - 6 (1) The intangible assets acquired were estimated using the income approach through a discounted cash flow analysis.
+     - The Company has substantially completed the purchase price allocation for the acquisition of Duro Dyne and Supco.
+     - Subsequent Events: Acquisition – Heat Controller On July 13, 2026, the Company completed the previously announced acquisition of Dusk Acquisition II Corporation and its subsidiaries Heat Controller, LLC and Aitons Equipment ULC (collectively, "Heat Controller").
+     - Selling, general and administrative expenses ("SG&A") increased $10 million to $183 million in the second quarter of 2026 as compared to $173 million in the same period in 2025, primarily attributable to higher discretionary and employee-related costs and the acquisition of Duro Dyne and Supco in the fourth quarter of 2025.
+     - ing, General and Administrative Expenses SG&A increased $24 million to $368 million for the six months ended June 30, 2026 as compared to $345 million in the same period in 2025 primarily attributable to higher discretionary and employee-related costs and the acquisition of Duro Dyne and Supco in the fourth quarter of 2025.
+     - In July 2026, we acquired Heat Controller for approximately $205 million.
+  8-K 2026-07-29 items 2.02,9.01
+  8-K 2026-05-28 items 5.02,5.07
+  10-Q 2026-04-29: 8 sentences
+     - 3 ) Changes in assets and liabilities, net of effects of acquisitions and divestitures: Accounts and notes receivable ( 73.
+     - Prior Year Acquisition: In October 2025, we completed the acquisition of Duro Dyne and Supco, a robust portfolio of HVAC parts and supplies that complement our existing residential and commercial offerings.
+     - Under the terms of the purchase agreement, a final working capital adjustment was completed in the first quarter of 2026.
+     - The following table details the purchase price adjustments that were made during the first quarter of 2026 (in millions) : December 31, 2025 Adjustment March 31, 2026 Net tangible assets acquired $ 39.
+     - 9 Intangible assets acquired (1) 235.
+     - 6 (1) The intangible assets acquired were estimated using the income approach through a discounted cash flow analysis.
+     - The Company has substantially completed the purchase price allocation for the acquisition of Duro Dyne and Supco.
+     - Selling, general and administrative expenses ("SG&A") increased $14 million to $185 million in the first quarter of 2026 as compared to $171 million in the same period in 2025, primarily attributable to higher discretionary and employee-related costs and the acquisition of Duro Dyne and Supco in the fourth quarter of 2025.
+  8-K 2026-04-29 items 2.02,9.01
+  10-K 2026-02-17: 41 sentences
+     - In October 2023, we completed the acquisition of AES Industries, Inc.
+     - In addition, we own a 50% interest in a joint venture in Mexico that produces unit coolers, air-cooled condensers, condensing units, compressors and compressorized racks of the same design and quality as those manufactured by our U.
+     - This joint venture product line is complemented with imports from the U.
+     - , which are sold through the joint venture’s distribution network.
+     - Duro Dyne and Supco In October 2025, we completed the acquisition of the Duro Dyne Buyer, Inc.
+     - 9% interest in a joint venture with Ariston Group that will manufacture and distribute water heaters through Lennox Stores and our direct-to-dealer network.
+     - 9% interest in a joint venture with Samsung that distributes Samsung ductless AC and heat pump products in the U.
+     - In the fourth quarter of 2023, we successfully completed the divestiture of our European operations.
+     - We own a minority equity interest in a joint venture that manufactures compressors for our residential and commercial heating and cooling and refrigeration businesses to help provide the necessary supply to meet customer needs.
+     - We May Not be Able to Successfully Integrate and Operate Businesses that We May Acquire nor Realize the Anticipated Benefits of Strategic Relationships We May Form.
+     - For example, in 2025, we completed the acquisition of Duro Dyne and Supco.
+     - In the fourth quarter of 2023, we completed the sale of our European businesses.
+     - The European businesses were presented with the Corporate and Other business segment until their divestiture.
+     - 20 In October 2025, we completed the acquisition of Duro Dyne and Supco, a robust portfolio of HVAC parts and supplies that complement our existing residential and commercial offerings.
+  8-K 2026-01-28 items 2.02,9.01
+########## LOPE after 2025-12-31
+  8-K 2026-10-01 items 1.01,2.03,9.01
+  8-K 2026-08-24 items 5.02
+  10-Q 2026-07-30: 3 sentences
+     - Arrangements with GCU On July 1, 2018, the Company consummated an Asset Purchase Agreement (the “Asset Purchase Agreement”) with GCU.
+     - Goodwill and Amortizable Intangible Assets Goodwill represents the excess of the purchase price of an acquired business over the amount assigned to the tangible and intangible assets acquired and liabilities assumed.
+     - Amortizable Intangible Assets Identified intangible assets of $ 210,280 consisted primarily of university partner relationships that were valued at $ 210,000 , which arose in connection with the acquisition of Orbis Education in January 2019.
+  8-K 2026-07-30 items 2.02,9.01
+  8-K 2026-06-25 items 5.02
+  8-K 2026-06-10 items 5.07,9.01
+  8-K 2026-06-03 items 7.01
+  10-Q 2026-04-30: 3 sentences
+     - Arrangements with GCU On July 1, 2018, the Company consummated an Asset Purchase Agreement (the “Asset Purchase Agreement”) with GCU.
+     - Goodwill and Amortizable Intangible Assets Goodwill represents the excess of the purchase price of an acquired business over the amount assigned to the tangible and intangible assets acquired and liabilities assumed.
+     - Amortizable Intangible Assets Identified intangible assets of $ 210,280 consisted primarily of university partner relationships that were valued at $ 210,000 , which arose in connection with the acquisition of Orbis Education in January 2019.
+  8-K 2026-04-30 items 2.02,9.01
+  10-K 2026-02-18: 6 sentences
+     - Accordingly, new competitors or alliances among competitors may emerge and rapidly acquire significant market share.
+     - On July 1, 2018, the Company sold the university to GCU (the “Transaction”).
+     - Arrangements with GCU On July 1, 2018, the Company consummated an Asset Purchase Agreement (the “Asset Purchase Agreement”) with GCU.
+     - Goodwill and Amortizable Intangible Assets Goodwill represents the excess of the purchase price of an acquired business over the amount assigned to the tangible and intangible assets acquired and liabilities assumed.
+     - Intangible Assets Identified intangible assets of $ 210,280 consisted primarily of university partner relationships that were valued at $ 210,000 , which arose in connection with the acquisition of Orbis Education in January 2019.
+     - 1 ​ Asset Purchase Agreement, dated July 1, 2018, by and between Grand Canyon Education, Inc.
+  8-K 2026-02-18 items 2.02,9.01
+  8-K 2026-02-12 items 5.02
+########## MUSA after 2025-12-31
+  8-K 2026-10-22 items 7.01,9.01
+  8-K 2026-09-02 items 5.02,9.01
+  8-K 2026-08-13 items 7.01,9.01
+  10-Q 2026-08-06: 7 sentences
+     - The intangible assets subject to amortization includes pipeline space, which is being amortized over a 40 -year life, and the intangible lease liability acquired from QuickChek that is being amortized over the remaining life of the underlying leases.
+     - The net proceeds from the issuance of the 2031 Senior Notes were used, in part, to fund the acquisition of QuickChek and other obligations related to that transaction.
+     - h our loyalty program(s) Store count at end of period 1,806 1,766 1,806 1,766 Total store months during the period 5,388 5,229 10,780 10,488 Average Per Store Month ("APSM") metric includes all stores open through the date of the calculation, including stores acquired during the period.
+     - Acquired stores are not included in the calculation of same stores for the first 12 months after the acquisition.
+     - Capital Spending Capital spending and investments in our Marketing segment relate primarily to the acquisition of land and the construction of new Company operating locations.
+     - The acquisition of any interest rate derivatives is undertaken by senior management when appropriate with delegated authority from the appropriate Board level committee.
+     - Board of Directors and announced on May 2, 2023 include authorization for the Company to acquire up to $1.
+  8-K 2026-08-05 items 2.02,9.01
+  8-K 2026-05-27 items 8.01,9.01
+  8-K 2026-05-12 items 8.01,9.01
+  8-K 2026-05-12 items 8.01,9.01
+  8-K 2026-05-11 items 5.03,5.07,9.01
+  10-Q 2026-05-07: 7 sentences
+     - The intangible assets subject to amortization includes pipeline space, which is being amortized over a 40 -year life, and the intangible lease liability acquired from QuickChek that is being amortized over the remaining life of the underlying leases.
+     - The net proceeds from the issuance of the 2031 Senior Notes were used, in part, to fund the acquisition of QuickChek and other obligations related to that transaction.
+     - emed points associated with our loyalty program(s) Store count at end of period 1,803 1,761 Total store months during the period 5,392 5,259 Average Per Store Month ("APSM") metric includes all stores open through the date of the calculation, including stores acquired during the period.
+     - Acquired stores are not included in the calculation of same stores for the first 12 months after the acquisition.
+     - Capital Spending Capital spending and investments in our Marketing segment relate primarily to the acquisition of land and the construction of new Company stores.
+     - The acquisition of any interest rate derivatives is undertaken by senior management when appropriate with delegated authority from the appropriate Board level committee.
+     - Board of Directors and announced on May 2, 2023 include authorization for the Company to acquire up to $1.
+  8-K 2026-05-07 items 7.01,9.01
+  8-K 2026-04-29 items 2.02,9.01
+  8-K 2026-04-06 items 5.02,9.01
+  8-K 2026-03-02 items 7.01,9.01
+  10-K 2026-02-18: 27 sentences
+     - In addition, on January 29, 2021, the Company acquired Quick Chek Corporation ("QuickChek" or "QC"), a privately held convenience store chain.
+     - We have acquired through share repurchases approximately $4.
+     - Grow organically We intend for our evolving NTI real estate strategy to be a key driver of our organic growth over the next several years, which is demonstrated by the over 500 stores that have been added to Murphy USA since our 2013 spin-off from Murphy Oil Corporation.
+     - We sell gasoline primarily under the Murphy USA ® and Murphy Express brands, which we acquired from Murphy Oil.
+     - We acquired ownership of the QuickChek ® trademark and others as a result of the QuickChek acquisition.
+     - If the Asset Development group is unable to locate suitable locations or is unable to close the acquisition of those locations in a timely fashion, the Company could find that it does not have sufficient land to fulfill its pipeline.
+     - is acquired or becomes party to any merger or consolidation that results in a material change in the management of the stores, Walmart will have the option to purchase the stores at fair market value.
+     - Smith has been employed by the Company since its 2013 spin-off from Murphy Oil Corporation, initially serving as Vice President and Controller (and designated as Chief Accounting Officer for reporting purposes).
+     - Board of Directors and announced on May 2, 2023 include authorization for the Company to acquire up to $1.
+     - lue of unredeemed points associated with our loyalty program(s) Store count at end of period 1,800 1,757 1,733 Total store months during the period 21,123 20,632 20,535 APSM metric includes all stores open through the date of the calculation, including stores acquired during the period.
+     - Acquired stores are not included in the calculation of same stores for the first 12 months after the acquisition.
+     - The net proceeds from the issuance of the 2031 Senior Notes were used, in part, to fund the acquisition of QuickChek and other obligations related to that transaction.
+     - Capital Spending Capital spending and investments in our Marketing segment relate primarily to the acquisition of land and the construction of new Company stores.
+     - Critical Accounting Policies Goodwill and intangible assets Goodwill represents the excess of the aggregate of the consideration transferred over the net assets acquired and liabilities assumed and is tested annually for impairment, or more frequently if there are indicators of impairment.
+  8-K 2026-02-12 items 7.01,9.01
+  8-K 2026-02-04 items 2.02,9.01
+  8-K 2026-01-16 items 5.02,9.01
+########## NVR after 2025-12-31
+  8-K 2026-10-22 items 2.02,9.01
+  10-Q 2026-08-05: 13 sentences
+     - Instead, we typically acquire finished building lots at market prices from various third party land development entities under lot purchase agreements (" LPAs").
+     - Therefore, the development entities with which we enter into LPAs, including the joint venture limited liability corporations discussed below, are evaluated for possible consolidation by us.
+     - Joint Ventures On a limited basis, we acquire finished lots using joint venture limited liability corporations (“JVs”).
+     - The JVs are typically structured such that we are a non-controlling member and are at risk only for the amount we have invested, or have committed to invest, in addition to any deposits placed under LPAs with the joint venture.
+     - Notes to Condensed Consolidated Financial Statements (dollars in thousands, except per share data) (unaudited) During the first quarter of 2026, we sold our ownership interest in one of our JVs to a developer for approximately $ 21,800 .
+     - Land Under Development On a limited basis, we directly acquire raw land parcels already zoned for its intended use to develop into finished lots.
+     - Instead, we typically acquire finished building lots from various third-party land developers pursuant to fixed price finished lot purchase agreements (“LPAs”).
+     - In certain specific strategic circumstances, we deviate from our historical lot acquisition strategy and engage in joint venture arrangements with land developers or directly acquire raw ground already zoned for its intended use for development.
+     - Once we acquire raw ground, we generally sell the raw parcel to a developer and enter into an LPA with the developer to purchase the finished lots or, on a limited basis, hire a developer to develop the land on our behalf.
+     - We expect, however, to continue to acquire substantially all our finished lot inventory using LPAs with forfeitable deposits.
+     - Joint Venture Limited Liability Corporations (“JVs”) We had an aggregate investment totaling approximately $73,300 in four JVs, expected to produce approximately 8,000 lots.
+     - (ii) Payment obligations totaling approximately $737,500 under existing LPAs for deposits to be paid to land developers, assuming that contractual development milestones are met by the developers and we exercise our option to acquire finished lots under those LPAs.
+     - Net cash provided by investing activities for the six months ended June 30, 2026 was $3,916, due primarily to cash provided by the sale of our interest in an unconsolidated joint venture of $21,559.
+  8-K 2026-07-23 items 2.02,9.01
+  8-K 2026-05-15 items 5.02,9.01
+  8-K 2026-05-08 items 5.07,9.01
+  10-Q 2026-05-06: 13 sentences
+     - Instead, we typically acquire finished building lots at market prices from various third party land development entities under lot purchase agreements ("LPAs").
+     - Therefore, the development entities with which we enter into LPAs, including the joint venture limited liability corporations discussed below, are evaluated for possible consolidation by us.
+     - Joint Ventures On a limited basis, we acquire finished lots using joint venture limited liability corporations (“JVs”).
+     - The JVs are typically structured such that we are a non-controlling member and are at risk only for the amount we have invested, or have committed to invest, in addition to any deposits placed under LPAs with the joint venture.
+     - During the first quarter of 2026, we sold our ownership interest in one of our JVs to a developer for approximately $ 21,800 .
+     - Land Under Development On a limited basis, we directly acquire raw land parcels already zoned for its intended use to develop into finished lots.
+     - Instead, we typically acquire finished building lots from various third-party land developers pursuant to fixed price finished lot purchase agreements (“LPAs”).
+     - In certain specific strategic circumstances, we deviate from our historical lot acquisition strategy and engage in joint venture arrangements with land developers or directly acquire raw ground already zoned for its intended use for development.
+     - Once we acquire raw ground, we generally sell the raw parcel to a developer and enter into an LPA with the developer to purchase the finished lots or, on a limited basis, hire a developer to develop the land on our behalf.
+     - We expect, however, to continue to acquire substantially all our finished lot inventory using LPAs with forfeitable deposits.
+     - Joint Venture Limited Liability Corporations (“JVs”) We had an aggregate investment totaling approximately $68,900 in four JVs, expected to produce approximately 8,150 lots.
+     - (ii) Payment obligations totaling approximately $698,600 under existing LPAs for deposits to be paid to land developers, assuming that contractual development milestones are met by the developers and we exercise our option to acquire finished lots under those LPAs.
+     - Net cash provided by investing activities for the three months ended March 31, 2026 was $12,465, due primarily to cash provided by the sale of our interest in an unconsolidated joint venture of $21,559.
+  8-K 2026-04-22 items 2.02,9.01
+  10-K 2026-02-11: 24 sentences
+     - Instead, we typically acquire finished building lots from various third-party land developers pursuant to fixed price lot purchase agreements (“LPAs”) that require deposits that may be forfeited if we fail to perform under the LPAs.
+     - We may, at our option, choose for any reason and at any time not to perform under these LPAs by delivering notice of our intent not to acquire the finished lots under contract.
+     - As a result, in certain specific strategic circumstances we deviate from our historical lot acquisition strategy and engage in joint venture arrangements with land developers or directly acquire raw ground already zoned for its intended use for development.
+     - Once we acquire control of raw ground, we generally sell the raw parcel to a developer and enter into an LPA with the developer to purchase the finished lots or, on a limited basis, hire a developer to develop the land on our behalf.
+     - We expect, however, to continue to acquire substantially all of our finished lot inventory using LPAs with forfeitable deposits.
+     - usly acquire lots for expansion into new markets as well as for replacement and expansion within our current markets, which we generally accomplish by entering into LPAs and paying forfeitable deposits under the LPAs to developers for the contractual right to acquire the lots.
+     - In the event that a substantial number of the loans that we have originated fall into default and the investors to whom we sold the loans determine that we did not underwrite the loans in accordance with their requirements, we could be required to repurchase the loans from the investor or indemnify the investor for any losses incurred.
+     - Instead, we typically acquire finished lots from various third-party land developers pursuant to LPAs.
+     - In certain specific strategic circumstances, we deviate from our historical lot acquisition strategy and engage in joint venture arrangements with land developers or directly acquire raw ground already zoned for its intended use for development.
+     - Once we acquire raw ground, we determine whether to sell the raw parcel to a developer and enter into an LPA with the developer to purchase the finished lots or to hire a developer to develop the land on our behalf.
+     - Joint Venture Limited Liability Corporations (“JVs”) We had an aggregate investment totaling approximately $78,100 in five JVs, expected to produce approximately 8,900 lots.
+     - (ii) Payment obligations totaling approximately $733,900 under existing LPAs for deposits to be paid to land developers, assuming that contractual development milestones are met by the developers and we exercise our option to acquire finished lots under those LPAs.
+     - Interest costs are not capitalized into inventory, with the exception of land under development and joint venture investments, as applicable.
+     - Cash and Cash Equivalents Cash and cash equivalents include short-term investments with maturities at acquisition of three months or less.
+  8-K 2026-01-28 items 2.02,9.01
+########## PEP after 2025-12-27
+  8-K 2026-10-16 items 8.01,9.01
+  8-K 2026-10-08 items 2.02,9.01
+  10-Q 2026-10-08: 28 sentences
+     - r ( 788 ) Income before income taxes $ 7,244 (a) Does not include items recorded in the cost of sales or selling, general and administrative expenses lines on our income statement that are presented in the restructuring and impairment charges, acquisition and divestiture-related charges/credits, impairment and other charges and indirect and income tax impact lines of these tables.
+     - (c) See Note 11 for further information related to acquisition and divestiture-related charges/credits.
+     - ) $ 1,165 $ 3,125 $ ( 1,906 ) $ 1,219 15 Table of Contents The components of indefinite-lived intangible assets are as follows: 9/5/2026 12/27/2025 Goodwill (a) $ 18,884 $ 18,916 Other indefinite-lived intangible assets Reacquired franchise rights 7,516 7,542 Acquired franchise rights (b) 2,241 2,099 Brands 4,220 4,206 Total indefinite-lived intangible assets $ 32,861 $ 32,763 (a) Decrease is primarily related to cur
+     - (b) Increase is primarily related to acquired distribution rights for the Alani Nu brand.
+     - (Celsius), pursuant to which we acquired convertible preferred shares and transferred cash and certain non-cash assets, primarily the Rockstar brand of $ 0.
+     - Available-for-Sale On August 28, 2025, as part of the Celsius Transaction described in Note 4, we acquired Series B convertible preferred shares, issued by Celsius, valued at $ 585 million upon acquisition, excluding acquisition-related charges.
+     - (e) In connection with our acquisition of VNGR Beverage, LLC (poppi), we recorded a contingent consideration liability measured at fair value.
+     - benefits (expense)/income Net losses before tax 175 33 216 68 Tax amounts ( 39 ) ( 7 ) ( 48 ) ( 15 ) Net losses after tax 136 26 168 53 Total net losses/(gains) reclassified, net of tax $ 107 $ 21 $ 79 $ ( 14 ) 29 Table of Contents Note 11 - Acquisitions and Divestitures 2025 Acquisitions On January 17, 2025, we acquired all of the outstanding equity interest in Garza Food Ventures LLC (Siete), a Mexican-American foo
+     - On May 19, 2025, we acquired all of the outstanding equity interest in poppi, a prebiotic soda business, for cash consideration of $ 1.
+     - We recognized and measured the identifiable assets acquired and liabilities assumed at their estimated fair values on the respective dates of acquisition.
+     - harges/Credits Acquisition and divestiture-related charges/credits include merger and integration charges, transaction expenses, such as consulting, advisory and other professional fees, as well as fair value adjustments to contingent consideration and to the acquired inventory included in the acquisition-date balance sheets.
+     - d 36 Weeks Ended 9/5/2026 9/6/2025 9/5/2026 9/6/2025 PFNA $ 1 $ 2 $ 3 $ 23 PBNA (a) ( 97 ) 219 ( 257 ) 285 Total $ ( 96 ) $ 221 $ ( 254 ) $ 308 (a) Income amounts primarily relate to the change in the fair value of contingent consideration associated with our acquisition of poppi.
+     - Unit volume performance adjusts for the impacts of acquisitions and divestitures.
+     - Acquisitions and divestitures, when used in this report, reflect mergers and acquisitions activity, as well as divestitures and other structural changes.
+  8-K 2026-09-17 items 5.02
+  8-K 2026-07-09 items 2.02,9.01
+  10-Q 2026-07-09: 26 sentences
+     - r ( 524 ) Income before income taxes $ 3,913 (a) Does not include items recorded in the cost of sales or selling, general and administrative expenses lines on our income statement that are presented in the restructuring and impairment charges, acquisition and divestiture-related charges/credits and impairment and other charges lines of these tables.
+     - (c) See Note 11 for further information related to acquisition and divestiture-related charges/credits.
+     - l $ 3,133 $ ( 1,946 ) $ 1,187 $ 3,125 $ ( 1,906 ) $ 1,219 The components of indefinite-lived intangible assets are as follows: 6/13/2026 12/27/2025 Goodwill (a) $ 19,093 $ 18,916 Other indefinite-lived intangible assets Reacquired franchise rights 7,532 7,542 Acquired franchise rights (b) 2,239 2,099 Brands 4,219 4,206 Total indefinite-lived intangible assets $ 33,083 $ 32,763 (a) Increase primarily reflects apprecia
+     - (b) Increase is primarily related to acquired distribution rights for the Alani Nu brand.
+     - 20 Table of Contents (e) In connection with our acquisition of VNGR Beverage, LLC (poppi), we recorded a liability at fair value for the contingent consideration of $ 300 million payable upon achievement of certain performance milestones by the third quarter of 2027.
+     - retiree medical benefits income Net losses before tax 22 18 41 35 Tax amounts ( 5 ) ( 4 ) ( 9 ) ( 8 ) Net losses after tax 17 14 32 27 Total net gains reclassified, net of tax $ ( 14 ) $ ( 26 ) $ ( 28 ) $ ( 35 ) 26 Table of Contents Note 11 - Acquisitions and Divestitures 2025 Acquisitions On January 17, 2025, we acquired all of the outstanding equity interest in Garza Food Ventures LLC (Siete), a Mexican-American fo
+     - On May 19, 2025, we acquired all of the outstanding equity interest in poppi, a prebiotic soda business, for cash consideration of $ 1.
+     - We recognized and measured the identifiable assets acquired and liabilities assumed at their estimated fair values on the respective dates of acquisition.
+     - Acquisition and Divestiture-Related Charges/Credits Acquisition and divestiture-related charges/credits include merger and integration charges, transaction expenses, such as consulting, advisory and other professional fees, as well as fair value adjustments to contingent consideration.
+     - 05 ) (a) Income amounts primarily relate to the change in the fair value of contingent consideration associated with our acquisition of poppi.
+     - Unit volume performance adjusts for the impacts of acquisitions and divestitures.
+     - Acquisitions and divestitures, when used in this report, reflect mergers and acquisitions activity, as well as divestitures and other structural changes.
+     - 12 Weeks Operating profit increased 125%, primarily driven by prior-year impairment charges related to the Rockstar and Be & Cheery brands, productivity savings, effective net pricing, lower restructuring charges and a favorable net impact of acquisition and divestiture-related charges/credits, partially offset by certain operating cost increases.
+     - 24 Weeks Operating profit increased 65%, primarily driven by prior-year impairment charges related to the Rockstar and Be & Cheery brands, productivity savings, effective net pricing, a favorable net impact of acquisition and divestiture-related charges/credits and lower restructuring charges, partially offset by certain operating cost increases.
+  8-K 2026-05-22 items 8.01,9.01
+  8-K 2026-05-08 items 5.07
+  8-K 2026-04-16 items 2.02,9.01
+  10-Q 2026-04-16: 24 sentences
+     - 264 ) Income before income taxes $ 2,342 (a) Does not include items recorded in the cost of sales or selling, general and administrative expenses lines on our income statement that are presented in the restructuring and impairment charges and acquisition and divestiture-related charges/credits lines of these tables.
+     - (c) See Note 11 for further information related to acquisition and divestiture-related charges/credits.
+     - l $ 3,140 $ ( 1,931 ) $ 1,209 $ 3,125 $ ( 1,906 ) $ 1,219 The components of indefinite-lived intangible assets are as follows: 3/21/2026 12/27/2025 Goodwill (a) $ 19,021 $ 18,916 Other indefinite-lived intangible assets Reacquired franchise rights 7,544 7,542 Acquired franchise rights 2,164 2,099 Brands 4,226 4,206 Total indefinite-lived intangible assets $ 32,955 $ 32,763 (a) Increase is primarily related to currenc
+     - (e) In connection with our acquisition of VNGR Beverage, LLC (poppi), we recorded a liability at fair value for the contingent consideration of $ 300 million payable upon achievement of certain performance milestones by the third quarter of 2027.
+     - tion of net losses 18 17 Other pension and retiree medical benefits income Net losses before tax 19 17 Tax amounts ( 4 ) ( 4 ) Net losses after tax 15 13 Total net gains reclassified, net of tax $ ( 14 ) $ ( 9 ) 21 Table of Contents Note 11 - Acquisitions and Divestitures Acquisition of poppi On May 19, 2025, we acquired all of the outstanding equity interest in poppi, a prebiotic soda business, for cash consideratio
+     - We recognized and measured the identifiable assets acquired and liabilities assumed at their estimated fair values on the date of acquisition.
+     - The preliminary estimates of the fair value of the identifiable assets acquired and liabilities assumed in this transaction as of the acquisition date primarily include goodwill and other intangible assets of approximately $ 2.
+     - Acquisition of Garza Food Ventures LLC (Siete) On January 17, 2025, we acquired all of the outstanding equity interest in Siete, a Mexican-American foods business, for total consideration of $ 1.
+     - The goodwill recorded as part of the acquisition of Siete primarily reflects our expectation of future economic benefits arising from growth opportunities, expanded consumer reach and the strengthening of our overall product offerings.
+     - Acquisition and Divestiture-Related Charges/Credits Acquisition and divestiture-related charges/credits include merger and integration charges, transaction expenses, such as consulting, advisory and other professional fees, as well as fair value adjustments to contingent consideration.
+     - 01 ) (a) Income amount primarily relates to the change in the fair value of contingent consideration associated with our acquisition of poppi.
+     - Unit volume performance adjusts for the impacts of acquisitions and divestitures.
+     - Acquisitions and divestitures, when used in this report, reflect mergers and acquisitions activity, as well as divestitures and other structural changes.
+     - Operating profit increased 24%, primarily driven by productivity savings, net revenue growth, a favorable impact of net mark-to-market gains on commodity derivatives, a favorable net impact of acquisition and divestiture-related charges/credits and a 4-percentage-point favorable impact of foreign exchange translation, partially offset by certain operating cost increases.
+  8-K 2026-02-11 items 8.01,9.01
+  8-K 2026-02-03 items 2.02,9.01
+  10-K 2026-02-03: 41 sentences
+     - In December 2024, we acquired the Strauss Group’s 50% ownership in Sabra Dipping Company, LLC (Sabra) and Sabra became a wholly-owned subsidiary.
+     - Further, IB Franchise, either independently or in conjunction with third parties, makes, markets, distributes and sells ready-to-drink tea products through an international joint venture with Unilever (under the Lipton brand name).
+     - EMEA also, either 3 Table of Contents independently or in conjunction with third parties, makes, markets, distributes and sells ready-to-drink tea products through an international joint venture with Unilever (under the Lipton brand name).
+     - onmental remediation obligations arising in the normal course of business, as well as remediation and related indemnification obligations in connection with certain historical activities and contractual obligations, including those of businesses or properties acquired by us or our subsidiaries.
+     - We regularly review our portfolio of businesses and evaluate potential acquisitions, joint ventures, distribution agreements, divestitures, refranchisings and other strategic transactions.
+     - inefficiencies; maintaining good relations with divested or refranchised businesses in our supply or sales chain; inability to offset loss of revenue associated with divested brands or businesses; recognition of impairment charges in connection with potential divestitures; managing the impact of business decisions or other actions or omissions of our joint venture partners that may have different interests than we do
+     - a may be updated and previously 19 Table of Contents reported data may be adjusted to reflect improvement in availability and quality of third-party data, changing assumptions, changes in the nature and scope of our operations (including from acquisitions and divestitures) and other changes in circumstances.
+     - Popovici joined PepsiCo in 2011 following PepsiCo’s acquisition of Wimm-Bill-Dann Foods OJSC (WBD) and served as General Manager, WBD Foods Division from 2011 until 2012.
+     - Before that, he led the global Pepsi-Lipton Joint Venture as President from 2014 to 2015.
+     - Unit volume performance adjusts for the impacts of acquisitions and divestitures.
+     - Acquisitions and divestitures, when used in this report, reflect mergers and acquisitions activity, as well as divestitures and other structural changes.
+     - Beverage volume includes volume of concentrate sold to independent bottlers and volume of finished products bearing company-owned or licensed trademarks and allied brand products and joint venture trademarks sold by company-owned bottling operations.
+     - PBNA, IB Franchise and EMEA, either independently or in conjunction with third parties, make, market, distribute and sell ready-to-drink tea products through a joint venture with Unilever (under the Lipton brand name), and PBNA, either independently or in conjunction with third parties, makes, markets, distributes and sells ready-to-drink coffee products through a joint venture with Starbucks.
+     - Operating profit decreased 11%, primarily driven by certain operating cost increases, impairment charges related to the Rockstar brand, a decline in organic volume, a 5-percentage-point impact of higher commodity costs and higher acquisition and divestiture-related charges.
+########## ULTA after 2026-01-31
+  10-Q 2026-08-27: 6 sentences
+     - Goodwill and other intangible assets Goodwill Goodwill represents the excess of cost over the fair value of net assets acquired.
+     - and Ireland, our joint venture in Mexico, and our franchise in the Middle East.
+     - The net sales increase was primarily due to increased comparable sales, the acquisition of Space NK, and sales from new stores.
+     - 6 million for the 13 weeks ended August 2, 2025, and was related to our joint venture in Mexico in both periods.
+     - 2 million for the 26 weeks ended August 2, 2025, and was related to our joint venture in Mexico in both periods.
+     - st 2, ​ ​ 2026 ​ 2025 Stores opened ​ 34 ​ 30 Stores remodeled ​ 7 ​ 9 Stores relocated ​ 5 ​ 4 ​ The decrease in net cash used in investing activities in the first 26 weeks of fiscal 2026 compared to the first 26 weeks of fiscal 2025 was primarily due to the acquisition of Space NK in the second quarter of fiscal 2025.
+  8-K 2026-08-27 items 2.02,9.01
+  8-K 2026-08-17 items 5.02,8.01,9.01
+  8-K 2026-07-14 items 5.02,7.01,9.01
+  8-K 2026-06-09 items 5.02,5.03,5.07,9.01
+  10-Q 2026-06-02: 6 sentences
+     - Goodwill and other intangible assets Goodwill Goodwill represents the excess of cost over the fair value of net assets acquired.
+     - and Ireland, our joint venture in Mexico, and our franchise in the Middle East.
+     - The net sales increase was primarily due to increased comparable sales, the acquisition of Space NK, and sales from new stores.
+     - 6 million for the 13 weeks ended May 3, 2025, primarily due to the acquisition of Space NK.
+     - 6 million for the 13 weeks ended May 3, 2025, related to our joint venture in Mexico.
+     - The increase in total inventory is primarily due to new brand launches, the acquisition of Space NK, and the addition of new Ulta Beauty stores in the U.
+  8-K 2026-06-02 items 2.02,9.01
+  10-K 2026-03-26: 29 sentences
+     - and Ireland, its joint venture in Mexico, and its franchise in the Middle East.
+     - employs a multi-faceted marketing strategy to increase brand awareness, drive traffic to its stores, website, and mobile applications, acquire and retain loyalty program members, improve guest retention, increase frequency of shopping, and increase spend per member.
+     - In Mexico, the Company has a joint venture partnership with Grupo Axo, whereby the joint venture licenses the Ulta Beauty brand name and operating model from the Company to launch and operate Ulta Beauty-branded stores in Mexico.
+     - On July 10, 2025, the Company announced the acquisition of Space NK, a leading British beauty retailer.
+     - Additionally, the Company has nine stores operated through the joint venture in Mexico and one location in Kuwait and one in the United Arab Emirates operated by its franchise partner in the Middle East.
+     - ’s owned digital channels, support joint revenue growth, and drive the acquisition of new guests.
+     - In 2025, we expanded internationally through our acquisition of Space NK and the establishment of a joint venture in Mexico and a franchise relationship in the Middle East.
+     - y not enhance our market position, footprint, or capability set; and due diligence evaluations of potential transactions not identifying all of the business, legal, compliance, and financial risks to accurately estimate the impact of a particular acquisition, joint venture, or partnership, including potential exposure to regulatory sanctions resulting from an acquisition target’s or business partner’s previous activi
+     - and Ireland, our joint venture in Mexico, and our franchise in the Middle East.
+     - The net sales increase was primarily due to increased comparable sales, the acquisition of Space NK, and sales from new stores.
+     - 9 million in fiscal 2025 related to our joint venture in Mexico.
+     - The increase in total inventory is primarily due to new brand launches, the acquisition of Space NK, and the addition of new Ulta Beauty stores in the U.
+     - The increase in net cash used in investing activities in fiscal 2025 relative to fiscal 2024 was primarily due to the acquisition of Space NK in the second quarter of fiscal 2025.
+     - Business combinations Business combinations are accounted for using the acquisition method of accounting, which requires that once control is obtained, all the assets acquired and liabilities assumed are recorded at their respective fair values at the date of acquisition.
+  8-K 2026-03-12 items 2.02,9.01

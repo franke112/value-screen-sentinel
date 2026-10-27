@@ -66,3 +66,23 @@ issuers:
     language: en
     resolved: 2026-09-08
     note: "matched 189 release(s) on the feed, newest 2026-08-13"
+  RBREW.CO:
+    market: "Main Market, Copenhagen"
+    company: "Royal UNIBREW A/S"
+    resolved: 2026-10-18
+    note: "matched 192 release(s) on the feed, newest 2026-10-12"
+  DFDS.CO:
+    market: "Main Market, Copenhagen"
+    company: "DFDS A/S"
+    resolved: 2026-10-20
+    note: "matched 191 release(s) on the feed, newest 2026-10-13"
+  TIETO.HE:
+    market: "Main Market, Helsinki"
+    company: "Tieto Oyj"
+    resolved: 2026-10-20
+    note: "matched 69 release(s) on the Helsinki feed, newest 2026-05-11; the Stockholm listing has 129, newest 2026-02-26. Helsinki is the primary listing (TIETO.HE)"
+  ACAD.ST:
+    market: "Main Market, Stockholm"
+    company: "AcadeMedia AB"
+    resolved: 2026-10-20
+    note: "matched 181 release(s) on the feed, newest 2026-10-12"

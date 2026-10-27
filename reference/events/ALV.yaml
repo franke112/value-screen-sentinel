@@ -1,0 +1,15 @@
+ticker: ALV
+dated: '2026-10-27'
+ruling: E140(3)-(4)
+money: whole units of the reporting currency
+money_unit: whole
+basis_balance_sheet: '2025-12-31'
+searched:
+- 'EDGAR submissions: every 8-K, 10-Q and 10-K filed after the basis balance-sheet date, deal sentences extracted
+  by tools (scan 2026-10-27)'
+- issuer press releases and news search (subagent sweep 2026-10-27)
+deals: []
+none_found: true
+notes: 'No acquisition or divestiture found. NOT A DEAL, so not in the bridge (E140(3) covers deals only): Turkiye
+  plant closures, cash charges ~129m in 2026 (8-K 2026-05-11 items 2.05/2.06), expected saving ~40m a year from
+  2027. HSAE JV (40%) announced 2025-10-09, establishment unverified.'

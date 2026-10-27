@@ -1,0 +1,199 @@
+{
+ "ticker": "ACAD.ST",
+ "currency": "SEK",
+ "run_ts": "2026-10-24T12:28:15+02:00",
+ "basis": "annual FY2026",
+ "shares": {
+  "count": 98237000.0,
+  "basis": "weighted-average DILUTED count for annual FY2026, the same window as the flows (E38)",
+  "as_of": "2026-06-30",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 1.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": false,
+  "page": "Annual and Sustainability Report 2024/25; Year-end report 2025/26 AR 2024/25 accounting policies: 'Interest payments are recognised in financing activities.' Year-end report p.19, Consolidated cash flow statement, financing activities: 'Interest received (+) and paid (-) -34 -23 -93 -67' and 'Interest paid, lease liabilities -173 -153 -669 -628', below 'Cash flow from operating activities 1,118 1,185 3,930 3,742'",
+  "net_interest_paid": null,
+  "source": "cash_flow_statement"
+ },
+ "bridge": {
+  "net_debt": 1710.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 0.0,
+   "pensions": 2.0,
+   "asset_retirement_obligations": 0.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+  },
+  "note": "borrowings 1,240 + 1,416 + leases 0 -- the IFRS 16 liability 12,244 LEAVES net debt whole (E117: its cash is in the flow; one lessee model, no split) + pension deficit 2 (E35.1) + asset retirement obligations 0 (E68) + prepaid delivery obligations 0 (E81) - cash 948 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: split: capex_ppe + capex_intangibles, as the accounts print them"
+ },
+ "dates": {
+  "flows_window_end": "2026-06-30",
+  "balance_sheet": "2026-06-30",
+  "share_count": "2026-06-30",
+  "price": "2026-10-23"
+ },
+ "growth": {
+  "base": 0.045,
+  "view_file": "reference/growth-views/ACAD.ST.md",
+  "view_date": "2026-10-20",
+  "bear": 0.035,
+  "bull": 0.07
+ },
+ "operating_cash_flow": 3930.0,
+ "capex": -390.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": null,
+  "premium": null,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_ppe",
+   "value": -377.0,
+   "provenance": "p.19, investing activities, three stated lines added: 'Investments in buildings -13 -3 -103 -54' + 'Leasehold improvements -51 -35 -120 -148' + 'Investments in equipment -32 -28 -154 -129' = -103 - 120 - 154 = -377. 'Acquisition of subsidiaries -475 -206 -1,036 -333' is NOT capex and is not in it",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "capex_intangibles",
+   "value": -13.0,
+   "provenance": "p.19: 'Investments in intangible non-current assets -1 -4 -13 -10'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 3930.0,
+   "provenance": "p.19, Consolidated cash flow statement: 'Cash flow from operating activities 1,118 1,185 3,930 3,742' -- after 'Tax paid -39 -14 -321 -273', before interest (financing)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "sbc",
+   "value": 1.0,
+   "provenance": "Note G5 p.87: 'the cost of share-based payments attributable to the performance share programme amounted to SEK 1 million (-)'. The warrant programmes carry no cost: 'The warrants were acquired at market value calculated according to the Black & Scholes method'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 98237000.0,
+   "provenance": "Note G13 Earnings per share p.92: 'Average number of ordinary shares, diluted (thousands) 98,237 100,892' (basic 98,165 plus 'Effect of warrants and performance share programmes (thousands) 72')",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 1240.0,
+   "provenance": "p.18: 'Current interest-bearing liabilities 1,240 315' -- excluding leases, which are presented apart",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 1416.0,
+   "provenance": "p.18: 'Non-current liabilities to credit institutions 1,416 1,183' -- excluding leases, which are presented apart",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 12244.0,
+   "provenance": "p.18: 'Long-term lease liabilities 10,548 9,012' + 'Short-term lease liabilities 1,696 1,593' = 12,244, two stated captions added. Of it, property-related: p.7 'Property-related leasing liabilities 12,033 10,379'; the remainder is computer leases. One IFRS 16 liability (E65)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 2.0,
+   "provenance": "Consolidated balance sheet, non-current liabilities: 'Provision for pensions G6 2 15'. Note G6 p.89 states the Norwegian defined-benefit plan net at 0 (obligations 326, plan assets -326); the balance-sheet caption, the larger, is taken. Swedish ITP 2 via Alecta is accounted for as defined-contribution",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "E68, note form: Note G25 Other provisions p.97: 'Restructuring reserve 75 63', 'Other 14 27', 'SUM TOTAL, PROVISIONS 89 90' -- 'Other consists mainly of provision for disputes and penalties'; no restoration or dismantling provision, although the policy allows one. A note zero",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "E81: consolidated balance sheet, every liability caption: credit institutions, lease liabilities, 'Provision for pensions', 'Other provisions', 'Deferred tax liability', 'Other non-current liabilities', 'Accounts payable', 'Current tax liability', 'Other liabilities', 'Accrued expenses and deferred income' -- no streaming, prepaid-offtake or prepaid-delivery caption. Note G26: 'Contract liabilities 485 416' is school fees billed ahead, working capital, NOT this leg (the RMV.L and ULTA precedent), named. A caption zero",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 948.0,
+   "provenance": "p.18: 'Cash and cash equivalents 948 777'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "lease_payments_capital",
+   "value": -1888.0,
+   "provenance": "p.19, financing activities: 'Repayment of lease liabilities -552 -479 -1,888 -1,897' (property and computer leases)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "lease_interest_paid",
+   "value": 669.0,
+   "provenance": "p.19, financing activities: 'Interest paid, lease liabilities -173 -153 -669 -628'. E117 leg",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  }
+ ],
+ "tool_commit": "vss strike 2026-10-24, aa9c3ef",
+ "notes": "First strike on the AR 2025/26 legs (read 2026-10-24); FCF0 excludes acquisition spend (1,036 in FY2026), which the 4.5% view may partly depend on",
+ "money_unit": "millions",
+ "nci_dividends_paid": 0.0,
+ "undetermined": [],
+ "fcf_reported": {
+  "value": 1266.0,
+  "page": "p.6: 'resulting in free cash flow before expansion investments 4 of SEK 1,266 million (1,109)' -- after property lease payments, before expansion. Reference only",
+  "verified": true
+ },
+ "net_debt_reported": {
+  "value": 1918.0,
+  "page": "p.7, Financial position: 'Net debt 13,952 11,332 1,918 953' -- the issuer's figure excluding property-related leases. Reference only",
+  "verified": true
+ },
+ "net_income": {
+  "value": 955.0,
+  "page": "p.16: 'PROFIT FOR THE PERIOD 385 321 955 821'; 'Owners of the parent company 385 321 955 821' -- all of it attributable to the owners",
+  "verified": true
+ },
+ "lease": {
+  "in_operating_cash_flow": false,
+  "page": "FRAMEWORK-EDITS E70, applied 2026-10-20 to an IFRS 16 filer IFRS 16.50(b): lease principal is a financing flow. Year-end report p.19: 'Repayment of lease liabilities -552 -479 -1,888 -1,897' under financing activities",
+  "principal_added_back": null,
+  "leg": "`lease_payments_capital` + `lease_interest_paid`, DEDUCTED (E117: the IFRS 16 principal and lease interest)",
+  "rule": "E117",
+  "lease_cash_deducted": 2557.0,
+  "principal_paid": 1888.0,
+  "interest_paid": 669.0,
+  "liability_excluded": 12244.0
+ }
+}

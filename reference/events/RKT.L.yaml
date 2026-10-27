@@ -1,0 +1,22 @@
+ticker: RKT.L
+dated: '2026-10-27'
+ruling: E140(3)-(4)
+money: GBP millions
+money_unit: millions
+basis_balance_sheet: '2025-12-31'
+searched:
+- issuer annual and interim reports (cash-flow statements read by subagent; quotes regex-checked against pdftotext)
+- issuer press releases and news search (2026-10-27)
+deals:
+- name: Russian Hygiene business sold to Arnest Management (price not disclosed; recoverable amount nil)
+  date: '2026-07-23'
+  status: agreed
+  closed: null
+  low: 0
+  high: 0
+  fcf: 0
+  source: H1 2026 report
+none_found: false
+notes: 'Essential Home sold to Advent on 2025-12-31 (the basis date; GBP 2.2bn proceeds in the basis balance sheet).
+  Its cash flow sits INSIDE the three FCF years and is not separable from the filings: E140 FCF0 is overstated by
+  it. Danone interest in Mead Johnson reported; no signed deal.'

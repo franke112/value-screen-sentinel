@@ -1,0 +1,46 @@
+ticker: CENTA
+dated: '2026-10-27'
+ruling: E140(3)-(4)
+money: whole units of the reporting currency
+money_unit: whole
+basis_balance_sheet: '2025-09-27'
+searched:
+- 'EDGAR submissions: every 8-K, 10-Q and 10-K filed after the basis balance-sheet date, deal sentences extracted
+  by tools (scan 2026-10-27)'
+- issuer press releases and news search (subagent sweep 2026-10-27)
+deals:
+- name: Champion USA (acquired)
+  date: '2025-12-12'
+  status: closed
+  closed: '2025-12-12'
+  low: 57720000.0
+  high: 57720000.0
+  fcf: 0
+  source: 10-Q 2026-06-27 note 3; acquisitions 57,720k in 9M cash flow
+- name: Pet Distribution contributed to Phillips partnership (cash 31m + note 5m received; 20% stake 26.1m kept)
+  date: '2026-04-13'
+  status: closed
+  closed: '2026-04-13'
+  low: -62100000.0
+  high: -36000000.0
+  fcf: 0
+  source: 10-Q 2026-06-27 note 3
+- name: TRIXIE 80% (EUR 340m cash + earn-out max EUR 60m + put on 20% pro rata EUR 100m = EUR 500m at 1.16)
+  date: 2026-07-27 agreed; closing H1 FY2027
+  status: pending
+  closed: null
+  low: 580000000.0
+  high: 580000000.0
+  fcf: 0
+  source: 8-K 2026-07-27; 10-Q note on TRIXIE
+- name: 'Burpee (price NOT DISCLOSED; range is the session estimate: retail spend 242m implies ~110-130m wholesale
+    sales)'
+  date: '2026-09-30'
+  status: closed
+  closed: '2026-09-30'
+  low: 90000000.0
+  high: 260000000.0
+  fcf: 0
+  source: press release 2026-10-19 (no 8-K)
+none_found: false
+notes: ''

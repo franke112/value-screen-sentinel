@@ -165,12 +165,24 @@ periods:
     document: "Annual report and accounts 2025 (audited)"
     url: "sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf"
     figures:
+      working_capital_change:
+        value: 2422
+        page: "E140(1), pdf p.119, consolidated cash flow statement: '(Increase)/decrease in trade and other receivables 16 (3,446) 2,429', 'Increase in trade and other payables 18 5,532 2,299', 'Decrease/(increase) in contract assets 4 19 (511)', 'Increase in contract liabilities 4 317 632' = - 3,446 + 5,532 + 19 + 317 = 2,422"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      acquisitions_paid:
+        value: 0
+        zero_basis: caption
+        page: "E140.1(1), pdf p.119, investing activities: 'Acquisition of subsidiary, net of cash received 25 - (7,552)' -- the 2025 column is a dash"
+        status: VERIFIED
+        verified_kind: machine_read_back
       nci_dividends_paid:
         value: 0
         zero_basis: searched
         source: "E105 leg; E107 searched absence"
         page: "E107 SEARCHED ABSENCE. Document: RMV.L_2025-FY_final-results_2026-02-27_xx_a0.html (95,600 characters of extracted text). Searched 2026-09-04 for the terms 'non-controlling', 'noncontrolling', 'minority interest', 'minority interests' -- ZERO occurrences of any of them. The group states no non-controlling interest, so it distributes none (E106 clause 5: a determined zero, not an undetermined leg)."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # --- read by the E6 RANKING KEY ---------------------------------
       revenue:
         value: 425129
@@ -368,59 +380,73 @@ periods:
       revenue:
         value: 225848
         page: "RNS, 'CONDENSED CONSOLIDATED INTERIM STATEMENT OF PROFIT AND LOSS AND OTHER COMPREHENSIVE INCOME': 'Revenue 4 225,848 211,730 425,129' (six months to 30 June 2026, 30 June 2025, year 2025)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_income:
         value: 148168
         page: "RNS, condensed interim statement of profit and loss: 'Operating profit 148,168 145,385 287,874' (six months to 30 June 2026, 30 June 2025, year 2025). E79: entered beside the whole-percent margin"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       op_margin:
         value: 0.66
         page: "RNS, financial summary table: 'Operating margin 66% 69%' (H1 2026, H1 2025) -- stated to the WHOLE PERCENT; 148,168 / 225,848 = 65.60%, which rounds to 66% (E79, band ±0.5pp). 'Underlying operating margin 69%' is the APM and is not entered"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       total_assets:
         value: 124116
         page: "RNS, 'CONDENSED CONSOLIDATED INTERIM STATEMENT OF FINANCIAL POSITION' at 30 June 2026: 'Total assets 124,116 124,942 128,181'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_ppe:
         value: 7579
         page: "RNS, condensed interim statement of financial position: 'Property, plant and equipment 7,579 7,664 9,510'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_cash_flow:
         value: 123055
         page: "RNS, 'CONDENSED CONSOLIDATED INTERIM STATEMENT OF CASH FLOWS': 'Net cash from operating activities 123,055 120,048 236,299' -- after 'Financial expenses paid (272)' and 'Income taxes paid (37,386)'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       income_tax_paid:
         value: -37386
         page: "RNS, condensed interim statement of cash flows: 'Income taxes paid (37,386) (35,331) (71,181)' -- memo, already inside operating_cash_flow"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_ppe:
         value: -464
         page: "RNS, condensed interim statement of cash flows, investing: 'Acquisition of property, plant and equipment (464) (387) (903)'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_intangibles:
         value: -6248
         page: "RNS, condensed interim statement of cash flows, investing: 'Acquisition of intangible assets 10 (6,248) (4,033) (9,276)'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       lease_payments_capital:
         value: -1974
         page: "RNS, condensed interim statement of cash flows, financing: 'Payment of lease liabilities (1,974) (1,539) (3,146)' -- the year column equals the annual report's principal-only line, so this is the principal. A MEMO under E70"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_paid:
         value: 272
         page: "RNS, condensed interim statement of cash flows, OPERATING: 'Financial expenses paid (272) (303) (535)' (positive magnitude)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_received:
         value: 1116
         page: "RNS, condensed interim statement of cash flows, INVESTING: 'Interest received on cash and cash equivalents 1,116 1,357 2,435' (positive magnitude)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       sbc:
         value: 4593
         page: "RNS, condensed interim statement of cash flows, adjustments: 'Share-based payments 6 4,593 4,541 8,539' -- the IFRS 2 charge; note 6 states the total charge including NI as £4,635,000 (2025: £5,891,000), the NI element excluded as in the annual entry (E36)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       cash_and_equivalents:
         value: 34345
         page: "RNS, condensed interim statement of financial position: 'Cash and cash equivalents 34,345 36,817 37,223'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # other_current_financial_assets: NOT ENTERED at 30 June 2026 -- the
       # condensed statement prints 'Money-market deposits - 5,588 5,683' (nil at
       # 30 June 2026; 'Liquidation of money market deposits 5,725' sits in
@@ -430,77 +456,233 @@ periods:
         value: 0
         zero_basis: caption
         page: "RNS, condensed interim statement of financial position, current liabilities: 'Trade and other payables 13 (40,647)', 'Lease liabilities (2,865)', 'Contract liabilities 4 (3,157)', 'Income tax payable (276)', 'Other current liabilities - - (428)' -- no borrowings caption; the deferred consideration was settled ('Settlement of deferred consideration (400)', investing)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       financial_liabilities_noncurrent:
         value: 0
         zero_basis: caption
         page: "RNS, condensed interim statement of financial position, non-current liabilities: 'Lease liabilities (2,496)', 'Provisions (1,724)', 'Other non-current liabilities - (423) -' -- no borrowings caption"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       lease_liabilities:
         value: 5361
         page: "RNS, condensed interim statement of financial position: 'Lease liabilities (2,865)' (current) and 'Lease liabilities (2,496)' (non-current) -- two stated parts added (E71): no total is printed in the condensed statements, and the narrative's summary balance sheet prints the same liability as one line, 'Lease liabilities (5.3)' £m, which 5,361 rounds to"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       pension_deficit:
         value: 0
         zero_basis: note
-        page: "RNS, condensed interim statement of financial position carries no pension caption; the policy is unchanged from the annual report p.123 (defined contribution plans only). E35.1's note form, the sentence in the annual report"
-        status: UNVERIFIED
+        page: "RNS, condensed interim statement of financial position carries no pension caption; the policy is unchanged from the annual report p.123 (defined contribution plans only). E35.1's note form, the sentence in the annual report. E107 SEARCH: sources/RMV.L_2026-H1_half-year-financial-report_2026-07-31_xx_a0.html (79,867 characters). Searched 2026-10-13 for 'pension', 'defined benefit', 'post-employment', 'retirement benefit' -- ZERO occurrences"
+        status: VERIFIED
+        verified_kind: machine_read_back
       asset_retirement_obligation:
         value: 1724
         page: "RNS, condensed interim statement of financial position, non-current liabilities: 'Provisions (1,724) (859) (1,717)' -- the same caption the annual report's note 20 (p.133) identifies as the dilapidations provision (its 31 December 2025 column, 1,717, is that note's closing balance); the interim carries no other provision. E68 via E69"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       prepaid_delivery_obligation:
         value: 0
         zero_basis: caption
         page: "E81 (2026-08-30): RNS, condensed interim statement of financial position at 30 June 2026: trade and other payables, lease liabilities, 'Contract liabilities (3,157)', income tax payable, other current liabilities, provisions -- no streaming, prepaid-offtake or prepaid-delivery caption; the contract liability is subscription billings, NOT this leg, named. A caption zero"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_weighted_average_shares:
         value: 756031940
-        page: "RNS, note 7 'Weighted average number of ordinary shares (diluted)': basic 753,445,230 + 'Dilutive impact of share-based incentives outstanding 2,586,710' = 756,031,940 for the SIX MONTHS ended 30 June 2026 (June 2025: 779,865,102; year 2025: 775,356,560). A six-month average, not a twelve-month window average (E38/E75)"
-        status: UNVERIFIED
+        page: "RNS, note 7 'Weighted average number of ordinary shares (diluted)': basic 753,445,230 + 'Dilutive impact of share-based incentives outstanding 2,586,710' = 756,031,940 (the total row: '756,031,940 779,865,102 775,356,560') for the SIX MONTHS ended 30 June 2026 (June 2025: 779,865,102; year 2025: 775,356,560). A six-month average, not a twelve-month window average (E38/E75)"
+        status: VERIFIED
+        verified_kind: machine_read_back
       shares_issued_period_end:
         value: 755900469
         page: "Total Voting Rights RNS 0db60171-bfa5-4b90-b546-5b47ba8a7b9e, 2026-07-01: 'as at 30 June 2026, the Company's issued share capital consisted of 755,900,469 ordinary shares of 0.1p each (Shares) of which 10,490,552 Shares are held by the Company in treasury'; reconciles to the interim's note 14, 17,381,358 shares bought back and cancelled in the six months (773,281,827 - 17,381,358 = 755,900,469) and to 'Share capital 757' £000 at 0.1p"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       treasury_shares_period_end:
         value: 10490552
         page: "RNS, note 14, own shares held (number of shares), 'Shares held as at 30 June 2026 1,464,961 1,500,721 10,490,552 13,456,234' -- treasury column 10,490,552; the Total Voting Rights notice of 2026-07-01 states the same 10,490,552"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       employee_trust_shares_period_end:
         value: 2965682
         page: "RNS, note 14: 'At 30 June 2026, the EBT held 1,464,961 ... ordinary shares' and 'At 30 June 2026 the SIP Trust held 1,500,721 ... ordinary shares' -- two stated parts added (E71), on the annual entry's precedent (note 10 treats treasury, SIP and EBT as one deduction; E54)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_eps:
         value: 14.7
         page: "RNS, condensed interim statement of profit and loss, 'Earnings per share (pence)': 'Diluted 7 14.7 14.1 28.0'. PENCE"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_eps_adjusted:
         value: 15.5
         page: "RNS, note 7: 'Underlying profit after tax 117,234 15.6 15.5' -- diluted underlying EPS 15.5 pence, non-GAAP memo"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_income_adjusted:
         value: 155124
         page: "RNS, condensed interim statement of profit and loss: 'Underlying Operating Profit 1 155,124 151,276 297,689' -- before the share-based incentive charge (4,635) and certain legal & professional costs (2,321); non-GAAP memo"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_income:
         value: 111213
         page: "RNS, condensed interim statement of profit and loss: 'Profit for the period attributable to equity holders of the parent 111,213 109,908 217,067'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_period:
         value: 245
         page: "RNS, condensed interim statement of profit and loss: 'Financial expenses (245) (306) (557)' (positive magnitude)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_period:
         value: 1184
         page: "RNS, condensed interim statement of profit and loss: 'Financial income 1,184 1,459 2,634'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       op_margin:
         value: 0.66
         page: "RNS, financial review table: 'Operating margin 66% 69%' (H1 2026, H1 2025); text: 'delivering an operating profit margin of 66% (H1 2025: 69%)'. 148,168 / 225,848 = 65.6%, which the issuer rounds to 66%"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue_yoy:
         value: 0.07
         page: "RNS, highlights: 'Revenue increased 7% on H1 2025'; 225,848 / 211,730 - 1 = 6.7%, rounded by the issuer to 7%"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
 
-annual: []
+annual:
+  # E140(1): the two fiscal years before 2025-FY (in periods:), the legs of
+  # the three-year mean only. Entered 2026-10-27: FY2024 off the 2025
+  # report's comparative column, FY2023 off the Annual report 2024.
+  - fiscal_year: 2023
+    period_end: 2023-12-31
+    document: "Rightmove Annual report and accounts 2024 (audited), comparative column 2023"
+    url: "sources/RMV.L_2024-FY_annual-financial-report_2025-03-19_xx_a0.pdf"
+    figures:
+      operating_cash_flow:
+        value: 206711
+        page: "pdf p.134, consolidated cash flow statement: 'Net cash from operating activities 211,270 206,711' (2023 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      working_capital_change:
+        value: -734
+        page: "E140(1), pdf p.134: 'Decrease/(increase) in trade and other receivables 16 2,429 (4,503)', 'Increase in trade and other payables 18 2,299 3,863', 'Increase in contract assets 4 (511) (305)', 'Increase in contract liabilities 4 632 211' = - 4,503 + 3,863 - 305 + 211 = 734 absorbed, entered as -734 (2023 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      capex_ppe:
+        value: -2018
+        page: "pdf p.134, investing activities: 'Acquisition of property, plant and equipment 12 (1,055) (2,018)' (2023 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      capex_intangibles:
+        value: -1328
+        page: "pdf p.134: 'Acquisition of intangible assets 13 (8,023) (1,328)' (2023 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_payments_capital:
+        value: -2530
+        page: "pdf p.134, financing activities: 'Payment of principal portion of lease liabilities 19 (2,781) (2,530)' (2023 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_interest_paid:
+        value: 187
+        page: "pdf p.150, note 19 reconciliation of lease liabilities: 'Payment of lease liabilities – interest (141) (187)' (2023 column) -- CASH PAID, as the 2025 basis year. E117 leg"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      sbc:
+        value: 5886
+        page: "pdf p.134, operating activities: 'Share-based payments 23 7,439 5,886' (2023 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      acquisitions_paid:
+        value: 0
+        zero_basis: caption
+        page: "E140.1(1), pdf p.134, investing activities: 'Acquisition of subsidiary, net of cash received 25 (7,552) -' -- the 2023 column is a dash"
+        status: VERIFIED
+        verified_kind: machine_read_back
+  - fiscal_year: 2024
+    period_end: 2024-12-31
+    document: "Rightmove Annual report and accounts 2025 (audited), comparative column 2024"
+    url: "sources/RMV.L_2025-FY_annual-financial-report_2026-03-30_xx_a0.pdf"
+    figures:
+      operating_cash_flow:
+        value: 211270
+        page: "pdf p.119, consolidated cash flow statement: 'Net cash from operating activities 236,299 211,270' (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      working_capital_change:
+        value: 4849
+        page: "E140(1), pdf p.119: '(Increase)/decrease in trade and other receivables 16 (3,446) 2,429', 'Increase in trade and other payables 18 5,532 2,299', 'Decrease/(increase) in contract assets 4 19 (511)', 'Increase in contract liabilities 4 317 632' = 2,429 + 2,299 - 511 + 632 = 4,849 (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      capex_ppe:
+        value: -1055
+        page: "pdf p.119, investing activities: 'Acquisition of property, plant and equipment 12 (903) (1,055)' (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      capex_intangibles:
+        value: -8023
+        page: "pdf p.119: 'Acquisition of intangible assets 13 (9,276) (8,023)' (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_payments_capital:
+        value: -2781
+        page: "pdf p.119, financing activities: 'Payment of principal portion of lease liabilities 19 (3,146) (2,781)' (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      lease_interest_paid:
+        value: 141
+        page: "pdf p.135, note 19 reconciliation of lease liabilities: 'Payment of lease liabilities – interest (80) (141)' (2024 column) -- CASH PAID, as the 2025 basis year. E117 leg"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      sbc:
+        value: 7439
+        page: "pdf p.119, operating activities: 'Share-based payments 23 8,539 7,439' (2024 column)"
+        status: VERIFIED
+        verified_kind: machine_read_back
+      acquisitions_paid:
+        value: -7552
+        page: "E140.1(1), pdf p.119, investing activities: 'Acquisition of subsidiary, net of cash received 25 - (7,552)' (2024 column). 'Acquisition of investment 25 - (3,000)' is an equity investment, not a business, and is not in it"
+        status: VERIFIED
+        verified_kind: machine_read_back
+
+# E140.1(3): the bridge rolls to the latest filed balance sheet, the
+# half-year of 30 June 2026, with the half's working capital neutralised.
+# The balance-sheet legs are the 2026-H1 period's own readings.
+roll_forward:
+  period_end: 2026-06-30
+  from_year_end: 2025-12-31
+  document: "Half-year Financial Report 2026 (RNS, unaudited)"
+  url: "sources/RMV.L_2026-H1_half-year-financial-report_2026-07-31_xx_a0.html"
+  figures:
+    working_capital_change:
+      value: 2373
+      page: "condensed consolidated interim cash flow statement, six months to 30 June 2026: 'Increase in trade and other receivables 11 (3,702) (3,720) (3,446)', 'Increase in trade and other payables' '6,648 5,886 5,532', '(Increase)/decrease in contract assets 4 (245) (115) 19', '(Decrease)/increase in contract liabilities 4 (328) (109) 317' = - 3,702 + 6,648 - 245 - 328 = 2,373"
+      status: VERIFIED
+      verified_kind: machine_read_back
+    # other_current_financial_assets: blank -- 'Money-market deposits - 5,588 5,683'
+    # prints a dash at 30 June 2026 (E25: a non-zero-able field, left blank)
+    cash_and_equivalents:
+      value: 34345
+      page: "RNS, condensed interim statement of financial position: 'Cash and cash equivalents 34,345 36,817 37,223'"
+      status: VERIFIED
+      verified_kind: machine_read_back
+    financial_liabilities_current:
+      value: 0
+      zero_basis: caption
+      page: "RNS, condensed interim statement of financial position, current liabilities: 'Trade and other payables 13 (40,647)', 'Lease liabilities (2,865)', 'Contract liabilities 4 (3,157)', 'Income tax payable (276)', 'Other current liabilities - - (428)' -- no borrowings caption; the deferred consideration was settled ('Settlement of deferred consideration (400)', investing)"
+      status: VERIFIED
+      verified_kind: machine_read_back
+    financial_liabilities_noncurrent:
+      value: 0
+      zero_basis: caption
+      page: "RNS, condensed interim statement of financial position, non-current liabilities: 'Lease liabilities (2,496)', 'Provisions (1,724)', 'Other non-current liabilities - (423) -' -- no borrowings caption"
+      status: VERIFIED
+      verified_kind: machine_read_back
+    lease_liabilities:
+      value: 5361
+      page: "RNS, condensed interim statement of financial position: 'Lease liabilities (2,865)' (current) and 'Lease liabilities (2,496)' (non-current) -- two stated parts added (E71): no total is printed in the condensed statements, and the narrative's summary balance sheet prints the same liability as one line, 'Lease liabilities (5.3)' \u00a3m, which 5,361 rounds to"
+      status: VERIFIED
+      verified_kind: machine_read_back
+    diluted_weighted_average_shares:
+      value: 756031940
+      page: "RNS, note 7 'Weighted average number of ordinary shares (diluted)': basic 753,445,230 + 'Dilutive impact of share-based incentives outstanding 2,586,710' = 756,031,940 (the total row: '756,031,940 779,865,102 775,356,560') for the SIX MONTHS ended 30 June 2026 (June 2025: 779,865,102; year 2025: 775,356,560). A six-month average, not a twelve-month window average (E38/E75)"
+      status: VERIFIED
+      verified_kind: machine_read_back

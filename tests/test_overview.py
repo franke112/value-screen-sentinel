@@ -1436,8 +1436,9 @@ def test_the_queue_shows_the_single_action_items_and_folds_the_rest(page, markup
                                                      1)[0]
     head = section.split('class="rest"', 1)[0]
     one = [i for i in page.queue if i.actions == 1]
-    rest = [i for i in page.queue if i.actions != 1]
-    assert one and rest
+    # the folded rest may be empty: E131 (2026-10-12) cleared the
+    # read-back items that made most of it
+    assert one
     assert "One action each" in head
     for item in one:
         assert item.ticker in head

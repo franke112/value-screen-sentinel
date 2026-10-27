@@ -171,7 +171,8 @@ periods:
         zero_basis: searched
         source: "E105 leg; E107 searched absence"
         page: "E107 SEARCHED ABSENCE. Document: sources/KAR.ST_2025-Q3_interim-report-q1-and-q3_2025-11-12_en_a0.pdf (66,664 characters of extracted text). Searched 2026-09-04 for the terms 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- ZERO occurrences of any of them in this report. THE ANNUAL REPORT WAS SEARCHED TOO and carries four, all accounting-policy boilerplate on pp.106-107 ('The Group recognises any non-controlling...', 'either at fair value or at the non-controlling interest's...'), none a holding and none a distribution; its balance sheet p.102 prints 'Total equity attributable to the parent company's shareholders 3,245.2' and 'Total equity 3,245.2' -- IDENTICAL, leaving no room for a minority (sources/KAR.ST_2025-FY_annual-financial-report_2026-03-27_en_a0.pdf, 548,557 characters, searched the same day). E106 clause 5: a determined zero, not an undetermined leg."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       free_cash_flow_reported:
         value: null
         source: "E104 WITHDRAWN -- two independent extractions did not agree"
@@ -180,67 +181,83 @@ periods:
       revenue:
         value: 654.4
         page: "p.12, condensed consolidated statement of comprehensive income, Q3 2025 column: 'Net sales 654.4' = 'Total revenue 654.4' (Q3 2024: 647.7)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_income:
         value: 88.7
         page: "p.12, Q3 2025: 'Operating profit (EBIT) 88.7' (Q3 2024: 23.1); p.16 cash flow statement opens from the same 'Operating profit (EBIT) 88.7'. Adjusted EBITA for the quarter, the issuer's APM, was 172.1 (p.2), entered nowhere"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       op_margin:
         value: 0.136
         page: "p.2, key financial ratios for the Group, Q3 2025: 'EBIT margin, % 13.6%' (88.7 / 654.4 = 13.55%)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue_yoy:
         value: 0.010
         page: "p.2, key financial ratios, Q3 2025: 'Net sales 654.4 647.7 1.0%'; the issuer's 'Organic growth, % 3.9%' is the constant-currency, acquisition-adjusted rate, not entered"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       depreciation_amortisation:
         value: 103.9
         page: "p.12, Q3 2025: 'Depreciations and amortisations -103.9'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_income:
         value: 43.4
         page: "p.12, Q3 2025: 'Profit for the period 43.4', all attributable to 'Owners of Karnov Group AB (publ) 43.4'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_eps:
         value: 0.40
         page: "p.12, Q3 2025: 'Earnings per share, after dilution, SEK 0.40'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_weighted_average_shares:
         value: 108102
         page: "p.12, Q3 2025: 'Weighted average number of ordinary shares adjusted for dilution (thousands) 108,102' (107,876 ordinary + 226 performance shares). A QUARTERLY average (E41)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_cash_flow:
         value: -11.1
         page: "p.16, condensed consolidated cash flow statement, Q3 2025: 'Cash flow from operating activities -11.1' (Q3 2024: -42.4) -- after 'Net financial items, paid -20.8' and 'Corporate tax paid -9.7'; a seasonal outflow ('Change in prepaid income -224.8')"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_interest_paid:
         value: 20.8
         page: "p.16, operating activities, Q3 2025: 'Net financial items, paid -20.8' (positive = net paid). Interest paid and received are not printed apart; the line also carries bank fees, lease interest and realised FX (AR note 6.7)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       income_tax_paid:
         value: -9.7
         page: "p.16, Q3 2025: 'Corporate tax paid -9.7' -- memo, inside operating_cash_flow"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_intangibles:
         value: -35.3
         page: "p.16, investing activities, Q3 2025: 'Acquisition of intangible assets -35.3'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_ppe:
         value: -2.4
         page: "p.16, investing activities, Q3 2025: 'Acquisition of property, plant and equipment -2.4' ('Sale of property, plant and equipment 18.8' is a separate line, not netted here)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       lease_payments_capital:
         value: -14.9
         page: "p.16, financing activities, Q3 2025: 'Payment of lease liabilities -14.9'. A MEMO under E70"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_period:
         value: 24.9
         page: "p.12, Q3 2025: 'Financial expenses -24.9' (positive magnitude; includes FX losses per AR note 6.7)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_period:
         value: 3.5
         page: "p.12, Q3 2025: 'Financial income 3.5'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
 
   - period: 2025-Q4
     period_end: 2025-12-31
@@ -254,7 +271,8 @@ periods:
         zero_basis: searched
         source: "E105 leg; E107 searched absence"
         page: "E107 SEARCHED ABSENCE. Document: sources/KAR.ST_2025-Q4_financial-statement-release_2026-02-11_en_a0.pdf (64,137 characters of extracted text). Searched 2026-09-04 for the terms 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- ZERO occurrences of any of them in this report. THE ANNUAL REPORT WAS SEARCHED TOO and carries four, all accounting-policy boilerplate on pp.106-107 ('The Group recognises any non-controlling...', 'either at fair value or at the non-controlling interest's...'), none a holding and none a distribution; its balance sheet p.102 prints 'Total equity attributable to the parent company's shareholders 3,245.2' and 'Total equity 3,245.2' -- IDENTICAL, leaving no room for a minority (sources/KAR.ST_2025-FY_annual-financial-report_2026-03-27_en_a0.pdf, 548,557 characters, searched the same day). E106 clause 5: a determined zero, not an undetermined leg."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       free_cash_flow_reported:
         value: null
         source: "E104 WITHDRAWN -- two independent extractions did not agree"
@@ -263,68 +281,84 @@ periods:
       revenue:
         value: 664.9
         page: "p.11, Q4 2025 column: 'Net sales 664.9' = 'Total revenue 664.9' (Q4 2024: 690.5)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_income:
         value: 895.7
         page: "p.11, Q4 2025 column: 'Operating profit (EBIT) 895.7' (Q4 2024: 165.2) -- carrying the EHS divestment gain, 'Other operating income and expenses 723.6', inside operating profit. E83 (2026-08-30): entered beside the issuer's stated margin, the cause named on it"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       op_margin:
         value: 1.347
         cause: "'Other operating income and expenses 723.6' (p.11, Q4 2025) -- the gain on the divestment of EHS sits inside operating profit, so EBIT 895.7 exceeds net sales 664.9; p.2 prints 'EBIT margin, % 134.7%'"
         page: "p.2, key figures, Q4 2025: 'EBIT margin, % 134.7%' -- stated to a tenth; 895.7 / 664.9 = 134.71% (E79). Outside FRACTION_BANDS' [-10, 1] and accepted under E83 because the issuer prints it and the statements identify the cause"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue_yoy:
         value: -0.037
         page: "p.2, key financial ratios, Q4 2025: 'Net sales 664.9 690.5 -3.7%'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       depreciation_amortisation:
         value: 106.7
         page: "p.11, Q4 2025: 'Depreciations and amortisations -106.7'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_income:
         value: 842.1
         page: "p.11, Q4 2025: 'Profit for the period 842.1', all attributable to the owners"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_eps:
         value: 7.79
         page: "p.11, Q4 2025: 'Earnings per share, after dilution, SEK 7.79'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_weighted_average_shares:
         value: 108102
         page: "p.11, Q4 2025: 'Weighted average number of ordinary shares adjusted for dilution (thousands) 108,102'. A QUARTERLY average (E41)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_cash_flow:
         value: 75.0
         page: "p.15, Q4 2025: 'Cash flow from operating activities 75.0' (Q4 2024: 209.3)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_interest_paid:
         value: 20.7
         page: "p.15, operating activities, Q4 2025: 'Net financial items, paid -20.7' (positive = net paid)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       income_tax_paid:
         value: -3.1
         page: "p.15, Q4 2025: 'Corporate tax paid -3.1' -- memo"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_intangibles:
         value: -50.0
         page: "p.15, investing activities, Q4 2025: 'Acquisition of intangible assets -50.0'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_ppe:
         value: -3.4
         page: "p.15, investing activities, Q4 2025: 'Acquisition of property, plant and equipment -3.4'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       lease_payments_capital:
         value: -12.8
         page: "p.15, financing activities, Q4 2025: 'Payment of lease liabilities -12.8'. A MEMO under E70"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_period:
         value: 38.2
         page: "p.11, Q4 2025: 'Financial expenses -38.2' (positive magnitude)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_period:
         value: 1.5
         page: "p.11, Q4 2025: 'Financial income 1.5'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
 
   - period: 2026-Q1
     period_end: 2026-03-31
@@ -338,76 +372,94 @@ periods:
         zero_basis: searched
         source: "E105 leg; E107 searched absence"
         page: "E107 SEARCHED ABSENCE. Document: sources/KAR.ST_2026-Q1_interim-report-q1-and-q3_2026-05-06_en_a0.pdf (55,992 characters of extracted text). Searched 2026-09-04 for the terms 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- ZERO occurrences of any of them in this report. THE ANNUAL REPORT WAS SEARCHED TOO and carries four, all accounting-policy boilerplate on pp.106-107 ('The Group recognises any non-controlling...', 'either at fair value or at the non-controlling interest's...'), none a holding and none a distribution; its balance sheet p.102 prints 'Total equity attributable to the parent company's shareholders 3,245.2' and 'Total equity 3,245.2' -- IDENTICAL, leaving no room for a minority (sources/KAR.ST_2025-FY_annual-financial-report_2026-03-27_en_a0.pdf, 548,557 characters, searched the same day). E106 clause 5: a determined zero, not an undetermined leg."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       free_cash_flow_reported:
         value: 232
         source: "E103 automatic reference extraction (pdf (model-read))"
         page: "5 [printed in millions] -- verbatim: Free cash flow for the quarter was SEK 232 m (218)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue:
         value: 628.1
         page: "p.11, Q1 2026: 'Net sales 628.1' = 'Total revenue 628.1' (Q1 2025: 672.5)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_income:
         value: 94.9
         page: "p.11, Q1 2026: 'Operating profit (EBIT) 94.9' (Q1 2025: 91.6). Adjusted EBITA 179.8 (p.2), entered nowhere"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       op_margin:
         value: 0.151
         page: "p.2, key financial ratios, Q1 2026: 'EBIT margin, % 15.1%' (94.9 / 628.1 = 15.11%)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue_yoy:
         value: -0.066
         page: "p.2, key financial ratios, Q1 2026: 'Net sales 628.1 672.5 -6.6%' (EHS divested; organic growth 3.2%)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       depreciation_amortisation:
         value: 102.3
         page: "p.11, Q1 2026: 'Depreciations and amortisations -102.3'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_income:
         value: 58.7
         page: "p.11, Q1 2026: 'Profit for the period 58.7', all attributable to the owners"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_eps:
         value: 0.54
         page: "p.11, Q1 2026: 'Earnings per share, after dilution, SEK 0.54'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_weighted_average_shares:
         value: 108102
         page: "p.11, Q1 2026: 'Weighted average number of total shares adjusted for dilution (thousands) 108,102' ('Weighted average number of traded shares 105,862' + 'Effect of treasury shares 2,240' -- the issuer's own dilution arithmetic after the buy-backs began). A QUARTERLY average (E41)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_cash_flow:
         value: 289.7
         page: "p.15, Q1 2026: 'Cash flow from operating activities 289.7' (Q1 2025: 266.4) -- the seasonal inflow ('Change in prepaid income 316.4')"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_interest_paid:
         value: 14.5
         page: "p.15, operating activities, Q1 2026: 'Net financial items, paid -14.5' (positive = net paid)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       income_tax_paid:
         value: -34.9
         page: "p.15, Q1 2026: 'Corporate tax paid -34.9' -- memo"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_intangibles:
         value: -39.4
         page: "p.15, investing activities, Q1 2026: 'Acquisition of intangible assets -39.4'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_ppe:
         value: -4.0
         page: "p.15, investing activities, Q1 2026: 'Acquisition of property, plant and equipment -4.0'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       lease_payments_capital:
         value: -14.3
         page: "p.15, financing activities, Q1 2026: 'Payment of lease liabilities -14.3'. A MEMO under E70"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_period:
         value: 26.5
         page: "p.11, Q1 2026: 'Financial expenses -26.5' (positive magnitude)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_period:
         value: 4.2
         page: "p.11, Q1 2026: 'Financial income 4.2'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
 
   - period: 2026-Q2
     period_end: 2026-06-30
@@ -421,7 +473,8 @@ periods:
         zero_basis: searched
         source: "E105 leg; E107 searched absence"
         page: "E107 SEARCHED ABSENCE. Document: sources/KAR.ST_2026-Q2_half-year-financial-report_2026-08-20_en_a1.pdf (72,796 characters of extracted text). Searched 2026-09-04 for the terms 'non-controlling', 'noncontrolling', 'non controlling', 'minority interest', 'minority interests' -- ZERO occurrences of any of them in this report. THE ANNUAL REPORT WAS SEARCHED TOO and carries four, all accounting-policy boilerplate on pp.106-107 ('The Group recognises any non-controlling...', 'either at fair value or at the non-controlling interest's...'), none a holding and none a distribution; its balance sheet p.102 prints 'Total equity attributable to the parent company's shareholders 3,245.2' and 'Total equity 3,245.2' -- IDENTICAL, leaving no room for a minority (sources/KAR.ST_2025-FY_annual-financial-report_2026-03-27_en_a0.pdf, 548,557 characters, searched the same day). E106 clause 5: a determined zero, not an undetermined leg."
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       free_cash_flow_reported:
         value: null
         source: "E104 WITHDRAWN -- two independent extractions did not agree"
@@ -431,74 +484,91 @@ periods:
       revenue:
         value: 618.6
         page: "p.12, consolidated statement of comprehensive income, Q2 2026 column: 'Net sales 618.6' = 'Total revenue 618.6' (Q2 2025: 649.1; H1 2026: 1,246.7)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_income:
         value: 69.6
         page: "p.12, Q2 2026: 'Operating profit (EBIT) 69.6' (Q2 2025: 47.0). Adjusted EBITA 153.6 (p.2), entered nowhere"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       op_margin:
         value: 0.113
         page: "p.2, key financial ratios, Q2 2026: 'EBIT margin, % 11.3%' (69.6 / 618.6 = 11.25%)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue_yoy:
         value: -0.047
         page: "p.2, key financial ratios, Q2 2026: 'Net sales 618.6 649.1 -4.7%' (organic growth 2.4%, acquired growth -6.8% from the EHS divestment)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       total_assets:
         value: 6744.5
         page: "p.13, consolidated balance sheet, 30 Jun 2026: 'TOTAL ASSETS 6,744.5' (31 Dec 2025: 7,385.0)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_ppe:
         value: 25.7
         page: "p.13, 30 Jun 2026: 'Property, plant and equipment 25.7' (right-of-use assets 233.8 are a separate line)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # --- section 5.1 C: the cash the reverse DCF discounts -----------
       operating_cash_flow:
         value: 21.4
         page: "p.16, consolidated statement of cash flows, Q2 2026 column: 'Cash flow from operating activities 21.4' (Q2 2025: 9.9; H1 2026: 311.1)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_interest_paid:
         value: 16.6
         page: "p.16, operating activities, Q2 2026: 'Net financial items, paid -16.6' (positive = net paid); H1 -31.1"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       income_tax_paid:
         value: -20.1
         page: "p.16, Q2 2026: 'Corporate tax paid -20.1' -- memo"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_intangibles:
         value: -50.8
         page: "p.16, investing activities, Q2 2026: 'Acquisition of intangible assets -50.8' (H1: -90.2)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_ppe:
         value: -0.2
         page: "p.16, investing activities, Q2 2026: 'Acquisition of property, plant and equipment -0.2' (H1: -4.2); 'Sale of intangible and tangible assets 18.5' is a separate line, not netted"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       lease_payments_capital:
         value: -14.5
         page: "p.16, financing activities, Q2 2026: 'Payment of lease liabilities -14.5' (H1: -28.8). A MEMO under E70"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # --- section 5.1 C: net debt, the bridge from EV to equity --------
       prepaid_delivery_obligation:
         value: 0
         zero_basis: caption
         page: "E81 (2026-08-30): Q2 2026 report p.14, condensed consolidated balance sheet at 30 June 2026, liabilities presented: 'Borrowing from credit institutions 1,775.5' / '104.8', 'Lease liabilities 206.2' / '46.3', 'Deferred tax liabilities 248.1', 'Provisions 84.6', 'Other non-current liabilites 37.2', 'Bank overdraft -', 'Trade payables 57.0', 'Current tax liabilities 68.6', 'Accrued expenses 340.3', 'Prepaid income 1,132.2', 'Other current liabilities 70.7' -- no streaming, prepaid-offtake or prepaid-delivery caption. 'Prepaid income 1,132.2' is subscription revenue billed in advance -- the ordinary contract liability of a legal-information publisher, working capital the flow already carries, NOT this leg -- and is named here so the reading is visible. A caption zero"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       cash_and_equivalents:
         value: 182.9
         page: "p.13, 30 Jun 2026: 'Cash and cash equivalents 182.9'; p.16 'Net cash position at the end of the period 182.9' with 'Bank overdraft -' (nil); note 4 p.20 'Cash and cash equivalents 182.9'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       financial_liabilities_current:
         value: 104.8
         page: "p.14, current liabilities, 30 Jun 2026: 'Borrowing from credit institutions 104.8' (31 Dec 2025: 135.2); 'Bank overdraft -' nil at this date (107.4 at 30 June 2025). Excludes leases, which the balance sheet presents on their own line (E14)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       financial_liabilities_noncurrent:
         value: 1775.5
         page: "p.14, non-current liabilities, 30 Jun 2026: 'Borrowing from credit institutions 1,775.5' (31 Dec 2025: 1,829.8); note 4 p.20 states the two-part total 'Borrowing from credit institutions 1,880.3' = 1,775.5 + 104.8. Excludes leases (E14)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       lease_liabilities:
         value: 252.5
         page: "note 4, p.20, financial liabilities at 30 Jun 2026: 'Lease liabilities 252.5' -- the stated total of the balance sheet's 'Lease liabilities 206.2' (non-current) and '46.3' (current), p.14. One IFRS 16 liability (E65)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # pension_deficit / asset_retirement_obligation: DATA MISSING at 30 June
       #   2026 -- p.14 presents 'Provisions 84.6' as one aggregate of the four
       #   categories the annual report's note 3.7 splits (ARO, pension plans,
@@ -508,11 +578,13 @@ periods:
       diluted_weighted_average_shares:
         value: 103425
         page: "p.12, Q2 2026: 'Weighted average number of total shares adjusted for dilution (thousands) 103,425' ('Weighted average number of traded shares 97,420' + 'Effect of treasury shares 6,005'; H1 2026: 105,764). A QUARTERLY average (E41)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       shares_issued_period_end:
         value: 99683.846
         page: "p.9, Shares, share capital and shareholders: 'On 30 June 2026, the total number of shares and votes in Karnov Group AB (publ) amounts to 99,683,846 shares ... The total number of shares consists of 99,536,458 ordinary shares ... and 147,388 shares of series C' -- after 8,418,201 repurchased ordinary shares were cancelled in May 2026 and 78,514 series C shares were converted to ordinary in June. Entered in thousands. ISSUED, not net: the treasury count is not printed (see below)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       # treasury_shares_period_end: DATA MISSING -- p.9 says only that 'Karnov
       #   Group controlled 3.3% of the shares and 3.2% of the votes' at 30 June
       #   2026 and 'further holds 147,388 shares of series C'; the repurchased
@@ -524,27 +596,33 @@ periods:
       depreciation_amortisation:
         value: 106.9
         page: "p.12, Q2 2026: 'Depreciations and amortisations -106.9'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_income:
         value: 37.9
         page: "p.12, Q2 2026: 'Profit for the period 37.9', all attributable to 'Owners of Karnov Group AB (publ) 37.9'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_eps:
         value: 0.37
         page: "p.12, Q2 2026: 'Earnings per share, after dilution, SEK 0.37' (basic 0.39)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_period:
         value: 28.2
         page: "p.12, Q2 2026: 'Financial expenses -28.2' (positive magnitude; p.5: currency adjustments of -5 on EUR loans inside)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_period:
         value: 2.1
         page: "p.12, Q2 2026: 'Financial income 2.1'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_debt_ebitda:
         value: 2.0
         page: "note 5, p.23, LEVERAGE RATIO at 30 Jun 2026: 'Net debt 1,697.4' / 'Adjusted Proforma EBITDA LTM 863.1' = 'Leverage ratio 2.0' -- the issuer's own APM: net debt = borrowings from credit institutions (1,775.5 + 104.8) less net cash position, EXCLUDING lease liabilities; EBITDA adjusted and pro forma for the EHS divestment (footnote). Not E35's net debt"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
 
 annual:
   - fiscal_year: 2025
@@ -552,116 +630,150 @@ annual:
     document: "Annual and Sustainability Report 2025 (Nasdaq Stockholm release 1429575, 2026-03-27; audited), consolidated financial statements pp.100-104 and notes; the ESEF package from release 1429577 is on file and not yet read"
     url: "sources/KAR.ST_2025-FY_annual-financial-report_2026-03-27_en_a0.pdf"
     figures:
+      lease_interest_paid:
+        value: 4.0
+        stand_in: true
+        page: "pdf page 118, leases note, lease liabilities roll-forward (MSEK 2025 2024): 'Interest accrued 4.0 3.1' / 'Interest paid -4.0 -3.1' / 'Payments -53.2 -61.0' -- the CASH interest paid on lease liabilities in 2025, MSEK 4.0. E120 STAND-IN for the 2025-Q3 to 2026-Q2 window: the interim reports state the lease principal ('Payment of lease liabilities') but no lease interest. E117 leg"
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue:
         value: 2640.9
         page: "p.100, consolidated statement of comprehensive income, 2025: 'Net sales 2.2 | 2,640.9' = 'Total revenue 2,640.9' (2024: 2,592.7)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_income:
         value: 1123.0
         page: "p.100, 2025: 'Operating profit (EBIT) 2.1 | 1,123.0' (2024: 146.0) -- includes the EHS divestment gain (p.104 'Gain/loss from divestment -921.0' among non-cash items; 'Other operating income and expenses 383.3'). Adjusted EBITA 667.4 (year-end report p.2), entered nowhere"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       op_margin:
         value: 0.425
         page: "Year-end report 2025 p.2 (release 1419359), key financial ratios, Jan-Dec 2025: 'EBIT margin, % 42.5%' (1,123.0 / 2,640.9 = 42.5%); the annual report prints no margin line"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       revenue_yoy:
         value: 0.019
         page: "Year-end report 2025 p.2, key financial ratios, Jan-Dec 2025: 'Net sales 2,640.9 2,592.7 1.9%'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       total_assets:
         value: 7385.0
         page: "p.101, consolidated balance sheet, 31 Dec 2025: 'TOTAL ASSETS 7,385.0'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_ppe:
         value: 25.2
         page: "p.101, 31 Dec 2025: 'Property, plant and equipment 3.2 | 25.2'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       operating_cash_flow:
         value: 340.2
         page: "p.104, consolidated statement of cash flow, 2025: 'Cash flow from operating activities 340.2' (2024: 315.5). The year-end report (p.15) and the 2026 interims' Jan-Dec column print 340.1 -- a rounding difference of 0.1 between the audited statement and the interims; the audited figure is entered"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_interest_paid:
         value: 100.8
         page: "p.104, operating activities, 2025: 'Net financial items, paid -100.8' (positive = net paid; 2024: -142.3). Note 6.7 (p.139) gives the ACCRUAL split -- interest income 6.8, interest expenses -113.4, net FX +40.6 / -23.8 -- not the cash split"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       income_tax_paid:
         value: -62.4
         page: "p.104, 2025: 'Corporate tax paid -62.4' -- memo"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_intangibles:
         value: -162.3
         page: "p.104, investing activities, 2025: 'Acquisition of intangible assets 3.1 | -162.3'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       capex_ppe:
         value: -7.3
         page: "p.104, investing activities, 2025: 'Acquisition of property, plant and equipment 3.2 | -7.3' ('Sale of property, plant and equipment 18.8' separate, not netted)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       lease_payments_capital:
         value: -57.2
-        page: "p.104, financing activities, 2025: 'Payment of lease liabilities -57.2'; note 6.5 p.136, lease liabilities row: 'Cash flow -57.2'. A MEMO under E70"
-        status: UNVERIFIED
+        page: "p.104, financing activities, 2025: 'Payment of lease liabilities -57.2'; note 6.5 p.136, lease liabilities row, cash flow column: 'Lease liabilities 184.4 -57.2'. A MEMO under E70"
+        status: VERIFIED
+        verified_kind: machine_read_back
       sbc:
         value: 9.9
         page: "p.104, adjustments for non-cash items, 2025: 'Sharebased payments 2.3 | 9.9' (2024: 7.3); note 2.3 p.110: 'Total expense to those programs in 2025 was SEK 10.3 m' (LTIP 2023-2025, performance shares -- equity-settled; the 0.4 difference is the social-charge accrual, a cash cost, excluded per E36)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       cash_and_equivalents:
         value: 931.8
         page: "p.101, 31 Dec 2025: 'Cash and cash equivalents 6.2, 6.6 | 931.8'; p.104 'Cash and cash equivalents at the end of the year 931.8'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       financial_liabilities_current:
         value: 135.2
-        page: "p.102, current liabilities, 31 Dec 2025: 'Borrowing from credit institutions 135.2'; note 6.5 p.136 'Short-term borrowings from credit institutions ... 135.2'. Excludes leases (E14)"
-        status: UNVERIFIED
+        page: "p.102, current liabilities, 31 Dec 2025: 'Borrowing from credit institutions 135.2'; note 6.5 p.136 'Total, carrying amount 135.2 1,829.8 1,965.0'. Excludes leases (E14)"
+        status: VERIFIED
+        verified_kind: machine_read_back
       financial_liabilities_noncurrent:
         value: 1829.8
-        page: "p.102, non-current liabilities, 31 Dec 2025: 'Borrowing from credit institutions 1,829.8'; note 6.5 p.136 'Long-term borrowings from credit institutions ... 1,829.8'. Excludes leases (E14)"
-        status: UNVERIFIED
+        page: "p.102, non-current liabilities, 31 Dec 2025: 'Borrowing from credit institutions 1,829.8'; note 6.5 p.136 'Total, carrying amount 135.2 1,829.8 1,965.0'. Excludes leases (E14)"
+        status: VERIFIED
+        verified_kind: machine_read_back
       lease_liabilities:
         value: 202.8
         page: "note 6.5, p.136, reconciliation of liabilities from financing activities, 'Lease liabilities' row closing 2025: 202.8 -- the stated total of p.102's 'Lease liabilities 156.6' (non-current) and '46.2' (current); Q2 2026 note 4 restates 31 Dec 2025 as 202.8"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       pension_deficit:
         value: 45.3
         page: "note 3.7, p.124, provisions table, 'Pension plans' column: 'Balance at December 31 2025 45.3' (the defined-benefit provision; 'Charged to the income statement 2.6', 'Realised (paid) during the year -5.2'); the balance sheet presents it inside 'Provisions 3.7 | 91.4' (p.102). Alecta ITP2 is a multi-employer plan accounted as defined contribution (p.124). E35.1"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       asset_retirement_obligation:
         value: 10.5
         page: "note 3.7, p.124, provisions table, 'Asset Retirement obligation' column: 'Balance at December 31 2025 10.5' (10.2 + charged 0.9 - FX 0.6); p.123: 'The Group is required to restore its leased premises in Denmark and in France ... to their original condition at end of the respective lease terms.' A lessee's restoration provision -- E68 via E69, on the AUTO.L / RMV.L dilapidations precedent"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       prepaid_delivery_obligation:
         value: 0
         zero_basis: caption
         page: "E81 (2026-08-30): AR 2025 consolidated balance sheet (the statement read for the annual entry): the same captions as the interim -- borrowings, leases, deferred tax, provisions (note 3.7, incl. the asset retirement obligation), prepaid income, trade payables, accrued expenses, other liabilities -- no streaming, prepaid-offtake or prepaid-delivery caption; 'Prepaid income' is subscription billings, NOT this leg. A caption zero"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_weighted_average_shares:
         value: 108102.047
         page: "note 6.3, p.134, earnings per share: 'Weighted average number of ordinary shares adjusted for the effect of dilution 108,102,047' (107,876,145 ordinary + 225,902 performance shares); p.100 prints 108,102 thousand. Entered in thousands"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       shares_outstanding_period_end:
         value: 107876.145
         page: "note 6.3, p.134: 'As per December 31, 2025, the share capital ... divided between 107,876,145 ordinary shares and 225,902 shares of series C'; 'The number of ordinary shares and shares of series C has remained unchanged through 2025'; 'Treasury shares 0.0' on p.102. The ORDINARY count, in thousands: the 225,902 series C shares carry no dividend and one-tenth of a vote, are held for the LTIPs, and enter the issuer's own EPS only as the dilutive 'Effect of performance shares'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       depreciation_amortisation:
         value: 413.1
         page: "p.100, 2025: 'Depreciations and amortisations 3.1, 3.2, 3.3 | -413.1'; p.104 non-cash items 'Depreciations and amortisations 413.1'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_income:
         value: 970.8
         page: "p.100, 2025: 'Profit for the year 970.8', all attributable to 'Owners of Karnov Group AB (publ) 970.8'; note 6.3 p.134 'Earnings attributable to shareholders, MSEK 970.8'"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       diluted_eps:
         value: 8.98
         page: "p.100, 2025: 'Earnings per share, after dilution, SEK 6.3 | 8.98'; note 6.3 p.134 the same (basic 9.00)"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_costs_period:
         value: 137.2
         page: "p.100, 2025: 'Financial expenses 6.7 | -137.2' (positive magnitude); note 6.7 p.139: interest expenses -113.4, net exchange rate losses -23.8"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       finance_income_period:
         value: 47.4
         page: "p.100, 2025: 'Financial income 6.7 | 47.4'; note 6.7 p.139: interest income 6.8, net exchange rate gains 40.6"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back
       net_debt_ebitda:
         value: 1.3
         page: "Q2 2026 half-year report note 5, p.23, '31 Dec 2025' column: 'Net debt 1,033.2' / 'Adjusted Proforma EBITDA LTM 818.0' = 'Leverage ratio 1.3' (net debt excluding leases; the covenant's own 'net leverage ratio' INCLUDING leases was 1.48:1 at 31 December 2025, AR note 6.4 p.135). The issuer's APM, not E35's net debt"
-        status: UNVERIFIED
+        status: VERIFIED
+        verified_kind: machine_read_back

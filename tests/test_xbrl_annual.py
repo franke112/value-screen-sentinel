@@ -298,9 +298,11 @@ def test_the_only_transformation_is_the_sign_of_a_payments_element(project):
     # elements that answer it (`PaymentsOfDividendsMinorityInterest` and the
     # two a filer uses instead) all state a POSITIVE payment, and FCF0 sums
     # this leg in like capex.
+    # 2026-10-27 added `acquisitions_paid`: E140.1(1)'s leg, a Payments
+    # element stating a POSITIVE outflow, summed like capex.
     assert negated == {"capex_ppe", "capex_intangibles", "capex_combined",
                        "lease_payments_capital", "net_finance_costs",
-                       "nci_dividends_paid"}
+                       "nci_dividends_paid", "acquisitions_paid"}
     for spec in X.ANNUAL_FIELDS:
         if not spec.negate:
             continue

@@ -157,6 +157,16 @@ annual:
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2021-08-01..2022-07-31] 10-K 0000900075-24-000024 filed 2024-09-30"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -76789000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2021-08-01..2022-07-31] 10-K 0000900075-24-000024 filed 2024-09-30 = -97,750,000 + us-gaap:IncreaseDecreaseInInventories [2021-08-01..2022-07-31] 10-K 0000900075-24-000024 filed 2024-09-30 = -10,851,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2021-08-01..2022-07-31] 10-K 0000900075-24-000024 filed 2024-09-30 = -5,156,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2021-08-01..2022-07-31] 10-K 0000900075-24-000024 filed 2024-09-30 = 715,000 + us-gaap:IncreaseDecreaseInContractWithCustomerAsset [2021-08-01..2022-07-31] 10-K 0000900075-23-000034 filed 2023-09-28 = -828,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2021-08-01..2022-07-31] 10-K 0000900075-24-000024 filed 2024-09-30 = 36,306,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2021-08-01..2022-07-31] 10-K 0000900075-24-000024 filed 2024-09-30 = -574,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2021-08-01..2022-07-31] 10-K 0000900075-22-000050 filed 2022-09-27 = 0 + us-gaap:ProvisionForDoubtfulAccounts [2021-08-01..2022-07-31] 10-K 0000900075-24-000024 filed 2024-09-30 = 1,349,000 = -76,789,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -106604000
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2021-08-01..2022-07-31] 10-K 0000900075-24-000024 filed 2024-09-30"
+        status: VERIFIED
+        verified_kind: tagged
   - fiscal_year: 2023
     period_end: 2023-07-31
     document: "SEC XBRL companyfacts for CIK 0000900075 (COPART, INC.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000900075.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
@@ -237,6 +247,17 @@ annual:
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2022-08-01..2023-07-31] 10-K 0001628280-25-042946 filed 2025-09-26"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -156945000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2022-08-01..2023-07-31] 10-K 0001628280-25-042946 filed 2025-09-26 = -123,207,000 + us-gaap:IncreaseDecreaseInInventories [2022-08-01..2023-07-31] 10-K 0001628280-25-042946 filed 2025-09-26 = 26,549,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2022-08-01..2023-07-31] 10-K 0001628280-25-042946 filed 2025-09-26 = -59,949,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2022-08-01..2023-07-31] 10-K 0001628280-25-042946 filed 2025-09-26 = 350,000 + us-gaap:IncreaseDecreaseInContractWithCustomerAsset [2022-08-01..2023-07-31] 10-K 0000900075-24-000024 filed 2024-09-30 = -26,540,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2022-08-01..2023-07-31] 10-K 0001628280-25-042946 filed 2025-09-26 = 18,010,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2022-08-01..2023-07-31] 10-K 0001628280-25-042946 filed 2025-09-26 = 5,896,000 + us-gaap:ProvisionForDoubtfulAccounts [2022-08-01..2023-07-31] 10-K 0001628280-25-042946 filed 2025-09-26 = 1,946,000 = -156,945,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2022-08-01..2023-07-31] 10-K 0000900075-24-000024 filed 2024-09-30"
+        status: VERIFIED
+        verified_kind: tagged
+        zero_basis: caption
   - fiscal_year: 2024
     period_end: 2024-07-31
     document: "SEC XBRL companyfacts for CIK 0000900075 (COPART, INC.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000900075.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
@@ -318,6 +339,16 @@ annual:
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2023-08-01..2024-07-31] 10-K 0001193125-26-405731 filed 2026-09-29"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -186399000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-08-01..2024-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = -145,385,000 + us-gaap:IncreaseDecreaseInInventories [2023-08-01..2024-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = -3,698,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2023-08-01..2024-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = -71,067,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2023-08-01..2024-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 1,064,000 + us-gaap:IncreaseDecreaseInContractWithCustomerAsset [2023-08-01..2024-07-31] 10-K 0001628280-25-042946 filed 2025-09-26 = -32,622,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2023-08-01..2024-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 59,528,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2023-08-01..2024-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 1,867,000 + us-gaap:ProvisionForDoubtfulAccounts [2023-08-01..2024-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 3,914,000 = -186,399,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 17662000
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2023-08-01..2024-07-31] 10-K 0001193125-26-405731 filed 2026-09-29"
+        status: VERIFIED
+        verified_kind: tagged
   - fiscal_year: 2025
     period_end: 2025-07-31
     document: "SEC XBRL companyfacts for CIK 0000900075 (COPART, INC.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000900075.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
@@ -391,6 +422,16 @@ annual:
       diluted_weighted_average_shares:
         value: 977563000
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29"
+        status: VERIFIED
+        verified_kind: tagged
+      working_capital_change:
+        value: 51021000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = -33,950,000 + us-gaap:IncreaseDecreaseInInventories [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 4,655,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 7,748,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 478,000 + us-gaap:IncreaseDecreaseInContractWithCustomerAsset [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = -22,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 69,599,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 2,159,000 + us-gaap:ProvisionForDoubtfulAccounts [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 354,000 = 51,021,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -1223000
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29"
         status: VERIFIED
         verified_kind: tagged
   - fiscal_year: 2026
@@ -517,3 +558,13 @@ annual:
         page: "E105. Consolidated Statement of Changes in Redeemable Noncontrolling Interests and Stockholders' Equity, FY2026: the Redeemable Noncontrolling Interest column (Purple Wave) moves 20,458 -> 16,585 by 'Net income (3,873)' ONLY -- no distribution line, and none in FY2025 or FY2024. Consolidated Statements of Cash Flows, financing activities FY2026: no payment to noncontrolling interests among its seven lines. A stated zero."
         status: VERIFIED
         verified_kind: same_page
+      working_capital_change:
+        value: -104006000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-08-01..2026-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = -80,629,000 + us-gaap:IncreaseDecreaseInInventories [2025-08-01..2026-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = -11,443,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2025-08-01..2026-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = -47,613,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2025-08-01..2026-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 690,000 + us-gaap:IncreaseDecreaseInContractWithCustomerAsset [2025-08-01..2026-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = -5,025,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2025-08-01..2026-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 32,507,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2025-08-01..2026-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 1,908,000 + us-gaap:ProvisionForDoubtfulAccounts [2025-08-01..2026-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 5,599,000 = -104,006,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -5004000
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2025-08-01..2026-07-31] 10-K 0001193125-26-405731 filed 2026-09-29"
+        status: VERIFIED
+        verified_kind: tagged

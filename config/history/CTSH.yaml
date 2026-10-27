@@ -1,0 +1,271 @@
+ticker: CTSH
+currency: USD
+money_unit: whole
+sources:
+  xbrl:
+    kind: sec-xbrl
+    url: https://data.sec.gov/api/xbrl/companyfacts/
+    fetched: '2026-10-27'
+  tenk:
+    file: sources/CTSH_FY2025_annual-report-10k_2026-02-12_en_a0.htm
+    kind: pdf
+rows:
+- field: revenue
+  source: xbrl
+  tag: Revenues
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 13487000000.0
+  - 14810000000.0
+  - 16125000000.0
+  - 16783000000.0
+  - 16652000000.0
+  - 18507000000.0
+  - 19428000000.0
+  - 19353000000.0
+  - 19736000000.0
+  - 21108000000.0
+- field: revenue
+  source: xbrl
+  tag: SalesRevenueNet
+  years:
+  - 2015
+  values:
+  - 12416000000.0
+- field: operating_profit
+  source: xbrl
+  tag: OperatingIncomeLoss
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 2142000000.0
+  - 2289000000.0
+  - 2481000000.0
+  - 2801000000.0
+  - 2453000000.0
+  - 2114000000.0
+  - 2826000000.0
+  - 2968000000.0
+  - 2689000000.0
+  - 2892000000.0
+  - 3389000000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivities
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 2187000000.0
+  - 1645000000.0
+  - 2407000000.0
+  - 2592000000.0
+  - 2499000000.0
+  - 3299000000.0
+  - 2495000000.0
+  - 2568000000.0
+  - 2330000000.0
+  - 2124000000.0
+  - 2883000000.0
+- field: capex
+  source: xbrl
+  tag: PaymentsToAcquirePropertyPlantAndEquipment
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 273000000.0
+  - 300000000.0
+  - 284000000.0
+  - 377000000.0
+  - 392000000.0
+  - 398000000.0
+  - 279000000.0
+  - 332000000.0
+  - 317000000.0
+  - 297000000.0
+  - 288000000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesNetOfCashAcquired
+  years:
+  - 2015
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 1700000.0
+  - 216000000.0
+  - 1111000000.0
+  - 617000000.0
+  - 1123000000.0
+  - 970000000.0
+  - 367000000.0
+  - 409000000.0
+  - 1615000000.0
+  - 0.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesAndInterestInAffiliates
+  years:
+  - 2016
+  values:
+  - 334000000.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquity
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 9278000000.0
+  - 10728000000.0
+  - 10669000000.0
+  - 11424000000.0
+  - 11022000000.0
+  - 10836000000.0
+  - 11991000000.0
+  - 12309000000.0
+  - 13227000000.0
+  - 14408000000.0
+  - 15015000000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 2405000000.0
+  - 2554000000.0
+  - 2704000000.0
+  - 3481000000.0
+  - 3979000000.0
+  - 5031000000.0
+  - 5620000000.0
+  - 5710000000.0
+  - 6085000000.0
+  - 6953000000.0
+  - 7106000000.0
+- field: shares
+  source: xbrl
+  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 613000000.0
+  - 610000000.0
+  - 595000000.0
+  - 584000000.0
+  - 560000000.0
+  - 541000000.0
+  - 528000000.0
+  - 519000000.0
+  - 505000000.0
+  - 497000000.0
+  - 489000000.0
+  unit: whole
+- field: net_debt
+  source: xbrl
+  tag: 'derived: LongTermDebt (or its parts) + short-term borrowings - CashAndCashEquivalentsAtCarryingValue'
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - -1187500000.0
+  - -1153000000.0
+  - -1125000000.0
+  - -411000000.0
+  - -1869000000.0
+  - -1979000000.0
+  - -1128000000.0
+  - -1545000000.0
+  - -1982000000.0
+  - -1323000000.0
+  - -1325000000.0
+business:
+  text: Cognizant sells IT consulting, systems integration and outsourcing services to large enterprises; embedded delivery teams keep clients renewing.
+  source: tenk
+  quote: Our services include consulting, application development, systems integration, quality engineering and assurance, engineering research and development, application maintenance, infrastructure and security as well as business process services and
+    automation.

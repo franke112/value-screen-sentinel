@@ -1,0 +1,199 @@
+{
+ "ticker": "CENTA",
+ "currency": "USD",
+ "run_ts": "2026-10-20T17:04:43+02:00",
+ "basis": "annual FY2025",
+ "shares": {
+  "count": 63815000.0,
+  "basis": "weighted-average DILUTED count for annual FY2025, the same window as the flows (E38); `shares_point_in_time` 62,332,706 is on the file as a MEMO and is NOT the divisor (E38)",
+  "as_of": "2025-09-27",
+  "point_in_time": 62332706.0,
+  "point_in_time_as_of": "2025-09-27",
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 21060000.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0000887733 (Central Garden & Pet Company) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000887733.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+  "net_interest_paid": 32812000.0,
+  "source": "income_statement_net"
+ },
+ "bridge": {
+  "net_debt": 309315000.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 100000.0,
+   "pensions": 0.0,
+   "asset_retirement_obligations": 0.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+  },
+  "note": "borrowings 62,000 + 1,191,641,000 + finance leases 100,000 (E117: the operating lease liability 248,600,000 LEAVES net debt, its rent being in the flow; finance leases stay) + pension deficit 0 (E35.1) + asset retirement obligations 0 (E68) + prepaid delivery obligations 0 (E81) - cash 882,488,000 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+ },
+ "dates": {
+  "flows_window_end": "2025-09-27",
+  "balance_sheet": "2025-09-27",
+  "share_count": "2025-09-27",
+  "price": "2026-10-19"
+ },
+ "growth": {
+  "base": 0.02,
+  "view_file": "reference/growth-views/CENTA.md",
+  "view_date": "2026-10-20",
+  "bear": -0.01,
+  "bull": 0.035
+ },
+ "operating_cash_flow": 332506000.0,
+ "capex": -41418000.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": null,
+  "premium": null,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_combined",
+   "value": -41418000.0,
+   "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2024-09-29..2025-09-27] 10-K 0000887733-25-000041 filed 2025-11-26",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 332506000.0,
+   "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2024-09-29..2025-09-27] 10-K 0000887733-25-000041 filed 2025-11-26",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "sbc",
+   "value": 21060000.0,
+   "provenance": "us-gaap:ShareBasedCompensation [2024-09-29..2025-09-27] 10-K 0000887733-25-000041 filed 2025-11-26",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "net_finance_costs",
+   "value": 32812000.0,
+   "provenance": "E34.1: sources/CENTA_FY2025_annual-report-10k_2025-11-26_en_a0.htm, Consolidated Statements of Operations, fiscal 2025: 'Interest expense (57,697) (57,527) (57,025)' and 'Interest income 24,885 19,655 7,362' -- the net 57,697 - 24,885 = 32,812 thousand, which the segment note itself prints as 'Interest expense, net' 32,812. The filer states interest paid in cash (57.7m, finance_costs_paid) and no interest received, so E18's pair cannot form; the income-statement net is the add-back, an accrual proxy. Hand leg 2026-10-20",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 63815000.0,
+   "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2024-09-29..2025-09-27] 10-K 0000887733-25-000041 filed 2025-11-26",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "shares_point_in_time",
+   "value": 62332706.0,
+   "provenance": "sources/CENTA_FY2025_annual-report-10k_2025-11-26_en_a0.htm, cover page: 'the number of shares outstanding of the registrant\u2019s Common Stock was 9,650,221 and the number of shares outstanding of Class A Common Stock was 51,080,111. In addition, on such date, the registrant had outstanding 1,602,374 shar' -- three classes with equal economic rights, 9,650,221 + 51,080,111 + 1,602,374 = 62,332,706 at November 19, 2025. Memo (E38), never the divisor",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 62000.0,
+   "provenance": "us-gaap:LongTermDebtCurrent [as of 2025-09-27] 10-Q 0000887733-26-000022 filed 2026-08-06",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 1191641000.0,
+   "provenance": "us-gaap:LongTermDebtNoncurrent [as of 2025-09-27] 10-Q 0000887733-26-000022 filed 2026-08-06",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 248700000.0,
+   "provenance": "E65 -- operating and finance lease liabilities: us-gaap:OperatingLeaseLiability [as of 2025-09-27] 10-K 0000887733-25-000041 filed 2025-11-26 = 248,600,000 + us-gaap:FinanceLeaseLiability [as of 2025-09-27] 10-K 0000887733-25-000041 filed 2025-11-26 = 100,000, added in full = 248,700,000",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 0.0,
+   "provenance": "E62: searched sources/CENTA_FY2025_annual-report-10k_2025-11-26_en_a0.htm, the full 10-K, for 'pension', 'defined benefit' and 'postretirement' on 2026-10-20: 'pension' occurs NOWHERE, 'defined benefit' occurs NOWHERE and 'postretirement' occurs NOWHERE. No defined-benefit obligation",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "E68.1: sources/CENTA_FY2025_annual-report-10k_2025-11-26_en_a0.htm, Consolidated Balance Sheets, September 27, 2025, every liability caption: 'Accounts payable $ 234,618 $ 212,606', 'Accrued expenses 247,213 245,226', 'Current lease liabilities 56,865 57,313', 'Current portion of long-term debt 62 239', 'Long-term debt 1,191,641 1,189,809', 'Long-term lease liabilities 191,739 173,086', 'Deferred income taxes and other long-term obligations 118,572 117,615'. No asset retirement caption; 'asset retirement' occurs NOWHERE and 'decommission' occurs NOWHERE (full-text search, 2026-10-20)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "E81: the same balance sheet, every liability caption enumerated for asset_retirement_obligation above -- no prepaid-delivery or customer-advance caption; 'prepaid' is on the asset side: 'Prepaid expenses and other 30,294 34,240'. A caption zero",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 882488000.0,
+   "provenance": "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2025-09-27] 10-Q 0000887733-26-000022 filed 2026-08-06",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  },
+  {
+   "name": "operating_lease_liabilities",
+   "value": 248600000.0,
+   "provenance": "us-gaap:OperatingLeaseLiability [as of 2025-09-27] 10-K 0000887733-25-000041 filed 2025-11-26",
+   "entered_by": "store",
+   "verified": "VERIFIED (tagged)"
+  }
+ ],
+ "tool_commit": "vss strike 2026-10-20, 2d2c956",
+ "notes": "vss strike 2026-10-20: re-struck off the store on the record's pre-registered growth view (first strike: the view is the entry's)",
+ "money_unit": "whole",
+ "nci_dividends_paid": -1346000.0,
+ "undetermined": [],
+ "fcf_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_debt_reported": {
+  "value": null,
+  "page": "",
+  "verified": false
+ },
+ "net_income": {
+  "value": 162843000.0,
+  "page": "us-gaap:NetIncomeLoss [2024-09-29..2025-09-27] 10-K 0000887733-25-000041 filed 2025-11-26",
+  "verified": true
+ },
+ "lease": {
+  "in_operating_cash_flow": true,
+  "page": "SEC XBRL companyfacts for CIK 0000887733 (Central Garden & Pet Company) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000887733.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 842-20-45-5(a): a lessee classifies payments for operating leases within OPERATING activities, so this filer's `operating_cash_flow` already bears them; the stated cash paid is `us-gaap:OperatingLeasePayments`, written as `operating_lease_payments` where tagged. No filer-specific tag states the classification because the standard leaves no choice",
+  "principal_added_back": null,
+  "leg": "none -- the operating cash flow bears the rent (E117)",
+  "rule": "E117",
+  "lease_cash_deducted": null,
+  "principal_paid": null,
+  "interest_paid": null,
+  "liability_excluded": 248600000.0
+ }
+}

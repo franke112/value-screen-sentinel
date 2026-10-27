@@ -1,0 +1,13 @@
+ticker: PNDORA.CO
+dated: '2026-10-27'
+ruling: E140(3)-(4)
+money: DKK millions
+money_unit: millions
+basis_balance_sheet: '2025-12-31'
+searched:
+- issuer annual and interim reports (cash-flow statements read by subagent; quotes regex-checked against pdftotext)
+- issuer press releases and news search (2026-10-27)
+deals: []
+none_found: true
+notes: 'No deal in Q1/Q2 2026 reports. NOTE: the run record has no net debt (incomplete) -- no value can be printed,
+  before or after E140.'

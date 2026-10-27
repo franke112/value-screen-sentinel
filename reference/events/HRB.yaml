@@ -1,0 +1,14 @@
+ticker: HRB
+dated: '2026-10-27'
+ruling: E140(3)-(4)
+money: whole units of the reporting currency
+money_unit: whole
+basis_balance_sheet: '2026-06-30'
+searched:
+- 'EDGAR submissions: every 8-K, 10-Q and 10-K filed after the basis balance-sheet date, deal sentences extracted
+  by tools (scan 2026-10-27)'
+- issuer press releases and news search (subagent sweep 2026-10-27)
+deals: []
+none_found: true
+notes: No deal found after 2026-06-30. Routine franchise buy-backs (43.4/35.5/57.6m FY2024-26) are recurring --
+  see the acquisition-spend sensitivity. Q1 FY2027 on 2026-11-09.
