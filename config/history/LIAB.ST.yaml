@@ -12,6 +12,9 @@ sources:
   ar2020:
     file: sources/LIAB.ST_2020-FY_annual-financial-report_2021-03-22_en_a0.pdf
     page: 76
+  ar2024:
+    file: sources/LIAB.ST_2024-FY_annual-financial-report_2025-04-09_en_a0.pdf
+    kind: pdf
 note: AR2025 rows are its TOTAL OPERATIONS section, the basis AR2020 reports (Building Systems included until its 2021 divestment).
 rows:
 - field: revenue
@@ -206,3 +209,33 @@ rows:
   - 100
   - 125
   quote: Intangible assets and tangible fixed assets 425 278 120 100 125
+- field: goodwill
+  source: ar2025
+  years:
+  - 2025
+  - 2024
+  values:
+  - 5721
+  - 5802
+  quote: Goodwill 17 5,721 5,802
+  note: balance sheet goodwill at 31 December, for E145 Q1's tangible capital
+- field: goodwill
+  source: ar2024
+  years:
+  - 2024
+  - 2023
+  values:
+  - 5802
+  - 4378
+  quote: Goodwill 17 5,802 4,378
+  note: balance sheet goodwill at 31 December, for E145 Q1's tangible capital
+- field: goodwill
+  source: ar2020
+  years:
+  - 2020
+  - 2019
+  values:
+  - 3239
+  - 3211
+  quote: Goodwill 18 3,239 3,211
+  note: balance sheet goodwill at 31 December, for E145 Q1's tangible capital

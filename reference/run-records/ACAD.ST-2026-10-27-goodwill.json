@@ -1,0 +1,432 @@
+{
+ "ticker": "ACAD.ST",
+ "currency": "SEK",
+ "run_ts": "2026-10-27T20:59:03+01:00",
+ "basis": "annual FY2026",
+ "shares": {
+  "count": 98237000.0,
+  "basis": "weighted-average DILUTED count for annual FY2026, the same window as the flows (E38)",
+  "as_of": "2026-06-30",
+  "point_in_time": null,
+  "point_in_time_as_of": null,
+  "unit": "whole",
+  "divisor_basis": "weighted_average",
+  "prior_average": null,
+  "drift": null
+ },
+ "sbc": {
+  "treatment": "deducted",
+  "amount": 1.0,
+  "basis": ""
+ },
+ "interest": {
+  "in_operating_cash_flow": false,
+  "page": "Annual and Sustainability Report 2024/25; Year-end report 2025/26 AR 2024/25 accounting policies: 'Interest payments are recognised in financing activities.' Year-end report p.19, Consolidated cash flow statement, financing activities: 'Interest received (+) and paid (-) -34 -23 -93 -67' and 'Interest paid, lease liabilities -173 -153 -669 -628', below 'Cash flow from operating activities 1,118 1,185 3,930 3,742'",
+  "net_interest_paid": null,
+  "source": "cash_flow_statement"
+ },
+ "bridge": {
+  "net_debt": 1710.0,
+  "items": {
+   "short_term_investments": null,
+   "current_financial_assets": null,
+   "leases": 0.0,
+   "pensions": 2.0,
+   "asset_retirement_obligations": 0.0,
+   "prepaid_delivery_obligations": 0.0,
+   "non_controlling_interests": "not a bridge item \u2014 E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+  },
+  "note": "borrowings 1,240 + 1,416 + leases 0 -- the IFRS 16 liability 12,244 LEAVES net debt whole (E117: its cash is in the flow; one lessee model, no split) + pension deficit 2 (E35.1) + asset retirement obligations 0 (E68) + prepaid delivery obligations 0 (E81) - cash 948 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: split: capex_ppe + capex_intangibles, as the accounts print them"
+ },
+ "dates": {
+  "flows_window_end": "2026-06-30",
+  "balance_sheet": "2026-06-30",
+  "share_count": "2026-06-30",
+  "price": "2026-10-26"
+ },
+ "growth": {
+  "base": 0.0601773766552991,
+  "view_file": "E144: derived from config/history/ACAD.ST.yaml",
+  "view_date": "2026-10-27",
+  "bear": 0.0519834942737436,
+  "bull": 0.06526042691497946
+ },
+ "operating_cash_flow": 3930.0,
+ "capex": -390.0,
+ "conventions": {
+  "horizon_years": 10,
+  "terminal_growth": 0.025,
+  "mid_year": false,
+  "first_year_flow": "FCF0 * (1 + g)"
+ },
+ "rate": {
+  "rate": 0.095,
+  "core_expected_return": null,
+  "premium": null,
+  "band": 0.005
+ },
+ "inputs": [
+  {
+   "name": "capex_ppe",
+   "value": -377.0,
+   "provenance": "p.19, investing activities, three stated lines added: 'Investments in buildings -13 -3 -103 -54' + 'Leasehold improvements -51 -35 -120 -148' + 'Investments in equipment -32 -28 -154 -129' = -103 - 120 - 154 = -377. 'Acquisition of subsidiaries -475 -206 -1,036 -333' is NOT capex and is not in it",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "capex_intangibles",
+   "value": -13.0,
+   "provenance": "p.19: 'Investments in intangible non-current assets -1 -4 -13 -10'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "operating_cash_flow",
+   "value": 3930.0,
+   "provenance": "p.19, Consolidated cash flow statement: 'Cash flow from operating activities 1,118 1,185 3,930 3,742' -- after 'Tax paid -39 -14 -321 -273', before interest (financing)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "sbc",
+   "value": 1.0,
+   "provenance": "Note G5 p.87: 'the cost of share-based payments attributable to the performance share programme amounted to SEK 1 million (-)'. The warrant programmes carry no cost: 'The warrants were acquired at market value calculated according to the Black & Scholes method'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "diluted_weighted_average_shares",
+   "value": 98237000.0,
+   "provenance": "Note G13 Earnings per share p.92: 'Average number of ordinary shares, diluted (thousands) 98,237 100,892' (basic 98,165 plus 'Effect of warrants and performance share programmes (thousands) 72')",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "financial_liabilities_current",
+   "value": 1240.0,
+   "provenance": "p.18: 'Current interest-bearing liabilities 1,240 315' -- excluding leases, which are presented apart",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "financial_liabilities_noncurrent",
+   "value": 1416.0,
+   "provenance": "p.18: 'Non-current liabilities to credit institutions 1,416 1,183' -- excluding leases, which are presented apart",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "lease_liabilities",
+   "value": 12244.0,
+   "provenance": "p.18: 'Long-term lease liabilities 10,548 9,012' + 'Short-term lease liabilities 1,696 1,593' = 12,244, two stated captions added. Of it, property-related: p.7 'Property-related leasing liabilities 12,033 10,379'; the remainder is computer leases. One IFRS 16 liability (E65)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "pension_deficit",
+   "value": 2.0,
+   "provenance": "Consolidated balance sheet, non-current liabilities: 'Provision for pensions G6 2 15'. Note G6 p.89 states the Norwegian defined-benefit plan net at 0 (obligations 326, plan assets -326); the balance-sheet caption, the larger, is taken. Swedish ITP 2 via Alecta is accounted for as defined-contribution",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "asset_retirement_obligation",
+   "value": 0.0,
+   "provenance": "E68, note form: Note G25 Other provisions p.97: 'Restructuring reserve 75 63', 'Other 14 27', 'SUM TOTAL, PROVISIONS 89 90' -- 'Other consists mainly of provision for disputes and penalties'; no restoration or dismantling provision, although the policy allows one. A note zero",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "prepaid_delivery_obligation",
+   "value": 0.0,
+   "provenance": "E81: consolidated balance sheet, every liability caption: credit institutions, lease liabilities, 'Provision for pensions', 'Other provisions', 'Deferred tax liability', 'Other non-current liabilities', 'Accounts payable', 'Current tax liability', 'Other liabilities', 'Accrued expenses and deferred income' -- no streaming, prepaid-offtake or prepaid-delivery caption. Note G26: 'Contract liabilities 485 416' is school fees billed ahead, working capital, NOT this leg (the RMV.L and ULTA precedent), named. A caption zero",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "cash_and_equivalents",
+   "value": 948.0,
+   "provenance": "p.18: 'Cash and cash equivalents 948 777'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "lease_payments_capital",
+   "value": -1888.0,
+   "provenance": "p.19, financing activities: 'Repayment of lease liabilities -552 -479 -1,888 -1,897' (property and computer leases)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "lease_interest_paid",
+   "value": 669.0,
+   "provenance": "p.19, financing activities: 'Interest paid, lease liabilities -173 -153 -669 -628'. E117 leg",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 capex_ppe",
+   "value": -296.0,
+   "provenance": "PDF p.70, investing activities, three stated lines added: 'Investments in properties G17 -54 -25' + 'Investments in leasehold property G17 -148 -120' + 'Investments in equipment G17 -129 -151' = -25 - 120 - 151 = -296 (2023/24 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 capex_intangibles",
+   "value": -9.0,
+   "provenance": "PDF p.70: 'Investment in non-current intangible assets G15 -10 -9'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 lease_payments_capital",
+   "value": -1705.0,
+   "provenance": "PDF p.70, financing activities: 'Amortisation of lease liability G28 -1,897 -1,705'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 lease_interest_paid",
+   "value": 568.0,
+   "provenance": "PDF p.70, footnote to 'Interest paid*': 'Interest payments relating to lease liability total SEK 628 million (568).' E117 leg",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 operating_cash_flow",
+   "value": 3505.0,
+   "provenance": "PDF p.70, Consolidated cash flow statement: 'CASH FLOW FROM OPERATING ACTIVITIES 3,742 3,505' (2023/24 column 3,505)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 working_capital_change",
+   "value": 114.0,
+   "provenance": "E140(1), PDF p.89, Note G4 cash flow by IFRS 16 effect, Group column: 'Cash flow from changes in working capital -60 15 -75 114 30 84' (2023/24 Group 114). The statement p.70 prints 'Cash flow from operating activities before changes in working capital 3,802 3,391' and 'CASH FLOW FROM OPERATING ACTIVITIES 3,742 3,505': 3,505 - 3,391 = 114 (its three lines 'Change in inventories -1 3', 'Change in operating receivables -92 23', 'Change in operating liabilities 33 87' sum to 113 in rounding)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 sbc",
+   "value": 0.0,
+   "provenance": "PDF p.70, Consolidated statement of changes in equity, transactions with owners for the year to the 'OPENING BALANCE, 1 JULY 2024': 'Share-matching plan* - 0 - - 0' -- the equity-settled plan's IFRS 2 credit is nil; no other share-based line in the year",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2024 acquisitions_paid",
+   "value": -560.0,
+   "provenance": "E140.1(1), PDF p.70, investing activities: 'Acquisition of subsidiaries G14 -333 -560'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2025 capex_ppe",
+   "value": -331.0,
+   "provenance": "PDF p.79, investing activities, three stated lines added: 'Investments in properties G17 -103 -54' + 'Investments in leasehold property G17 -120 -148' + 'Investments in equipment G17 -154 -129' = -54 - 148 - 129 = -331 (2024/25 column)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2025 capex_intangibles",
+   "value": -10.0,
+   "provenance": "PDF p.79: 'Investment in non-current intangible assets G15 -13 -10'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2025 lease_payments_capital",
+   "value": -1897.0,
+   "provenance": "PDF p.79, financing activities: 'Amortisation of lease liability G28 -1,888 -1,897'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2025 lease_interest_paid",
+   "value": 628.0,
+   "provenance": "PDF p.79, footnote to 'Interest paid*': 'Interest payments relating to lease liability total SEK 670 million (628).' E117 leg",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2025 operating_cash_flow",
+   "value": 3742.0,
+   "provenance": "PDF p.79, Consolidated cash flow statement: 'CASH FLOW FROM OPERATING ACTIVITIES 3,930 3,742' (2024/25 column 3,742)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2025 working_capital_change",
+   "value": -60.0,
+   "provenance": "E140(1), PDF p.101, Note G4 cash flow by IFRS 16 effect, Group column: 'Cash flow from changes in working capital -63 15 -78 -60 15 -75' (2024/25 Group -60); the statement p.79 prints the lines 'Change in inventories -5 -1', 'Change in operating receivables -176 -92', 'Change in operating liabilities 118 33', -1 - 92 + 33 = -60",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2025 sbc",
+   "value": 0.0,
+   "provenance": "Note G5 p.87: 'the cost of share-based payments attributable to the performance share programme amounted to SEK 1 million (-)' -- the 2024/25 comparative is a dash. The warrant programmes carry no cost: 'The warrants were acquired at market value calculated according to the Black & Scholes method'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2025 acquisitions_paid",
+   "value": -333.0,
+   "provenance": "E140.1(1), PDF p.79, investing activities: 'Acquisition of subsidiaries G14 -1,036 -333'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2026 capex_ppe",
+   "value": -377.0,
+   "provenance": "p.19, investing activities, three stated lines added: 'Investments in buildings -13 -3 -103 -54' + 'Leasehold improvements -51 -35 -120 -148' + 'Investments in equipment -32 -28 -154 -129' = -103 - 120 - 154 = -377. 'Acquisition of subsidiaries -475 -206 -1,036 -333' is NOT capex and is not in it",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2026 capex_intangibles",
+   "value": -13.0,
+   "provenance": "p.19: 'Investments in intangible non-current assets -1 -4 -13 -10'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2026 lease_payments_capital",
+   "value": -1888.0,
+   "provenance": "p.19, financing activities: 'Repayment of lease liabilities -552 -479 -1,888 -1,897' (property and computer leases)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2026 lease_interest_paid",
+   "value": 669.0,
+   "provenance": "p.19, financing activities: 'Interest paid, lease liabilities -173 -153 -669 -628'. E117 leg",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2026 operating_cash_flow",
+   "value": 3930.0,
+   "provenance": "p.19, Consolidated cash flow statement: 'Cash flow from operating activities 1,118 1,185 3,930 3,742' -- after 'Tax paid -39 -14 -321 -273', before interest (financing)",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2026 working_capital_change",
+   "value": -63.0,
+   "provenance": "E140(1), p.19, Consolidated cash flow statement: 'Cash flow from changes in working capital -132 32 -63 -60' (full year 2025/26 -63), between 'Cash flow from operating activities before changes in working capital 1,250 1,153 3,993 3,802' and 'Cash flow from operating activities 1,118 1,185 3,930 3,742'. The cash effect as printed: the statement's own line for the change in operating working capital",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2026 sbc",
+   "value": 1.0,
+   "provenance": "Note G5 p.87: 'the cost of share-based payments attributable to the performance share programme amounted to SEK 1 million (-)'. The warrant programmes carry no cost: 'The warrants were acquired at market value calculated according to the Black & Scholes method'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  },
+  {
+   "name": "annual FY2026 acquisitions_paid",
+   "value": -1036.0,
+   "provenance": "E140.1(1), p.19, investing activities: 'Acquisition of subsidiaries -475 -206 -1,036 -333'",
+   "entered_by": "store",
+   "verified": "VERIFIED (machine_read_back)"
+  }
+ ],
+ "tool_commit": "vss strike 2026-10-27-goodwill, c2ab960",
+ "notes": "E145 Q1 re-read with goodwill taken out (8,446m of 10,603m capital employed); the earlier FAIL ran on all capital because the history had no goodwill row. E141 decision.",
+ "money_unit": "millions",
+ "nci_dividends_paid": 0.0,
+ "undetermined": [],
+ "fcf_reported": {
+  "value": 1266.0,
+  "page": "p.6: 'resulting in free cash flow before expansion investments 4 of SEK 1,266 million (1,109)' -- after property lease payments, before expansion. Reference only",
+  "verified": true
+ },
+ "net_debt_reported": {
+  "value": 1918.0,
+  "page": "p.7, Financial position: 'Net debt 13,952 11,332 1,918 953' -- the issuer's figure excluding property-related leases. Reference only",
+  "verified": true
+ },
+ "net_income": {
+  "value": 955.0,
+  "page": "p.16: 'PROFIT FOR THE PERIOD 385 321 955 821'; 'Owners of the parent company 385 321 955 821' -- all of it attributable to the owners",
+  "verified": true
+ },
+ "lease": {
+  "in_operating_cash_flow": false,
+  "page": "FRAMEWORK-EDITS E70, applied 2026-10-20 to an IFRS 16 filer IFRS 16.50(b): lease principal is a financing flow. Year-end report p.19: 'Repayment of lease liabilities -552 -479 -1,888 -1,897' under financing activities",
+  "principal_added_back": null,
+  "leg": "`lease_payments_capital` + `lease_interest_paid`, DEDUCTED (E117: the IFRS 16 principal and lease interest)",
+  "rule": "E117",
+  "lease_cash_deducted": 2557.0,
+  "principal_paid": 1888.0,
+  "interest_paid": 669.0,
+  "liability_excluded": 12244.0
+ },
+ "e140": {
+  "years": [
+   {
+    "label": "annual FY2024",
+    "operating_cash_flow": 3505.0,
+    "working_capital": 114.0,
+    "capex": -305.0,
+    "sbc": 0.0,
+    "acquisitions": -560.0,
+    "lease_cash": 2273.0
+   },
+   {
+    "label": "annual FY2025",
+    "operating_cash_flow": 3742.0,
+    "working_capital": -60.0,
+    "capex": -341.0,
+    "sbc": 0.0,
+    "acquisitions": -333.0,
+    "lease_cash": 2525.0
+   },
+   {
+    "label": "annual FY2026",
+    "operating_cash_flow": 3930.0,
+    "working_capital": -63.0,
+    "capex": -390.0,
+    "sbc": 1.0,
+    "acquisitions": -1036.0,
+    "lease_cash": 2557.0
+   }
+  ],
+  "tax_country": "SE",
+  "tax_rate": 0.206,
+  "ledger": "reference/events/ACAD.ST.yaml",
+  "ledger_dated": "2026-10-27",
+  "cut": "2026-06-30",
+  "deals": [
+   {
+    "name": "Kindernet (NL, 40 preschools, 2025 sales ~EUR 18.4m); Florencius (NL, ~EUR 3m); Kids&Co (PL, 34 preschools, ~PLN 99m) -- prices NOT DISCLOSED; range is the session estimate at ~0.5-1.0x sales",
+    "closed": null,
+    "low": 265.0,
+    "high": 640.0,
+    "fcf": 0.0,
+    "source": "AR 2025/26 administration report and note G33; Q4 release 2026-08-31"
+   }
+  ],
+  "deals_in_balance_sheet": [],
+  "rolled_from": null,
+  "wc_since_year_end": null,
+  "wc_since_page": "",
+  "e142": {
+   "history": "config/history/ACAD.ST.yaml",
+   "repeat_buyer": true,
+   "acquisitions_mean": 643.0,
+   "roiic_base": 0.07201081274290722,
+   "roiic_bear": 0.050742912722031575,
+   "roiic_base_how": "adjusted operating profit 625,000,000 (2016-2018 mean) -> 1,288,333,333 (2024-2026 mean); organic x1.593; after tax 20.6%: 232,330,886 on capital added 3,226,333,333 = 7.20%",
+   "roiic_bear_how": "adjusted operating profit 670,000,000 (2018) -> 964,000,000 (2023); organic x1.326; after tax 20.6%: 59,775,151 on capital added 1,178,000,000 = 5.07%",
+   "cyclical": false,
+   "level_base": 1.0,
+   "level_bear": 0.8729420186113099,
+   "level_how": "not cyclical (E143(3)); bear level x0.873: the weakest E140 year 813 over the mean 931 (E143(4))",
+   "growth_how": "E144: organic 6.28%/yr over 11 years, last five 6.02% (2016-2026); owner earnings per share not derivable; cap 8%; worst 3-year 5.20%, best 5-year 6.53%",
+   "pension_after_tax": true
+  }
+ }
+}

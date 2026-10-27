@@ -16,6 +16,12 @@ sources:
   ar2026_bs:
     file: sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf
     page: 11
+  ar2020:
+    file: sources/ACAD.ST_2020-FY_annual-financial-report_2020-10-27_en_a0.pdf
+    kind: pdf
+  ar2025:
+    file: sources/ACAD.ST_2025-FY_annual-financial-report_2025-10-23_en_a0.pdf
+    kind: pdf
 rows:
 - field: revenue
   source: ar2026
@@ -259,3 +265,43 @@ rows:
   - 638
   - 567
   quote: Adjusted EBIT, SEK m. 934 728 634 670 638 567
+- field: goodwill
+  source: ar2026
+  years:
+  - 2026
+  - 2025
+  values:
+  - 8446
+  - 7390
+  quote: Goodwill G14, G15, G16 8,446 7,390
+  note: balance sheet goodwill at 30 June, for E145 Q1's tangible capital
+- field: goodwill
+  source: ar2025
+  years:
+  - 2025
+  - 2024
+  values:
+  - 7390
+  - 7232
+  quote: Goodwill G14, G15, G16 7,390 7,232
+  note: balance sheet goodwill at 30 June, for E145 Q1's tangible capital
+- field: goodwill
+  source: ar2021
+  years:
+  - 2021
+  - 2020
+  values:
+  - 6205
+  - 5952
+  quote: Goodwill G14, G15, G16 6,205 5,952
+  note: balance sheet goodwill at 30 June, for E145 Q1's tangible capital
+- field: goodwill
+  source: ar2020
+  years:
+  - 2020
+  - 2019
+  values:
+  - 5952
+  - 5983
+  quote: Goodwill K16 5,952 5,983
+  note: balance sheet goodwill at 30 June, for E145 Q1's tangible capital

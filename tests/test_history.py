@@ -190,6 +190,16 @@ def test_the_quality_tests_read_their_figures():
     assert tests["Q5"].passed
 
 
+def test_q1_takes_goodwill_out_and_reads_only_the_years_it_covers():
+    years = list(range(2016, 2026))
+    h = _hist([_row("operating_profit", "a", years, [100] * 10),
+               _row("invested_capital", "a", years, [1000] * 10),
+               _row("goodwill", "a", [2024, 2025], [800, 800])])
+    q1 = H.quality(h, tax=0.2, fcf0=1, net_debt=0, roiic_base=None,
+                   repeat_buyer=False, rate=0.095)[0]
+    assert q1.passed and "over 2 years (goodwill taken out)" in q1.figure  # 80 / 200
+
+
 # --- the pilot's facit (method review section 6) ---------------------------
 
 @pytest.mark.parametrize("ticker", ["LIAB.ST", "RBREW.CO"])

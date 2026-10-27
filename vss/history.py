@@ -552,7 +552,9 @@ def quality(h: History, *, tax: float, fcf0: float, net_debt: float,
     ic, gw = _invested_capital(h), h.series("goodwill")
     rocs = []
     for y in profit:
-        if y in ic:
+        # with a goodwill row, only the years it covers: a year on all
+        # capital beside years on tangible capital is two measures
+        if y in ic and (not gw or y in gw):
             tangible = ic[y] - gw.get(y, 0.0)
             rocs.append(float("inf") if tangible <= 0 else profit[y] * (1 - tax) / tangible)
     if rocs:
@@ -561,7 +563,7 @@ def quality(h: History, *, tax: float, fcf0: float, net_debt: float,
                  if med == float("inf") else f"{med:.1%}")
         out.append(Test("Q1 tangible ROIC", med >= Q1_TANGIBLE_ROIC,
                         f"median {shown} over {len(rocs)} years"
-                        + ("" if gw else " (no goodwill row: on all invested capital)")
+                        + (" (goodwill taken out)" if gw else " (no goodwill row: on all invested capital)")
                         + f" against {Q1_TANGIBLE_ROIC:.0%}"))
     else:
         out.append(Test("Q1 tangible ROIC", None, "no profit and capital years"))

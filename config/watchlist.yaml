@@ -2654,11 +2654,11 @@ tickers:
       registered: 2026-10-20
     name: AcadeMedia AB (publ)
     currency: SEK
-    status: DROPPED      # E145 (E141 decision 2026-10-27): Q1 tangible ROIC fails -- reference/ACAD.ST-STRIKE-2026-10-27-e142.md. Was PIPELINE
+    status: PIPELINE     # RESTORED 2026-10-27 (E141 decision): the E145 drop was an ERROR -- Q1 ran on all capital employed because the history had no goodwill row; with goodwill taken out Q1 PASSES (median 48.1%), reference/ACAD.ST-STRIKE-2026-10-27-goodwill.md. Only Q4 fails (ROIIC 7.2%), which lowers the tier one step. EARLIER: DROPPED -- E145 Q1, reference/ACAD.ST-STRIKE-2026-10-27-e142.md. Was PIPELINE
     dd_at_entry: 0.0
     peak_date: 2026-10-19
     fv_base: 158.74     # re-struck after the method check 2026-10-27, reference/ACAD.ST-STRIKE-2026-10-27-check.md (E141). EARLIER: 173.63 -- E142-E145 re-strike 2026-10-27, reference/ACAD.ST-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 25.91 -- E140/E140.1 re-strike 2026-10-27, reference/ACAD.ST-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 152.32 -- vss strike 2026-10-24 on the registered view 4.5/3.5/7 (bear 140.19, bull 187.01), basis annual FY2026, close 110.40, g* 0.66%
-    run_record: reference/run-records/ACAD.ST-2026-10-27-check.json     # the method-check record. EARLIER: reference/run-records/ACAD.ST-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/ACAD.ST-2026-10-27.json
+    run_record: reference/run-records/ACAD.ST-2026-10-27-goodwill.json     # Q1 re-read with goodwill out; value unchanged. EARLIER: reference/run-records/ACAD.ST-2026-10-27-check.json -- the method-check record. EARLIER: reference/run-records/ACAD.ST-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/ACAD.ST-2026-10-27.json
     notes: >-
       STRUCK 2026-10-24 (owner: "ja kör acad") once the AR 2025/26 gave the
       five legs: fv_base 152.32 against 110.40. FCF0 982 excludes the
