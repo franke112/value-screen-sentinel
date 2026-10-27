@@ -69,6 +69,9 @@ class Row:
     quote: str = ""
     unit: str | None = None
     tag: str = ""
+    #: E147: a printed line ADDED to the same source's figure for the
+    #: year (pre-tax profit plus each stated interest expense line).
+    add: bool = False
 
 
 @dataclass(frozen=True)
@@ -140,7 +143,8 @@ def parse(raw: dict[str, Any], *, path: str = "") -> History:
             raise HistoryError(f"{where}: a hand-read row carries its row as printed (quote:)")
         rows.append(Row(field=r["field"], source=r["source"], years=years,
                         values=values, quote=str(r.get("quote") or ""),
-                        unit=r.get("unit"), tag=str(r.get("tag") or "")))
+                        unit=r.get("unit"), tag=str(r.get("tag") or ""),
+                        add=bool(r.get("add"))))
     rank = _source_rank(rows)
     years: dict[int, dict[str, float]] = {}
     won: dict[tuple[int, str], int] = {}
@@ -157,9 +161,10 @@ def parse(raw: dict[str, Any], *, path: str = "") -> History:
             if key in won and won[key] > rank[r.source]:
                 continue
             # Capex printed as two lines of ONE statement (property and
-            # intangibles) is their sum; any other repeat replaces.
+            # intangibles) is their sum, as is a row marked `add` (E147);
+            # any other repeat replaces.
             if (key in summed and summed[key] == r.source
-                    and name in ("capex", "acquisitions_paid")):
+                    and (name in ("capex", "acquisitions_paid") or r.add)):
                 years[y][name] += v * scale
                 continue
             won[key] = rank[r.source]
@@ -812,10 +817,14 @@ def run_history(*, ticker: str, xbrl: bool = False, write: bool = False,
                 for keep in ("business", "revenue_pass_through"):
                     if existing.get(keep):
                         raw[keep] = existing[keep]
-                # the sources the kept business sentence cites stay
+                # the sources the kept business sentence cites stay, and
+                # so do the hand-read rows (ALV's organic growth, NVR's
+                # E147 lines): a rewrite refreshes the tags only
                 for k, v in (existing.get("sources") or {}).items():
                     if k != "xbrl":
                         raw["sources"].setdefault(k, v)
+                raw["rows"] += [r for r in existing.get("rows") or []
+                                if r.get("source") != "xbrl"]
                 text = dump(raw)
             target.write_text(text, encoding="utf-8")
             return 0, f"wrote {target}\n{summary(h)}"

@@ -220,6 +220,36 @@ rows:
   - -732248000.0
   - -1160804000.0
   - -2809782000.0
+- field: operating_profit
+  source: tenk
+  unit: thousands
+  years:
+  - 2025
+  values:
+  - 1761932
+  quote: Income before taxes 1,761,932 2,115,506 1,928,373
+  note: 'E147: no subtotal before financing cost is printed; pre-tax profit plus each stated interest expense line (E126 step 2). companyfacts tags FY2025''s interest only by segment, so the year is read
+    by hand.'
+- field: operating_profit
+  source: tenk
+  unit: thousands
+  years:
+  - 2025
+  values:
+  - 27578
+  add: true
+  quote: Interest expense ( 27,578 ) ( 26,988 ) ( 26,875 ) Homebuilding income
+  note: homebuilding interest expense, added (E147)
+- field: operating_profit
+  source: tenk
+  unit: thousands
+  years:
+  - 2025
+  values:
+  - 1257
+  add: true
+  quote: Interest expense ( 1,257 ) ( 795 ) ( 865 ) Mortgage banking income
+  note: mortgage banking interest expense, added (E147)
 business:
   text: NVR builds and sells single-family homes, townhomes and condos to homebuyers, mostly pre-sold, with mortgage and title services.
   source: tenk

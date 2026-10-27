@@ -1940,7 +1940,17 @@ tickers:
                     # still supplies neither reference figure (both are
                     # non-GAAP APMs with no us-gaap element).
     currency: USD
+    # WATCH-GATED, re-walked 2026-10-27 (E141 decision,
+    # reference/reviews/NVR/2026-10-27.yaml): Gate 3 now forms under E147
+    # and passes, but the section 4.2 hard kills trip -- four consecutive
+    # year-on-year revenue declines (Q4 2025-Q3 2026) and the Q3 2026
+    # operating margin -307bps. A kill is not a price: NO PRICE LEVEL MAY
+    # WAKE THIS NAME; no tier, no MBP. EARLIER: gated 2026-09-19 on Gate 3
+    # DATA MISSING (no stated operating income).
     status: WATCH-GATED
+    catalyst_date: 2027-01-28          # Q4 2026 results release. NOT the issuer's date -- NVR publishes no calendar; last year's release was 2026-01-28 (8-K item 2.02), carried as the expected date.
+    catalyst_resolved:                 # set the day the Q4 2026 release is read.
+    catalyst_event: Q4 2026 results -- is Q4 revenue at or above Q4 2025's 2,712.6m (the revenue kill clears), and is the operating margin (pre-tax + interest, E147) within 150bps of Q4 2025's?
     # ACCEPTED by the owner 2026-08-30 (Part D): fv_base 4,978.10 with the
     #   record link; tier stays empty per B22, so no MBP forms. The growth
     #   view's registration was CONFIRMED by the owner at the acceptance:
@@ -1955,6 +1965,8 @@ tickers:
       Screener 2026-08-26: rank 4 of 197 names ranked on BOTH components of the two-component key (FRAMEWORK-EDITS E6); 197 is that list, not the universe. Sector Consumer Cyclical. Market US. Drawdown 25.5% from the 52-week closing high set 2025-09-08. Gate 1 is FROZEN at this reading per FRAMEWORK-EDITS E12 and is not re-read; leaving PIPELINE takes an information event. Operating profitability (EBIT / total assets, FRAMEWORK-EDITS E43) 26.0%. Earnings yield 8.3%. No fv_base, no tier and no mbp -- section 5 has not been run. This entry is review work, not a buy.
 
       2026-09-19: PIPELINE → WATCH-GATED at Gate 3 (DATA MISSING, no stated operating income). E117 fv_base 4,978.10 → 4,867.82; close 26% above value. Needs a ruling on filers that state no operating income before any price can wake it.
+
+      2026-10-27 (E141 decision, full walk reference/reviews/NVR/2026-10-27.yaml): Gate 3 now forms under E147 and PASSES (coverage 62.1x, FCF positive 7 of 8 quarters, net cash, clean KPMG opinion). But two §4.2 hard kills trip on the issuer's own figures: revenue down year on year in four consecutive quarters (Q4 2025 -4.7%, Q1 2026 -21.7%, Q2 2026 -10.5%, Q3 2026 -7.9%; no deals or currency, so reported is organic) and the Q3 2026 operating margin down 307bps (204bps after the 24.8m land-deposit impairments). Stays WATCH-GATED, now on the kills; no tier, no MBP. Re-entry: the Q4 2026 results release (late January 2027) -- Q4 revenue against 2,712.6m and the margin against Q4 2025.
   - ticker: ZZ-B.ST
     name: Zinzino AB (publ)
     currency: SEK

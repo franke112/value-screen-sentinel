@@ -35,6 +35,34 @@ def test_capex_printed_as_two_lines_of_one_statement_is_summed():
     assert h.series("capex") == {2020: -15e6}
 
 
+def test_a_row_marked_add_sums_into_the_same_source_figure():
+    h = _hist([_row("operating_profit", "a", [2025], [1761]),
+               _row("operating_profit", "a", [2025], [27], add=True),
+               _row("operating_profit", "a", [2025], [1], add=True)])
+    assert h.series("operating_profit") == {2025: 1789e6}
+    h = _hist([_row("operating_profit", "a", [2025], [1761]),
+               _row("operating_profit", "a", [2025], [27])])
+    assert h.series("operating_profit") == {2025: 27e6}     # unmarked replaces
+
+
+def test_a_tag_rewrite_keeps_the_hand_read_rows(tmp_path, monkeypatch):
+    import yaml
+    (tmp_path / "T.TEST.yaml").write_text(yaml.safe_dump(
+        {"ticker": "T.TEST", "money_unit": "whole",
+         "sources": {"xbrl": {"kind": "sec-xbrl"}, "a": {"file": "x.htm"}},
+         "rows": [_row("revenue", "xbrl", [2020], [1], quote=""),
+                  _row("organic_growth_pct", "a", [2020], [3])]}))
+    monkeypatch.setattr(H, "from_companyfacts", lambda *a, **k: {
+        "ticker": "T.TEST", "currency": "USD", "money_unit": "whole",
+        "sources": {"xbrl": {"kind": "sec-xbrl"}},
+        "rows": [_row("revenue", "xbrl", [2020], [2], quote="")]})
+    monkeypatch.setattr("vss.xbrl.fetch_company_facts", lambda cik: {})
+    rc, _ = H.run_history(ticker="T.TEST", xbrl=True, write=True, directory=tmp_path, cik=1)
+    kept = yaml.safe_load((tmp_path / "T.TEST.yaml").read_text())
+    assert rc == 0 and [r["source"] for r in kept["rows"]] == ["xbrl", "a"]
+    assert "a" in kept["sources"]
+
+
 def test_organic_growth_is_a_fraction_and_shares_take_their_own_unit():
     h = _hist([_row("organic_growth_pct", "a", [2020], [-4]),
                _row("shares", "a", [2020], [77036], unit="thousands")])

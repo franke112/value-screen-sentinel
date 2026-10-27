@@ -1,0 +1,228 @@
+schema: vss/review v1
+ticker: NVR
+date: '2026-10-27'
+status_at_start: WATCH-GATED
+prepare_report: reports/prepare/NVR-2026-10-27.json
+prepare_waived: null
+steps:
+- step: gate-1
+  outcome: next
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). PASS. Gate 1
+    is frozen at the screener reading of 2026-08-26 (drawdown 25.5%, E12); today''s level leg reads 29.3%
+    off the 52-week closing high 8,097.25 of 2026-02-11, inside 15-50%. Dated events: Q4 2025 results
+    2026-01-28 and the 10-K 2026-02-11 (-7.27% on 2026-02-13), Q1 2026 results 2026-04-22 (-4.65%), Q3
+    2026 results 2026-10-22.'
+  answered_at: '2026-10-27T19:32:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened:
+  - reports/prepare/NVR-2026-10-27.md
+  - reports/BRIEFING-NVR-2026-10-27.md
+  rulings_cited:
+  - E12
+  - B1
+  - B2
+  verification: []
+- step: gate-2
+  outcome: next
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). CLASS B -- sector
+    / macro: the US housing market on affordability, rates and consumer sentiment, in the issuer''s own
+    words for Q3 2026: gross margin 18.3% from 21.0% on "higher lot costs, pricing pressure due to continued
+    affordability challenges and weak consumer sentiment, and by contract land deposit impairments totaling
+    approximately $24.8 million" (Class C component, bounded at 24.8m). Not D on the filing: new orders
+    -7% in units, backlog +10% in units and +4% in dollars, average active communities 454 against 450,
+    lots controlled 185,300 against 175,300. The class does not survive the hard-kill step below.'
+  answered_at: '2026-10-27T19:32:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened:
+  - data/autoread/2026-10-22-NVR-000090616326000099.htm
+  rulings_cited:
+  - B1
+  verification: []
+- step: gate-3
+  outcome: next
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). PASS on its
+    evaluable limbs. Interest coverage 62.1x on E126 step 2 / E147 (income before taxes 1,761,932k + stated
+    interest expense 28,835k) and net finance income (E118). FCF positive in 7 of the last 8 quarters
+    (Q3 2024-Q2 2026 from tagged year-to-date operating cash flow; Q2 2026 negative, -151.5m, on inventory
+    build). Net debt / EBITDA DATA MISSING (E119) on a net-cash balance sheet (senior notes 907.7m against
+    1,125.4m homebuilding and mortgage cash at 2026-09-30). No going-concern language; KPMG LLP, auditor
+    since 1987, clean opinion of 2026-02-11; no restatement.'
+  answered_at: '2026-10-27T19:32:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened:
+  - sources/NVR_FY2025_annual-report-10k_2026-02-11_en_a0.htm
+  - data/autoread/2026-10-22-NVR-000090616326000099.htm
+  - reports/prepare/NVR-2026-10-27.md
+  rulings_cited:
+  - E112
+  - E118
+  - E119
+  - E126
+  - E147
+  verification: []
+- step: gate-4
+  outcome: next
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). DATA MISSING
+    for every name (E99); out of the count.'
+  answered_at: '2026-10-27T19:32:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited:
+  - E99
+  verification: []
+- step: gate-5
+  outcome: next
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). PASS on the
+    10-Q: the Q3 2026 10-Q falls due inside 90 days (around 2026-11-05; last year 2025-11-05), and the
+    Q4 2026 release follows in late January 2027 (2026-01-28 last year), at the edge of the window. The
+    GDDY precedent scores Gate 5 on the 10-Q deadline.'
+  answered_at: '2026-10-27T19:32:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited:
+  - E77
+  verification: []
+- step: hard-kills
+  outcome: watch-gated
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). TWO HARD KILLS
+    TRIP on the issuer''s own figures, and they decide the name. §4.2.1: revenue declined year on year
+    in FOUR consecutive quarters -- Q4 2025 2,712.6m vs 2,845.6m (-4.7%), Q1 2026 1,881.1m vs 2,403.0m
+    (-21.7%), Q2 2026 2,326.4m vs 2,598.8m (-10.5%), Q3 2026 2,402.4m vs 2,609.5m (-7.9%; homebuilding
+    revenues 2,349,284k + mortgage banking fees 53,146k, the tagged definition). NVR makes no acquisitions,
+    has no disposals and reports in dollars, so reported IS organic and B9''s carve-out cannot apply.
+    §4.2.2: operating margin (E147: pre-tax + interest expense) Q3 2026 341.6m / 2,402.4m = 14.2% against
+    451.3m / 2,609.5m = 17.3% in Q3 2025, -307bps on declining revenue; the quantified Class C item (contract
+    land deposit impairments ~24.8m) explains 103bps of it, leaving -204bps, above the 150bps line. The
+    rule applies as written (the owner on MEKKO.HE, 2026-09-08: "Regeln galler"). Warren''s reading: an
+    excellent business -- tangible ROIC median 67.7%, net cash, no land risk, buybacks 9M 2026 at an average
+    6,742 -- at a moment its own figures still fall; the rules ask for the turn to show in the accounts,
+    not in the price. WATCH-GATED; no price level may wake it. RE-ENTRY EVENT: the Q4 2026 results release
+    (late January 2027): Q4 2026 revenue against Q4 2025''s 2,712.6m. If it is not lower, the revenue
+    kill clears; the margin kill is then read on the same release against Q4 2025''s operating margin.'
+  answered_at: '2026-10-27T19:32:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened:
+  - data/autoread/2026-10-22-NVR-000090616326000099.htm
+  - sources/NVR_FY2025_annual-report-10k_2026-02-11_en_a0.htm
+  - reports/BRIEFING-NVR-2026-10-27.md
+  rulings_cited:
+  - B9
+  - E45
+  - E147
+  - E141
+  verification: []
+- step: conviction
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'the walk stopped at hard-kills (watch-gated, E141 decision): a §4.2 hard kill overrides
+    §4.4 and §5.3, so no score, tier or MBP is formed (MEKKO.HE precedent, 2026-09-08)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: basis
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'the walk stopped at hard-kills (watch-gated, E141 decision): a §4.2 hard kill overrides
+    §4.4 and §5.3, so no score, tier or MBP is formed (MEKKO.HE precedent, 2026-09-08)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: flow
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'the walk stopped at hard-kills (watch-gated, E141 decision): a §4.2 hard kill overrides
+    §4.4 and §5.3, so no score, tier or MBP is formed (MEKKO.HE precedent, 2026-09-08)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: net-debt
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'the walk stopped at hard-kills (watch-gated, E141 decision): a §4.2 hard kill overrides
+    §4.4 and §5.3, so no score, tier or MBP is formed (MEKKO.HE precedent, 2026-09-08)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: divisor
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'the walk stopped at hard-kills (watch-gated, E141 decision): a §4.2 hard kill overrides
+    §4.4 and §5.3, so no score, tier or MBP is formed (MEKKO.HE precedent, 2026-09-08)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: growth-view
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'the walk stopped at hard-kills (watch-gated, E141 decision): a §4.2 hard kill overrides
+    §4.4 and §5.3, so no score, tier or MBP is formed (MEKKO.HE precedent, 2026-09-08)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: strike
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'the walk stopped at hard-kills (watch-gated, E141 decision): a §4.2 hard kill overrides
+    §4.4 and §5.3, so no score, tier or MBP is formed (MEKKO.HE precedent, 2026-09-08)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: tier-mbp
+  outcome: null
+  text: ''
+  answered_at: null
+  skipped: true
+  skip_reason: 'the walk stopped at hard-kills (watch-gated, E141 decision): a §4.2 hard kill overrides
+    §4.4 and §5.3, so no score, tier or MBP is formed (MEKKO.HE precedent, 2026-09-08)'
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: verdict
+  outcome: watch-gated
+  text: 'E141 decision (the session decides; owner 2026-10-27: "låt warren ta besluten"). WATCH-GATED,
+    now on the §4.2 hard kills (four consecutive year-on-year revenue declines; Q3 margin -307bps, -204bps
+    after the land-deposit impairments) instead of Gate 3''s DATA MISSING, which E147 cleared. No tier,
+    no MBP, no price alert. fv_base stays on the entry as struck (2026-10-27-check record); catalyst:
+    the Q4 2026 results release, late January 2027.'
+  answered_at: '2026-10-27T19:32:00+01:00'
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited:
+  - E27
+  - E141
+  verification: []
+growth_view:
+  base: 0.025
+  bear: -0.03
+  bull: 0.065
+  registered_at: '2026-08-30T00:00:00+02:00'
+  reasons: 'standing view of 2026-08-30, reference/growth-views/NVR.md (E141 decision: it stands; the
+    strike reads the E144 growth derived from the history file)'
+note: '2026-10-27 (E141 decision, full walk reference/reviews/NVR/2026-10-27.yaml): Gate 3 now forms under
+  E147 and PASSES (coverage 62.1x, FCF positive 7 of 8 quarters, net cash, clean KPMG opinion). But two
+  §4.2 hard kills trip on the issuer''s own figures: revenue down year on year in four consecutive quarters
+  (Q4 2025 -4.7%, Q1 2026 -21.7%, Q2 2026 -10.5%, Q3 2026 -7.9%; no deals or currency, so reported is
+  organic) and the Q3 2026 operating margin down 307bps (204bps after the 24.8m land-deposit impairments).
+  Stays WATCH-GATED, now on the kills; no tier, no MBP. Re-entry: the Q4 2026 results release (late January
+  2027) -- Q4 revenue against 2,712.6m and the margin against Q4 2025.'
