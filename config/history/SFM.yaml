@@ -1,0 +1,275 @@
+ticker: SFM
+currency: USD
+money_unit: whole
+sources:
+  xbrl:
+    kind: sec-xbrl
+    url: https://data.sec.gov/api/xbrl/companyfacts/
+    fetched: '2026-10-27'
+  tenk:
+    file: sources/SFM_FY2025_annual-report-10k_2026-02-19_en_a0.htm
+    kind: pdf
+rows:
+- field: revenue
+  source: xbrl
+  tag: RevenueFromContractWithCustomerExcludingAssessedTax
+  years:
+  - 2017
+  - 2018
+  - 2019
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 4664612000.0
+  - 5207336000.0
+  - 5634835000.0
+  - 6468759000.0
+  - 6099869000.0
+  - 6837384000.0
+  - 7719290000.0
+  - 8806159000.0
+- field: revenue
+  source: xbrl
+  tag: SalesRevenueGoodsNet
+  years:
+  - 2013
+  - 2014
+  - 2016
+  values:
+  - 2437911000.0
+  - 2967424000.0
+  - 3593031000.0
+- field: operating_profit
+  source: xbrl
+  tag: OperatingIncomeLoss
+  years:
+  - 2013
+  - 2014
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 139504000.0
+  - 199711000.0
+  - 228754000.0
+  - 226070000.0
+  - 222911000.0
+  - 217360000.0
+  - 391665000.0
+  - 334076000.0
+  - 350231000.0
+  - 504497000.0
+  - 686158000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivities
+  years:
+  - 2013
+  - 2017
+  - 2018
+  - 2019
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 160588000.0
+  - 309567000.0
+  - 294379000.0
+  - 355210000.0
+  - 494035000.0
+  - 364799000.0
+  - 465068000.0
+  - 645214000.0
+  - 715998000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivitiesContinuingOperations
+  years:
+  - 2014
+  - 2016
+  values:
+  - 181218000.0
+  - 239898000.0
+- field: capex
+  source: xbrl
+  tag: PaymentsToAcquirePropertyPlantAndEquipment
+  years:
+  - 2013
+  - 2014
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 87463000.0
+  - 127065000.0
+  - 125313000.0
+  - 198624000.0
+  - 177082000.0
+  - 183232000.0
+  - 121968000.0
+  - 102378000.0
+  - 225310000.0
+  - 230375000.0
+  - 248267000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesNetOfCashAcquired
+  years:
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 0.0
+  - 13032000.0
+  - 0.0
+  - 0.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: 'searched: no acquisition element tagged (zero)'
+  years:
+  - 2013
+  - 2014
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2021
+  values:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquity
+  years:
+  - 2013
+  - 2014
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 513771000.0
+  - 685389000.0
+  - 822992000.0
+  - 650694000.0
+  - 589196000.0
+  - 581952000.0
+  - 881293000.0
+  - 959876000.0
+  - 1148547000.0
+  - 1321893000.0
+  - 1403074000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2013
+  - 2014
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 368100000.0
+  - 368100000.0
+  - 368100000.0
+  - 368078000.0
+  - 368078000.0
+  - 368078000.0
+  - 368878000.0
+  - 368878000.0
+  - 381741000.0
+  - 381750000.0
+  - 381750000.0
+- field: shares
+  source: xbrl
+  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  years:
+  - 2013
+  - 2014
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 139765000.0
+  - 154328000.0
+  - 155877000.0
+  - 137884000.0
+  - 129776000.0
+  - 119742000.0
+  - 118224000.0
+  - 116077000.0
+  - 103390000.0
+  - 101379000.0
+  - 98704000.0
+  unit: whole
+- field: net_debt
+  source: xbrl
+  tag: 'derived: LongTermDebt (or its parts) + short-term borrowings - CashAndCashEquivalentsAtCarryingValue'
+  years:
+  - 2013
+  - 2014
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 233588000.0
+  - 125844000.0
+  - 23931000.0
+  - 328521000.0
+  - 451412000.0
+  - -85314000.0
+  - -169697000.0
+  - 4713000.0
+  - -76794000.0
+  - -265159000.0
+  - -257282000.0
+business:
+  text: Sprouts runs specialty grocery stores selling fresh, natural and organic food to US shoppers.
+  source: tenk
+  quote: we are one of the largest and fastest growing specialty retailers of fresh, natural and organic food in the United States

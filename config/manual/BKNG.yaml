@@ -154,6 +154,16 @@ annual:
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2021-01-01..2021-12-31] 10-K 0001075531-24-000014 filed 2024-02-22"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -948000000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2021-01-01..2021-12-31] 10-K 0001075531-24-000014 filed 2024-02-22 = -1,002,000,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2021-01-01..2021-12-31] 10-K 0001075531-24-000014 filed 2024-02-22 = 6,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2021-01-01..2021-12-31] 10-K 0001075531-24-000014 filed 2024-02-22 = 48,000,000 = -948,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -1185000000
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2021-01-01..2021-12-31] 10-K 0001075531-24-000014 filed 2024-02-22"
+        status: VERIFIED
+        verified_kind: tagged
   - fiscal_year: 2022
     period_end: 2022-12-31
     document: "SEC XBRL companyfacts for CIK 0001075531 (Booking Holdings Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001075531.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
@@ -239,6 +249,17 @@ annual:
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2022-01-01..2022-12-31] 10-K 0001075531-25-000010 filed 2025-02-20"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -1315000000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2022-01-01..2022-12-31] 10-K 0001075531-25-000010 filed 2025-02-20 = -1,228,000,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2022-01-01..2022-12-31] 10-K 0001075531-25-000010 filed 2025-02-20 = -217,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2022-01-01..2022-12-31] 10-K 0001075531-25-000010 filed 2025-02-20 = 130,000,000 = -1,315,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2022-01-01..2022-12-31] 10-K 0001075531-24-000014 filed 2024-02-22"
+        status: VERIFIED
+        verified_kind: tagged
+        zero_basis: caption
   - fiscal_year: 2023
     period_end: 2023-12-31
     document: "SEC XBRL companyfacts for CIK 0001075531 (Booking Holdings Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001075531.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
@@ -324,6 +345,17 @@ annual:
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2023-01-01..2023-12-31] 10-K 0001075531-26-000009 filed 2026-02-18"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -1006000000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-01-01..2023-12-31] 10-K 0001075531-26-000009 filed 2026-02-18 = -1,330,000,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2023-01-01..2023-12-31] 10-K 0001075531-26-000009 filed 2026-02-18 = 155,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2023-01-01..2023-12-31] 10-K 0001075531-26-000009 filed 2026-02-18 = 169,000,000 = -1,006,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2023-01-01..2023-12-31] 10-K 0001075531-24-000014 filed 2024-02-22"
+        status: VERIFIED
+        verified_kind: tagged
+        zero_basis: caption
   - fiscal_year: 2024
     period_end: 2024-12-31
     document: "SEC XBRL companyfacts for CIK 0001075531 (Booking Holdings Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001075531.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
@@ -409,6 +441,16 @@ annual:
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2024-01-01..2024-12-31] 10-K 0001075531-26-000009 filed 2026-02-18"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -296000000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-01-01..2024-12-31] 10-K 0001075531-26-000009 filed 2026-02-18 = -506,000,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2024-01-01..2024-12-31] 10-K 0001075531-26-000009 filed 2026-02-18 = -12,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2024-01-01..2024-12-31] 10-K 0001075531-26-000009 filed 2026-02-18 = 222,000,000 = -296,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001075531-26-000009 filed 2026-02-18, fiscal year to 2024-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
+        status: UNVERIFIED
+        zero_basis: searched
   - fiscal_year: 2025
     period_end: 2025-12-31
     document: "SEC XBRL companyfacts for CIK 0001075531 (Booking Holdings Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001075531.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
@@ -529,3 +571,49 @@ annual:
         page: "E107 SEARCHED ABSENCE. Document: sources/BKNG_FY2025_annual-report-10k_2026-02-18_en_a0.htm (accession 0001075531-26-000009). Searched 2026-10-11 for 'noncontrolling', 'non-controlling' and 'minority interest' -- ZERO occurrences of any. The group has no minority holders, so no cash leaves it as a distribution to them. E106 clause 5: a determined zero."
         status: VERIFIED
         verified_kind: same_page
+      working_capital_change:
+        value: -435000000
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-01-01..2025-12-31] 10-K 0001075531-26-000009 filed 2026-02-18 = -730,000,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2025-01-01..2025-12-31] 10-K 0001075531-26-000009 filed 2026-02-18 = 100,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2025-01-01..2025-12-31] 10-K 0001075531-26-000009 filed 2026-02-18 = 195,000,000 = -435,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001075531-26-000009 filed 2026-02-18, fiscal year to 2025-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
+        status: UNVERIFIED
+        zero_basis: searched
+
+# E140.1(3): THE LATEST FILED BALANCE SHEET after the newest fiscal
+# year. The bridge's stocks and the divisor are read here; the
+# year-to-date working capital since the fiscal year-end is
+# NEUTRALISED in the bridge. Flows stay on the fiscal years.
+roll_forward:
+  period_end: 2026-06-30
+  from_year_end: 2025-12-31
+  document: "SEC XBRL companyfacts for CIK 0001075531 (Booking Holdings Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001075531.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
+  url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0001075531.json"
+  figures:
+    working_capital_change:
+      value: -690000000
+      page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2026-01-01..2026-06-30] 10-Q 0001075531-26-000037 filed 2026-08-04 = -795,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2026-01-01..2026-06-30] 10-Q 0001075531-26-000037 filed 2026-08-04 = 105,000,000 = -690,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+      status: VERIFIED
+      verified_kind: tagged
+    cash_and_equivalents:
+      value: 17214000000
+      page: "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2026-06-30] 10-Q 0001075531-26-000037 filed 2026-08-04"
+      status: VERIFIED
+      verified_kind: tagged
+    financial_liabilities_current:
+      value: 2000000000
+      page: "us-gaap:LongTermDebtCurrent [as of 2026-06-30] 10-Q 0001075531-26-000037 filed 2026-08-04"
+      status: VERIFIED
+      verified_kind: tagged
+    financial_liabilities_noncurrent:
+      value: 18180000000
+      page: "us-gaap:LongTermDebtNoncurrent [as of 2026-06-30] 10-Q 0001075531-26-000037 filed 2026-08-04"
+      status: VERIFIED
+      verified_kind: tagged
+    diluted_weighted_average_shares:
+      value: 770000000
+      page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2026-04-01..2026-06-30] 10-Q 0001075531-26-000037 filed 2026-08-04"
+      status: VERIFIED
+      verified_kind: tagged

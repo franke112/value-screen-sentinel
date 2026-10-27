@@ -2743,3 +2743,85 @@ tickers:
       inventory build) gives g* ~0%. The FY2026 10-K (~late November) is the
       read: it decides whether ~300m is the run-rate. Retailer
       concentration, weather, family control and a non-voting share.
+
+  # --- screener sweep 2026-10-27, taken in by the session (E141 decision; E111's promotion is the session's under E141) ---
+  - ticker: GNTX
+    growth:
+      base: 0.04
+      bear: -0.0202
+      bull: 0.04
+      view: reference/growth-views/GNTX.md
+      registered: 2026-10-27
+    name: GENTEX CORP
+    cik: 355811    # https://www.sec.gov/files/company_tickers.json, fetched 2026-10-27
+    currency: USD
+    # WATCH-GATED, E141 decision 2026-10-27: section 4.2.1 hard kill --
+    # revenue down year on year two quarters running, Q2 2026 651.3m vs
+    # 657.9m (-1.0%) and Q3 2026 647.7m vs 655.2m (-1.1%); VOXX was in both
+    # comparison quarters (closed 2025-04-01), so reported is like for
+    # like. A kill is not a price: NO PRICE LEVEL MAY WAKE THIS NAME.
+    status: WATCH-GATED
+    dd_at_entry: 0.2239
+    peak_date: 2026-06-15
+    fv_base: 27.45     # first strike 2026-10-27, reference/GNTX-STRIKE-2026-10-27.md (bear 15.71, bull 29.62); close 20.21. E145: Q1-Q3, Q5 PASS; Q4 FAIL (ROIIC -21.0%: ten years of operating profit flat at ~480-500m on 750m of capital added)
+    run_record: reference/run-records/GNTX-2026-10-27.json
+    catalyst_date: 2027-02-01          # Q4 2026 results -- NOT the issuer's date; Gentex reported Q4 2025 in late January / early February.
+    catalyst_resolved:
+    catalyst_event: Q4 2026 results -- is Q4 2026 revenue at or above Q4 2025's 644.4m? If it is, the revenue kill clears and the gates are walked.
+    notes: >-
+      2026-10-27: screener #3 (2026-10-24). Struck 27.45 against 20.21 (26%
+      under); net cash, tangible ROIC median 24.4%. Gated on the revenue
+      kill; the business has grown revenue but not profit in ten years,
+      which is what Q4 measures.
+  - ticker: SFM
+    growth:
+      base: 0.08
+      bear: 0.0444
+      bull: 0.08
+      view: reference/growth-views/SFM.md
+      registered: 2026-10-27
+    name: Sprouts Farmers Market, Inc.
+    cik: 1575515    # https://www.sec.gov/files/company_tickers.json, fetched 2026-10-27
+    currency: USD
+    # WATCH-GATED, E141 decision 2026-10-27: section 4.2.3 hard kill -- two
+    # guidance cuts inside the trailing four quarterly releases:
+    # 2025-10-29 (FY2025 net sales growth 14.5-16.0% -> ~14%, comps
+    # 7.5-9.0% -> ~7.0%, EBIT 675-690m -> 675-680m) and 2026-07-29 (FY2026
+    # EBIT 675-695m -> 675-685m, EPS 5.32-5.48 -> 5.32-5.40). The October
+    # 2025 cut leaves the window with the Q3 2026 release.
+    status: WATCH-GATED
+    dd_at_entry: 0.3969
+    peak_date: 2025-10-28
+    fv_base: 78.47     # first strike 2026-10-27, reference/SFM-STRIKE-2026-10-27.md (bear 38.47, bull 78.47); close 64.41. E145: all five PASS (tangible ROIC median 38.1%, net cash)
+    run_record: reference/run-records/SFM-2026-10-27.json
+    catalyst_date: 2026-10-29          # Q3 2026 results -- NOT the issuer's date; Q3 2025 was released 2025-10-29.
+    catalyst_resolved:
+    catalyst_event: Q3 2026 results -- is the FY2026 outlook (EBIT 675-685m, EPS 5.32-5.40, comps -0.5% to 0.5%) held or raised? If it is not cut, the October 2025 cut leaves the window, the kill clears, and the gates are walked.
+    notes: >-
+      2026-10-27: screener #12 (2026-10-24). Struck 78.47 against 64.41 (18%
+      under), all five Warren tests pass. Revenue still grows (+4%, +5%) on
+      new stores while comparable sales turned negative (-1.7%, -1.0%);
+      CEO succession to the COO on 2027-01-04 is planned, the CFO stays.
+  - ticker: OLVAS.HE
+    name: Olvi Oyj
+    currency: EUR
+    reporting_frequency: quarterly
+    # WATCH-GATED, E141 decision 2026-10-27: section 4.2.3 hard kill -- two
+    # cuts to the FY2026 operating-result outlook inside the trailing four
+    # quarterly reports: the half-year report of 2026-08-14 (EUR 84-92m ->
+    # 84-90m) and the update of 2026-10-13 (84-90m -> 80-85m). NO fv_base
+    # and no store: the kill decides first, and the value is struck when
+    # it clears (E76's order: the reading, the value, then the tier).
+    status: WATCH-GATED
+    dd_at_entry: 0.2103
+    peak_date: 2026-03-17
+    catalyst_date: 2027-08-13          # H1 2027 report -- NOT the issuer's date; H1 2026 came 2026-08-14. The first report after which the August 2026 cut leaves the four-report window.
+    catalyst_resolved:
+    catalyst_event: H1 2027 report -- no further outlook cut since 2026-10-13, so the trailing four reports carry at most one cut; then the store is built and the name struck.
+    notes: >-
+      2026-10-27: screener #9 (2026-10-24), earnings yield 13.1%. Q3 2026:
+      net sales +12.4% (organic +1.3%), operating result +2.1% (organic
+      -4.8%), organic volume -4.6%; the Danish business loss-making and
+      "other structural options" being evaluated; four acquisitions in
+      2026 took gearing from -10.3% to 14.4%. EPS 2025
+      3.09 against a close of 27.60.

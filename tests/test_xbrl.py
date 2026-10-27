@@ -522,3 +522,13 @@ def test_a_balance_sheet_only_quarter_still_loads(project):
     assert parsed.quarters[-1].period == "2026-Q4"
     assert parsed.quarters[-1].revenue is None
     assert parsed.quarters[-1].receivables == 5_400_000_000.0
+
+
+def test_a_year_ending_in_the_first_week_of_january_is_the_year_before():
+    """Sprouts' 53-week fiscal 2022 ended 2023-01-01; by the calendar year it
+    collided with fiscal 2023 and the store refused 'duplicate fiscal_year'."""
+    from datetime import date
+    from vss.xbrl import fiscal_label
+    assert fiscal_label(date(2023, 1, 1)) == 2022
+    assert fiscal_label(date(2023, 12, 31)) == 2023
+    assert fiscal_label(date(2026, 1, 31)) == 2026      # ULTA's year, untouched

@@ -1980,6 +1980,13 @@ def _anchor(end: date, fy_end_month: int) -> tuple[int, int] | None:
     return best
 
 
+def fiscal_label(end: date) -> int:
+    """The fiscal year a year END names. A 52/53-week year that closes in
+    the first week of January is the year before it (Sprouts' fiscal 2022
+    ended 2023-01-01); labelling it by the calendar year gave two FY2023s."""
+    return end.year - 1 if end.month == 1 and end.day <= 7 else end.year
+
+
 def fiscal_year_ends(facts: dict, fy_end_month: int, *,
                      taxonomy: Taxonomy = US_GAAP_TAXONOMY,
                      currency: str = "USD") -> tuple[list, list]:
@@ -2053,7 +2060,7 @@ def build_annual(facts: dict, *, limit: int = ANNUAL_LIMIT,
     years: list[AnnualYear] = []
     for end_s in ends[-limit:]:
         end = date.fromisoformat(end_s)
-        year = AnnualYear(fiscal_year=end.year, end=end)
+        year = AnnualYear(fiscal_year=fiscal_label(end), end=end)
         for spec in taxonomy.fields:
             unit = resolve_unit(spec, currency)
             for tag in spec.tags:
@@ -2726,7 +2733,7 @@ def build_roll_forward(facts: dict, years: list, taxonomy: "Taxonomy",
     if not ends:
         return None
     end_s = max(ends)
-    sheet = AnnualYear(fiscal_year=date.fromisoformat(end_s).year,
+    sheet = AnnualYear(fiscal_year=fiscal_label(date.fromisoformat(end_s)),
                        end=date.fromisoformat(end_s))
     for spec in taxonomy.fields:
         if spec.kind != "instant" or spec.field not in ROLL_FORWARD_STOCKS:

@@ -1,0 +1,13 @@
+ticker: BKNG
+dated: '2026-10-27'
+ruling: E140(3)-(4)
+money: whole units of the reporting currency
+money_unit: whole
+basis_balance_sheet: '2025-12-31'
+searched:
+- 'EDGAR submissions: every 8-K filed after the newest 10-Q/10-K read by item number
+  (scan 2026-10-27); no 1.01/2.01 deal item except financing'
+- issuer press releases and news search (2026-10-27)
+deals: []
+none_found: true
+notes: No deal found after the basis balance sheet.

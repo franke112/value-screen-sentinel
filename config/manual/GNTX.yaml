@@ -152,6 +152,16 @@ annual:
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2021-01-01..2021-12-31] 10-K 0000355811-24-000011 filed 2024-02-22"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -87640163
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2021-01-01..2021-12-31] 10-K 0000355811-24-000011 filed 2024-02-22 = 35,135,429 + us-gaap:IncreaseDecreaseInInventories [2021-01-01..2021-12-31] 10-K 0000355811-24-000011 filed 2024-02-22 = -89,975,599 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2021-01-01..2021-12-31] 10-K 0000355811-24-000011 filed 2024-02-22 = -20,241,994 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2021-01-01..2021-12-31] 10-K 0000355811-24-000011 filed 2024-02-22 = -5,501,445 + us-gaap:IncreaseDecreaseInAccountsPayable [2021-01-01..2021-12-31] 10-K 0000355811-24-000011 filed 2024-02-22 = 7,266,309 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2021-01-01..2021-12-31] 10-K 0000355811-24-000011 filed 2024-02-22 = -14,322,863 = -87,640,163 (cash effect: an asset increase negated, a liability increase kept)"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -12071546
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2021-01-01..2021-12-31] 10-K 0000355811-24-000011 filed 2024-02-22"
+        status: VERIFIED
+        verified_kind: tagged
   - fiscal_year: 2022
     period_end: 2022-12-31
     document: "SEC XBRL companyfacts for CIK 0000355811 (GENTEX CORPORATION) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000355811.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
@@ -207,6 +217,17 @@ annual:
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2022-01-01..2022-12-31] 10-K 0000355811-25-000009 filed 2025-02-25"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: -94857894
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2022-01-01..2022-12-31] 10-K 0000355811-25-000009 filed 2025-02-25 = -26,698,846 + us-gaap:IncreaseDecreaseInInventories [2022-01-01..2022-12-31] 10-K 0000355811-25-000009 filed 2025-02-25 = -88,092,828 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2022-01-01..2022-12-31] 10-K 0000355811-25-000009 filed 2025-02-25 = -28,788,331 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2022-01-01..2022-12-31] 10-K 0000355811-25-000009 filed 2025-02-25 = -3,611,244 + us-gaap:IncreaseDecreaseInAccountsPayable [2022-01-01..2022-12-31] 10-K 0000355811-25-000009 filed 2025-02-25 = 37,423,488 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2022-01-01..2022-12-31] 10-K 0000355811-25-000009 filed 2025-02-25 = 14,909,867 = -94,857,894 (cash effect: an asset increase negated, a liability increase kept)"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: 0
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2022-01-01..2022-12-31] 10-K 0000355811-25-000009 filed 2025-02-25"
+        status: VERIFIED
+        verified_kind: tagged
+        zero_basis: caption
   - fiscal_year: 2023
     period_end: 2023-12-31
     document: "SEC XBRL companyfacts for CIK 0000355811 (GENTEX CORPORATION) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000355811.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
@@ -260,6 +281,16 @@ annual:
       diluted_weighted_average_shares:
         value: 229720198
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2023-01-01..2023-12-31] 10-K 0000355811-26-000010 filed 2026-02-24"
+        status: VERIFIED
+        verified_kind: tagged
+      working_capital_change:
+        value: -16463067
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-01-01..2023-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -45,251,116 + us-gaap:IncreaseDecreaseInInventories [2023-01-01..2023-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 2,127,242 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2023-01-01..2023-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -4,101,866 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2023-01-01..2023-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -4,453,376 + us-gaap:IncreaseDecreaseInAccountsPayable [2023-01-01..2023-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 40,951,490 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2023-01-01..2023-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -5,735,441 + us-gaap:ProvisionForLoanLeaseAndOtherLosses [2023-01-01..2023-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 0 = -16,463,067 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForLoanLeaseAndOtherLosses` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -18936539
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2023-01-01..2023-12-31] 10-K 0000355811-26-000010 filed 2026-02-24"
         status: VERIFIED
         verified_kind: tagged
   - fiscal_year: 2024
@@ -321,6 +352,16 @@ annual:
       diluted_weighted_average_shares:
         value: 226023482
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2024-01-01..2024-12-31] 10-K 0000355811-26-000010 filed 2026-02-24"
+        status: VERIFIED
+        verified_kind: tagged
+      working_capital_change:
+        value: -46956047
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-01-01..2024-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 27,106,680 + us-gaap:IncreaseDecreaseInInventories [2024-01-01..2024-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -32,624,417 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2024-01-01..2024-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -9,873,572 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2024-01-01..2024-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -6,563,157 + us-gaap:IncreaseDecreaseInAccountsPayable [2024-01-01..2024-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -26,021,165 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2024-01-01..2024-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 1,019,584 + us-gaap:ProvisionForLoanLeaseAndOtherLosses [2024-01-01..2024-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 0 = -46,956,047 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForLoanLeaseAndOtherLosses` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -2870769
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2024-01-01..2024-12-31] 10-K 0000355811-26-000010 filed 2026-02-24"
         status: VERIFIED
         verified_kind: tagged
   - fiscal_year: 2025
@@ -449,3 +490,59 @@ annual:
         page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2025-01-01..2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24"
         status: VERIFIED
         verified_kind: tagged
+      working_capital_change:
+        value: 60012876
+        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-01-01..2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -14,615,535 + us-gaap:IncreaseDecreaseInInventories [2025-01-01..2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 18,138,298 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2025-01-01..2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 214,617 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2025-01-01..2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -1,888,944 + us-gaap:IncreaseDecreaseInAccountsPayable [2025-01-01..2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 52,402,600 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2025-01-01..2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -1,684,568 + us-gaap:ProvisionForLoanLeaseAndOtherLosses [2025-01-01..2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 7,446,408 = 60,012,876 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForLoanLeaseAndOtherLosses` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        status: VERIFIED
+        verified_kind: tagged
+      acquisitions_paid:
+        value: -156291946
+        page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2025-01-01..2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24"
+        status: VERIFIED
+        verified_kind: tagged
+
+# E140.1(3): THE LATEST FILED BALANCE SHEET after the newest fiscal
+# year. The bridge's stocks and the divisor are read here; the
+# year-to-date working capital since the fiscal year-end is
+# NEUTRALISED in the bridge. Flows stay on the fiscal years.
+roll_forward:
+  period_end: 2026-06-30
+  from_year_end: 2025-12-31
+  document: "SEC XBRL companyfacts for CIK 0000355811 (GENTEX CORPORATION) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000355811.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
+  url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0000355811.json"
+  figures:
+    working_capital_change:
+      value: 25533484
+      page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2026-01-01..2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04 = -17,821,395 + us-gaap:IncreaseDecreaseInInventories [2026-01-01..2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04 = -2,696,794 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2026-01-01..2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04 = 23,045,953 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2026-01-01..2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04 = -3,103,663 + us-gaap:IncreaseDecreaseInAccountsPayable [2026-01-01..2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04 = -1,854,712 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2026-01-01..2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04 = 22,869,807 + us-gaap:ProvisionForLoanLeaseAndOtherLosses [2026-01-01..2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04 = 5,094,288 = 25,533,484 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForLoanLeaseAndOtherLosses` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+      status: VERIFIED
+      verified_kind: tagged
+    operating_lease_liabilities:
+      value: 7491139
+      page: "us-gaap:OperatingLeaseLiability [as of 2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04"
+      status: VERIFIED
+      verified_kind: tagged
+    cash_and_equivalents:
+      value: 233444229
+      page: "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04"
+      status: VERIFIED
+      verified_kind: tagged
+    financial_liabilities_current:
+      value: 3706980
+      page: "us-gaap:ShortTermBorrowings [as of 2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04"
+      status: VERIFIED
+      verified_kind: tagged
+    financial_liabilities_noncurrent:
+      value: 0
+      page: "E107 searched zero: SEC XBRL facts of the 10-Q 0000355811-26-000048 balance sheet as of 2026-06-30, searched on 2026-10-27 for every us-gaap element that could state NON-CURRENT borrowings (Debt, Borrowing, LineOfCredit, CommercialPaper, NotesPayable; assets, capacities and fair-value memos excluded) -- none is tagged on that date with a value"
+      status: UNVERIFIED
+      zero_basis: searched
+    lease_liabilities:
+      value: 7491139
+      page: "us-gaap:OperatingLeaseLiability [as of 2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04"
+      status: VERIFIED
+      verified_kind: tagged
+    diluted_weighted_average_shares:
+      value: 208585726
+      page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2026-04-01..2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04"
+      status: VERIFIED
+      verified_kind: tagged

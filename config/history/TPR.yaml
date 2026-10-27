@@ -1,0 +1,270 @@
+ticker: TPR
+currency: USD
+money_unit: whole
+sources:
+  xbrl:
+    kind: sec-xbrl
+    url: https://data.sec.gov/api/xbrl/companyfacts/
+    fetched: '2026-10-27'
+  tenk:
+    file: sources/TPR_FY2026_annual-report-10k_2026-08-13_en_a0.htm
+    kind: pdf
+rows:
+- field: revenue
+  source: xbrl
+  tag: Revenues
+  years:
+  - 2016
+  - 2017
+  - 2018
+  values:
+  - 4491800000.0
+  - 4488300000.0
+  - 5880000000.0
+- field: revenue
+  source: xbrl
+  tag: RevenueFromContractWithCustomerExcludingAssessedTax
+  years:
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 6027100000.0
+  - 4961400000.0
+  - 5746300000.0
+  - 6684500000.0
+  - 6660900000.0
+  - 6671200000.0
+  - 7010700000.0
+  - 8004200000.0
+- field: operating_profit
+  source: xbrl
+  tag: OperatingIncomeLoss
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 653500000.0
+  - 787400000.0
+  - 672000000.0
+  - 819700000.0
+  - -550800000.0
+  - 968000000.0
+  - 1175800000.0
+  - 1172400000.0
+  - 1140100000.0
+  - 415000000.0
+  - 1914400000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivities
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 758600000.0
+  - 853800000.0
+  - 997500000.0
+  - 792400000.0
+  - 407000000.0
+  - 1323700000.0
+  - 853200000.0
+  - 975200000.0
+  - 1255600000.0
+  - 1216600000.0
+  - 1978500000.0
+- field: capex
+  source: xbrl
+  tag: PaymentsToAcquirePropertyPlantAndEquipment
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 396400000.0
+  - 283100000.0
+  - 267400000.0
+  - 274200000.0
+  - 205400000.0
+  - 116000000.0
+  - 93900000.0
+  - 184200000.0
+  - 108900000.0
+  - 122700000.0
+  - 166000000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesNetOfCashAcquired
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  values:
+  - 25600000.0
+  - 0.0
+  - 2375800000.0
+  - 43500000.0
+  - 0.0
+  - 0.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: 'searched: no acquisition element tagged (zero)'
+  years:
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquity
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 2682900000.0
+  - 3001900000.0
+  - 3244600000.0
+  - 3513400000.0
+  - 2276400000.0
+  - 3259300000.0
+  - 2285500000.0
+  - 2277800000.0
+  - 2896900000.0
+  - 857800000.0
+  - 692100000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 502400000.0
+  - 480500000.0
+  - 1484300000.0
+  - 1516200000.0
+  - 1301100000.0
+  - 1297300000.0
+  - 1241500000.0
+  - 1227500000.0
+  - 1204100000.0
+  - 983300000.0
+  - 957700000.0
+- field: shares
+  source: xbrl
+  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 279300000.0
+  - 282800000.0
+  - 288600000.0
+  - 290800000.0
+  - 278600000.0
+  - 283000000.0
+  - 270100000.0
+  - 241300000.0
+  - 233200000.0
+  - 222500000.0
+  - 210200000.0
+  unit: whole
+- field: net_debt
+  source: xbrl
+  tag: 'derived: LongTermDebt (or its parts) + short-term borrowings - CashAndCashEquivalentsAtCarryingValue'
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 2200000.0
+  - -1093400000.0
+  - 356500000.0
+  - 632700000.0
+  - 161600000.0
+  - -417000000.0
+  - 869400000.0
+  - 909700000.0
+  - 795200000.0
+  - 1277900000.0
+  - 1404300000.0
+business:
+  text: Tapestry sells Coach and kate spade handbags, accessories and clothing to consumers through its own stores, online and wholesale.
+  source: tenk
+  quote: Tapestry, Inc. (the "Company") is a global house of iconic accessories and lifestyle brands uniting the magic of Coach and kate spade new york

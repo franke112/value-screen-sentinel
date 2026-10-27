@@ -86,3 +86,9 @@ issuers:
     company: "AcadeMedia AB"
     resolved: 2026-10-20
     note: "matched 181 release(s) on the feed, newest 2026-10-12"
+  OLVAS.HE:
+    market: "Main Market, Helsinki"
+    company: "Olvi Oyj"
+    language: en
+    resolved: 2026-10-27
+    note: "matched 200 release(s) on the feed, newest 2026-10-22"

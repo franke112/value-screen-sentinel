@@ -1,0 +1,280 @@
+ticker: BKNG
+currency: USD
+money_unit: whole
+sources:
+  xbrl:
+    kind: sec-xbrl
+    url: https://data.sec.gov/api/xbrl/companyfacts/
+    fetched: '2026-10-27'
+  tenk:
+    file: sources/BKNG_FY2025_annual-report-10k_2026-02-18_en_a0.htm
+    kind: pdf
+rows:
+- field: revenue
+  source: xbrl
+  tag: Revenues
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 10743000000.0
+  - 12681000000.0
+  - 14527000000.0
+  - 15066000000.0
+  - 6796000000.0
+  - 10958000000.0
+  - 17090000000.0
+  - 21365000000.0
+  - 23739000000.0
+  - 26917000000.0
+- field: revenue
+  source: xbrl
+  tag: SalesRevenueNet
+  years:
+  - 2015
+  values:
+  - 9223987000.0
+- field: operating_profit
+  source: xbrl
+  tag: OperatingIncomeLoss
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 3258907000.0
+  - 2906000000.0
+  - 4538000000.0
+  - 5341000000.0
+  - 5345000000.0
+  - -631000000.0
+  - 2496000000.0
+  - 5102000000.0
+  - 5835000000.0
+  - 7555000000.0
+  - 8825000000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivities
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 3984000000.0
+  - 4662000000.0
+  - 5338000000.0
+  - 4865000000.0
+  - 85000000.0
+  - 2820000000.0
+  - 6554000000.0
+  - 7344000000.0
+  - 8323000000.0
+  - 9409000000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivitiesContinuingOperations
+  years:
+  - 2015
+  values:
+  - 3203523000.0
+- field: capex
+  source: xbrl
+  tag: PaymentsToAcquirePropertyPlantAndEquipment
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 173915000.0
+  - 220000000.0
+  - 288000000.0
+  - 442000000.0
+  - 368000000.0
+  - 286000000.0
+  - 304000000.0
+  - 368000000.0
+  - 345000000.0
+  - 429000000.0
+  - 322000000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesNetOfCashAcquired
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  values:
+  - 0.0
+  - 1185000000.0
+  - 0.0
+  - 0.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesAndInterestInAffiliates
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  values:
+  - 140338000.0
+  - 1000000.0
+  - 553000000.0
+  - 273000000.0
+  - 9000000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: 'searched: no acquisition element tagged (zero)'
+  years:
+  - 2024
+  - 2025
+  values:
+  - 0.0
+  - 0.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquity
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 8795000000.0
+  - 9820000000.0
+  - 11261000000.0
+  - 8785000000.0
+  - 5933000000.0
+  - 4893000000.0
+  - 6178000000.0
+  - 2782000000.0
+  - -2744000000.0
+  - -4020000000.0
+  - -5578000000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 3375000000.0
+  - 2397000000.0
+  - 2738000000.0
+  - 2910000000.0
+  - 2913000000.0
+  - 1895000000.0
+  - 2887000000.0
+  - 2807000000.0
+  - 2826000000.0
+  - 2799000000.0
+  - 2669000000.0
+- field: shares
+  source: xbrl
+  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 51593000.0
+  - 50063000.0
+  - 49954000.0
+  - 48017000.0
+  - 43509000.0
+  - 41160000.0
+  - 41362000.0
+  - 40052000.0
+  - 36530000.0
+  - 34064000.0
+  - 32639000.0
+  unit: whole
+- field: net_debt
+  source: xbrl
+  tag: 'derived: LongTermDebt (or its parts) + short-term borrowings - CashAndCashEquivalentsAtCarryingValue'
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 4681178000.0
+  - 4089447000.0
+  - 6268000000.0
+  - 6025000000.0
+  - 1328000000.0
+  - 1452000000.0
+  - -201000000.0
+  - 264000000.0
+  - 2077000000.0
+  - 434000000.0
+  - 1533000000.0
+business:
+  text: Booking sells hotel rooms, flights, car rentals and restaurant bookings online to travellers through Booking.com, Priceline, Agoda, KAYAK and OpenTable, earning a commission from the providers.
+  source: tenk
+  quote: 'We offer these services through five primary consumer-facing brands: Booking.com, Priceline, Agoda, KAYAK, and OpenTable'
