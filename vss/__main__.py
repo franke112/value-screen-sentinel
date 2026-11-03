@@ -279,6 +279,21 @@ def build_parser() -> argparse.ArgumentParser:
     sales_cmd.add_argument("--config", metavar="PATH", default=None,
                            help="use an alternate watchlist")
 
+    newsdrop_cmd = sub.add_parser(
+        "newsdrop",
+        help="THE NEWS-DROP SCREEN, SHADOW MODE (reference/NEWS-DROP-DESIGN): "
+             "large S&P 500 and Stockholm names down 10%% in five days (or 5%% "
+             "in one) against their index, sorted by the company's own filings "
+             "in the window. Writes data/newsdrop/; one ntfy message only when "
+             "something survives the sorting; never writes the watchlist",
+    )
+    newsdrop_cmd.add_argument("--asof", metavar="YYYY-MM-DD", default=None,
+                              help="the close to read (default: today)")
+    newsdrop_cmd.add_argument("--limit", type=int, default=None,
+                              help="read only the first N names (a smoke run)")
+    newsdrop_cmd.add_argument("--no-notify", action="store_true",
+                              help="write the files but POST nothing to ntfy")
+
     shadow_cmd = sub.add_parser(
         "shadow",
         help="THE SHADOW BOOK (FRAMEWORK-EDITS E114): every refusal against "
@@ -860,6 +875,16 @@ def main(argv: list[str] | None = None) -> int:
                 book_path=Path(args.book) if args.book else SHADOW_BOOK_PATH,
                 dry_run=args.dry_run,
             )
+            print(report)
+            return code
+        if args.command == "newsdrop":
+            from datetime import date
+
+            from .newsdrop import run_newsdrop
+
+            code, report = run_newsdrop(
+                asof=date.fromisoformat(args.asof) if args.asof else date.today(),
+                limit=args.limit, notify=not args.no_notify)
             print(report)
             return code
         if args.command == "sales":

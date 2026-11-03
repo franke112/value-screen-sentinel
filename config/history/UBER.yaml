@@ -1,0 +1,222 @@
+ticker: UBER
+currency: USD
+money_unit: whole
+sources:
+  xbrl:
+    kind: sec-xbrl
+    url: https://data.sec.gov/api/xbrl/companyfacts/
+    fetched: '2026-10-28'
+rows:
+- field: revenue
+  source: xbrl
+  tag: Revenues
+  years:
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 7932000000.0
+  - 10433000000.0
+  - 13000000000.0
+  - 11139000000.0
+  - 17455000000.0
+  - 31877000000.0
+  - 37281000000.0
+  - 43978000000.0
+  - 52017000000.0
+- field: operating_profit
+  source: xbrl
+  tag: OperatingIncomeLoss
+  years:
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - -4080000000.0
+  - -3033000000.0
+  - -8596000000.0
+  - -4863000000.0
+  - -3834000000.0
+  - -1832000000.0
+  - 1110000000.0
+  - 2799000000.0
+  - 5565000000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivities
+  years:
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - -1418000000.0
+  - -1541000000.0
+  - -4321000000.0
+  - -2745000000.0
+  - -445000000.0
+  - 642000000.0
+  - 3585000000.0
+  - 7137000000.0
+  - 10099000000.0
+- field: capex
+  source: xbrl
+  tag: PaymentsToAcquirePropertyPlantAndEquipment
+  years:
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 821000000.0
+  - 558000000.0
+  - 588000000.0
+  - 616000000.0
+  - 298000000.0
+  - 252000000.0
+  - 223000000.0
+  - 242000000.0
+  - 336000000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesNetOfCashAcquired
+  years:
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 0.0
+  - 64000000.0
+  - 7000000.0
+  - 1471000000.0
+  - 2314000000.0
+  - 59000000.0
+  - 0.0
+  - 0.0
+  - 815000000.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquity
+  years:
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - -7385000000.0
+  - 14190000000.0
+  - 12266000000.0
+  - 14458000000.0
+  - 7340000000.0
+  - 11249000000.0
+  - 21558000000.0
+  - 27041000000.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest
+  years:
+  - 2017
+  values:
+  - -8557000000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 39000000.0
+  - 153000000.0
+  - 167000000.0
+  - 6109000000.0
+  - 8420000000.0
+  - 8263000000.0
+  - 8151000000.0
+  - 8066000000.0
+  - 8931000000.0
+- field: shares
+  source: xbrl
+  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  years:
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 426360000.0
+  - 478999000.0
+  - 1248353000.0
+  - 1752960000.0
+  - 1895519000.0
+  - 1974928000.0
+  - 2091782000.0
+  - 2150508000.0
+  - 2119689000.0
+  unit: whole
+- field: net_debt
+  source: xbrl
+  tag: 'derived: LongTermDebt (or its parts) + short-term borrowings - CashAndCashEquivalentsAtCarryingValue'
+  years:
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - -4393000000.0
+  - 490000000.0
+  - -5082000000.0
+  - 2267000000.0
+  - 5093000000.0
+  - 5153000000.0
+  - 4880000000.0
+  - 3682000000.0
+  - 3495000000.0

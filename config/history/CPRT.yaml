@@ -5,7 +5,7 @@ sources:
   xbrl:
     kind: sec-xbrl
     url: https://data.sec.gov/api/xbrl/companyfacts/
-    fetched: '2026-10-27'
+    fetched: '2026-10-28'
   tenk:
     file: sources/CPRT_FY2026_annual-report-10k_2026-09-29_en_a0.htm
     kind: pdf
@@ -195,7 +195,7 @@ rows:
   - 511297000.0
 - field: shares
   source: xbrl
-  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  tag: 'WeightedAverageNumberOfDilutedSharesOutstanding (split-adjusted: years filed before the split x its ratio)'
   years:
   - 2016
   - 2017
@@ -209,11 +209,11 @@ rows:
   - 2025
   - 2026
   values:
-  - 244295000.0
-  - 237019000.0
-  - 241877000.0
-  - 240453000.0
-  - 238656000.0
+  - 977180000.0
+  - 948076000.0
+  - 967508000.0
+  - 961812000.0
+  - 954624000.0
   - 961160000.0
   - 964604000.0
   - 966647000.0

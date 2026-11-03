@@ -2112,6 +2112,8 @@ def build_annual(facts: dict, *, limit: int = ANNUAL_LIMIT,
                     unit_slip=_is_unit_slip(float(entry["val"]), restated),
                     taxonomy=taxonomy.name,
                     concept_note=CONCEPT_NOTES.get(tag, ""))
+        if taxonomy.name == US_GAAP:
+            reroute_income_only_net(facts, year, end_s, currency)
         for field_name, figure in year.figures.items():
             note = split_note(figure, field_name, splits)
             if note:
@@ -2136,6 +2138,84 @@ def build_annual(facts: dict, *, limit: int = ANNUAL_LIMIT,
         if year.figures:
             years.append(year)
     return years, passed_over
+
+
+#: The element that answers `net_finance_costs`, and the gross line that
+#: shows when a filer used it for its interest INCOME alone.
+NET_INTEREST_TAG = "InterestIncomeExpenseNonoperatingNet"
+GROSS_INTEREST_EXPENSE_TAG = "InterestExpense"
+#: how close `InvestmentIncomeInterest` must sit to the "net" for the two to
+#: be one figure
+INCOME_ONLY_TOLERANCE = 0.02
+
+
+def reroute_income_only_net(facts: dict, year: "AnnualYear", end_s: str,
+                            currency: str) -> str:
+    """E34.1, read as the filer used the element (2026-10-29, ZTS).
+
+    `InterestIncomeExpenseNonoperatingNet` is POSITIVE for a net income, and
+    `net_finance_costs` negates it. Some filers tag their interest INCOME
+    alone with it and print the expense on a line of its own: Zoetis FY2025
+    tags +93m against `InterestExpense` 222m, and its income statement prints
+    'Interest expense, net of capitalized interest 222' and, inside Other
+    (income)/deductions, 'Interest income (93)'. Read blind, the 93m is a net
+    INCOME that FCF0 removes, where the statement's net is a COST of 129m
+    that FCF0 adds back -- fv 73.02 against 79.80 on the 2026-10-29 strike.
+    A survey of 3,054 filers' companyfacts found the same shape on PPL (20m
+    against 808m), Masco, Autodesk, ITT and Atmos.
+
+    THE TEST. The "net" is positive, `InterestExpense` for the same window
+    is LARGER, and `InvestmentIncomeInterest` is either untagged or equal to
+    the "net" within 2%. A true net income cannot sit beside a gross expense
+    larger than itself unless the income were more than twice the net, and
+    where the income IS tagged it is checked rather than inferred: a filer
+    whose net equals income less expense (Chewy, Wayfair, Lincoln Electric)
+    is left alone. `InterestExpense` is not an alias for the gross field
+    because Lennox tags its NET with it (NOT_WRITTEN); beside a positive
+    net-income element it can only be the gross line, since a filer cannot
+    state a net cost and a net income for one year.
+
+    THE ROUTE. Nothing is netted here. The two stated figures go to E18's
+    pair -- `finance_income_period` (the element's value, as stated) and
+    `finance_costs_period` (`InterestExpense`) -- and `net_finance_costs` is
+    removed, so the store subtracts them as it does for every filer that
+    tags the pair (manual.py's Subtraction). Returns a sentence naming what
+    moved, or "" where nothing did."""
+    net = year.figures.get("net_finance_costs")
+    if net is None or net.tag != NET_INTEREST_TAG or net.value >= 0:
+        return ""
+    if "finance_costs_period" in year.figures:
+        return ""
+    stated = -net.value                            # the element's own sign
+    entries = _annual_groups(facts, GROSS_INTEREST_EXPENSE_TAG, currency).get(end_s)
+    if not entries:
+        return ""
+    gross_entry, gross_restated = _pick(entries)
+    gross = float(gross_entry["val"])
+    if gross <= stated:
+        return ""
+    income = year.figures.get("finance_income_period")
+    if income is not None and abs(income.value - stated) > INCOME_ONLY_TOLERANCE * abs(income.value):
+        return ""
+    why = (f" -- E34.1 READING (2026-10-29): `{NET_INTEREST_TAG}` is +{stated:,.0f} "
+           f"beside `{GROSS_INTEREST_EXPENSE_TAG}` {gross:,.0f} for the same year; "
+           f"a net income cannot sit under a larger gross expense, so the element "
+           f"is this filer's interest INCOME and the expense is its gross line. "
+           f"The store subtracts the two (E18); nothing is netted here")
+    del year.figures["net_finance_costs"]
+    if income is None:
+        year.figures["finance_income_period"] = replace(
+            net, value=stated + 0.0,
+            restated_from=None if net.restated_from is None else -net.restated_from,
+            concept_note=why)
+    year.figures["finance_costs_period"] = Figure(
+        value=gross + 0.0, tag=GROSS_INTEREST_EXPENSE_TAG,
+        start=gross_entry.get("start"), end=gross_entry["end"],
+        accession=gross_entry["accn"], form=gross_entry.get("form", ""),
+        filed=gross_entry.get("filed", ""), restated_from=gross_restated,
+        unit_slip=_is_unit_slip(gross, gross_restated), taxonomy=US_GAAP,
+        concept_note=why)
+    return why
 
 
 def place_capex(year: "AnnualYear",

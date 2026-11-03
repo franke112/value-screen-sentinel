@@ -212,3 +212,67 @@ def test_the_two_names_struck_below_zero_are_positive_under_E142(ticker):
                           stamp="test")
     assert struck.fv > 0
     assert struck.record.e140.e142 is not None
+
+
+def test_a_share_split_scales_the_years_filed_before_it():
+    def fy(end, filed, val):
+        return {"end": end, "start": end[:4] + "-01-01", "filed": filed,
+                "val": val, "form": "10-K", "fp": "FY"}
+    tag = {"units": {"shares": [
+        fy("2022-12-31", "2023-02-01", 30.0),
+        fy("2023-12-31", "2024-02-01", 29.0),
+        fy("2023-12-31", "2025-02-01", 174.0),   # restated after 6-for-1
+        fy("2024-12-31", "2025-02-01", 170.0)]}}
+    got = H._annual_facts({"S": tag}, "S", duration=True)
+    assert got == {"2022-12-31": 180.0, "2023-12-31": 174.0, "2024-12-31": 170.0}
+    raw = H._annual_facts({"S": tag}, "S", duration=True, splits=False)
+    assert raw["2022-12-31"] == 30.0
+
+
+def test_two_splits_of_the_same_ratio_both_apply():
+    # NKE: 2-for-1 in Dec 2012 and again in Dec 2015; the first was once
+    # merged into the second and only one ratio reached the oldest years
+    def fy(end, filed, val):
+        return {"end": end, "start": f"{int(end[:4]) - 1}-06-01", "filed": filed,
+                "val": val, "form": "10-K", "fp": "FY"}
+    tag = {"units": {"shares": [
+        fy("2011-05-31", "2011-07-20", 100.0),
+        fy("2012-05-31", "2012-07-20", 98.0),
+        fy("2012-05-31", "2013-07-20", 196.0),   # restated after the 2012 split
+        fy("2013-05-31", "2013-07-20", 194.0),
+        fy("2014-05-31", "2014-07-20", 190.0),
+        fy("2014-05-31", "2016-07-20", 380.0),   # restated after the 2015 split
+        fy("2016-05-31", "2016-07-20", 370.0)]}}
+    got = H._annual_facts({"S": tag}, "S", duration=True)
+    assert got["2011-05-31"] == 400.0
+    assert got["2012-05-31"] == 392.0
+    assert got["2013-05-31"] == 388.0
+    assert got["2014-05-31"] == 380.0
+    assert got["2016-05-31"] == 370.0
+
+
+def _q2(oe):
+    years = list(range(2016, 2016 + len(oe)))
+    h = _hist([_row("operating_profit", "a", years, [100] * len(oe)),
+               _row("operating_cash_flow", "a", years, oe),
+               _row("capex", "a", years, [0] * len(oe))])
+    return {t.name[:2]: t for t in H.quality(
+        h, tax=0.2, fcf0=70e6, net_debt=0, roiic_base=None,
+        repeat_buyer=False, rate=0.095)}["Q2"]
+
+
+def test_e148_one_repaired_negative_year_is_forgiven():
+    assert _q2([50, 60, -10, 40, 65, 70]).passed            # regained 60 by year 3
+    assert not _q2([50, 60, -10, 40, 50, 55]).passed        # never regained
+    assert not _q2([-5, 60, 70, 80, 90, 95]).passed         # a first year: nothing to regain
+    assert not _q2([50, -1, 60, -2, 70, 80]).passed         # two: not a shut-down year
+
+
+def test_organic_growth_printed_as_its_parts_is_checked_on_the_parts():
+    with pytest.raises(H.HistoryError):
+        _hist([_row("organic_growth_pct", "a", [2021], [6.8], quote="10.0% ... 320 basis points",
+                    organic_from={"constant_currency_pct": 10.0, "acquisitions_bps": 300})])
+    h = _hist([_row("organic_growth_pct", "a", [2022], [7.1], quote="7.5% ... 100 basis points ... 60 basis points",
+                    organic_from={"constant_currency_pct": 7.5, "acquisitions_bps": 100, "disposals_bps": 60})])
+    assert h.rows[0].stated == (7.5, 100.0, 60.0)
+    assert H._find_values(h.rows[0].quote, h.rows[0].stated) is None

@@ -371,7 +371,7 @@ def test_the_committed_book_loads_and_every_row_names_its_source():
     book = load_shadow_book()
     assert len(book) >= 23
     assert all(v.source and v.decided_by for v in book)
-    assert all(v.verdict_date <= date(2026, 10, 5) for v in book)   # CPRT, 2026-10-05
+    assert all(v.verdict_date <= date(2026, 10, 28) for v in book)   # UBER and DHI, 2026-10-28 (backfill of 2026-10-29)
 
 
 # --- E114 limit three: both legs are the same kind of return -----------------
@@ -509,7 +509,7 @@ def test_every_committed_verdict_date_is_a_settled_session_or_unpriced():
 
 def test_every_re_dated_row_says_where_it_moved_from():
     moved = [v for v in load_shadow_book() if "RE-DATED" in v.source]
-    assert len(moved) == 6, [v.ticker for v in moved]   # MUSA and NHY.OL re-dated 2026-09-19 -> 09-18
+    assert len(moved) == 7, [v.ticker for v in moved]   # MUSA and NHY.OL re-dated 2026-09-19 -> 09-18; SAP.DE 2026-09-20 -> 09-18 (backfill of 2026-10-29)
     for verdict in moved:
         assert "RE-DATED from" in verdict.source, verdict.source
         # Both ends of the move are on the row: the date it now carries,

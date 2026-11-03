@@ -1,0 +1,254 @@
+ticker: ZTS
+currency: USD
+money_unit: whole
+sources:
+  tenk25:
+    file: sources/ZTS_FY2025_annual-report-10k_2026-02-12_en_a0.htm
+    kind: pdf
+  xbrl:
+    kind: sec-xbrl
+    url: https://data.sec.gov/api/xbrl/companyfacts/
+    fetched: '2026-10-29'
+rows:
+- field: revenue
+  source: xbrl
+  tag: Revenues
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 4888000000.0
+  - 5307000000.0
+  - 5825000000.0
+  - 6260000000.0
+  - 6675000000.0
+  - 7776000000.0
+  - 8080000000.0
+  - 8544000000.0
+  - 9256000000.0
+  - 9467000000.0
+- field: revenue
+  source: xbrl
+  tag: SalesRevenueNet
+  years:
+  - 2015
+  values:
+  - 4765000000.0
+- field: operating_profit
+  source: xbrl
+  tag: 'E147: IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest + InterestExpense'
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 669000000.0
+  - 1394000000.0
+  - 1700000000.0
+  - 1896000000.0
+  - 2024000000.0
+  - 2227000000.0
+  - 2712000000.0
+  - 2877000000.0
+  - 3175000000.0
+  - 3358000000.0
+  - 3582000000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: NetCashProvidedByUsedInOperatingActivities
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 664000000.0
+  - 713000000.0
+  - 1346000000.0
+  - 1790000000.0
+  - 1795000000.0
+  - 2126000000.0
+  - 2213000000.0
+  - 1912000000.0
+  - 2353000000.0
+  - 2953000000.0
+  - 2904000000.0
+- field: capex
+  source: xbrl
+  tag: PaymentsToAcquirePropertyPlantAndEquipment
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 224000000.0
+  - 216000000.0
+  - 224000000.0
+  - 338000000.0
+  - 460000000.0
+  - 453000000.0
+  - 477000000.0
+  - 586000000.0
+  - 732000000.0
+  - 655000000.0
+  - 621000000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: PaymentsToAcquireBusinessesNetOfCashAcquired
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  values:
+  - 883000000.0
+  - 88000000.0
+  - 0.0
+  - 1884000000.0
+  - 0.0
+  - 0.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: 'searched: no acquisition element tagged (zero)'
+  years:
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+- field: equity
+  source: xbrl
+  tag: StockholdersEquity
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 1068000000.0
+  - 1487000000.0
+  - 1770000000.0
+  - 2185000000.0
+  - 2708000000.0
+  - 3769000000.0
+  - 4543000000.0
+  - 4405000000.0
+  - 4997000000.0
+  - 4770000000.0
+  - 3331000000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 1455000000.0
+  - 1481000000.0
+  - 1510000000.0
+  - 2519000000.0
+  - 2592000000.0
+  - 2694000000.0
+  - 2682000000.0
+  - 2746000000.0
+  - 2759000000.0
+  - 2724000000.0
+  - 2767000000.0
+- field: shares
+  source: xbrl
+  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  years:
+  - 2015
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 502019000.0
+  - 498225000.0
+  - 493161000.0
+  - 486898000.0
+  - 481787000.0
+  - 478569000.0
+  - 476717000.0
+  - 470385000.0
+  - 462269000.0
+  - 454848000.0
+  - 443835000.0
+  unit: whole
+- field: net_debt
+  source: xbrl
+  tag: 'derived: LongTermDebt (or its parts) + short-term borrowings - CashAndCashEquivalentsAtCarryingValue'
+  years:
+  - 2015
+  - 2016
+  - 2017
+  values:
+  - 3709000000.0
+  - 3741000000.0
+  - 3389000000.0
+business:
+  text: Zoetis makes and sells medicines, vaccines and diagnostics for pets and livestock worldwide; companion animal is about 70% of revenue (6,587 of 9,467 $m in 2025).
+  source: tenk25
+  quote: Zoetis Inc. is a global leader in the animal health industry, focused on the discovery, development, manufacture and commercialization of medicines, vaccines, diagnostic products and services, biodevices, genetic tests and precision animal health.

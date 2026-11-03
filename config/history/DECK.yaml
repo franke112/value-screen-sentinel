@@ -5,7 +5,7 @@ sources:
   xbrl:
     kind: sec-xbrl
     url: https://data.sec.gov/api/xbrl/companyfacts/
-    fetched: '2026-10-27'
+    fetched: '2026-10-28'
   tenk:
     file: sources/DECK_FY2026_annual-report-10k_2026-05-22_en_a0.htm
     kind: pdf
@@ -206,7 +206,7 @@ rows:
   - 13990000.0
 - field: shares
   source: xbrl
-  tag: WeightedAverageNumberOfDilutedSharesOutstanding
+  tag: 'WeightedAverageNumberOfDilutedSharesOutstanding (split-adjusted: years filed before the split x its ratio)'
   years:
   - 2016
   - 2017
@@ -220,13 +220,13 @@ rows:
   - 2025
   - 2026
   values:
-  - 33039000.0
-  - 32355000.0
-  - 31996000.0
-  - 29903000.0
-  - 28694000.0
-  - 28406000.0
-  - 27789000.0
+  - 198234000.0
+  - 194130000.0
+  - 191976000.0
+  - 179418000.0
+  - 172164000.0
+  - 170436000.0
+  - 166734000.0
   - 160111000.0
   - 156285000.0
   - 152670000.0

@@ -1,5 +1,5 @@
 ticker: SFM
-dated: '2026-10-27'
+dated: '2026-10-29'
 ruling: E140(3)-(4)
 money: whole units of the reporting currency
 money_unit: whole
@@ -8,6 +8,9 @@ searched:
 - 'EDGAR submissions: every 8-K filed after the newest 10-Q/10-K read by item number
   (scan 2026-10-27); no 1.01/2.01 deal item except financing'
 - issuer press releases and news search (2026-10-27)
+- 'EDGAR submissions re-read 2026-10-29: the 8-Ks of 2026-10-14 (5.02, the CTO) and
+  2026-10-28 (2.02/7.01/9.01, Q3 results); no 1.01/2.01 deal item. The Q3 10-Q
+  (2026-09-27) shows no acquisition of a business, only share repurchases'
 deals: []
 none_found: true
 notes: No deal found after the basis balance sheet.

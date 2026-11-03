@@ -1,0 +1,12 @@
+[Unit]
+Description=Run the news-drop screen after the US close, weekdays 23:00
+Documentation=file://%h/vss/reference/NEWS-DROP-DESIGN-2026-10-29.md
+
+[Timer]
+OnCalendar=Mon..Fri *-*-* 23:00:00
+AccuracySec=1min
+Persistent=true
+Unit=vss-newsdrop.service
+
+[Install]
+WantedBy=timers.target

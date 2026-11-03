@@ -1312,3 +1312,51 @@ def test_one_scale_is_written_normally():
     years, _ = X.build_annual(facts, limit=5)
     assert years[-1].value("diluted_weighted_average_shares") == 85_140_000
     assert not years[-1].unit_slips
+
+
+# --- E34.1 read as the filer used the element (2026-10-29, ZTS) -----------
+
+def _interest(net, gross=None, income=None):
+    extra = {"InterestIncomeExpenseNonoperatingNet": {"units": {USD: [
+        _fact(net, start=FY26[0], end=FY26[1])]}}}
+    if gross is not None:
+        extra["InterestExpense"] = {"units": {USD: [_fact(gross, start=FY26[0], end=FY26[1])]}}
+    if income is not None:
+        extra["InvestmentIncomeInterest"] = {"units": {USD: [_fact(income, start=FY26[0], end=FY26[1])]}}
+    years, _ = X.build_annual(facts(**extra))
+    y = years[-1]
+    return {k: y.figures[k].value for k in
+            ("net_finance_costs", "finance_costs_period", "finance_income_period") if k in y.figures}
+
+
+def test_an_income_only_net_beside_a_larger_gross_expense_becomes_the_pair():
+    """Zoetis FY2025: the element +93m is its interest INCOME, the expense
+    222m its own line. The store gets the pair and subtracts it: 129m cost."""
+    got = _interest(93_000_000, gross=222_000_000)
+    assert got == {"finance_costs_period": 222_000_000, "finance_income_period": 93_000_000}
+
+
+def test_the_income_tag_equal_to_the_net_confirms_the_reading():
+    got = _interest(10_700_000, gross=48_100_000, income=10_700_000)
+    assert got == {"finance_costs_period": 48_100_000, "finance_income_period": 10_700_000}
+
+
+def test_a_true_net_income_is_left_alone():
+    """Chewy: net +15.2m = income 19.8m - expense 4.6m. The expense is
+    smaller than the net, and the income tag says it is a net."""
+    assert _interest(15_200_000, gross=4_600_000, income=19_800_000)["net_finance_costs"] == -15_200_000
+
+
+def test_a_net_that_is_not_the_income_tag_is_left_alone():
+    """Income tagged and NOT equal to the element: the element is a net,
+    whatever its size against the gross line."""
+    got = _interest(70_000_000, gross=80_000_000, income=150_000_000)
+    assert got["net_finance_costs"] == -70_000_000 and "finance_costs_period" not in got
+
+
+def test_a_net_cost_is_never_rerouted():
+    assert _interest(-119_000_000, gross=165_000_000)["net_finance_costs"] == 119_000_000
+
+
+def test_without_a_gross_line_the_net_stands_as_nike_files_it():
+    assert _interest(50_000_000)["net_finance_costs"] == -50_000_000

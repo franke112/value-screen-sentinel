@@ -1,0 +1,21 @@
+[Unit]
+Description=vss -- the news-drop screen, SHADOW MODE (vss newsdrop): writes data/newsdrop/ only
+Documentation=file://%h/vss/reference/NEWS-DROP-DESIGN-2026-10-29.md
+OnFailure=vss-failure@%n.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/vss
+ExecStart=%h/vss/.venv/bin/python -m vss newsdrop
+EnvironmentFile=-%h/.config/vss/vss.env
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=vss-newsdrop
+TimeoutStartSec=60min
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+# Writes data/newsdrop/ and reports/NEWSDROP-<date>.md; one ntfy message when a
+# drop survives the sorting. Never the store or the watchlist.
+ReadWritePaths=%h/vss/data %h/vss/reports
+NoNewPrivileges=true

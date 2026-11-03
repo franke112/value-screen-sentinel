@@ -565,21 +565,41 @@ annual:
 # year-to-date working capital since the fiscal year-end is
 # NEUTRALISED in the bridge. Flows stay on the fiscal years.
 roll_forward:
-  period_end: 2026-06-28
+  period_end: 2026-09-27
   from_year_end: 2025-12-28
   document: "SEC XBRL companyfacts for CIK 0001575515 (Sprouts Farmers Market, Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001575515.json. The filing each figure came out of is named on the figure itself, with its tag and context period."
   url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0001575515.json"
   figures:
+    working_capital_change:
+      value: -12496000
+      page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-12-29..2026-09-27] 10-Q 0001575515-26-000060 filed 2026-10-28 = 8,495,000 + us-gaap:IncreaseDecreaseInInventories [2025-12-29..2026-09-27] 10-Q 0001575515-26-000060 filed 2026-10-28 = -13,339,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2025-12-29..2026-09-27] 10-Q 0001575515-26-000060 filed 2026-10-28 = 25,836,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2025-12-29..2026-09-27] 10-Q 0001575515-26-000060 filed 2026-10-28 = -3,647,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2025-12-29..2026-09-27] 10-Q 0001575515-26-000060 filed 2026-10-28 = 4,819,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2025-12-29..2026-09-27] 10-Q 0001575515-26-000060 filed 2026-10-28 = -34,660,000 = -12,496,000 (cash effect: an asset increase negated, a liability increase kept)"
+      status: VERIFIED
+      verified_kind: tagged
+    operating_lease_liabilities:
+      value: 2102475000
+      page: "E71 -- the lease liability from two stated parts the filer never totals, current and non-current portions of one liability by the taxonomy's own definition: us-gaap:OperatingLeaseLiabilityCurrent [as of 2026-09-27] 10-Q 0001575515-26-000060 filed 2026-10-28 = 192,553,000 + us-gaap:OperatingLeaseLiabilityNoncurrent [as of 2026-09-27] 10-Q 0001575515-26-000060 filed 2026-10-28 = 1,909,922,000 = 2,102,475,000"
+      status: VERIFIED
+      verified_kind: tagged
+    cash_and_equivalents:
+      value: 228664000
+      page: "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2026-09-27] 10-Q 0001575515-26-000060 filed 2026-10-28"
+      status: VERIFIED
+      verified_kind: tagged
+    diluted_weighted_average_shares:
+      value: 93666000
+      page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2026-06-29..2026-09-27] 10-Q 0001575515-26-000060 filed 2026-10-28"
+      status: VERIFIED
+      verified_kind: tagged
     lease_liabilities:
-      value: 1992469000
-      page: "E65/E67: the operating lease liability at 2026-06-28 (179,295,000 + 1,813,174,000, tagged, as operating_lease_liabilities); the finance-lease obligations sit INSIDE the 10-Q caption 'Long-term debt and other finance obligations 110,799' and 'Current portion of finance lease and other finance obligations 3,025', read whole under E67 and not added again"
+      value: 2102475000
+      page: "E65/E67: the operating lease liability at 2026-09-27 (192,553,000 + 1,909,922,000, tagged, as operating_lease_liabilities); the finance-lease obligations sit INSIDE the 10-Q caption 'Long-term debt and other finance obligations 129,577' and 'Current portion of finance lease and other finance obligations 3,509', read whole under E67 and not added again"
       status: VERIFIED
       verified_kind: machine_read_back
     pension_deficit:
       value: 0
       zero_basis: searched
       source: "E35.1 leg; E107 searched absence"
-      page: "E107 SEARCHED ABSENCE. On the year-end 10-K, carried to the 10-Q of 2026-06-28 (no new caption on its balance sheet). Document: sources/SFM_FY2025_annual-report-10k_2026-02-19_en_a0.htm (332,713 characters of extracted text). Searched 2026-10-27 for 'defined benefit' (0 occurrences) and 'pension' (1, a licence-suspension sentence) -- no defined-benefit plan and no post-retirement caption on the balance sheet. E106 clause 5: a determined zero."
+      page: "E107 SEARCHED ABSENCE. On the year-end 10-K, carried to the 10-Q of 2026-09-27 (no new caption on its balance sheet). Document: sources/SFM_FY2025_annual-report-10k_2026-02-19_en_a0.htm (332,713 characters of extracted text). Searched 2026-10-27 for 'defined benefit' (0 occurrences) and 'pension' (1, a licence-suspension sentence) -- no defined-benefit plan and no post-retirement caption on the balance sheet. E106 clause 5: a determined zero."
       status: VERIFIED
       verified_kind: machine_read_back
     asset_retirement_obligation:
@@ -597,32 +617,12 @@ roll_forward:
       status: VERIFIED
       verified_kind: machine_read_back
     financial_liabilities_noncurrent:
-      value: 110799000
-      page: "10-Q 2026-06-28 balance sheet: 'Long-term debt and other finance obligations 110,799 81,585'"
+      value: 129577000
+      page: "10-Q 2026-09-27 balance sheet: 'Long-term debt and other finance obligations 129,577 81,585'"
       status: VERIFIED
       verified_kind: machine_read_back
     financial_liabilities_current:
-      value: 3025000
-      page: "10-Q 2026-06-28 balance sheet: 'Current portion of finance lease and other finance obligations 3,025 2,071'"
+      value: 3509000
+      page: "10-Q 2026-09-27 balance sheet: 'Current portion of finance lease and other finance obligations 3,509 2,071'"
       status: VERIFIED
       verified_kind: machine_read_back
-    working_capital_change:
-      value: -33718000
-      page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-12-29..2026-06-28] 10-Q 0001575515-26-000037 filed 2026-07-29 = 6,327,000 + us-gaap:IncreaseDecreaseInInventories [2025-12-29..2026-06-28] 10-Q 0001575515-26-000037 filed 2026-07-29 = -9,719,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2025-12-29..2026-06-28] 10-Q 0001575515-26-000037 filed 2026-07-29 = 15,694,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2025-12-29..2026-06-28] 10-Q 0001575515-26-000037 filed 2026-07-29 = -2,334,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2025-12-29..2026-06-28] 10-Q 0001575515-26-000037 filed 2026-07-29 = 14,523,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2025-12-29..2026-06-28] 10-Q 0001575515-26-000037 filed 2026-07-29 = -58,209,000 = -33,718,000 (cash effect: an asset increase negated, a liability increase kept)"
-      status: VERIFIED
-      verified_kind: tagged
-    operating_lease_liabilities:
-      value: 1992469000
-      page: "E71 -- the lease liability from two stated parts the filer never totals, current and non-current portions of one liability by the taxonomy's own definition: us-gaap:OperatingLeaseLiabilityCurrent [as of 2026-06-28] 10-Q 0001575515-26-000037 filed 2026-07-29 = 179,295,000 + us-gaap:OperatingLeaseLiabilityNoncurrent [as of 2026-06-28] 10-Q 0001575515-26-000037 filed 2026-07-29 = 1,813,174,000 = 1,992,469,000"
-      status: VERIFIED
-      verified_kind: tagged
-    cash_and_equivalents:
-      value: 223928000
-      page: "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2026-06-28] 10-Q 0001575515-26-000037 filed 2026-07-29"
-      status: VERIFIED
-      verified_kind: tagged
-    diluted_weighted_average_shares:
-      value: 94410000
-      page: "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2026-03-30..2026-06-28] 10-Q 0001575515-26-000037 filed 2026-07-29"
-      status: VERIFIED
-      verified_kind: tagged

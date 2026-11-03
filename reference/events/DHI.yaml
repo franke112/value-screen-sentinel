@@ -1,0 +1,28 @@
+ticker: DHI
+dated: '2026-10-28'
+ruling: E140(3)-(4)
+money: whole units of the reporting currency
+money_unit: whole
+basis_balance_sheet: '2025-09-30'
+searched:
+- 'EDGAR submissions: every 8-K, 10-Q and 10-K filed after the basis balance-sheet date, read by item number
+  (scan 2026-10-28): 2.02 releases (2026-01-20, 04-21, 07-21), 5.07 (2026-01-16), 1.01/2.03 financing only
+  (2026-03-31 credit agreement amendment 13, 2026-05-12 DHI Mortgage repurchase facility amendment), 8.01
+  (2026-09-15 $5.0bn buyback authorisation), 5.02 (2026-10-26 a director appointed)'
+- 10-Q 2026-06-30 Note A 'Business Acquisition' and the cash flow statement
+- issuer press releases and news search (2026-10-28)
+deals:
+- name: SK Builders (homebuilding operations, Greenville SC)
+  date: '2025-10-01'
+  status: closed
+  closed: '2025-10-31'
+  low: 80000000.0
+  high: 80000000.0
+  fcf: 0
+  source: '10-Q 2026-06-30 Note A: "In October 2025, the Company acquired the homebuilding operations of SK
+    Builders for approximately $80 million in cash"; cash flow statement "Payments related to business
+    acquisitions, net of cash acquired (87.9)" for the nine months. The day of closing is not printed; the
+    last day of October is taken. It closed before the 2026-06-30 roll-forward balance sheet, so its cash
+    is already gone from that sheet.'
+none_found: false
+notes: Forestar (62% owned) is consolidated; its 38% is noncontrolling interest. No other deal found.

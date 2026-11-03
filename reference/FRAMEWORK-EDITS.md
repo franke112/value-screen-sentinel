@@ -13014,3 +13014,34 @@ DATA MISSING on that limb.
 (leases), contingent consideration as printed, E105 (minorities), and r
 9.5% flat with E90's cushions all stand. Conservatism comes from the
 cushion, not from errors in the flow.
+
+### E148 — Q2 forgives ONE repaired year of negative owner earnings, as it forgives a repaired fall in operating profit
+
+**DECIDED 2026-10-28 by the session under E141.** An outside review of the
+method (`reference/reviews/method/2026-10-28-EXTERN-GRANSKNING.md`) found
+that E145 Q2's repair clause ("a shut-down year repaired is not a moat
+failing") was written onto the operating-profit half of the test and not
+onto the owner-earnings half. BKNG passed Q1, Q3, Q4 and Q5 and was refused
+on 2020 alone, the year travel stopped, after which it set new records.
+The rule's own reason covers that year; its letter did not. A name was
+blocked by it, so it is decided:
+
+> **Q2**, owner-earnings half: a year of owner earnings at or below zero
+> is forgiven where owner earnings within the next three years regained
+> their best level before that year. ONE such year in the window, never
+> two (two is a pattern, not a shut-down), and never the window's first
+> year (there is no earlier best to regain).
+
+Run over every history file on 2026-10-28: BKNG passes (2020 repaired by
+2022); CENTA's 2022 is repaired too, but CENTA still fails Q1, Q3 and Q4
+and the sale at base stands; CROX (2015, the first year, and the 2025 fall
+unrepaired) and LOPE (2015, the first year) still fail.
+
+**Found in the same review, a code fault, not a ruling:** the history
+file's share counts were not split-adjusted. A 10-K restates only the
+years it prints, so DECK's 6-for-1 split (2024) left 2016-2022 at the old
+count and owner earnings per share at 2.94% a year against 28.79% on the
+adjusted series. `vss/history.py` now scales every year filed before a
+split (a year printed again with a count at least 1.5x apart) by its
+ratio; DECK re-struck 85.05 -> 123.45 (`reference/DECK-STRIKE-2026-10-28-split.md`).
+CPRT's series moved too; its growth is a view, so its value does not.

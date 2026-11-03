@@ -202,7 +202,7 @@ def notify_line(decision: Decision) -> str:
 
 
 def post_ntfy(lines: Sequence[str], *, url: str | None = None,
-              opener: Callable | None = None) -> str:
+              opener: Callable | None = None, title: str | None = None) -> str:
     """POST the lines to the ntfy topic. Returns what happened, in words.
 
     No message is sent for an empty list -- a watcher that pings to say
@@ -218,7 +218,7 @@ def post_ntfy(lines: Sequence[str], *, url: str | None = None,
     body = "\n".join(lines).encode("utf-8")
     request = urllib.request.Request(
         url, data=body, method="POST",
-        headers={"Title": f"vss watch: {len(lines)} disclosure(s)",
+        headers={"Title": title or f"vss watch: {len(lines)} disclosure(s)",
                  "Content-Type": "text/plain; charset=utf-8"})
     try:
         opener = opener or urllib.request.urlopen

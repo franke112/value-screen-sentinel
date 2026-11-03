@@ -33,6 +33,51 @@ it keeps the record of what you decided and why.
    recorded with the price and the reason, then measured against the index
    at 1, 3, 6 and 12 months. So you find out whether your no's were right.
 
+## Would Warren own it? Try it on any US company
+
+The quality bar the method puts every company through -- four tests a business
+has to pass before its price is even worth discussing -- runs on its own, on
+any SEC filer, straight from EDGAR's public data:
+
+```
+.venv/bin/python tools/warren.py KO CTSH HPQ
+```
+
+```
+== KO  price 94.90  |  bear 12.38  base 28.11  bull 41.62  |  price/base 3.38x
+   Q1 PASS  return on tangible capital >= 15%: median 17.2% over 11 years (goodwill taken out)
+   Q2 PASS  owner earnings positive, operating profit never below half its peak
+   Q3 PASS  net debt <= 3x FCF0: net debt 2.4x FCF0 against 4.5x (stable class)
+   Q4 PASS  acquisitions return >= 9.5% (repeat buyers only): not a repeat buyer
+   -> the business passes, the price does not (3.38x base) -- wait
+```
+
+- **Q1** -- does the business earn at least 15% a year on the capital it
+  actually needs (goodwill taken out)?
+- **Q2** -- has it made money for its owners in every year, and never seen its
+  operating profit fall below half its best (one repaired shock year is
+  forgiven)?
+- **Q3** -- is its debt small next to the cash it throws off?
+- **Q4** -- if it buys companies, do the purchases earn more than they cost?
+- **Q5** is not in the tool on purpose: *what does it sell, to whom, and why
+  does the customer come back?* -- one sentence a person writes from the
+  company's own report.
+
+It also prints the method's bear / base / bull value per share (ten-year DCF
+at 9.5%, owner earnings normalised over three years, growth derived from the
+company's own history and capped at 4%). **It is a screen, not a verdict.** A
+pass means "worth reading the reports by hand", never "buy". Outlook cuts --
+the most common reason the method says no -- live in press releases, not in
+the tagged numbers, and have to be read. The rules are E142-E148 in
+[`reference/FRAMEWORK-EDITS.md`](reference/FRAMEWORK-EDITS.md); the tool is
+`tools/backtest/method.py` run on today's date.
+
+**And an honest result:** back-tested on US large caps 2016-2021 (survivors
+only), ranking by fair value against price did *not* sort later returns
+([`reference/backtest/`](reference/backtest/)). What did hold up: the dearest
+fifth did worst, and the quality tests helped. That is why the tool says
+"wait" far more often than anything else.
+
 ## What it looks like in practice
 
 - **Cirrus Logic** passed every mechanical check. I dropped it anyway,
@@ -59,9 +104,10 @@ it keeps the record of what you decided and why.
 
 ## Disclosure
 
-**I own shares in Cognizant (CTSH) and Central Garden & Pet (CENTA)** as of
-2026-10-27 (Cirrus Logic, CRUS, was sold in full on 2026-10-23), and the record in this repository shows when I bought and sold
-others. The fair values, buy limits (MBP) and stops in
+**I own shares in AcadeMedia (ACAD.ST), Cognizant (CTSH) and Central Garden
+& Pet (CENTA)** as of 2026-11-03 (the CTSH and CENTA positions are being
+exited; Cirrus Logic, CRUS, was sold in full on 2026-10-23), and the record in
+this repository shows when I bought and sold others. The fair values, buy limits (MBP) and stops in
 `config/watchlist.yaml` are my personal working notes, written for my own
 decisions. **Nothing here is a recommendation to buy, sell or hold any
 security.** If my holdings change, this line may be out of date -- the

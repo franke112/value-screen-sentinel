@@ -140,12 +140,13 @@ def test_the_prior_record_stands_and_the_new_strike_is_E142s(tmp_path):
     flow = struck.record.normalised_flow()
     assert flow.repeat_buyer and flow.acquisitions_mean == pytest.approx(674_666_666.67, rel=1e-6)
     assert flow.fcf0 == pytest.approx(flow.mean + flow.interest_added_back - flow.nci)
-    assert block.e142.repeat_buyer and block.e142.roiic_base < 0
+    # 0.56% since the 2026-10-28 stated-organic re-strike (was -1.90%): positive, still under r
+    assert block.e142.repeat_buyer and 0 < block.e142.roiic_base < 0.095
     assert struck.record.dates.balance_sheet == date(2026, 6, 30)
     assert [d.name.split()[0] for d in block.deals] == ["DyFlex"]
     parts = struck.record.e142_parts()
-    assert parts["deal_credit"] == 0.0 and parts["programme"] < 0
-    assert struck.fv == pytest.approx(73.96, abs=0.01)   # 73.82 before E146 credited the pension leg after tax
+    assert parts["deal_credit"] == pytest.approx(17_577_658.23, rel=1e-6) and parts["programme"] < 0
+    assert struck.fv == pytest.approx(69.42, abs=0.01)   # the 2026-10-28 stated-organic strike; 73.96 before it, 73.82 before E146
 
 
 # --- the table: link 5 ----------------------------------------------------

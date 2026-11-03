@@ -1,0 +1,37 @@
+ticker: ZTS
+dated: '2026-10-29'
+ruling: E140(3)-(4)
+money: whole units of the reporting currency
+money_unit: whole
+basis_balance_sheet: '2025-12-31'
+searched:
+- 'EDGAR submissions: every 8-K, 10-Q and 10-K filed after the basis balance-sheet date, read by item number
+  (scan 2026-10-29): 2.02 releases (2026-02-12, 05-07, 08-06), 7.01 (2026-02-05, 05-20, 10-08 dividend),
+  5.02 (2026-05-22 director retired, 2026-08-06 CFO Saccaro appointed / Joseph steps down, 2026-10-13
+  director appointed), 5.07 (2026-05-22)'
+- 10-Q 2026-06-30 Note 5 'Acquisitions' and the cash flow statement (acquisitions, net of cash acquired, nil)
+- issuer press releases and news search (2026-10-29)
+deals:
+- name: Neogen animal genomics business (GeneSeek)
+  date: '2026-03-02'
+  status: pending
+  closed: null
+  low: 160000000.0
+  high: 160000000.0
+  fcf: 0
+  source: 'Neogen press release 2026-03-02: sale to Zoetis for $160 million, subject to customary closing
+    adjustments; about $90 million of sales in Neogen FY2025. Zoetis 10-Q 2026-06-30 Note 5: expected to
+    complete in the second half of 2026. No profit figure published; fcf 0 (E140 lessons: private targets
+    may publish no profit).'
+- name: VitalRADS (veterinary teleradiology, from Thrive Pet Healthcare)
+  date: '2026-07-14'
+  status: closed
+  closed: '2026-07-31'
+  low: 50000000.0
+  high: 300000000.0
+  fcf: 0
+  source: 'Zoetis release 2026-07-14 (agreement, terms not disclosed); Q2 release 2026-08-06: completed in
+    July. The day of closing is not printed; the last day of July is taken. Price NOT DISCLOSED: the range
+    is the session''s bound for an undisclosed, sub-material deal, not a figure.'
+none_found: false
+notes: VPG (2025) is inside the basis year. Q3 2026 results expected early November (2025's were 2025-11-04).

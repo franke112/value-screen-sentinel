@@ -9,6 +9,21 @@ sources:
   tenk:
     file: sources/CTSH_FY2025_annual-report-10k_2026-02-12_en_a0.htm
     kind: pdf
+  tenk2021:
+    file: sources/CTSH_FY2021_annual-report-10k_2022-02-16_en_a0.htm
+    kind: pdf
+  tenk2022:
+    file: sources/CTSH_FY2022_annual-report-10k_2023-02-15_en_a0.htm
+    kind: pdf
+  tenk2023:
+    file: sources/CTSH_FY2023_annual-report-10k_2024-02-14_en_a0.htm
+    kind: pdf
+  tenk2024:
+    file: sources/CTSH_FY2024_annual-report-10k_2025-02-12_en_a0.htm
+    kind: pdf
+  tenk2025:
+    file: sources/CTSH_FY2025_annual-report-10k_2026-02-12_en_a0.htm
+    kind: pdf
 rows:
 - field: revenue
   source: xbrl
@@ -264,8 +279,66 @@ rows:
   - -1982000000.0
   - -1323000000.0
   - -1325000000.0
+- field: organic_growth_pct
+  source: tenk2021
+  years:
+  - 2021
+  values:
+  - 6.8
+  quote: representing growth of 11.1%, or 10.0% on a constant currency basis 1 . Our recently completed acquisitions contributed 320 basis points
+  organic_from:
+    constant_currency_pct: 10.0
+    acquisitions_bps: 320
+  note: 'MD&A: constant-currency revenue growth less the acquisitions'' stated contribution (E144(1): the issuer''s own split, read 2026-10-28)'
+- field: organic_growth_pct
+  source: tenk2022
+  years:
+  - 2022
+  values:
+  - 7.1
+  quote: representing growth of 5.0%, or 7.5% on a constant currency basis 1 . Our recently completed acquisitions contributed 100 basis points to revenue growth while the previously disclosed sale of the
+    Samlink subsidiary, which was completed on February 1, 2022, negatively impacted revenue growth b y 60 basis points
+  organic_from:
+    constant_currency_pct: 7.5
+    acquisitions_bps: 100
+    disposals_bps: 60
+  note: 'MD&A: constant-currency revenue growth less the acquisitions'' stated contribution, plus the Samlink disposal''s stated drag (E144(1): the issuer''s own split, read 2026-10-28)'
+- field: organic_growth_pct
+  source: tenk2023
+  years:
+  - 2023
+  values:
+  - -1.4
+  quote: or a decrease of 0.3% on a constant currency basis 2 . Revenue decline was driven by our Financial Services segment, which was negatively impacted by weakness in the banking sector, partially offset
+    by growth in our Communications, Media and Technology, Products and Resources and Health Sciences segments. Our recently completed acquisitions contributed 110 basis points
+  organic_from:
+    constant_currency_pct: -0.3
+    acquisitions_bps: 110
+  note: 'MD&A: constant-currency revenue growth less the acquisitions'' stated contribution (E144(1): the issuer''s own split, read 2026-10-28)'
+- field: organic_growth_pct
+  source: tenk2024
+  years:
+  - 2024
+  values:
+  - -0.1
+  quote: or 1.9% on a constant currency basis 1 . Our recently completed acquisitions contributed 200 basis points
+  organic_from:
+    constant_currency_pct: 1.9
+    acquisitions_bps: 200
+  note: 'MD&A: constant-currency revenue growth less the acquisitions'' stated contribution (E144(1): the issuer''s own split, read 2026-10-28)'
+- field: organic_growth_pct
+  source: tenk2025
+  years:
+  - 2025
+  values:
+  - 3.8
+  quote: or 6.4% on a constant currency basis 1 . Our acquisition of Belcan contributed 260 basis points
+  organic_from:
+    constant_currency_pct: 6.4
+    acquisitions_bps: 260
+  note: 'MD&A: constant-currency revenue growth less the acquisitions'' stated contribution (E144(1): the issuer''s own split, read 2026-10-28)'
 business:
   text: Cognizant sells IT consulting, systems integration and outsourcing services to large enterprises; embedded delivery teams keep clients renewing.
   source: tenk
-  quote: Our services include consulting, application development, systems integration, quality engineering and assurance, engineering research and development, application maintenance, infrastructure and security as well as business process services and
-    automation.
+  quote: Our services include consulting, application development, systems integration, quality engineering and assurance, engineering research and development, application maintenance, infrastructure and
+    security as well as business process services and automation.

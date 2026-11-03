@@ -72,6 +72,11 @@ class Row:
     #: E147: a printed line ADDED to the same source's figure for the
     #: year (pre-tax profit plus each stated interest expense line).
     add: bool = False
+    #: organic growth the issuer prints as its PARTS (CTSH: "10.0% on a
+    #: constant currency basis ... acquisitions contributed 320 basis
+    #: points"): the figures as printed, in the quote's order, and the
+    #: value they make -- constant currency less acquisitions plus disposals.
+    stated: tuple[float, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -141,10 +146,19 @@ def parse(raw: dict[str, Any], *, path: str = "") -> History:
         kind = sources[r["source"]].get("kind", "pdf")
         if kind == "pdf" and not r.get("quote"):
             raise HistoryError(f"{where}: a hand-read row carries its row as printed (quote:)")
+        stated: tuple[float, ...] = ()
+        if r.get("organic_from"):
+            o = r["organic_from"]
+            cc, acq, disp = (float(o.get(k) or 0) for k in
+                             ("constant_currency_pct", "acquisitions_bps", "disposals_bps"))
+            made = round(cc - acq / 100 + disp / 100, 4)
+            if r["field"] != "organic_growth_pct" or len(values) != 1 or abs(values[0] - made) > 1e-9:
+                raise HistoryError(f"{where}: organic_from makes {made:g}, the row says {values}")
+            stated = tuple(v for v in (cc, acq, disp) if v or v is cc)
         rows.append(Row(field=r["field"], source=r["source"], years=years,
                         values=values, quote=str(r.get("quote") or ""),
                         unit=r.get("unit"), tag=str(r.get("tag") or ""),
-                        add=bool(r.get("add"))))
+                        add=bool(r.get("add")), stated=stated))
     rank = _source_rank(rows)
     years: dict[int, dict[str, float]] = {}
     won: dict[tuple[int, str], int] = {}
@@ -268,7 +282,7 @@ def check(h: History) -> list[str]:
         if _norm(r.quote) not in texts[f]:
             fails.append(f"{r.field} [{r.source}]: the quote is not in {f}: {r.quote!r}")
             continue
-        bad = _find_values(r.quote, r.values)
+        bad = _find_values(r.quote, tuple(abs(x) for x in r.stated) or r.values)
         if bad:
             fails.append(f"{r.field} [{r.source}]: {bad}: {r.quote!r}")
     if h.business:
@@ -583,10 +597,22 @@ def quality(h: History, *, tax: float, fcf0: float, net_debt: float,
                     unrecovered.append(y)
         peak = p if peak is None else max(peak, p)
     neg = [y for y, v in oe.items() if v <= 0]
+    # E148: ONE year of negative owner earnings is forgiven where the
+    # business regained its earlier best inside three years -- the same
+    # shut-down year repaired. A first year has no earlier best to regain.
+    oys, repaired = sorted(oe), []
+    for y in neg:
+        before = [oe[z] for z in oys if z < y]
+        later = [oe[z] for z in oys if y < z <= y + 3]
+        if before and later and max(before) > 0 and max(later) >= max(before):
+            repaired.append(y)
+    forgiven = repaired[:1] if len(neg) == 1 else []
     if profit:
-        q2 = (not neg) and not unrecovered
+        q2 = not [y for y in neg if y not in forgiven] and not unrecovered
         out.append(Test("Q2 stability", q2,
-                        f"owner earnings negative in {neg or 'no year'}; {label} at most "
+                        f"owner earnings negative in {neg or 'no year'}"
+                        + (f" (repaired within three years, E148)" if forgiven else "")
+                        + f"; {label} at most "
                         f"{worst_fall:.0%} below its running peak"
                         + (f", not regained within three years after {unrecovered}"
                            if unrecovered else
@@ -648,14 +674,18 @@ XBRL_INTEREST = ("InterestExpense", "InterestExpenseNonoperating", "InterestExpe
 XBRL_DEBT_WHOLE = ("LongTermDebt",)
 XBRL_DEBT_PARTS = ("LongTermDebtNoncurrent", "LongTermDebtCurrent", "DebtCurrent",
                    "ShortTermBorrowings", "CommercialPaper", "SeniorNotes")
+#: two filings of one year's share count this far apart are a split
+SPLIT_RATIO = 1.5
 XBRL_CASH = ("CashAndCashEquivalentsAtCarryingValue",
              "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents")
 
 
-def _annual_facts(gaap: dict, tag: str, *, duration: bool) -> dict[str, float]:
+def _annual_facts(gaap: dict, tag: str, *, duration: bool,
+                  splits: bool = True) -> dict[str, float]:
     """end date -> value, from 10-K FY facts; the latest filing wins."""
     import datetime as _dt
     best: dict[str, tuple[str, float]] = {}
+    seen: dict[str, list[tuple[str, float]]] = {}
     unit_rows = gaap.get(tag, {}).get("units", {})
     for unit, rows in unit_rows.items():
         if unit not in ("USD", "shares"):
@@ -674,7 +704,35 @@ def _annual_facts(gaap: dict, tag: str, *, duration: bool) -> dict[str, float]:
             prev = best.get(r["end"])
             if prev is None or r["filed"] > prev[0]:
                 best[r["end"]] = (r["filed"], float(r["val"]))
-    return {e: v for e, (_, v) in best.items()}
+            if unit == "shares":
+                seen.setdefault(r["end"], []).append((r["filed"], float(r["val"])))
+    out = {e: v for e, (_, v) in best.items()}
+    if seen and splits:
+        # A share split: a 10-K restates only the years it prints, so the
+        # older years keep the old count (DECK, 6-for-1 in 2024: 27.8m in
+        # 2022 against 160.1m in 2023). A year printed again with a count
+        # at least half again apart marks the split and its first filing;
+        # every year last filed before it takes the ratio.
+        # Two splits of the same ratio are two splits (NKE, 2:1 in 2012 and
+        # again in 2015): a split is its ratio AND its first filing, and the
+        # same ratio seen again within a year is the same split.
+        found: list[tuple[str, float]] = []
+        for obs in seen.values():
+            obs.sort()
+            for (_, a), (f, b) in zip(obs, obs[1:]):
+                if a > 0 and b > 0 and not 1 / SPLIT_RATIO < b / a < SPLIT_RATIO:
+                    found.append((f, round(b / a, 1)))
+        splits: list[tuple[float, str]] = []
+        for f, k in sorted(found):
+            same = [i for i, (k0, w) in enumerate(splits) if k0 == k
+                    and abs((_dt.date.fromisoformat(f) - _dt.date.fromisoformat(w)).days) <= 366]
+            if not same:
+                splits.append((k, f))
+        for ratio, when in splits:
+            for e, (f, v) in best.items():
+                if f < when:
+                    out[e] = out[e] * ratio
+    return out
 
 
 def from_companyfacts(ticker: str, facts: dict, *, years: int = 11,
@@ -716,6 +774,10 @@ def from_companyfacts(ticker: str, facts: dict, *, years: int = 11,
             got = _annual_facts(gaap, t, duration=dur)
             new = {e: v for e, v in got.items() if e in ends and e not in filled}
             if new:
+                if fld == "shares" and any(
+                        _annual_facts(gaap, t, duration=dur, splits=False)[e] != v
+                        for e, v in new.items()):
+                    t += " (split-adjusted: years filed before the split x its ratio)"
                 add(fld, t, new, unit=("whole" if fld == "shares" else None),
                     negate_abs=fld in ("capex", "acquisitions_paid"))
                 filled.update(new)

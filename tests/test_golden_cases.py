@@ -1040,8 +1040,11 @@ def test_phase_5_wrote_its_printout_and_NOT_the_watchlist():
     # HELD again from 2026-09-25, recorded 2026-10-05: CTSH, 3 shares, stop
     # re-derived at fill to 53.45, with the bull the HELD rule requires.
     # CRUS is owned too but stays DROPPED -- no strike, so no level.
-    # CENTA HELD since 2026-10-20 (aa94b93 added to it 2026-10-26)
-    assert [e.ticker for e in entries.values() if e.status == "HELD"] == ["CTSH", "CENTA"]
+    # CENTA HELD since 2026-10-20 (aa94b93 added to it 2026-10-26); 146 of
+    # 148 sold 2026-10-28, 2 still held. ACAD.ST HELD from 2026-10-28 (43
+    # shares at 114.40), with the bull the HELD rule requires.
+    assert [e.ticker for e in entries.values() if e.status == "HELD"] == ["CTSH", "ACAD.ST", "CENTA"]
+    assert entries["ACAD.ST"].fv_bull == 181.95
     assert entries["CTSH"].stop_price == 53.45 and entries["CTSH"].fv_bull == 109.95   # the method-check record's bull, 2026-10-27 (E142: 109.81) (E140: 72.41, E117: 104.66)
     assert entries["CRUS"].status == "DROPPED"
 

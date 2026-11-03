@@ -800,6 +800,15 @@ tickers:
     #   The name may not reach HELD before a bull is struck -- that is a GATE
     #   (rules.no_bull_blocker), not a note: C4 / E42 run the exit against
     #   FV_bull, as LIAB.ST's exit of 2026-09-19 did.
+    #   2026-11-02 Q3 READ, RE-STRIKE DEFERRED (E141 decision): cloud revenue
+    #   +26%, total +13%, IFRS operating profit +18%, nine-month FCF 7,968m
+    #   (+11%); 2026 outlook raised to the upper end of the cloud and
+    #   cloud-and-software ranges, ~10bn FCF kept. A rough check -- FCF 10bn
+    #   at the 8% high cap, net debt ~5bn, 1,167m shares, r 9.5%, SBC not
+    #   taken off -- gives ~200 against a close of 211.25 (2026-10-30): even
+    #   the most generous reading is under the price. The full re-strike
+    #   (value, bear, bull, then the tier) waits for a price that could
+    #   make it matter.
     status: WATCH-GATED
     # ======================================================================
     # SOLD 2026-08-26 -- entire position, 6 shares, entry 154.06 EUR.
@@ -929,7 +938,7 @@ tickers:
     #   idea is the open E-candidate in the header. The Avanza order is the
     #   owner's to place; this field is the tool's requirement, not the order.
     catalyst_date: 2026-10-21          # Q3 2026 results (yfinance earnings calendar; sap.com events page per WebSearch). First §6.4 reassessment point.
-    catalyst_resolved:                 # set the day the Q3 outcome is ingested. Q2 2026 (2026-07-23) was resolved 2026-07-27 -- see notes.
+    catalyst_resolved: 2026-11-02      # Q3 2026 read 2026-11-02 from the 6-K of 2026-10-26 (EX-99.1 Quarterly Statement Q3 2026, accession 0001104659-26-118617): over value, re-strike deferred (E141 decision) -- see the comment below status. Q2 2026 (2026-07-23) was resolved 2026-07-27 -- see notes.
     catalyst_event: Q3 2026 results
     quarters:
       - period: 2024-Q1
@@ -2147,12 +2156,12 @@ tickers:
     #   Q3"), below the carried MBP 63.12. THE OWNER, 2026-10-05, on the close
     #   58.51 under the old 58.92 stop: "not selling its too little cash to
     #   bother with let it sit there until we get more from the 10ks".
-    status: HELD
+    status: HELD         # THESIS STOP 2026-10-29 (E141 decision, section 6.4): a 4.2.3 kill -- two cuts to the FY2026 constant-currency revenue outlook (2026-07-29 and 2026-10-29). Full exit of the 3 shares irrespective of price; the order is the owner's.
     cik: 1058290    # SEC EDGAR company search, confirmed 2026-08-27:
                     # CIK 0001058290, Teaneck NJ, SIC 7371, most recent
                     # filing dated 2026-08-27
-    fv_base: 73.96     # re-struck after the method check 2026-10-27, reference/CTSH-STRIKE-2026-10-27-check.md (E141). EARLIER: 73.82 -- E142-E145 re-strike 2026-10-27, reference/CTSH-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 57.89 -- E140/E140.1 re-strike 2026-10-27, reference/CTSH-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 84.16
-    tier: 3     # E145 Q4 (ROIIC -1.9% against r 9.5%) lowers the tier one step, E141 decision 2026-10-27. EARLIER: 2
+    fv_base: 69.42     # re-struck 2026-10-28 on the stated organic growth 2021-2025 (3.18% derived against the 4% view), reference/CTSH-STRIKE-2026-10-28-organic.md (bear 47.21, bull 79.99), E141; Q4 still FAILS (ROIIC 0.56%), tier 3 stands. EARLIER: 73.96 -- re-struck after the method check 2026-10-27, reference/CTSH-STRIKE-2026-10-27-check.md (E141). EARLIER: 73.82 -- E142-E145 re-strike 2026-10-27, reference/CTSH-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 57.89 -- E140/E140.1 re-strike 2026-10-27, reference/CTSH-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 84.16
+    tier: 3     # E145 Q4 (ROIIC -1.9% against r 9.5%; 0.56% on the stated organic growth, 2026-10-28) lowers the tier one step, E141 decision 2026-10-27. EARLIER: 2
     # stop 2026-08-30 (owner, stop session): 58.92 = 64.04 (settled close
     #   2026-08-28, the entry the AT/BELOW-MBP signal prices) x 0.92 -- C1's
     #   TIGHT end at today's trailing-year drawdown 26.1% (the decided wide
@@ -2170,15 +2179,17 @@ tickers:
     #   g_bull 7% -- `vss strike --ticker CTSH --dry-run`, 2026-10-05,
     #   reproduces fv_base 84.16 exactly and gives bear 63.25 / bull 104.66.
     fv_bull: 109.95     # the method-check record's bull case. EARLIER: 109.81 -- the E142 record's bull case, for the C4 / E42 exit test. EARLIER: 72.41 -- of the E140 record 2026-10-27, bear 43.07 (was 104.66 on the E117 record)
-    run_record: reference/run-records/CTSH-2026-10-27-check.json     # the method-check record. EARLIER: reference/run-records/CTSH-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/CTSH-2026-10-27.json
+    run_record: reference/run-records/CTSH-2026-10-28-organic.json     # the stated-organic record. EARLIER: reference/run-records/CTSH-2026-10-27-check.json -- the method-check record. EARLIER: reference/run-records/CTSH-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/CTSH-2026-10-27.json
     catalyst_date: 2026-10-28          # Q3 2026 results -- the next scheduled section 6.4 reassessment (owner, 2026-08-30); E77's regime adjustment applies at that re-score, not before (E77, decided 2026-08-30)
+    catalyst_resolved: 2026-10-29      # Q3 2026 read 2026-10-29: the FY2026 outlook cut a second time -> 4.2.3 kill, thesis stop (7db89d6); the sale is the owner's
     catalyst_event: >-
       Q3 2026 results, due 2026-10-28 -- the next scheduled reassessment.
       Re-scored then under E77 (regime elevated, one tier stricter). E145 Q4
       (ROIIC below r, E141 decision 2026-10-27) already took the tier 2 -> 3,
-      and there is no tier below 3, so MBP (E90: base x cushion, on the E142
-      strike of 2026-10-27 after the method check, fv_base 73.96) 48.07 -> 48.07 USD (on the E140
-      strike it read 43.41 -> 37.63, on the E117 strike 63.12 -> 54.70). (Arithmetic corrected
+      and there is no tier below 3, so MBP (E90: base x cushion, on the
+      stated-organic strike of 2026-10-28, fv_base 69.42) 45.12 -> 45.12 USD (on the E142
+      strike after the method check, fv_base 73.96, it read 48.07; on the E140
+      strike 43.41 -> 37.63, on the E117 strike 63.12 -> 54.70). (Arithmetic corrected
       2026-08-30 at E90; the E28-era prediction here read 46.78 -> 40.10.)
     notes: |2-
       WATCH-PRICED 2026-08-29. Re-struck 2026-08-30 under E70 (a lease is counted once, in net debt, never also in the flow), Method C, FY2025 basis, twelve months ended 2025-12-31: FCF0 2,451 -> 2,643 USD m, the 192 USD m of operating lease payments the flow bore added back (leg operating_lease_payments, declaration 3.1; the 598 USD m lease liability stays in net debt). fv_base 89.38 USD (band 96.38 / 89.38 / 83.33 across r 9.0-10.0%, E29), bear 66.83, bull 111.48, g_base 4% / g_bear 0% / g_bull 7% (reference/growth-views/CTSH.md, pre-registered 2026-08-27, unchanged). Of the move from 83.01, E70 alone gives 89.43; the rest is the bridge under E65 (finance leases 22 USD m beside operating, net debt -489 -> -467). Tier 2 (section 4.4 score 5 of 2026-08-29 -- 3 gates passed + 2 green flags - 0 soft flags -- not re-scored). MBP 46.78 USD = bear 66.83 x 0.70 (band 43.85-50.15 across r 9.0-10.0%, E29). Prior strike 2026-08-28: fv_base 83.01, bear 62.09, bull 103.50, MBP 43.46 (reference/run-records/CTSH-2026-08-28.json). Last close 64.04 USD (2026-08-28) sits above MBP -- WATCH-PRICED per E27, limit alert armed at 46.78, not a buy at today's price.
@@ -2191,6 +2202,8 @@ tickers:
       2026-09-19, later the same day (owner): No buy Monday. My 2026-08-31 reading stands: no price level alone wakes this name before the Q3 re-read on 2026-10-28, and no §6.1 structure assessment exists. No order. At the re-read: re-strike on Q3, do the §6.1 assessment, then set the §6.1 and §6.2 triggers.
 
       2026-09-19, E77 AT THE RE-SCORE (owner): at the 2026-10-28 re-score E77 applies unless the owner has first recorded a regime re-assessment. Tier 2 → 3 under E77 gives MBP ~54.70 (84.16 × 0.65, E117 strike on FY2025) against the 59.87 close (2026-09-18) -- 9.4% above, i.e. no entry. Today's entry reading rested on E77 being held back.
+
+      2026-10-29 (E141 decision, Q3 2026 release, 8-K Item 2.02 ex-99.1, accession 0001058290-26-000039): THESIS STOP -- FULL EXIT. Section 6.4: "Any section 4.2 hard kill emerging post-entry => full exit irrespective of price." The FY2026 constant-currency revenue outlook, read from the four releases: 2026-02-04 4.0%-6.5%; 2026-04-29 4.0%-6.5% (held); 2026-07-29 4.0%-5.5% (upper end lowered: a CUT, as OLVAS.HE and BKNG were counted); 2026-10-29 4.0%-4.4% (a second CUT). Two cuts inside the trailing four quarters trip 4.2.3. Adjusted EPS 5.70-5.82 -> 5.72-5.79 (upper end lowered too) and Q3 bookings -7% YoY point the same way. The other kills on the quarter do not trip: revenue 5,664m against 5,415m (+4.6%, +4.8% cc), GAAP operating margin 15.4% against 16.0% (-60 bps on growing revenue), CEO and CFO in place. Sell the 3 shares; the fill goes into `sales:` on the owner's word.
 
   # --- added by hand, 2026-08-30, the first name through E76's full order:
   # manual file (SEC XBRL, 2026-08-30) -> growth view -> strike -> reading
@@ -2312,6 +2325,7 @@ tickers:
       registered: 2026-08-30
     notes: >-
       E111 INTAKE, 2026-09-04. record REFUSED, and on SIZE rather than on absence: E70's operating-lease leg is DATA MISSING and BOUNDED at 23,200,000 (E106 clause 3, the issuer's own total lease expense), which moves fv_base by 4.27% against E106's 3.5%. Clause 2 refuses. Closes if A. O. Smith ever states the cash paid for operating leases.
+      2026-10-29 (E141 reading, Q3 2026 release 2026-10-29, 8-K Item 2.02 ex-99.1, accession 0000091142-26-000102): a 4.2.3 KILL. FY2026 outlook: 2026-01-29 sales +2-5%, adjusted EPS 3.85-4.15; 2026-04-30 cut to sales +2-4%, EPS 3.70-4.00; 2026-07-30 cut to sales +2-3%, EPS 3.70-3.85 (upper end lowered); 2026-10-29 re-based to exclude China (sales ex-China ~+4%, adjusted EPS ex-China 3.42-3.52), not comparable and not counted. Two cuts inside the trailing four quarters. The China business is being sold: CPE takes 81% (agreements announced 2026-10-27), AOS keeps 19% and a brand licence -- the store and fv_base 64.37 (2026-10-27-check) include China and must be re-struck on the business that remains once the sale closes. Q3: sales 940.5m flat, North America organic +1%, China -17% in local currency; EPS 0.93 against 0.94. Close 61.31 (2026-10-29), 22.9% under the 52-week high 79.53. Not a candidate: a live kill and no margin (price 95% of fv); clears after the Q1 2027 release (~late April 2027) if no further cut.
   - ticker: CROX
     # E28/E109: REGISTERED BY THE OWNER 2026-09-04, in his own
     # words and before section 5 was run on this name. The
@@ -2411,6 +2425,7 @@ tickers:
       registered: 2026-08-30
     notes: >-
       E111 INTAKE, 2026-09-04. record COMPLETE. Struck 2026-08-30 under E70 (reference/LII-STRIKE-2026-08-30-e70.md); E105's leg is a searched zero.
+      2026-10-29 (E141 reading, Q3 2026 release 2026-10-28, 8-K Item 2.02 ex-99.1, accession 0001069202-26-000094): a 4.2.3 KILL. FY2026 adjusted EPS outlook: 2026-01-28 set; 2026-04-29 23.50-25.00 held; 2026-07-29 cut to 23.00-24.00; 2026-10-28 cut to 21.00-21.50 (revenue growth ~8% -> ~6%). Two cuts inside the trailing four quarters. Q3: revenue +10% (Building Climate Solutions +15% organic, Home Comfort +3%), GAAP operating margin 19.8% (-320 bps on growing revenue, so 4.2.2 does not trip), adjusted EPS 6.84 (-7%); Home Comfort margin -490 bps on "heightened competitive pressure" and price cuts to recapture share. Close 332.64 on the day (-10.6%), 336.81 on 2026-10-29, 41% under the 52-week high 570.79 -- still above fv_base 309.69 (2026-10-27-check). Not a candidate: over value and a live kill; clears after the Q2 2027 release (~late July 2027) if no further cut.
   - ticker: LOPE
     # E28/E109: REGISTERED BY THE OWNER 2026-09-04, in his own
     # words and before section 5 was run on this name. The
@@ -2654,19 +2669,35 @@ tickers:
       registered: 2026-10-20
     name: AcadeMedia AB (publ)
     currency: SEK
-    status: WATCH-PRICED # E141 decision 2026-10-27 after the full walk reference/reviews/ACAD.ST/2026-10-27.yaml: score 4, tier 3, MBP 103.18 (158.74 x 0.65) against 112.40. EARLIER: PIPELINE -- RESTORED 2026-10-27 (E141 decision): the E145 drop was an ERROR -- Q1 ran on all capital employed because the history had no goodwill row; with goodwill taken out Q1 PASSES (median 48.1%), reference/ACAD.ST-STRIKE-2026-10-27-goodwill.md. Only Q4 fails (ROIIC 7.2%), which lowers the tier one step. EARLIER: DROPPED -- E145 Q1, reference/ACAD.ST-STRIKE-2026-10-27-e142.md. Was PIPELINE
+    status: HELD         # 476 SHARES HELD, blended entry 117.50 SEK, about 56,454 SEK at 2026-11-02 (owner: "jag har 476 academedia aktier inköpspris 117.5 totalt"); the 433 added 2026-10-29 / later average ~117.81 (derived). BOUGHT 2026-10-28: 43 shares at 114.40 SEK, the owner's word ("academedia har jag köpt 43 st på 114,4 kr"), above the tier-3 MBP 103.18 and before the Q1 read of 2026-11-02. EARLIER: WATCH-PRICED -- E141 decision 2026-10-27 after the full walk reference/reviews/ACAD.ST/2026-10-27.yaml: score 4, tier 3, MBP 103.18 (158.74 x 0.65) against 112.40. EARLIER: PIPELINE -- RESTORED 2026-10-27 (E141 decision): the E145 drop was an ERROR -- Q1 ran on all capital employed because the history had no goodwill row; with goodwill taken out Q1 PASSES (median 48.1%), reference/ACAD.ST-STRIKE-2026-10-27-goodwill.md. Only Q4 fails (ROIIC 7.2%), which lowers the tier one step. EARLIER: DROPPED -- E145 Q1, reference/ACAD.ST-STRIKE-2026-10-27-e142.md. Was PIPELINE
     dd_at_entry: 0.0
     peak_date: 2026-10-19
     fv_base: 158.74     # re-struck after the method check 2026-10-27, reference/ACAD.ST-STRIKE-2026-10-27-check.md (E141). EARLIER: 173.63 -- E142-E145 re-strike 2026-10-27, reference/ACAD.ST-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 25.91 -- E140/E140.1 re-strike 2026-10-27, reference/ACAD.ST-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 152.32 -- vss strike 2026-10-24 on the registered view 4.5/3.5/7 (bear 140.19, bull 187.01), basis annual FY2026, close 110.40, g* 0.66%
+    fv_bull: 181.95     # the bull case of reference/run-records/ACAD.ST-2026-10-27-goodwill.json (reference/ACAD.ST-STRIKE-2026-10-27-goodwill.md), for the C4 / E42 exit test; recorded 2026-10-28 when the name became HELD
     tier: 3     # E141 decision 2026-10-27: section 4.4 score 4 (medium -> Tier 2), lowered one step by E145 Q4 (ROIIC 7.2% against r 9.5%); E77's regime shift stops at the floor (C2)
+    # STOP SET 2026-11-02 (E141 decision, section 6.4 / C1): blended entry
+    #   117.50 x 0.92 = 108.10. 0.92 is C1's tight end: the trailing-year
+    #   drawdown is ~26%, not the 40-50% class. The structural floor -- the
+    #   old 97-105 range the price broke out of in mid-October -- sits under
+    #   it, and C1 lets the cap tighten the stop, never loosen it. A daily
+    #   close under 108.10 sells. The order is the owner's to place.
+    stop_price: 108.10
     catalyst_date: 2026-11-02          # Q1 2026/27 interim report (July-September 2026), the issuer's financial calendar.
-    catalyst_resolved:                 # set the day the Q1 2026/27 report is read.
+    catalyst_resolved: 2026-11-02      # Q1 2026/27 read 2026-11-02, sources/ACAD.ST_2027-Q1_interim-report-q1-and-q3_2026-11-02_en_a0.pdf; see the note of that date.
     catalyst_event: Q1 2026/27 interim -- organic growth and EBIT against Q1 2025/26 (EBIT 292 against 272), receivables growth against sales growth, and any word from the new government on profits in existing schools.
     run_record: reference/run-records/ACAD.ST-2026-10-27-goodwill.json     # Q1 re-read with goodwill out; value unchanged. EARLIER: reference/run-records/ACAD.ST-2026-10-27-check.json -- the method-check record. EARLIER: reference/run-records/ACAD.ST-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/ACAD.ST-2026-10-27.json
     notes: |2-
       STRUCK 2026-10-24 (owner: "ja kör acad") once the AR 2025/26 gave the five legs: fv_base 152.32 against 110.40. FCF0 982 excludes the acquisition spend (1,036 in FY2026, 333 the year before) -- if the 4.5% base needs it, the value is overstated. Additional purchase considerations (reclassified to other liabilities in the AR) are not a net-debt leg under any ruling and are not in it. Off-band value intake 2026-10-20 (a one-off cheapness scan of names NOT in the 15-50% band, vendor FCF/EV 11.4%). Store config/manual/ACAD.ST.yaml from the year-end report 2025/26; five legs (pension, ARO, prepaid delivery, diluted average, sbc) wait for the Annual Report 2025/26 due 2026-10-23, so NO fv_base yet. A PROVISIONAL scratch strike with prior-year stand-ins gave base 152 / bear 140 / bull 187 against 114.80, g* 1.1% -- not a struck value and not entered. Political risk: Swedish profit-limitation proposals (SOU 2025:37), the L-SD agreement of March 2026, and the election of 2026-09-13. No tier and no mbp. This entry is review work, not a buy.
 
       2026-10-27 (E141 decision, full walk reference/reviews/ACAD.ST/2026-10-27.yaml): PIPELINE -> WATCH-PRICED, tier 3, MBP 103.18 SEK (158.74 x 0.65) against 112.40. Score 4: Gate 3 and Gate 5 passed (Gate 1 and 2 score 0 on a value entry, E139), green flags FCF conversion 109% and margin expansion. No hard kill: every quarter of 2025/26 grew 4-11% with EBIT up. Tier 2 lowered to 3 by E145 Q4 (acquisitions earn 7.2% against 9.5%). Carried risk: the 2026-09-13 election went to the opposition; a law limiting profits in EXISTING schools gates the name at once. Read the Q1 2026/27 report (2026-11-02) before any order.
+
+      2026-10-28 BOUGHT: 43 shares at 114.40 SEK, about 4,919 SEK (owner: "academedia har jag köpt 43 st på 114,4 kr"; account not stated). The owner's act, above the tier-3 MBP of 103.18 (the price is 72% of fv 158.74, a cushion of 0.72 against tier 3's 0.65) and before the Q1 2026/27 report of 2026-11-02 that the session asked to read first. That report is now a hold-or-exit read, not an entry read.
+
+      2026-10-28 (E141 decision, outside review): AcadeMedia's organic growth is printed "including minor bolt-on acquisitions" and the minor part is stated nowhere, group or segment, so E142's growth-without-acquisitions cannot be read. Struck with it lowered: -1pp 155.11 (Q4 FAIL, ROIIC 9.0%, MBP 100.82 at tier 3); -2pp 143.91 (Q4 PASS, ROIIC 10.7%, tier 2, MBP 107.93). A lower organic rate hands more of the profit to the acquisitions, so the two move against each other and every plausible MBP lies within 100.82-107.93. That is the input error E90's cushion exists for: fv_base 158.74 and MBP 103.18 STAND, no second cushion. The political question still gates any order.
+
+      2026-11-02 Q1 2026/27 READ (sources/ACAD.ST_2027-Q1_interim-report-q1-and-q3_2026-11-02_en_a0.pdf): the thesis holds, nothing to do. Net sales 4,679 (+14.1%), organic incl. bolt-ons 4.8% (6.4% a year ago; target 5-7%); EBIT 343 against 292 (+17.5%), adj. EBITA margin 4.6% (4.4%). Free cash flow before expansion 195 against -111. Current receivables 1,569 against 1,438 (+9.1%) under sales growth (+14.1%): the receivables question of 10-27 is closed, no §4.2.7. Net debt ex IFRS 16 2,102 (1,244), 1.0x adj. EBITDA, the rise is Florencius, Kindernet and Kids&Co. (completed 10-01). No guidance (the company gives none) and no word in the report on profit rules; the new government has not proposed a law on EXISTING schools, so the Gate 2 class D trigger has not fired. Next: Q2 2027-02-01. Stop still undefined (blocker).
+
+      2026-11-02 POSITION (owner): 476 shares, blended entry 117.50 SEK, about 56,454 SEK -- the rest of the satellite money. Stop 108.10 (117.50 x 0.92, C1). §7 RISK CHECK, stated to the owner: at the stop the loss is 476 x 9.40 = ~4,474 SEK; with the sleeve ~30% of the portfolio (~190k SEK in all) 1% is ~1,900 SEK and the rule caps the position at ~1,900 / 8% = ~23,750 SEK, so the position is ~2.4x the ceiling. The owner's act; recorded, not reversed.
   - ticker: ALV
     # PROMOTED TO PIPELINE by the owner 2026-10-20 ON VALUE (E139), from the
     # one-off not-fallen value screen of 2026-10-17. The owner asked the
@@ -2712,7 +2743,7 @@ tickers:
       registered: 2026-10-20
     name: Central Garden & Pet Company (Class A)
     currency: USD
-    status: HELD         # BOUGHT 2026-10-20: 30 shares at 36.73 USD, the owner's word in the session (account and SEK amount not yet stated; book from the Avanza transaction list). ADDED 2026-10-23: 46 shares at 39.22 USD, 18,027.42 SEK (owner, reported 2026-10-24). ADDED 2026-10-26: 51 shares at 39.33 USD, 20,063 SEK (owner, reported 2026-10-27); 148 held
+    status: HELD         # BOUGHT 2026-10-20: 30 shares at 36.73 USD, the owner's word in the session (account and SEK amount not yet stated; book from the Avanza transaction list). ADDED 2026-10-23: 46 shares at 39.22 USD, 18,027.42 SEK (owner, reported 2026-10-24). ADDED 2026-10-26: 51 shares at 39.33 USD, 20,063 SEK (owner, reported 2026-10-27); 148 held. SOLD 2026-10-28: 146 shares at 38.34 USD (owner: "jag har sålt av har bara 2 st centa kvar", "de såldes på 38.34"; SEK to be booked from Avanza); 2 held
     dd_at_entry: 0.11847285072337377
     peak_date: 2026-08-06
     fv_base: 40.19     # re-struck after the method check 2026-10-27, reference/CENTA-STRIKE-2026-10-27-check.md (E141). EARLIER: 40.19 -- E142-E145 re-strike 2026-10-27, reference/CENTA-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 28.6 -- E140/E140.1 re-strike 2026-10-27, reference/CENTA-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 61.83 -- vss strike 2026-10-20 on the registered view 2/-1/3.5 (bear 48.69), basis annual FY2025, close 35.79, g* -4.84%
@@ -2720,6 +2751,17 @@ tickers:
     run_record: reference/run-records/CENTA-2026-10-27-check.json     # the method-check record. EARLIER: reference/run-records/CENTA-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/CENTA-2026-10-27.json
     # No tier, no mbp, no stop_price: the tier is the owner's (section 4.4),
     #   and a HELD name with no stop is reported by the missing-stop blocker.
+    # B45: one item per fill. Price, account and SEK not yet given (owner, 2026-10-28).
+    sales:
+      - date: 2026-10-28
+        price: 38.34
+        currency: USD
+        shares: 146
+        account:
+        rule: owner
+        run_record: reference/run-records/CENTA-2026-10-27-check.json
+        proceeds_sek:
+        note: "owner: 'jag har sålt av har bara 2 st centa kvar'; fails E145 Q1-Q4 at fv 40.19 (2026-10-27 decision); price 38.34 per the owner; SEK and account from Avanza"
     notes: >-
       BOUGHT 2026-10-20, 30 shares at 36.73 USD (owner, in the session).
       ADDED 2026-10-23 (date not stated; reported 2026-10-24): 46 shares at
@@ -2731,6 +2773,12 @@ tickers:
       20,063 SEK -- the 20k the owner set aside 2026-10-26, bought before
       the ACAD Q1 of 2026-11-02 rather than after it. 148 held; the owner:
       "nu har jag 57k kr i det bolaget".
+      SOLD 2026-10-28: 146 of 148 shares, on the 2026-10-27 decision (fails
+      E145 Q1-Q4, fv 40.19, sell before the FY2026 report). The owner, the
+      same day: "ok jag har sålt av har bara 2 st centa kvar". Day range
+      38.31-39.12 USD, under the 40.19 limit, so sold at market: 38.34 USD
+      (owner: "de såldes på 38.34"). Account and SEK to be booked in
+      `sales:` from the Avanza transaction list. 2 shares held.
       The struck fv_base does NOT include TRIXIE (agreement 2026-07-27, up
       to EUR 400m, closing H1 FY2027) or the FY2026 IEEPA tariff refunds;
       the session's adjusted estimate is 52-55 base. The FY2026 10-K re-reads
@@ -2792,16 +2840,40 @@ tickers:
     status: WATCH-GATED
     dd_at_entry: 0.3969
     peak_date: 2025-10-28
-    fv_base: 78.47     # first strike 2026-10-27, reference/SFM-STRIKE-2026-10-27.md (bear 38.47, bull 78.47); close 64.41. E145: all five PASS (tangible ROIC median 38.1%, net cash)
-    run_record: reference/run-records/SFM-2026-10-27.json
-    catalyst_date: 2026-10-29          # Q3 2026 results -- NOT the issuer's date; Q3 2025 was released 2025-10-29.
+    fv_base: 78.71     # bridge rolled to the Q3 10-Q 2026-09-27, reference/SFM-STRIKE-2026-10-29.md (bear 38.39, bull 78.71); close 62.00 (E141). EARLIER: 78.47 -- first strike 2026-10-27, reference/SFM-STRIKE-2026-10-27.md (bear 38.47, bull 78.47); close 64.41. E145: all five PASS (tangible ROIC median 38.1%, net cash)
+    run_record: reference/run-records/SFM-2026-10-29.json     # EARLIER: reference/run-records/SFM-2026-10-27.json
+    catalyst_date: 2027-07-29          # Q2 2027 results -- NOT the issuer's date; Q2 2026 came 2026-07-29. The first release after which the July 2026 cut leaves the four-quarter window. EARLIER: 2026-10-28 (Q3 2026, the issuer's date; the entry said 10-29), resolved 2026-10-28 -- a third cut.
     catalyst_resolved:
-    catalyst_event: Q3 2026 results -- is the FY2026 outlook (EBIT 675-685m, EPS 5.32-5.40, comps -0.5% to 0.5%) held or raised? If it is not cut, the October 2025 cut leaves the window, the kill clears, and the gates are walked.
+    catalyst_event: Q2 2027 results -- no further outlook cut after October 2026 (the Q4 2026 release ~late February 2027 with the first FY2027 outlook, and Q1 2027 ~late April, included), so the trailing four quarters carry at most one cut. The re-strike on the FY2026 10-K (~late February 2027) comes first; fv 78.47 rests on a FY2026 EBIT ~11% above what is now guided.
     notes: >-
       2026-10-27: screener #12 (2026-10-24). Struck 78.47 against 64.41 (18%
       under), all five Warren tests pass. Revenue still grows (+4%, +5%) on
       new stores while comparable sales turned negative (-1.7%, -1.0%);
       CEO succession to the COO on 2027-01-04 is planned, the CFO stays.
+      2026-10-28 (E141 decision, Q3 2026 release, 8-K Item 2.02 ex-99.1,
+      accession 0001575515-26-000059): A THIRD CUT -- the kill stays.
+      FY2026 outlook (52-week basis) lowered to EBIT ~605m (July 675-685),
+      EPS ~4.80 (5.32-5.40), comps ~-1.7% (-0.5% to +0.5%); net sales
+      growth ~4.3%; Q4 comps guided -2% to -4%. The cuts inside the
+      trailing four quarters are now July and October 2026 (October 2025
+      leaves the window, but it no longer matters). Stays WATCH-GATED on
+      4.2.3. Other kills on the quarter: net sales 2,304.7m against
+      2,200.4m (+4.7%), so 4.2.1 and 4.2.2 do not trip (operating margin
+      6.63% against 7.15%, -52 bps, on growing revenue); comps -0.9%;
+      EPS 1.21 against 1.22 a year ago and a consensus of about 1.23
+      (Yahoo average; Benzinga 1.24), a miss, not counted further because
+      4.2.3 decides first; no CEO or CFO departure (the 8-K of 2026-10-14
+      is the CTO, James Bahrenburg). Net cash, revolver undrawn, 1.1m
+      shares bought back in the quarter. Gate 2 and the tier are not
+      walked: a gated name has no buy line. Re-strike on the FY2026 10-K.
+      2026-10-29 (owner: "bara läs in allt"): the Q3 10-Q read into the
+      store -- bridge rolled to 2026-09-27 (net cash 95.6m, lease
+      liability 2,102m left out under E117, finance obligations 133.1m in
+      net debt, year-to-date working capital -12.5m neutralised), divisor
+      93.67m. fv_base 78.47 -> 78.71, bear 38.39, g* 5.11% at 62.00.
+      FCF0 is unchanged because it is the FY2023-25 annual mean: the cut
+      to FY2026 enters only with the 10-K. All five E145 questions still
+      pass.
   - ticker: OLVAS.HE
     name: Olvi Oyj
     currency: EUR
@@ -2825,3 +2897,42 @@ tickers:
       "other structural options" being evaluated; four acquisitions in
       2026 took gearing from -10.3% to 14.4%. EPS 2025
       3.09 against a close of 27.60.
+  - ticker: BKNG
+    growth:
+      base: 0.05
+      bear: 0.0
+      bull: 0.08
+      view: reference/growth-views/BKNG.md
+      registered: 2026-10-27
+    name: Booking Holdings Inc.
+    cik: 1075531
+    currency: USD
+    # WATCH-GATED, E141 decision 2026-10-28: section 4.2.3 hard kill -- two
+    # cuts to the FY2026 outlook inside the trailing four quarters. Q4 2025
+    # release (Feb 2026): revenue "Low Double Digits", adjusted EPS
+    # "Mid-teens"; Q1 2026 release (Apr 2026): revenue "High Single Digits",
+    # EPS "Low to Mid-teens" (the Middle East conflict); Q2 2026 release
+    # (Jul 2026): gross bookings "High Single Digits to Low Double Digits" ->
+    # "High Single Digits" (the upper end lowered, as OLVAS.HE's 84-92 ->
+    # 84-90 was counted). Revenue grew every quarter (Q1 +16%, Q2 +8%) and
+    # operating margin rose, so 4.2.1 and 4.2.2 do not trip. Gate 2 is not
+    # read: the kill decides first. A kill is not a price: NO PRICE LEVEL
+    # MAY WAKE THIS NAME.
+    status: WATCH-GATED
+    dd_at_entry: 0.3166
+    peak_date: 2026-01-09
+    fv_base: 218.18    # strike 2026-10-28 under E148, reference/BKNG-STRIKE-2026-10-28-e148.md (bear -2.96, bull 281.48); close 150.14. E145 Q1-Q5 PASS (Q2 on E148: 2020 repaired)
+    run_record: reference/run-records/BKNG-2026-10-28-e148.json
+    catalyst_date: 2027-04-27          # Q1 2027 results -- NOT the issuer's date; Q1 2026 came in late April 2026. The first release after which the April 2026 cut leaves the four-quarter window.
+    catalyst_resolved:
+    catalyst_event: Q1 2027 results -- no further FY outlook cut since July 2026 (Q3 2026 results ~2026-11-03 and Q4 2026 in February included), so the trailing four quarters carry at most one cut; then Gate 2 is read (the AI-agent question below) and the gates walked.
+    notes: >-
+      2026-10-28: refused on E145 Q2 on 2026-10-27 (2020 owner earnings
+      negative); E148 forgives the repaired year and all five tests pass.
+      31.7% off the 52-week closing high 219.68 (2026-01-09). The fall has
+      three named drivers: AI agents bypassing the online travel agencies
+      (February 2026; Meta's Muse, 2026-09-23, -5.1%), the EU General Court
+      upholding the eTraveli block (2026-09-09), and Brent above $100 on
+      airfares; Q3 guidance 4-6% revenue growth. Whether the AI agent is a
+      narrative (Class A) or damage to the model (Class D) is the question
+      Gate 2 must answer when the kill clears. Buybacks $3.7bn in Q2 2026.
