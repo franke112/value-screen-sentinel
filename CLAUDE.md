@@ -137,6 +137,8 @@ playbook in that commit.
 
 ## inkorg -> the right place -> utkorg -- 2026-10-05
 
+*In the public copy `inkorg/`, `utkorg/`, `konto/` and `arkiv/` do not exist: they are the author's private working folders. If you use this section, create them yourself; otherwise skip it.*
+
 Same inbox/outbox system the owner uses elsewhere. **First thing in every session: look in
 `inkorg/`.** If anything but the README is there, sort it before other work
 (or right after an urgent question). The owner does not rename or sort --

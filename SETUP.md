@@ -74,9 +74,10 @@ records exactly what each file held. The screener acceptance snapshot of
 growth views and trades, kept as an example of the method in use. To use
 the tool for yourself, start your own watchlist and register your own growth
 views **before** you run a valuation (`reference/FRAMEWORK.md`, E28).
-`config/queue.yaml` is mine as well: my valued names and my sell lines. Clear
-it, value your own names, and `tools/build_queue.py --write` harvests the
-strikes back into it. The
+`config/queue.yaml` is mine as well: my valued names and my sell lines. Start
+yours from the three-name example, `cp config/queue.example.yaml
+config/queue.yaml`, value your own names, and `tools/build_queue.py --write`
+harvests the strikes into it. The
 rulings in `reference/FRAMEWORK-EDITS.md` are mine too -- read them as the
 reasoning behind the current rules, and make your own.
 

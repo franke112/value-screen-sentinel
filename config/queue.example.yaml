@@ -1,0 +1,45 @@
+# EXAMPLE QUEUE -- three names to show the shape. Copy it to start your own:
+#     cp config/queue.example.yaml config/queue.yaml
+# kind: strike (a full valuation, reference/<T>-STRIKE-*.md), machine
+# (tools/warren.py) or rough (tools/rough_fv.py). bear / base / bull are per
+# share in the trading unit. Optional hand fields:
+#   sell_at: [{price: 150, action: "halve the position"}]   # for a HELD name
+#   look_at: 142.61     # your own "look" level instead of base x 0.85 / 0.75
+#   gate_until / gate_event   # a WATCH-GATED name: when its ban may lift
+# tools/build_queue.py --write harvests your strikes into config/queue.yaml.
+names:
+- ticker: DHI
+  kind: strike
+  ccy: null
+  bear: 85.96
+  base: 184.54
+  bull: 184.54
+  source: reference/DHI-STRIKE-2026-10-28.md
+  status: OFF-WATCHLIST
+  tier: null
+  stop: null
+  look_at: 142.61
+  note: 'Not taken in 2026-10-28 (Gate 1 12.4%, 4.2.3 kill): revisit under 142.61 or after Apr 2027'
+  name: D.R. Horton
+- ticker: KO
+  kind: machine
+  ccy: USD
+  bear: 12.38
+  base: 28.11
+  bull: 41.62
+  source: tools/warren.py 2026-11-05
+  status: OFF-WATCHLIST
+  note: the business passes Q1-Q4; the price is 3.4x base
+  name: Coca-Cola
+- ticker: MEKKO.HE
+  kind: strike
+  ccy: EUR
+  bear: 9.25
+  base: 10.95
+  bull: 16.33
+  source: reference/MEKKO.HE-STRIKE-2026-10-27-check.md
+  status: PIPELINE
+  tier: 2
+  stop: null
+  gate_until: '2027-02-11'
+  gate_event: FY2026 results
