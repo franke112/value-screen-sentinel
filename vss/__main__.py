@@ -137,6 +137,25 @@ def build_parser() -> argparse.ArgumentParser:
     manual_cmd.add_argument("--dir", metavar="PATH", default=None,
                             help="read from an alternate directory instead of "
                                  "config/manual")
+    manual_cmd.add_argument("--merge-draft", action="store_true",
+                            help="merge config/manual/drafts/<TICKER>.<origin>.yaml "
+                                 "into the store: adds what it lacks, never "
+                                 "overwrites, prints conflicts; backup first")
+    manual_cmd.add_argument("--origin", default="esef-ixbrl",
+                            choices=("esef-ixbrl", "llm-pdf"),
+                            help="which draft --merge-draft takes (default esef-ixbrl)")
+    manual_cmd.add_argument("--dry-run", action="store_true",
+                            help="with --merge-draft: report, write nothing")
+
+    esef_cmd = sub.add_parser(
+        "esef",
+        help="read a Nordic issuer's ESEF report packages in sources/ and, "
+             "with --draft, write config/manual/drafts/<TICKER>.esef-ixbrl.yaml",
+    )
+    esef_cmd.add_argument("--ticker", required=True, metavar="X")
+    esef_cmd.add_argument("--draft", action="store_true",
+                          help="write the draft (every figure UNVERIFIED; "
+                               "merge it with `vss manual --merge-draft`)")
 
     appendix_cmd = sub.add_parser(
         "appendix",
@@ -479,6 +498,10 @@ def build_parser() -> argparse.ArgumentParser:
     history_cmd.add_argument("--xbrl", action="store_true",
                              help="build config/history/<TICKER>.yaml from "
                                   "companyfacts (the entry's cik)")
+    history_cmd.add_argument("--esef", action="store_true",
+                             help="build from the issuer's ESEF report packages in "
+                                  "sources/ (ifrs-full, comparatives included) "
+                                  "instead of SEC companyfacts")
     history_cmd.add_argument("--write", action="store_true",
                              help="with --xbrl: write the file (default: print)")
     history_cmd.add_argument("--check", action="store_true",
@@ -808,7 +831,7 @@ def main(argv: list[str] | None = None) -> int:
             from pathlib import Path as _Path
             from .history import run_history
             code, report = run_history(
-                ticker=args.ticker, xbrl=args.xbrl, write=args.write,
+                ticker=args.ticker, xbrl=args.xbrl, esef=args.esef, write=args.write,
                 check_only=args.check, cik=args.cik,
                 directory=_Path(args.dir) if args.dir else None)
             print(report)
@@ -925,6 +948,42 @@ def main(argv: list[str] | None = None) -> int:
             )
             print(report)
             return code
+        if args.command == "manual" and args.merge_draft:
+            from .draft import merge_draft, render as render_merge
+            from .manual import MANUAL_DIR
+
+            res = merge_draft(args.ticker, origin=args.origin,
+                              manual_dir=Path(args.dir) if args.dir else MANUAL_DIR,
+                              write=not args.dry_run)
+            print(render_merge(res, origin=args.origin))
+            return 0
+        if args.command == "esef":
+            from datetime import datetime as _dt
+
+            import yaml as _yaml
+
+            from . import esef
+
+            ticker = args.ticker.strip().upper()
+            packages, refused = esef.packages_for(ticker)
+            for pkg in packages:
+                print(esef.render(pkg))
+            for line in refused:
+                print(f"REFUSED {line}")
+            if not packages:
+                print(f"{ticker}: no readable ESEF package in sources/")
+                return 1
+            if args.draft:
+                ents = _yaml.safe_load(esef.ENTITIES_PATH.read_text(encoding="utf-8")) or {}
+                name = (ents.get(ticker) or {}).get("name") or ticker
+                text, left = esef.draft_yaml(ticker, name, packages,
+                                             run_ts=_dt.now().astimezone())
+                target = esef.write_draft(ticker, text)
+                print(f"\nDRAFT written: {target}")
+                print(f"not drafted ({len(left)}):")
+                for line in left:
+                    print(f"  {line}")
+            return 0
         if args.command == "manual":
             from datetime import date
 

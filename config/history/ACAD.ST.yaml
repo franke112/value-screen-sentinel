@@ -1,12 +1,30 @@
 ticker: ACAD.ST
 currency: SEK
-money_unit: millions
-fiscal_year_end: 06-30
-business:
-  text: AcadeMedia runs preschools, compulsory and upper secondary schools and adult education, mainly in Sweden.
-  source: ar2026_bs
-  quote: Today, AcadeMedia is Europe’s largest education provider. We conduct operations along the entire education ladder, from preschool to adult education.
+money_unit: whole
 sources:
+  xbrl:
+    kind: esef-ixbrl
+    fetched: '2026-11-07'
+    packages:
+    - file: sources/ACAD.ST_2021-FY_annual-financial-report_2022-10-25_en_a0.zip
+      sha256: 9290efaa17a2ad3fdc2928c862ebb3b24a17ad04f1fce579cbbf1ebe1e92410f
+      filed: '2022-10-25'
+      lei: 549300H47PGHY4JNKO68
+    - file: sources/ACAD.ST_2022-FY_annual-financial-report_2023-10-25_en_a0.zip
+      sha256: 5093f1aa939d6acb8e64a81f0ff2d26addaae18f8c981ae7a32e18a0e5eb0cda
+      filed: '2023-10-25'
+      lei: 549300H47PGHY4JNKO68
+    - file: sources/ACAD.ST_2024-FY_annual-financial-report_2025-10-23_en_a0.zip
+      sha256: c85a943b317471bbdc9d0431120ac3707e30a0881f0f9dfdb1a29b54a3311833
+      filed: '2025-10-23'
+      lei: 549300H47PGHY4JNKO68
+    - file: sources/ACAD.ST_2025-FY_annual-financial-report_2026-10-22_en_a0.zip
+      sha256: e0f76e1fd939e8b873153fd9553dbc20a6acf801c3cfb9f2145fbf390736b4ee
+      filed: '2026-10-22'
+      lei: 549300H47PGHY4JNKO68
+    capex_withheld: 'the issuer tags capital expenditure in its own extension concepts, which are not read: acad:InvestmentsInEquipment, acad:InvestmentsInLeaseholdProperty, acad:InvestmentsInProperties,
+      academedia:InvestmentsInEquipment, academedia:InvestmentsInLeaseholdProperty, academedia:InvestmentsInProperties'
+    net_debt_withheld: 'the issuer tags borrowings in its own extension concepts, which are not read: acad:ConvertibleLoan, acad:RepaymentOfLoan'
   ar2026:
     file: sources/ACAD.ST_2026-FY_annual-financial-report_2026-10-22_en_a0.pdf
     page: 121
@@ -24,6 +42,108 @@ sources:
     kind: pdf
 rows:
 - field: revenue
+  source: xbrl
+  tag: Revenue
+  years:
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 13340000000.0
+  - 14339000000.0
+  - 15539000000.0
+  - 17332000000.0
+  - 19021000000.0
+  - 20360000000.0
+- field: operating_profit
+  source: xbrl
+  tag: ProfitLossFromOperatingActivities
+  years:
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 1174000000.0
+  - 1224000000.0
+  - 1270000000.0
+  - 1490000000.0
+  - 1752000000.0
+  - 1947000000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: CashFlowsFromUsedInOperatingActivities
+  years:
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 2872000000.0
+  - 2831000000.0
+  - 2895000000.0
+  - 3505000000.0
+  - 3742000000.0
+  - 3930000000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: CashFlowsUsedInObtainingControlOfSubsidiariesOrOtherBusinessesClassifiedAsInvestingActivities
+  years:
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 235000000.0
+  - 181000000.0
+  - 169000000.0
+  - 560000000.0
+  - 333000000.0
+  - 1036000000.0
+- field: equity
+  source: xbrl
+  tag: Equity
+  years:
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 5305000000.0
+  - 5758000000.0
+  - 6134000000.0
+  - 6265000000.0
+  - 6626000000.0
+  - 7018000000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  values:
+  - 6205000000.0
+  - 6387000000.0
+  - 6480000000.0
+  - 7232000000.0
+  - 7390000000.0
+  - 8446000000.0
+- field: revenue
   source: ar2026
   years:
   - 2026
@@ -40,6 +160,7 @@ rows:
   - 14339
   - 13340
   quote: Net sales 20,360 19,021 17,332 15,539 14,339 13,340
+  unit: millions
 - field: organic_growth_pct
   source: ar2026
   years:
@@ -74,6 +195,7 @@ rows:
   - 1224
   - 1174
   quote: Operating profit (EBIT) 1,947 1,752 1,490 1,270 1,224 1,174
+  unit: millions
 - field: invested_capital
   source: ar2026
   years:
@@ -91,6 +213,7 @@ rows:
   - 8181
   - 7705
   quote: Capital employed 10,603 8,947 9,105 8,322 8,181 7,705
+  unit: millions
 - field: equity
   source: ar2026
   years:
@@ -108,6 +231,7 @@ rows:
   - 5758
   - 5305
   quote: Equity 7,018 6,626 6,265 6,134 5,758 5,305
+  unit: millions
 - field: net_debt
   source: ar2026
   years:
@@ -126,6 +250,7 @@ rows:
   - 1222
   quote: Net debt 1,918 953 1,020 825 987 1,222
   note: issuer net debt excluding IFRS 16 lease liabilities
+  unit: millions
 - field: revenue
   source: ar2021
   years:
@@ -143,6 +268,7 @@ rows:
   - 9520
   - 8611
   quote: Net sales 13,340 12,271 11,715 10,810 9,520 8,611
+  unit: millions
 - field: organic_growth_pct
   source: ar2021
   years:
@@ -178,6 +304,7 @@ rows:
   - 615
   - 535
   quote: Operating profit/loss (EBIT) 1,169 973 635 622 615 535
+  unit: millions
 - field: invested_capital
   source: ar2021
   years:
@@ -195,6 +322,7 @@ rows:
   - 6158
   - 5674
   quote: Capital employed 7,718 7,250 7,386 7,144 6,158 5,674
+  unit: millions
 - field: equity
   source: ar2021
   years:
@@ -212,6 +340,7 @@ rows:
   - 3443
   - 2990
   quote: Equity 5,317 4,807 4,589 4,262 3,443 2,990
+  unit: millions
 - field: net_debt
   source: ar2021
   years:
@@ -230,6 +359,7 @@ rows:
   - 2342
   quote: Net debt 1,222 1,797 2,266 2,179 2,133 2,342
   note: issuer net debt excluding IFRS 16 lease liabilities
+  unit: millions
 - field: operating_profit_adjusted
   source: ar2026
   years:
@@ -248,6 +378,7 @@ rows:
   - 939
   quote: Adjusted EBIT, SEK m. 1,487 1,281 1,097 964 1,001 939
   note: excludes IFRS 16 and items affecting comparability (method check 4.1, 2026-10-27)
+  unit: millions
 - field: operating_profit_adjusted
   source: ar2021
   years:
@@ -265,6 +396,7 @@ rows:
   - 638
   - 567
   quote: Adjusted EBIT, SEK m. 934 728 634 670 638 567
+  unit: millions
 - field: goodwill
   source: ar2026
   years:
@@ -275,6 +407,7 @@ rows:
   - 7390
   quote: Goodwill G14, G15, G16 8,446 7,390
   note: balance sheet goodwill at 30 June, for E145 Q1's tangible capital
+  unit: millions
 - field: goodwill
   source: ar2025
   years:
@@ -285,6 +418,7 @@ rows:
   - 7232
   quote: Goodwill G14, G15, G16 7,390 7,232
   note: balance sheet goodwill at 30 June, for E145 Q1's tangible capital
+  unit: millions
 - field: goodwill
   source: ar2021
   years:
@@ -295,6 +429,7 @@ rows:
   - 5952
   quote: Goodwill G14, G15, G16 6,205 5,952
   note: balance sheet goodwill at 30 June, for E145 Q1's tangible capital
+  unit: millions
 - field: goodwill
   source: ar2020
   years:
@@ -305,3 +440,9 @@ rows:
   - 5983
   quote: Goodwill K16 5,952 5,983
   note: balance sheet goodwill at 30 June, for E145 Q1's tangible capital
+  unit: millions
+business:
+  text: AcadeMedia runs preschools, compulsory and upper secondary schools and adult education, mainly in Sweden.
+  source: ar2026_bs
+  quote: Today, AcadeMedia is Europe’s largest education provider. We conduct operations along the entire education ladder, from preschool to adult education.
+fiscal_year_end: 06-30

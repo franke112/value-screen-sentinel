@@ -697,19 +697,58 @@ SPLIT_RATIO = 1.5
 XBRL_CASH = ("CashAndCashEquivalentsAtCarryingValue",
              "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents")
 
+#: HANDOFF A5 (2026-11-07): the same rows from `ifrs-full` facts -- an ESEF
+#: package read into companyfacts shape (`vss/esef.py`) or a 20-F filer's
+#: companyfacts. The tags are the ones `xbrl.IFRS_ANNUAL_FIELDS` reads, so
+#: a history and a manual store of one name agree on what a line is.
+IFRS_TAGS: dict[str, tuple[str, ...]] = {
+    "revenue": ("Revenue", "RevenueFromContractsWithCustomers"),
+    "operating_profit": ("ProfitLossFromOperatingActivities",),
+    "operating_cash_flow": ("CashFlowsFromUsedInOperatingActivities",),
+    # capex is handled apart: PP&E and intangibles are two lines of ONE
+    # statement and are written as two rows, which `parse` sums (E23; the
+    # hand-read Nordic histories already do this); the combined element
+    # only where neither is tagged.
+    "capex": (),
+    # the manual map's own element (xbrl.IFRS_E140_ACQUISITION_TAGS); a test
+    # holds the two equal
+    "acquisitions_paid": ("CashFlowsUsedInObtainingControlOfSubsidiariesOrOtherBusinesses"
+                          "ClassifiedAsInvestingActivities",),
+    "equity": ("EquityAttributableToOwnersOfParent", "Equity"),
+    "goodwill": ("Goodwill",),
+    "shares": ("AdjustedWeightedAverageShares",),
+}
+IFRS_CAPEX_SPLIT = ("PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+                    "PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities")
+IFRS_CAPEX_COMBINED = ("PurchaseOfPropertyPlantAndEquipmentIntangibleAssetsOtherThanGoodwill"
+                       "InvestmentPropertyAndOtherNoncurrentAssets",)
+IFRS_PRETAX = ("ProfitLossBeforeTax",)
+IFRS_INTEREST = ("InterestExpense",)
+#: E14 as in the IFRS manual map: borrowings alone, the split as tagged; the
+#: consolidated `Borrowings` line is not read.
+IFRS_DEBT_CURRENT = ("CurrentBorrowingsAndCurrentPortionOfNoncurrentBorrowings",
+                     "ShorttermBorrowings")
+IFRS_DEBT_NONCURRENT = ("LongtermBorrowings", "NoncurrentBorrowings")
+IFRS_CASH = ("CashAndCashEquivalents",)
+US_FORMS = ("10-K", "10-K/A")
+IFRS_FORMS = ("20-F", "20-F/A", "40-F", "ESEF")
+
 
 def _annual_facts(gaap: dict, tag: str, *, duration: bool,
-                  splits: bool = True) -> dict[str, float]:
-    """end date -> value, from 10-K FY facts; the latest filing wins."""
+                  splits: bool = True, currency: str = "USD",
+                  forms: tuple[str, ...] = US_FORMS) -> dict[str, float]:
+    """end date -> value, from annual-report FY facts; the latest filing
+    wins. An ESEF entry carries no `fp`: its form says it is the annual
+    report."""
     import datetime as _dt
     best: dict[str, tuple[str, float]] = {}
     seen: dict[str, list[tuple[str, float]]] = {}
     unit_rows = gaap.get(tag, {}).get("units", {})
     for unit, rows in unit_rows.items():
-        if unit not in ("USD", "shares"):
+        if unit not in (currency, "shares"):
             continue
         for r in rows:
-            if r.get("form") not in ("10-K", "10-K/A") or r.get("fp") != "FY":
+            if r.get("form") not in forms or r.get("fp", "FY" if r.get("form") == "ESEF" else None) != "FY":
                 continue
             if duration:
                 if "start" not in r:
@@ -758,13 +797,31 @@ PRE_WINDOW_YEARS = 3
 
 
 def from_companyfacts(ticker: str, facts: dict, *, years: int = 11,
-                      fetched: str = "") -> dict[str, Any]:
+                      fetched: str = "", taxonomy: str = "us-gaap",
+                      source: dict[str, Any] | None = None) -> dict[str, Any]:
     """A history file's raw form from companyfacts: one row per field per
-    tag, the tag named, no quote (the provenance is the tag)."""
-    gaap = facts.get("facts", {}).get("us-gaap", {})
+    tag, the tag named, no quote (the provenance is the tag).
+
+    ``taxonomy="ifrs-full"`` (HANDOFF A5) reads `IFRS_TAGS` -- an ESEF
+    package in companyfacts shape, or a 20-F filer -- in the currency the
+    facts themselves state; ``source`` then names where the facts came
+    from (the packages and their digests)."""
+    ifrs = taxonomy == "ifrs-full"
+    gaap = facts.get("facts", {}).get(taxonomy, {})
+    if ifrs:
+        from .xbrl import IFRS_TAXONOMY, reporting_currency
+        currency = reporting_currency(facts, IFRS_TAXONOMY)
+        forms, tagset = IFRS_FORMS, IFRS_TAGS
+    else:
+        currency, forms, tagset = "USD", US_FORMS, XBRL_TAGS
+
+    def annual(tag: str, *, duration: bool, splits: bool = True) -> dict[str, float]:
+        return _annual_facts(gaap, tag, duration=duration, splits=splits,
+                             currency=currency, forms=forms)
+
     ocf: dict[str, float] = {}
-    for t in XBRL_TAGS["operating_cash_flow"]:
-        for e, v in _annual_facts(gaap, t, duration=True).items():
+    for t in tagset["operating_cash_flow"]:
+        for e, v in annual(t, duration=True).items():
             ocf.setdefault(e, v)
     # One fiscal year per label: a filer that moved its year end (HRB,
     # April -> June in 2021) keeps both runs, the later end winning a label.
@@ -790,19 +847,41 @@ def from_companyfacts(ticker: str, facts: dict, *, years: int = 11,
             row["unit"] = unit
         rows.append(row)
 
-    for fld, tags in XBRL_TAGS.items():
+    for fld, tags in tagset.items():
         dur = fld not in ("equity", "goodwill")
         filled: dict[str, float] = {}
+        if fld == "capex" and ifrs:
+            # two lines of one statement, two rows (parse sums them) -- and
+            # only in a year whose PP&E line is tagged: intangibles alone are
+            # not the capex (ACAD.ST tags its PP&E spend in its own concepts
+            # and only 3-13m of intangibles in the standard one)
+            ppe_years = set(annual(IFRS_CAPEX_SPLIT[0], duration=True))
+            for t in IFRS_CAPEX_SPLIT:
+                got = {e: v for e, v in annual(t, duration=True).items()
+                       if e in ends and e in ppe_years}
+                if got:
+                    add(fld, t, got, negate_abs=True)
+                    filled.update(got)
+            for t in IFRS_CAPEX_COMBINED:
+                got = {e: v for e, v in annual(t, duration=True).items()
+                       if e in ends and e not in filled}
+                if got:
+                    add(fld, t, got, negate_abs=True)
+                    filled.update(got)
+            continue
         for t in tags:
-            got = _annual_facts(gaap, t, duration=dur)
+            got = annual(t, duration=dur)
             new = {e: v for e, v in got.items() if e in ends and e not in filled}
             if new:
                 if fld == "shares" and any(
-                        _annual_facts(gaap, t, duration=dur, splits=False)[e] != v
+                        annual(t, duration=dur, splits=False)[e] != v
                         for e, v in new.items()):
                     t += " (split-adjusted: years filed before the split x its ratio)"
+                # us-gaap states a payment positive; so does ifrs-full's
+                # acquisition element, whose NEGATIVE is net cash acquired
+                # (EVO 2020, NetEnt) and is kept as it stands, not abs'd
                 add(fld, t, new, unit=("whole" if fld == "shares" else None),
-                    negate_abs=fld in ("capex", "acquisitions_paid"))
+                    negate_abs=fld == "capex" or (fld == "acquisitions_paid" and not ifrs))
                 filled.update(new)
         if fld == "acquisitions_paid":
             zeros = {e: 0.0 for e in ends if e not in filled}
@@ -814,11 +893,11 @@ def from_companyfacts(ticker: str, facts: dict, *, years: int = 11,
             def merged(tags):
                 out: dict[str, tuple[float, str]] = {}
                 for t in tags:
-                    for e, v in _annual_facts(gaap, t, duration=True).items():
+                    for e, v in annual(t, duration=True).items():
                         out.setdefault(e, (v, t))
                 return out
-            pre = merged(XBRL_PRETAX)
-            intr = merged(XBRL_INTEREST + ("InterestExpenseBorrowings",))
+            pre = merged(IFRS_PRETAX if ifrs else XBRL_PRETAX)
+            intr = merged(IFRS_INTEREST if ifrs else XBRL_INTEREST + ("InterestExpenseBorrowings",))
             groups: dict[str, dict[str, float]] = {}
             for e in ends:
                 if e in filled or e not in pre or e not in intr:
@@ -830,33 +909,76 @@ def from_companyfacts(ticker: str, facts: dict, *, years: int = 11,
                 filled.update(got)
     # net debt = debt - cash; invested capital = equity + net debt
     cash = {}
-    for t in XBRL_CASH:
-        cash = _annual_facts(gaap, t, duration=False)
+    for t in (IFRS_CASH if ifrs else XBRL_CASH):
+        cash = annual(t, duration=False)
         if cash:
             break
-    whole = _annual_facts(gaap, XBRL_DEBT_WHOLE[0], duration=False)
-    parts = {t: _annual_facts(gaap, t, duration=False) for t in XBRL_DEBT_PARTS}
     debt: dict[str, float] = {}
-    for e in ends:
-        if e in whole:
-            d = whole[e] + sum(parts[t].get(e, 0.0) for t in ("ShortTermBorrowings", "CommercialPaper"))
-        else:
-            d = sum(parts[t].get(e, 0.0) for t in XBRL_DEBT_PARTS if t != "DebtCurrent") \
-                + (parts["DebtCurrent"].get(e, 0.0) if e not in parts["LongTermDebtCurrent"] else 0.0)
-        debt[e] = d
-    nd = {e: debt[e] - cash[e] for e in ends if e in cash}
-    add("net_debt", "derived: LongTermDebt (or its parts) + short-term borrowings - "
-        + (XBRL_CASH[0]), nd)
+    if ifrs:
+        def first(tags):
+            out: dict[str, float] = {}
+            for t in tags:
+                for e, v in annual(t, duration=False).items():
+                    out.setdefault(e, v)
+            return out
+        cur, non = first(IFRS_DEBT_CURRENT), first(IFRS_DEBT_NONCURRENT)
+        # NOT the us-gaap nil: an ESEF issuer may state its borrowings in its
+        # OWN extension concepts (Olvi: OLV:LongTermBorrowingsAndNonCurrent-
+        # LeaseLiabilities), so a year with neither standard leg tagged has
+        # no net debt -- DATA MISSING, never zero debt.
+        # And a balance-sheet borrowing concept OUTSIDE the two legs at that
+        # end (ACAD.ST tags its current leg 2024-2026 as
+        # CurrentPortionOfLongtermBorrowings, 1,240m at 2026-06-30) means
+        # the legs are not the whole: that year is DATA MISSING too.
+        legs = set(IFRS_DEBT_CURRENT) | set(IFRS_DEBT_NONCURRENT)
+        foreign: dict[str, list[str]] = {}
+        for t in gaap:
+            if "Borrowings" not in t or t in legs or re.search(
+                    r"Proceeds|Repayments|Payments|Interest|Cost|Gain|Loss|Increase|Decrease", t):
+                continue
+            for e in annual(t, duration=False):
+                foreign.setdefault(e, []).append(t)
+        for e in ends:
+            if (e in cur or e in non) and e not in foreign:
+                debt[e] = cur.get(e, 0.0) + non.get(e, 0.0)
+        how = ("derived: " + " / ".join(IFRS_DEBT_CURRENT) + " + "
+               + " / ".join(IFRS_DEBT_NONCURRENT) + " (borrowings alone, E14; "
+               "a year with neither leg tagged is DATA MISSING) - " + IFRS_CASH[0])
+    else:
+        whole = annual(XBRL_DEBT_WHOLE[0], duration=False)
+        parts = {t: annual(t, duration=False) for t in XBRL_DEBT_PARTS}
+        for e in ends:
+            if e in whole:
+                d = whole[e] + sum(parts[t].get(e, 0.0) for t in ("ShortTermBorrowings", "CommercialPaper"))
+            else:
+                d = sum(parts[t].get(e, 0.0) for t in XBRL_DEBT_PARTS if t != "DebtCurrent") \
+                    + (parts["DebtCurrent"].get(e, 0.0) if e not in parts["LongTermDebtCurrent"] else 0.0)
+            debt[e] = d
+        how = ("derived: LongTermDebt (or its parts) + short-term borrowings - "
+               + XBRL_CASH[0])
+    nd = {e: debt[e] - cash[e] for e in ends if e in cash and e in debt}
+    add("net_debt", how, nd)
     capex_all: dict[str, float] = {}
-    for t in XBRL_TAGS["capex"]:
-        for e, v in _annual_facts(gaap, t, duration=True).items():
-            capex_all.setdefault(e, abs(v))
+    if ifrs:
+        ppe_years = set(annual(IFRS_CAPEX_SPLIT[0], duration=True))
+        for t in IFRS_CAPEX_SPLIT:
+            for e, v in annual(t, duration=True).items():
+                if e in ppe_years:
+                    capex_all[e] = capex_all.get(e, 0.0) + abs(v)
+        for t in IFRS_CAPEX_COMBINED:
+            for e, v in annual(t, duration=True).items():
+                capex_all.setdefault(e, abs(v))
+    else:
+        for t in XBRL_TAGS["capex"]:
+            for e, v in annual(t, duration=True).items():
+                capex_all.setdefault(e, abs(v))
     pre_oe = {int(e[:4]): ocf[e] - capex_all[e] for e in before_ends if e in capex_all}
-    return {"ticker": ticker, "currency": "USD", "money_unit": "whole",
+    src = source or {"kind": "sec-xbrl",
+                     "url": "https://data.sec.gov/api/xbrl/companyfacts/",
+                     "fetched": fetched}
+    return {"ticker": ticker, "currency": currency, "money_unit": "whole",
             **({"owner_earnings_before_window": pre_oe} if pre_oe else {}),
-            "sources": {"xbrl": {"kind": "sec-xbrl",
-                                 "url": "https://data.sec.gov/api/xbrl/companyfacts/",
-                                 "fetched": fetched}},
+            "sources": {"xbrl": src},
             "rows": rows}
 
 
@@ -888,26 +1010,65 @@ def summary(h: History) -> str:
     return "\n".join(out)
 
 
+def esef_raw(ticker: str, *, fetched: str = "") -> tuple[dict[str, Any], list[str]]:
+    """The history's raw form from the issuer's ESEF packages (HANDOFF A5):
+    the packages read by `vss/esef.py` (LEI checked), merged in companyfacts
+    shape, through `IFRS_TAGS`. Returns the refusals too."""
+    from . import esef
+    packages, refused = esef.packages_for(ticker)
+    if not packages:
+        raise HistoryError(f"{ticker}: no readable ESEF package in sources/"
+                           + ("".join(f"\n  refused {r}" for r in refused)))
+    source = {"kind": "esef-ixbrl", "fetched": fetched,
+              "packages": [{"file": f"sources/{p.path.name}", "sha256": p.sha256,
+                            "filed": p.filed, "lei": p.lei}
+                           for p in sorted(packages, key=lambda k: k.filed)]}
+    raw = from_companyfacts(ticker, esef.merged_facts(packages), fetched=fetched,
+                            taxonomy="ifrs-full", source=source)
+    capex_own = sorted({c for p in packages for c in p.extensions
+                        if re.search(r"invest|purchase|capex|capitalexpenditure", c, re.I)
+                        and re.search(r"propert|equipment|leasehold|tangible|fixedasset|plant", c, re.I)})
+    if capex_own:
+        # the issuer states its capital spend in its own concepts: the
+        # standard lines are not the whole, so no capex (and no owner
+        # earnings before the window) is formed
+        raw["rows"] = [r for r in raw["rows"] if r["field"] != "capex"]
+        raw.pop("owner_earnings_before_window", None)
+        source["capex_withheld"] = ("the issuer tags capital expenditure in its own "
+                                    "extension concepts, which are not read: " + ", ".join(capex_own))
+    own = sorted({c for p in packages for c in p.extensions if re.search(r"borrow|debt|loan", c, re.I)})
+    if own:
+        # the issuer states (some of) its borrowings in its own concepts:
+        # the standard legs are not the whole, so no net debt is formed
+        raw["rows"] = [r for r in raw["rows"] if r["field"] != "net_debt"]
+        source["net_debt_withheld"] = ("the issuer tags borrowings in its own extension "
+                                       "concepts, which are not read: " + ", ".join(own))
+    return raw, refused
+
+
 def run_history(*, ticker: str, xbrl: bool = False, write: bool = False,
                 check_only: bool = False, directory: Path | None = None,
-                cik: int | None = None) -> tuple[int, str]:
+                cik: int | None = None, esef: bool = False) -> tuple[int, str]:
     directory = Path(directory or HISTORY_DIR)
-    if xbrl:
+    if xbrl or esef:
         from datetime import date as _date
-        from .xbrl import fetch_company_facts
-        cik = cik or _cik(ticker)
-        if cik is None:
-            return 2, f"{ticker}: no cik on the watchlist entry"
-        raw = from_companyfacts(ticker, fetch_company_facts(cik),
-                                fetched=_date.today().isoformat())
-        h = parse(raw, path=f"{ticker} (companyfacts)")
+        if esef:
+            raw, refused = esef_raw(ticker, fetched=_date.today().isoformat())
+        else:
+            from .xbrl import fetch_company_facts
+            cik = cik or _cik(ticker)
+            if cik is None:
+                return 2, f"{ticker}: no cik on the watchlist entry"
+            raw = from_companyfacts(ticker, fetch_company_facts(cik),
+                                    fetched=_date.today().isoformat())
+        h = parse(raw, path=f"{ticker} ({'ESEF packages' if esef else 'companyfacts'})")
         text = dump(raw)
         if write:
             directory.mkdir(parents=True, exist_ok=True)
             target = directory / f"{ticker}.yaml"
             if target.exists():
                 existing = yaml.safe_load(target.read_text(encoding="utf-8")) or {}
-                for keep in ("business", "revenue_pass_through"):
+                for keep in ("business", "revenue_pass_through", "fiscal_year_end"):
                     if existing.get(keep):
                         raw[keep] = existing[keep]
                 # the sources the kept business sentence cites stay, and
@@ -916,8 +1077,20 @@ def run_history(*, ticker: str, xbrl: bool = False, write: bool = False,
                 for k, v in (existing.get("sources") or {}).items():
                     if k != "xbrl":
                         raw["sources"].setdefault(k, v)
-                raw["rows"] += [r for r in existing.get("rows") or []
-                                if r.get("source") != "xbrl"]
+                # a kept row with no unit of its own was read in the OLD
+                # file's money unit; it keeps that unit, stated, so a merge
+                # into a file of another unit cannot rescale it (ACAD.ST's
+                # hand-read rows are millions; the tagged rows are whole)
+                old_unit = existing.get("money_unit")
+                kept = []
+                for r in existing.get("rows") or []:
+                    if r.get("source") == "xbrl":
+                        continue
+                    if (old_unit and old_unit != raw.get("money_unit") and not r.get("unit")
+                            and r.get("field") not in ("shares", "organic_growth_pct")):
+                        r = {**r, "unit": old_unit}
+                    kept.append(r)
+                raw["rows"] += kept
                 text = dump(raw)
             target.write_text(text, encoding="utf-8")
             return 0, f"wrote {target}\n{summary(h)}"

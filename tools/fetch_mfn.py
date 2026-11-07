@@ -137,14 +137,21 @@ PACKAGE_DECLARED = frozenset({"application/octet-stream", "application/zip",
                               "application/x-zip-compressed"})
 
 
-def is_esef_package(body: bytes) -> bool:
-    """A ZIP holding an XBRL report package's META-INF/taxonomyPackage.xml."""
+def is_esef_package(body: bytes, _depth: int = 0) -> bool:
+    """A ZIP holding an XBRL report package's META-INF/taxonomyPackage.xml --
+    or a wrapper holding exactly ONE such package (EVO's 2024 filing came as
+    a validator's bundle with the package under Submission/)."""
     if not body.startswith(b"PK"):
         return False
     try:
         with zipfile.ZipFile(io.BytesIO(body)) as z:
-            return any(n.replace("\\", "/").endswith("META-INF/taxonomyPackage.xml")
-                       for n in z.namelist())
+            names = z.namelist()
+            if any(n.replace("\\", "/").endswith("META-INF/taxonomyPackage.xml") for n in names):
+                return True
+            if _depth:
+                return False
+            inner = [n for n in names if n.lower().endswith((".zip", ".xbri"))]
+            return len(inner) == 1 and is_esef_package(z.read(inner[0]), 1)
     except zipfile.BadZipFile:
         return False
 

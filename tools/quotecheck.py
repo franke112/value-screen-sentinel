@@ -9,6 +9,8 @@ writes nothing -- unless --apply names a store.
 --apply X sets `status: VERIFIED` and `verified_kind: machine_read_back` on
 every UNVERIFIED figure of config/manual/X.yaml whose verdict is PASS or
 PASS (near), and on nothing else (E131). Every other line is kept.
+E149: never on a figure whose line a machine chose (origin esef-ixbrl or
+llm-pdf); those are printed for the owner, who alone verifies them.
 """
 import collections
 import sys
@@ -33,8 +35,14 @@ def _entry_start(lines, where):
 def apply(ticker):
     """E131: mark the store's passing UNVERIFIED figures, nothing else."""
     path = Path("config/manual") / f"{ticker}.yaml"
-    checks = [r for r in Q.check_store(path)
+    passed = [r for r in Q.check_store(path)
               if r.verdict.startswith("PASS") and r.status == "UNVERIFIED"]
+    # E149: a figure whose line a machine chose (esef-ixbrl, llm-pdf) is
+    # never verified here; only the owner flips it
+    checks = [r for r in passed if not r.machine_chosen]
+    for r in passed:
+        if r.machine_chosen:
+            print(f"E149: NOT marked, owner verifies -- {ticker} {r.where} {r.name} ({r.verdict})")
     lines = path.read_text().split("\n")
     marked = []
     for r in checks:

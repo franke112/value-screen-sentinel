@@ -40,7 +40,26 @@ import yaml
 
 from vss import source as S
 
-TEXT_SUFFIXES = (".htm", ".html", ".pdf", ".txt")
+TEXT_SUFFIXES = (".htm", ".html", ".xhtml", ".pdf", ".txt")
+#: An ESEF report package: its one inline-XBRL report is the text (HANDOFF A4).
+PACKAGE_SUFFIXES = (".zip",)
+
+#: E149 (2026-11-07): origins whose figures machine_read_back may NOT
+#: verify. Quotecheck proves the transcription; it cannot prove the choice
+#: of line, and choosing the line is what the machine did. Only the owner
+#: flips these to VERIFIED; the check is shown to him as an audit aid.
+MACHINE_CHOSEN_ORIGINS = ("esef-ixbrl", "llm-pdf")
+
+
+def machine_chose(raw: dict, file_origin: str | None = None) -> bool:
+    """True where a machine chose this figure's line (E149): the file's
+    origin, the figure's `source:` or its page line says so."""
+    if (file_origin or "").strip().lower() in MACHINE_CHOSEN_ORIGINS:
+        return True
+    src = str(raw.get("source") or "").strip().lower()
+    page = str(raw.get("page") or "")
+    return (any(src.startswith(o) for o in MACHINE_CHOSEN_ORIGINS)
+            or page.startswith("ESEF ") or page.startswith("LLM-PDF "))
 
 EXACT, NEAR, MISSING = "EXACT", "NEAR", "MISSING"
 #: found, but in another of the issuer's filings than the one cited
@@ -102,10 +121,18 @@ def load_doc(path: str) -> Doc | None:
         return _CACHE[path]
     p = Path(path)
     doc = None
-    if p.exists() and p.suffix.lower() in TEXT_SUFFIXES:
+    if p.exists() and p.suffix.lower() in TEXT_SUFFIXES + PACKAGE_SUFFIXES:
         raw = p.read_bytes()
         try:
-            if S.looks_like_pdf(p.name, raw=raw):
+            if p.suffix.lower() in PACKAGE_SUFFIXES:
+                from vss import esef
+                try:
+                    _, raw = esef.report_document(raw)
+                except esef.EsefError:
+                    _CACHE[path] = None
+                    return None
+                text, _ = S.to_text(raw.decode("utf-8", errors="ignore"))
+            elif S.looks_like_pdf(p.name, raw=raw):
                 text = S.pdf_to_text(raw, where=str(p))
             else:
                 text, _ = S.to_text(raw.decode("utf-8", errors="ignore"))
@@ -248,6 +275,9 @@ class FigureCheck:
     search_ok: int = 0
     value_matched: bool | None = None
     note: str = ""
+    #: E149: a machine chose this figure's line; the check is an audit aid
+    #: for the owner and never verifies it.
+    machine_chosen: bool = False
 
     @property
     def verdict(self) -> str:
@@ -268,14 +298,15 @@ def _docs_named(text: str) -> list[str]:
     """The filings a page names: a path under sources/, a bare file name
     that is one, or an EDGAR accession number whose saved text is there."""
     text = text or ""
-    out = re.findall(r"sources/[^\s'\",;)]+?\.(?:html?|pdf|txt)\b", text)
-    for name in re.findall(r"(?<![/\w])([A-Z][\w.-]*_[\w.-]+?\.(?:html?|pdf|txt))\b",
+    out = re.findall(r"sources/[^\s'\",;)]+?\.(?:x?html?|pdf|txt|zip)\b", text)
+    for name in re.findall(r"(?<![/\w])([A-Z][\w.-]*_[\w.-]+?\.(?:x?html?|pdf|txt|zip))\b",
                            text):
         if Path("sources", name).exists():
             out.append(f"sources/{name}")
     for acc in re.findall(r"\b(\d{10}-\d{2}-\d{6})\b", text):
         out += sorted(str(p) for p in Path("sources").glob(f"_briefing_{acc}_*"))
-    return out
+    # a .zip is a document only when it is an ESEF package whose report reads
+    return [d for d in out if not d.lower().endswith(".zip") or load_doc(d) is not None]
 
 
 def _search_claims(page: str) -> tuple[list[tuple[str, int]], set[str]]:
@@ -513,6 +544,8 @@ def check_store(path: Path, *, include_verified: bool = False
                     continue
                 cell = check_cell(ticker, f"{block} {label}", name, raw,
                                   label)
-                out.append(cell or check_figure(ticker, f"{block} {label}",
-                                                name, raw, period_doc))
+                fc = cell or check_figure(ticker, f"{block} {label}",
+                                          name, raw, period_doc)
+                fc.machine_chosen = machine_chose(raw, data.get("origin"))
+                out.append(fc)
     return out

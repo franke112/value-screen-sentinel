@@ -1,0 +1,167 @@
+ticker: OLVAS.HE
+currency: EUR
+money_unit: whole
+sources:
+  xbrl:
+    kind: esef-ixbrl
+    fetched: '2026-11-07'
+    packages:
+    - file: sources/OLVAS.HE_2021-FY_annual-financial-report_2022-02-28_en_a0.zip
+      sha256: 0049d3e4da4f6c1aa832d8cbc972b01008b68359979bed1ff2d75b31882a82e5
+      filed: '2022-02-28'
+      lei: 7437003NX7WWVRT6AJ55
+    - file: sources/OLVAS.HE_2022-FY_annual-financial-report_2023-02-28_en_a0.zip
+      sha256: 3a8db40b1a1ab51e4ca3300012f3011cfebcd52af6f562639fddb441382c8d62
+      filed: '2023-02-28'
+      lei: 7437003NX7WWVRT6AJ55
+    - file: sources/OLVAS.HE_2023-FY_annual-financial-report_2024-02-29_en_a0.zip
+      sha256: 001a6743f03258ab3d034d5d3ce725e29d9d9c98b962d6a28d16717b94005be5
+      filed: '2024-02-29'
+      lei: 7437003NX7WWVRT6AJ55
+    - file: sources/OLVAS.HE_2024-FY_annual-financial-report_2025-03-21_en_a0.zip
+      sha256: fe40869f02f7ab03d689d98e62305d44ebd5101acbe7b5a22270737bd0665e5e
+      filed: '2025-03-21'
+      lei: 7437003NX7WWVRT6AJ55
+    - file: sources/OLVAS.HE_2025-FY_annual-financial-report_2026-03-11_en_a0.zip
+      sha256: f1ec1033720fdb6b5db20c8db9b9700019aacec387e7ca00ea4b996dcbccc0cd
+      filed: '2026-03-11'
+      lei: 7437003NX7WWVRT6AJ55
+    net_debt_withheld: 'the issuer tags borrowings in its own extension concepts, which are not read: OLV:CurrentBorrowingsAndCurrentPortionOfNonCurrentBorrowingsAndCurrentLeaseLiabilities, OLV:LongTermBorrowingsAndNonCurrentLeaseLiabilities,
+      OLV:RepaymentsOfBorrowingsAndPaymentsOfLeaseLiabilitiesClassifiedAsFinancingActivities, OLV:ShortTermBorrowingsAndCurrentLeaseLiabilities'
+rows:
+- field: revenue
+  source: xbrl
+  tag: Revenue
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 414884000.0
+  - 462226000.0
+  - 583703000.0
+  - 630605000.0
+  - 656907000.0
+  - 665275000.0
+- field: operating_profit
+  source: xbrl
+  tag: ProfitLossFromOperatingActivities
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 56435000.0
+  - 59439000.0
+  - 22364000.0
+  - 54918000.0
+  - 81386000.0
+  - 81811000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: CashFlowsFromUsedInOperatingActivities
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 65796000.0
+  - 89607000.0
+  - 67163000.0
+  - 27954000.0
+  - 86055000.0
+  - 80796000.0
+- field: capex
+  source: xbrl
+  tag: PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 30199000.0
+  - 28831000.0
+  - 36115000.0
+  - 23687000.0
+  - 37856000.0
+  - 53681000.0
+- field: capex
+  source: xbrl
+  tag: PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 1334000.0
+  - 2382000.0
+  - 1277000.0
+  - 1863000.0
+  - 1608000.0
+  - 650000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: CashFlowsUsedInObtainingControlOfSubsidiariesOrOtherBusinessesClassifiedAsInvestingActivities
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 6000.0
+  - -0.0
+  - 378000.0
+  - 2737000.0
+  - -0.0
+  - -7000.0
+- field: equity
+  source: xbrl
+  tag: EquityAttributableToOwnersOfParent
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 264967000.0
+  - 293997000.0
+  - 279231000.0
+  - 288617000.0
+  - 324227000.0
+  - 367100000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 25172000.0
+  - 25966000.0
+  - 22204000.0
+  - 22204000.0
+  - 22204000.0
+  - 22405000.0

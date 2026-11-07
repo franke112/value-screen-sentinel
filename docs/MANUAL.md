@@ -800,6 +800,47 @@ the input to a hand-read or a history, never figures by themselves. Two traps
 it is tested against: the Swedish *delårsrapport* contains *årsrapport*, and
 some issuers' annual reports carry no report tag at all.
 
+## ESEF pre-fill: `vss esef` and `vss manual --merge-draft`
+
+An EU-listed issuer files its annual report under ESEF as an inline-XBRL
+report package beside the PDF; `tools/fetch_mfn.py` saves it as `.zip` and
+records it in `sources/manifest.json`. `vss esef` reads every package for a
+ticker (`vss/esef.py`): `ifrs-full` facts only, no dimensional context
+(segment or scenario), the issuer's LEI checked against
+`config/mfn_entities.yaml` or nothing is read, extension concepts reported as
+"extension, not read". The facts go through the same IFRS map a 20-F filer
+does (`xbrl.IFRS_ANNUAL_FIELDS`, unchanged).
+
+```bash
+.venv/bin/python -m vss esef --ticker EVO.ST            # what the packages hold
+.venv/bin/python -m vss esef --ticker EVO.ST --draft    # config/manual/drafts/EVO.ST.esef-ixbrl.yaml
+.venv/bin/python -m vss manual --ticker EVO.ST --merge-draft --dry-run
+.venv/bin/python -m vss manual --ticker EVO.ST --merge-draft
+```
+
+**A pre-fill is a DRAFT, never the live store** (decision (a),
+`reference/HANDOFF-2026-11-07.md`): the ranking key is not gated on status, so
+an UNVERIFIED figure in the store would leak into it. Every drafted figure is
+UNVERIFIED and its page reads `ESEF <sha8> <concept> ctx <id> <period>,
+displayed '<text>', decimals <n>`. Not drafted: zeros (E25's `zero_basis` is a
+human claim), sums of captions, searched zeros, and every judgement field.
+`--merge-draft` adds what the store lacks, never overwrites a figure, prints a
+conflict side by side, refuses a different currency or money unit (no silent
+scaling), keeps every comment, validates the result and backs the old file up
+to `arkiv/config-bak/`. **E149:** `tools/quotecheck.py --apply` never verifies
+such a figure; quotecheck's output is an audit aid and only the owner flips
+the status.
+
+**History from the packages (E144).** `vss history --ticker EVO.ST --esef
+--write` builds `config/history/<T>.yaml` from the same packages (their
+comparatives reach one year further back) through an `ifrs-full` tag set that
+mirrors the us-gaap one. Where an issuer states its borrowings or its capital
+spend in its OWN extension concepts (Olvi, AcadeMedia), net debt or capex is
+withheld and the reason written into the file's source: the standard lines
+are then not the whole, and a nil is never assumed. Merged into an existing
+hand-read history, the hand rows keep their own unit and win where both
+speak. `tools/warren.py` stays US-only.
+
 ## Screener: `vss screen`
 
 Phases 1 to 3, 5 and 6: it builds the universe, snapshots its prices, runs the

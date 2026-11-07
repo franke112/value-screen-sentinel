@@ -6310,6 +6310,44 @@
       "recorded_after_the_fact": "the file was on disk with no manifest entry (fetched by tools/fetch_mfn.py before it wrote entries); on 2026-11-07 the feed URL was fetched again and its bytes are identical to the file's, so the entry was written from the feed item and the bytes on disk"
     },
     {
+      "file": "EVO.ST_2024-FY_annual-financial-report_2025-04-14_en_a0.zip",
+      "ticker": "EVO.ST",
+      "period": "2024-FY",
+      "origin": "mfn",
+      "primary_source": true,
+      "primary_source_basis": "the issuer's own regulatory release, as distributed by its newswire and carried on MFN's public feed (source 'cis' = Cision); the attachment is the document the issuer published",
+      "market": "XSTO:EVO, CAPA:EVOs, CAPA:E3G1d, XLON:0RQ6",
+      "company": "Evolution",
+      "disclosure_id": "49fd71f8-833a-4d3a-8e6b-b6b41f218abf",
+      "category_id": null,
+      "category": "annual-financial-report",
+      "headline": "Evolution AB (publ) Årsredovisning 2024",
+      "language": "sv",
+      "released": "2025-04-14T20:30:00Z",
+      "message_url": "https://mfn.se/cis/a/evolution/evolution-ab-publ-arsredovisning-2024-49fd71f8",
+      "attachment_index": 1,
+      "attachment_file_name": "Annual_Report_2024_SWEDISH_ESEF_2025-04-11_131555.zip",
+      "url": "https://mb.cision.com/Main/12069/4135393/3390777.zip",
+      "declared_type": "application/zip",
+      "content_type": "application/zip",
+      "bytes": 11860698,
+      "sha256": "b1b850c2a8ae486d95c1d097806b0114c48ada2981a7566ba8e0a26687c55790",
+      "downloaded_at": "2026-11-07T10:38:31+01:00",
+      "figures_read": false,
+      "source": "mfn",
+      "mfn_news_id": "49fd71f8-833a-4d3a-8e6b-b6b41f218abf",
+      "mfn_feed_source": "cis",
+      "mfn_tags": [
+        ":regulatory",
+        "sub:report",
+        "sub:report:annual"
+      ],
+      "lei": [
+        "549300SUH6ZR1RF6TA88"
+      ],
+      "esef_package": true
+    },
+    {
       "file": "EVO.ST_UNKNOWN_interim-report-q1-and-q3_2025-04-30_en_a0.pdf",
       "ticker": "EVO.ST",
       "period": "UNKNOWN",

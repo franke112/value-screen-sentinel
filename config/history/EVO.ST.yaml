@@ -1,0 +1,166 @@
+ticker: EVO.ST
+currency: EUR
+money_unit: whole
+sources:
+  xbrl:
+    kind: esef-ixbrl
+    fetched: '2026-11-07'
+    packages:
+    - file: sources/EVO.ST_2021-FY_annual-financial-report_2022-03-18_en_a0.zip
+      sha256: e8f1c2adef3351ced69d79c4f5facc1f4b0ec528394fad7e7bbcbd8e4769eff6
+      filed: '2022-03-18'
+      lei: 549300SUH6ZR1RF6TA88
+    - file: sources/EVO.ST_2022-FY_annual-financial-report_2023-03-14_en_a0.zip
+      sha256: bbbdbc08b2471439742aed56c5a0c4897198fc13a0d26152f161eadad647e090
+      filed: '2023-03-14'
+      lei: 549300SUH6ZR1RF6TA88
+    - file: sources/EVO.ST_2023-FY_annual-financial-report_2024-04-05_en_a0.zip
+      sha256: da51d4f8bc7938004a00ee25e78879f3e043cd9b47e43745710ecfab61252602
+      filed: '2024-04-05'
+      lei: 549300SUH6ZR1RF6TA88
+    - file: sources/EVO.ST_2024-FY_annual-financial-report_2025-04-14_en_a0.zip
+      sha256: b1b850c2a8ae486d95c1d097806b0114c48ada2981a7566ba8e0a26687c55790
+      filed: '2025-04-14'
+      lei: 549300SUH6ZR1RF6TA88
+    - file: sources/EVO.ST_2025-FY_annual-financial-report_2026-04-01_en_a0.zip
+      sha256: 0883e0af87886868228802fa528aaea68db268b07e231647cc2356875a308a86
+      filed: '2026-04-01'
+      lei: 549300SUH6ZR1RF6TA88
+rows:
+- field: operating_profit
+  source: xbrl
+  tag: ProfitLossFromOperatingActivities
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 299700000.0
+  - 654004000.0
+  - 908062000.0
+  - 1142730000.0
+  - 1419553000.0
+  - 1257306000.0
+- field: operating_cash_flow
+  source: xbrl
+  tag: CashFlowsFromUsedInOperatingActivities
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 316051000.0
+  - 598895000.0
+  - 877465000.0
+  - 1168447000.0
+  - 1301004000.0
+  - 1255217000.0
+- field: capex
+  source: xbrl
+  tag: PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 23251000.0
+  - 33307000.0
+  - 60661000.0
+  - 42219000.0
+  - 65318000.0
+  - 64599000.0
+- field: capex
+  source: xbrl
+  tag: PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 13635000.0
+  - 28285000.0
+  - 36278000.0
+  - 51973000.0
+  - 71395000.0
+  - 70231000.0
+- field: acquisitions_paid
+  source: xbrl
+  tag: CashFlowsUsedInObtainingControlOfSubsidiariesOrOtherBusinessesClassifiedAsInvestingActivities
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - -46085000.0
+  - 92230000.0
+  - 273136000.0
+  - 47536000.0
+  - 7583000.0
+  - 11191000.0
+- field: equity
+  source: xbrl
+  tag: Equity
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 2726171000.0
+  - 3190950000.0
+  - 3460281000.0
+  - 4006215000.0
+  - 3971835000.0
+  - 4076449000.0
+- field: goodwill
+  source: xbrl
+  tag: Goodwill
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 1834333000.0
+  - 2188482000.0
+  - 2315332000.0
+  - 2324005000.0
+  - 2276524000.0
+  - 2370154000.0
+- field: shares
+  source: xbrl
+  tag: AdjustedWeightedAverageShares
+  years:
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  values:
+  - 189021346.0
+  - 221818828.0
+  - 217505567.0
+  - 217069145.0
+  - 210473394.0
+  - 202951204.0
+  unit: whole

@@ -113,7 +113,16 @@ ORIGIN_XLSX = "nordic-xlsx"
 #: diffed and argued with, the same way `config/manual/maps/` holds the
 #: appendix path's.
 ORIGIN_XBRL = "sec-xbrl"
-VALID_ORIGINS: tuple[str, ...] = (ORIGIN, ORIGIN_XLSX, ORIGIN_XBRL)
+#: `esef-ixbrl` (2026-11-07, HANDOFF A4): a figure read by `vss/esef.py`
+#: out of the issuer's ESEF report package -- the inline-XBRL annual report
+#: filed under the EU's single electronic format -- through the SAME IFRS
+#: tag map a 20-F filer goes through. Unlike `sec-xbrl` it lands
+#: UNVERIFIED (decision (c)) and only ever as a DRAFT in
+#: `config/manual/drafts/`, merged by `vss manual --merge-draft`; and E149
+#: forbids E131's machine read-back from verifying it, because quotecheck
+#: proves the transcription and not the choice of line.
+ORIGIN_ESEF = "esef-ixbrl"
+VALID_ORIGINS: tuple[str, ...] = (ORIGIN, ORIGIN_XLSX, ORIGIN_XBRL, ORIGIN_ESEF)
 
 #: What each origin is, in one line, for the head of the report. A reader
 #: must never have to infer how a figure got into the file.
@@ -136,6 +145,16 @@ ORIGIN_PROSE: dict[str, str] = {
                   "WAS a decision is which tag answers which field, and "
                   "that decision is in `vss/xbrl.py` rather than in this "
                   "file."),
+    ORIGIN_ESEF: ("Every figure below was read by machine out of the "
+                  "issuer's ESEF report package -- the inline-XBRL annual "
+                  "report it filed -- into `{path}`, each one carrying the "
+                  "package's digest, the ifrs-full concept, the context and "
+                  "the text as displayed. No model read it and nothing was "
+                  "summed, scaled or inferred; issuer extension concepts "
+                  "were not read. Which concept answers which field is a "
+                  "decision, made in `vss/xbrl.py`'s IFRS map, and every "
+                  "figure stays UNVERIFIED until the owner has checked it "
+                  "(E149)."),
 }
 
 #: How each origin stands against the other two, in one sentence. Kept per
@@ -157,6 +176,13 @@ ORIGIN_CONTRAST: dict[str, str] = {
                   "machinery every other name gets -- not a shortcut past "
                   "any of them. The origin is stated on every line rather "
                   "than assumed."),
+    ORIGIN_ESEF: ("That is the issuer's own tagged facts, like the SEC "
+                  "path's -- but lifted by this project's reader from a "
+                  "package rather than served by a registry, so the figures "
+                  "enter UNVERIFIED and only the owner verifies them (E149); "
+                  "it is stronger than a hand reading of a PDF and weaker "
+                  "than `sec-xbrl`. The origin is stated on every line "
+                  "rather than assumed."),
 }
 
 #: A figure is VERIFIED once it has been read back against the page named

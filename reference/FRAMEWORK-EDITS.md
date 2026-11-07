@@ -13071,3 +13071,29 @@ the 2013 best of 852m); its values are unchanged (182.06). **LOPE and
 CROX still fail**: their 2014 was negative too (LOPE -1.6m, CROX -27.6m),
 two years in a row, which E148 calls a pattern. CROX fails on its
 unrepaired 2025 fall as well. BKNG is unchanged (2020 repaired by 2022).
+
+### E149 — a machine read-back never verifies a figure whose line a machine chose
+
+**DECIDED 2026-11-07 by the session under E141** (HANDOFF-2026-11-07,
+decision (b); the owner approved the plan: "kötta o fixa allt i ordning").
+The Nordic pre-fill reads figures by machine: `esef-ixbrl` out of the
+issuer's ESEF report package (`vss/esef.py`), and `llm-pdf` out of PDF pages
+by a model (HANDOFF part B). E131's `machine_read_back` (`vss/quotecheck.py`)
+checks TRANSCRIPTION: the quote stands on the page and the value stands in
+the quote. On a hand-read figure that is the half of a read-back a script
+can do, because the person who typed it chose the line. On a pre-filled
+figure the machine chose the line too, so a quotecheck PASS would be the
+machine agreeing with itself about the one thing that was its decision.
+
+> **E131's `machine_read_back` may NOT verify a figure whose origin is
+> `esef-ixbrl` or `llm-pdf`** -- whether the file's `origin:` says so, the
+> figure's `source:` begins with it, or its page line begins `ESEF` or
+> `LLM-PDF`. Such a figure enters UNVERIFIED and only the owner flips it
+> to VERIFIED. Quotecheck still runs on it and its output is shown to him
+> as an audit aid.
+
+ESEF figures land UNVERIFIED (decision (c)), unlike `sec-xbrl`, which lands
+VERIFIED/tagged: revisit only after about three names have been audited
+with zero defects. Applied in `tools/quotecheck.py --apply` (an E149 line
+is printed for each passing figure it does not mark) and
+`vss/quotecheck.py` `machine_chose`.

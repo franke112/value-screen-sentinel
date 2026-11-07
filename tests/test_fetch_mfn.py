@@ -222,3 +222,18 @@ def test_the_other_language_edition_on_disk_is_recorded_too(world):
     m = _manifest(w["src"])
     assert m[sv]["language"] == "sv" and m[sv]["url"] == "u/sv"
     assert not (w["src"] / "EVO.ST_2025-FY_annual-financial-report_2026-04-01_en_a0.pdf").exists()
+
+
+def test_a_wrapper_holding_one_package_is_a_package():
+    wrapper = _zip(["messages.json", "Read_This_First.pdf"])
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w") as z:
+        z.writestr("messages.json", "{}")
+        z.writestr("Submission/evo-2024.zip", PKG)
+    assert M.classify(buf.getvalue()) == "esef"
+    assert M.classify(wrapper) is None
+    two = io.BytesIO()
+    with zipfile.ZipFile(two, "w") as z:
+        z.writestr("a.zip", PKG)
+        z.writestr("b.zip", PKG)
+    assert M.classify(two.getvalue()) is None
