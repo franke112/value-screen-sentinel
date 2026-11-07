@@ -219,6 +219,46 @@ ignoring it later stops future commits without removing what is already there.
 
 ---
 
+## Quick start: about five minutes
+
+Tested from a fresh clone on 2026-11-07 (Debian 13, Python 3.13): clone and
+install took **29 seconds**, the first full run over 43 names **14 seconds**.
+
+```bash
+git clone https://github.com/franke112/value-screen-sentinel.git ~/vss
+cd ~/vss
+python3 -m venv .venv                      # see "Install" below if ensurepip is missing
+.venv/bin/python -m pip install -r requirements.txt
+
+# 1. settings: a contact address for SEC, and (optional) a phone topic
+mkdir -p ~/.config/vss
+cp deploy/vss.env.example ~/.config/vss/vss.env && chmod 600 ~/.config/vss/vss.env
+$EDITOR ~/.config/vss/vss.env              # VSS_SEC_CONTACT=yourtool/1.0 (you@example.com)
+                                           # NTFY_TOPIC / VSS_NTFY_URL = a private ntfy.sh topic
+
+# 2. try it -- nothing is written with --dry-run / --no-notify
+.venv/bin/python -m vss run --dry-run      # the nightly report, on the author's watchlist
+.venv/bin/python tools/warren.py KO AAPL   # would Warren own it?
+.venv/bin/python -m vss queue --no-notify  # every valued name against its lines
+
+# 3. make it yours: the watchlist and the queue in the repo are the AUTHOR'S
+cp config/watchlist.example.yaml config/watchlist.yaml   # or edit the author's
+$EDITOR config/queue.yaml                                 # or rebuild: tools/build_queue.py --write
+
+# 4. run it every night (user-level systemd; the timers are listed in SETUP.md)
+mkdir -p ~/.config/systemd/user
+cp deploy/*.service deploy/*.timer ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable --now vss.timer vss-screen.timer vss-checkin.timer \
+    vss-watch.timer vss-queue.timer vss-mfn.timer
+sudo loginctl enable-linger $USER          # so the timers fire when you are logged out
+```
+
+The units expect the clone at **`~/vss`** (`%h/vss` in `deploy/*.service`).
+Clone elsewhere and you change those paths. The hand-reading of reports and the
+decisions are done in Claude Code sessions -- see `CLAUDE.md` and
+`docs/manual/playbook.md` -- the machine only fetches, computes and tells.
+
 ## Install
 
 Requires Python 3.11+ and a working network connection.
@@ -229,7 +269,7 @@ Requires Python 3.11+ and a working network connection.
 > 3.11 venv works identically if you install one later.
 
 ```bash
-cd ~/stocks
+cd ~/vss
 python3 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
 .venv/bin/python -m pip install -r requirements.txt
@@ -246,7 +286,7 @@ sudo apt install python3.13-venv
 or, without root, bootstrap pip into the venv by hand:
 
 ```bash
-cd ~/stocks
+cd ~/vss
 python3 -m venv --without-pip .venv
 curl -sSL https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py
 .venv/bin/python /tmp/get-pip.py
@@ -268,7 +308,7 @@ Its dated `.bak-` copies are ignored -- git keeps the history now.
 ## Usage
 
 ```bash
-cd ~/stocks
+cd ~/vss
 
 .venv/bin/python -m vss run                    # fetch, report, persist
 .venv/bin/python -m vss run --dry-run          # print the report, write nothing
@@ -1352,8 +1392,8 @@ as current.
 
 ```bash
 mkdir -p ~/.config/systemd/user
-cp ~/stocks/deploy/vss.service ~/.config/systemd/user/
-cp ~/stocks/deploy/vss.timer   ~/.config/systemd/user/
+cp ~/vss/deploy/vss.service ~/.config/systemd/user/
+cp ~/vss/deploy/vss.timer   ~/.config/systemd/user/
 systemctl --user daemon-reload
 systemctl --user enable --now vss.timer
 ```
@@ -1385,7 +1425,7 @@ then `enable --now`): `vss-screen.timer` (Saturdays 08:00),
 `vss-queue.timer` (weekdays 22:50). The morning check-in warns if any of them
 is not both enabled and active.
 
-The unit runs `python -m vss run` from `~/stocks` with `Persistent=true`, so a
+The unit runs `python -m vss run` from `~/vss` with `Persistent=true`, so a
 run missed while the machine was off happens at the next opportunity rather
 than being skipped. It is sandboxed (`ProtectSystem=strict`,
 `ProtectHome=read-only`) with write access only to `data/` and `reports/`;
@@ -1396,7 +1436,7 @@ this was verified with a real run, not just assumed.
 ## Tests
 
 ```bash
-cd ~/stocks
+cd ~/vss
 .venv/bin/python -m pytest -q
 ```
 
