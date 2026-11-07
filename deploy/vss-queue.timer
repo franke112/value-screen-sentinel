@@ -1,0 +1,12 @@
+[Unit]
+Description=Run the queue's watchman after the nightly run, weekdays 22:50
+Documentation=file://%h/vss/vss/queue.py
+
+[Timer]
+OnCalendar=Mon..Fri *-*-* 22:50:00
+AccuracySec=1min
+Persistent=true
+Unit=vss-queue.service
+
+[Install]
+WantedBy=timers.target

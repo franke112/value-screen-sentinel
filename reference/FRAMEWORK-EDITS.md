@@ -13045,3 +13045,29 @@ adjusted series. `vss/history.py` now scales every year filed before a
 split (a year printed again with a count at least 1.5x apart) by its
 ratio; DECK re-struck 85.05 -> 123.45 (`reference/DECK-STRIKE-2026-10-28-split.md`).
 CPRT's series moved too; its growth is a view, so its value does not.
+
+### E148.1 — the earlier best may lie before the window; a negative year there counts as the second
+
+**DECIDED 2026-11-05 by the session under E141**, on the owner's objection
+("PHM ska väl inte falla för att de hade ett negativt år för 11 år sedan").
+PHM failed Q2 on 2015 alone: owner earnings -394m in the year it bought
+land after the housing bust, then 29m, 631m, 1,391m. E148 refused it as
+"the window's first year: there is no earlier best to regain". But the
+earlier best was there in the filings: owner earnings 746m (2012),
+852m (2013), 259m (2014). The 11-year window happened to OPEN on the
+negative year. That is the cut of the data, not the business having no
+earlier best, and a name was blocked by it.
+
+> **Q2, the repair clause:** the earlier best a negative year must regain
+> is read from the window AND from up to three filed years before it
+> (`owner_earnings_before_window` on the history; companyfacts supplies it,
+> and a hand-read history may carry it). A negative year before the window
+> counts as the second negative year: E148's "never two" holds across the
+> edge. No other test reads those years, so the window's medians, CAGRs,
+> means and every value are unchanged.
+
+Run on 2026-11-05: **PHM passes Q2** (2015 repaired by 2018, 1,391m against
+the 2013 best of 852m); its values are unchanged (182.06). **LOPE and
+CROX still fail**: their 2014 was negative too (LOPE -1.6m, CROX -27.6m),
+two years in a row, which E148 calls a pattern. CROX fails on its
+unrepaired 2025 fall as well. BKNG is unchanged (2020 repaired by 2022).

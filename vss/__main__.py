@@ -333,6 +333,23 @@ def build_parser() -> argparse.ArgumentParser:
         help="how many hours without a completed nightly run counts as a gap "
              "(default: 72)")
 
+    queue_cmd = sub.add_parser(
+        "queue",
+        help="THE QUEUE (config/queue.yaml): every valued name against its "
+             "buy, look and sell lines, its gate date and its new reports; "
+             "one ntfy message when something CHANGED; writes "
+             "reports/QUEUE-<date>.md and data/queue_state.json, never the "
+             "watchlist",
+    )
+    queue_cmd.add_argument("--asof", metavar="YYYY-MM-DD", default=None,
+                           help="the day to judge (default: today)")
+    queue_cmd.add_argument("--no-notify", action="store_true",
+                           help="write the report and the state, POST nothing")
+    queue_cmd.add_argument("--only", metavar="TICKER", nargs="+", default=None,
+                           help="these names only (the last-run date is not moved)")
+    queue_cmd.add_argument("--dry-run", action="store_true",
+                           help="print the report; write nothing, POST nothing")
+
     backfill_cmd = sub.add_parser(
         "backfill-vendor-strings",
         help="seed data/vss.sqlite with the vendor SECTOR and INDUSTRY "
@@ -655,6 +672,18 @@ def main(argv: list[str] | None = None) -> int:
             for line in vendorstrings.describe(vendorstrings.DB_PATH,
                                                backfill_hint=False):
                 print(line)
+            return 0
+
+        if args.command == "queue":
+            from datetime import date as _date
+            from .queue import run_queue
+
+            asof = _date.fromisoformat(args.asof) if args.asof else _date.today()
+            _, text, sent = run_queue(asof=asof,
+                                      notify=not (args.no_notify or args.dry_run),
+                                      only=args.only, save=not args.dry_run)
+            print(text if args.dry_run else
+                  f"reports/QUEUE-{asof.isoformat()}.md written; notification: {sent}")
             return 0
 
         if args.command == "checkin":

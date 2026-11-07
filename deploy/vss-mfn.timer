@@ -1,0 +1,12 @@
+[Unit]
+Description=Fetch new Nordic report PDFs before the queue's watchman, daily 22:40
+Documentation=file://%h/vss/tools/fetch_mfn.py
+
+[Timer]
+OnCalendar=*-*-* 22:40:00
+AccuracySec=1min
+Persistent=true
+Unit=vss-mfn.service
+
+[Install]
+WantedBy=timers.target

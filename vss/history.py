@@ -94,6 +94,12 @@ class History:
     #: cycle. The reason is written in the file; the effect is that the
     #: organic PROXY and the revenue/margin cycle tests are not run.
     revenue_pass_through: str = ""
+    #: E148.1: owner earnings (operating cash flow less capex, WHOLE units)
+    #: of up to three filed years BEFORE the window. Read only by Q2's
+    #: repair clause, for the earlier best a negative first year must
+    #: regain; no other test sees these years, so the window's medians,
+    #: CAGRs and means are unchanged.
+    owner_earnings_before_window: dict[int, float] = field(default_factory=dict)
     #: year -> field -> value in WHOLE units (money) or a whole count
     #: (shares) or a FRACTION (organic growth). Newer source wins.
     years: dict[int, dict[str, float]] = field(default_factory=dict)
@@ -189,7 +195,10 @@ def parse(raw: dict[str, Any], *, path: str = "") -> History:
                    business=raw.get("business"),
                    fiscal_year_end=str(raw.get("fiscal_year_end") or "12-31"),
                    path=path, years=years,
-                   revenue_pass_through=str(raw.get("revenue_pass_through") or ""))
+                   revenue_pass_through=str(raw.get("revenue_pass_through") or ""),
+                   owner_earnings_before_window={
+                       int(y): float(v) for y, v in
+                       (raw.get("owner_earnings_before_window") or {}).items()})
 
 
 def load(ticker: str, *, directory: Path = HISTORY_DIR) -> History | None:
@@ -602,16 +611,25 @@ def quality(h: History, *, tax: float, fcf0: float, net_debt: float,
     # shut-down year repaired. A first year has no earlier best to regain.
     oys, repaired = sorted(oe), []
     for y in neg:
-        before = [oe[z] for z in oys if z < y]
+        # E148.1: the earlier best may lie before the window. A window that
+        # happens to OPEN on the negative year (PHM 2015) is the cut of the
+        # data, not the business having no earlier best.
+        before = [oe[z] for z in oys if z < y] + [
+            v for z, v in h.owner_earnings_before_window.items() if z < y]
         later = [oe[z] for z in oys if y < z <= y + 3]
         if before and later and max(before) > 0 and max(later) >= max(before):
             repaired.append(y)
-    forgiven = repaired[:1] if len(neg) == 1 else []
+    # "never two": a negative year read from before the window counts as
+    # the second (LOPE and CROX: 2014 and 2015 both at or below zero)
+    pre_neg = [z for z, v in h.owner_earnings_before_window.items() if v <= 0]
+    forgiven = repaired[:1] if len(neg) == 1 and not pre_neg else []
     if profit:
         q2 = not [y for y in neg if y not in forgiven] and not unrecovered
         out.append(Test("Q2 stability", q2,
                         f"owner earnings negative in {neg or 'no year'}"
                         + (f" (repaired within three years, E148)" if forgiven else "")
+                        + (f" (and {sorted(pre_neg)} before the window: two years, a pattern, E148.1)"
+                           if neg and pre_neg else "")
                         + f"; {label} at most "
                         f"{worst_fall:.0%} below its running peak"
                         + (f", not regained within three years after {unrecovered}"
@@ -735,6 +753,10 @@ def _annual_facts(gaap: dict, tag: str, *, duration: bool,
     return out
 
 
+#: E148.1: filed years before the window that Q2's repair clause may read.
+PRE_WINDOW_YEARS = 3
+
+
 def from_companyfacts(ticker: str, facts: dict, *, years: int = 11,
                       fetched: str = "") -> dict[str, Any]:
     """A history file's raw form from companyfacts: one row per field per
@@ -750,6 +772,7 @@ def from_companyfacts(ticker: str, facts: dict, *, years: int = 11,
     for e in sorted(ocf):
         by_year[int(e[:4])] = e
     ends = [by_year[y] for y in sorted(by_year)][-years:]
+    before_ends = [by_year[y] for y in sorted(by_year)][:-years][-PRE_WINDOW_YEARS:]
     if not ends:
         raise HistoryError(f"{ticker}: companyfacts has no annual operating cash flow")
     label = {e: int(e[:4]) for e in ends}
@@ -824,7 +847,13 @@ def from_companyfacts(ticker: str, facts: dict, *, years: int = 11,
     nd = {e: debt[e] - cash[e] for e in ends if e in cash}
     add("net_debt", "derived: LongTermDebt (or its parts) + short-term borrowings - "
         + (XBRL_CASH[0]), nd)
+    capex_all: dict[str, float] = {}
+    for t in XBRL_TAGS["capex"]:
+        for e, v in _annual_facts(gaap, t, duration=True).items():
+            capex_all.setdefault(e, abs(v))
+    pre_oe = {int(e[:4]): ocf[e] - capex_all[e] for e in before_ends if e in capex_all}
     return {"ticker": ticker, "currency": "USD", "money_unit": "whole",
+            **({"owner_earnings_before_window": pre_oe} if pre_oe else {}),
             "sources": {"xbrl": {"kind": "sec-xbrl",
                                  "url": "https://data.sec.gov/api/xbrl/companyfacts/",
                                  "fetched": fetched}},

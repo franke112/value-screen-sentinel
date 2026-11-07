@@ -76,7 +76,7 @@ KIND_WEEKLY = "weekly"
 
 #: The units the check-in expects to find enabled and loaded. A timer that
 #: is disabled starts nothing, and nothing else in this system would notice.
-WATCHED_TIMERS = ("vss.timer", "vss-screen.timer")
+WATCHED_TIMERS = ("vss.timer", "vss-screen.timer", "vss-queue.timer", "vss-mfn.timer")
 
 #: HOW MUCH OF THE WATCHLIST A NIGHTLY RUN MUST ACTUALLY PRICE.
 #:

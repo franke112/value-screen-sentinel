@@ -2475,7 +2475,12 @@ tickers:
     # PRICE -- Gate 2 class D, driven by the section 4.2 hard kill -- so
     # section 5.3 does not reach it, it has no row in section 6.3's matrix,
     # and no price level may wake it.
-    status: WATCH-GATED
+    status: PIPELINE   # 2026-11-07, E141 session decision, reference/MEKKO.HE-GATES-2026-11-07.md: gates re-walked after the Q3 report; WATCH-GATED 2026-09-08 to 2026-11-07
+    dd_at_entry: 0.2441     # E12, stamped on promotion: settled close 9.60 (2026-11-06) against the 52-week closing high 12.70
+    peak_date: 2026-01-15
+    tier: 2            # section 4.4 score 4 or 5 (gates 3-4 +2 green -1 soft): medium conviction; MBP 10.95 x 0.75 = 8.21
+    fv_base: 10.95     # reference/MEKKO.HE-STRIKE-2026-10-27-check.md (bear 9.25, bull 16.33), basis annual FY2025; refreshed on the FY2026 annual report
+    run_record: reference/run-records/MEKKO.HE-2026-10-27-check.json
     # NO dd_at_entry AND NO peak_date, DELIBERATELY. E12's stamp is what
     # PROMOTION TO PIPELINE writes (E111), and `rules.frozen_gate_1` fires
     # for PIPELINE alone: a WATCH-GATED name has its own re-entry rule under
@@ -2487,10 +2492,25 @@ tickers:
     # and struck 14.03 EUR, and that value is kept in the note below as
     # HISTORY rather than as an entry fact, because a gated name is not
     # being bought and E90's mbp is a value times a tier cushion.
-    catalyst_date: 2026-11-04          # Q3 2026 interim report -- the NAMED INFORMATION EVENT this status re-enters on, not a diary line. The issuer's own date: H1 2026 report, "Financial calendar for 2026".
-    catalyst_resolved:                 # set the day the Q3 2026 outcome is ingested.
-    catalyst_event: Q3 2026 interim report -- does the comparable operating margin return inside the guided 16-19% band?
+    catalyst_date: 2027-02-11          # FY2026 results, the issuer's own date (Q3 2026 report p.20, "Financial calendar for 2027"). EARLIER: 2026-11-04 (Q3 2026, the gate's re-entry event) -- the issuer's own date: H1 2026 report, "Financial calendar for 2026".
+    catalyst_resolved:                 # EARLIER: 2026-11-07, the Q3 2026 interim report (2026-11-04) read: comparable margin 25.0% vs 24.9% on net sales +3%; nine months 17.0%, inside 16-19%
+    catalyst_event: "FY2026 results -- full-year comparable margin inside 16-19%, no guidance cut, no second falling quarter of sales; the strike is refreshed on the annual report (week 12). EARLIER, Q3 2026 interim report -- does the comparable operating margin return inside the guided 16-19% band? (it did, 25.0% vs 24.9%)"
     notes: >-
+      2026-11-07 GATE CLEARED (E141, session): Q3 2026 interim report
+      (2026-11-04, sources/MEKKO.HE_UNKNOWN_interim-report-q1-and-q3_2026-11-04_en_a0.pdf
+      p.2 and p.4, Key figures). Net sales 52.1m vs 50.8m (+3%);
+      comparable operating profit 13.0m, margin 25.0% vs 24.9% (+10bps):
+      no compression on growing sales, so 4.2.2 does not fire. Nine months
+      comparable margin 17.0% (17.5%), inside the guided 16-19%; FY2026
+      guidance unchanged. International +16%; Finland -9% (comparable
+      retail -4%, still falling). Q3 OCF 5.3m vs 11.4m on working capital,
+      nine months 13.0m vs 12.1m. No interest-bearing debt drawn. Back to
+      INTAKE for a re-walk of the gates and a strike refresh on the Q3
+      figures; the 2026-09-08 strike (bear 9.25, base 10.95, bull 16.33)
+      stands until then. At 9.60 that is 0.88x base, above every tier
+      line but tier 1 (9.31): no buy.
+
+
       MEKKO.HE - WATCH-GATED, 2026-09-08, on Gate 2 class D, which the
       section 4.2 hard kill drives. Full record in
       reference/MEKKO.HE-GATED-2026-09-08.md.
@@ -2821,6 +2841,17 @@ tickers:
       under); net cash, tangible ROIC median 24.4%. Gated on the revenue
       kill; the business has grown revenue but not profit in ten years,
       which is what Q4 measures.
+      2026-11-07: Q3 10-Q (filed 2026-11-06) read. Q3 revenue 647.7m vs
+      655.2m (-1.1%), the figure already gated on. FY2026 guidance
+      2026-10-23: revenue ~2.65bn (from 2.65-2.75bn) and gross margin
+      34.0-34.5% (from 34.5-35.5%) -- a CUT, the first in the trailing four
+      releases (04-24 raised revenue, 07-24 raised margin), so 4.2.3 does
+      not fire. Guidance implies Q4 revenue ~675m (2,650 - 1,974.5 nine
+      months) against Q4 2025 644.4m, +5%: the gate event would clear if
+      it is met, though Q4 light-vehicle production is forecast -4%. Q4
+      ROIIC fail stands either way. Nine-month buybacks 270m (11.6m
+      shares); OCF 405.8m vs 461.6m on a 33.8m inventory build. Gate and
+      values unchanged.
   - ticker: SFM
     growth:
       base: 0.08

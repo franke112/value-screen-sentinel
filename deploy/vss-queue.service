@@ -1,0 +1,19 @@
+[Unit]
+Description=vss -- the queue's watchman (vss queue): every valued name against its lines; ntfy on a change; writes reports/QUEUE-<date>.md and data/queue_state.json only
+Documentation=file://%h/vss/vss/queue.py
+OnFailure=vss-failure@%n.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/vss
+ExecStart=%h/vss/.venv/bin/python -m vss queue
+EnvironmentFile=-%h/.config/vss/vss.env
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=vss-queue
+TimeoutStartSec=30min
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=%h/vss/data %h/vss/reports
+NoNewPrivileges=true

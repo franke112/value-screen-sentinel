@@ -4555,7 +4555,7 @@ def test_E111_an_INTAKE_name_carries_no_entry_stamp():
     # opposite of what a test is for.
     intaken = {t for t, e in entries.items() if e.status == "INTAKE"}
     assert intaken and intaken <= {"ACN", "AOS", "CPRT", "CROX", "LII",
-                                   "LOPE", "MUSA", "RKT.L", "ULTA"}
+                                   "LOPE", "MEKKO.HE", "MUSA", "RKT.L", "ULTA"}
     # CROX went INTAKE -> PIPELINE (2026-09-04) -> DROPPED (2026-09-08, on
     # Gate 2). BOTH STAMPS ARE KEPT through the drop: a dropped name is a
     # RECORD, and the reading Gate 1 was frozen on is part of what the

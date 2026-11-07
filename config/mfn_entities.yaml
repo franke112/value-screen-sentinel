@@ -1,0 +1,92 @@
+# ticker -> MFN issuer, found by tools/fetch_mfn.py; edit by hand if wrong
+ACAD.ST:
+  entity_id: 1162b9f6-26f5-4f4b-86cf-9e8afc701493
+  found: matched ACAD via 'AcadeMedia ()'
+  isins:
+  - SE0007897079
+  name: AcadeMedia
+  slug: academedia
+BIOMAR.CO:
+  entity_id: 62e1243f-0476-4ffe-be5b-ffe49b12140b
+  found: matched BIOMAR via 'BioMar'
+  isins:
+  - DK0064867972
+  name: BioMar Group
+  slug: biomar-group
+BOUV.OL:
+  entity_id: d3a25edc-66ce-4ccd-8438-1c1740575275
+  found: matched BOUV via 'Bouvet'
+  isins:
+  - NO0010360266
+  name: Bouvet
+  slug: bouvet
+EVO.ST:
+  entity_id: 135a020d-b58c-428e-9132-b3ceb1abc59f
+  found: matched EVO via 'Evolution'
+  isins:
+  - SE0012673267
+  name: Evolution
+  slug: evolution
+HIAB.HE:
+  entity_id: cbf1b76c-42fb-4d99-95e4-da6f087736a9
+  found: matched HIAB via 'Hiab'
+  isins:
+  - FI4000571013
+  name: Hiab
+  slug: hiab
+LIAB.ST:
+  entity_id: 82863fb0-9276-4892-969e-758c8313ccaa
+  found: matched LIAB via 'Lindab International'
+  isins:
+  - SE0001852419
+  name: Lindab International AB
+  slug: lindab-international
+MEKKO.HE:
+  entity_id: fb8a8b33-1f44-46e5-accb-042de5d78e57
+  found: matched MEKKO via 'Marimekko'
+  isins:
+  - FI0009007660
+  name: Marimekko
+  slug: marimekko
+OLVAS.HE:
+  entity_id: 93e455e9-576c-4090-91ec-ac7df13235df
+  found: matched OLVAS via 'Olvi'
+  isins:
+  - FI0009900401
+  name: Olvi
+  slug: olvi
+PNDORA.CO:
+  entity_id: 99f1071e-685d-4eac-aef1-a19b0327f2a9
+  found: matched PNDORA via 'PANDORA'
+  isins:
+  - DK0060252690
+  name: Pandora
+  slug: pandora
+RBREW.CO:
+  entity_id: 05aae70b-e970-4052-aebf-8a2596091eef
+  found: matched RBREW via 'Royal Unibrew'
+  isins:
+  - DK0060634707
+  name: Royal Unibrew
+  slug: royal-unibrew
+RVRC.ST:
+  entity_id: dd0529e7-558e-43d0-8499-a6f55273df83
+  found: matched RVRC via 'RVRC'
+  isins:
+  - SE0015962485
+  name: RVRC Holding AB
+  slug: rvrc-holding
+WAWI.OL:
+  entity_id: 1561b62d-4c7e-4a54-942c-107965b418e6
+  found: matched WAWI via 'Wallenius Wilhelmsen'
+  isins:
+  - NO0010571680
+  name: Wallenius Wilhelmsen
+  slug: wallenius-wilhelmsen
+ZZ-B.ST:
+  entity_id: 5277353b-4f57-49c2-8d6e-0ce91094dd5f
+  found: matched ZZ B via 'Zinzino ()'
+  isins:
+  - SE0002480442
+  name: Zinzino
+  slug: zinzino

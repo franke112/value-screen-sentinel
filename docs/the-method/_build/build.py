@@ -20,7 +20,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT_OUT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 
-BUILT = "2026-09-13"
+BUILT = "2026-11-07"
 REPO_URL = "https://github.com/franke112/value-screen-sentinel"
 
 S = {

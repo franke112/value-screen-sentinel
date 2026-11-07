@@ -156,7 +156,9 @@ def fake_systemctl(states):
 
 
 ALIVE = {"vss.timer": {"enabled": "enabled", "active": "active"},
-         "vss-screen.timer": {"enabled": "enabled", "active": "active"}}
+         "vss-screen.timer": {"enabled": "enabled", "active": "active"},
+         "vss-queue.timer": {"enabled": "enabled", "active": "active"},
+         "vss-mfn.timer": {"enabled": "enabled", "active": "active"}}
 
 
 def test_checkin_is_silent_when_everything_is_alive(db: Path) -> None:
@@ -184,7 +186,9 @@ def test_checkin_catches_a_disabled_timer_a_run_never_could(db: Path) -> None:
     record(db, finished=NOW - timedelta(hours=12))
     record(db, finished=NOW - timedelta(hours=12), kind=HB.KIND_WEEKLY)
     dead = {"vss.timer": {"enabled": "disabled", "active": "inactive"},
-            "vss-screen.timer": {"enabled": "enabled", "active": "active"}}
+            "vss-screen.timer": {"enabled": "enabled", "active": "active"},
+            "vss-queue.timer": {"enabled": "enabled", "active": "active"},
+         "vss-mfn.timer": {"enabled": "enabled", "active": "active"}}
     result = HB.checkin(db, now=NOW, runner=fake_systemctl(dead), notify=False)
     assert not result.healthy
     assert any("vss.timer is disabled/inactive" in line for line in result.lines)

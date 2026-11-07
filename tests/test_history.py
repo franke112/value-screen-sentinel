@@ -268,6 +268,45 @@ def test_e148_one_repaired_negative_year_is_forgiven():
     assert not _q2([50, -1, 60, -2, 70, 80]).passed         # two: not a shut-down year
 
 
+def _q2_pre(oe, before):
+    import dataclasses
+    years = list(range(2016, 2016 + len(oe)))
+    h = _hist([_row("operating_profit", "a", years, [100] * len(oe)),
+               _row("operating_cash_flow", "a", years, oe),
+               _row("capex", "a", years, [0] * len(oe))])
+    h = dataclasses.replace(h, owner_earnings_before_window=before)
+    return {t.name[:2]: t for t in H.quality(
+        h, tax=0.2, fcf0=70e6, net_debt=0, roiic_base=None,
+        repeat_buyer=False, rate=0.095)}["Q2"]
+
+
+def test_e148_1_the_earlier_best_may_lie_before_the_window():
+    # PHM: the window opens on 2015, the one negative year; 2013 is the best before it
+    assert _q2_pre([-5, 60, 70, 80, 90, 95], {2013: 50e6, 2014: 40e6}).passed
+    assert not _q2_pre([-5, 30, 40, 45, 48, 49], {2013: 50e6, 2014: 40e6}).passed  # never regained
+    # LOPE and CROX: the year before the window was negative too -- two years, a pattern
+    q = _q2_pre([-5, 60, 70, 80, 90, 95], {2013: 50e6, 2014: -1e6})
+    assert not q.passed and "before the window" in q.figure
+    # no earlier record at all: E148's first-year rule stands
+    assert not _q2_pre([-5, 60, 70, 80, 90, 95], {}).passed
+
+
+def test_from_companyfacts_carries_three_years_before_the_window():
+    def fy(end, val):
+        return {"start": f"{int(end[:4])}-01-01", "end": end, "val": val, "fy": int(end[:4]),
+                "fp": "FY", "form": "10-K", "filed": f"{int(end[:4]) + 1}-02-20"}
+    years = range(2010, 2026)
+    gaap = {"NetCashProvidedByUsedInOperatingActivities":
+                {"units": {"USD": [fy(f"{y}-12-31", 100.0 + y) for y in years]}},
+            "PaymentsToAcquirePropertyPlantAndEquipment":
+                {"units": {"USD": [fy(f"{y}-12-31", 10.0) for y in years]}}}
+    raw = H.from_companyfacts("XX", {"facts": {"us-gaap": gaap}})
+    assert sorted(raw["owner_earnings_before_window"]) == [2012, 2013, 2014]
+    assert raw["owner_earnings_before_window"][2014] == 100.0 + 2014 - 10.0
+    h = H.parse(raw)
+    assert min(h.years) == 2015 and 2014 not in h.years   # the window itself is unchanged
+
+
 def test_organic_growth_printed_as_its_parts_is_checked_on_the_parts():
     with pytest.raises(H.HistoryError):
         _hist([_row("organic_growth_pct", "a", [2021], [6.8], quote="10.0% ... 320 basis points",

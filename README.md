@@ -105,8 +105,8 @@ fifth did worst, and the quality tests helped. That is why the tool says
 ## Disclosure
 
 **I own shares in AcadeMedia (ACAD.ST), Cognizant (CTSH) and Central Garden
-& Pet (CENTA)** as of 2026-11-03 (the CTSH and CENTA positions are being
-exited; Cirrus Logic, CRUS, was sold in full on 2026-10-23), and the record in
+& Pet (CENTA)** as of 2026-11-07 (the CTSH and CENTA positions are being
+exited, two CENTA shares left; Cirrus Logic, CRUS, was sold in full on 2026-10-23), and the record in
 this repository shows when I bought and sold others. The fair values, buy limits (MBP) and stops in
 `config/watchlist.yaml` are my personal working notes, written for my own
 decisions. **Nothing here is a recommendation to buy, sell or hold any
@@ -136,8 +136,10 @@ the S&P 400 and S&P 500 lists come from Wikipedia
 CC BY-SA 4.0), the STOXX Europe 600 list from the iShares fund holdings file,
 and the Nordic lists from Yahoo's equity screener; each file's source is in
 its `.meta.json`. Prices come from Yahoo Finance via yfinance and filings
-from SEC EDGAR and the Nasdaq Nordic disclosure feed -- fetched by you, at
-run time.
+from SEC EDGAR, the Nasdaq Nordic disclosure feed and MFN's public news feed
+(Nordic report PDFs, `tools/fetch_mfn.py`); headlines for the queue come from
+Google News RSS -- all fetched by you, at run time. No broker account is
+read: the project never logs in anywhere.
 
 ## Read more
 
@@ -858,6 +860,59 @@ the per-name workbook. This decides only whether their inputs may be used.
 fetch; `ranking.csv` carries an `origin` column, and `source: manual` is a
 valid `quarters:` marker for a row the owner read themselves.
 
+## The queue: `vss queue`
+
+Every company that has been valued -- a full strike, a `tools/warren.py`
+screen or a rough value -- sits in `config/queue.yaml` with its bear / base /
+bull, and `vss queue` holds each one against its lines every weekday night
+(22:50, `deploy/vss-queue.timer`):
+
+| Zone | Meaning | Message |
+|---|---|---|
+| buy | at or under base x the tier cushion (E90) | `KÖPLINJE` |
+| look | no tier yet, and at or under base x 0.85 (strike) or x 0.75 (rough) -- "value it properly now", never "buy" | `TITTA` |
+| sell | a held name at a hand-set sell line or at its bull value | `SÄLJ` |
+| gate | a WATCH-GATED name whose event date has come | `SPÄRR` |
+| report | a new 10-Q / 10-K / 8-K results item, or a Nordic report | `RAPPORT` |
+
+**A change is said once.** A name that stays in its zone is not repeated
+the next night; it is said again only if it leaves and comes back. A gated
+name in its zone is shown in the report but not sent until the gate lifts --
+a hard kill is not a price, so no price may wake it. Headlines for each name
+are searched too, because some issuers publish outside the exchange feed
+(Zinzino's monthly sales go out on PR Newswire).
+
+```bash
+python -m vss queue --no-notify          # tonight's table, nothing sent
+python tools/build_queue.py --write      # re-harvest values after a new strike
+```
+
+`kind: strike` rows are harvested from the newest `reference/<T>-STRIKE-*.md`;
+`machine` and `rough` rows and the hand fields (`sell_at`, `look_at`, `note`,
+gate dates) are kept across rebuilds. Values are in the trading unit (a GBX
+listing's GBP strike is x100).
+
+## Nordic report PDFs: `tools/fetch_mfn.py`
+
+The report PDFs a broker's site shows for a Nordic company are the issuer's
+own releases, distributed through MFN or Cision. MFN carries both, is public,
+needs no login, and serves a JSON feed per issuer
+(`https://mfn.se/all/a/<slug>.json`) tagged `sub:report:annual`,
+`sub:report:interim` and `sub:report:interim:q4`.
+
+```bash
+python tools/fetch_mfn.py ZZ-B.ST EVO.ST --since 2015-01-01 --kinds annual
+python tools/fetch_mfn.py --queue --days 45      # the nightly job, 22:40 (deploy/vss-mfn.timer)
+```
+
+Files land in `sources/` under the existing naming,
+`<TICKER>_<period>_<kind>_<date>_<lang>_a<n>.pdf`; a date already on disk
+for that ticker is skipped. The ticker -> issuer mapping is found by search
+and cached in `config/mfn_entities.yaml`. It writes nothing else: the PDFs are
+the input to a hand-read or a history, never figures by themselves. Two traps
+it is tested against: the Swedish *delårsrapport* contains *årsrapport*, and
+some issuers' annual reports carry no report tag at all.
+
 ## Screener: `vss screen`
 
 Phases 1 to 3, 5 and 6: it builds the universe, snapshots its prices, runs the
@@ -1323,6 +1378,12 @@ Disable:
 ```bash
 systemctl --user disable --now vss.timer
 ```
+
+The other timers follow the same pattern (`cp deploy/<name>.{service,timer}`,
+then `enable --now`): `vss-screen.timer` (Saturdays 08:00),
+`vss-checkin.timer` (09:30 daily), `vss-mfn.timer` (22:40 daily),
+`vss-queue.timer` (weekdays 22:50). The morning check-in warns if any of them
+is not both enabled and active.
 
 The unit runs `python -m vss run` from `~/stocks` with `Persistent=true`, so a
 run missed while the machine was off happens at the next opportunity rather
