@@ -51,8 +51,9 @@ seconds for the first run.
 ```bash
 git clone https://github.com/franke112/value-screen-sentinel.git ~/vss && cd ~/vss
 python3 -m venv .venv && .venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python -m vss run --dry-run        # the nightly report, writes nothing
 export VSS_SEC_CONTACT='mytool/1.0 (you@example.com)'   # SEC asks every caller for a contact
+.venv/bin/python -m vss doctor               # checks Python, packages, settings; says what is missing
+.venv/bin/python -m vss run --dry-run        # the nightly report, writes nothing
 .venv/bin/python tools/warren.py KO AAPL     # would Warren own it?
 ```
 

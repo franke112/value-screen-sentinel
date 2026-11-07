@@ -35,6 +35,11 @@ routes; the rest is optional:
 | `VSS_OPENROUTER_KEY` | The report reader. Any OpenRouter model, set by `VSS_OPENROUTER_MODEL` (default `deepseek/deepseek-v4-flash`). |
 | `NTFY_TOPIC` / `VSS_NTFY_URL` | Phone alerts via [ntfy](https://ntfy.sh): the nightly run, the queue and the filing watcher. Pick a long random topic name: anyone who knows it can read it. |
 | `HEALTHCHECK_URL` | Optional dead man's switch via healthchecks.io. |
+| `EODHD_API_KEY` | Optional, in its own file `~/.config/eodhd/env` (chmod 600): the Nordic screen and the survivorship-free backtests read a paid EODHD subscription you hold yourself (docs/MANUAL.md). |
+
+Check everything at once: `.venv/bin/python -m vss doctor` prints one line
+per check (Python, packages, the SEC contact, this file's permissions, ntfy,
+the database, the timers) and exits 1 if anything is broken.
 
 Never commit this file.
 
@@ -53,6 +58,8 @@ account is ever read. You fetch your own:
 .venv/bin/python tools/warren.py KO AAPL             # would Warren own it? any US filer
 .venv/bin/python -m vss queue --no-notify            # every valued name against its lines
 .venv/bin/python tools/fetch_mfn.py EVO.ST --kinds annual   # a Nordic issuer's annual reports as PDF
+.venv/bin/python -m vss esef --ticker EVO.ST --draft         # its ESEF filing read into a draft store
+.venv/bin/python -m vss pdfdraft --ticker ZZ-B.ST --period 2026-Q2 --pdf sources/<report>.pdf   # needs VSS_OPENROUTER_KEY
 ```
 
 The tests read a few price files too. Fetch your own copies once:

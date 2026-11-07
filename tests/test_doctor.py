@@ -46,6 +46,17 @@ def test_a_checkout_the_units_do_not_run_is_a_fail(tmp_path):
     unit.write_text(f"[Service]\nWorkingDirectory={tmp_path}\n")
     assert D._checkout(repo=tmp_path, unit=unit).state == D.OK
     unit.write_text("[Service]\nWorkingDirectory=/nowhere/else\n")
+    assert D._checkout(repo=tmp_path, unit=unit).state in (D.FAIL, D.WARN)
+
+
+def test_a_checkout_elsewhere_without_installed_timers_is_only_a_hint(tmp_path, monkeypatch):
+    monkeypatch.setenv("HOME", str(tmp_path / "home"))
+    unit = tmp_path / "vss.service"
+    unit.write_text("[Service]\nWorkingDirectory=/nowhere/else\n")
+    assert D._checkout(repo=tmp_path, unit=unit).state == D.WARN
+    installed = tmp_path / "home" / ".config" / "systemd" / "user"
+    installed.mkdir(parents=True)
+    (installed / "vss.service").write_text("x")
     assert D._checkout(repo=tmp_path, unit=unit).state == D.FAIL
 
 

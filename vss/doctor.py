@@ -146,9 +146,15 @@ def _checkout(repo: Path = REPO, unit: Path | None = None) -> Check:
         return Check("checkout", WARN, f"{unit.name} names no WorkingDirectory")
     wd = Path(m.group(1).strip().replace("%h", str(Path.home())))
     ok = wd.resolve() == repo.resolve()
-    return Check("checkout", OK if ok else FAIL,
-                 f"{repo} is where {unit.name} runs" if ok
-                 else f"the units run in {wd}, this checkout is {repo}: the timers run other code")
+    if ok:
+        return Check("checkout", OK, f"{repo} is where {unit.name} runs")
+    installed = Path.home() / ".config" / "systemd" / "user" / unit.name
+    if not installed.exists():
+        # no timers installed: nothing runs other code; a hint, not a fault
+        return Check("checkout", WARN, f"the timers (not installed yet) expect {wd}; "
+                                       f"clone there, or edit WorkingDirectory before installing them")
+    return Check("checkout", FAIL,
+                 f"the units run in {wd}, this checkout is {repo}: the timers run other code")
 
 
 def run(*, get=None, env_file: Path | None = None, db: Path | None = None,
