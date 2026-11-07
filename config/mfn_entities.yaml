@@ -4,6 +4,8 @@ ACAD.ST:
   found: matched ACAD via 'AcadeMedia ()'
   isins:
   - SE0007897079
+  leis:
+  - 549300H47PGHY4JNKO68
   name: AcadeMedia
   slug: academedia
 BIOMAR.CO:
@@ -11,6 +13,8 @@ BIOMAR.CO:
   found: matched BIOMAR via 'BioMar'
   isins:
   - DK0064867972
+  leis:
+  - 213800O6S18WUKPWKU13
   name: BioMar Group
   slug: biomar-group
 BOUV.OL:
@@ -18,6 +22,8 @@ BOUV.OL:
   found: matched BOUV via 'Bouvet'
   isins:
   - NO0010360266
+  leis:
+  - 5967007LIEEXZXFMBC26
   name: Bouvet
   slug: bouvet
 EVO.ST:
@@ -25,6 +31,8 @@ EVO.ST:
   found: matched EVO via 'Evolution'
   isins:
   - SE0012673267
+  leis:
+  - 549300SUH6ZR1RF6TA88
   name: Evolution
   slug: evolution
 HIAB.HE:
@@ -32,6 +40,8 @@ HIAB.HE:
   found: matched HIAB via 'Hiab'
   isins:
   - FI4000571013
+  leis:
+  - 5493002B0GOVF42KWX33
   name: Hiab
   slug: hiab
 LIAB.ST:
@@ -39,6 +49,8 @@ LIAB.ST:
   found: matched LIAB via 'Lindab International'
   isins:
   - SE0001852419
+  leis:
+  - 54930085MH6IRQ1JP227
   name: Lindab International AB
   slug: lindab-international
 MEKKO.HE:
@@ -46,6 +58,8 @@ MEKKO.HE:
   found: matched MEKKO via 'Marimekko'
   isins:
   - FI0009007660
+  leis:
+  - 74370053IOY42B9YJ350
   name: Marimekko
   slug: marimekko
 OLVAS.HE:
@@ -53,6 +67,8 @@ OLVAS.HE:
   found: matched OLVAS via 'Olvi'
   isins:
   - FI0009900401
+  leis:
+  - 7437003NX7WWVRT6AJ55
   name: Olvi
   slug: olvi
 PNDORA.CO:
@@ -60,6 +76,8 @@ PNDORA.CO:
   found: matched PNDORA via 'PANDORA'
   isins:
   - DK0060252690
+  leis:
+  - 5299007OWYZ6I1E46843
   name: Pandora
   slug: pandora
 RBREW.CO:
@@ -67,6 +85,8 @@ RBREW.CO:
   found: matched RBREW via 'Royal Unibrew'
   isins:
   - DK0060634707
+  leis:
+  - 529900D69KFL8IAP8Q63
   name: Royal Unibrew
   slug: royal-unibrew
 RVRC.ST:
@@ -74,6 +94,8 @@ RVRC.ST:
   found: matched RVRC via 'RVRC'
   isins:
   - SE0015962485
+  leis:
+  - 549300YU7003VHQV3J57
   name: RVRC Holding AB
   slug: rvrc-holding
 WAWI.OL:
@@ -81,6 +103,8 @@ WAWI.OL:
   found: matched WAWI via 'Wallenius Wilhelmsen'
   isins:
   - NO0010571680
+  leis:
+  - 549300NBN0URT3RA3Y54
   name: Wallenius Wilhelmsen
   slug: wallenius-wilhelmsen
 ZZ-B.ST:
@@ -88,5 +112,7 @@ ZZ-B.ST:
   found: matched ZZ B via 'Zinzino ()'
   isins:
   - SE0002480442
+  leis:
+  - 549300Z20D1BP4MA0040
   name: Zinzino
   slug: zinzino

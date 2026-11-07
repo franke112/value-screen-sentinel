@@ -778,9 +778,23 @@ python tools/fetch_mfn.py ZZ-B.ST EVO.ST --since 2015-01-01 --kinds annual
 python tools/fetch_mfn.py --queue --days 45      # the nightly job, 22:40 (deploy/vss-mfn.timer)
 ```
 
+```bash
+python tools/fetch_mfn.py --queue --since 2015-01-01 --record-only   # manifest entries only, no download
+```
+
 Files land in `sources/` under the existing naming,
-`<TICKER>_<period>_<kind>_<date>_<lang>_a<n>.pdf`; a date already on disk
-for that ticker is skipped. The ticker -> issuer mapping is found by search
+`<TICKER>_<period>_<kind>_<date>_<lang>_a<n>.pdf`; a report another feed
+already put on disk is not fetched twice. **ESEF report packages** (the
+inline-XBRL annual report, served as `.xbri` or `.zip`) are taken too,
+recognised by their bytes (`PK` plus `META-INF/taxonomyPackage.xml`), never by
+their name, and saved as `.zip`.
+
+**Provenance.** Every file gets a `sources/manifest.json` entry in the same
+shape as `vss nordic`'s: URL, SHA-256, bytes, release time, declared vs actual
+content type, `downloaded_at`, `source: mfn`. A file already on disk without
+an entry is fetched again and recorded only if the bytes are identical
+(`recorded_after_the_fact`); if they differ, no entry is written and the run
+exits 1. The issuer's LEI is cached beside the mapping for the ESEF reader. The ticker -> issuer mapping is found by search
 and cached in `config/mfn_entities.yaml`. It writes nothing else: the PDFs are
 the input to a hand-read or a history, never figures by themselves. Two traps
 it is tested against: the Swedish *delårsrapport* contains *årsrapport*, and
