@@ -44,12 +44,16 @@ HOLD = ("2019", "2020")
 DRAWS = 10_000
 
 
-def load() -> dict[str, list[dict]]:
+def load(run_dir=None) -> dict[str, list[dict]]:
     out = {}
-    for d in U.TEST_DATES:
-        p = R.OUT / f"{d.isoformat()}.jsonl"
+    # a given directory is measured on every date it holds (the Nordic run
+    # has twelve); the default keeps the design's five
+    dates = (sorted(p.stem for p in run_dir.glob("*.jsonl")) if run_dir
+             else [d.isoformat() for d in U.TEST_DATES])
+    for d in dates:
+        p = (run_dir or R.OUT) / f"{d}.jsonl"
         if p.exists():
-            out[d.isoformat()] = [json.loads(l) for l in p.read_text().splitlines() if l.strip()]
+            out[d] = [json.loads(l) for l in p.read_text().splitlines() if l.strip()]
     return out
 
 
@@ -137,8 +141,13 @@ def pct(x):
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--horizon", type=int, default=3)
-    h = ap.parse_args(argv).horizon
-    data = load()
+    ap.add_argument("--run-dir", default=None,
+                    help="rows to measure (default data/backtest/run; run-eodhd and "
+                         "run-eodhd-bust are the delisted-inclusive re-pricings)")
+    a = ap.parse_args(argv)
+    h = a.horizon
+    from pathlib import Path as _P
+    data = load(_P(a.run_dir) if a.run_dir else None)
     L = [f"# Mätning, horisont {h} år (överavkastning mot ^SP500TR, procentenheter)", ""]
 
     L += ["## Urvalet", "", "| Testdag | Kandidater | Under floatgräns | Inga fakta | Fel | "

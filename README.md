@@ -111,13 +111,65 @@ watchlist and queue, phone alerts and the nightly timers.
 Words like *strike*, *MBP*, *tier* or *WATCH-GATED* are explained in the
 **[glossary](GLOSSARY.md)**.
 
-## An honest result
+## What the backtests taught us (November 2026)
 
-Back-tested on US large caps 2016-2021 (survivors only), ranking by value
-against price did **not** sort later returns
-([`reference/backtest/`](reference/backtest/)). What did hold up: the dearest
-fifth did worst, and the quality tests helped. That is why the tool says
-"wait" far more often than anything else.
+We tested the method's core on history: the same valuation code, run
+mechanically (without the hand reading a live review adds), with every
+figure entering only on the day it became public.
+
+**What went through it.** US filers from SEC's own filings (public). For the
+survivorship-free US re-pricing and the whole Nordic test, a commercial data
+vendor, [EODHD](https://eodhd.com), under a personal, private licence:
+
+- daily prices 2007-2026 for **25,854** US and Nordic common stocks --
+  **40.9 million** daily closes -- of which **18,336** were later delisted
+  (bankrupt, taken over, merged): exactly the companies a backtest on
+  today's list forgets;
+- financial statements for the same 25,854, **about one million** reporting
+  periods, each dated to when it became public (filing date in the US,
+  report date + 1 day in the Nordics);
+- the method's valuation on **5,925** US and **2,628** Nordic company-dates;
+- Ken French's public country portfolios as an outside benchmark.
+
+The licence allows private use only, so **the vendor's data and every
+figure computed from it stay private**: what follows are conclusions in
+words, not results tables. (A sibling project, DonkeyInvestor, ran a
+momentum search on the same price history plus 1,061,840 earnings reports,
+4.3 million SEC insider trades and Avanza's live quotes; its lessons fed
+several of the points below.)
+
+1. **Survivorship flattered us.** Our first US test could only price
+   companies still listed. With the delisted put back, the method's cheap
+   portfolio trailed the S&P 500 (total return), and a plain EBIT/EV ranking
+   did better.
+2. **Nordics: strong in sample, not confirmed out of it.** Over 2010-2021,
+   the period we developed on, the cheaper companies by the method's fair
+   value beat the dearer ones in almost every year. A pre-registered check
+   on 2022-2023, run once, did **not** confirm it: one year held, one
+   reversed. The weekly Nordic screen is therefore a list of candidates to
+   review, not an edge.
+3. **The most stable signal was negative:** the dearest names by the method
+   did poorly most of the time.
+4. **A fixed stop 8% under the purchase price hurt in every test** -- noise
+   sells you out before the thesis is tested.
+5. **The strict buy rule** (price at most 65% of fair value, all four
+   quality tests passed) **almost never fired** -- too rare to measure.
+6. **Data traps, now guarded against:** share counts restated for later
+   splits next to unadjusted prices; Nordic "filing dates" that are just the
+   period end; IFRS 16 leases making rent-heavy companies (schools, hotels,
+   gyms) look cheap; one security under two tickers; a ticker reused after a
+   rename; rounding noise in adjusted prices.
+7. **How we test now:** every run that is looked at goes into an attempt
+   log; a confirmation is pre-registered -- hypothesis, data, decision rule,
+   consequences -- and run once behind a code lock; results are checked
+   against random shuffles and against Ken French's portfolios.
+8. **A cost that was invisible:** in a Swedish ISK under the tax-free
+   allowance, foreign dividend withholding (Finland 35%, Denmark 27%,
+   Norway 25%, US 15%) is a plain yearly cost; the entry step now asks it.
+
+**Bottom line:** no proven edge. The tool is more honest about what it does
+not know, and a broad index fund remains the base for the owner's money;
+the method is the part that is studied, not trusted.
 
 ## What it is not
 

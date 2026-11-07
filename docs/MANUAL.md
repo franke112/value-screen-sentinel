@@ -865,6 +865,28 @@ record land in `config/manual/drafts/`; merge as for ESEF with
 .venv/bin/python -m vss manual --ticker ZZ-B.ST --merge-draft --origin llm-pdf --dry-run
 ```
 
+## Nordic screen and the EODHD backtest (your own data licence)
+
+These tools read a commercial vendor's data that you fetch yourself; none of
+it, and nothing computed from it, is in this repository (README, "What the
+backtests taught us").
+
+```bash
+# key in ~/.config/eodhd/env (EODHD_API_KEY=..., chmod 600); the symbol list
+# (EODHD's exchange symbol lists, active and delisted) in data/eodhd/symbols.csv
+python tools/fetch_eodhd.py --check                 # quota and one test, nothing stored
+python tools/fetch_eodhd.py --budget 90000          # statements into data/eodhd/fundamentals/
+python tools/eodhd_pit.py --build                   # when each period became known
+python tools/nordic_screen.py --no-refresh          # value and rank active Nordic companies
+python -m tools.backtest.nordic                     # the Nordic backtest, 2010-2021
+python -m tools.backtest.confirm_nordic --dev       # its evaluation and random test
+```
+
+Prices for the backtests are read from `data/eodhd/eod/<SYMBOL>.csv.gz`
+(daily close, adjusted close, volume). Dates from 2022 on are locked behind
+`--confirm` and run once. `vss/withholding.py` shows the yearly cost of
+foreign dividend withholding in a Swedish ISK.
+
 ## Screener: `vss screen`
 
 Phases 1 to 3, 5 and 6: it builds the universe, snapshots its prices, runs the

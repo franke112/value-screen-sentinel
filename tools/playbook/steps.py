@@ -155,7 +155,10 @@ STEPS: list[Step] = [
     Step("entry", "§6–§8: entry timing, sizing, execution", CHAIN,
          sections=("§6", "6.1", "6.2", "6.3", "§7", "§8"),
          commands=(("run", "--ticker X --dry-run"),), exits=("held", "watch-priced"),
-         question="Is price at or below MBP with one §6.1 and one §6.2 trigger confirmed?",
+         question="Is price at or below MBP with one §6.1 and one §6.2 trigger confirmed? "
+                  "For a listing outside Sweden: what does foreign withholding cost a year "
+                  "in the ISK (dividend yield x FI 35 / DK 27 / NO 25 / US 15 %, a plain "
+                  "cost under the 300,000 kr allowance; vss/withholding.py)?",
          files=("config/watchlist.yaml (stop_price, dd_at_entry)",)),
     Step("held", "HELD: a position, with its stops", CHAIN, sections=("6.4",),
          status="HELD", modules=("runner",),
