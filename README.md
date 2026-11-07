@@ -23,8 +23,9 @@ fresh clone: 29 seconds to install, 14 seconds for the first run):
 ```bash
 git clone https://github.com/franke112/value-screen-sentinel.git ~/vss && cd ~/vss
 python3 -m venv .venv && .venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python tools/warren.py KO AAPL     # would Warren own it?
 .venv/bin/python -m vss run --dry-run        # the nightly report, writes nothing
+export VSS_SEC_CONTACT='mytool/1.0 (you@example.com)'   # SEC asks every caller for a real contact
+.venv/bin/python tools/warren.py KO AAPL     # would Warren own it?
 ```
 
 Settings, your own watchlist and the nightly timers: **[`SETUP.md`](SETUP.md)**
