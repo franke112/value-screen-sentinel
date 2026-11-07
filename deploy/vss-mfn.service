@@ -7,6 +7,8 @@ OnFailure=vss-failure@%n.service
 Type=oneshot
 WorkingDirectory=%h/vss
 ExecStart=%h/vss/.venv/bin/python tools/fetch_mfn.py --queue --days 45
+# E151: machine-read figures are confirmed by a second, independent reading
+ExecStartPost=%h/vss/.venv/bin/python tools/cross_verify.py --all --apply
 StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=vss-mfn
@@ -14,5 +16,5 @@ TimeoutStartSec=30min
 PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=read-only
-ReadWritePaths=%h/vss/sources %h/vss/config/mfn_entities.yaml
+ReadWritePaths=%h/vss/sources %h/vss/config/mfn_entities.yaml %h/vss/config/manual %h/vss/data/cross-verify
 NoNewPrivileges=true

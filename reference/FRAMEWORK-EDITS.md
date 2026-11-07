@@ -13097,3 +13097,54 @@ VERIFIED/tagged: revisit only after about three names have been audited
 with zero defects. Applied in `tools/quotecheck.py --apply` (an E149 line
 is printed for each passing figure it does not mark) and
 `vss/quotecheck.py` `machine_chose`.
+
+### E150 — the issuer's own adjusted operating profit from the year it starts stating one
+
+**DECIDED 2026-11-07 by the session under E141**, on the owner's instruction
+("det som är rättast"). OLVAS.HE's ESEF history read CYCLICAL under E143(3):
+operating margin 13.6% (2020) to 3.8% (2022). The 2022 trough is Olvi's
+write-down of its Belarus business -- the annual report states "Items
+affecting the comparability of the operating profit, MEUR -37.4" and an
+adjusted EBIT of 59.8 against 59.4 the year before. That is one event, not a
+cycle, and the history read it as one only because Olvi first presented an
+adjusted figure in its 2022 report, so the adjusted series did not cover 2020
+and `_profit_series` fell back to the reported one for every year.
+
+> Where the issuer states an adjusted operating profit for an UNBROKEN run of
+> years ending at the newest year, the history's profit series is the
+> reported operating profit for the years BEFORE that run and the issuer's
+> adjusted figure from its first year on. Each adjusted row is the issuer's
+> printed line, read back against its PDF by `vss history --check`. Nothing
+> is adjusted by the session, and a gap or a later reported-only year reads
+> the reported series as before.
+
+Run 2026-11-07 on every history: no other name changes (none has partial
+coverage). OLVAS.HE: adjusted 59.4 / 59.8 / 67.1 / 81.4 / 81.8 (2021-2025)
+from the 2022, 2024 and 2025 annual reports, read-back PASS.
+
+### E151 — a machine-read figure is verified by a second, independent machine reading, never by one
+
+**DECIDED 2026-11-07 by the session under E141**, on the owner's instruction:
+"det som är säkrast utan mig, jag kollar inte siffror, det måste gå att
+kollas automatiskt och få bekräftat att siffrorna stämmer". E149 left every
+`esef-ixbrl` and `llm-pdf` figure for the owner to verify, and the owner will
+not. E149's reason stands -- a read-back of a figure against the reading
+that produced it proves nothing about the line -- so E149 is kept and this
+adds the one check that does not depend on that reading:
+
+> A figure whose line a machine chose is VERIFIED, `verified_kind:
+> two_source`, when a SECOND reading, by ANOTHER METHOD, of ANOTHER FORMAT of
+> the issuer's report, prints the SAME DIGITS for the same line and period:
+> the ESEF tag's displayed text against a model's reading of the PDF annual
+> report (that year's, or the next year's comparative column), or an
+> `llm-pdf` figure against a later report's comparative. The PDF reading
+> passes `vss/pdfdraft.py`'s gates (row on the page, value in the row, the
+> column naming the period, two runs agreeing). An outflow must print
+> negative; a zero is never verified; if ANY second reading disagrees, the
+> figure is not verified. The value in the store is never changed by it.
+> `tools/cross_verify.py --all --apply`, nightly after the MFN fetch.
+
+First run 2026-11-07: EVO.ST 39 of 42 comparable figures confirmed, 0
+disagreements (FY2021 capex and lease repayment: no second reading, left
+UNVERIFIED); ZZ-B.ST's two 2026-Q2 llm-pdf figures wait for the 2027-Q2
+report's comparative column.

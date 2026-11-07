@@ -242,8 +242,14 @@ KIND_CAPTION_STATEMENT = "caption_statement"
 #: TRANSCRIPTION only: a figure that rests on a judgment carries a
 #: `judgment:` line and goes to the owner instead.
 KIND_MACHINE_READ_BACK = "machine_read_back"
+#: E151 (2026-11-07): a machine-chosen figure (esef-ixbrl / llm-pdf) whose
+#: printed digits a SECOND, INDEPENDENT machine reading of ANOTHER format
+#: of the issuer's report found identical -- the ESEF tag's displayed text
+#: against a model's reading of the PDF, or a later report's comparative.
+#: Set only by tools/cross_verify.py; one reading is never enough.
+KIND_TWO_SOURCE = "two_source"
 VERIFIED_KINDS = (KIND_TAGGED, KIND_CROSS_DOCUMENT, KIND_SAME_PAGE,
-                  KIND_CAPTION_STATEMENT, KIND_MACHINE_READ_BACK)
+                  KIND_CAPTION_STATEMENT, KIND_MACHINE_READ_BACK, KIND_TWO_SOURCE)
 
 
 class ManualError(ConfigError):

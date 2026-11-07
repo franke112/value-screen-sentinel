@@ -760,6 +760,16 @@ periods:
         page: "p.34, Note 4 Earnings per share, 01/04/2026-30/06/2026 column: 'Weighted average number of ordinary shares and potential ordinary shares used as denominator in calculating earnings per share after dilution 39,528,665' (H1 2026 column 38,867,263); p.6 'Average number of issued shares for the period with full dilution 39,528,665'. A QUARTERLY average, entered as stated; on the TTM basis the store takes the FY2025 annual figure under E41 (see the header)"
         status: VERIFIED
         verified_kind: machine_read_back
+      operating_income:
+        value: 138854
+        source: "llm-pdf: sources/ZZ-B.ST_2026-Q2_interim-report-q1-and-q3_2026-08-25_en_a1.pdf"
+        page: "LLM-PDF p.22, row 'Operating profit 138,854 71,395 269,081 142,255 409,586', column '01/04/2026 30/06/2026', unit 'Amounts in SEK thousands'"
+        status: UNVERIFIED
+      total_equity:
+        value: 1079808
+        source: "llm-pdf: sources/ZZ-B.ST_2026-Q2_interim-report-q1-and-q3_2026-08-25_en_a1.pdf"
+        page: "LLM-PDF p.23, row 'Total equity 1,079,808 446,967 707,199', column '30/06/2026', unit 'Amounts in SEK thousands'"
+        status: UNVERIFIED
 
 annual:
   - fiscal_year: 2025

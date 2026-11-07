@@ -122,3 +122,20 @@ def test_the_acquisition_element_is_the_manual_maps():
     assert set(H.IFRS_DEBT_CURRENT) == {f for spec in xbrl.IFRS_ANNUAL_FIELDS
                                         if spec.field == "financial_liabilities_current"
                                         for f in spec.tags}
+
+
+def test_e150_adjusted_from_the_year_the_issuer_starts_stating_it():
+    def hist(adj):
+        rows = [{"field": "operating_profit", "source": "x", "years": [2020, 2021, 2022, 2023],
+                 "values": [56.0, 59.0, 22.0, 55.0]}]
+        if adj:
+            rows.append({"field": "operating_profit_adjusted", "source": "x",
+                         "years": sorted(adj), "values": [adj[y] for y in sorted(adj)]})
+        return H.parse({"ticker": "T", "money_unit": "whole",
+                        "sources": {"x": {"kind": "esef-ixbrl"}}, "rows": rows}, path="t")
+    s, label = H._profit_series(hist({2021: 59.0, 2022: 60.0, 2023: 67.0}))
+    assert s == {2020: 56.0, 2021: 59.0, 2022: 60.0, 2023: 67.0} and "E150" in label
+    s, label = H._profit_series(hist({2021: 59.0, 2023: 67.0}))          # a gap
+    assert s[2022] == 22.0 and label == "operating profit"
+    s, label = H._profit_series(hist({2021: 59.0, 2022: 60.0}))          # not to the newest
+    assert label == "operating profit"

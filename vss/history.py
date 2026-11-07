@@ -412,6 +412,18 @@ def _profit_series(h: History) -> tuple[dict[int, float], str]:
     adj, rep = h.series("operating_profit_adjusted"), h.series("operating_profit")
     if adj and set(rep) <= set(adj):
         return adj, "adjusted operating profit"
+    # E150: the issuer began presenting an adjusted measure part-way through
+    # the window (Olvi from 2021). Its own adjusted figure from the first
+    # year it states one, unbroken to the newest year; the reported figure
+    # only for the years BEFORE it existed. A gap or a later reported-only
+    # year is not this case and reads the reported series as before.
+    if adj:
+        first = min(adj)
+        if all(y in adj for y in rep if y >= first) and max(adj) >= max(rep, default=0):
+            merged = {y: v for y, v in rep.items() if y < first}
+            merged.update(adj)
+            return merged, (f"operating profit to {first - 1}, the issuer's adjusted "
+                            f"operating profit from {first} (E150)")
     return rep, "operating profit"
 
 

@@ -831,6 +831,8 @@ to `arkiv/config-bak/`. **E149:** `tools/quotecheck.py --apply` never verifies
 such a figure; quotecheck's output is an audit aid and only the owner flips
 the status.
 
+**E151, automatic confirmation.** `tools/cross_verify.py --all --apply` (nightly, after the MFN fetch) marks such a figure VERIFIED (`two_source`) only when a second, independent reading -- a model reading the PDF annual report, or a later report's comparative column -- prints the same digits. Any disagreement leaves it UNVERIFIED; the value is never changed; readings are cached in `data/cross-verify/`.
+
 **History from the packages (E144).** `vss history --ticker EVO.ST --esef
 --write` builds `config/history/<T>.yaml` from the same packages (their
 comparatives reach one year further back) through an `ifrs-full` tag set that

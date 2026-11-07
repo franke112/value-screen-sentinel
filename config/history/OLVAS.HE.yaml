@@ -28,6 +28,15 @@ sources:
       lei: 7437003NX7WWVRT6AJ55
     net_debt_withheld: 'the issuer tags borrowings in its own extension concepts, which are not read: OLV:CurrentBorrowingsAndCurrentPortionOfNonCurrentBorrowingsAndCurrentLeaseLiabilities, OLV:LongTermBorrowingsAndNonCurrentLeaseLiabilities,
       OLV:RepaymentsOfBorrowingsAndPaymentsOfLeaseLiabilitiesClassifiedAsFinancingActivities, OLV:ShortTermBorrowingsAndCurrentLeaseLiabilities'
+  ar2022:
+    kind: pdf
+    file: sources/OLVAS.HE_2022-FY_annual-financial-report_2023-02-28_en_a0.pdf
+  ar2024:
+    kind: pdf
+    file: sources/OLVAS.HE_2024-FY_annual-financial-report_2025-03-21_en_a0.pdf
+  ar2025:
+    kind: pdf
+    file: sources/OLVAS.HE_2025-FY_annual-financial-report_2026-03-11_en_a0.pdf
 rows:
 - field: revenue
   source: xbrl
@@ -165,3 +174,31 @@ rows:
   - 22204000.0
   - 22204000.0
   - 22405000.0
+- field: operating_profit_adjusted
+  source: ar2022
+  years:
+  - 2022
+  - 2021
+  values:
+  - 59.8
+  - 59.4
+  unit: millions
+  quote: Adjusted EBIT, MEUR 59.8 59.4 0.6
+- field: operating_profit_adjusted
+  source: ar2024
+  years:
+  - 2024
+  - 2023
+  values:
+  - 81.4
+  - 67.1
+  unit: millions
+  quote: Adjusted operating result, MEUR 81.4 67.1 21.3
+- field: operating_profit_adjusted
+  source: ar2025
+  years:
+  - 2025
+  values:
+  - 81.8
+  unit: millions
+  quote: Adjusted operating result Sales volume Net sales 81.8 970.1 665.3

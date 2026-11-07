@@ -303,7 +303,8 @@ class Gated:
     money_unit: str | None = None
 
 
-def gate(entries: dict[str, dict | None], pages: dict[int, tuple[str, str]], target: str) -> Gated:
+def gate(entries: dict[str, dict | None], pages: dict[int, tuple[str, str]], target: str,
+         *, require_unit: bool = True) -> Gated:
     out = Gated()
     units: dict[str, str] = {}
     for name, e in entries.items():
@@ -341,7 +342,7 @@ def gate(entries: dict[str, dict | None], pages: dict[int, tuple[str, str]], tar
         if name in OUTFLOWS and value > 0:
             out.dropped[name] = "an outflow printed positive; the sign is not flipped"
             continue
-        if name not in PER_SHARE:
+        if name not in PER_SHARE and require_unit:
             if not unit or Q.find_quote(unit, doc) not in (Q.EXACT, Q.NEAR):
                 out.dropped[name] = f"the unit sentence is not on page {idx}"
                 continue
@@ -398,7 +399,11 @@ class Run:
 
 
 def run(pdf: Path, *, ticker: str, target: str, model: str | None = None,
-        api_key: str | None = None, transport=None, now: datetime | None = None) -> Run:
+        api_key: str | None = None, transport=None, now: datetime | None = None,
+        require_unit: bool = True) -> Run:
+    """``require_unit=False`` is for a COMPARISON ONLY (E151's second
+    reading): the printed digits are compared with another source's printed
+    digits and no figure is ever written from this reading."""
     pdf = Path(pdf)
     raw = pdf.read_bytes()
     pages = S.pdf_pages(raw, where=str(pdf))
@@ -422,7 +427,7 @@ def run(pdf: Path, *, ticker: str, target: str, model: str | None = None,
             disagreements[name] = {"first": va, "second": vb}
             continue
         agreed[name] = a
-    gated = gate(agreed, {i: by_idx[i] for i in picked}, target)
+    gated = gate(agreed, {i: by_idx[i] for i in picked}, target, require_unit=require_unit)
     for name, d in disagreements.items():
         gated.dropped[name] = f"the two runs disagree: {d['first']!r} then {d['second']!r}"
     record = {

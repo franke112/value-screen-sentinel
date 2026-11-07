@@ -599,7 +599,8 @@ def test_G13_tagged_fact_VERIFIED():
     assert {r.kind for r in gate.refusals} == {"UNDETERMINED LEGS PAST E106"}
     assert M.VERIFIED_KINDS == ("tagged", "cross_document", "same_page",
                                 "caption_statement",   # E78 added the fourth
-                                "machine_read_back")   # E131 the fifth
+                                "machine_read_back",   # E131 the fifth
+                                "two_source")          # E151 the sixth
     assert "VERIFIED (tagged)" in M.render_report(parsed, gate)
 
 
