@@ -145,7 +145,10 @@ several of the points below.)
    did better.
 2. **Nordics: strong in sample, not confirmed out of it.** Over 2010-2021,
    the period we developed on, the cheaper companies by the method's fair
-   value beat the dearer ones in almost every year. A pre-registered check
+   value beat the dearer ones in most years -- less clearly than first
+   measured, once two data faults an independent review found were fixed
+   (figures reported in another currency than the share trades in, and the
+   vendor's broken price adjustments). A pre-registered check
    on 2022-2023, run once, did **not** confirm it: one year held, one
    reversed. The weekly Nordic screen is therefore a list of candidates to
    review, not an edge.
