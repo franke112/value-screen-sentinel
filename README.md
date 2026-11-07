@@ -17,6 +17,19 @@ it keeps the record of what you decided and why.
 > **[franke112.github.io/value-screen-sentinel/the-method/](https://franke112.github.io/value-screen-sentinel/the-method/)**
 > *(På svenska: [https://franke112.github.io/value-screen-sentinel/the-method/sv/](https://franke112.github.io/value-screen-sentinel/the-method/sv/))*
 
+**Run it yourself in about five minutes** (Linux, Python 3.11+; tested from a
+fresh clone: 29 seconds to install, 14 seconds for the first run):
+
+```bash
+git clone https://github.com/franke112/value-screen-sentinel.git ~/vss && cd ~/vss
+python3 -m venv .venv && .venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python tools/warren.py KO AAPL     # would Warren own it?
+.venv/bin/python -m vss run --dry-run        # the nightly report, writes nothing
+```
+
+Settings, your own watchlist and the nightly timers: **[`SETUP.md`](SETUP.md)**
+(or the [quick start](#quick-start-about-five-minutes) in the manual below).
+
 ## Four habits it enforces
 
 1. **Figures come only from the company's own filings.** Every number
