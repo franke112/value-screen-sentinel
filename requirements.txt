@@ -5,3 +5,5 @@ pypdf[crypto]
 pytest
 openpyxl
 exchange_calendars
+lxml
+requests

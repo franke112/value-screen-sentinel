@@ -370,6 +370,7 @@ def test_the_weekly_run_isolates_runs_root(monkeypatch, tmp_path):
 
     assert seen["runs_root"] == tmp_path / "runs"
     assert "write_pipeline" not in seen        # E93: never passed
+    assert seen["sec_shadow"] is True           # HANDOFF C1: the shadow runs weekly
 
 
 def test_an_unrankable_name_stores_with_a_null_position(tmp_path):

@@ -46,90 +46,11 @@ from vss import history as HI
 from vss import manual as M
 from vss import xbrl as X
 
-POLICIES = ("first", "latest")
+# The clip lives in vss/sec_pit.py since 2026-11-07 (HANDOFF C1); the
+# names are re-exported so every caller and test reads them from here.
+from vss.sec_pit import (ALL_VISIBLE_UNITS, POLICIES, _filed,  # noqa: E402,F401
+                         clip, differences, first_filed, visible)
 
-#: Units whose every visible entry is kept (rule 3 above).
-ALL_VISIBLE_UNITS = ("shares",)
-
-
-def _filed(entry: dict) -> date | None:
-    try:
-        return date.fromisoformat(str(entry.get("filed", ""))[:10])
-    except ValueError:
-        return None
-
-
-def visible(entry: dict, as_of: date) -> bool:
-    """Was this entry on EDGAR before the close of `as_of`? (rule 1)"""
-    filed = _filed(entry)
-    return filed is not None and filed < as_of
-
-
-def clip(facts: dict, as_of: date, *, policy: str = "first") -> dict:
-    """A deep copy of `facts` holding only what the engine could have seen."""
-    if policy not in POLICIES:
-        raise ValueError(f"policy must be one of {POLICIES}, got {policy!r}")
-    out = {k: copy.deepcopy(v) for k, v in facts.items() if k != "facts"}
-    out["facts"] = {}
-    for taxonomy, tags in (facts.get("facts") or {}).items():
-        kept_tags = {}
-        for tag, node in (tags or {}).items():
-            units = {}
-            for unit, entries in (node.get("units") or {}).items():
-                seen = [dict(e) for e in entries if visible(e, as_of)]
-                for e in seen:
-                    e.pop("frame", None)
-                if policy == "first" and unit not in ALL_VISIBLE_UNITS:
-                    seen = first_filed(seen)
-                if seen:
-                    units[unit] = seen
-            if units:
-                kept = {k: v for k, v in node.items() if k != "units"}
-                kept["units"] = units
-                kept_tags[tag] = kept
-        if kept_tags:
-            out["facts"][taxonomy] = kept_tags
-    return out
-
-
-def first_filed(entries: list[dict]) -> list[dict]:
-    """One entry per (start, end): the earliest filed (rule 2)."""
-    groups: dict[tuple, list[dict]] = {}
-    for e in entries:
-        groups.setdefault((e.get("start"), e.get("end")), []).append(e)
-    out = []
-    for pool in groups.values():
-        statements = [e for e in pool if X._is_statement(e)]
-        pool = statements or pool
-        out.append(min(pool, key=lambda e: (e.get("filed", ""), e.get("accn", ""))))
-    return out
-
-
-def differences(facts: dict, as_of: date) -> int:
-    """How many (tag, unit, period) values the two policies set apart."""
-    a, b = clip(facts, as_of, policy="first"), clip(facts, as_of, policy="latest")
-    n = 0
-    for taxonomy, tags in a["facts"].items():
-        for tag, node in tags.items():
-            for unit, entries in node["units"].items():
-                if unit in ALL_VISIBLE_UNITS:
-                    continue
-                other = b["facts"][taxonomy][tag]["units"][unit]
-                latest = {}
-                for e in other:
-                    key = (e.get("start"), e.get("end"))
-                    statements = X._is_statement(e)
-                    prev = latest.get(key)
-                    rank = (statements, e.get("filed", ""), e.get("accn", ""))
-                    if prev is None or rank > prev[0]:
-                        latest[key] = (rank, e["val"])
-                for e in entries:
-                    if latest[(e.get("start"), e.get("end"))][1] != e["val"]:
-                        n += 1
-    return n
-
-
-# --- what the engine would have built ------------------------------------
 
 @dataclass(frozen=True)
 class PitStore:

@@ -53,9 +53,9 @@ class MergeResult:
     written: bool = False
 
 
-def _year_block(lines: list[str], year) -> tuple[int, int] | None:
-    """(first, end) line indices of `  - fiscal_year: <year>`'s entry."""
-    key = f"  - fiscal_year: {year}"
+def _year_block(lines: list[str], year, key_name: str = "fiscal_year") -> tuple[int, int] | None:
+    """(first, end) line indices of `  - <key_name>: <year>`'s entry."""
+    key = f"  - {key_name}: {year}"
     start = next((i for i, l in enumerate(lines) if l.rstrip() == key), None)
     if start is None:
         return None
@@ -85,9 +85,9 @@ def _figure_block(lines: list[str], start: int, end: int, name: str) -> list[str
     return out
 
 
-def _annual_end(lines: list[str]) -> int | None:
-    """Where the `annual:` list ends (insert point for a new year)."""
-    start = next((i for i, l in enumerate(lines) if re.match(r"^annual:\s*(#.*)?$", l)), None)
+def _annual_end(lines: list[str], block: str = "annual") -> int | None:
+    """Where the `<block>:` list ends (insert point for a new entry)."""
+    start = next((i for i, l in enumerate(lines) if re.match(rf"^{block}:\s*(#.*)?$", l)), None)
     if start is None:
         return None
     end = len(lines)
@@ -129,10 +129,11 @@ def merge_draft(ticker: str, *, origin: str = "esef-ixbrl",
 
     if not target.exists():
         res.created = True
-        res.added_years = [y["fiscal_year"] for y in ddoc.get("annual") or []]
-        for y in ddoc.get("annual") or []:
-            for f, raw in (y.get("figures") or {}).items():
-                res.added.append((y["fiscal_year"], f, raw.get("value")))
+        for block, kn in (("annual", "fiscal_year"), ("periods", "period")):
+            for y in ddoc.get(block) or []:
+                res.added_years.append(y[kn])
+                for f, raw in (y.get("figures") or {}).items():
+                    res.added.append((y[kn], f, raw.get("value")))
         if write:
             target.write_text(dtext, encoding="utf-8")
             res.written = True
@@ -154,67 +155,8 @@ def merge_draft(ticker: str, *, origin: str = "esef-ixbrl",
                 f"way in (no silent scaling).")
 
     lines = ltext.split("\n")
-    live_years = {y.get("fiscal_year"): y for y in (ldoc.get("annual") or [])}
-    for dy in ddoc.get("annual") or []:
-        fy = dy["fiscal_year"]
-        db = _year_block(dlines, fy)
-        ly = live_years.get(fy)
-        if ly is None:
-            clash = [y for y in live_years.values()
-                     if str(y.get("period_end")) == str(dy.get("period_end"))]
-            if clash:
-                res.conflicts.append(
-                    f"FY{fy}: the store keys period end {dy.get('period_end')} as "
-                    f"FY{clash[0].get('fiscal_year')}; the year is not added")
-                continue
-            block = dlines[db[0]:db[1]]
-            later = sorted(y for y in live_years if isinstance(y, int) and y > fy)
-            at = None
-            if later:
-                # before the next later year, and before the comments over it
-                at = _year_block(lines, later[0])[0]
-                while at > 0 and lines[at - 1].lstrip().startswith("#") and lines[at - 1].startswith("  "):
-                    at -= 1
-            else:
-                at = _annual_end(lines)
-            if at is None:
-                empty = next((i for i, l in enumerate(lines) if re.match(r"^annual:\s*\[\]\s*$", l)), None)
-                if empty is not None:
-                    lines[empty] = "annual:"
-                    at = empty + 1
-                else:
-                    while lines and not lines[-1].strip():
-                        lines.pop()
-                    lines += ["", "annual:"]
-                    at = len(lines)
-            lines[at:at] = block
-            res.added_years.append(fy)
-            for f, raw in (dy.get("figures") or {}).items():
-                res.added.append((fy, f, raw.get("value")))
-            continue
-        if str(ly.get("period_end")) != str(dy.get("period_end")):
-            res.conflicts.append(
-                f"FY{fy}: period end {ly.get('period_end')} in the store, "
-                f"{dy.get('period_end')} in the draft; the year is left")
-            continue
-        lfigs = ly.get("figures") or {}
-        for f, raw in (dy.get("figures") or {}).items():
-            if f in lfigs:
-                have = (lfigs[f] or {}).get("value") if isinstance(lfigs[f], dict) else lfigs[f]
-                if _same(have, raw.get("value")):
-                    res.agreed.append((fy, f, have))
-                else:
-                    res.conflicts.append(
-                        f"FY{fy} {f}: store {have!r} | draft {raw.get('value')!r} "
-                        f"({raw.get('page')}) -- left as the store has it")
-                continue
-            lb = _year_block(lines, fy)
-            fig = _figure_block(dlines, db[0], db[1], f)
-            has_figures = any(lines[k].rstrip() == "    figures:" for k in range(lb[0], lb[1]))
-            if not has_figures:
-                fig = ["    figures:"] + fig
-            lines[lb[1]:lb[1]] = fig
-            res.added.append((fy, f, raw.get("value")))
+    for block, kn in (("annual", "fiscal_year"), ("periods", "period")):
+        _merge_block(block, kn, ddoc, dlines, ldoc, lines, res)
 
     if not res.added:
         return res
@@ -237,10 +179,10 @@ def render(res: MergeResult, *, origin: str) -> str:
     if res.backup:
         out.append(f"  backup: {res.backup}")
     if res.added_years:
-        out.append(f"  years added: {', '.join(f'FY{y}' for y in res.added_years)}")
+        out.append(f"  entries added: {', '.join(f'FY{y}' if isinstance(y, int) else str(y) for y in res.added_years)}")
     out.append(f"  figures added: {len(res.added)} (all UNVERIFIED; E149: the owner verifies)")
     for y, f, v in res.added:
-        out.append(f"    + FY{y} {f} = {v}")
+        out.append(f"    + {'FY' if isinstance(y, int) else ''}{y} {f} = {v}")
     if res.agreed:
         out.append(f"  already in the store, same value: {len(res.agreed)}")
     if res.conflicts:
@@ -250,3 +192,74 @@ def render(res: MergeResult, *, origin: str) -> str:
     if not res.written:
         out.append("  nothing written" + ("" if res.added else " (nothing to add)"))
     return "\n".join(out)
+
+
+def _label(block: str, key) -> str:
+    return f"FY{key}" if block == "annual" else str(key)
+
+
+def _merge_block(block: str, kn: str, ddoc: dict, dlines: list[str], ldoc: dict,
+                 lines: list[str], res: "MergeResult") -> None:
+    """One block (`annual:` keyed on fiscal_year, `periods:` on period)."""
+    live = {y.get(kn): y for y in (ldoc.get(block) or [])}
+    for dy in ddoc.get(block) or []:
+        fy = dy[kn]
+        lab = _label(block, fy)
+        db = _year_block(dlines, fy, kn)
+        ly = live.get(fy)
+        if ly is None:
+            clash = [y for y in live.values()
+                     if str(y.get("period_end")) == str(dy.get("period_end"))]
+            if clash:
+                res.conflicts.append(
+                    f"{lab}: the store keys period end {dy.get('period_end')} as "
+                    f"{_label(block, clash[0].get(kn))}; not added")
+                continue
+            block_lines = dlines[db[0]:db[1]]
+            later = sorted(str(y) for y in live if str(y) > str(fy))
+            if later:
+                # before the next later entry, and before the comments over it
+                key = next(y for y in live if str(y) == later[0])
+                at = _year_block(lines, key, kn)[0]
+                while at > 0 and lines[at - 1].lstrip().startswith("#") and lines[at - 1].startswith("  "):
+                    at -= 1
+            else:
+                at = _annual_end(lines, block)
+            if at is None:
+                empty = next((i for i, l in enumerate(lines) if re.match(rf"^{block}:\s*\[\]\s*$", l)), None)
+                if empty is not None:
+                    lines[empty] = f"{block}:"
+                    at = empty + 1
+                else:
+                    while lines and not lines[-1].strip():
+                        lines.pop()
+                    lines += ["", f"{block}:"]
+                    at = len(lines)
+            lines[at:at] = block_lines
+            res.added_years.append(fy)
+            for f, raw in (dy.get("figures") or {}).items():
+                res.added.append((fy, f, raw.get("value")))
+            continue
+        if str(ly.get("period_end")) != str(dy.get("period_end")):
+            res.conflicts.append(
+                f"{lab}: period end {ly.get('period_end')} in the store, "
+                f"{dy.get('period_end')} in the draft; left")
+            continue
+        lfigs = ly.get("figures") or {}
+        for f, raw in (dy.get("figures") or {}).items():
+            if f in lfigs:
+                have = (lfigs[f] or {}).get("value") if isinstance(lfigs[f], dict) else lfigs[f]
+                if _same(have, raw.get("value")):
+                    res.agreed.append((fy, f, have))
+                else:
+                    res.conflicts.append(
+                        f"{lab} {f}: store {have!r} | draft {raw.get('value')!r} "
+                        f"({raw.get('page')}) -- left as the store has it")
+                continue
+            lb = _year_block(lines, fy, kn)
+            fig = _figure_block(dlines, db[0], db[1], f)
+            has_figures = any(lines[k].rstrip() == "    figures:" for k in range(lb[0], lb[1]))
+            if not has_figures:
+                fig = ["    figures:"] + fig
+            lines[lb[1]:lb[1]] = fig
+            res.added.append((fy, f, raw.get("value")))

@@ -1,0 +1,41 @@
+{
+  "ticker": "ZZ-B.ST",
+  "target_period": "2026-Q2",
+  "origin": "llm-pdf",
+  "model": "deepseek/deepseek-v4-flash",
+  "pdf": "sources/ZZ-B.ST_2026-Q2_interim-report-q1-and-q3_2026-08-25_en_a1.pdf",
+  "pdf_sha256": "ef06525ade52b485ca4f109398346bf368dec704ef634a183a51ce76a06df00f",
+  "pages_sent": [
+    {
+      "pdf_index": 22,
+      "printed": "22"
+    },
+    {
+      "pdf_index": 23,
+      "printed": "23"
+    },
+    {
+      "pdf_index": 25,
+      "printed": "25"
+    }
+  ],
+  "responses_sha256": [
+    "ac9ee9f5566d4d38f98e568acc4a8f598664a12aecb8d9859e7c3d124348b023",
+    "a2a749f97453cc35666740911b9577604267c8e944f10049d29eee54a022626f"
+  ],
+  "run_at": "2026-11-07T11:16:59+01:00",
+  "kept": [
+    "capex_intangibles",
+    "capex_ppe",
+    "cash_and_equivalents",
+    "diluted_eps",
+    "lease_payments_capital",
+    "net_income",
+    "operating_cash_flow",
+    "operating_income",
+    "revenue",
+    "total_assets",
+    "total_equity"
+  ],
+  "dropped": {}
+}

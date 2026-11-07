@@ -841,6 +841,28 @@ are then not the whole, and a nil is never assumed. Merged into an existing
 hand-read history, the hand rows keep their own unit and win where both
 speak. `tools/warren.py` stays US-only.
 
+## LLM pre-fill from PDF pages: `vss pdfdraft`
+
+For what ESEF does not reach -- First North issuers, interim reports. A
+deterministic locator picks the group's income statement, balance sheet and
+cash flow pages (headings in en, sv, fi, da, no; the parent company is passed
+over); a model reads only those, twice, and returns per field the value as
+printed, the row, the column header, the unit sentence and the page. Gates
+drop a field to DATA MISSING unless: both runs agree; the row is on that page
+and holds the value; the column header is on that page and names the target
+period (a quarter's span, never year-to-date; a balance-sheet line the period
+end); the unit sentence is on that page and agrees with the rest (the draft
+declares that unit, nothing is rescaled); revenue / operating income agree
+with a stated margin; no zero, and an outflow printed as one. Draft and run
+record land in `config/manual/drafts/`; merge as for ESEF with
+`--origin llm-pdf`. E149 applies.
+
+```bash
+.venv/bin/python -m vss pdfdraft --ticker ZZ-B.ST --period 2026-Q2 \
+    --pdf sources/ZZ-B.ST_2026-Q2_interim-report-q1-and-q3_2026-08-25_en_a1.pdf --write
+.venv/bin/python -m vss manual --ticker ZZ-B.ST --merge-draft --origin llm-pdf --dry-run
+```
+
 ## Screener: `vss screen`
 
 Phases 1 to 3, 5 and 6: it builds the universe, snapshots its prices, runs the
@@ -940,6 +962,50 @@ discards one of those two days whichever way it is pointed, and no RSI band
 catches both.
 
 ---
+
+### Point in time (HANDOFF C, 2026-11-07)
+
+Prices are point-in-time; the vendor's fundamentals are not. Three things say
+so and start to fix it:
+
+- **C0, REPLAY LOOK-AHEAD.** A `--rank` run whose snapshot is dated after
+  `--asof` opens with a block counting the series rows and fetches stamped
+  after asof; `ranking-manifest.json` carries `replay_look_ahead` and
+  `fundamentals_source`.
+- **C1, the SEC shadow** (`vss/sec_pit.py`). `--rank --sec-shadow`, and every
+  weekly screen, rebuilds each US survivor's ranking lines from SEC
+  companyfacts clipped to asof (cache `data/sec-cache/`) and runs the same
+  `extract_inputs` on them; `ranking.csv`'s last column `sec_check` says
+  where they agree. The ranking stays on the vendor until the owner decides.
+  Without a tagged discrete Q4 SEC cannot form a TTM, and none is derived:
+  the vendor's own figure at SEC's period is compared instead.
+- **C2, `fundamentals_fields_history`** in `data/vss.sqlite`: every vendor field
+  as fetched, append-only and never pruned, plus the VERIFIED manual and
+  `sec-xbrl` figures dated by their document's filing date
+  (`tools/seed_fields_history.py --write`; whole units by each file's own
+  declaration). `store.fields_known_at(db, ticker, asof)` reads it.
+- **C3, provenance on the row.** `ranking.csv` gains, appended at the end,
+  `fund_source`, `fund_visible_asof` (did that fetch exist on asof?) and
+  `fund_fetched_at` before `sec_check`; the manifest's `fundamentals_pit` sums
+  the run's standing up. The shadow's SEC rows go into the snapshot store's own
+  table `fundamentals_series_sec` with `filed`, `accession`, `taxonomy` and
+  `tag` (the vendor table's key would collide); it is made on the first
+  write, never on a read.
+
+## Health check: `vss doctor`
+
+Read-only; exits 0, or 1 on any FAIL. Python version; that pypdf with
+cryptography (AES), lxml, openpyxl, exchange_calendars, requests, yaml and
+pandas import; that `VSS_SEC_CONTACT` is set and holds an address (shown
+masked); that `~/.config/vss/vss.env` is mode 600 and yours; ntfy (a warning
+only); `data/vss.sqlite`'s tables against the store's CREATE statements,
+opened read-only; that the newest snapshot and its fundamentals store read;
+`heartbeat.timer_lines()`; and that the units' `WorkingDirectory` is this
+checkout.
+
+```bash
+.venv/bin/python -m vss doctor
+```
 
 ## Sales record: `vss sales`
 

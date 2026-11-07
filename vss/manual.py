@@ -122,7 +122,13 @@ ORIGIN_XBRL = "sec-xbrl"
 #: forbids E131's machine read-back from verifying it, because quotecheck
 #: proves the transcription and not the choice of line.
 ORIGIN_ESEF = "esef-ixbrl"
-VALID_ORIGINS: tuple[str, ...] = (ORIGIN, ORIGIN_XLSX, ORIGIN_XBRL, ORIGIN_ESEF)
+#: `llm-pdf` (2026-11-07, HANDOFF B): a figure a MODEL read off PDF pages
+#: (`vss/pdfdraft.py`), kept only where deterministic gates found its row,
+#: its column and its unit sentence on the page it named. A draft only,
+#: UNVERIFIED, and E149 keeps the machine read-back from verifying it.
+ORIGIN_LLM_PDF = "llm-pdf"
+VALID_ORIGINS: tuple[str, ...] = (ORIGIN, ORIGIN_XLSX, ORIGIN_XBRL, ORIGIN_ESEF,
+                                  ORIGIN_LLM_PDF)
 
 #: What each origin is, in one line, for the head of the report. A reader
 #: must never have to infer how a figure got into the file.
@@ -155,6 +161,13 @@ ORIGIN_PROSE: dict[str, str] = {
                   "decision, made in `vss/xbrl.py`'s IFRS map, and every "
                   "figure stays UNVERIFIED until the owner has checked it "
                   "(E149)."),
+    ORIGIN_LLM_PDF: ("Every figure below was read off PDF pages BY A MODEL into "
+                     "`{path}`, twice, and kept only where the two readings "
+                     "agreed and the row, the column header and the unit "
+                     "sentence it quoted were found on the page it named. "
+                     "Nothing was rescaled or sign-flipped. A model chose the "
+                     "line, so every figure stays UNVERIFIED until the owner "
+                     "has checked it (E149)."),
 }
 
 #: How each origin stands against the other two, in one sentence. Kept per
@@ -183,6 +196,11 @@ ORIGIN_CONTRAST: dict[str, str] = {
                   "it is stronger than a hand reading of a PDF and weaker "
                   "than `sec-xbrl`. The origin is stated on every line "
                   "rather than assumed."),
+    ORIGIN_LLM_PDF: ("That is the weakest machine provenance in this schema: "
+                     "weaker than a tagged fact and than a hand reading, "
+                     "because the reading itself was a model's. The gates "
+                     "prove the transcription; the owner proves the line. The "
+                     "origin is stated on every line rather than assumed."),
 }
 
 #: A figure is VERIFIED once it has been read back against the page named

@@ -693,7 +693,8 @@ def run_weekly(*, as_of: date | None = None, now: datetime | None = None,
                keep_snapshots: int = KEEP_SNAPSHOTS,
                dry_run: bool = False,
                notify: bool = True,
-               limit: int | None = None) -> WeeklyRun:
+               limit: int | None = None,
+               sec_shadow: bool = True) -> WeeklyRun:
     """The whole chain, then the diff, the report and the pointer (E93).
 
     snapshot -> fundamentals -> rank -> store -> compare -> report -> prune
@@ -744,7 +745,9 @@ def run_weekly(*, as_of: date | None = None, now: datetime | None = None,
 
     log.info("weekly screen %s: ranking", as_of.isoformat())
     # write_pipeline is NOT passed. E93: this run enters no name.
-    ranked = screen_mod.rank(**common, runs_root=runs_root)
+    # HANDOFF C1: the SEC shadow runs on the weekly screen so the owner has
+    # weeks of sec_check to decide the switch on. It changes no rank.
+    ranked = screen_mod.rank(**common, runs_root=runs_root, sec_shadow=sec_shadow)
 
     previous = previous_ranking(db_path, as_of.isoformat())
     previous_dates = [d for d in ranking_run_dates(db_path)

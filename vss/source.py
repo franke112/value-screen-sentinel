@@ -224,6 +224,49 @@ def pdf_to_text(raw: bytes, *, where: str) -> str:
     return text
 
 
+def pdf_pages(raw: bytes, *, where: str) -> list[tuple[int, str, str]]:
+    """[(pdf_index, printed_label, text)] -- one entry per page, in order.
+
+    HANDOFF B (2026-11-07): the LLM pre-fill sends a model only the pages a
+    deterministic locator picks, and every figure it returns must quote a
+    row found ON THE PAGE it names. `pdf_to_text` joins the pages and
+    collapses them; it is left exactly as it is. ``pdf_index`` counts from
+    1; ``printed_label`` is the PDF's own page label where it has one (the
+    number printed on the page), else the index as text. Same refusals as
+    `pdf_to_text`: a password-protected PDF, or one with no text at all.
+    """
+    try:
+        import pypdf
+    except ImportError as exc:  # pragma: no cover -- pypdf is a requirement
+        raise SourceError(
+            f"{where} is a PDF and pypdf is not installed: pip install pypdf"
+        ) from exc
+    try:
+        reader = pypdf.PdfReader(io.BytesIO(raw))
+        if reader.is_encrypted and not reader.decrypt(""):
+            raise SourceError(f"{where}: PDF is password-protected and cannot be read")
+        try:
+            labels = list(reader.page_labels)
+        except Exception:  # noqa: BLE001 -- a broken label tree is not fatal
+            labels = []
+        out = []
+        for i, page in enumerate(reader.pages):
+            label = labels[i] if i < len(labels) and labels[i] else str(i + 1)
+            out.append((i + 1, str(label), page.extract_text() or ""))
+    except SourceError:
+        raise
+    except Exception as exc:
+        raise SourceError(
+            f"{where}: cannot read PDF ({type(exc).__name__}: {exc})"
+        ) from exc
+    if not any(t.strip() for _, _, t in out):
+        raise SourceError(
+            f"{where}: the PDF contains no extractable text -- it is a scan or "
+            f"an image. vss will not guess at figures it cannot read."
+        )
+    return out
+
+
 def looks_like_news(url: str) -> str | None:
     """Warn when a URL points at an aggregator rather than a primary source.
 

@@ -10,6 +10,7 @@ import pandas as pd
 import pytest
 
 from vss import filters, rules, screen
+from vss import snapshot as snapshot_store
 from vss.__main__ import build_parser
 from vss.snapshot import read_manifest, verify
 from vss.universe import SCHEMA, UniverseError
@@ -1419,3 +1420,84 @@ def test_e51_and_e96_lists_do_not_mix():
         step=filters.STEP_COMMODITY_PRICE)
     assert not (pharma.industries & commodity.industries)
     assert pharma.ruling == "E51" and commodity.ruling == "E96"
+
+
+# --- HANDOFF C0: REPLAY LOOK-AHEAD -------------------------------------------
+
+
+def test_a_contemporaneous_rank_carries_no_look_ahead_flag(fx_chain, tmp_path: Path):
+    import json
+    universe, root, exclusions = fx_chain
+    run = screen.rank(as_of=AS_OF, universe_dir=universe, snapshot_root=root,
+                      exclusions_path=exclusions, runs_root=tmp_path / "runs",
+                      fx_lookup=fx_lookup)
+    assert "REPLAY LOOK-AHEAD" not in run.report
+    manifest = json.loads(run.manifest_path.read_text(encoding="utf-8"))
+    assert manifest["replay_look_ahead"] is None
+    assert manifest["fundamentals_source"] == screen.FUNDAMENTALS_SOURCE
+
+
+def test_a_replay_flags_fundamentals_fetched_after_its_date(fx_chain, tmp_path: Path):
+    universe, root, exclusions = fx_chain
+    store = snapshot_store.fundamentals_path(AS_OF, root)
+    flag = screen.replay_look_ahead(date(2026, 8, 1), AS_OF, store)
+    # the fixture fetched on 2026-08-22: every row is after 2026-08-01
+    assert flag["series_rows"] > 0
+    assert flag["series_rows_fetched_after_asof"] == flag["series_rows"]
+    assert flag["names_fetched_after_asof"] >= 1
+    text = "\n".join(screen._look_ahead_lines(flag))
+    assert "REPLAY LOOK-AHEAD" in text and "2026-08-01" in text
+    assert screen.replay_look_ahead(AS_OF, AS_OF, store) is None
+
+
+def test_the_sec_shadow_adds_a_column_and_changes_no_rank(fx_chain, tmp_path: Path):
+    import csv as _csv
+    universe, root, exclusions = fx_chain
+    plain = screen.rank(as_of=AS_OF, universe_dir=universe, snapshot_root=root,
+                        exclusions_path=exclusions, runs_root=tmp_path / "a", fx_lookup=fx_lookup)
+    shadow = screen.rank(as_of=AS_OF, universe_dir=universe, snapshot_root=root,
+                         exclusions_path=exclusions, runs_root=tmp_path / "b", fx_lookup=fx_lookup,
+                         sec_shadow=True, sec_ciks={}, sec_facts=lambda cik: {})
+    assert [r.ticker for r in plain.result.main] == [r.ticker for r in shadow.result.main]
+    rows = list(_csv.DictReader(shadow.ranking_path.open(encoding="utf-8")))
+    assert list(rows[0])[-1] == "sec_check" and rows[0]["sec_check"] == "no CIK"
+    assert "SEC SHADOW" in shadow.report and "SEC SHADOW" not in plain.report
+
+
+# --- HANDOFF C3 ----------------------------------------------------------------
+
+
+def test_the_point_in_time_columns_are_appended_and_the_manifest_says_it(fx_chain, tmp_path: Path):
+    import csv as _csv
+    import json
+    universe, root, exclusions = fx_chain
+    run = screen.rank(as_of=AS_OF, universe_dir=universe, snapshot_root=root,
+                      exclusions_path=exclusions, runs_root=tmp_path / "r", fx_lookup=fx_lookup)
+    header = next(_csv.reader(run.ranking_path.open(encoding="utf-8")))
+    assert header[-4:] == ["fund_source", "fund_visible_asof", "fund_fetched_at", "sec_check"]
+    assert header.index("fcf_vs_5y_median_source") < header.index("fund_source")   # appended
+    row = next(_csv.DictReader(run.ranking_path.open(encoding="utf-8")))
+    # the fixture fetched on 2026-08-22, the day after asof: not visible on asof
+    assert row["fund_source"] == "yfinance" and row["fund_fetched_at"] == "2026-08-22"
+    assert row["fund_visible_asof"] == "no"
+    pit = json.loads(run.manifest_path.read_text(encoding="utf-8"))["fundamentals_pit"]
+    assert pit["point_in_time"] is False and pit["sec_shadow"] is False
+
+
+def test_the_shadow_writes_sec_rows_in_their_own_table(fx_chain, tmp_path: Path):
+    import sqlite3
+    universe, root, exclusions = fx_chain
+    store = snapshot_store.fundamentals_path(AS_OF, root)
+    rows = [("VOLV-B.ST", "income", "Total Operating Income As Reported", "2025-12-31",
+             100.0, 12, "2026-02-10", "acc-1", "us-gaap", "OperatingIncomeLoss")]
+    from vss import sec_pit
+    before = {r[0] for r in sqlite3.connect(store).execute(
+        "SELECT name FROM sqlite_master WHERE type='table'")}
+    assert "fundamentals_series_sec" not in before          # reads never made it
+    assert sec_pit.write_sec_rows(store, rows, written_at="2026-11-07T10:00:00") == 1
+    assert sec_pit.write_sec_rows(store, rows, written_at="2026-11-08T10:00:00") == 0
+    got = sqlite3.connect(store).execute(
+        "SELECT filed, accession, taxonomy, tag FROM fundamentals_series_sec").fetchall()
+    assert got == [("2026-02-10", "acc-1", "us-gaap", "OperatingIncomeLoss")]
+    # the vendor table is untouched and the store still reads
+    assert snapshot_store.read_fundamentals(store)

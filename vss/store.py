@@ -264,6 +264,26 @@ CREATE TABLE IF NOT EXISTS vendor_strings (
 );
 CREATE INDEX IF NOT EXISTS idx_vendor_strings_ticker
     ON vendor_strings (ticker, first_seen);
+
+-- HANDOFF C2 (2026-11-07): every fundamentals FIELD ever seen, with the
+-- moment it became known. APPEND-ONLY and NEVER PRUNED: the snapshot stores
+-- replace a ticker's fields on each fetch (E49), so without this table the
+-- value a replay should have read is gone. A reader asks for the newest
+-- row per (ticker, name) whose `fetched_at` is on or before its asof.
+-- `fetched_at` is the vendor fetch, or -- for a seeded hand-read or SEC
+-- figure -- the FILING DATE of the document it was read from. Seeded rows
+-- are VERIFIED figures only (E21). The unique key makes a re-seed a no-op.
+CREATE TABLE IF NOT EXISTS fundamentals_fields_history (
+    ticker     TEXT NOT NULL,
+    name       TEXT NOT NULL,
+    number     REAL,
+    fetched_at TEXT NOT NULL,
+    period_end TEXT NOT NULL DEFAULT '',
+    source     TEXT NOT NULL DEFAULT '',
+    UNIQUE (ticker, name, number, fetched_at, period_end, source)
+);
+CREATE INDEX IF NOT EXISTS idx_fields_history_ticker
+    ON fundamentals_fields_history (ticker, name, fetched_at);
 """
 
 COLUMNS = (
@@ -510,3 +530,40 @@ def persist_earnings(db_path: Path, record: dict) -> int:
     log.info("logged earnings run for %s (shadow=%s)",
              record.get("ticker"), record.get("shadow"))
     return 1
+
+
+def append_fields_history(db_path: Path, rows) -> int:
+    """C2: add rows (ticker, name, number, fetched_at, period_end, source).
+    Never updates or deletes; a row already there is skipped. Returns how
+    many were new."""
+    rows = [(t, n, num, f, pe or "", src or "") for t, n, num, f, pe, src in rows]
+    if not rows:
+        return 0
+    conn = connect(db_path)
+    try:
+        before = conn.execute("SELECT COUNT(*) FROM fundamentals_fields_history").fetchone()[0]
+        conn.executemany(
+            "INSERT OR IGNORE INTO fundamentals_fields_history "
+            "(ticker, name, number, fetched_at, period_end, source) VALUES (?, ?, ?, ?, ?, ?)", rows)
+        conn.commit()
+        after = conn.execute("SELECT COUNT(*) FROM fundamentals_fields_history").fetchone()[0]
+    finally:
+        conn.close()
+    return after - before
+
+
+def fields_known_at(db_path: Path, ticker: str, as_of: str) -> dict[str, tuple]:
+    """C2's reader: per field name, the newest (number, fetched_at,
+    period_end, source) known on or before `as_of` (YYYY-MM-DD)."""
+    conn = connect(db_path)
+    try:
+        rows = conn.execute(
+            "SELECT name, number, fetched_at, period_end, source FROM fundamentals_fields_history "
+            "WHERE ticker = ? AND substr(fetched_at, 1, 10) <= ? "
+            "ORDER BY fetched_at, period_end", (ticker, as_of)).fetchall()
+    finally:
+        conn.close()
+    out: dict[str, tuple] = {}
+    for name, number, fetched, period_end, source in rows:
+        out[name] = (number, fetched, period_end, source)
+    return out

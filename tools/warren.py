@@ -101,6 +101,12 @@ def main(argv=None) -> int:
     ap.add_argument("tickers", nargs="+")
     ap.add_argument("--asof", type=date.fromisoformat, default=date.today())
     a = ap.parse_args(argv)
+    from vss import env
+    from vss.xbrl import CONTACT_ENV
+    if not (env.get(CONTACT_ENV) or "").strip():
+        print(f"warren.py: {CONTACT_ENV} is not set (environment or ~/.config/vss/vss.env); "
+              f"SEC refuses a call without a contact address. Set it and re-run.")
+        return 2
     ciks = N.sec_ciks()
     for t in a.tickers:
         one(t.upper(), ciks, a.asof)

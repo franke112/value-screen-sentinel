@@ -147,6 +147,21 @@ def build_parser() -> argparse.ArgumentParser:
     manual_cmd.add_argument("--dry-run", action="store_true",
                             help="with --merge-draft: report, write nothing")
 
+    pdfdraft_cmd = sub.add_parser(
+        "pdfdraft",
+        help="a model reads a report's statement pages (twice) and gated figures "
+             "become config/manual/drafts/<TICKER>.llm-pdf.yaml (UNVERIFIED; E149)",
+    )
+    pdfdraft_cmd.add_argument("--ticker", required=True, metavar="X")
+    pdfdraft_cmd.add_argument("--pdf", required=True, metavar="PATH",
+                              help="the report under sources/")
+    pdfdraft_cmd.add_argument("--period", required=True, metavar="YYYY-Qn|YYYY-FY",
+                              help="the target period: its column and nothing else")
+    pdfdraft_cmd.add_argument("--currency", default=None,
+                              help="reporting currency (default: the live store's)")
+    pdfdraft_cmd.add_argument("--write", action="store_true",
+                              help="write the draft and its run record")
+
     esef_cmd = sub.add_parser(
         "esef",
         help="read a Nordic issuer's ESEF report packages in sources/ and, "
@@ -283,6 +298,13 @@ def build_parser() -> argparse.ArgumentParser:
     refresh_cmd.add_argument("--manual-dir", metavar="PATH", default=None,
                              help="read and write stores in an alternate "
                                   "directory instead of config/manual")
+
+    sub.add_parser(
+        "doctor",
+        help="read-only: can this machine run vss? python, imports, the SEC "
+             "contact, vss.env's mode, ntfy, the database's tables, the "
+             "snapshots, the timers, the checkout path. Exit 0 or 1",
+    )
 
     sales_cmd = sub.add_parser(
         "sales",
@@ -583,6 +605,12 @@ def build_parser() -> argparse.ArgumentParser:
              "(FRAMEWORK-EDITS E6). Fetches only the exchange rates it needs",
     )
     screen_cmd.add_argument(
+        "--sec-shadow", action="store_true",
+        help="with --rank: SHADOW-check each US survivor's EBIT and total assets "
+             "against SEC companyfacts clipped to --asof (column sec_check; the "
+             "ranking stays on the vendor)",
+    )
+    screen_cmd.add_argument(
         "--fx-from-manifest", metavar="PATH", default=None,
         help="with --rank: replay the exchange rates recorded in a stored "
              "ranking-manifest.json instead of fetching. Without it the rates "
@@ -779,6 +807,7 @@ def main(argv: list[str] | None = None) -> int:
                                  else EXCLUSIONS_PATH),
                 fx_from_manifest=(Path(args.fx_from_manifest)
                                   if args.fx_from_manifest else None),
+                sec_shadow=args.sec_shadow,
             )
         if args.command == "appendix":
             from datetime import date
@@ -956,6 +985,35 @@ def main(argv: list[str] | None = None) -> int:
                               manual_dir=Path(args.dir) if args.dir else MANUAL_DIR,
                               write=not args.dry_run)
             print(render_merge(res, origin=args.origin))
+            return 0
+        if args.command == "doctor":
+            from . import doctor
+
+            checks = doctor.run()
+            print(doctor.render(checks))
+            return doctor.exit_code(checks)
+        if args.command == "pdfdraft":
+            from datetime import datetime as _dt
+
+            import yaml as _yaml
+
+            from . import pdfdraft
+            from .manual import MANUAL_DIR
+
+            ticker = args.ticker.strip().upper()
+            live = MANUAL_DIR / f"{ticker}.yaml"
+            doc = _yaml.safe_load(live.read_text(encoding="utf-8")) if live.exists() else {}
+            currency = args.currency or doc.get("reporting_currency")
+            if not currency:
+                print(f"{ticker}: no --currency and no live store to read it from")
+                return 2
+            result = pdfdraft.run(Path(args.pdf), ticker=ticker, target=args.period)
+            print(pdfdraft.render(result))
+            if args.write and result.gated.figures:
+                text = pdfdraft.draft_yaml(ticker, doc.get("name") or ticker, currency, result,
+                                           pdf=Path(args.pdf), target=args.period,
+                                           run_ts=_dt.now().astimezone())
+                print(f"\nDRAFT written: {pdfdraft.write(ticker, text, result.record)}")
             return 0
         if args.command == "esef":
             from datetime import datetime as _dt

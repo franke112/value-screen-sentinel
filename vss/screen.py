@@ -1021,6 +1021,19 @@ def fetch_fundamentals(
         log.warning("vendor strings not recorded (%s: %s); E51/E96's string "
                     "limb will fall back to the pruned stores",
                     type(exc).__name__, exc)
+    # C2 (2026-11-07): the same moment for the NUMBERS. The store replaces a
+    # ticker's fields on every fetch (E49); the history keeps each one with
+    # the fetch that saw it, append-only, so a replay can ask what was known.
+    try:
+        from .store import append_fields_history
+        from .fundamentals import FIELD_OK
+        stamp = (outcome.fetched_at or datetime.now()).isoformat(timespec="seconds")
+        append_fields_history(db_path, [
+            (r.ticker, f.name, f.number, stamp, "", r.origin or "yfinance")
+            for r in outcome.records for f in r.fields
+            if f.status == FIELD_OK and f.number is not None])
+    except Exception as exc:  # noqa: BLE001 -- never fatal to the fetch
+        log.warning("fields history not appended (%s: %s)", type(exc).__name__, exc)
     report = _fundamentals_report(as_of, path, upstream, outcome, limit,
                                   retain_from, db_path=db_path,
                                   strings_recorded=recorded)
@@ -1589,6 +1602,9 @@ def rank(
     watchlist_path: Path = pipeline_step.WATCHLIST_PATH,
     dry_run: bool = False,
     now: datetime | None = None,
+    sec_shadow: bool = False,
+    sec_ciks=None,
+    sec_facts=None,
 ) -> RankRun:
     """The whole chain, then the ranking key. FRAMEWORK-EDITS E5."""
     upstream = filter2(
@@ -1603,6 +1619,7 @@ def rank(
     records = {r.ticker: r for r in snapshot_store.read_fundamentals(store_path)}
     manifest = snapshot_store.read_fundamentals_manifest(store_path)
     candidates = upstream.result.survivors
+    look_ahead = replay_look_ahead(as_of, upstream.upstream.snapshot_date, store_path)
 
     # Rule 8 of the ranking: every yield is struck on the SETTLED close the
     # filter-1 row carries, not on whatever price the vendor's
@@ -1621,6 +1638,18 @@ def rank(
                                           close=closes.get(c.ticker),
                                           fetched=fetched.get(c.ticker, latest))
               for c in candidates]
+    sec_rows: list = []
+    shadow = (sec_shadow_checks(candidates, records, closes, fetched, latest, as_of,
+                                ciks=sec_ciks, facts_for=sec_facts, rows_out=sec_rows)
+              if sec_shadow else None)
+    sec_written = 0
+    if sec_rows and store_path.exists():
+        # C3: the rows the shadow read, with their filing date and accession,
+        # in the store's own SEC table (made on this first write).
+        from . import sec_pit
+        sec_written = sec_pit.write_sec_rows(
+            store_path, sec_rows,
+            written_at=(now or datetime.now()).isoformat(timespec="seconds"))
     # Two pair sets. Enterprise value converts from the quote currency into
     # the reporting one; turnover converts from every quote currency into a
     # single one so two listings of one company can be compared at all.
@@ -1668,6 +1697,9 @@ def rank(
             fx_replayed_from=fx_replayed_from,
             candidates={c.ticker: c for c in candidates},
             fundamentals=records,
+            look_ahead=look_ahead,
+            sec_checks=shadow,
+            sec_rows_written=sec_written if sec_shadow else None,
         )
 
     write_result = None
@@ -1690,7 +1722,8 @@ def rank(
 
     report = _rank_report(as_of, upstream, result, table, manifest,
                           ranking_path, manifest_path, write_result, top,
-                          fx_replayed_from, fx_manifest_asof)
+                          fx_replayed_from, fx_manifest_asof, look_ahead=look_ahead,
+                          sec_checks=shadow)
     return RankRun(as_of=as_of, upstream=upstream, result=result, report=report,
                    ranking_path=ranking_path, manifest_path=manifest_path,
                    write_result=write_result)
@@ -1705,6 +1738,90 @@ def _fetch_date(manifest: Mapping[str, str]) -> date | None:
         return date.fromisoformat(str(stamp)[:10])
     except ValueError:
         return None
+
+
+#: HANDOFF C0 (2026-11-07): the fundamentals are the VENDOR's, read from the
+#: store of the snapshot date; nothing in them is dated to `asof`.
+FUNDAMENTALS_SOURCE = "vendor (yfinance)"
+
+
+def replay_look_ahead(as_of: date, snapshot_date: date, store_path: Path) -> dict | None:
+    """C0, the cheapest honest minimum: in a REPLAY (the snapshot is dated
+    after `asof`), count the vendor series rows and the per-name fetches
+    stamped after `asof`. They are FLAGGED, not refused: refusing them would
+    leave a replay nothing to rank, and the flag is what says the replay is
+    look-ahead. None on a contemporaneous run."""
+    if snapshot_date <= as_of:
+        return None
+    cut = as_of.isoformat()
+    rows = snapshot_store.read_series_rows(store_path) if store_path.exists() else []
+    late = [r for r in rows if (r[6] or "")[:10] > cut]
+    records = snapshot_store.read_fundamentals(store_path) if store_path.exists() else []
+    fetched_late = [r.ticker for r in records
+                    if r.fetched_at is not None and r.fetched_at.date() > as_of]
+    return {"asof": cut, "snapshot": snapshot_date.isoformat(),
+            "source": FUNDAMENTALS_SOURCE,
+            "series_rows": len(rows), "series_rows_fetched_after_asof": len(late),
+            "names_with_late_rows": len({r[0] for r in late}),
+            "names_fetched_after_asof": len(fetched_late)}
+
+
+def _look_ahead_lines(flag: dict | None) -> list[str]:
+    if not flag:
+        return []
+    return [
+        "",
+        "  " + "!" * 74,
+        "  REPLAY LOOK-AHEAD",
+        "  " + "!" * 74,
+        f"  This run evaluates {flag['asof']} from the {flag['snapshot']} snapshot, and its",
+        f"  fundamentals are the {flag['source']}'s as fetched for that snapshot.",
+        f"  {flag['series_rows_fetched_after_asof']:,} of {flag['series_rows']:,} series rows "
+        f"({flag['names_with_late_rows']:,} names) were fetched AFTER {flag['asof']};",
+        f"  {flag['names_fetched_after_asof']:,} names' fetches are dated after it. Nothing compares a",
+        "  row's period end or filing date to asof, so the ranking below may use",
+        "  accounts that did not exist on that day. It is NOT evidence about what",
+        "  the screener would have found then.",
+        "  " + "!" * 74,
+    ]
+
+
+def sec_shadow_checks(candidates, records, closes, fetched, latest, as_of: date, *,
+                      ciks=None, facts_for=None, rows_out: list | None = None) -> dict[str, str]:
+    """HANDOFF C1, SHADOW: per filter-1 survivor with a CIK, SEC companyfacts
+    clipped to `as_of` (vss/sec_pit.py) through the SAME `extract_inputs`,
+    and one `sec_check` cell. The ranking stays on the vendor."""
+    from . import sec_pit
+    if ciks is None:
+        from .newsdrop import sec_ciks as _sec_ciks
+        try:
+            ciks = _sec_ciks()
+        except Exception as exc:  # noqa: BLE001 -- reported in every cell
+            return {c.ticker: f"SEC shadow not run: {type(exc).__name__}: {exc}"[:200]
+                    for c in candidates}
+    facts_for = facts_for or (lambda cik: sec_pit.cached_facts(cik))
+    out: dict[str, str] = {}
+    for c in candidates:
+        cik = ciks.get(c.ticker.upper()) if "." not in c.ticker else None
+        if cik is None:
+            out[c.ticker] = "no CIK"
+            continue
+        vendor = records.get(c.ticker)
+        try:
+            facts = facts_for(cik)
+        except Exception as exc:  # noqa: BLE001
+            out[c.ticker] = f"SEC fetch failed: {type(exc).__name__}"
+            continue
+        rows = sec_pit.sec_rows(facts, ticker=c.ticker, as_of=as_of)
+        if rows_out is not None:
+            rows_out.extend(rows)
+        sec = sec_pit.sec_record(facts, ticker=c.ticker, as_of=as_of, like=vendor, rows=rows)
+        a = ranking_step.extract_inputs(c.ticker, vendor, close=closes.get(c.ticker),
+                                        fetched=fetched.get(c.ticker, latest))
+        b = ranking_step.extract_inputs(c.ticker, sec, close=closes.get(c.ticker),
+                                        fetched=fetched.get(c.ticker, latest))
+        out[c.ticker] = sec_pit.check(a, b, vendor)
+    return out
 
 
 RANK_COLUMNS = (
@@ -1735,19 +1852,36 @@ RANK_COLUMNS = (
     # says WHY, which is the more useful half of it.
     "ebit_vs_5y_median", "ebit_vs_5y_median_source",
     "fcf_vs_5y_median", "fcf_vs_5y_median_source",
+    # HANDOFF C3 (2026-11-07), APPENDED: where this row's accounts came
+    # from, whether that fetch existed on asof, and when it was made.
+    "fund_source", "fund_visible_asof", "fund_fetched_at",
+    # HANDOFF C1 (2026-11-07), APPENDED: the SEC shadow's word on this row's
+    # EBIT and total assets. Decides nothing; empty when the shadow did not run.
+    "sec_check",
 )
 
 
 def _rank_row(section: str, item, marknad: str, candidate=None,
-              medians=None) -> dict:
+              medians=None, sec_checks=None, as_of: date | None = None) -> dict:
     scored = item.scored if hasattr(item, "scored") else item
     inputs = scored.inputs
+    sec_cell = (sec_checks or {}).get(scored.ticker, "")
+    # C3: which source the row's accounts came from, and whether that fetch
+    # existed on the run's date. The vendor is not point-in-time, so a fetch
+    # after asof is "no" -- the row is look-ahead.
+    fund_fetched = getattr(inputs, "net_debt_date", None)
+    fund_visible = ("" if fund_fetched is None or as_of is None
+                    else "yes" if fund_fetched <= as_of else "no")
     low_date = getattr(candidate, "low_52w_date", None)
     from .medians import MedianRatio
     ebit_median, fcf_median = (medians or {}).get(
         scored.ticker,
         (MedianRatio(note="not computed for this row"),) * 2)
     return {
+        "fund_source": getattr(inputs, "origin", "") or "",
+        "fund_visible_asof": fund_visible,
+        "fund_fetched_at": fund_fetched.isoformat() if fund_fetched else "",
+        "sec_check": sec_cell,
         "ebit_vs_5y_median": ebit_median.column(),
         "ebit_vs_5y_median_source": ebit_median.provenance(),
         "fcf_vs_5y_median": fcf_median.column(),
@@ -1872,7 +2006,10 @@ def _write_ranking(runs_root: Path, as_of: date, result, table,
                    markets: Mapping[str, str],
                    fx_replayed_from: str | None = None,
                    candidates: Mapping[str, object] | None = None,
-                   fundamentals: Mapping | None = None) -> tuple[Path, Path]:
+                   fundamentals: Mapping | None = None,
+                   look_ahead: dict | None = None,
+                   sec_checks: Mapping[str, str] | None = None,
+                   sec_rows_written: int | None = None) -> tuple[Path, Path]:
     import csv
     import json
 
@@ -1890,21 +2027,21 @@ def _write_ranking(runs_root: Path, as_of: date, result, table,
         writer.writeheader()
         for item in result.main:
             writer.writerow(_rank_row("ranked", item, markets.get(item.ticker, ""),
-                                      fields.get(item.ticker), medians))
+                                      fields.get(item.ticker), medians, sec_checks, as_of))
         for item in result.yield_only:
             writer.writerow(_rank_row("earnings_yield_only", item,
                                       markets.get(item.ticker, ""),
-                                      fields.get(item.ticker), medians))
+                                      fields.get(item.ticker), medians, sec_checks, as_of))
         for scored in result.unrankable:
             writer.writerow(_rank_row("unrankable", scored,
                                       markets.get(scored.ticker, ""),
-                                      fields.get(scored.ticker), medians))
+                                      fields.get(scored.ticker), medians, sec_checks, as_of))
         # Written into the same file, in their own section. A name excluded
         # from an ordering has to be findable in the ordering's own record.
         for scored in result.stale:
             writer.writerow(_rank_row("stale", scored,
                                       markets.get(scored.ticker, ""),
-                                      fields.get(scored.ticker), medians))
+                                      fields.get(scored.ticker), medians, sec_checks, as_of))
 
     manifest_path = directory / "ranking-manifest.json"
     manifest = {
@@ -1929,6 +2066,22 @@ def _write_ranking(runs_root: Path, as_of: date, result, table,
                       else "fetched at run time (LATEST close, not --asof's)"),
         "fx_rate_dates": sorted({rate.as_of.isoformat()
                                  for rate in table.rates.values() if rate.as_of}),
+        # C0: where the fundamentals came from, and whether this run is a
+        # replay that reads them from after its own date.
+        "fundamentals_source": FUNDAMENTALS_SOURCE,
+        "replay_look_ahead": look_ahead,
+        "sec_shadow": sec_checks is not None,
+        # C3: the run's point-in-time standing in one place.
+        "fundamentals_pit": {
+            "source": FUNDAMENTALS_SOURCE,
+            "point_in_time": False,
+            "why": ("the vendor serves its LATEST accounts; nothing compares a "
+                    "row's period end or filing date to asof"),
+            "replay": look_ahead is not None,
+            "sec_shadow": sec_checks is not None,
+            "sec_rows_table": "fundamentals_series_sec" if sec_checks is not None else None,
+            "sec_rows_written": sec_rows_written,
+        },
     }
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     return path, manifest_path
@@ -2012,8 +2165,19 @@ def _pct(value, width=9):
 
 def _rank_report(as_of, upstream, result, table, fundamentals_manifest,
                  ranking_path, manifest_path, write_result=None, top=5,
-                 fx_replayed_from=None, fx_manifest_asof=None) -> str:
+                 fx_replayed_from=None, fx_manifest_asof=None,
+                 look_ahead: dict | None = None, sec_checks=None) -> str:
     lines = [_heading(f"RANKING -- TWO COMPONENTS  asof={as_of.isoformat()}")]
+    lines += _look_ahead_lines(look_ahead)
+    if sec_checks is not None:
+        cells = list(sec_checks.values())
+        differ = [t for t, c in sec_checks.items() if "vs SEC" in c]
+        lines.append(
+            f"\n  SEC SHADOW (HANDOFF C1): {sum(c != 'no CIK' for c in cells)} of {len(cells)} "
+            f"names checked against SEC companyfacts clipped to asof; "
+            f"{len(differ)} differ on EBIT or total assets"
+            + (f" ({', '.join(sorted(differ)[:10])})" if differ else "")
+            + ". The ranking is the vendor's; column sec_check.")
     lines.append(
         "\n  operating profitability = EBIT / total assets   (FRAMEWORK-EDITS E43)\n"
         "  EY                      = EBIT / enterprise value\n"
@@ -2332,6 +2496,7 @@ def run_screen(
     exclusions_path: Path = EXCLUSIONS_PATH,
     fx_from_manifest: Path | None = None,
     runs_root: Path | None = None,
+    sec_shadow: bool = False,
 ) -> int:
     # None means "the default"; an explicit path isolates a comparison run's
     # artifacts from the real ones for that date.
@@ -2347,7 +2512,7 @@ def run_screen(
                 exclusions_path=exclusions_path,
                 fx_from_manifest=fx_from_manifest,
                 write_pipeline=write_pipeline_flag, top=top,
-                dry_run=dry_run, runs_root=runs,
+                dry_run=dry_run, runs_root=runs, sec_shadow=sec_shadow,
             )
             print(run.report)
             return 0
