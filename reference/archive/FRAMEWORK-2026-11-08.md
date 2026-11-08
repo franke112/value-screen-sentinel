@@ -1,5 +1,7 @@
 # VALUE STOCK SCREENING & ENTRY SYSTEM — Master Context File
 
+*Archived 2026-11-08 as it stood BEFORE the sweep removed §2, §4.3-4.4, §5.1 methods A/B, Gate 4 and §6 (D12). The binding rules are `reference/FRAMEWORK.md`.*
+
 **Version:** 2.3
 **Framework status:** EVERGREEN — every section is reusable; the file holds no dated holdings (see §9)
 **Market data:** None in this file. Refresh prices per §1.2 at analysis time.
@@ -42,6 +44,18 @@ You are operating as a **quantitative equity analyst executing a systematic valu
 - Drawdown-from-high calculation: recompute at analysis time, never reuse
 - Earnings data: must include the **most recently reported quarter** — check the earnings calendar first
 - Analyst/insider data: ≤ 30 days
+
+---
+
+## §2 — PHASE 0: MARKET REGIME ASSESSMENT
+
+Run once per session, before screening. Output a 5-line regime block:
+
+1. **Index valuation:** S&P 500 forward P/E vs. 5y average; CAPE. (Elevated regime ⇒ raise margin-of-safety requirements one tier, §5.3.)
+2. **Macro shock inventory:** Active shocks (war/energy, rates, credit, tariffs) and which sectors they mechanically damage vs. merely scare.
+3. **Earnings season posture:** Beat rates vs. 5y average; market reaction asymmetry (are beats being sold?).
+4. **Sector dislocation map:** Which sectors are >10% off highs, and whether the driver is fundamental or sentiment.
+5. **Regime verdict:** RISK-ON / NEUTRAL / RISK-OFF — affects tranche sizing in §6.3.
 
 ---
 
@@ -114,6 +128,21 @@ If you cannot confidently classify, the verdict is D until proven otherwise.
 - FCF positive in ≥ 6 of 8 quarters
 - No going-concern language, no auditor changes, no restatements
 
+### Gate 4 — Valuation discount (at least 2 of 3) — **DATA MISSING (E99)**
+- Forward P/E ≥ **20% below** its own 5-year median
+- EV/EBIT or P/S below peer median
+- FCF yield ≥ 1.5× sector median
+
+> **E99 (2026-09-01): this gate is DATA MISSING, not FAIL, and it is OUT OF
+> THE GATE COUNT.** Not one of the three limbs has ever been assembled for
+> any name: forward P/E is the hardest datum in the framework to source
+> (B5), and the other two need a peer set and a sector set nobody has built.
+> A criterion nobody can evaluate is not a criterion a company has failed.
+>
+> **THE GATE IS NOT DELETED.** The moment peer and sector medians exist it
+> becomes evaluable, returns to the denominator, and §4.4 rebases back to
+> five. Until then it scores DATA MISSING and §4.4 counts four gates.
+
 ### Gate 5 — Dated catalyst
 A specific, scheduled event within **90 days** capable of forcing a re-rating: earnings report, trading update, regulatory decision, product launch, capital-markets day, guidance event. "Eventually the market will realize" is not a catalyst.
 
@@ -134,6 +163,35 @@ Build the 8-quarter table: revenue, YoY %, op income, YoY %, op margin, EPS, and
 - Net debt/EBITDA > 3.5x or covenant proximity
 - CEO **and** CFO departure within trailing 12 months
 - Receivables or inventory growing > 1.5× revenue growth rate for 2+ quarters (channel stuffing / demand fade signal)
+
+### 4.3 Soft flags (−1 each) and green flags (+1 each)
+**Soft (−1):** customer concentration >20% of revenue; open regulatory probe; SBC >30% of FCF; key-segment deceleration 2 consecutive quarters; rising DSO.
+**Green (+1):** insider buying cluster (≥2 insiders, open market, last 90 days); guidance maintained or raised through the drawdown; active buyback at depressed prices; FCF conversion ≥ 90% of net income; market share gains in core segment; margin expansion during the controversy.
+
+### 4.4 Conviction score
+`Score = (Gates passed: 0–4) + Σ(green flags) − Σ(soft flags)`, hard kills override everything.
+- **≥ 6:** High conviction — full position framework
+- **4–5:** Medium — reduced sizing (§7)
+- **≤ 3:** Drop or watchlist
+
+> **THE DENOMINATOR IS FOUR, AND THE THRESHOLDS REBASED WITH IT (E99,
+> 2026-09-01).** Gate 4 is DATA MISSING and out of the count; the scale was
+> `0–5` with `≥7 / 5–6 / ≤4` and every threshold moved down by one. **No
+> score moved** — Gate 4 was never *passed*, so it never contributed to a
+> score; what moved is the bar. If Gate 4 ever becomes evaluable the
+> denominator returns to five and so do the thresholds.
+>
+> **Tier 1 keeps its other two conditions.** `≥ 6` **and** a fortress
+> balance sheet **and** a secular tailwind. A score alone does not make a
+> tier 1 — UNA.AS scores 7 and is held at tier 2 on the other two.
+>
+> **A name with no §4.4 score on file is not rebased on a guess.** It stays
+> as carried until its next scheduled §6.4 reassessment, which is E77's own
+> treatment of the same problem.
+
+**Verdict vocabulary (mandatory):** VALIDATED / PARTIALLY INVALIDATED (state which flag) / INVALIDATED. A partially invalidated name may only be pursued under a re-labeled thesis (e.g., "cyclical mean-reversion"), never silently under the disconnect framework.
+
+---
 
 ## §5 — PHASE 3: INTRINSIC VALUATION & MARGIN OF SAFETY (top 3 → buy zones)
 
@@ -164,7 +222,9 @@ No name advances to entry planning without an explicit fair value estimate and a
 > **ENGINE (FRAMEWORK-EDITS E28, 2026-08-25).** **The "minimum 2 of 3 methods"
 > requirement below is DELETED, and so is §5.2's 25%-divergence weighting.**
 > **Method C alone produces the fair value**, as a reverse DCF on filed TTM free
-> cash flow, net debt and a **stated** share count. **Methods A and B are removed** (sweep D12, 2026-11-08).
+> cash flow, net debt and a **stated** share count. **Methods A and B are
+> context shown beside it and are never requirements**; where they diverge from
+> the engine, the divergence is **reported, not reconciled and not averaged.**
 >
 > **The pre-registration order is binding.** g_bear, g_base and g_bull are
 > written with reasons, in `reference/growth-views/<TICKER>.md`, **BEFORE g\* is
@@ -202,12 +262,14 @@ No name advances to entry planning without an explicit fair value estimate and a
 
 | Method | Computation | Use when |
 |---|---|---|
+| **A. Multiple reversion** | FV = 5-year median forward P/E × NTM consensus EPS | Stable-multiple compounders (MSFT, UL type) |
+| **B. Peer relative** | FV = peer-median EV/EBIT (or P/E) × company EBIT (or EPS), adjusted ±10% for quality delta | Sector-rotation casualties |
 | **C. Reverse DCF — THE ENGINE (E28)** | Solve the growth rate implied by the current price (10y horizon, terminal 2.5%, **hurdle rate 9.5% — E29**) on filed TTM free cash flow, net debt and a stated share count. Read fair value off the **pre-registered** g_bear / g_base / g_bull. | **Always, and alone.** ~~as falsification~~ — E28 promoted this from a sanity check to the method that produces the number. |
 
 State all inputs. ~~If methods diverge > 25%, explain why and weight toward the more conservative.~~ **Struck by E28** — with one engine there is nothing to weight, and averaging the engine with a context figure would reinstate the deleted requirement.
 
 ### 5.2 Fair value output
-~~`FV = weighted average of methods used` — show the weights.~~ **Struck by E28.** **FV is the engine's output**, reported as a **range — bear / base / bull — one value per pre-registered growth rate**, each named with the rate and the reason it was written.
+~~`FV = weighted average of methods used` — show the weights.~~ **Struck by E28.** **FV is the engine's output**, reported as a **range — bear / base / bull — one value per pre-registered growth rate**, each named with the rate and the reason it was written. Methods A and B are shown beside the range as context, with any divergence stated.
 
 ### 5.3 Margin of safety → Maximum Buy Price (MBP)
 
@@ -259,6 +321,70 @@ State all inputs. ~~If methods diverge > 25%, explain why and weight toward the 
 > hand for a name that has never been valued is an alert, not a maximum buy
 > price, and **the name is not buyable at it**. Where no `fv_base` and no `tier`
 > exist, no MBP exists, and the level is a reminder to do the work.
+
+---
+
+## §6 — PHASE 4: TECHNICAL ENTRY TIMING
+
+Fundamentals answer **what** and **below which price**. Technicals answer **when**. **SUPERSEDED BY E159 (2026-11-08): the §6.1–6.2 triggers are no longer a requirement for a purchase; the rest of this sentence no longer binds.** Capital is deployed only when price ≤ MBP **and** at least one trigger from each of 6.1–6.2 confirms, per the matrix in 6.3.
+
+### 6.1 Structure triggers (reversal evidence)
+
+**SUPERSEDED BY E159 (2026-11-08): no trigger in this table is a requirement for a purchase; the table no longer binds. §6.3 is not changed by E159 -- its rows that cite these triggers await the review.**
+
+| Trigger | Confirmation definition |
+|---|---|
+| **Double bottom (W)** | Second low within ±2% of first low, ≥ 3 weeks apart; confirmed only on close above the interim high (neckline) on ≥ 1.5× 20-day average volume. Target = neckline + pattern height. |
+| **Inverse head & shoulders** | Right shoulder low higher than head; confirmed on neckline close with volume expansion. Declining volume into the right shoulder strengthens the signal. |
+| **Base / accumulation range** | ≥ 4 weeks of sideways action with range < 10%, on declining volume; entry on range-top breakout. |
+| **Higher-low sequence** | ≥ 2 successive higher swing lows after the capitulation low — minimum acceptable structure when no full pattern exists. |
+| **Support floor** | A level tested ≥ 2 times and held, ideally coinciding with a prior breakout zone or the 200DMA. Defines the stop (§6.4). |
+| **Resistance map** | Identify the first two overhead supply zones. Required: distance to first resistance ≥ 2× distance to stop (minimum 2:1 reward/risk at entry). |
+
+### 6.2 Momentum & volume triggers
+
+**SUPERSEDED BY E159 (2026-11-08): no trigger in this table is a requirement for a purchase; the table no longer binds. §6.3 is not changed by E159 -- its rows that cite these triggers await the review.**
+
+| Trigger | Confirmation definition |
+|---|---|
+| **RSI(14) oversold reversal** | RSI prints < 30, then closes back above 30. Entry on the reclaim, not while pinned below 30 ("oversold can stay oversold"). |
+| **Bullish RSI divergence** | Price makes a lower low; RSI makes a higher low. Strongest near a §6.1 support floor. |
+| **50DMA reclaim** | Close above the 50DMA, held for 3 consecutive sessions. First trend-repair signal. |
+| **200DMA / golden-cross context** | Price above 200DMA = trend tailwind; 50>200 cross = confirmation (late, use for adds not initiation). |
+| **Volume confirmation** | Breakout/reclaim day volume ≥ 1.5× 20-day average; up-volume : down-volume ratio > 1.2 over trailing 10 sessions; OBV rising while price bases. |
+| **Overbought veto** | No new tranche while RSI(14) > 70, regardless of fundamentals. Wait for consolidation. |
+
+### 6.3 Entry decision matrix & tranche plan
+
+Default position is built in **three tranches (40% / 30% / 30%)** of the target size:
+
+| Condition | Action |
+|---|---|
+| Price ≤ MBP + confirmed §6.1 pattern + §6.2 volume confirmation | **Tranche 1 (40%)** at market |
+| Price ≤ MBP, no pattern yet, but support floor holding + RSI reclaim | Tranche 1 reduced to 25%; rest waits |
+| Price ≤ MBP but falling knife (no structure, RSI < 30 and falling) | **No entry.** Set alerts at support; re-evaluate on stabilization |
+| Tranche 1 filled, then 50DMA reclaim holds 3 sessions | **Tranche 2 (30%)** |
+| Catalyst event (earnings) confirms thesis AND price holds/gaps up on volume | **Tranche 3 (30%)** — paying up for confirmation is acceptable up to FV × 0.90 |
+| Catalyst disappoints or hard-kill red flag appears | Halt tranches; run §6.4 exit logic |
+| Price > MBP at all times | Watchlist + limit alerts at MBP; no FOMO override exists (**WATCH-PRICED only — E27**) |
+
+**Regime modifier:** RISK-OFF regime ⇒ tranche sizes 30/30/20 with 20% reserve.
+
+> **SCOPE (FRAMEWORK-EDITS E27).** The last row's limit alerts are for a
+> **WATCH-PRICED** name, per §5.3. **A WATCH-GATED name has no row in this
+> matrix**: every row here opens on a price, and a gated name's route back is a
+> named information event that sends it to §3, not a price that sends it to §6.
+>
+> **This says nothing about §6.4.** *"Never a price level"* is a rule about
+> **re-entry** and has never been asserted about exits. **The stops in §6.4 are
+> price levels, they are correct, and E27 does not touch them.**
+
+### 6.4 Exit & stop discipline (defined BEFORE entry)
+
+- **SUPERSEDED BY E156 (2026-11-08): the price stop is a catastrophe stop at −30% from blended entry, with re-entry at MBP; the text of this bullet no longer binds.** Technical stop: Daily close below the structural support floor that defined the setup, with a −8% to −12% cap from blended entry. Volume-driven breakdown = exit next session, no averaging down through a broken floor.
+- **Thesis stop:** Any §4.2 hard kill emerging post-entry ⇒ full exit irrespective of price.
+- **Time stop:** If the identified catalyst passes and no re-rating begins within 2 subsequent quarters, the thesis is stale ⇒ exit or formally re-underwrite from §3.
+- **Profit discipline:** At FV_base, trim 25–50%; reassess. Above FV_bull, exit unless the thesis has structurally upgraded (document why).
 
 ---
 
