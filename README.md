@@ -192,7 +192,8 @@ the method is the part that is studied, not trusted.
 **I own shares in AcadeMedia (ACAD.ST), Cognizant (CTSH) and Central Garden
 & Pet (CENTA)** as of 2026-11-07 (the CTSH and CENTA positions are being
 exited, two CENTA shares left; Cirrus Logic, CRUS, was sold in full on
-2026-10-23). The record in this repository shows when I bought and sold
+2026-10-20 and 2026-10-21 -- corrected 2026-11-08 from the broker's
+transaction list; this line said 2026-10-23). The record in this repository shows when I bought and sold
 others. The fair values, buy limits and stops in `config/watchlist.yaml` are
 my personal working notes. **Nothing here is a recommendation to buy, sell or
 hold any security.** If my holdings change, this line may be out of date: the
