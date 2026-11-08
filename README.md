@@ -141,14 +141,18 @@ several of the points below.)
 
 1. **Survivorship flattered us.** Our first US test could only price
    companies still listed. With the delisted put back, the method's cheap
-   portfolio trailed the S&P 500 (total return), and a plain EBIT/EV ranking
-   did better.
+   portfolio trailed the S&P 500 (total return). A plain EBIT/EV ranking
+   did better, though it trailed the index too once broken price series
+   were taken out. The live screen's own ranking sorts the market -- its
+   best fifth beat its worst in most years -- but its best fifth also
+   trailed the index, and the drawdown band added nothing.
 2. **Nordics: strong in sample, not confirmed out of it.** Over 2010-2021,
    the period we developed on, the cheaper companies by the method's fair
    value beat the dearer ones in most years -- less clearly than first
-   measured, once two data faults an independent review found were fixed
-   (figures reported in another currency than the share trades in, and the
-   vendor's broken price adjustments). A pre-registered check
+   measured, once data faults found by independent reviews were fixed
+   (figures reported in another currency than the share trades in, the
+   vendor's broken price adjustments, and tickers reused by another
+   security). A pre-registered check
    on 2022-2023, run once, did **not** confirm it: one year held, one
    reversed. The weekly Nordic screen is therefore a list of candidates to
    review, not an edge.
