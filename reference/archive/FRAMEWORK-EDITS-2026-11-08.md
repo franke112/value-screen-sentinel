@@ -12759,6 +12759,47 @@ effect stated:
 - **E34, E34.1 and E115**: the add-back is taken after tax.
 - **E35's bridge**: post-basis deals are added.
 
+**CLARIFIED 2026-11-08 by the owner -- E140(1)'s E123 shape covers
+NVR's contract land deposits.** NVR's "Increase in contract land deposits"
+(`us-gaap:IncreaseDecreaseInDepositsOutstanding`: −200.7m / −157.3m /
+−77.6m in FY2025 / FY2024 / FY2023) is classed as **inventory**. It stays
+in the flow beside the inventory line and is not stripped as a swing.
+
+> The deposits are NVR's substitute for the land reserve PHM carries in its
+> inventory. The operating asset is treated the same whatever form it takes.
+
+This is a clarification, not a new rule. It names which line the existing
+clause reaches. It changes no record by itself (E87). NVR is re-valued once
+the working-capital reconciliation against the cash flow statement exists,
+and that figure stands. The TITTA signal of 2026-11-08 is not withdrawn.
+Source: independent review 3 and its errata
+(`reference/reviews/method/2026-11-08-OBEROENDE-GRANSKNING-3-ERRATA.md`).
+
+**CLARIFIED (2) 2026-11-08 by the owner -- which operating balances stay
+in the flow.** The principle:
+
+> A line **stays in the flow** if its balance must grow permanently for
+> sales to grow, and is carried by equity. It is **working capital** if it
+> turns over within the operating cycle, or is financed by a facility of
+> its own under financing activities.
+
+Applied to NVR:
+
+- **Contract land deposits** are the first kind. They stay in the flow, as
+  clarification (1) above says.
+- **Mortgage loans held for sale** are the second kind. NVR's "Mortgage
+  loans closed" (`us-gaap:PaymentsForOriginationOfMortgageLoansHeldForSale`)
+  and "Mortgage loans sold and principal payments on mortgage loans held for
+  sale" (`us-gaap:ProceedsFromSaleOfMortgageLoansHeldForSale`) are working
+  capital, though printed above the changes heading. The loans turn over
+  within weeks, and the repurchase facility that funds them sits under
+  financing. Net, the two rows came to −51.1m in FY2025, +83.7m in FY2024
+  and +209.5m in FY2023.
+
+Classed in `config/manual/maps/cashflow-tags.yaml`. No record changes by
+itself (E87). It binds through the re-valuation that follows the
+reconciliation.
+
 ### E140.1 — the four questions E140 left open: acquisition spend is capex for a repeat buyer, deferred revenue stays a swing, the bridge rolls to the latest balance sheet with its working capital neutralised, and fv_base is rewritten from new records
 
 **RULED 2026-10-27 by the owner**, in the session after E140, on the four
@@ -13148,3 +13189,523 @@ First run 2026-11-07: EVO.ST 39 of 42 comparable figures confirmed, 0
 disagreements (FY2021 capex and lease repayment: no second reading, left
 UNVERIFIED); ZZ-B.ST's two 2026-Q2 llm-pdf figures wait for the 2027-Q2
 report's comparative column.
+
+### E152 — a ruling that RAISES a held or watched name's value waits for its next report; one that lowers it binds at once
+
+**DECIDED 2026-11-07 by the session under E141**, on the owner's instruction
+to fix what the independent review (reference/reviews/method/2026-11-07-
+OBEROENDE-GRANSKNING.md, H2) found true. It found the pattern true: ACAD.ST's
+fv_base went 152.32 -> 25.91 -> 173.63 -> 158.74 in three days on rulings
+alone, and under "change the framework only when a name is blocked" every
+error that BLOCKS a name gets fixed while one that makes a name too cheap
+never blocks anything.
+
+> (1) A new ruling that RAISES fv_base of a HELD, PIPELINE or WATCH-* name
+> binds that name from its next periodic report, as E100 does for the tier;
+> until then the name keeps the value it had. A ruling that LOWERS a value
+> binds at once (nothing is credited that is not shown). An arithmetic or
+> data ERROR under the rules as they stood is fixed at once either way.
+> (2) Every ruling that moves fv states in its entry how many valued names
+> move up and how many down, measured on every name's latest record
+> (both replays, the record as struck and the record under the ruling).
+> (3) A ruling decided by the session under E141 that raises any held
+> name's value is checked by an independent session (`/granska`) before (1)'s
+> next report applies it.
+
+Nothing is re-struck by this ruling; it governs rulings from today.
+
+### E153 — the section 7 ceiling is checked every week; the stop stands (E102)
+
+**DECIDED 2026-11-07 by the session under E141** (review H4). The review
+found true that the Nordic backtest's `returns_stop8` turns the cheapest
+fifth from +10.2 to -30.8 pp over three years, and that ACAD.ST is ~2.4x
+section 7's binding ceiling (476 x 117.50 against 1% of ~190,000 SEK / 8%
+= ~23,750 SEK) with nothing in the tool saying so.
+
+> (1) THE STOP STANDS. E102 is the owner's own ruling ("I accept being
+> stopped out"), the backtest's stop is crude (no re-entry, then cash), and
+> E141 prefers inaction to activity: a session does not take a stop off a
+> held position on one backtest. The evidence is recorded beside every
+> strike (the `evidence:` line) so the owner sees it when he next sizes.
+> (2) The ceiling is now MEASURED: `vss queue` carries each HELD row's
+> shares and entry and the portfolio as last stated by the owner
+> (`portfolio_sek`, config/queue.yaml), and once a week says STORLEK
+> <ticker> when a position is over the ceiling, and SÄLJ EJ UTFÖRD when a
+> sell decided by a ruling has not been carried out (CTSH since 2026-10-29,
+> review L3). Notify only; it writes nothing and sells nothing.
+
+### E154 — working capital that consumed cash in all three years stays in FCF0
+
+**DECIDED 2026-11-07 by the session under E141** (review H3), the
+conservative reading. E140(1) stripped the whole working-capital change from
+the three-year mean and E140.1(3) neutralised the year-to-date one, while
+the DCF grows that flow for ten years: a company whose receivables grow
+with its sales ties up cash every year and the model did not see it.
+
+> Where the cash effect of the change in working capital is NEGATIVE in all
+> three years of E140's mean, it is what the growth needs: it stays in each
+> year's flow, and a negative year-to-date figure is not added back in the
+> bridge. Mixed years, or a release, are stripped as E140(1) says. A record
+> struck before E154 (no `e154: true` on its E140 block) replays unchanged
+> (E87); every new strike carries it and its document prints which way the
+> working capital went.
+
+E152(2), measured 2026-11-07 on all 31 latest records: 9 DOWN, 0 up, 22
+unchanged -- CTSH 69.42 -> 55.92 (-19.4%), MC.PA -21.9%, PEP -20.7%, MEKKO.HE
+-12.9%, ACN -12.8%, MUSA -8.4%, BKNG -6.8%, DHI -6.0%, AUTO.L -0.9%. ACAD.ST
+and CENTA unchanged. Lowering, so it binds at once (E152(1)): until each is
+struck again the queue reads the lower base, bear and bull (`base_cap`,
+`bear_cap`, `bull_cap`, dropped by tools/build_queue.py at the next strike).
+
+**Review M2 (ACAD.ST's organic growth including minor bolt-ons), closed by
+E106:** the 2026-10-28 test (8b3ec66) put fv at 155.11 with a point less
+organic growth, -2.3%, inside E106's 3.5%; the contingent consideration
+outstanding at 2026-09-30 is 21m SEK (Q1 2026/27 report p. 23), 0.21 SEK a
+share. Neither moves the value materially; fv_base 158.74 stands.
+
+### E154.1 — the year-to-date working capital is neutralised again; E154 keeps only the three years'
+
+**DECIDED 2026-11-08 by the session under E141** (review 2026-11-08 M1,
+`reference/reviews/method/2026-11-08-OBEROENDE-GRANSKNING.md`). E154's
+second clause was a fault, written by the same session the day before.
+
+> E154 keeps a structural working-capital consumption in each year of the
+> three-year mean, so year 1 of the DCF already bears the current year's.
+> The year-to-date swing since the fiscal year-end is neutralised in the
+> bridge as E140.1(3) says, whether or not E154 keeps the three years':
+> E140.1(3)'s reason -- "a seasonal trough in net debt does not enter the
+> value" -- does not depend on E154. A record with `e154: true` and no
+> `e154_1` replays as struck (E87); every new strike carries `e154_1: true`.
+
+CTSH shows it: 327m consumed in all of FY2025, 984m in the first half of
+2026 alone, most of it seasonal and released in the second half; E154 put
+the whole 984m in net debt on top of the year's consumption in the flow.
+
+**E152, and why this binds at once.** Measured on the nine names E154
+lowered: 5 UP, 0 down, 4 unchanged -- CTSH 55.92 -> 58.03 (+3.8%), MC.PA
+306.90 -> 311.85 (+1.6%), MEKKO.HE 9.53 -> 9.64 (+1.1%), BKNG 203.38 ->
+204.27 (+0.4%), PEP 51.77 -> 54.00 (+4.3%); ACN, AUTO.L, DHI, MUSA
+unchanged (no rolled bridge, or no year-to-date consumption). E152(1) makes
+a ruling that RAISES a held name's value wait for its next report, so that
+no price can steer a rule. This one restores a ruling that was already
+binding (E140.1(3)) to the part of it that E154 removed by mistake a day
+earlier, every value stays below what it was before E154, and the
+correction came out of the review E152(3) names (/granska). It binds at
+once. A correction of a fault is not a new raising ruling; anything more
+than that waits as E152 says.
+
+**Timing, recorded and not changed (review L3).** The rolled bridge
+credits the stub period's cash in the balance sheet, and year 1 of the DCF
+is the whole current year, so the stub's flow is counted twice; every flow
+is discounted from the fiscal year-end, half a year too far for a June
+balance sheet. The two nearly cancel: on CTSH about +1.0bn for the stub
+against -1.4bn for the discount, net about -0.8 USD a share.
+
+### E155 — a ruling that loosens a test or raises a value is measured on every name, and on a held name waits for a second session
+
+**DECIDED 2026-11-08 by the session under E141** (review 2026-11-08 H1).
+Tightens the process; loosens nothing.
+
+> **(1)** Before a ruling that LOOSENS a test (E145's Q1-Q5, a gate, a
+> kill) or RAISES any value binds, its entry states the output of
+> `tools/rule_impact.py --diff` against a snapshot taken on the code before
+> it: every name the queue holds, base up / down, tests newly passing /
+> newly failing, each mover by name. The name that asked for the ruling is
+> one line of that list, not the measure of it.
+> **(2)** Where the list moves a HELD name up, or makes a HELD or watched
+> name newly pass, the ruling binds for that name only after `/granska` in
+> a session that did not write it (a fresh session after `/clear`). E152's
+> wait for the next report still applies.
+> **(3)** A ruling switched on by a record flag adds the flag to
+> `rule_impact.as_new_strike`, or the tool cannot see it.
+
+Why: E148 was written for BKNG and E148.1 for PHM, and each was measured on
+the names the session chose (four, then one). Rules fitted one name at a
+time stop being testable as a whole. E154 bound at once as a lowering and
+held a fault its author found only the next day (E154.1).
+
+Baseline 2026-11-08, 33 names: the snapshot replays every queue strike's
+record as a strike today would carry it (E154 and E154.1 on).
+
+### E156 — the price stop is a catastrophe stop at −30% from entry, with re-entry; §6.4's −8 to −12% cap, C1 and E102 are superseded
+
+**DECIDED 2026-11-08 by the session under E141**, the owner handing the
+call over in words ("mina beslut gör det som är mest logiskt och bäst").
+Evidence: reference/BACKTEST-STOPS-2026-11-08.md (attempt #10/#10b,
+pre-registered, run on wrez-devour).
+
+> **(1)** §6.4's technical stop no longer exits at −8 to −12%. A HELD
+> name's `stop_price` is set at **70% of the blended entry** (−30%): a
+> catastrophe stop for what the thesis cannot see, not a timing rule.
+> **(2)** A name stopped out returns to WATCH-PRICED with its strike
+> unchanged and may be bought again at the next price at or under its MBP:
+> re-entry is part of the rule, not an exception to it.
+> **(3)** The thesis stop (any §4.2 hard kill after entry) and the time
+> stop stand exactly as written; so does profit discipline.
+> **(4)** E153(1)'s "the stop stands" is answered: it asked for a fair
+> test before a stop came off a held position, and #10 is that test.
+
+Why: in both markets and both halves, no stop helped any selection.
+Without re-entry every stop cost 10-57 pp over three years (−8%: −26 to
+−40 pp; three positions in four fall 8% below entry within three years).
+With re-entry −30% costs about nothing (Nordic cheapest fifth −0.3 / −0.2
+pp by half, US +0.6 / +2.8) and the drawdown is that of holding. A stop
+without re-entry lowers drawdown only by leaving the market. Trading costs,
+not in the test, make every stop worse. E155 does not reach this: no test,
+gate, kill or value moves, and E157 tightens the same position.
+
+Applied: ACAD.ST stop 108.10 → **82.25** (117.50 × 0.70), watchlist and
+queue. CENTA (2 shares, no stop, a sell at base pending) is unchanged.
+
+### E157 — §7: one name is at most 6% of the whole portfolio; the risk-based check (1% ÷ distance to stop) is retired
+
+**DECIDED 2026-11-08 by the session under E141.** Evidence:
+reference/BACKTEST-CONCENTRATION-2026-11-08.md (attempt #11/#11b).
+
+> **(1)** A position is at most **6% of the portfolio** (`portfolio_sek`
+> in config/queue.yaml) at purchase: a fifth of the ~30% satellite, so the
+> satellite holds at least five names when five qualify. What is not
+> placed waits in cash or the index core.
+> **(2)** §7's "no per-name cap, no limit on the number of positions" and
+> the risk-based size check go. The check was 1% ÷ the distance to the
+> stop; with E156's −30% stop it would read 3.3% and measure nothing.
+> **(3)** A HELD position above the cap is trimmed to it: the queue says
+> STORLEK weekly and the trim is an `exit_pending` (SÄLJ EJ UTFÖRD) until
+> done. The order is the owner's act.
+
+Why: choosing names at random from the best fifth, the median outcome is
+about the fifth's whatever the count; fewer names only widen the spread
+(three names: 5–95% between about −50 and +80 pp). No test has shown the
+method an edge out of sample (Nordic confirm 2022–23: NOT CONFIRMED), so
+concentration buys variance and no return.
+
+Applied: ACAD.ST, 476 shares ≈ 59,000 SEK, is ~5x the cap (11,400 SEK at
+190,000): sell down to ~90 shares, the rest to the index core. The owner's
+2026-11-04 "halve at ~150" applies to what remains. `vss queue` measures
+the cap without a stop (`POSITION_SHARE = 0.06`).
+
+### E157.1 — "at least five names" is a capacity decision, not an evidence decision
+
+**DECIDED 2026-11-08 by the owner** (round-2 instructions to wrez-devour).
+
+> E157's "the satellite holds at least five names when five qualify"
+> rests on **how many companies can be valued by hand** -- a strike, its
+> record and its checks for each -- not on a measured edge from holding
+> five rather than more. The evidence points the other way: in the
+> concentration test (reference/BACKTEST-CONCENTRATION-2026-11-08.md,
+> attempt #11/#11b) N names drawn at random from the best fifth have the
+> fifth's median whatever N is, and fewer names only widen the spread
+> (three names: 5-95 % between about -50 and +80 pp over three years).
+> More names are always better for the risk, at no cost in the median.
+> The floor of five is therefore what the valuation work can carry, and
+> is raised when it can carry more; it is not a target.
+
+Nothing moves: E157's 6 % cap, the trim of ACAD.ST and the count of names
+stand as written. Trading cost is no argument for fewer names at Avanza
+Mini (a percentage courtage, minimum 1 SEK); under a fixed minimum fee
+(Small, 39 SEK) a small position costs more per krona
+(reference/BACKTEST-STOPS-COSTS-2026-11-08.md, attempt #18).
+
+### E158 — Gate 1's 15–50% band has no support; it stays binding until a shadow comparison shows what dropping it moves
+
+**DECIDED 2026-11-08 by the session under E141.** Evidence:
+reference/BACKTEST-BAND-MOMENTUM-2026-11-08.md (attempt #12) and the live
+key's measurement (#8/#9).
+
+> **(1)** Found: in the US the band adds nothing to the E43 key; in the
+> Nordics the band's names trailed the rest by 22 pp over three years
+> (−14.8 vs +7.7; half 1 −29.0 vs +7.3, half 2 −0.6 vs +8.2). Nothing
+> measured supports it.
+> **(2)** Not yet changed. Gate 1 is the screener's filter 1, a strike
+> gate, `frozen_gate_1` and the OUTSIDE DISLOCATION BAND event; dropping it
+> loosens a gate, so E155 applies (rule_impact over every queue name) and
+> the change touches `rules.py`, which goes through shadow mode. The work
+> is: run screener and queue with and without the band side by side,
+> report what enters and what leaves, then rule.
+> **(3)** The Nordic weekly screen (tools/nordic_screen.py) never used the
+> band and does not start to.
+
+### E159 — §6.1–6.2: the chart triggers are no longer a requirement to buy
+
+**DECIDED 2026-11-08 by the owner** (round-2 instructions to wrez-devour).
+
+> **(1)** §6's "capital is deployed only when price ≤ MBP **and** at least
+> one trigger from each of 6.1–6.2 confirms" no longer binds: **no §6.1
+> structure trigger (double bottom, inverse head and shoulders, base,
+> higher lows, support floor, resistance map) and no §6.2 momentum or
+> volume trigger (RSI oversold reclaim, RSI divergence, 50DMA reclaim,
+> 200DMA / golden cross, volume and OBV, the overbought veto) is a
+> requirement for a purchase.** A purchase still needs price ≤ MBP and
+> everything else the framework asks before it.
+> **(2)** **§6.3 is not changed by this ruling.** Its tranche plan
+> (40 / 30 / 30) and its "price > MBP: no entry" row stand; but its first
+> four rows are conditioned on §6.1–6.2 triggers (a confirmed pattern, an
+> RSI reclaim, a falling knife read off RSI, a 50DMA reclaim for tranche
+> 2) and have no binding trigger after (1). What replaces those
+> conditions is left to the review on the VPS; until then a session
+> states which tranche it takes and why.
+> **(3)** RSI, SMA50 and SMA200 stay as FIELDS on the screen, as they
+> always were (`vss/screen.py`: "RSI AND SMA50 ARE FIELDS. THEY ARE
+> NEVER FILTERS").
+
+Why: none of the patterns has published support as a buy condition for a
+value strategy, and **the burden of proof lies on a rule, not on the one
+who would remove it.** None of them is in the code: a grep of
+`vss/rules.py` (2026-11-08) for double bottom, head and shoulders, golden
+cross, OBV, neckline, RSI, 50DMA / 200DMA, divergence, higher lows and
+§6.1 / §6.2 finds only the module docstring's mention of "RSI's role" in
+the owner's scope; across `vss/` RSI, SMA50 and SMA200 are computed and
+printed as fields and filter nothing; no pattern is detected anywhere.
+The triggers lived only in this text and in the playbook's entry question
+(`tools/playbook/steps.py`, changed with this ruling). E155 does not reach
+it: no test, gate, kill or value moves, and no code read the triggers.
+
+### E161 — Gate 1's 15–50% band is removed from the code; E158's "stays binding" is superseded
+
+**DECIDED 2026-11-08 by the owner** ("japp gör det", on the pruning pass
+after review 2026-11-08-2 H2), under the test-then-prune method: a rule
+that has not shown it holds is removed from the code, not marked.
+
+> **(1)** The band no longer filters, gates or fires anywhere: not in the
+> screener's filter 1, not as `vss run`'s OUTSIDE DISLOCATION BAND
+> verdict, not as E12's frozen reading for a PIPELINE name, not in
+> `vss prepare`'s Gate 1 check, not in the E97 price-watch table.
+> **(2)** The drawdown from the 52-week high stays as a FIELD everywhere it
+> was printed. A name whose drawdown cannot be measured is still rejected
+> in filter 1, ON MISSING, at the new step `high_52w`.
+> **(3)** `dd_at_entry` and `peak_date` stay readable on the watchlist as
+> history; no rule reads them.
+> **(4)** E127 (below the close of a year ago) is NOT removed: it was never
+> tested on its own and goes to the next devour round.
+> **(5)** Gate 2 (a hand part) stays; where a name has no decline, Gate 1
+> and 2 score 0 as E139 already says for a value entry.
+
+What it rested on: FRAMEWORK §3 Gate 1, the dislocation thesis of the
+original framework (2026-08), B2 (inclusive bounds), E12 (frozen at
+entry). What removed it: attempt #12 (Nordic band names −14.8 vs +7.7 pp
+at 3 y; inside the band the best fifth −32.1 / +13.3 by half against
++6.5 / +6.7 over all), #8 (US: the band adds nothing to the E43 key),
+#21 (in the composite the band costs in both markets).
+
+Measured, as E155(1) asks of a loosening (the band is a screener filter and
+a verdict, not a value -- no fv moves, `rule_impact` has nothing to diff):
+filter 1 replayed on the 2026-11-07 snapshot: 1,161 names reach the old
+band step; 439 passed the band and 276 E127; now 1,161 pass the
+measurability step and **389** E127 (+113 into filter 2 and the
+fundamentals fetch). The next weekly ranking will show names entering the
+top 10 that the band held out: that is this ruling, not the market.
+Watchlist (nightly report 2026-11-07): the OUTSIDE DISLOCATION BAND verdict
+disappears for **ACAD.ST** (HELD, 0.8% under its high), **GDDY**
+(WATCH-PRICED), **HRB** and **SAP.DE** (WATCH-GATED). No value, MBP, stop
+or status moves for any of them. Under E155(2) a watched or held name that
+newly passes a gate waits for `/granska` in a session that did not write
+this ruling: for these four the removal is checked there; until then the
+missing verdict is read as information, which is all it was for a HELD
+name (B1).
+
+### E162 — the price stop is removed; E156 and the stop parts of §6.4, C1, E102 and FRAMEWORK 0.4 rule 4 are superseded
+
+**DECIDED 2026-11-08 by the owner** ("japp gör det", the pruning pass after
+review 2026-11-08-2 H2), under the test-then-prune method.
+
+> **(1)** No price stop exists any more: no STOP BREACHED verdict, no NO
+> STOP DEFINED flag before entry, no NO_STOP blocker on a HELD name, no
+> stop level in the stale-close check or in E122(d)'s correction levels,
+> no stop items on the overview page. A buy is a price and its conditions;
+> FRAMEWORK 0.4 rule 4's "with stop Z" no longer applies.
+> **(2)** The THESIS stop (a §4.2 hard kill after entry) and the TIME stop
+> stand exactly as written; so does profit discipline (C4, E42).
+> **(3)** `stop_price` stays a readable field on the watchlist (history and
+> the owner's own note) and a column in the report; no rule reads it.
+> ACAD.ST's 82.25 and CTSH's 53.45 are nulled, the old values kept in the
+> comments; the queue carries `stop: null`.
+
+What it rested on: §6.4's technical stop (−8 to −12%), C1, E102, then
+E156's −30% catastrophe stop with re-entry, adopted 2026-11-08 because it
+"costs about nothing". What removed it: attempt #10 (no stop variant holds
+in any selection, either market, either half; without re-entry every stop
+costs 10–57 pp over three years) and #18 (with Avanza Mini costs −30% +
+re-entry still costs: cheapest fifth Nordic −0.8 / −0.8 pp by half, E43
+best fifth Nordic −1.6 / −3.0). A rule that does no good and costs a
+little has not shown it holds.
+
+E155: the ruling is the owner's, and it loosens an exit on two HELD names
+(ACAD.ST, CTSH). Neither was near its stop (ACAD.ST 124.80 against 82.25;
+CTSH above 53.45 on 2026-11-07), so no exit is suppressed today; the next
+`/granska` checks the removal (review 2 M1 asked that E155 cover stops).
+
+**Not a reversal of E156 (owner 2026-11-08).** Attempts #10 and #18
+support BOTH options: −30% with re-entry and no stop at all. In #10 the
+two are within about a point of each other in every selection, market and
+half (cheapest fifth −0.3 / −0.2 pp by half in the Nordics, +0.6 / +2.8 in
+the US); in #18, with Avanza Mini costs, −30% + re-entry costs −0.8 / −0.8
+(Nordic cheapest fifth) and −1.6 / −3.0 (Nordic E43 best fifth). Neither
+helps. E156 chose −30% + re-entry; E162 chooses the SIMPLER of the two
+equivalent options. The evidence did not change between them.
+
+> **(4) "No stop" is written, never left blank** (owner 2026-11-08). A
+> HELD name carries `stop_price: none  # E162` -- the decision. An EMPTY
+> `stop_price` on a HELD name still raises the NO_STOP blocker
+> (`rules.missing_stop_blocker`, restored for exactly this), so a decision
+> and a forgotten field never look alike. Applied: ACAD.ST, CTSH, CENTA.
+
+### E164 — the rule for rules: a decision rule enters or leaves FRAMEWORK only on a registered test; a data rule may be added freely
+
+**DECIDED 2026-11-08 by the owner**, after the pruning pass of the same
+day removed three rules before step 2's tests ("ordningen blev fel").
+
+> **(1) Two kinds of rule, no third.**
+> - A **DECISION RULE** decides what is bought, held, sold, kept out or
+>   valued at what: a gate, a filter, a kill, a stop, a cushion, a
+>   growth choice, a ranking. It ENTERS or LEAVES FRAMEWORK only on a test
+>   registered in reference/backtest/ATTEMPTS.md before it runs (both
+>   markets, both halves, the bar of the round), and the ruling names the
+>   attempt.
+> - A **DATA RULE** decides how a figure is read: source, unit, period,
+>   currency, freshness, provenance, the form a field is written in. It
+>   may be added or changed freely, measured under E155(1) where it moves
+>   a value.
+> **(2)** A rule that does not fit cleanly is treated as a decision rule
+> and WAITS: on its own branch, not in FRAMEWORK, until its test is
+> registered and run.
+> **(3)** Hand parts (Gate 2, the reading of reports, the owner's growth
+> view itself, catalysts) are judgment, not rules; the shadow book is
+> their test. A rule ABOUT a hand part (which view carries, when one is
+> overridden) is a decision rule.
+
+**E160–E163 placed under it (2026-11-08):**
+
+| Ruling | Kind | Basis | Where it stands |
+|---|---|---|---|
+| E160 the lower growth view carries | decision | none yet: ATTEMPTS #23 registered | branch `rules-round-3-pending`; reverted on `rules-round-2`; ACAD.ST at 158.74 |
+| E161 Gate 1 band removed | decision | #8, #12, #21 | `rules-round-2` |
+| E162 price stop removed (1)-(3) | decision | #10, #18 | `rules-round-2` |
+| E162(4) `stop_price: none` written, blank blocks | data (provenance: a decision vs an empty field) | -- | `rules-round-2` |
+| E163 kills 4.2.1 / 4.2.2 / 4.2.7 + filter 2 revenue limb removed | decision | #17 tested the kills on REPORTED revenue without 4.2.2's Class C exemption; the screener limb was never tested on its own | branch `rules-round-3-pending`; reverted on `rules-round-2`; re-tested in ATTEMPTS #24 |
+
+E160 accounting for ACAD.ST (the owner's point 2): price 124.80 SEK
+(close 2026-11-06); fv_base 158.74 before, 136.87 under E160; portfolio
+weight 476 × 124.80 = 59,405 of 190,000 = 31.3% before and after (a fair
+value does not change a weight). The trim comes from E157(1)/(3), the 6%
+cap -- not from §6.4, fv_base or E160 -- and is not linked to the lower fv:
+its `exit_pending` was removed in the E160 commit only because the owner
+said in the same message he keeps all 476. On `rules-round-2` the trim is
+restored, marked OPEN, for /granska. ACAD.ST alone was re-struck under
+E160 because it is HELD (and the owner named it); the nine others would
+take E160 at their next strike -- E100 is not the reason. ACAD.ST is read
+first in /granska for the same reason.
+
+**CORRECTED 2026-11-08 (source: the owner's Avanza kontoöversikt of the
+same day; the figures above are left as written).** ACAD.ST is **486**
+shares, not 476: 486 × 124.80 = 60,653 SEK. E157's base is the securities,
+**248,476** SEK (shares 62,100 + Avanza Zero 186,376; the buffer excluded),
+not 190,000 -- a session's estimate of 2026-11-02 (56,454 / 0.30). So the
+weight is **24.4%**, not 31.3%, and E157's cap of 14,909 SEK is **119**
+shares; 367 shares (45,802 SEK) would be sold. The owner set E157 aside
+for ACAD.ST (rule: owner, overrides: E157, reason "ägarens val", standing
+EXPIRY at the next ACAD.ST report, 2027-02-01): config/queue.yaml
+`override:` and config/shadow_book.csv's OVERRIDE row (486 kept against
+119 + 45,802 SEK in Avanza Zero). The OPEN trim is replaced by it.
+
+**MOVED 2026-11-08 evening (owner):** the shadow-book OVERRIDE row is out of
+the book (an owned name; arkiv/2026-11-08-shadow-book-ogiltiga/) and the
+OVERRIDE kind is removed. What it measured -- what E157 would have given --
+is a COUNTERFACTUAL fill in ACAD.ST's `sales:` (2026-11-06, 367 at 124.80,
+45,802 SEK to Avanza Zero, `counterfactual: true`, overrides E157), which
+`vss sales` reports apart as "undantag mot regel" and never totals. The
+fields `counterfactual`, `overrides`, `to` and `bought` on a fill are data
+fields under E164.
+
+### E165 — `sales:` is reconciled against an account export before `vss sales` is read; the report prints the last reconciliation
+
+**DECIDED 2026-11-08 by the owner.** A DATA rule under E164 (provenance):
+it decides how the fills are checked, not what is sold.
+
+> **(1)** `vss sales --reconcile EXPORT.csv` matches every sell row of an
+> Avanza transaction export, from the earliest booked fill (or `--since`),
+> to the watchlist's `sales:` fills one to one on date, shares and price,
+> and checks proceeds (to 0.005 SEK) and account. It writes
+> config/sales_reconciled.yaml and exits 1 on any difference: a fill that
+> differs, a sell on the export that is not booked, a booked fill the
+> export does not hold. The core funds (FRAMEWORK §7: Avanza Zero, Avanza
+> USA) are listed apart and are never `sales:` fills.
+> **(2)** `vss sales` prints, first, the date of the last reconciliation,
+> the export it used, its status and its date range; a fill dated after the
+> export's last day is printed as NOT COVERED; with no reconciliation the
+> report says SALES NOT RECONCILED.
+> **(3)** The export is the owner's word (2026-11-08): it lives in konto/
+> (private), named by CLAUDE.md's inkorg rule.
+
+Why: on 2026-11-08 the Avanza list showed the booked fills wrong or
+missing in ways no check had caught -- CENTA's three fills folded into one
+row at the wrong price, CRUS's date guessed, LIAB.ST's account and
+proceeds blank, eleven fills since May never booked (MSFT, UNA.AS, HNSA.ST,
+NKE) and five closed positions with no entry (NVO, IBM, UNH, IONQ,
+MSON-B.ST).
+
+First run 2026-11-08 against
+konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv (rows
+2020-05-27 to 2026-11-04), from 2026-05-13: **CLEAN, 30 fills matched**;
+the three core-fund sells of 2026-11-04 listed apart.
+
+### E166 — working capital is read off the cash flow statement and tied to the printed operating cash flow (data rule, E164)
+
+**DECIDED 2026-11-08 by the owner.** It follows independent review 3, H1:
+the old sum of a fixed us-gaap tag list was never tied to anything, so a
+line the filer tagged another way fell out silently and still carried
+VERIFIED. GDDY's FY2025 figure was 195.1m against 103.0m on the statement.
+
+> **(1) The reconciliation.** For a US GAAP filer, `working_capital_change`
+> is read from the filing's own inline XBRL (the 10-K or 10-Q in
+> `sources/`). Every row from net income down to the printed operating
+> cash flow is read, extension elements included, at its PRINTED sign.
+> The rows must sum to the printed total within half a unit of the filer's
+> `decimals` for each row summed, and never more than that. Otherwise the
+> figure is DATA MISSING and section 5 does not run for the name
+> (`vss/cfrecon.py`; the record refuses a sec-xbrl store whose figure
+> does not carry `verified_kind: tied_statement`).
+>
+> **(2) The map.** Every row's tag is classed in
+> `config/manual/maps/cashflow-tags.yaml` as **rörelsekapital**,
+> **kvar-i-flödet** or **icke-kassapost**. Each entry carries a note and
+> the section it was read in. Per-ticker overrides win.
+>
+> - **Unknown tags.** A tag missing from the map STOPS the name (DATA
+>   MISSING) and is put to the owner with a proposal under `pending:`.
+>   Whoever classes it is recorded (`classified_by`).
+> - **Sections.** The section is READ FROM THE FILING: the rows under the
+>   "changes in (operating) assets and liabilities" heading, and those
+>   above it. A row under the changes heading **is working capital**,
+>   unless the map names which of E140(1)'s exceptions it is: tax, lease,
+>   long-term, or E123 / clarification (1). Without a named exception the
+>   map does not load.
+> - **Catch-all rows.** "Other" and "Other, net" follow their section:
+>   working capital under the heading, a non-cash adjustment above it.
+> - **E140(1) clarifications (1) and (2)** decide what an operating balance
+>   is (a homebuilder's land, its mortgage loans held for sale).
+>
+> **(3) Status.** The figure is DERIVED. It is never verified in its own
+> right. It inherits the weakest status of its parts, and every part is a
+> fact the filer tagged in its own filing, so it carries
+> `tied_statement`. That kind is as strong as `tagged` and no stronger.
+>
+> **(4) Provisions.** A provision for credit losses printed as a row
+> follows a stripped receivable (E140(1)). A provision found only in a
+> note never does.
+
+**APPLIED 2026-11-08 (sweep A1-A4).**
+
+- **Map.** 125 tags plus overrides for NVR and DHI. 37 unambiguous us-gaap
+  non-cash adjustments were approved by the owner for all filers. 50
+  entries were classed by the session (`classified_by: session`, "beslutat
+  av sessionen 2026-11-08").
+- **Stores.** All 22 recorded US stores were filled (`python -m vss.cfrecon
+  TICKER --write`), the roll-forward's date unmoved.
+- **Re-valuation.** Each latest record was replayed with only the working
+  capital replaced. The figures are in
+  `reference/reviews/method/2026-11-08-E166-OMRAKNING.md`.
+- **Binding.** The fix binds at once in both directions, as the correction
+  of a data error (E152(1)).
+
+Amends E140(1)'s reading path (the tag list in `vss/xbrl.py` no longer
+feeds a record) and E21's notion of a verified leg (a seventh kind).

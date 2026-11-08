@@ -103,7 +103,7 @@ watchlist and queue, phone alerts and the nightly timers.
 | `vss/` | the program (`python -m vss <command>`) |
 | `tools/` | tools run by hand: `warren.py`, `rough_fv.py`, `fetch_mfn.py`, ... |
 | `config/` | the watchlist, the queue, the screen's universe: **the author's own, as an example** |
-| `reference/` | the rules and every ruling since, with dates and reasons: [start here](reference/README.md) |
+| `reference/` | the rules on two pages ([FRAMEWORK.md](reference/FRAMEWORK.md), since 2026-11-08) and every earlier ruling, with dates and reasons, in [archive/](reference/archive/) |
 | `docs/` | [the book](docs/the-method/) and [the technical manual](docs/MANUAL.md) |
 | `deploy/` | the nightly jobs (user-level systemd) |
 | `tests/` | about 3,000 tests |

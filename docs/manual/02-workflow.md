@@ -1,14 +1,15 @@
 # The workflow: prepare, review, record
 
 This page is the order things happen in when a name is reviewed. The
-playbook (`docs/manual/playbook.md`) is the map; this is the walk.
+rules are `reference/FRAMEWORK.md` (two pages, each rule naming its
+ruling in `reference/archive/`); this is the walk.
 
 ## 1. `vss prepare` -- the machine's work before the owner sits down
 
     .venv/bin/python -m vss prepare --ticker NVR
 
 Route, fetch, fill, compute, verification list, human-step context, and a
-"Where this name stands" section that names the playbook step the name is
+"Where this name stands" section that names the review step the name is
 on and, for a name already struck, the step to resume at. The report is
 `reports/prepare/<TICKER>-<date>.json` and `.md`. It never writes the
 watchlist and never writes fv_base, tier, mbp, stop_price or status.
@@ -17,9 +18,9 @@ watchlist and never writes fv_base, tier, mbp, stop_price or status.
 
 A Claude Code slash command (`.claude/commands/review.md`). It refuses to
 start without today's prepare report unless the owner says to proceed
-without it. It reads the step list from `tools/playbook/steps.py`, the
-rulings per step from `tools/playbook/placement.py` and the status's walk
-from `vss/review.py`, and then asks the steps ONE AT A TIME:
+without it. It reads the step list from `vss/review_steps.py`, the rules
+from `reference/FRAMEWORK.md` and the status's walk from `vss/review.py`,
+and then asks the steps ONE AT A TIME:
 
 - where we are (step N of M), what the prepare report found for the step,
   the governing rulings as one-line Y statements, the question in one
@@ -62,9 +63,9 @@ those by hand, after the record.
 
 ## 4. The same commit
 
-The playbook reads `reference/reviews/` as a precedent source, so each
-answered step lands on its own step page with the owner's text. Rebuild
-it in the same commit as the review file and the record (CLAUDE.md,
-same-commit rule):
+The review file under `reference/reviews/` is the precedent the next
+review of the name reads. Where `vss/review.py`, `vss/review_steps.py`
+or the command file changed, regenerate the schema in the same commit
+(CLAUDE.md):
 
-    .venv/bin/python tools/build_playbook.py && .venv/bin/python -m pytest tests/test_playbook.py tests/test_review.py -q
+    .venv/bin/python -m vss review --schema > config/review/SCHEMA.md && .venv/bin/python -m pytest tests/test_review.py -q

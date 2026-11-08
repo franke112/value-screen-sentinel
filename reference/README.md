@@ -7,13 +7,13 @@ read it front to back.
 
 ## Read in this order
 
-1. **[`FRAMEWORK.md`](FRAMEWORK.md)**, about 430 lines: the rulebook. §3 has the
-   gates, §4 the red flags and the score, §5 the valuation, §6 the position
-   rules.
+1. **[`FRAMEWORK.md`](FRAMEWORK.md)**, two pages since 2026-11-08: the rules
+   that bind, each naming its ruling.
 2. **The rulings below**: the dozen changes that shaped the method most.
-3. **[`FRAMEWORK-EDITS.md`](FRAMEWORK-EDITS.md)**, about 13,000 lines: every
-   ruling, E1 onwards, each with its date, its reason and what it replaced.
-   Search it by number. Don't read it.
+3. **[`archive/FRAMEWORK-EDITS-2026-11-08.md`](archive/FRAMEWORK-EDITS-2026-11-08.md)**,
+   about 13,700 lines: every ruling, E1 onwards, each with its date, its reason
+   and what it replaced. Search it by number. Don't read it. What was struck on
+   2026-11-08 is in [`archive/STRUCK-2026-11-08.md`](archive/STRUCK-2026-11-08.md).
 
 ## The rulings that matter most
 

@@ -90,7 +90,20 @@ sudo loginctl enable-linger $USER          # so the timers fire when you are log
 The units expect the clone at **`~/vss`** (`%h/vss` in `deploy/*.service`).
 Clone elsewhere and you change those paths. The hand-reading of reports and the
 decisions are done in Claude Code sessions -- see `CLAUDE.md` and
-`docs/manual/playbook.md` -- the machine only fetches, computes and tells.
+`reference/FRAMEWORK.md` -- the machine only fetches, computes and tells.
+
+## What changed on 2026-11-08 (the sweep)
+
+- **Rules.** `reference/FRAMEWORK.md` is two pages. The rulings are archived in `reference/archive/` (`FRAMEWORK-EDITS-2026-11-08.md`, the old framework, and `STRUCK-2026-11-08.md`).
+- **Working capital (E166).** Working capital is tied to the cash flow statement. `vss/cfrecon.py` uses `config/manual/maps/cashflow-tags.yaml`, and a store that does not tie does not strike.
+- **The queue** gains four things:
+  - the growth the price implies, and a sensitivity table;
+  - void values, which it never reads (`fv_void`);
+  - absurd bears, which stop the name (B6);
+  - declared cyclicals with no downturn in their history, which get no line (B7).
+- **Removed.** The decision playbook. The review's steps live in `vss/review_steps.py`.
+
+These changes are in the private repository from 2026-11-08 and reach this copy's code at the next port.
 
 ## Install
 
