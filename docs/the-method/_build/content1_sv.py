@@ -133,7 +133,7 @@ chapter(
 <li>Röstningsmaskin och våg: Buffett, brevet från 1993, med citat från Graham.</li>
 <li>Säkerhetsmarginal: Graham, The Intelligent Investor, kapitel 20.</li>
 </ul>
-<p>Där det här projektet skiljer sig från Graham: marginalen är en fast andel som bestäms av hur väl företaget förstås (kapitel 11), och den skrivs ned innan man tittar på priset (kapitel 8). Graham beskrev principen; projektet gör den till en regel med ett tal.</p>
+<p>Där det här projektet skiljer sig från Graham: marginalen är en fast andel som bestäms av hur väl företaget förstås (kapitel 11), och den skrivs ned innan man tittar på priset (kapitel 8). Sedan beslut E168 (november 2026) visas marginalen som information och binder ingenting. Graham beskrev principen; projektet gör den till en regel med ett tal.</p>
 ''')}
 """,
     [
@@ -157,7 +157,7 @@ chapter(
 
 <blockquote><p>"a tool that we can read reports and follow the stocks we have catched with the screener and then evaluated and make a tool that gives me the ability to follow the companies and then make an educated 'guess' and buy it when i think it is undervalued and we can make some cash"</p><cite>The owner, describing the project.</cite></blockquote>
 
-<p>Läs det noga, för varje del av det blev en regel. <em>Läsa rapporter</em>: siffrorna kommer från bolagets egna rapporter, inte från en dataleverantörs sammanfattning. <em>Fångat med screenern</em>: ett grovt mekaniskt pass över tvåtusen namn hittar de få som är värda att läsa. <em>Följa bolagen</em>: en bevakningslista, kontrollerad varje natt. <em>En kvalificerad gissning</em>: ägarens egen bedömning av hur företaget kommer att växa, nedskriven som en bedömning och inte förklädd till en prognos. <em>Köpa det när jag tycker att det är undervärderat</em>: ägaren bestämmer. Inte verktyget.</p>
+<p>Läs det noga, för varje del av det blev en regel. <em>Läsa rapporter</em>: siffrorna kommer från bolagets egna rapporter, inte från en dataleverantörs sammanfattning. <em>Fångat med screenern</em>: ett grovt mekaniskt pass över tvåtusen namn hittar de få som är värda att läsa. <em>Följa bolagen</em>: en bevakningslista, kontrollerad varje natt. <em>En kvalificerad gissning</em>: ägarens egen bedömning av hur företaget kommer att växa, nedskriven som en bedömning och inte förklädd till en prognos. <em>Köpa det när jag tycker att det är undervärderat</em>: ägaren bestämmer. Inte verktyget. Sedan 2026-10-27 (beslut E141) har ägaren också lämnat över bedömningsfrågorna, besluten, värdena och domarna, till en Claude Code-session, som avgör, skriver ned och talar om det för honom. Ordrarna och pushar är fortfarande hans. Maskinen på schema avgör ingenting.</p>
 
 <h2>Fyra vanor som gör den här versionen särpräglad</h2>
 
@@ -168,7 +168,7 @@ chapter(
 <p>Metoden räknar ut vilken tillväxt det nuvarande priset förutsätter (kapitel 7). Innan det talet beräknas skriver ägaren ned vilken tillväxt han faktiskt tror på, med skäl, och filen tidsstämplas. Om marknadens tal sågs först är ägarens bedömning ogiltig för det bolaget i den omgången. Kapitel 8 förklarar varför regeln finns och vad den lånar från kliniska prövningar.</p>
 
 <h3>3. Ett underkänt test är slutgiltigt och vidgas aldrig för att släppa igenom ett namn</h3>
-<p>När ett bolag faller på ett test som gäller något annat än pris, för inte ett lägre pris tillbaka det. Bara ett namngivet nytt faktum kan göra det: en ny rapport, en ändrad prognos från bolaget, en vinstvarning. Och när en regel visar sig vara dåligt utformad tas den bort eller ersätts av ett daterat beslut som anger vad ändringen kostade. Den mjukas inte upp i det tysta för att ett visst namn nästan klarade sig. Kapitel 5 och 16.</p>
+<p>När ett bolag faller på ett test som gäller något annat än pris, för inte ett lägre pris tillbaka det. Bara ett namngivet nytt faktum kan göra det: en ny rapport, en ändrad prognos från bolaget, en vinstvarning. Och när en regel visar sig vara dåligt utformad tas den bort eller ersätts av ett daterat beslut som anger vad ändringen kostade. Den mjukas inte upp i det tysta för att ett visst namn nästan klarade sig. En regel ändras bara efter ett test som registrerats i förväg (beslut E164): en beslutsregel kommer in eller går ut bara på ett backtest som skrivits ned före körningen, medan en dataregel får läggas till fritt. Kapitel 5, 16 och 22.</p>
 
 <h3>4. Varje nej spåras</h3>
 <p>Det mesta som metoden tittar på ger den nej. Ett system som bara mäter vad det köpte kan inte avgöra om dess nej var rätt. Därför registreras varje nej med dagens pris och en rad som anger skälet, och mäts mot marknaden i efterhand. Kapitel 12.</p>
@@ -177,9 +177,9 @@ chapter(
 <p>Det är inte ett handelssystem. Det förutsäger inte priser, det har ingen uppfattning om nästa vecka och det kommer aldrig att säga åt dig att köpa något. Det är ett sätt att läsa, besluta och registrera, för en person som har accepterat att det rätta svaret för det mesta är nej, och som vill kunna kontrollera i efterhand om nejet var rätt.</p>
 
 {decision(
-    "Verktyget mäter; ägaren bestämmer. Inget automatiserat steg får skriva en dom, föra in ett bolag i processen, tilldela en säkerhetsnivå eller sätta en köpkurs.",
+    "Verktyget mäter; ägaren bestämmer, eller sessionen på hans uppdrag (E141). Maskinen på schema avgör ingenting. Inget automatiserat steg får skriva en dom, föra in ett bolag i processen, tilldela en säkerhetsnivå eller sätta en köpkurs.",
     "Den som bestämmer ensam kan inte skilja en noggrann läsning från en motiverad. En maskin som också bestämde skulle ärva personens motiv och lägga till egna fel. Genom att låta beslutet ligga hos personen och mätningen hos maskinen går vart och ett att granska.",
-    "Ägaren gör allt bedömande, för hand, varje gång. Ingenting går snabbare för det. Maskinen kan inte rädda ett dåligt beslut; den kan bara se till att beslutet skrevs ned innan utfallet var känt.",
+    "Ägaren, eller sedan E141 (2026-10-27) Claude Code-sessionen på hans uppdrag, gör allt bedömande, och varje bedömning registreras. Ordrar och pushar är ägarens, och maskinen på schema avgör ingenting. Ingenting går snabbare för det. Maskinen kan inte rädda ett dåligt beslut; den kan bara se till att beslutet skrevs ned innan utfallet var känt.",
 )}
 """,
     [("Ägarens beskrivning av projektet, ordagrant", "repo: the brief for this site"),
@@ -208,31 +208,31 @@ chapter(
 <h3>Steg 0: namn som redan ägs eller redan avgjorts</h3>
 <p>En kort undantagslista med bolag som ägaren redan innehar eller redan har tagit ställning till. Det är meningslöst att screena ett namn vars svar redan är känt. En post på den listan som inte matchar något rapporteras som overksam, så att listan inte i det tysta kan ruttna.</p>
 
-<h3>Filter 1: har kursen fallit tillräckligt, men inte för mycket?</h3>
-<p>Metoden letar efter företag som marknaden tillfälligt har tappat intresset för. Den första frågan är därför om kursen ligger mellan 15 och 50 procent under sin högsta nivå det senaste året. Mindre än 15 och ingenting har hänt. Mer än 50 och arbetsantagandet är att något faktiskt är trasigt, vilket är en annan sorts bolag och ligger utanför ramen.{N.ref("Ramverket §3 spärr 1; bandet är implementerat en enda gång i vss/rules.py och återanvänds av både screenern och nattkörningen.")}</p>
-<p><strong>Borttaget i november 2026.</strong> Bandet klarade inte det test som skrevs för det: i ingen av marknaderna gick bolagen inom bandet bättre än de andra, så beslut E161 tog bort det ur koden. Filter 1 frågar nu bara om kursdatan är färsk; fallet från toppen står kvar på raden som information. <a href="tested.html">Kapitel 22</a> berättar hur det kom fram.</p>
+<h3>Filter 1: finns det tillräckligt med färska data?</h3>
+<p>Filter 1 är en grind för gammal data. Det frågar om bolaget har tillräckligt med färska data för att alls kunna bedömas: en aktuell kurs och nyligen redovisade siffror. Ett namn med gammal data läggs åt sidan, eftersom varje senare steg skulle bygga på sand.{N.ref("Beslut E161 tog bort kursbandet ur vss/rules.py; filter 1 behåller bara färskhetskontrollen.")}</p>
+<p>Fram till november 2026 frågade filter 1 också om kursen låg 15 till 50 procent under sin högsta nivå det senaste året. Bandet klarade inte det test som skrevs för det: i ingen av marknaderna gick bolagen inom bandet bättre än de andra, så beslut E161 tog bort det. Fallet från toppen står kvar på raden som information. <a href="tested.html">Kapitel 22</a> berättar hur det kom fram.</p>
 {N.flush()}
 <p>Två frågor till följer med den här. Har bolaget varit börsnoterat i minst fem år? En yngre notering har inte tillräckligt med redovisad historik att testa, och ett bolag som knoppats av från ett annat räknas som nytt.{N.ref("Beslut E52 och E52.1: en notering yngre än fem år avvisas på saknade data, och en avknoppning är en ny notering.")} Och är företaget ett som metoden över huvud taget kan bedöma? Kapitel 5 behandlar den gränsen.</p>
 {N.flush()}
 
-<h3>Filter 2: går det att anmärka på företaget utifrån tre grova siffror?</h3>
-<p>För de som klarat sig, och bara för dem, hämtar verktyget bokslut och ställer tre frågor. Genererade företaget överskottskassa under de senaste tolv månaderna? Är dess skuld, efter avdrag för kassan, högst två och en halv gång dess årliga rörelseresultat före ränta, skatt, avskrivningar och nedskrivningar, en siffra som förkortas <dfn>EBITDA</dfn>? Och har omsättningen undvikit att falla, jämfört med samma kvartal ett år tidigare, två kvartal i rad?{N.ref("Tröskelvärdena finns i config/screener_filter2.yaml, var och en med hänvisning till sitt avsnitt i ramverket: positivt fritt kassaflöde (en förgrovning av spärr 3:s sex av åtta kvartal, eftersom kvartalsvis kassaflödeshistorik saknas för en stor del av listan); nettoskuld i förhållande till EBITDA högst 2,5×, beslut E44; två på varandra följande kvartalsvisa omsättningsminskningar jämfört med föregående år diskvalificerar, beslut E45.")}</p>
+<h3>Filter 2: gjorde företaget kassa?</h3>
+<p>För de namn som klarar sig, och bara för dem, hämtar verktyget bokslut och ställer en enda fråga. Genererade företaget ett positivt fritt kassaflöde, överskottskassa, under de senaste tolv månaderna? Fram till november 2026 ställdes två frågor till här: en gräns för skulden efter avdrag för kassan i förhållande till det årliga rörelseresultatet, och ett test på att omsättningen föll jämfört med samma kvartal ett år tidigare, två kvartal i rad. Båda testades och togs bort. <a href="tested.html">Kapitel 22</a> har resultatet.{N.ref("Tröskelvärdet finns i config/screener_filter2.yaml: positivt fritt kassaflöde (en förgrovning av spärr 3:s sex av åtta kvartal, eftersom kvartalsvis kassaflödeshistorik saknas för en stor del av listan). Skuldgränsen (nettoskuld i förhållande till EBITDA högst 2,5×, beslut E44) togs bort av E168; omsättningsledet (beslut E45) testades och togs bort.")}</p>
 {N.flush()}
-<p>Skuldtaket har sin egen historia. Den första versionen använde en generösare gräns, tre och en halv gång, med argumentet att ett grovt filter inte får förlora ett namn som den noggranna läsningen skulle behålla. Fyra dagar senare visade en testkörning att 72 namn klarade den generösa gränsen och sedan föll på metodens egna strängare test längre fram. Att släppa igenom dem gav inget annat än mer läsning. Taket skärptes genom ett daterat beslut som anger antalet.{N.ref("Besluten E2 (2026-08-22, 3,5×) och E44 (2026-08-26, 2,5×), med mätningen av 72 namn i beslutstexten.")}</p>
+<p>Skuldtaket har sin egen historia. Den första versionen använde en generösare gräns, tre och en halv gång, med argumentet att ett grovt filter inte får förlora ett namn som den noggranna läsningen skulle behålla. Fyra dagar senare visade en testkörning att 72 namn klarade den generösa gränsen och sedan föll på metodens egna strängare test längre fram. Att släppa igenom dem gav inget annat än mer läsning. Taket skärptes genom ett daterat beslut som anger antalet. Det taket togs i sin tur bort i november 2026 (E168).{N.ref("Besluten E2 (2026-08-22, 3,5×) och E44 (2026-08-26, 2,5×), med mätningen av 72 namn i beslutstexten.")}</p>
 {N.flush()}
 
-<h3>Rangordning: vilka som klarat sig läses först</h3>
-<p>Det som återstår ordnas efter två siffror. Hur lönsamt är företaget i förhållande till allt det äger, mätt som rörelseresultat genom totala tillgångar. Och hur billigt är det i förhållande till vad hela företaget skulle kosta att köpa, mätt som rörelseresultat genom den kostnaden. Varje överlevare rangordnas på båda, de två rangplatserna adderas och listan sorteras. Inga vikter, ingen poäng, ingen tröskel.{N.ref("Beslut E6 enligt ändring i E43. En tidigare version använde ett lönsamhetsmått vars nämnare gick mot noll för företag som äger lite, så de tretton främsta placeringarna gick till de tretton namn som låg närmast den polen; det ersattes.")} Banker, försäkringsbolag och fastighetsbolag kan inte rangordnas på den första siffran och listas separat på enbart den andra, aldrig blandade med de övriga.</p>
+<h3>Ordning: vilka namn som läses först</h3>
+<p>De namn som klarar sig listas i slumpmässig ordning med fast frö. Fram till november 2026 rangordnades de på två siffror, rörelseresultat genom totala tillgångar och rörelseresultat genom vad hela företaget skulle kosta att köpa, med de två rangplatserna adderade. Rangordningen sorterade inte senare avkastning, så beslut E167 tog bort den. Fröet är fast, så samma lista ger samma ordning vid varje omkörning. Inga vikter, ingen poäng, ingen tröskel.{N.ref("Beslut E167 ersatte rangordningen i besluten E6 och E43. E43 hade i sin tur ersatt ett lönsamhetsmått vars nämnare gick mot noll för företag som äger lite, så de tretton främsta placeringarna gick till de tretton namn som låg närmast den polen.")}</p>
 {N.flush()}
 
 <h3>Vad som kommer ut</h3>
-<p>De tjugo främsta bevakas för kursrörelser. Tre till fem föreslås för läsning. Inget av dem bär ett värde, en köpkurs eller en säkerhetsnivå. Screenerns resultat är en läslista, och en människa läser den.</p>
+<p>De tjugo första namnen i den listan bevakas för kursrörelser. Tre till fem föreslås för läsning. Inget av dem bär ett värde, en köpkurs eller en säkerhetsnivå. Screenerns resultat är en läslista, och en människa läser den.</p>
 
 <h2>Vad en screening inte kan se</h2>
 <ul>
-<li><strong>Varför kursen föll.</strong> Ett fall på 30 procent på grund av ett rykte och ett fall på 30 procent på grund av bedrägeri ser likadana ut för filter 1. Orsaken är det första läsaren måste ta reda på, och den är ämnet för nästa kapitel.</li>
-<li><strong>Allt som leverantörens siffror får fel.</strong> Bokslutet kommer i det här skedet från en dataleverantör, inte från rapporterna. En felaktigt märkt rad passerar obemärkt. En sådan rad hittades bara därför att den inte stämde med någon inlämnad siffra för något av de fem bolag som kontrollerades för hand.{N.ref("Beslut E43: leverantörens rad för 'bruttovinst' gick inte att stämma av mot någon inlämnad rad för något av fem testnamn, och ersattes av rörelseresultat i rangordningen.")}</li>
-<li><strong>Ett namn som den aldrig hämtade bokslut för.</strong> Bokslut hämtas bara för filter 1:s överlevare. Ett test som läser en branschetikett kan inte se ett bolag som aldrig kom så långt. Den tystnaden är ett faktum om hämtningen, inte om bolaget, och verktyget säger det.{N.ref("Beslut E96: 'The string limb is blind where the fetch has not reached.'")}</li>
+<li><strong>Varför kursen föll.</strong> Ett fall på 30 procent på grund av ett rykte och ett fall på 30 procent på grund av bedrägeri ser likadana ut, och screeningen tittar inte längre alls på ett fall. Orsaken till ett fall är den första frågan läsaren måste besvara, och den är ämnet för nästa kapitel.</li>
+<li><strong>Allt som leverantörens siffror får fel.</strong> Bokslutet kommer i det här skedet från en dataleverantör, inte från rapporterna. En felaktigt märkt rad passerar obemärkt. En sådan rad hittades bara därför att den inte stämde med någon inlämnad siffra för något av de fem bolag som kontrollerades för hand.{N.ref("Beslut E43: leverantörens rad för 'bruttovinst' gick inte att stämma av mot någon inlämnad rad för något av fem testnamn, och ersattes av rörelseresultat i rangordningen, som senare själv togs bort, E167.")}</li>
+<li><strong>Ett namn som den aldrig hämtade bokslut för.</strong> Bokslut hämtas bara för de namn som klarar grinden för gammal data. Ett test som läser en branschetikett kan inte se ett bolag som aldrig kom så långt. Den tystnaden är ett faktum om hämtningen, inte om bolaget, och verktyget säger det.{N.ref("Beslut E96: 'The string limb is blind where the fetch has not reached.'")}</li>
 <li><strong>Om ett bolag är bra.</strong> Inget i det här kapitlet är en bedömning. Det är en lista över sådant som inte kunde anmärkas på i ett grovt test.</li>
 </ul>
 {N.flush()}
@@ -240,7 +240,7 @@ chapter(
 <p>Ytterligare en ärlighetsförklaring. Screenern spelar upp tidigare datum igen med hjälp av dagens bokslut mot den dagens kurser, eftersom leverantören bara levererar det senaste bokslutet. En sådan uppspelning är därför inget belägg för vad screeningen skulle ha hittat den dagen, och varje uppspelningsrapport säger det i en banderoll överst.</p>
 
 {fold("De exakta reglerna", '''
-<p>Ramverket §3 (spärrarna 1 till 5) och screenerbesluten E2, E6, E43, E44, E45, E46, E48, E52, E93, E96, E97 i <code>reference/FRAMEWORK-EDITS.md</code>. Tröskelvärden: <code>config/screener_filter2.yaml</code>. Kod: <code>vss/screen.py</code>, <code>vss/filters.py</code>, <code>vss/universe.py</code>, <code>vss/ranking.py</code>. Två tekniska mått, en momentumindikator och ett glidande medelvärde, beräknas och skrivs ut men används aldrig som filter, eftersom ett sådant filter, oavsett riktning, vid ett verkligt köp i det förflutna hade förkastat en av de två relevanta dagarna.</p>
+<p>Ramverket §3 (spärrarna 1 till 5) och screenerbesluten E2, E6, E43, E44, E45, E46, E48, E52, E93, E96, E97 i <code>reference/FRAMEWORK-EDITS.md</code>. Tröskelvärden: <code>config/screener_filter2.yaml</code>. Kod: <code>vss/screen.py</code>, <code>vss/filters.py</code>, <code>vss/universe.py</code>, <code>vss/ranking.py</code> (själva rangordningen togs bort, E167; ordningen med fast frö ersatte den). Besluten E161, E167 och E168 tog bort kursbandet, rangordningen samt skuld- och omsättningsleden. Två tekniska mått, en momentumindikator och ett glidande medelvärde, beräknas och skrivs ut men används aldrig som filter, eftersom ett sådant filter, oavsett riktning, vid ett verkligt köp i det förflutna hade förkastat en av de två relevanta dagarna.</p>
 ''')}
 """,
     [("Screenerns utformning och beslut", "repo: reference/FRAMEWORK-EDITS.md E2, E6, E43, E44, E45, E52, E93, E96, E97; config/screener_filter2.yaml; vss/screen.py; vss/filters.py")],
@@ -258,7 +258,7 @@ chapter(
 <p>När ett namn når en människa har det klarat en grov screening. Det är hyfsat billigt, det tjänar pengar, det har inte uppenbart gått sönder. Frestelsen är att tro att den svåra delen är avklarad. Det är den inte. Det är under läsningen som de flesta namn får nej, och nej är det väntade resultatet, inte en besvikelse.</p>
 
 <h2>Spärren som står för det mesta av nejen: varför föll kursen?</h2>
-<p>Screeningen hittade bolag vars kurs föll. Läsarens första uppgift är att ange orsaken och lägga den i en av fyra lådor.</p>
+<p>Screeningen släpper igenom bolag utan att fråga varför kursen ligger där den ligger. Läsarens första uppgift är att ange orsaken till varje fall och lägga den i en av fyra lådor.</p>
 <ul>
 <li><strong>A: stämningen ändrades.</strong> Ingenting i företaget förändrades; berättelsen som folk berättar om det gjorde det.</li>
 <li><strong>B: hela branschen såldes ut.</strong> Pengar lämnade en bransch och tog det här bolaget med sig.</li>
@@ -269,16 +269,16 @@ chapter(
 {N.flush()}
 
 {example('''
-<p>BOLAG A:s kurs ligger 35 procent under fjolårets topp, så det klarade filter 1. Läsaren öppnar de fyra senaste rapporterna. Omsättningen är oförändrad. Fallet började veckan då bolagets största kund, en femtedel av dess försäljning, meddelade att den skulle tillverka produkten själv från nästa år. Det är en förlorad kund som inte kommer tillbaka: låda D. BOLAG A faller på spärr 2 och lämnar processen. Dess billighet var aldrig frågan.</p>
+<p>BOLAG A klarade screeningen. Dess kurs ligger 35 procent under fjolårets topp, vilket screeningen bara noterar. Läsaren öppnar de fyra senaste rapporterna. Omsättningen är oförändrad. Fallet började veckan då bolagets största kund, en femtedel av dess försäljning, meddelade att den skulle tillverka produkten själv från nästa år. Det är en förlorad kund som inte kommer tillbaka: låda D. BOLAG A faller på spärr 2 och lämnar processen. Dess billighet var aldrig frågan.</p>
 ''')}
 
 {FIG["name_fails_gate"]()}
 
 <h2>De andra spärrarna</h2>
-<p>Ett namn som klarar "varför"-spärren prövas sedan mot sitt bokslut för de senaste två åren: skulden inom en angiven multipel av resultatet, räntorna täckta minst fem gånger av rörelseresultatet, överskottskassa genererad under minst sex av de senaste åtta kvartalen, ingen revisorsanmärkning om bolagets fortsatta drift, inget byte av revisor, inga omräknade bokslut. Sedan behöver det en daterad händelse inom nittio dagar som kan få marknaden att titta igen: ett resultatdatum, ett produktbeslut, ett avgörande. "Så småningom inser marknaden" är ingen händelse.{N.ref("Ramverket §3 spärr 3 och 5. Spärr 4, en värderingsrabatt mot jämförbara bolag, registreras som DATA SAKNAS för varje namn eftersom de jämförelsesiffror den behöver aldrig har sammanställts; den är inte borttagen, och återkommer när de finns (beslut E99).")}</p>
+<p>Ett namn som klarar "varför"-spärren prövas sedan mot sitt bokslut för de senaste två åren: skulden inom en angiven multipel av resultatet, räntorna täckta minst fem gånger av rörelseresultatet, överskottskassa genererad under minst sex av de senaste åtta kvartalen, ingen revisorsanmärkning om bolagets fortsatta drift, inget byte av revisor, inga omräknade bokslut. Skuldmultipeln är information nu: den skrivs ut som kvalitetstest Q3 och avgör ingenting (E168). Sedan behöver det en daterad händelse inom nittio dagar som kan få marknaden att titta igen: ett resultatdatum, ett produktbeslut, ett avgörande. "Så småningom inser marknaden" är ingen händelse.{N.ref("Ramverket §3 spärr 3 och 5. Spärr 4, en värderingsrabatt mot jämförbara bolag, registreras som DATA SAKNAS för varje namn eftersom de jämförelsesiffror den behöver aldrig har sammanställts; den är inte borttagen, och återkommer när de finns (beslut E99).")}</p>
 {N.flush()}
 
-<p>Sedan finns det sju <dfn>hårda diskvalificeringar</dfn>: sådant som ensamt avslutar läsningen, hur bra allt annat än ser ut. Omsättningen faller två kvartal i rad. Marginalerna krymper medan omsättningen är oförändrad. Två nedskärningar av bolagets egen prognos på ett år. Tre missade resultat på två år. Skuld över en angiven multipel eller nära att bryta mot ett låneavtal. Både vd:n och finanschefen lämnar inom ett år. Lager eller obetalda fakturor som hopar sig snabbare än försäljningen.{N.ref("Ramverket §4.2. 'Any one invalidates.'")}</p>
+<p>Sedan finns det fyra <dfn>hårda diskvalificeringar</dfn>: sådant som ensamt avslutar läsningen, hur bra allt annat än ser ut. Två eller fler nedskärningar av bolagets egen prognos på fyra kvartal. Tre eller fler missade resultat på åtta kvartal. Att ligga nära ett brott mot ett låneavtal. Både vd:n och finanschefen lämnar inom tolv månader. Fram till november 2026 var de sju. Fallande omsättning, pressade marginaler och lager eller obetalda fakturor som hopar sig försvann med beslut E163, och skuldmultipeln med E168. Testerna bakom det finns i <a href="tested.html">kapitel 22</a>.{N.ref("Ramverket §4.2. 'Any one invalidates.'")}</p>
 {N.flush()}
 
 <h2>Varför en underkänd spärr är slutgiltig</h2>
@@ -307,7 +307,7 @@ chapter(
 <p>Att vägra ett företag man inte kan bedöma är ingen kapitulation. Det är det enda svaret som inte kräver att man låtsas.</p>
 
 {fold("De exakta reglerna", '''
-<p>Ramverket §3 (spärrarna), §4.2 (hårda diskvalificeringar), §4.4 (övertygelsepoäng). Besluten E27 (de två väntelistorna), E30 (borttagning av två led), E51 och E96 (cirkeln), E97 (bevakas aldrig), E99 (spärr 4 som DATA SAKNAS). Kod: statuslistan i <code>vss/rules.py</code>, cirkellistorna under <code>config/</code>.</p>
+<p>Ramverket §3 (spärrarna), §4.2 (hårda diskvalificeringar), §4.4 (kvalitetstesten, bara information). Besluten E161 till E168 (kursbandet, diskvalificeringarna, kvalitetstesten som information), E27 (de två väntelistorna), E30 (borttagning av två led), E51 och E96 (cirkeln), E97 (bevakas aldrig), E99 (spärr 4 som DATA SAKNAS). Kod: statuslistan i <code>vss/rules.py</code>, cirkellistorna under <code>config/</code>.</p>
 ''')}
 """,
     [
@@ -478,7 +478,7 @@ chapter(
 
 <h2>Regeln</h2>
 {right('''
-<p>Innan den tillväxt som kursen implicerar beräknas skriver ägaren ned tre tillväxttakter, ett sämre fall, ett basfall och ett bättre fall, var och en med sina skäl, i en fil som tidsstämplas och förvaras under versionshantering. Först därefter löses det implicita talet ut. Om det implicita talet sågs först är bedömningen ogiltig för det bolaget i den omgången och kan inte användas.</p>
+<p>Innan den tillväxt som kursen implicerar beräknas skriver ägaren (eller, sedan E141, Claude Code-sessionen på hans uppdrag) ned tre tillväxttakter, ett sämre fall, ett basfall och ett bättre fall, var och en med sina skäl, i en fil som tidsstämplas och förvaras under versionshantering. Först därefter löses det implicita talet ut. Om det implicita talet sågs först är bedömningen ogiltig för det bolaget i den omgången och kan inte användas.</p>
 ''', "Regeln, i kraft sedan 2026-08-25")}
 
 {FIG["two_orderings"]()}
@@ -548,7 +548,7 @@ chapter(
 <p>Varje test slutar i exakt ett av tre tillstånd. GODKÄND: testet kördes och siffran klarade det. UNDERKÄND: testet kördes och siffran klarade det inte. DATA SAKNAS: testet kunde inte köras, eftersom siffran saknas, är gammal, har fel längd eller ännu inte har kontrollerats av en människa. Inget test får hoppas över i det tysta, och DATA SAKNAS räknas aldrig som UNDERKÄND.</p>
 ''', "Regeln")}
 
-<p>Det här är den andra av de fem driftreglerna som hela metoden är skriven under, och den återkommer i varje lager av verktyget. Screenern räknar ett namn som förkastats för att en siffra sa så och ett namn som förkastats för att en siffra saknades i olika kolumner, och adderar dem aldrig.{N.ref("Ramverket §0 regel 2: 'Every screening criterion gets an explicit PASS / FAIL / DATA MISSING verdict. No criterion may be silently skipped.' I screenerns universumkod: 'DATA MISSING is a THIRD STATE ... counted in different columns and never added together.' Filterkonfigurationens policy för saknade data är att släppa igenom, vald så att luckor i leverantörens täckning inte ska utge sig för att vara kvalitetsbrister.")} Nattkörningen skiljer en dom om ett bolag från en blockering om datan: gamla kurser, ett olöst händelsedatum, ett saknat stopp. I verktygets grundmening: "gammal eller olöst data ger en blockering, aldrig en dom. Verktyget talar hellre om att det inte kan bedöma än att bedöma på dålig data."{N.ref("README, inledningen. Blockeringskoderna och domkoderna är separata listor i vss/rules.py.")}</p>
+<p>Det här är den andra av de fem driftreglerna som hela metoden är skriven under, och den återkommer i varje lager av verktyget. Screenern räknar ett namn som förkastats för att en siffra sa så och ett namn som förkastats för att en siffra saknades i olika kolumner, och adderar dem aldrig.{N.ref("Ramverket §0 regel 2: 'Every screening criterion gets an explicit PASS / FAIL / DATA MISSING verdict. No criterion may be silently skipped.' I screenerns universumkod: 'DATA MISSING is a THIRD STATE ... counted in different columns and never added together.' Filterkonfigurationens policy för saknade data är att släppa igenom, vald så att luckor i leverantörens täckning inte ska utge sig för att vara kvalitetsbrister.")} Nattkörningen skiljer en dom om ett bolag från en blockering om datan: gamla kurser, ett olöst händelsedatum, ett tomt utgångsfält. I verktygets grundmening: "gammal eller olöst data ger en blockering, aldrig en dom. Verktyget talar hellre om att det inte kan bedöma än att bedöma på dålig data."{N.ref("README, inledningen. Blockeringskoderna och domkoderna är separata listor i vss/rules.py.")}</p>
 {N.flush()}
 
 <h2>Det tredje utfallet är information</h2>
@@ -591,12 +591,12 @@ chapter(
 {N.flush()}
 
 <div class="stage"><h3>PIPELINE: infört</h3><dl>
-<dt>Vad som händer</dt><dd>Ägaren har fört in namnet. Inträdesdatumet och kursens toppunkt stämplas och fryses, så att spärren "hur långt har den fallit" bedöms per den dagen och inte driver iväg när kursen rör sig.</dd>
+<dt>Vad som händer</dt><dd>Namnet har förts in. Inträdesdatumet stämplas och fryses. Den gamla spärren "hur långt har den fallit" är borta (E161), så inget kurstest hänger på den dagen.</dd>
 <dt>Verktyget gör</dt><dd>Bevakar bolagets egna offentliggöranden: periodiska rapporter, ändringar av dess prognos, vinstvarningar. Inget annat. Ledningsbyten, återköp, affärer och aktieägarmeddelanden sorteras bort, enligt ägarens test: skulle det här få mig att göra om värderingen?</dd>
 <dt>Ägaren gör</dt><dd>Arbetar sig igenom spärrarna, de hårda diskvalificeringarna, läsningen, tillväxtbedömningen, värderingen.</dd>
 <dt>Faller ur när</dt><dd>En spärr faller på något annat än pris (till WATCH-GATED), en hård diskvalificering eller ett klass D-skäl hittas (till DROPPED), eller företaget visar sig ligga utanför cirkeln (till DROPPED).</dd>
 </dl></div>
-<p>Eftersom inträdet fryser en spärr och den frysningen inte kan ångras genom att köra om något, är det schemalagda screeningjobbet förbjudet att föra in ett namn. Det får föreslå. Bara ägaren för in, för hand.{N.ref("Beslut E93: 'entering a PIPELINE name stamps dd_at_entry and peak_date and E12 freezes Gate 1 at that moment — and unlike a fair value, that is not undone by re-striking.' Flaggan som skulle tillåta det saknas i den schemalagda enheten och måste fortsätta saknas.")}</p>
+<p>Eftersom inträdet stämplar ett datum och den stämpeln inte kan ångras genom att köra om något, är det schemalagda screeningjobbet förbjudet att föra in ett namn. Det får föreslå. Bara en människa för in: ägaren, eller sessionen på hans ord.{N.ref("Beslut E93: 'entering a PIPELINE name stamps dd_at_entry and peak_date and E12 freezes Gate 1 at that moment — and unlike a fair value, that is not undone by re-striking.' Flaggan som skulle tillåta det saknas i den schemalagda enheten och måste fortsätta saknas.")}</p>
 {N.flush()}
 
 <div class="stage"><h3>WATCH-GATED: väntar på ett faktum</h3><dl>
@@ -607,16 +607,16 @@ chapter(
 </dl></div>
 
 <div class="stage"><h3>WATCH-PRICED: väntar på en kurs</h3><dl>
-<dt>Vad som händer</dt><dd>Läsningen är klar, värdet är värderat, det mesta ägaren vill betala är beräknat. Kursen ligger över det. Namnet väntar på kursen och ingenting annat.</dd>
-<dt>Verktyget gör</dt><dd>Jämför varje natt den avslutade slutkursen med köplinjen och rapporterar avståndet. Pekar när kursen korsar den. Linjen är en beräknad köpkurs eller så finns ingen linje: en nivå som skrivits in för hand för ett namn som aldrig värderats är en påminnelse, och namnet går inte att köpa vid den.</dd>
+<dt>Vad som händer</dt><dd>Läsningen är klar, värdet är värderat, och en marginalkurs beräknas som information. Kursen ligger över den. Namnet väntar på kursen och ingenting annat.</dd>
+<dt>Verktyget gör</dt><dd>Kön jämför varje natt den avslutade slutkursen med titta-linjen, den kurs där namnet är värt att värdera ordentligt på nytt, och med marginalkursen. Den talar om för ägaren när någon av dem korsas: TITTA för titta-linjen, UNDER MBP för marginalkursen. Ingen av dem säger köp. Marginalkursen är beräknad eller så finns ingen: en nivå som skrivits in för hand för ett namn som aldrig värderats är en påminnelse, och namnet går inte att köpa vid den.</dd>
 <dt>Ägaren gör</dt><dd>Väntar. Värderar om vid bolagets nästa rapport.</dd>
-<dt>Faller ur när</dt><dd>Kursen korsar linjen och ägaren köper (till HELD), eller en ny rapport ändrar läsningen (tillbaka till PIPELINE, eller till DROPPED).</dd>
+<dt>Faller ur när</dt><dd>Ägaren köper (till HELD), eller en ny rapport ändrar läsningen (tillbaka till PIPELINE, eller till DROPPED).</dd>
 </dl></div>
 
 <div class="stage"><h3>HELD: ägt</h3><dl>
-<dt>Vad som händer</dt><dd>Ägaren har köpt. Ett stopp, en kurs där positionen säljs oavsett, sattes före köpet och är registrerat.</dd>
-<dt>Verktyget gör</dt><dd>Kontrollerar varje natt kursen mot stoppet och rapporterar ett brott som det första på sidan. Ett ägt namn utan stopp är en blockering, som rapporteras före allt annat.</dd>
-<dt>Ägaren gör</dt><dd>Värderar om vid varje rapport. Säljer vid stoppet eller när skälet till köpet är borta.</dd>
+<dt>Vad som händer</dt><dd>Ägaren har köpt. Utgången skrevs ned före köpet: ett bull-värde, en säljlinje som satts för hand, eller det villkor som bryter tesen. "Inget" godtas för ett stopp.</dd>
+<dt>Verktyget gör</dt><dd>Kontrollerar varje natt kursen mot säljlinjen och bull-värdet, och skickar SÄLJ när någon av dem nås. Ett ägt namn med ett tomt utgångsfält är en blockering, som rapporteras före allt annat.</dd>
+<dt>Ägaren gör</dt><dd>Värderar om vid varje rapport. Säljer vid säljlinjen, vid bull-värdet eller när skälet till köpet är borta.</dd>
 <dt>Faller ur när</dt><dd>Ägaren säljer. Försäljningen registreras och mäts mot marknaden från sitt eget datum.</dd>
 </dl></div>
 <p><strong>Ändrat i november 2026.</strong> Kursstoppet är borta (beslut E162): ingen stoppnivå, med eller utan återköp, hjälpte i testerna, och med courtage blev varje stopp en kostnad. Ägaren skriver fortfarande ner utgången före köpet, men som <code>stop_price: none</code>, ett beslut och inte ett tomt fält; ett tomt fält blockerar fortfarande. Att sälja när skälet till att äga är borta står kvar. Se <a href="tested.html">kapitel 22</a>.</p>
@@ -629,7 +629,10 @@ chapter(
 </dl></div>
 
 <h2>Det som är värt att lägga märke till</h2>
-<p>Varje pil mellan rutorna är ägarens handling. Verktyget mäter var ett namn står, rapporterar det och pekar när något korsar en linje. Det flyttar aldrig ett namn. Om ägaren inte gör något flyttas ingenting. Det är ett designbeslut, och kapitel 13 förklarar varför.</p>
+<p>Varje pil mellan rutorna är en mänsklig handling: ägarens, eller, sedan E141 (2026-10-27), Claude Code-sessionens på hans uppdrag. Verktyget mäter var ett namn står, rapporterar det och pekar när något korsar en linje. Den schemalagda maskinen flyttar aldrig ett namn. Om ingen agerar flyttas ingenting. Det är ett designbeslut, och kapitel 13 förklarar varför.</p>
+
+<h2>Huvudlistan</h2>
+<p>En fil till binder samman statusarna. <code>reports/HUVUDLISTA.md</code> är huvudlistan, byggd av <code>tools/master_list.py</code> och ombyggd varje natt. Den innehåller varje bolag som någonsin setts över, i grupper: ägda, kandidater, bevakade, att granska och nej. Varje rad har kursen, värdena för sämre fall, basfall och bättre fall, slaget av värde, skälet och nästa daterade händelse. Varje Claude Code-session öppnar med dess korta version, så ingen session börjar med att gissa var det står till.</p>
 
 {fold("De exakta reglerna", '''
 <p>Statusar: <code>vss/rules.py</code>. INTAKE: beslut E111. Stämplar vid inträde i PIPELINE och den frusna spärren: besluten E12 och E93. De två väntelistorna: beslut E27. Filtret för offentliggöranden: <code>vss/watch.py</code>. Den nattliga kursjämförelsen: <code>vss/runner.py</code>, <code>vss/rules.py</code>. Försäljningar: beslut B45, <code>vss/sales.py</code>. Nej: beslut E114, <code>vss/shadowbook.py</code>.</p>
@@ -644,10 +647,10 @@ chapter(
 N = Notes()
 chapter(
     "11-the-decision", "Beslutet",
-    "Aldrig 'ett köp'. Ett köp under kurs X, på villkor Y, med stopp Z, allt skrivet innan pengarna rör sig. Den rabatt som krävs växer med hur väl ägaren tror att han förstår företaget.",
+    "Aldrig 'ett köp'. Ett köp under kurs X, på villkor Y, med en utgång Z, allt skrivet innan pengarna rör sig. Den rabatt som krävs växer med hur väl ägaren tror att han förstår företaget.",
     8, False,
     f"""
-<p>Metodens fjärde driftregel lyder: en aktie är inte "ett köp". En aktie är ett köp under kurs X, på villkor Y, med stopp Z, och om du inte kan ange alla tre är arbetet inte klart.{N.ref("Ramverket §0 regel 4.")} Det här kapitlet handlar om de tre bokstäverna.</p>
+<p>Metodens fjärde driftregel lyder: en aktie är inte "ett köp". En aktie är ett köp under kurs X, på villkor Y, med en utgång Z (en säljlinje, bull-värdet eller "inget"), och om du inte kan ange alla tre är arbetet inte klart.{N.ref("Ramverket §0 regel 4.")} Det här kapitlet handlar om de tre bokstäverna.</p>
 {N.flush()}
 
 {FIG["buy_price"]()}
@@ -655,7 +658,7 @@ chapter(
 <h2>X: det mesta ägaren vill betala</h2>
 <p>Kapitel 8 gav ägarens tillväxtbedömning för basfallet. Kapitel 7:s räkning, körd framlänges med den bedömningen, ger ett värde per aktie. Det är ägarens uppskattning av vad BOLAG A är värt, och den är fel med ett belopp som ingen känner till. Därför är det inte köpkursen.</p>
 
-<p>Köpkursen är värdet multiplicerat med en marginal, och marginalen beror på hur säker ägaren är. Metoden kallar säkerhetsnivåerna <dfn>nivåer</dfn>, och det finns tre. Ett namn på nivå 1, ett som ägaren förstår väl och som har en stark balansräkning och något varaktigt som driver det framåt, får en köpkurs på 85 procent av värdet. Ett namn på nivå 2, mindre säkert eller i en konjunkturkänslig bransch, får 75. Ett namn på nivå 3, där skälet till att äga det har fått beskrivas om på vägen, får 65.{N.ref("Beslut E90, 2026-08-30. Nivå är ingen känsla: den kommer från en övertygelsepoäng byggd av klarade spärrar, varningstecken och goda tecken, och nivå 1 kräver dessutom en balansräkning som en fästning och en långsiktig medvind. 'A score alone does not make a tier 1.'")} Marginalen finns för att ta upp fel i modellen och i indata, vilka i det här projektets egna granskningar vanligtvis har uppgått till fem till femton procent av värdet. Den finns inte för att ta upp att företaget går dåligt; det bär tillväxtbedömningen för det sämre fallet, och den skrivs ut bredvid köpkursen som information, inte inräknad i den.</p>
+<p>Köpkursen är värdet multiplicerat med en marginal, och marginalen beror på hur säker ägaren är. Metoden kallar säkerhetsnivåerna <dfn>nivåer</dfn>, och det finns tre. Ett namn på nivå 1, ett som ägaren förstår väl och som har en stark balansräkning och något varaktigt som driver det framåt, får en köpkurs på 85 procent av värdet. Ett namn på nivå 2, mindre säkert eller i en konjunkturkänslig bransch, får 75. Ett namn på nivå 3, där skälet till att äga det har fått beskrivas om på vägen, får 65.{N.ref("Beslut E90, 2026-08-30. E90 knöt nivån till en övertygelsepoäng byggd av klarade spärrar, varningstecken och goda tecken. Poängen och de gröna flaggorna togs bort i november 2026 (E168); nivån är nu ett handfält som ägaren sätter, och marginalen är bara information.")} Marginalen finns för att ta upp fel i modellen och i indata, vilka i det här projektets egna granskningar vanligtvis har uppgått till fem till femton procent av värdet. Den finns inte för att ta upp att företaget går dåligt; det bär tillväxtbedömningen för det sämre fallet, och den skrivs ut bredvid köpkursen som information, inte inräknad i den.</p>
 <p><strong>Ändrat i november 2026.</strong> Marginalen räknas fortfarande ut och skrivs ut, men den binder ingenting: en kurs på högst 85 procent av värdet skilde inte ut senare avkastning i testerna, så beslut E168 gjorde den till information. Kön säger UNDER MBP, aldrig "köp". Se <a href="tested.html">kapitel 22</a>.</p>
 {N.flush()}
 
@@ -667,19 +670,22 @@ chapter(
 {N.flush()}
 
 <h2>Z: utgången, bestämd först</h2>
-<p>Före varje köp skriver ägaren ett stopp: en kurs där positionen säljs, vad berättelsen än är just då. Det sätts när ägaren inte har något intresse i svaret. När aktierna väl är ägda kommer varje skäl att inte sälja att verka övertygande, vilket är precis därför talet skrevs tidigare. Verktyget vägrar behandla ett ägt namn som komplett utan ett, och rapporterar ett saknat stopp före allt annat på sidan.{N.ref("Ett ägt namn utan stopp är en blockering, som rapporteras före varje dom. Ramverket §6.4 nämner också tesstopp: sälj när skälet till att äga är borta, till exempel en andra nedskärning av bolagets egen prognos.")}</p>
+<p>Före varje köp skriver ägaren ned utgången: ett bull-värde, en säljlinje som satts för hand, eller det villkor som bryter tesen. Den sätts när ägaren inte har något intresse i svaret. När aktierna väl är ägda kommer varje skäl att inte sälja att verka övertygande, vilket är precis därför utgången skrevs tidigare. Sedan E162 får fältet säga "inget" för ett kursstopp, och det godtas; ett tomt fält blockerar fortfarande. Verktyget vägrar behandla ett ägt namn som komplett medan fältet är tomt, och rapporterar det före allt annat på sidan.{N.ref("Ett ägt namn med ett tomt utgångsfält är en blockering, som rapporteras före varje dom. Ramverket §6.4 nämner också tesutgångar: sälj när skälet till att äga är borta, till exempel en andra nedskärning av bolagets egen prognos.")}</p>
 <p><strong>Ändrat i november 2026.</strong> Z är nu ett skrivet beslut om utgången, och för den här ägaren är beslutet "inget kursstopp" (beslut E162, <a href="tested.html">kapitel 22</a>). Det som finns kvar av avsnittet är poängen: utgången bestäms innan pengarna rör sig, medan ingen har något intresse i svaret.</p>
 {N.flush()}
 
 <h2>Vad verktyget gör med allt detta</h2>
-<p>Det beräknar X utifrån värdet och nivån, eftersom båda är ägarens indata och multiplikationen inte är en bedömning. Det vägrar ta emot ett X som skrivits in för hand; att göra det får körningen att misslyckas med en konflikt, eftersom en köpkurs som inte kom från ett värde och en nivå är ett tal utan ursprung.{N.ref("README: 'Writing an mbp: key by hand fails the run with a provenance conflict.' Marginalerna som gäller är 0,85, 0,75 och 0,65; en tidigare uppsättning, 0,80, 0,70 och 0,60, finns kvar i koden bara för tre siffror som fastställts under den och markeras som ersatta överallt där de skrivs ut.")} Varje natt rapporterar det avståndet från den avslutade kursen till X, och om Z har brutits. Det säger aldrig köp. Det säger: 4 procent över linjen, eller 2 procent under den, och resten är ägarens.</p>
+<p>Det beräknar X utifrån värdet och nivån, eftersom båda är ägarens indata och multiplikationen inte är en bedömning. Det vägrar ta emot ett X som skrivits in för hand; att göra det får körningen att misslyckas med en konflikt, eftersom en köpkurs som inte kom från ett värde och en nivå är ett tal utan ursprung.{N.ref("README: 'Writing an mbp: key by hand fails the run with a provenance conflict.' Marginalerna som gäller är 0,85, 0,75 och 0,65; en tidigare uppsättning, 0,80, 0,70 och 0,60, finns kvar i koden bara för tre siffror som fastställts under den och markeras som ersatta överallt där de skrivs ut.")} Varje natt jämför kön kursen med titta-linjen, marginalkursen (information) och säljlinjerna, och skickar ett meddelande bara när något har ändrats. Den säger aldrig köp. Den säger: en titta-linje korsad, under marginalkursen, en säljlinje nådd, och resten är ägarens.</p>
 {N.flush()}
 
 <h2>Marginalen på vanlig svenska</h2>
 <p>Hur stor rabatt du kräver bör bero på hur sannolikt det är att du har fel, och hur sannolikt det är att du har fel beror på hur väl du förstår det du köper. Ett företag du har följt i åratal, utan skuld och med medvind, kan du köpa till en måttlig rabatt mot din uppskattning, eftersom din uppskattning är värd något. Ett företag du bara halvt kan förklara bör du köpa först med en rejäl rabatt, eftersom din uppskattning mest är gissning och rabatten gör jobbet. Nivåerna sätter siffror på det, och siffrorna är desamma för varje bolag på samma nivå, så ägaren kan inte i det tysta ge en favorit en mindre marginal.</p>
 
+<h2>Hur mycket</h2>
+<p>Storleken är också begränsad: högst 6 procent av portföljen i ett enda namn (beslut E157).</p>
+
 {decision(
-    "Ett beslut är tre nedskrivna tal, X, Y och Z, framtagna i den ordningen, före köpet. X beräknas utifrån ägarens värde och nivå och får inte skrivas in.",
+    "Ett beslut är tre nedskrivna tal, X, Y och Z, framtagna i den ordningen, före köpet. X beräknas utifrån ägarens värde och nivå, visas som information och får inte skrivas in.",
     "Ett beslut som bara finns som en känsla av säkerhet går inte att kontrollera i efterhand. Tre tal med datum går.",
     "Ingenting köps snabbt. Mellan att ett bolag rapporterar och att ägaren får agera läses varje siffra om och värdet värderas om. Möjligheter som kräver snabbhet är inga möjligheter för den här metoden.",
 )}
@@ -696,7 +702,7 @@ chapter(
     "Varje nej mäts mot marknaden i efterhand. Ett system som bara mäter det det köpte kan inte lära sig, och en process som bara säger nej, och aldrig betygsätter sina nej, kan inte visas ha fel.",
     7, False,
     f"""
-<p>Nu bör metodens form vara tydlig: den säger för det mesta nej. Av de namn den har läst noga har den, i skrivande stund, sagt nej till vart och ett. Det väcker en obekväm fråga. Hur skulle någon veta om metoden helt enkelt var för sträng? En process som aldrig köper har aldrig ett dåligt köp att peka på. Den har inte heller ett bra. Dess meritlista är fläckfri och säger ingenting.</p>
+<p>Nu bör metodens form vara tydlig: den säger för det mesta nej. Av de namn den har läst noga har den, i skrivande stund, sagt nej till de flesta, och köpt ett fåtal. Det väcker en obekväm fråga. Hur skulle någon veta om metoden helt enkelt var för sträng? En process som köper så sällan har få dåliga köp att peka på. Den har inte heller många bra. Dess meritlista är fläckfri och säger ingenting.</p>
 
 <p>Ägarens beslut formulerade det så här: "Det här ramverket har utvärderat namn och sagt nej till alla, och ingenting i det mäter vad ett nej kostade eller sparade. En process som bara säger nej, och aldrig betygsätter sina nej, kan inte falsifieras."{N.ref("Beslut E114, 2026-09-08.")}</p>
 {N.flush()}

@@ -47,12 +47,12 @@
 
 
 <div class="stage"><h3>PIPELINE: infört</h3><dl>
-<dt>Vad som händer</dt><dd>Ägaren har fört in namnet. Inträdesdatumet och kursens toppunkt stämplas och fryses, så att spärren "hur långt har den fallit" bedöms per den dagen och inte driver iväg när kursen rör sig.</dd>
+<dt>Vad som händer</dt><dd>Namnet har förts in. Inträdesdatumet stämplas och fryses. Den gamla spärren "hur långt har den fallit" är borta (E161), så inget kurstest hänger på den dagen.</dd>
 <dt>Verktyget gör</dt><dd>Bevakar bolagets egna offentliggöranden: periodiska rapporter, ändringar av dess prognos, vinstvarningar. Inget annat. Ledningsbyten, återköp, affärer och aktieägarmeddelanden sorteras bort, enligt ägarens test: skulle det här få mig att göra om värderingen?</dd>
 <dt>Ägaren gör</dt><dd>Arbetar sig igenom spärrarna, de hårda diskvalificeringarna, läsningen, tillväxtbedömningen, värderingen.</dd>
 <dt>Faller ur när</dt><dd>En spärr faller på något annat än pris (till WATCH-GATED), en hård diskvalificering eller ett klass D-skäl hittas (till DROPPED), eller företaget visar sig ligga utanför cirkeln (till DROPPED).</dd>
 </dl></div>
-<p>Eftersom inträdet fryser en spärr och den frysningen inte kan ångras genom att köra om något, är det schemalagda screeningjobbet förbjudet att föra in ett namn. Det får föreslå. Bara ägaren för in, för hand.<a class="noteref" href="#n3" id="r3" aria-label="note 3">3</a><span class="note" id="n3" role="note"><span class="nn">3</span>Beslut E93: 'entering a PIPELINE name stamps dd_at_entry and peak_date and E12 freezes Gate 1 at that moment — and unlike a fair value, that is not undone by re-striking.' Flaggan som skulle tillåta det saknas i den schemalagda enheten och måste fortsätta saknas.</span></p>
+<p>Eftersom inträdet stämplar ett datum och den stämpeln inte kan ångras genom att köra om något, är det schemalagda screeningjobbet förbjudet att föra in ett namn. Det får föreslå. Bara en människa för in: ägaren, eller sessionen på hans ord.<a class="noteref" href="#n3" id="r3" aria-label="note 3">3</a><span class="note" id="n3" role="note"><span class="nn">3</span>Beslut E93: 'entering a PIPELINE name stamps dd_at_entry and peak_date and E12 freezes Gate 1 at that moment — and unlike a fair value, that is not undone by re-striking.' Flaggan som skulle tillåta det saknas i den schemalagda enheten och måste fortsätta saknas.</span></p>
 
 
 <div class="stage"><h3>WATCH-GATED: väntar på ett faktum</h3><dl>
@@ -63,16 +63,16 @@
 </dl></div>
 
 <div class="stage"><h3>WATCH-PRICED: väntar på en kurs</h3><dl>
-<dt>Vad som händer</dt><dd>Läsningen är klar, värdet är värderat, det mesta ägaren vill betala är beräknat. Kursen ligger över det. Namnet väntar på kursen och ingenting annat.</dd>
-<dt>Verktyget gör</dt><dd>Jämför varje natt den avslutade slutkursen med köplinjen och rapporterar avståndet. Pekar när kursen korsar den. Linjen är en beräknad köpkurs eller så finns ingen linje: en nivå som skrivits in för hand för ett namn som aldrig värderats är en påminnelse, och namnet går inte att köpa vid den.</dd>
+<dt>Vad som händer</dt><dd>Läsningen är klar, värdet är värderat, och en marginalkurs beräknas som information. Kursen ligger över den. Namnet väntar på kursen och ingenting annat.</dd>
+<dt>Verktyget gör</dt><dd>Kön jämför varje natt den avslutade slutkursen med titta-linjen, den kurs där namnet är värt att värdera ordentligt på nytt, och med marginalkursen. Den talar om för ägaren när någon av dem korsas: TITTA för titta-linjen, UNDER MBP för marginalkursen. Ingen av dem säger köp. Marginalkursen är beräknad eller så finns ingen: en nivå som skrivits in för hand för ett namn som aldrig värderats är en påminnelse, och namnet går inte att köpa vid den.</dd>
 <dt>Ägaren gör</dt><dd>Väntar. Värderar om vid bolagets nästa rapport.</dd>
-<dt>Faller ur när</dt><dd>Kursen korsar linjen och ägaren köper (till HELD), eller en ny rapport ändrar läsningen (tillbaka till PIPELINE, eller till DROPPED).</dd>
+<dt>Faller ur när</dt><dd>Ägaren köper (till HELD), eller en ny rapport ändrar läsningen (tillbaka till PIPELINE, eller till DROPPED).</dd>
 </dl></div>
 
 <div class="stage"><h3>HELD: ägt</h3><dl>
-<dt>Vad som händer</dt><dd>Ägaren har köpt. Ett stopp, en kurs där positionen säljs oavsett, sattes före köpet och är registrerat.</dd>
-<dt>Verktyget gör</dt><dd>Kontrollerar varje natt kursen mot stoppet och rapporterar ett brott som det första på sidan. Ett ägt namn utan stopp är en blockering, som rapporteras före allt annat.</dd>
-<dt>Ägaren gör</dt><dd>Värderar om vid varje rapport. Säljer vid stoppet eller när skälet till köpet är borta.</dd>
+<dt>Vad som händer</dt><dd>Ägaren har köpt. Utgången skrevs ned före köpet: ett bull-värde, en säljlinje som satts för hand, eller det villkor som bryter tesen. "Inget" godtas för ett stopp.</dd>
+<dt>Verktyget gör</dt><dd>Kontrollerar varje natt kursen mot säljlinjen och bull-värdet, och skickar SÄLJ när någon av dem nås. Ett ägt namn med ett tomt utgångsfält är en blockering, som rapporteras före allt annat.</dd>
+<dt>Ägaren gör</dt><dd>Värderar om vid varje rapport. Säljer vid säljlinjen, vid bull-värdet eller när skälet till köpet är borta.</dd>
 <dt>Faller ur när</dt><dd>Ägaren säljer. Försäljningen registreras och mäts mot marknaden från sitt eget datum.</dd>
 </dl></div>
 <p><strong>Ändrat i november 2026.</strong> Kursstoppet är borta (beslut E162): ingen stoppnivå, med eller utan återköp, hjälpte i testerna, och med courtage blev varje stopp en kostnad. Ägaren skriver fortfarande ner utgången före köpet, men som <code>stop_price: none</code>, ett beslut och inte ett tomt fält; ett tomt fält blockerar fortfarande. Att sälja när skälet till att äga är borta står kvar. Se <a href="tested.html">kapitel 22</a>.</p>
@@ -85,7 +85,10 @@
 </dl></div>
 
 <h2>Det som är värt att lägga märke till</h2>
-<p>Varje pil mellan rutorna är ägarens handling. Verktyget mäter var ett namn står, rapporterar det och pekar när något korsar en linje. Det flyttar aldrig ett namn. Om ägaren inte gör något flyttas ingenting. Det är ett designbeslut, och kapitel 13 förklarar varför.</p>
+<p>Varje pil mellan rutorna är en mänsklig handling: ägarens, eller, sedan E141 (2026-10-27), Claude Code-sessionens på hans uppdrag. Verktyget mäter var ett namn står, rapporterar det och pekar när något korsar en linje. Den schemalagda maskinen flyttar aldrig ett namn. Om ingen agerar flyttas ingenting. Det är ett designbeslut, och kapitel 13 förklarar varför.</p>
+
+<h2>Huvudlistan</h2>
+<p>En fil till binder samman statusarna. <code>reports/HUVUDLISTA.md</code> är huvudlistan, byggd av <code>tools/master_list.py</code> och ombyggd varje natt. Den innehåller varje bolag som någonsin setts över, i grupper: ägda, kandidater, bevakade, att granska och nej. Varje rad har kursen, värdena för sämre fall, basfall och bättre fall, slaget av värde, skälet och nästa daterade händelse. Varje Claude Code-session öppnar med dess korta version, så ingen session börjar med att gissa var det står till.</p>
 
 <details class="fold"><summary>De exakta reglerna</summary><div class="inner">
 <p>Statusar: <code>vss/rules.py</code>. INTAKE: beslut E111. Stämplar vid inträde i PIPELINE och den frusna spärren: besluten E12 och E93. De två väntelistorna: beslut E27. Filtret för offentliggöranden: <code>vss/watch.py</code>. Den nattliga kursjämförelsen: <code>vss/runner.py</code>, <code>vss/rules.py</code>. Försäljningar: beslut B45, <code>vss/sales.py</code>. Nej: beslut E114, <code>vss/shadowbook.py</code>.</p>

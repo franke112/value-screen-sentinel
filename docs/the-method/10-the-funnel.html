@@ -47,12 +47,12 @@
 
 
 <div class="stage"><h3>PIPELINE: entered</h3><dl>
-<dt>What happens</dt><dd>The owner has entered the name. The date of entry and the price's high point are stamped and frozen, so the "how far has it fallen" gate is judged as of that day and does not drift as the price moves.</dd>
+<dt>What happens</dt><dd>The name has been entered. The date of entry is stamped and frozen. The old "how far has it fallen" gate is gone (E161), so no price test is tied to that day.</dd>
 <dt>The tool does</dt><dd>Watches for the company's own disclosures: periodic reports, changes to its forecast, profit warnings. Nothing else. Leadership changes, buybacks, deals and shareholder notices are filtered out, on the owner's test: would this make me redo the valuation?</dd>
 <dt>The owner does</dt><dd>Works through the gates, the hard kills, the reading, the growth view, the valuation.</dd>
 <dt>Falls out when</dt><dd>A gate fails on something other than price (to WATCH-GATED), a hard kill or a class D reason is found (to DROPPED), or the business turns out to be outside the circle (to DROPPED).</dd>
 </dl></div>
-<p>Because entry freezes a gate and that freezing cannot be undone by re-running anything, the scheduled screen is forbidden from entering a name. It may propose. Only the owner, by hand, enters.<a class="noteref" href="#n3" id="r3" aria-label="note 3">3</a><span class="note" id="n3" role="note"><span class="nn">3</span>Ruling E93: 'entering a PIPELINE name stamps dd_at_entry and peak_date and E12 freezes Gate 1 at that moment — and unlike a fair value, that is not undone by re-striking.' The flag that would allow it is absent from the scheduled unit and must stay absent.</span></p>
+<p>Because entry stamps a date and that stamp cannot be undone by re-running anything, the scheduled screen is forbidden from entering a name. It may propose. Only a person enters: the owner, or the session at his word.<a class="noteref" href="#n3" id="r3" aria-label="note 3">3</a><span class="note" id="n3" role="note"><span class="nn">3</span>Ruling E93: 'entering a PIPELINE name stamps dd_at_entry and peak_date and E12 freezes Gate 1 at that moment — and unlike a fair value, that is not undone by re-striking.' The flag that would allow it is absent from the scheduled unit and must stay absent.</span></p>
 
 
 <div class="stage"><h3>WATCH-GATED: waiting for a fact</h3><dl>
@@ -63,16 +63,16 @@
 </dl></div>
 
 <div class="stage"><h3>WATCH-PRICED: waiting for a price</h3><dl>
-<dt>What happens</dt><dd>The reading is done, the value is struck, the most the owner will pay is computed. The price is above it. The name waits for the price alone.</dd>
-<dt>The tool does</dt><dd>Every night, compares the settled closing price to the buy line and reports the distance. Points when the price crosses it. The line is a computed buy price or there is no line: a level typed in by hand for a name never valued is a reminder, and the name is not buyable at it.</dd>
+<dt>What happens</dt><dd>The reading is done, the value is struck, and a cushion price is computed as information. The price is above it. The name waits for the price alone.</dd>
+<dt>The tool does</dt><dd>Every night, the queue compares the settled closing price with the look line, the price at which the name is worth valuing properly again, and with the cushion price. It tells the owner when either is crossed: TITTA for the look line, UNDER MBP for the cushion price. Neither says buy. The cushion price is computed or there is none: a level typed in by hand for a name never valued is a reminder, and the name is not buyable at it.</dd>
 <dt>The owner does</dt><dd>Waits. Re-values on the company's next report.</dd>
-<dt>Falls out when</dt><dd>The price crosses the line and the owner buys (to HELD), or a new report changes the reading (back to PIPELINE, or to DROPPED).</dd>
+<dt>Falls out when</dt><dd>The owner buys (to HELD), or a new report changes the reading (back to PIPELINE, or to DROPPED).</dd>
 </dl></div>
 
 <div class="stage"><h3>HELD: owned</h3><dl>
-<dt>What happens</dt><dd>The owner has bought. A stop, a price at which the position is sold regardless, was set before entry and is recorded.</dd>
-<dt>The tool does</dt><dd>Every night, checks the price against the stop and reports a breach as the first thing on the page. A held name with no stop is a blocker, reported before anything else.</dd>
-<dt>The owner does</dt><dd>Re-values on every report. Sells at the stop or when the reason for buying is gone.</dd>
+<dt>What happens</dt><dd>The owner has bought. The exit was written down before buying: a bull value, a sell line set by hand, or the condition that breaks the thesis. "None" is accepted for a stop.</dd>
+<dt>The tool does</dt><dd>Every night, checks the price against the sell line and the bull value, and sends SÄLJ when one is reached. A held name with a blank exit field is a blocker, reported before anything else.</dd>
+<dt>The owner does</dt><dd>Re-values on every report. Sells at the sell line, at the bull value, or when the reason for buying is gone.</dd>
 <dt>Falls out when</dt><dd>The owner sells. The sale is recorded and measured against the market from its own date.</dd>
 </dl></div>
 <p><strong>Changed, November 2026.</strong> The price stop is gone (ruling E162): no stop level, with or without buying back, helped in the tests, and with trading costs every one cost money. The owner still writes the exit down before buying, but it is written as <code>stop_price: none</code>, a decision and not a blank; a blank still blocks. Selling because the reason for owning is gone stays. See <a href="tested.html">chapter 22</a>.</p>
@@ -85,7 +85,10 @@
 </dl></div>
 
 <h2>The thing to notice</h2>
-<p>Every arrow between the boxes is the owner's act. The tool measures where a name stands, reports it, and points when something crosses a line. It never moves a name. If the owner does nothing, nothing moves. That is a design decision, and chapter 13 says why.</p>
+<p>Every arrow between the boxes is a human act: the owner's, or, since E141 (2026-10-27), the Claude Code session's on his behalf. The tool measures where a name stands, reports it, and points when something crosses a line. The scheduled machine never moves a name. If nobody acts, nothing moves. That is a design decision, and chapter 13 says why.</p>
+
+<h2>The master list</h2>
+<p>One more file ties the statuses together. <code>reports/HUVUDLISTA.md</code> is the master list, built by <code>tools/master_list.py</code> and rebuilt every night. It holds every company ever looked at, in groups: owned, candidates, watched, to review, and no. Each row has the price, the bear, base and bull values, the kind of value, the reason, and the next dated event. Each Claude Code session opens with its short version, so no session starts by guessing where things stand.</p>
 
 <details class="fold"><summary>The exact rules</summary><div class="inner">
 <p>Statuses: <code>vss/rules.py</code>. INTAKE: ruling E111. PIPELINE entry stamps and the frozen gate: rulings E12 and E93. The two waiting lists: ruling E27. The disclosure filter: <code>vss/watch.py</code>. The nightly price comparison: <code>vss/runner.py</code>, <code>vss/rules.py</code>. Sales: ruling B45, <code>vss/sales.py</code>. Refusals: ruling E114, <code>vss/shadowbook.py</code>.</p>
