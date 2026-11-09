@@ -216,11 +216,17 @@ def main(asof: str = "2026-08-21", fx_manifest: str | None = None) -> int:
     return 0
 
 
-if __name__ == "__main__":
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("asof", nargs="?", default="2026-08-21")
+    parser.add_argument("asof", nargs="?", default="2026-08-21",
+                        metavar="YYYY-MM-DD",
+                        help="the stored screener run to freeze (default: 2026-08-21)")
     parser.add_argument("--fx-manifest", default=None,
                         help="manifest file under data/screener_runs/<asof>/ to "
                              "take the rates from")
-    args = parser.parse_args()
+    return parser
+
+
+if __name__ == "__main__":
+    args = build_parser().parse_args()
     raise SystemExit(main(args.asof, args.fx_manifest))

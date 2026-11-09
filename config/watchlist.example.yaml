@@ -1,43 +1,54 @@
 # vss watchlist -- copy to config/watchlist.yaml and edit.
 #
-# Every field below is MANUAL. vss never computes, guesses, defaults or
+# THE TWO ENTRIES BELOW ARE DUMMIES. No vendor knows `EXMPL.ST` or
+# `DUMMY.AS`, so a run on this file as it stands fetches nothing, and a
+# `--dry-run` refuses (exit 3) because the HELD dummy has no close. Replace
+# them with real symbols before the first run. The full field table is in
+# docs/MANUAL.md, "The watchlist".
+#
+# Every field is MANUAL. vss never computes, guesses, defaults or
 # back-fills any of them.
 #
-# NOTE: there is deliberately no `mbp:` field. MBP is COMPUTED as
-#   mbp = fv_base * tier_multiplier      (tier 1 = 0.80, 2 = 0.70, 3 = 0.60)
-# Adding an `mbp:` key by hand fails the run with a provenance conflict.
-# If fv_base or tier is absent, mbp is DATA MISSING and every MBP-dependent
-# verdict reports DATA MISSING rather than a guess.
+# There is deliberately no `mbp:` field. MBP is COMPUTED:
+#   mbp = base value x tier cushion      (tier 1 = 0.85, 2 = 0.75, 3 = 0.65; E90)
+# and it is INFORMATION since E168: it binds nothing. Writing an `mbp:` key
+# by hand fails the run with a provenance conflict.
 #
-# A missing `stop_price` BLOCKS a HELD ticker: an open position with no
-# defined exit gets no verdict. Waiting names are not blocked --
-# there is nothing to exit yet -- but they carry a NO STOP DEFINED flag
-# so a buy verdict is never acted on before the §6.4 decision is made.
+# A VALUE NEEDS ITS RECORD. `fv_base` is printed, and an MBP struck from
+# it, only where `run_record:` names a complete run record that replays to
+# it (`vss strike` writes the record). A bare `fv_base` with no record
+# prints DATA MISSING (no complete run record) -- as these dummies would.
 #
 # Fields
 #   ticker         yfinance symbol (e.g. VOLV-B.ST, RHM.DE, MSFT)
 #   name           display name
 #   currency       trading currency, display only
+#   status         HELD | WATCH-PRICED | WATCH-GATED | PIPELINE | INTAKE |
+#                  DROPPED. WATCH-PRICED passed and is only too expensive.
+#                  WATCH-GATED failed something other than price: re-entry
+#                  is on a named information event, NEVER a price level.
+#                  INTAKE has been read and is not watched: it may carry a
+#                  `growth:` view and nothing that stamps an entry.
+#   fv_base        base-case fair value; needs `run_record:` (above)
+#   fv_bull        the bull case; REQUIRED on a HELD name
+#   tier           1 | 2 | 3, a hand field; it sets the MBP cushion
+#   run_record     reference/run-records/<TICKER>-<stamp>.json
+#   growth         the PRE-REGISTERED growth view a strike reads:
+#                    growth: {base: 0.04, bear: 0.0, bull: 0.07,
+#                             view: reference/growth-views/<TICKER>.md,
+#                             registered: YYYY-MM-DD}
+#   stop_price     E162: there is no price stop. A HELD name writes
+#                  `stop_price: none` -- the decision; a BLANK field on a
+#                  HELD name blocks it (NO_STOP), so a decision and a
+#                  forgotten field never look alike. A number is accepted
+#                  as the owner's own note; no rule reads it.
 #   hurdle         E29's frozen hurdle rate, on a PURCHASE verdict only:
 #                    hurdle:
 #                      rate: 0.095
 #                      core_expected_return: 0.070
 #                      premium: 0.025          # E29 sets this at 2-3 points
 #                      rate_as_of: 2026-08-25
-#                  All four or none. rate must equal core + premium. Absent
-#                  on every other row -- a C4 exit is re-struck at today's
-#                  rate, never read from here.
-#   status         HELD | WATCH-PRICED | WATCH-GATED | PIPELINE
-#                  WATCH was split by FRAMEWORK-EDITS E27 (2026-08-25) and
-#                  the bare word is REJECTED. WATCH-PRICED passed §5 and is
-#                  only too expensive -- §5.3 applies, a limit alert
-#                  computed from MBP. WATCH-GATED failed a §3 gate on
-#                  something other than price -- re-entry on a named
-#                  information event, NEVER a price level.
-#   fv_base        base-case fair value, per FRAMEWORK 5.1-5.2
-#   tier           1 | 2 | 3, per FRAMEWORK 5.3
-#   stop_price     per FRAMEWORK 6.4. Required for HELD (else blocked);
-#                  for a waiting name its absence is flagged, not blocking
+#                  All four or none. rate must equal core + premium.
 #   catalyst_date  YYYY-MM-DD, when the catalyst is/was due
 #   catalyst_resolved  YYYY-MM-DD, the day you actually ingested the
 #                  outcome. Once catalyst_date is in the past, a missing
@@ -53,9 +64,8 @@ tickers:
     name: Example Industrials AB
     currency: SEK
     status: WATCH-GATED
-    fv_base: 180.00      # tier 2 -> mbp = 126.00
+    fv_base: 180.00      # prints only with a run_record (see the header)
     tier: 2
-    stop_price: 96.00
     catalyst_date: 2026-10-24
     catalyst_resolved:     # still in the future, nothing to resolve yet
     catalyst_event: Q3 report
@@ -63,7 +73,9 @@ tickers:
       Dummy entry -- replace me.
       Thesis in one line so future-you remembers why this is on the list.
 
-    # Optional: 8 quarters, oldest first, for FRAMEWORK 4.2 hard kills.
+    # Optional: 8 quarters, oldest first, for the hard kills (FRAMEWORK
+    # section 4: guidance cuts, EPS misses, covenant proximity, CEO and CFO
+    # leaving). The other figures are information since E163 / E168.
     # ALL MANUAL. eps_consensus is MANUAL ONLY -- vss never extracts or
     # proposes it, and rule 4.2.4 reports CANNOT EVALUATE without it.
     # basis/accounting let a YoY comparison refuse to mix constant-currency
@@ -86,7 +98,7 @@ tickers:
         guidance_action: maintained   # raised|maintained|cut|none
         receivables: 1900
         inventory: 1239
-        class_c_impact:          # quantified one-off, exempts 4.2.2
+        class_c_impact:          # a quantified one-off, stated on its own line
         covenant_headroom:
         basis: reported          # reported|constant_currency
         accounting: gaap         # gaap|non_gaap
@@ -99,20 +111,16 @@ tickers:
     currency: EUR
     status: HELD
     fv_bull: 87.5    # the exit test C4/E42 runs on (owner, 2026-09-20)
-    fv_base: 62.50       # tier 1 -> mbp = 50.00
+    fv_base: 62.50       # prints only with a run_record (see the header)
     tier: 1
-    # OPTIONAL, and E32 is why it exists. `fv_base x tier multiplier` is
-    # SUPERSEDED as a definition: under E28 the MBP is the price at which
-    # implied growth equals the PRE-REGISTERED bear case, with the same
-    # cushion on that. `rules.compute_mbp` still computes the old one --
-    # three stored figures were struck under it and E32 keeps them -- so
-    # every mbp the tool produces today is marked wherever it prints.
+    # OPTIONAL, and E32 is why it exists. The MBP has had three
+    # definitions: `fv_base x 0.80 / 0.70 / 0.60` (superseded), E28's bear
+    # case x cushion (superseded), and E90's base value x 0.85 / 0.75 /
+    # 0.65, which is what the tool computes today. This block records WHEN
+    # a stored figure was struck and under WHICH definition, so an old
+    # figure is marked wherever it prints. Both keys or neither.
     #
-    # ABSENCE DOES NOT MEAN LIVE. This block records WHEN a figure was
-    # struck and confirms WHICH definition; leaving it out does not make
-    # a number current. Both keys or neither.
-    #
-    #   definition: fv_base_x_tier | e28_bear_case
+    #   definition: fv_base_x_tier | e28_bear_case | e90_base_cushion
     #   struck:     YYYY-MM-DD, or `on or before YYYY-MM-DD` where the day
     #               is genuinely not recoverable. There is no third form,
     #               and a day is never invented to fill this in.
@@ -120,7 +128,7 @@ tickers:
     # mbp_basis:
     #   definition: fv_base_x_tier
     #   struck: 2026-08-22
-    stop_price: 41.00
+    stop_price: none     # E162: no price stop, written as the decision it is
     catalyst_date: 2026-05-14
     catalyst_resolved: 2026-05-15   # the day the outcome was ingested
     catalyst_event: FY guidance update

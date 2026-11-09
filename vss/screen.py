@@ -2509,9 +2509,10 @@ def run_screen(
         "                      ticker at a time, and store them beside the snapshot\n"
         "  --filter2           run the whole chain against stored data: step 0,\n"
         "                      filter 1, then coarse quality. Fetches nothing\n"
-        "  --rank              the whole chain plus the two-component ranking key.\n"
+        "  --rank              the whole chain, then a seeded random order (E167).\n"
         "                      Fetches only the exchange rates it needs\n"
-        "Ranking and PIPELINE writing are phases 5 and 6 and do not exist yet.",
+        "  --rank --write-pipeline   enter the top names as PIPELINE (backup first)\n"
+        "  --weekly            the whole chain unattended; never writes the watchlist",
         file=sys.stderr,
     )
     return 2

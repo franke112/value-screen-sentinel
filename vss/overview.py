@@ -598,8 +598,9 @@ def attention(rows: Sequence[NameRow], calendar: Sequence[CalendarItem], *,
               as_of: date) -> list[Attention]:
     """What needs the owner TODAY, and nothing else.
 
-    THREE QUESTIONS, and the list is closed to them: has a level been
-    crossed, is a holding unguarded, and does something land this week.
+    TWO QUESTIONS, and the list is closed to them: has a level been
+    crossed, and does something land this week. (A third, "is a holding
+    unguarded", went with the price stop: E162.)
     Everything else on this page is work that can wait, which is why it
     is below the fold or behind a disclosure.
 
@@ -833,7 +834,8 @@ def qualifying_clause(row: "NameRow") -> str:
 #: anything. Silence has to be distinguishable from not having looked --
 #: the dead man's switch's own argument, applied to a sentence.
 ATTENTION_CHECKS = (
-    "every stop against its close",
+    # E162(1): no stop items on this page -- there is no price stop, so the
+    # page may not say it checked one.
     "every maximum buy price against its close",
     f"the next {ATTENTION_HORIZON_DAYS} days of the calendar",
 )

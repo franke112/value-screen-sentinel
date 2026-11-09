@@ -145,8 +145,9 @@ def summary(
                 f"FRAMEWORK-EDITS E12 and is not re-read; leaving PIPELINE takes "
                 f"an information event.")
     parts = [
-        f"Screener {asof.isoformat()}: rank {rank} of {of} names ranked on BOTH "
-        f"components of the two-component key (FRAMEWORK-EDITS E6); "
+        f"Screener {asof.isoformat()}: place {rank} of {of} in the seeded "
+        f"random order (E167: a fixed-seed draw, not a ranking) of the names "
+        f"with both legs of the old key readable; "
         f"{of} is that list, not the universe.",
         f"Sector {sector or 'DATA MISSING'}.",
         f"Market {marknad or 'DATA MISSING'}.",

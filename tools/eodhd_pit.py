@@ -163,11 +163,17 @@ def known_at(symbol: str, as_of: str, *, freq: str = "quarterly", db: Path = DB)
         conn.close()
 
 
-def main(argv=None) -> int:
+def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--build", action="store_true")
-    ap.add_argument("--show", nargs=2, metavar=("SYMBOL", "ASOF"))
-    a = ap.parse_args(argv)
+    ap.add_argument("--build", action="store_true",
+                    help="build data/eodhd/pit.sqlite from the fetched files")
+    ap.add_argument("--show", nargs=2, metavar=("SYMBOL", "ASOF"),
+                    help="print what was known about SYMBOL on ASOF (YYYY-MM-DD)")
+    return ap
+
+
+def main(argv=None) -> int:
+    a = build_parser().parse_args(argv)
     if a.build:
         print(f"{build()} symbols indexed into {DB}")
     if a.show:

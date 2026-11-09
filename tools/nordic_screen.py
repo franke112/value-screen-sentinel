@@ -342,11 +342,18 @@ def stale_warning(refresh_rc: int | None) -> str | None:
     return ("VARNING: " + "; ".join(parts) + " -- rankingen bygger på gamla rapporter") if parts else None
 
 
-def main(argv=None) -> int:
+def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--no-refresh", action="store_true")
-    ap.add_argument("--notify", action="store_true")
-    a = ap.parse_args(argv)
+    ap.add_argument("--no-refresh", action="store_true",
+                    help="value and rank on the EODHD files on disk; fetch "
+                         "nothing from the vendor")
+    ap.add_argument("--notify", action="store_true",
+                    help="send the summary to ntfy (the Saturday timer)")
+    return ap
+
+
+def main(argv=None) -> int:
+    a = build_parser().parse_args(argv)
     day = date.today()
     refresh_rc = None
     if not a.no_refresh:

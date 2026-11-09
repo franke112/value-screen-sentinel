@@ -242,16 +242,22 @@ def status() -> int:
     return 0
 
 
-def main(argv=None) -> int:
+def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--check", action="store_true")
-    ap.add_argument("--status", action="store_true")
+    ap.add_argument("--check", action="store_true",
+                    help="ask the quota and fetch one Nordic test file; store nothing")
+    ap.add_argument("--status", action="store_true",
+                    help="how far the fetch has come; fetches nothing")
     ap.add_argument("--budget", type=int, default=50000, help="calls this run may spend")
     ap.add_argument("--refresh-nordic", type=float, default=None, metavar="DAYS",
                     help="re-fetch ACTIVE Nordic files older than DAYS (the weekly screen)")
     ap.add_argument("--reserve", type=int, default=10000,
                     help="calls a day left for the home machine")
-    a = ap.parse_args(argv)
+    return ap
+
+
+def main(argv=None) -> int:
+    a = build_parser().parse_args(argv)
     if a.check:
         return check()
     if a.status:

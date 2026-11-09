@@ -114,12 +114,16 @@ def diff(before: dict, after: dict) -> list[str]:
     return [head, *lines]
 
 
-def main(argv=None) -> int:
+def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument("--save", type=Path, help="write the snapshot of the code as it stands")
     g.add_argument("--diff", type=Path, help="compare the code as it stands with a saved snapshot")
-    a = ap.parse_args(argv)
+    return ap
+
+
+def main(argv=None) -> int:
+    a = build_parser().parse_args(argv)
     now = snapshot()
     if a.save:
         a.save.write_text(json.dumps(now, indent=1))

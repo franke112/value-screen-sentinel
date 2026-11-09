@@ -152,7 +152,8 @@ def build_parser() -> argparse.ArgumentParser:
         help="a model reads a report's statement pages (twice) and gated figures "
              "become config/manual/drafts/<TICKER>.llm-pdf.yaml (UNVERIFIED; E149)",
     )
-    pdfdraft_cmd.add_argument("--ticker", required=True, metavar="X")
+    pdfdraft_cmd.add_argument("--ticker", required=True, metavar="X",
+                              help="the ticker the draft is for")
     pdfdraft_cmd.add_argument("--pdf", required=True, metavar="PATH",
                               help="the report under sources/")
     pdfdraft_cmd.add_argument("--period", required=True, metavar="YYYY-Qn|YYYY-FY",
@@ -167,7 +168,8 @@ def build_parser() -> argparse.ArgumentParser:
         help="read a Nordic issuer's ESEF report packages in sources/ and, "
              "with --draft, write config/manual/drafts/<TICKER>.esef-ixbrl.yaml",
     )
-    esef_cmd.add_argument("--ticker", required=True, metavar="X")
+    esef_cmd.add_argument("--ticker", required=True, metavar="X",
+                          help="the ticker whose packages under sources/ to read")
     esef_cmd.add_argument("--draft", action="store_true",
                           help="write the draft (every figure UNVERIFIED; "
                                "merge it with `vss manual --merge-draft`)")
@@ -400,7 +402,10 @@ def build_parser() -> argparse.ArgumentParser:
     queue_cmd.add_argument("--only", metavar="TICKER", nargs="+", default=None,
                            help="these names only (the last-run date is not moved)")
     queue_cmd.add_argument("--dry-run", action="store_true",
-                           help="print the report; write nothing, POST nothing")
+                           help="print the report; write no report file and no "
+                                "state, POST nothing. A NEW report found for a "
+                                "name is still fetched and read into "
+                                "data/autoread/")
 
     backfill_cmd = sub.add_parser(
         "backfill-vendor-strings",
@@ -527,7 +532,9 @@ def build_parser() -> argparse.ArgumentParser:
         help="the issuer's multi-year history (E143): build it from SEC "
              "companyfacts (--xbrl), check every hand-read row against its "
              "PDF (--check), or print what E142/E144/E145 derive from it")
-    history_cmd.add_argument("--ticker", metavar="X", required=True)
+    history_cmd.add_argument("--ticker", metavar="X", required=True,
+                             help="the ticker whose config/history/<TICKER>.yaml "
+                                  "to build, check or print")
     history_cmd.add_argument("--xbrl", action="store_true",
                              help="build config/history/<TICKER>.yaml from "
                                   "companyfacts (the entry's cik)")
@@ -568,8 +575,11 @@ def build_parser() -> argparse.ArgumentParser:
 
     screen_cmd = sub.add_parser(
         "screen",
-        help="build the screening universe and snapshot its prices "
-             "(phase 1: no filtering, no ranking, no watchlist writing)",
+        help="THE SCREENER: build the universe, snapshot its prices, run "
+             "the exclusion list, the staleness gate and the coarse quality "
+             "filter, and list what is left in a seeded order (E167). One "
+             "step flag per call, or --weekly for the whole chain. Writes "
+             "the watchlist only with --rank --write-pipeline",
     )
     screen_cmd.add_argument(
         "--weekly", action="store_true",
@@ -597,8 +607,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     screen_cmd.add_argument(
         "--filter1", action="store_true",
-        help="run the exclusion list and the dislocation band against a stored "
-             "snapshot. Fetches nothing",
+        help="run the exclusion list and the staleness gate against a stored "
+             "snapshot (no drawdown band since E161, no 12-month-return test "
+             "since E168). Fetches nothing",
     )
     screen_cmd.add_argument(
         "--fundamentals", action="store_true",
@@ -612,8 +623,10 @@ def build_parser() -> argparse.ArgumentParser:
     )
     screen_cmd.add_argument(
         "--rank", action="store_true",
-        help="the whole chain plus the two-component ranking key "
-             "(FRAMEWORK-EDITS E6). Fetches only the exchange rates it needs",
+        help="the whole chain, then the names that passed in a seeded "
+             "random order with one fixed seed (E167). The old ranking key's "
+             "two legs are still written to ranking.csv as information; they "
+             "order nothing. Fetches only the exchange rates it needs",
     )
     screen_cmd.add_argument(
         "--sec-shadow", action="store_true",
@@ -637,7 +650,8 @@ def build_parser() -> argparse.ArgumentParser:
     )
     screen_cmd.add_argument(
         "--top", type=int, default=5, metavar="N",
-        help="how many of the BOTH-legs list --write-pipeline enters (default: 5)",
+        help="how many names --write-pipeline enters, from the top of the "
+             "seeded order of names with both legs readable (default: 5)",
     )
     screen_cmd.add_argument(
         "--dry-run", action="store_true",

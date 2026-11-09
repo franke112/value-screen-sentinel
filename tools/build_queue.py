@@ -160,10 +160,19 @@ HEADER = """\
 """
 
 
+def build_parser() -> argparse.ArgumentParser:
+    ap = argparse.ArgumentParser(
+        description="Build config/queue.yaml: harvest every strike's bear / "
+                    "base / bull from the newest reference/<T>-STRIKE-*.md, "
+                    "keep the machine and rough rows and every hand field.")
+    ap.add_argument("--write", action="store_true",
+                    help="write config/queue.yaml (default: print the diff "
+                         "summary, write nothing)")
+    return ap
+
+
 def main(argv=None) -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--write", action="store_true")
-    a = ap.parse_args(argv)
+    a = build_parser().parse_args(argv)
     whole = (yaml.safe_load(QUEUE.read_text()) or {}) if QUEUE.exists() else {}
     existing = whole.get("names", [])
     rows = build(existing)

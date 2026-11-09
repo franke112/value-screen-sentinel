@@ -96,13 +96,18 @@ def fetch_on(base: str, quote: str, as_of: date, reader=None) -> tuple[float, st
     )
 
 
-def main(argv: list[str] | None = None) -> int:
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--asof", required=True, help="the close date every rate must carry")
     parser.add_argument("--like", required=True, type=Path,
                         help="a stored ranking manifest, read ONLY for its pair list")
-    parser.add_argument("--out", required=True, type=Path)
-    args = parser.parse_args(argv)
+    parser.add_argument("--out", required=True, type=Path,
+                        help="the manifest file to write")
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = build_parser().parse_args(argv)
 
     as_of = date.fromisoformat(args.asof)
     pairs = pairs_from_manifest(args.like)

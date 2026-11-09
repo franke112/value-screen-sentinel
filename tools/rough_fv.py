@@ -18,6 +18,7 @@ the rough return-on-capital and debt lines printed beside the value.
 """
 from __future__ import annotations
 
+import argparse
 import math
 import sys
 from pathlib import Path
@@ -83,8 +84,18 @@ def rough(ticker: str) -> dict:
     return out
 
 
+def build_parser() -> argparse.ArgumentParser:
+    ap = argparse.ArgumentParser(
+        description="Rough bear / base / bull per share for any listing Yahoo "
+                    "covers. A SCREEN, not a strike: prints only, writes nothing.")
+    ap.add_argument("tickers", nargs="+", metavar="TICKER",
+                    help="Yahoo symbols, e.g. EVO.ST ZZ-B.ST UMG.AS")
+    return ap
+
+
 def main(argv=None) -> int:
-    for t in (argv or sys.argv[1:]):
+    a = build_parser().parse_args(argv)
+    for t in a.tickers:
         try:
             r = rough(t)
         except Exception as exc:  # noqa: BLE001

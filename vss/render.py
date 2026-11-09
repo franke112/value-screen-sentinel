@@ -649,7 +649,7 @@ def queue_section(ov: Overview) -> str:
     if not ov.queue:
         out.append('<p class="note">The queue is empty. Every store has a '
                    "growth view, no read-back is outstanding above E108's "
-                   "floor, no stop is missing and nothing is recorded as "
+                   "floor, and nothing is recorded as "
                    "NEEDS OWNER.</p>")
     out.append("</details>")
     return "\n".join(out)

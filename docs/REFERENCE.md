@@ -70,6 +70,7 @@ Unless a command's table says otherwise its exit codes are: `0` completed; `2` t
 | [`tools/fetch_eodhd.py`](#toolsfetch_eodhdpy) | local | Fetch EODHD statements under your own licence (private, never published) |
 | [`tools/fetch_fx_manifest.py`](#toolsfetch_fx_manifestpy) | local | Build tool: fetch the exchange rates of a named date for a replay |
 | [`tools/fetch_mfn.py`](#toolsfetch_mfnpy) | record | Fetch Nordic report PDFs and ESEF packages from MFN's public feed |
+| [`tools/fetch_test_fixtures.py`](#toolsfetch_test_fixturespy) | local | Fetch the Yahoo price fixtures the tests read (not shipped) |
 | [`tools/freeze_ranking_acceptance.py`](#toolsfreeze_ranking_acceptancepy) | record | Build tool: freeze the ranking acceptance fixture (vendor data) |
 | [`tools/master_list.py`](#toolsmaster_listpy) | local | The master list: every company looked at, on one page |
 | [`tools/nordic_screen.py`](#toolsnordic_screenpy) | local, sends | The weekly Nordic screen on EODHD data: value and rank every active name |
@@ -821,6 +822,20 @@ Fetch Nordic report PDFs and ESEF packages from MFN's public feed.
 | **Sends** | nothing |
 | **Exit codes** | `0`; `1` a file on disk differs from the feed's bytes |
 | **Changes nothing** | `--dry-run` |
+
+### `tools/fetch_test_fixtures.py`
+
+Fetch the Yahoo price fixtures the tests read (not shipped).
+
+No arguments.
+
+| | |
+|---|---|
+| **Reads** | `tests/fixtures/VENDOR-DATA.json` |
+| **Writes** | the price fixtures the tests read, under `tests/fixtures/` (not shipped: the vendor's terms allow personal use only) |
+| **Network** | Yahoo |
+| **Sends** | nothing |
+| **Exit codes** | `0` completed |
 
 ### `tools/freeze_ranking_acceptance.py`
 

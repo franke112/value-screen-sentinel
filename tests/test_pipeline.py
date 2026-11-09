@@ -56,7 +56,7 @@ def test_the_summary_is_measured_and_carries_no_assessment():
         sector="Consumer Defensive", marknad="London", drawdown=0.274,
         operating_profitability=0.856, earnings_yield=0.0965, quote_currency="GBp",
     )
-    for figure in ("rank 2 of 314", "Consumer Defensive", "London", "27.4%",
+    for figure in ("place 2 of 314", "E167", "Consumer Defensive", "London", "27.4%",
                    "85.6%", "9.7%"):
         assert figure in text
     for judgement in ("attractive", "cheap", "quality", "strong", "opportunity",
@@ -305,8 +305,8 @@ def test_the_rank_in_the_note_is_the_position_in_that_list():
     out = entries_from_ranking(ranked, asof=date(2026, 8, 21), top=2,
                                names={"A": "Alpha"}, markets={"A": "Stockholm"},
                                drawdowns={"A": 0.3}, total=314)
-    assert "rank 1 of 314" in out[0].notes
-    assert "rank 2 of 314" in out[1].notes
+    assert "place 1 of 314" in out[0].notes
+    assert "place 2 of 314" in out[1].notes
     assert "not the universe" in out[0].notes
     assert out[0].name == "Alpha"
     assert out[1].name == "B"          # no name known: the ticker, never blank

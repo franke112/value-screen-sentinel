@@ -82,10 +82,16 @@ def rows_for(path: Path, dates: dict[str, str]) -> tuple[list[tuple], int]:
     return out, undated
 
 
-def main(argv=None) -> int:
+def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--write", action="store_true")
-    a = ap.parse_args(argv)
+    ap.add_argument("--write", action="store_true",
+                    help="append the dated VERIFIED figures to data/vss.sqlite "
+                         "(default: report only)")
+    return ap
+
+
+def main(argv=None) -> int:
+    a = build_parser().parse_args(argv)
     dates = released()
     total, undated_all = [], 0
     for path in sorted(MANUAL.glob("*.yaml")):

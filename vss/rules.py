@@ -86,7 +86,7 @@ MAX_CLOSE_AGE_TRADING_DAYS = 3
 
 
 #: THE LIMIT FOR A NAME CARRYING A LEVEL (owner, 2026-09-19): a HELD name,
-#: or one with an MBP or a stop, is BLOCKED when its newest close is more
+#: or one with an MBP (no stop level since E162), is BLOCKED when its newest close is more
 #: than ONE trading day old; every other name keeps
 #: MAX_CLOSE_AGE_TRADING_DAYS. A block is visible, a stale close is not.
 #: The block names the last known close, its date and age, and says in

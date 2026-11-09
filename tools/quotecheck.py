@@ -12,6 +12,7 @@ PASS (near), and on nothing else (E131). Every other line is kept.
 E149: never on a figure whose line a machine chose (origin esef-ixbrl or
 llm-pdf); those are printed for the owner, who alone verifies them.
 """
+import argparse
 import collections
 import sys
 from pathlib import Path
@@ -68,14 +69,31 @@ def apply(ticker):
     print(f"{ticker}: {len(marked)} figure(s) marked")
 
 
-def main(argv):
-    if "--apply" in argv:
-        apply(argv[argv.index("--apply") + 1])
-        return
+def build_parser() -> argparse.ArgumentParser:
+    ap = argparse.ArgumentParser(
+        description="The mechanical read-back over every store in "
+                    "config/manual: one line per figure that did NOT pass, "
+                    "then the counts. Writes nothing unless --apply names a store.")
+    ap.add_argument("--all", action="store_true",
+                    help="check the VERIFIED hand reads too (default: "
+                         "UNVERIFIED figures only)")
+    ap.add_argument("--apply", metavar="TICKER", default=None,
+                    help="E131: set `status: VERIFIED` and `verified_kind: "
+                         "machine_read_back` on TICKER's UNVERIFIED figures "
+                         "that PASS, and on nothing else. Never on a figure "
+                         "whose line a machine chose (E149)")
+    return ap
+
+
+def main(argv=None) -> int:
+    a = build_parser().parse_args(argv)
+    if a.apply:
+        apply(a.apply)
+        return 0
     rows = []
     for p in sorted(Path("config/manual").glob("*.yaml")):
         if p.stem != "TEMPLATE":
-            rows += Q.check_store(p, include_verified="--all" in argv)
+            rows += Q.check_store(p, include_verified=a.all)
     for r in rows:
         if not r.verdict.startswith("PASS"):
             missing = [q for q, v in r.quotes.items() if v == Q.MISSING]
@@ -83,7 +101,8 @@ def main(argv):
                   + (f"  missing: {missing[0][:90]!r}" if missing else "")
                   + (f"  {r.searches[0]}" if r.searches else ""))
     print(len(rows), dict(collections.Counter(r.verdict for r in rows)))
+    return 0
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    raise SystemExit(main())

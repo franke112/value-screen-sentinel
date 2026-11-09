@@ -40,6 +40,17 @@ def _verdict_text(row) -> str:
     return ", ".join(v.label for v in row.assessment.verdicts)
 
 
+def _stop_cell(entry) -> str:
+    """E162(3): `stop_price` is the owner's own note and no rule reads it.
+
+    `none` is the written decision (E162(4)) and prints as the word, so a
+    decided "no stop" and an empty field do not look alike in the table.
+    """
+    if getattr(entry, "stop_none", False):
+        return "none"
+    return _num(entry.stop_price)
+
+
 def _mbp_cell(row) -> str:
     """The mbp as it prints, with E32's mark where it is superseded.
 
@@ -492,8 +503,8 @@ def render(
     out.append("")
     out.append(
         f"*Staleness gate: a close older than {MAX_CLOSE_AGE_TRADING_DAYS_LEVEL} "
-        f"trading day(s) blocks a ticker CARRYING A LEVEL (HELD, an MBP or a "
-        f"stop); {MAX_CLOSE_AGE_TRADING_DAYS} for every other ticker. The "
+        f"trading day(s) blocks a ticker CARRYING A LEVEL (HELD, or an MBP); "
+        f"{MAX_CLOSE_AGE_TRADING_DAYS} for every other ticker. The "
         f"exchange's own closed days are not counted. Blocked tickers "
         f"receive no verdict.*"
     )
@@ -510,8 +521,8 @@ def render(
         out.append(
             f"*E39: {', '.join('`' + t + '`' for t in nulled)} — HELD with "
             f"`fv_base` NULLED: superseded by REVIEW-4, re-strike pending. "
-            f"The stop is LIVE and is checked below; no fair value, MBP or "
-            f"section 6.4 comparison is printed from a dead calculation.*")
+            f"No fair value and no MBP is printed from a dead calculation; "
+            f"there is no price stop (E162).*")
     short = sorted({r.entry.ticker for r in rows
                     if r.metrics.covers_52_weeks is False})
     if short:
@@ -528,10 +539,10 @@ def render(
         out.append("")
         named = "; ".join(f"`{t}` — {f}" for t, f in flagged)
         out.append(
-            f"*Series sanity (K4): {named}. The stop, MBP and dislocation "
-            f"checks are DATA MISSING for these — a verdict struck across a "
-            f"break in the series is not a verdict, and a phantom halving "
-            f"must never read as a breach of the stop.*")
+            f"*Series sanity (K4): {named}. The MBP check is DATA MISSING "
+            f"for these — a verdict struck across a break in the series is "
+            f"not a verdict, and a phantom halving must never read as a "
+            f"price at or below the MBP.*")
     out.append("")
 
     # --- E97: THE RANKED LIST'S PRICE WATCH -------------------------------
@@ -621,8 +632,8 @@ def render(
             else "None. Every unblocked ticker is NO ACTION."
         )
     else:
-        out.append("| Ticker | Name | Status | Close | MBP | Stop | Verdicts |")
-        out.append("|---|---|---|---|---|---|---|")
+        out.append("| Ticker | Name | Status | Close | MBP | Verdicts |")
+        out.append("|---|---|---|---|---|---|")
         for r in actions:
             verdicts = "<br>".join(
                 f"**{v.label}** {v.detail}".strip() for v in r.assessment.verdicts
@@ -630,7 +641,7 @@ def render(
             out.append(
                 f"| `{r.entry.ticker}` | {r.entry.name} | {r.entry.status} "
                 f"| {_num(r.metrics.last_close)} {r.entry.currency}{_retained_mark(r)} "
-                f"| {_mbp_cell(r)} | {_num(r.entry.stop_price)} | {verdicts} |"
+                f"| {_mbp_cell(r)} | {verdicts} |"
             )
     out.append("")
 
@@ -665,7 +676,7 @@ def render(
         "| Ticker | Name | Status | Ccy | Close | Close date | 52w high | DD "
         "| 52w low | vs 52wL | RSI(14) "
         "| SMA50 | vs SMA50 | SMA200 | vs SMA200 | Avg vol 20d | Vol ratio "
-        "| Tier | fv_base | MBP | to MBP | Stop | to Stop | Src | Result |"
+        "| Tier | fv_base | MBP | to MBP | Stop (note) | to Stop | Src | Result |"
     )
     out.append("|" + "---|" * 25)
     for r in rows:
@@ -682,9 +693,14 @@ def render(
             f"| {_int(m.avg_volume_20)} | {_num(m.volume_ratio, 2)} "
             f"| {e.tier if e.tier is not None else DASH} | {_fv_cell(r)} "
             f"| {_mbp_cell(r)} | {_pct(r.pct_to_mbp)} "
-            f"| {_num(e.stop_price)} | {_pct(r.pct_to_stop)} "
+            f"| {_stop_cell(e)} | {_pct(r.pct_to_stop)} "
             f"| {r.source} | {_row_result(r)} |"
         )
+    out.append("")
+    out.append("*`Stop (note)` and `to Stop` are information (E162): the "
+               "owner's own note where one is written, `none` where no stop "
+               "is the decision. No rule reads either and no verdict fires "
+               "on them.*")
     out.append("")
     declaration = _rate_declaration_line(rows)
     if declaration:

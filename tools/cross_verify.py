@@ -191,12 +191,21 @@ def apply(path: Path, results: list[dict]) -> int:
     return marked
 
 
-def main(argv=None) -> int:
+def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("tickers", nargs="*")
-    ap.add_argument("--all", action="store_true")
-    ap.add_argument("--apply", action="store_true")
-    a = ap.parse_args(argv)
+    ap.add_argument("tickers", nargs="*", metavar="TICKER",
+                    help="the stores to check (or --all)")
+    ap.add_argument("--all", action="store_true",
+                    help="every store in config/manual")
+    ap.add_argument("--apply", action="store_true",
+                    help="mark a figure VERIFIED (two_source) where a second, "
+                         "independent reading prints the same digits "
+                         "(default: report only). The value is never changed")
+    return ap
+
+
+def main(argv=None) -> int:
+    a = build_parser().parse_args(argv)
     paths = ([p for p in sorted(MANUAL.glob("*.yaml")) if p.name != "TEMPLATE.yaml"] if a.all
              else [MANUAL / f"{t}.yaml" for t in a.tickers])
     bad = 0

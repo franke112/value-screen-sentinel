@@ -1,9 +1,16 @@
-"""The ranking key: operating profitability and earnings yield (E6 as amended by E43).
+"""The screener's order: a seeded draw (E167), with the old key's two legs as information.
+
+E167 (2026-11-09, attempt #24): the ranking key this module was built for --
+operating profitability and earnings yield, E6 as amended by E43 -- did not
+sort returns by decile in either market, so it orders nothing any more. The
+names that pass are listed in a seeded random order with one fixed seed
+(`DRAW_SEED`), the same every week; both legs and their sum are still
+computed and written to `ranking.csv` as information. What follows describes
+how the legs are formed, and it was written when they were the ranking.
 
 THIS IS THE ONLY PLACE IN THE TOOL WHERE AN ORDERING ARISES. Every other step
 is a filter with a pass, a fail and a third state, and every other report says
-in as many words that its output is an order and not a ranking. Here it is a
-ranking, and it performs the 100:1 selection.
+in as many words that its output is an order and not a ranking.
 
 It is still not a recommendation. The output is REVIEW WORK: names that become
 PIPELINE without an mbp and without an fv_base, after which the whole

@@ -211,10 +211,17 @@ def build(write: bool = True) -> str:
     return short
 
 
-def main(argv=None) -> int:
-    ap = argparse.ArgumentParser()
+def build_parser() -> argparse.ArgumentParser:
+    ap = argparse.ArgumentParser(
+        description="The master list: every company looked at -- owned, "
+                    "candidates, watched, to review, no -- on one page. "
+                    "Writes reports/HUVUDLISTA.md and prints the short version.")
     ap.add_argument("--short", action="store_true", help="print the short version, write nothing")
-    a = ap.parse_args(argv)
+    return ap
+
+
+def main(argv=None) -> int:
+    a = build_parser().parse_args(argv)
     print(build(write=not a.short))
     return 0
 

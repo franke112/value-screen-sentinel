@@ -1,4 +1,4 @@
-"""`vss watch --sec` -- tell me when a US filer I am watching files something.
+"""`vss watch`'s SEC arm (`--sec-only`) -- tell me when a US filer I am watching files something.
 
 WHY THIS EXISTS. `vss watch` asks the Nasdaq Nordic disclosure feed, which
 carries Copenhagen, Stockholm and Helsinki and nothing else. **Eleven

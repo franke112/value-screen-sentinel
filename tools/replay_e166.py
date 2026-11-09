@@ -111,10 +111,19 @@ def _input(raw: dict, name: str, value: float, page: str) -> None:
             return
 
 
-def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--write", action="store_true")
-    a = ap.parse_args()
+def build_parser() -> argparse.ArgumentParser:
+    ap = argparse.ArgumentParser(
+        description="E166 re-valuation, a dated one-off (2026-11-08): each US "
+                    "queue name's latest run record replayed with only its "
+                    "working capital replaced by the figure tied to the cash "
+                    "flow statement.")
+    ap.add_argument("--write", action="store_true",
+                    help="write the replayed records (default: print the table)")
+    return ap
+
+
+def main(argv=None) -> int:
+    a = build_parser().parse_args(argv)
     commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT,
                             capture_output=True, text=True).stdout.strip()
     rows = []

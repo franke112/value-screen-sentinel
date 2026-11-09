@@ -71,6 +71,15 @@ OLVAS.HE:
   - 7437003NX7WWVRT6AJ55
   name: Olvi
   slug: olvi
+PACT.ST:
+  entity_id: a75fe1ec-dd25-4030-bae5-9d990ff8368d
+  found: matched PACT via 'Proact IT Group'
+  isins:
+  - SE0015961222
+  leis:
+  - 549300HMPIC1B86ZHC96
+  name: Proact IT Group AB
+  slug: proact-it-group
 PNDORA.CO:
   entity_id: 99f1071e-685d-4eac-aef1-a19b0327f2a9
   found: matched PNDORA via 'PANDORA'
@@ -98,6 +107,32 @@ RVRC.ST:
   - 549300YU7003VHQV3J57
   name: RVRC Holding AB
   slug: rvrc-holding
+SF.ST:
+  entity_id: 66d60ec4-cef8-42c8-9ecb-09b6db97a400
+  found: matched SF via 'Stillfront'
+  isins:
+  - SE0015346135
+  - SE0007704788
+  leis:
+  - 529900SYKCO4GYBTIJ54
+  name: Stillfront Group AB (publ)
+  slug: stillfront-group
+SINCH.ST:
+  entity_id: 997aa79d-a693-424f-ae0e-1e97c39e8203
+  found: matched SINCH via 'Sinch'
+  isins:
+  - SE0016101844
+  leis:
+  - 549300UXY7QM6IDCGI12
+  name: Sinch
+  slug: sinch
+STG.CO:
+  entity_id: 4875c1ed-f690-4828-b406-c0480d08874b
+  found: matched STG via 'Scandinavian Tobacco Group'
+  isins:
+  - DK0060696300
+  name: Scandinavian Tobacco Group
+  slug: scandinavian-tobacco-group
 WAWI.OL:
   entity_id: 1561b62d-4c7e-4a54-942c-107965b418e6
   found: matched WAWI via 'Wallenius Wilhelmsen'

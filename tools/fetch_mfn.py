@@ -437,19 +437,25 @@ def run(tickers: list[str], since: date, kinds: set[str], lang: str, dry: bool,
     return wrote, problems
 
 
-def main(argv=None) -> int:
+def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("tickers", nargs="*")
+    ap.add_argument("tickers", nargs="*", metavar="TICKER",
+                    help="Nordic tickers as the queue spells them (or --queue)")
     ap.add_argument("--queue", action="store_true", help="every Nordic name in config/queue.yaml")
     ap.add_argument("--since", default=None, help="YYYY-MM-DD (default: five years back)")
     ap.add_argument("--days", type=int, default=None, help="look back N days (the nightly timer: 45)")
     ap.add_argument("--kinds", default="annual,interim", help="annual, interim, or both")
     ap.add_argument("--lang", default="en", help="preferred language when a report comes in two")
-    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="list what would be fetched; download and record nothing")
     ap.add_argument("--record-only", action="store_true",
                     help="write manifest entries for files already on disk (after a "
                          "byte-for-byte compare with the feed); download nothing")
-    a = ap.parse_args(argv)
+    return ap
+
+
+def main(argv=None) -> int:
+    a = build_parser().parse_args(argv)
     ts = list(a.tickers)
     if a.queue:
         ts += [e["ticker"] for e in yaml.safe_load(QUEUE.read_text())["names"]

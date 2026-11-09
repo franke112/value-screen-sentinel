@@ -96,11 +96,20 @@ def one(ticker: str, ciks: dict[str, int], as_of: date) -> None:
     print(f"   -> {verdict}\n")
 
 
-def main(argv=None) -> int:
+def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("tickers", nargs="+")
-    ap.add_argument("--asof", type=date.fromisoformat, default=date.today())
-    a = ap.parse_args(argv)
+    ap.add_argument("tickers", nargs="+", metavar="TICKER",
+                    help="US filers (us-gaap); a 20-F or non-US listing is refused")
+    ap.add_argument("--asof", type=date.fromisoformat, default=None,
+                    metavar="YYYY-MM-DD",
+                    help="the day the filings are clipped to (default: today)")
+    return ap
+
+
+def main(argv=None) -> int:
+    a = build_parser().parse_args(argv)
+    if a.asof is None:
+        a.asof = date.today()
     from vss import env
     from vss.xbrl import CONTACT_ENV
     if not (env.get(CONTACT_ENV) or "").strip():

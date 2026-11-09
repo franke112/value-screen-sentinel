@@ -671,16 +671,21 @@ BUILDERS = {
 }
 
 
-def main(argv: list[str] | None = None) -> int:
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--asof", default=date.today().isoformat(),
                         help="date stamped into the filenames (default: today)")
-    parser.add_argument("--out", default=str(ROOT / "config" / "universe"))
+    parser.add_argument("--out", default=str(ROOT / "config" / "universe"),
+                        help="where the CSVs are written (default: config/universe)")
     parser.add_argument("--only", action="append", choices=sorted(BUILDERS),
                         help="build just this list (repeatable)")
     parser.add_argument("--skip-empty", action="store_true",
                         help="do not (re)write the empty tier B and C files")
-    args = parser.parse_args(argv)
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = build_parser().parse_args(argv)
 
     asof = date.fromisoformat(args.asof)
     out_dir = Path(args.out)
