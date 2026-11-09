@@ -168,7 +168,7 @@ chapter(
 <p>The method works out what growth the current price is assuming (chapter 7). Before that number is calculated, the owner writes down what growth he actually believes, with reasons, and the file is timestamped. If the market's number was seen first, the owner's view is void for that company in that round. Chapter 8 explains why this rule exists and what it borrows from clinical trials.</p>
 
 <h3>3. A failed test is final, and never widened to let a name through</h3>
-<p>When a company fails a test on something other than price, a lower price does not bring it back. Only a named new fact can: a new filing, a changed forecast from the company, a profit warning. And when a rule turns out to be badly designed, it is deleted or replaced by a dated ruling that says what the change cost. It is not quietly loosened because a particular name was almost through. A rule changes only on a test registered in advance (ruling E164): a decision rule enters or leaves only on a backtest written down before it is run, while a data rule may be added freely. Chapters 5, 16 and 22.</p>
+<p>When a company fails a test on something other than price, a lower price does not bring it back. Only a named new fact can: a new filing, a changed forecast from the company, a profit warning. And when a rule turns out to be badly designed, it is deleted or replaced by a dated ruling that says what the change cost. It is not quietly loosened because a particular name was almost through. A rule changes only on a test registered in advance (ruling E164): a decision rule enters or leaves only on a backtest written down before it is run, while a data rule may be added freely. Chapters 5, [[n:machine-reads]] and [[n:tested]].</p>
 
 <h3>4. Every refusal is tracked</h3>
 <p>Most of what the method looks at, it refuses. A system that only measures what it bought cannot tell whether its refusals were right. So every refusal is recorded with the price on the day and one line naming the reason, and measured against the market afterwards. Chapter 12.</p>
@@ -210,13 +210,13 @@ chapter(
 
 <h3>Filter 1: is there enough recent data?</h3>
 <p>Filter 1 is a staleness gate. It asks whether the company has enough recent data to be judged at all: a fresh price and recent reported figures. A name whose data is stale is set aside, because every later step would be built on sand.{N.ref("Ruling E161 removed the price band from vss/rules.py; filter 1 keeps only the freshness check.")}</p>
-<p>Until November 2026 filter 1 also asked whether the price sat 15 to 50 percent below its highest point of the last year. That band did not survive the test written for it: in neither market did the names inside it do better than the rest, so ruling E161 took it out. The fall from the high stays on the row as information. <a href="tested.html">Chapter 22</a> tells how that was found.</p>
+<p>Until November 2026 filter 1 also asked whether the price sat 15 to 50 percent below its highest point of the last year. That band did not survive the test written for it: in neither market did the names inside it do better than the rest, so ruling E161 took it out. The fall from the high stays on the row as information. <a href="tested.html">[[Ch:tested]]</a> tells how that was found.</p>
 {N.flush()}
 <p>Two more questions ride with this one. Has the company been listed for at least five years? A younger listing does not have enough reported history to test, and a company spun out of another counts as new.{N.ref("Ruling E52 and E52.1: a listing younger than five years is rejected on missing data, and a spin-off is a new listing.")} And is the business one the method can judge at all? Chapter 5 covers that boundary.</p>
 {N.flush()}
 
 <h3>Filter 2: did the business make cash?</h3>
-<p>For the names that pass, and only those, the tool fetches accounts and asks one question. Did the business generate positive free cash flow, spare cash, over the last twelve months? Two more questions were asked here until November 2026: a limit on debt net of cash against yearly operating earnings, and a test for revenue falling against the same quarter a year earlier, two quarters in a row. Both were tested and removed. <a href="tested.html">Chapter 22</a> has the result.{N.ref("The threshold lives in config/screener_filter2.yaml: free cash flow positive (a coarsening of gate 3's six-of-eight quarters, because quarterly cash-flow history is unavailable for much of the list). The debt limit (net debt to EBITDA at most 2.5×, ruling E44) was removed by E168; the revenue-decline limb (ruling E45) was tested and removed.")}</p>
+<p>For the names that pass, and only those, the tool fetches accounts and asks one question. Did the business generate positive free cash flow, spare cash, over the last twelve months? Two more questions were asked here until November 2026: a limit on debt net of cash against yearly operating earnings, and a test for revenue falling against the same quarter a year earlier, two quarters in a row. Both were tested and removed. <a href="tested.html">[[Ch:tested]]</a> has the result.{N.ref("The threshold lives in config/screener_filter2.yaml: free cash flow positive (a coarsening of gate 3's six-of-eight quarters, because quarterly cash-flow history is unavailable for much of the list). The debt limit (net debt to EBITDA at most 2.5×, ruling E44) was removed by E168; the revenue-decline limb (ruling E45) was tested and removed.")}</p>
 {N.flush()}
 <p>The debt cap has its own history. The first version used a looser limit, three and a half times, on the argument that a coarse filter must not lose a name the careful reading would keep. Four days later a test run showed 72 names passing the loose limit and then failing the method's own stricter test later on. Letting them through bought nothing but reading time. The cap was tightened by a dated ruling that records the count. That cap was itself removed in November 2026 (E168).{N.ref("Rulings E2 (2026-08-22, 3.5×) and E44 (2026-08-26, 2.5×), with the 72-name measurement in the ruling text.")}</p>
 {N.flush()}
@@ -278,7 +278,7 @@ chapter(
 <p>A name that passes the "why" gate is then tested on its accounts over the last two years: debt within a stated multiple of earnings, interest covered at least five times by operating profit, spare cash generated in at least six of the last eight quarters, no auditor's doubt about the company continuing, no change of auditor, no restated accounts. The debt-multiple limb is information now: it is printed as quality test Q3 and decides nothing (E168). Then it needs a dated event within ninety days that could make the market look again: a results date, a product decision, a ruling. "Eventually the market will realise" is not an event.{N.ref("Framework §3 gates 3 and 5. Gate 4, a valuation discount against peers, is recorded as DATA MISSING for every name because the peer figures it needs have never been assembled; it is not deleted, and returns when they exist (ruling E99).")}</p>
 {N.flush()}
 
-<p>Then there are four <dfn>hard kills</dfn>: things that end the reading on their own, whatever else looks good. Two or more cuts to the company's own forecast in four quarters. Three or more missed earnings in eight quarters. Being close to breaking a lending agreement. Both the chief executive and the finance chief leaving within twelve months. Until November 2026 there were seven. Falling revenue, squeezed margins and swelling stock or unpaid invoices went out with ruling E163, and the debt-multiple leg with E168. The tests behind that are in <a href="tested.html">chapter 22</a>.{N.ref("Framework §4.2. 'Any one invalidates.'")}</p>
+<p>Then there are four <dfn>hard kills</dfn>: things that end the reading on their own, whatever else looks good. Two or more cuts to the company's own forecast in four quarters. Three or more missed earnings in eight quarters. Being close to breaking a lending agreement. Both the chief executive and the finance chief leaving within twelve months. Until November 2026 there were seven. Falling revenue, squeezed margins and swelling stock or unpaid invoices went out with ruling E163, and the debt-multiple leg with E168. The tests behind that are in <a href="tested.html">[[ch:tested]]</a>.{N.ref("Framework §4.2. 'Any one invalidates.'")}</p>
 {N.flush()}
 
 <h2>Why a failed gate is final</h2>
@@ -427,13 +427,7 @@ chapter(
 <tbody>{_rows}</tbody>
 </table></div>
 
-<div class="explore js-only" id="rdcf-explore" hidden>
-<label for="rdcf-price">Move the price and watch the assumption move</label>
-<input type="range" id="rdcf-price" min="80" max="400" step="5" value="160">
-<output id="rdcf-price-out" for="rdcf-price"></output>
-<output id="rdcf-out" aria-live="polite"></output>
-<p class="hint">Same arithmetic as the table. With scripts off, the table is the figure.</p>
-</div>
+[[fig:rdcf]]
 
 <p>Read the table from the right. At 100, the price assumes the cash barely grows. At 250, it assumes growth that very few businesses sustain for a decade. The method does not tell you which is true. It tells you what you would have to believe, and hands the believing back to you.</p>
 
@@ -581,6 +575,8 @@ chapter(
 
 {FIG["funnel"]()}
 
+[[fig:funnel]]
+
 <div class="stage"><h3>INTAKE: read, not watched</h3><dl>
 <dt>What happens</dt><dd>A name is being studied. Its filings are read, figures are entered and checked, a growth view may be written. Nothing about it is watched yet.</dd>
 <dt>The tool does</dt><dd>Fetches its filings on request, stores its figures with provenance, reports what is verified and what is missing. It does not watch the price.</dd>
@@ -619,7 +615,7 @@ chapter(
 <dt>The owner does</dt><dd>Re-values on every report. Sells at the sell line, at the bull value, or when the reason for buying is gone.</dd>
 <dt>Falls out when</dt><dd>The owner sells. The sale is recorded and measured against the market from its own date.</dd>
 </dl></div>
-<p><strong>Changed, November 2026.</strong> The price stop is gone (ruling E162): no stop level, with or without buying back, helped in the tests, and with trading costs every one cost money. The owner still writes the exit down before buying, but it is written as <code>stop_price: none</code>, a decision and not a blank; a blank still blocks. Selling because the reason for owning is gone stays. See <a href="tested.html">chapter 22</a>.</p>
+<p><strong>Changed, November 2026.</strong> The price stop is gone (ruling E162): no stop level, with or without buying back, helped in the tests, and with trading costs every one cost money. The owner still writes the exit down before buying, but it is written as <code>stop_price: none</code>, a decision and not a blank; a blank still blocks. Selling because the reason for owning is gone stays. See <a href="tested.html">[[ch:tested]]</a>.</p>
 
 <div class="stage"><h3>DROPPED: refused</h3><dl>
 <dt>What happens</dt><dd>The name has been refused: a hard kill, a class D reason, outside the circle, or the owner's judgement.</dd>
@@ -629,7 +625,7 @@ chapter(
 </dl></div>
 
 <h2>The thing to notice</h2>
-<p>Every arrow between the boxes is a human act: the owner's, or, since E141 (2026-10-27), the Claude Code session's on his behalf. The tool measures where a name stands, reports it, and points when something crosses a line. The scheduled machine never moves a name. If nobody acts, nothing moves. That is a design decision, and chapter 13 says why.</p>
+<p>Every arrow between the boxes is a human act: the owner's, or, since E141 (2026-10-27), the Claude Code session's on his behalf. The tool measures where a name stands, reports it, and points when something crosses a line. The scheduled machine never moves a name. If nobody acts, nothing moves. That is a design decision, and [[ch:machine-reads]] says why.</p>
 
 <h2>The master list</h2>
 <p>One more file ties the statuses together. <code>reports/HUVUDLISTA.md</code> is the master list, built by <code>tools/master_list.py</code> and rebuilt every night. It holds every company ever looked at, in groups: owned, candidates, watched, to review, and no. Each row has the price, the bear, base and bull values, the kind of value, the reason, and the next dated event. Each Claude Code session opens with its short version, so no session starts by guessing where things stand.</p>
@@ -659,7 +655,7 @@ chapter(
 <p>Chapter 8 produced the owner's base-case growth view. Chapter 7's arithmetic, run forwards with that view, gives a value per share. That is the owner's estimate of what NAME A is worth, and it is wrong by an amount nobody knows. So it is not the buy price.</p>
 
 <p>The buy price is the value multiplied by a cushion, and the cushion depends on how sure the owner is. The method calls the levels of sureness <dfn>tiers</dfn>, and there are three. A tier 1 name, one the owner understands well and which has a strong balance sheet and something durable pushing it along, gets a buy price of 85 percent of value. A tier 2 name, less sure or in a cyclical business, gets 75. A tier 3 name, where the reason for owning it has had to be re-described along the way, gets 65.{N.ref("Ruling E90, 2026-08-30. E90 tied the tier to a conviction score built from gates passed, warning signs and good signs. The score and the green flags were removed in November 2026 (E168); the tier is now a hand field that the owner sets, and the cushion is information only.")} The cushion is there to absorb errors in the model and in the inputs, which in this project's own reviews have typically been five to fifteen percent of value. It is not there to absorb the business doing badly; the low-case growth view carries that, and it is printed beside the buy price as information, not folded into it.</p>
-<p><strong>Changed, November 2026.</strong> The cushion is still computed and printed, but it binds nothing: a price at or below 85 percent of value did not separate later returns in the tests, so ruling E168 made it information. The queue says UNDER MBP, never "buy". See <a href="tested.html">chapter 22</a>.</p>
+<p><strong>Changed, November 2026.</strong> The cushion is still computed and printed, but it binds nothing: a price at or below 85 percent of value did not separate later returns in the tests, so ruling E168 made it information. The queue says UNDER MBP, never "buy". See <a href="tested.html">[[ch:tested]]</a>.</p>
 {N.flush()}
 
 <p>The buy price is printed with two companions: the same price recomputed with the discount rate half a point lower and half a point higher. The owner sees how much the number leans on a rate that is, by the method's own admission, a preference. A proposal that the tool should veto any decision that reverses inside that band was refused, with a reason worth quoting: such a rule could only ever remove a conclusion, never produce one, "and this framework's diagnosed defect is that it cannot say yes."{N.ref("Ruling E29. 'Fragility is DISPLAYED, never ADJUDICATED.'")}</p>
@@ -671,7 +667,7 @@ chapter(
 
 <h2>Z: the exit, decided first</h2>
 <p>Before any purchase, the owner writes down the exit: a bull value, a sell line set by hand, or the condition that breaks the thesis. It is set when the owner has no stake in the answer. Once the shares are owned, every reason not to sell will seem compelling, which is precisely why the exit was written earlier. Since E162 the field may say "none" for a price stop, and that is accepted; a blank still blocks. The tool refuses to treat a held name as complete while the field is blank, and reports it ahead of everything else on the page.{N.ref("A held name with a blank exit field is a blocker, reported before any verdict. Framework §6.4 also names thesis exits: sell when the reason for owning is gone, such as a second cut to the company's own forecast.")}</p>
-<p><strong>Changed, November 2026.</strong> Z is now a written decision about the exit, and for this owner the decision is "no price stop" (ruling E162, <a href="tested.html">chapter 22</a>). What survives of this section is its point: the exit is decided before the money moves, while there is no stake in the answer.</p>
+<p><strong>Changed, November 2026.</strong> Z is now a written decision about the exit, and for this owner the decision is "no price stop" (ruling E162, <a href="tested.html">[[ch:tested]]</a>). What survives of this section is its point: the exit is decided before the money moves, while there is no stake in the answer.</p>
 {N.flush()}
 
 <h2>What the tool does with all this</h2>
@@ -711,6 +707,8 @@ chapter(
 <p>The <dfn>shadow book</dfn> is a table with one row per refusal. Each row records six facts and nothing else: the company, the date of the verdict, what the verdict was and whether it stands, the settled closing price on that date in the company's own currency, the value if one had been struck, and one line naming what decided it.</p>
 
 {FIG["refusal_tracked"]()}
+
+[[fig:shadow]]
 
 <p>What is deliberately not recorded matters as much. No thesis. No expectation of what the price will do. No target. In the ruling's words, "a row that argues is a row that will be re-argued." The book is a record of decisions and prices, not a record of opinions about them.</p>
 

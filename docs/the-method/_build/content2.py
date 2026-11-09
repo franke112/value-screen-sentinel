@@ -78,7 +78,7 @@ chapter(
 <p>The forbidden thing, for every fetcher: it may not judge what it fetched. It brings a figure in with its origin attached, and stops.</p>
 
 <h3>The record: keeping every figure</h3>
-<p>One part writes one row per company per run into a small database, so the history can be rebuilt later. One keeps the run record for each valuation, the eight things that must be declared before a value may be printed (chapter 15). One keeps a snapshot of every screening run, the raw prices and the list of names, so the run can be replayed exactly. One holds hand-entered figures for companies no feed serves, each marked as checked or not. One tests whether a price series is a real measurement or a feed artefact.{N.ref("vss/store.py, vss/runrecord.py, vss/snapshot.py, vss/manual.py, vss/series_sanity.py.")}</p>
+<p>One part writes one row per company per run into a small database, so the history can be rebuilt later. One keeps the run record for each valuation, the eight things that must be declared before a value may be printed ([[ch:machine-reads]]). One keeps a snapshot of every screening run, the raw prices and the list of names, so the run can be replayed exactly. One holds hand-entered figures for companies no feed serves, each marked as checked or not. One tests whether a price series is a real measurement or a feed artefact.{N.ref("vss/store.py, vss/runrecord.py, vss/snapshot.py, vss/manual.py, vss/series_sanity.py.")}</p>
 {N.flush()}
 <p>The forbidden thing: the record never fills a gap. A figure that was not fetched is absent, and stays absent.</p>
 
@@ -87,7 +87,7 @@ chapter(
 {N.flush()}
 
 <h3>Reporting: the report and the page</h3>
-<p>One part writes the nightly report in a fixed order: when the run happened and how fresh the data was; then blockers, the things that stopped a judgement; then actions, the things that need the owner; then the full table of every name. Another generates the one-page overview that reaches the phone (chapter 21). A third assembles a research briefing for a name being read, which is a collection of the figures and their sources, not a view.{N.ref("vss/report.py, vss/overview.py, vss/briefing.py.")}</p>
+<p>One part writes the nightly report in a fixed order: when the run happened and how fresh the data was; then blockers, the things that stopped a judgement; then actions, the things that need the owner; then the full table of every name. Another generates the one-page overview that reaches the phone ([[ch:machine-watches]]). A third assembles a research briefing for a name being read, which is a collection of the figures and their sources, not a view.{N.ref("vss/report.py, vss/overview.py, vss/briefing.py.")}</p>
 {N.flush()}
 <p>The forbidden thing: no report says buy, sell, or good. It says how far, how fresh, and what is missing.</p>
 
@@ -100,7 +100,7 @@ chapter(
 {N.flush()}
 
 <h3>The heartbeat</h3>
-<p>One part whose only job is to make a run that did not happen look different from a run that had nothing to say. Chapter 18.</p>
+<p>One part whose only job is to make a run that did not happen look different from a run that had nothing to say. [[Ch:machine-watches]].</p>
 
 <h3>The runner</h3>
 <p>One part ties the nightly run together: load the owner's file, fetch, compute, assess, report. All the reading and writing of the run lives here and in the fetch, store and report parts, so that everything else can stay pure.{N.ref("vss/runner.py: 'All I/O lives here and in fetch/store/report. rules.py and metrics.py stay pure.'")}</p>
@@ -133,7 +133,7 @@ chapter(
 
 <h2>Four places a figure can live</h2>
 <ul>
-<li><strong>The run database.</strong> One row per company per nightly run: the price, the computed figures, the verdict codes, the blockers. Nothing reads it back yet; it exists to accumulate, so the history can be reconstructed later.{N.ref("vss/store.py.")}</li>
+<li><strong>The run database.</strong> One row per company per nightly run: the price, the computed figures, the verdict codes, the blockers. Two things read it back: a valuation's before-and-after table reads the confidence level in force, and the check for a crossing caused by a moved line compares tonight's line with the one the previous run recorded. Otherwise it accumulates, so the history can be reconstructed later.{N.ref("vss/store.py.")}</li>
 <li><strong>The fundamentals store.</strong> Every period of accounts ever fetched for a company, kept for good. A quarter never displaces a year. A store that pruned old periods would make an old valuation impossible to rebuild.{N.ref("Ruling E49: the store retains every period it has ever fetched. Ruling E17: a quarter never displaces a year.")}</li>
 <li><strong>The screener snapshots.</strong> One small database per screening run, holding raw daily prices, never computed figures, plus the list of names, the rejections and a fetch status per company. The last four price snapshots are kept; every ranking is kept forever, because every future comparison stands on it.{N.ref("vss/snapshot.py; retention described in the project brief §6.5.")}</li>
 <li><strong>The owner's file.</strong> Statuses, tiers, values, sell lines, notes, and hand-entered figures. Tracked under version control, on the owner's decision, so that the history of decisions is in the history of the file.{N.ref("README on config/watchlist.yaml, tracked since 2026-08-25.")}</li>
@@ -163,7 +163,7 @@ chapter(
 {N.flush()}
 
 <h2>Aborting a screen on a hole</h2>
-<p>The screener has one place where it stops rather than continues: when a quarterly comparison it needs cannot be formed because a quarter is missing, it breaks the run rather than killing a name on a hole. A revenue-decline test that fails a company for a quarter the vendor did not supply would be exactly the two-outcome error of chapter 9, at scale (that limb was later removed, chapter 22).{N.ref("vss/filters.py, the revenue limb: a comparison the quarters cannot form 'breaks the run rather than kill on a hole'.")}</p>
+<p>The screener has one place where it stops rather than continues: when a quarterly comparison it needs cannot be formed because a quarter is missing, it breaks the run rather than killing a name on a hole. A revenue-decline test that fails a company for a quarter the vendor did not supply would be exactly the two-outcome error of chapter 9, at scale (that limb was later removed, [[ch:tested]]).{N.ref("vss/filters.py, the revenue limb: a comparison the quarters cannot form 'breaks the run rather than kill on a hole'.")}</p>
 {N.flush()}
 
 {decision(
@@ -255,7 +255,7 @@ chapter(
 {N.flush()}
 
 <h2>What it cannot touch</h2>
-<p>The run is fenced by the operating system, not only by its own code. It sees the whole system as read-only. It sees the owner's home directory as read-only. The only two folders it may write are the data folder and the reports folder. It cannot gain any new permissions once started, and it is killed if it runs for more than fifteen minutes.{N.ref("ProtectSystem=strict; ProtectHome=read-only; ReadWritePaths= the data and reports folders only; NoNewPrivileges=true; TimeoutStartSec=15min.")} This is the first wall from chapter 14, drawn by a different hand: even if the code had a bug that tried to write a decision into the owner's file, the operating system would refuse.</p>
+<p>The run is fenced by the operating system, not only by its own code. It sees the whole system as read-only. It sees the owner's home directory as read-only. The only two folders it may write are the data folder and the reports folder. It cannot gain any new permissions once started, and it is killed if it runs for more than fifteen minutes.{N.ref("ProtectSystem=strict; ProtectHome=read-only; ReadWritePaths= the data and reports folders only; NoNewPrivileges=true; TimeoutStartSec=15min.")} This is the first wall from [[ch:machine-reads]], drawn by a different hand: even if the code had a bug that tried to write a decision into the owner's file, the operating system would refuse.</p>
 {N.flush()}
 
 <h2>The two exits</h2>
@@ -266,7 +266,7 @@ chapter(
 </ul>
 {N.flush()}
 
-<p>Notice the asymmetry. Success is silent on the phone. The owner does not want a message every night saying nothing happened; a message that always arrives is a message that stops being read. Success makes its sound somewhere else, to an observer whose job is to notice if the sound stops. That is chapter 18.</p>
+<p>Notice the asymmetry. Success is silent on the phone. The owner does not want a message every night saying nothing happened; a message that always arrives is a message that stops being read. Success makes its sound somewhere else, to an observer whose job is to notice if the sound stops. That is the dead man's switch, further down.</p>
 
 <h2>The weekly run</h2>
 <p>The screener runs on the same pattern, on Saturday mornings at 08:00, on Friday's settled prices, with a four-hour limit and a stricter fence: the folder holding the owner's file is not writable to it at all. That single line is the ruling "the scheduled screen never enters a name" written in the scheduler's language.{N.ref("deploy/vss-screen.timer: Sat 08:00; the service's read-only configuration directory, described in the project brief as 'E93 in one line'. Measured 2026-08-31: about 38 minutes, 3,495 fundamentals requests, zero throttles.")} A third timer, at 09:30 every day, belongs to the dead man's switch.</p>
@@ -305,12 +305,12 @@ chapter(
 <p>A machine can be alive and broken, or it can be dead. These need different observers, because an observer that lives on the machine dies with it.</p>
 
 <h3>Observer one lives on the machine</h3>
-<p>When the run fails, the scheduler starts the notifier from chapter 17, which pushes to the phone what stopped and the last lines of the log. This is the fast observer: it fires while the failure is happening, and it can describe it. Its weakness is that it needs the machine to be up, the scheduler to be running, and the timer to have fired. A timer that was disabled after a reboot starts nothing, so nothing fails, so nothing shouts, and that is precisely the failure that looks most like a quiet week.</p>
+<p>When the run fails, the scheduler starts the notifier described above, which pushes to the phone what stopped and the last lines of the log. This is the fast observer: it fires while the failure is happening, and it can describe it. Its weakness is that it needs the machine to be up, the scheduler to be running, and the timer to have fired. A timer that was disabled after a reboot starts nothing, so nothing fails, so nothing shouts, and that is precisely the failure that looks most like a quiet week.</p>
 <p>So observer one has a second leg on its own timer: every morning at 09:30, a separate job checks whether a completed run is on record and whether the nightly timer is still enabled. It runs on its own timer deliberately: "if the check on the run shared a timer with the run, the failure that stopped the run would stop the check, and the switch would be wired to its own power supply."{N.ref("deploy/vss-checkin.timer, comment. The run also records its own completion in a table, with a bar of 72 hours for the nightly and 10 days for the weekly, and a test run or a single-name run does not reset the clock.")}</p>
 {N.flush()}
 
 <h3>Observer two lives outside</h3>
-<p>None of that helps if the machine is off, the network is down, or the whole scheduler is stopped. A dead machine cannot page itself. The only thing that can notice a dead machine is something that is not on it: an outside service that expects one signal a day and raises an alarm when the signal does not arrive by a deadline.{N.ref("vss/heartbeat.py: 'a dead VPS cannot page itself... Closing that needs an OUTSIDE observer — a service that expects a ping and alerts on its ABSENCE.'")} That is the empty request from chapter 17's success exit. The outside service "keeps silent as long as pings arrive on time" and "raises an alert as soon as a ping does not arrive on time", with a grace period after the expected time.{N.ref("The monitoring service's own documentation; the suggested settings in the example environment file are a one-day period and a six-hour grace.")}</p>
+<p>None of that helps if the machine is off, the network is down, or the whole scheduler is stopped. A dead machine cannot page itself. The only thing that can notice a dead machine is something that is not on it: an outside service that expects one signal a day and raises an alarm when the signal does not arrive by a deadline.{N.ref("vss/heartbeat.py: 'a dead VPS cannot page itself... Closing that needs an OUTSIDE observer — a service that expects a ping and alerts on its ABSENCE.'")} That is the empty request from the success exit above. The outside service "keeps silent as long as pings arrive on time" and "raises an alert as soon as a ping does not arrive on time", with a grace period after the expected time.{N.ref("The monitoring service's own documentation; the suggested settings in the example environment file are a one-day period and a six-hour grace.")}</p>
 {N.flush()}
 
 <h2>Why absence beats error</h2>
@@ -328,7 +328,7 @@ chapter(
 <li>The weekly screen has no outside signal of its own. A dead weekly screen is caught only by the morning check-in.</li>
 <li>A machine that is up, pinging, and wrong. The outside observer proves the run finished, not that it was right.</li>
 <li>The outside observer itself being down.</li>
-<li>The phone tunnel (chapter 19) has no failure notification, for a reason that chapter explains.</li>
+<li>The phone tunnel ([[ch:machine-watches]]) has no failure notification, for a reason that chapter explains.</li>
 </ul>
 
 <h2>A defect the design found in itself</h2>
@@ -385,7 +385,7 @@ chapter(
 {N.flush()}
 
 <h2>What this costs, from the ruling</h2>
-<p>The page passes through a company's infrastructure the owner does not control, and that company decrypts it at its edge. In the ruling's words: "The page is plaintext at their edge: holdings, states, gate results, MBPs and stops, readable by Cloudflare and by anyone who compels or breaches Cloudflare. This is not mitigable within this architecture. It is the price of reading the book on a phone from an arbitrary network, and I am paying it knowingly." The front door is single-factor: whoever controls the mailbox controls the page. And the tunnel client had to run as a system service with a credential the owner's own account cannot read, which means it cannot use the failure notifier from chapter 17. If the tunnel dies, the page stops loading and the phone stays silent. The nightly run and its own alerting do not depend on it.{N.ref("Ruling F1: 'WHAT THIS COSTS' under limbs (a) and (b); deploy/TUNNEL-NOTES.md, 'Units — Option C'.")}</p>
+<p>The page passes through a company's infrastructure the owner does not control, and that company decrypts it at its edge. In the ruling's words: "The page is plaintext at their edge: holdings, states, gate results, MBPs and stops, readable by Cloudflare and by anyone who compels or breaches Cloudflare. This is not mitigable within this architecture. It is the price of reading the book on a phone from an arbitrary network, and I am paying it knowingly." The front door is single-factor: whoever controls the mailbox controls the page. And the tunnel client had to run as a system service with a credential the owner's own account cannot read, which means it cannot use the failure notifier described above. If the tunnel dies, the page stops loading and the phone stays silent. The nightly run and its own alerting do not depend on it.{N.ref("Ruling F1: 'WHAT THIS COSTS' under limbs (a) and (b); deploy/TUNNEL-NOTES.md, 'Units — Option C'.")}</p>
 {N.flush()}
 
 {decision(
@@ -409,7 +409,7 @@ chapter(
     "One file served, every other path refused. The folder behind the server holds dozens of private files. The difference between one file exposed and all of them is a single block of configuration, and removing it would expose everything silently.",
     5, False,
     f"""
-<p>Chapter 19 got a page to the phone. This chapter is about the two words "a page", because the server that hands it over sits in a folder full of things that must not travel.</p>
+<p>[[Ch:machine-watches]] got a page to the phone. This section is about the two words "a page", because the server that hands it over sits in a folder full of things that must not travel.</p>
 
 {FIG["boundary"]()}
 
@@ -473,7 +473,7 @@ chapter(
 {N.flush()}
 
 <h3>It states its own age, twice</h3>
-<p>A run that fails writes nothing. The server keeps serving the last good page. The page looks identical to a fresh one, and the owner reads last Thursday's states believing they are tonight's. That failure is invisible to every alarm in chapter 18, because the run either happened or it did not, and the page's age is a different question. So the page prints the exact time it was generated, with the timezone, in the header, visible on a phone without scrolling, and again in the first sentence of the footer. The page cannot mark itself stale, because that would need a script and scripts are forbidden; it can only make its age impossible to miss, and the subtraction is the owner's.{N.ref("Ruling F1 limb (c) requirement 1, and ruling F2 withdrawing requirement 2. Implemented 2026-09-13.")}</p>
+<p>A run that fails writes nothing. The server keeps serving the last good page. The page looks identical to a fresh one, and the owner reads last Thursday's states believing they are tonight's. That failure is invisible to every alarm described above, because the run either happened or it did not, and the page's age is a different question. So the page prints the exact time it was generated, with the timezone, in the header, visible on a phone without scrolling, and again in the first sentence of the footer. The page cannot mark itself stale, because that would need a script and scripts are forbidden; it can only make its age impossible to miss, and the subtraction is the owner's.{N.ref("Ruling F1 limb (c) requirement 1, and ruling F2 withdrawing requirement 2. Implemented 2026-09-13.")}</p>
 {N.flush()}
 
 <h3>It never chooses</h3>
@@ -519,6 +519,8 @@ chapter(
 <li><strong>Three hard kills</strong>: falling revenue, a squeezed margin, swelling receivables. They did not separate the names that did well from those that did not.</li>
 <li><strong>The debt limits, the quality tests as a drop rule, and the buy-price cushion as a binding line.</strong> None separated returns. The quality tests and the cushion are still printed, as information.</li>
 </ul>
+
+[[fig:graveyard]]
 
 <h2>What stayed</h2>
 <p>The valuation itself; figures only from the companies' own filings; the growth view written before the price is seen; positive free cash flow; at most six percent of the portfolio in one name; and the hand parts no data can test: reading the reports, the issuer's own sentence on what it sells, the judgement that the business is understood. Their test is the shadow book of chapter 12, which prices every "no" against the index.</p>

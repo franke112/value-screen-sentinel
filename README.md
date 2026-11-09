@@ -10,7 +10,7 @@ assumes, and watches every name you have valued, every night.
 **It never tells you to buy anything.** It measures, you decide, and it keeps
 the record of what you decided and why.
 
-> **How it works and why, in 24 short chapters (or a ten-minute route):**
+> **How it works and why, and what the tests removed: a prologue and 18 short chapters (or one ten-minute page):**
 > **[franke112.github.io/value-screen-sentinel/the-method](https://franke112.github.io/value-screen-sentinel/the-method/)**
 > *(på svenska: [the-method/sv](https://franke112.github.io/value-screen-sentinel/the-method/sv/))*
 

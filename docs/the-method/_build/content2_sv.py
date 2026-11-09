@@ -78,7 +78,7 @@ chapter(
 <p>Det förbjudna, för varje hämtare: den får inte döma det den hämtat. Den för in en siffra med dess ursprung fastsatt, och stannar där.</p>
 
 <h3>Registret: att spara varje siffra</h3>
-<p>En del skriver en rad per bolag och körning i en liten databas, så att historiken kan byggas upp igen senare. En för körningsprotokollet för varje värdering, de åtta saker som måste vara deklarerade innan ett värde får skrivas ut (kapitel 15). En sparar en ögonblicksbild av varje screeningkörning, de råa kurserna och listan över bolag, så att körningen kan spelas upp igen exakt. En håller handinmatade siffror för bolag som ingen datakälla täcker, var och en markerad som kontrollerad eller inte. En testar om en kursserie är en verklig mätning eller en artefakt från datakällan.{N.ref("vss/store.py, vss/runrecord.py, vss/snapshot.py, vss/manual.py, vss/series_sanity.py.")}</p>
+<p>En del skriver en rad per bolag och körning i en liten databas, så att historiken kan byggas upp igen senare. En för körningsprotokollet för varje värdering, de åtta saker som måste vara deklarerade innan ett värde får skrivas ut ([[ch:machine-reads]]). En sparar en ögonblicksbild av varje screeningkörning, de råa kurserna och listan över bolag, så att körningen kan spelas upp igen exakt. En håller handinmatade siffror för bolag som ingen datakälla täcker, var och en markerad som kontrollerad eller inte. En testar om en kursserie är en verklig mätning eller en artefakt från datakällan.{N.ref("vss/store.py, vss/runrecord.py, vss/snapshot.py, vss/manual.py, vss/series_sanity.py.")}</p>
 {N.flush()}
 <p>Det förbjudna: registret fyller aldrig ett hål. En siffra som inte hämtades saknas, och fortsätter att saknas.</p>
 
@@ -87,7 +87,7 @@ chapter(
 {N.flush()}
 
 <h3>Rapportering: rapporten och sidan</h3>
-<p>En del skriver nattrapporten i en fast ordning: när körningen skedde och hur färsk datan var; sedan blockeringar, det som stoppade en bedömning; sedan åtgärder, det som kräver ägaren; sedan hela tabellen över varje bolag. En annan genererar översiktssidan på en sida som når telefonen (kapitel 21). En tredje sätter ihop ett underlag för ett bolag som läses, en samling av siffrorna och deras källor, inte en uppfattning.{N.ref("vss/report.py, vss/overview.py, vss/briefing.py.")}</p>
+<p>En del skriver nattrapporten i en fast ordning: när körningen skedde och hur färsk datan var; sedan blockeringar, det som stoppade en bedömning; sedan åtgärder, det som kräver ägaren; sedan hela tabellen över varje bolag. En annan genererar översiktssidan på en sida som når telefonen ([[ch:machine-watches]]). En tredje sätter ihop ett underlag för ett bolag som läses, en samling av siffrorna och deras källor, inte en uppfattning.{N.ref("vss/report.py, vss/overview.py, vss/briefing.py.")}</p>
 {N.flush()}
 <p>Det förbjudna: ingen rapport säger köp, sälj eller bra. Den säger hur långt, hur färskt och vad som saknas.</p>
 
@@ -100,7 +100,7 @@ chapter(
 {N.flush()}
 
 <h3>Hjärtslaget</h3>
-<p>En del vars enda uppgift är att få en körning som uteblev att se annorlunda ut än en körning som inte hade något att säga. Kapitel 18.</p>
+<p>En del vars enda uppgift är att få en körning som uteblev att se annorlunda ut än en körning som inte hade något att säga. [[Ch:machine-watches]].</p>
 
 <h3>Körningsledaren</h3>
 <p>En del knyter ihop nattkörningen: läs in ägarens fil, hämta, räkna, bedöm, rapportera. All läsning och skrivning i körningen bor här och i delarna för hämtning, lagring och rapport, så att allt annat kan förbli rent.{N.ref("vss/runner.py: 'All I/O bor här och i fetch/store/report. rules.py och metrics.py förblir rena.'")}</p>
@@ -133,7 +133,7 @@ chapter(
 
 <h2>Fyra ställen där en siffra kan bo</h2>
 <ul>
-<li><strong>Körningsdatabasen.</strong> En rad per bolag och nattkörning: kursen, de uträknade siffrorna, utlåtandekoderna, blockeringarna. Ingenting läser tillbaka den ännu; den finns för att samla på sig, så att historiken kan rekonstrueras senare.{N.ref("vss/store.py.")}</li>
+<li><strong>Körningsdatabasen.</strong> En rad per bolag och nattkörning: kursen, de uträknade siffrorna, utlåtandekoderna, blockeringarna. Två saker läser tillbaka den: en värderings före-och-efter-tabell läser nivån som gällde, och kontrollen av en passering som beror på att linjen flyttats jämför kvällens linje med den som förra körningen skrev ned. I övrigt samlar den på sig, så att historiken kan rekonstrueras senare.{N.ref("vss/store.py.")}</li>
 <li><strong>Grunddatalagret.</strong> Varje redovisningsperiod som någonsin hämtats för ett bolag, sparad för gott. Ett kvartal ersätter aldrig ett år. Ett lager som rensade gamla perioder skulle göra det omöjligt att återskapa en gammal värdering.{N.ref("Beslut E49: lagret behåller varje period det någonsin har hämtat. Beslut E17: ett kvartal ersätter aldrig ett år.")}</li>
 <li><strong>Screenerns ögonblicksbilder.</strong> En liten databas per screeningkörning, med råa dagliga kurser, aldrig uträknade siffror, plus listan över bolag, avvisningarna och en hämtningsstatus per bolag. De fyra senaste kursbilderna sparas; varje rangordning sparas för alltid, eftersom varje framtida jämförelse vilar på den.{N.ref("vss/snapshot.py; lagringstiden beskrivs i projektbeskrivningen §6.5.")}</li>
 <li><strong>Ägarens fil.</strong> Statusar, nivåer, värden, säljlinjer, anteckningar och handinmatade siffror. Spårad under versionshantering, på ägarens beslut, så att beslutens historik finns i filens historik.{N.ref("README om config/watchlist.yaml, spårad sedan 2026-08-25.")}</li>
@@ -163,7 +163,7 @@ chapter(
 {N.flush()}
 
 <h2>Att avbryta en screening på grund av ett hål</h2>
-<p>Screenern har ett ställe där den stannar i stället för att fortsätta: när en kvartalsjämförelse den behöver inte kan bildas för att ett kvartal saknas, bryter den körningen i stället för att slå ut ett bolag på ett hål. Ett test av fallande omsättning som underkänner ett bolag för ett kvartal som leverantören inte levererade vore precis det tvåsidiga felet från kapitel 9, i stor skala (det ledet togs senare bort, kapitel 22).{N.ref("vss/filters.py, omsättningsledet: en jämförelse som kvartalen inte kan bilda 'bryter körningen i stället för att slå ut på ett hål'.")}</p>
+<p>Screenern har ett ställe där den stannar i stället för att fortsätta: när en kvartalsjämförelse den behöver inte kan bildas för att ett kvartal saknas, bryter den körningen i stället för att slå ut ett bolag på ett hål. Ett test av fallande omsättning som underkänner ett bolag för ett kvartal som leverantören inte levererade vore precis det tvåsidiga felet från kapitel 9, i stor skala (det ledet togs senare bort, [[ch:tested]]).{N.ref("vss/filters.py, omsättningsledet: en jämförelse som kvartalen inte kan bilda 'bryter körningen i stället för att slå ut på ett hål'.")}</p>
 {N.flush()}
 
 {decision(
@@ -255,7 +255,7 @@ chapter(
 {N.flush()}
 
 <h2>Vad den inte kan röra</h2>
-<p>Körningen är inhägnad av operativsystemet, inte bara av sin egen kod. Den ser hela systemet som skrivskyddat. Den ser ägarens hemkatalog som skrivskyddad. De enda två mappar den får skriva i är datamappen och rapportmappen. Den kan inte få några nya behörigheter när den väl startat, och den avbryts om den körs längre än femton minuter.{N.ref("ProtectSystem=strict; ProtectHome=read-only; ReadWritePaths= bara data- och rapportmapparna; NoNewPrivileges=true; TimeoutStartSec=15min.")} Det här är den första väggen från kapitel 14, dragen av en annan hand: även om koden hade ett fel som försökte skriva ett beslut i ägarens fil skulle operativsystemet vägra.</p>
+<p>Körningen är inhägnad av operativsystemet, inte bara av sin egen kod. Den ser hela systemet som skrivskyddat. Den ser ägarens hemkatalog som skrivskyddad. De enda två mappar den får skriva i är datamappen och rapportmappen. Den kan inte få några nya behörigheter när den väl startat, och den avbryts om den körs längre än femton minuter.{N.ref("ProtectSystem=strict; ProtectHome=read-only; ReadWritePaths= bara data- och rapportmapparna; NoNewPrivileges=true; TimeoutStartSec=15min.")} Det här är den första väggen från [[ch:machine-reads]], dragen av en annan hand: även om koden hade ett fel som försökte skriva ett beslut i ägarens fil skulle operativsystemet vägra.</p>
 {N.flush()}
 
 <h2>De två utgångarna</h2>
@@ -266,7 +266,7 @@ chapter(
 </ul>
 {N.flush()}
 
-<p>Lägg märke till asymmetrin. Framgång är tyst på telefonen. Ägaren vill inte ha ett meddelande varje natt som säger att ingenting hände; ett meddelande som alltid kommer är ett meddelande som slutar läsas. Framgång ger sitt ljud någon annanstans, till en observatör vars uppgift är att märka om ljudet uteblir. Det är kapitel 18.</p>
+<p>Lägg märke till asymmetrin. Framgång är tyst på telefonen. Ägaren vill inte ha ett meddelande varje natt som säger att ingenting hände; ett meddelande som alltid kommer är ett meddelande som slutar läsas. Framgång ger sitt ljud någon annanstans, till en observatör vars uppgift är att märka om ljudet uteblir. Det är dödmansgreppet, längre ner.</p>
 
 <h2>Veckokörningen</h2>
 <p>Screenern körs enligt samma mönster, på lördagsmorgnar klockan 08:00, på fredagens avstämda kurser, med en fyratimmarsgräns och ett strängare stängsel: mappen med ägarens fil är över huvud taget inte skrivbar för den. Den enda raden är beslutet "den schemalagda screeningen tar aldrig in ett bolag" skrivet på schemaläggarens språk.{N.ref("deploy/vss-screen.timer: Sat 08:00; tjänstens skrivskyddade konfigurationsmapp, i projektbeskrivningen kallad 'E93 på en rad'. Uppmätt 2026-08-31: omkring 38 minuter, 3 495 förfrågningar om grunddata, noll strypningar.")} En tredje timer, klockan 09:30 varje dag, tillhör dödmansgreppet.</p>
@@ -305,12 +305,12 @@ chapter(
 <p>En maskin kan vara levande och trasig, eller så kan den vara död. De kräver olika observatörer, eftersom en observatör som bor på maskinen dör med den.</p>
 
 <h3>Observatör ett bor på maskinen</h3>
-<p>När körningen misslyckas startar schemaläggaren notifieraren från kapitel 17, som skickar till telefonen vad som stannade och de sista raderna ur loggen. Det här är den snabba observatören: den utlöses medan felet pågår, och den kan beskriva det. Dess svaghet är att den behöver att maskinen är uppe, att schemaläggaren går och att timern har utlösts. En timer som stängdes av efter en omstart startar ingenting, så ingenting misslyckas, så ingenting ropar, och det är precis det fel som mest liknar en tyst vecka.</p>
+<p>När körningen misslyckas startar schemaläggaren notifieraren som beskrivs ovan, som skickar till telefonen vad som stannade och de sista raderna ur loggen. Det här är den snabba observatören: den utlöses medan felet pågår, och den kan beskriva det. Dess svaghet är att den behöver att maskinen är uppe, att schemaläggaren går och att timern har utlösts. En timer som stängdes av efter en omstart startar ingenting, så ingenting misslyckas, så ingenting ropar, och det är precis det fel som mest liknar en tyst vecka.</p>
 <p>Därför har observatör ett ett andra ben på sin egen timer: varje morgon klockan 09:30 kontrollerar ett separat jobb om en slutförd körning finns i registret och om nattimern fortfarande är aktiverad. Det körs avsiktligt på sin egen timer: "om kontrollen av körningen delade timer med körningen skulle felet som stoppade körningen stoppa kontrollen, och dödmansgreppet vore kopplat till sin egen strömförsörjning."{N.ref("deploy/vss-checkin.timer, kommentar. Körningen registrerar också sin egen slutförning i en tabell, med en gräns på 72 timmar för nattkörningen och 10 dagar för veckokörningen, och en provkörning eller en körning på ett enda bolag nollställer inte klockan.")}</p>
 {N.flush()}
 
 <h3>Observatör två bor utanför</h3>
-<p>Inget av det hjälper om maskinen är avstängd, nätverket ligger nere eller hela schemaläggaren har stannat. En död maskin kan inte larma om sig själv. Det enda som kan upptäcka en död maskin är något som inte finns på den: en yttre tjänst som väntar sig en signal om dagen och slår larm när signalen inte kommit före en tidsgräns.{N.ref("vss/heartbeat.py: 'a dead VPS cannot page itself... Closing that needs an OUTSIDE observer — a service that expects a ping and alerts on its ABSENCE.'")} Det är den tomma förfrågan från framgångsutgången i kapitel 17. Den yttre tjänsten "är tyst så länge pingarna kommer i tid" och "slår larm så fort en ping inte kommer i tid", med en respitperiod efter den förväntade tiden.{N.ref("Övervakningstjänstens egen dokumentation; de föreslagna inställningarna i exempelmiljöfilen är en period på en dag och sex timmars respit.")}</p>
+<p>Inget av det hjälper om maskinen är avstängd, nätverket ligger nere eller hela schemaläggaren har stannat. En död maskin kan inte larma om sig själv. Det enda som kan upptäcka en död maskin är något som inte finns på den: en yttre tjänst som väntar sig en signal om dagen och slår larm när signalen inte kommit före en tidsgräns.{N.ref("vss/heartbeat.py: 'a dead VPS cannot page itself... Closing that needs an OUTSIDE observer — a service that expects a ping and alerts on its ABSENCE.'")} Det är den tomma förfrågan från framgångsutgången ovan. Den yttre tjänsten "är tyst så länge pingarna kommer i tid" och "slår larm så fort en ping inte kommer i tid", med en respitperiod efter den förväntade tiden.{N.ref("Övervakningstjänstens egen dokumentation; de föreslagna inställningarna i exempelmiljöfilen är en period på en dag och sex timmars respit.")}</p>
 {N.flush()}
 
 <h2>Varför frånvaro slår fel</h2>
@@ -328,7 +328,7 @@ chapter(
 <li>Veckoscreeningen har ingen egen yttre signal. En död veckoscreening fångas bara av morgonkontrollen.</li>
 <li>En maskin som är uppe, pingar och har fel. Den yttre observatören bevisar att körningen blev klar, inte att den var rätt.</li>
 <li>Att själva den yttre observatören ligger nere.</li>
-<li>Telefontunneln (kapitel 19) har ingen felnotis, av ett skäl som det kapitlet förklarar.</li>
+<li>Telefontunneln ([[ch:machine-watches]]) har ingen felnotis, av ett skäl som det kapitlet förklarar.</li>
 </ul>
 
 <h2>Ett fel som konstruktionen hittade hos sig själv</h2>
@@ -385,7 +385,7 @@ chapter(
 {N.flush()}
 
 <h2>Vad det kostar, enligt beslutet</h2>
-<p>Sidan passerar ett företags infrastruktur som ägaren inte kontrollerar, och det företaget dekrypterar den i sin kant. Med beslutets ord: "Sidan är klartext i deras kant: innehav, statusar, spärrresultat, MBP och stopp, läsbara för Cloudflare och för vem som helst som tvingar eller bryter sig in hos Cloudflare. Det här går inte att mildra inom den här arkitekturen. Det är priset för att läsa boken på en telefon från ett godtyckligt nätverk, och jag betalar det medvetet." Ytterdörren har en enda faktor: den som kontrollerar postlådan kontrollerar sidan. Och tunnelklienten måste köras som en systemtjänst med en inloggningsuppgift som ägarens eget konto inte kan läsa, vilket betyder att den inte kan använda felnotifieraren från kapitel 17. Om tunneln dör slutar sidan laddas och telefonen förblir tyst. Nattkörningen och dess egen larmning är inte beroende av den.{N.ref("Beslut F1: 'WHAT THIS COSTS' under leden (a) och (b); deploy/TUNNEL-NOTES.md, 'Units — Option C'.")}</p>
+<p>Sidan passerar ett företags infrastruktur som ägaren inte kontrollerar, och det företaget dekrypterar den i sin kant. Med beslutets ord: "Sidan är klartext i deras kant: innehav, statusar, spärrresultat, MBP och stopp, läsbara för Cloudflare och för vem som helst som tvingar eller bryter sig in hos Cloudflare. Det här går inte att mildra inom den här arkitekturen. Det är priset för att läsa boken på en telefon från ett godtyckligt nätverk, och jag betalar det medvetet." Ytterdörren har en enda faktor: den som kontrollerar postlådan kontrollerar sidan. Och tunnelklienten måste köras som en systemtjänst med en inloggningsuppgift som ägarens eget konto inte kan läsa, vilket betyder att den inte kan använda felnotifieraren som beskrivs ovan. Om tunneln dör slutar sidan laddas och telefonen förblir tyst. Nattkörningen och dess egen larmning är inte beroende av den.{N.ref("Beslut F1: 'WHAT THIS COSTS' under leden (a) och (b); deploy/TUNNEL-NOTES.md, 'Units — Option C'.")}</p>
 {N.flush()}
 
 {decision(
@@ -409,7 +409,7 @@ chapter(
     "En fil serveras, varje annan sökväg nekas. Mappen bakom servern rymmer dussintals privata filer. Skillnaden mellan en exponerad fil och alla av dem är ett enda block konfiguration, och att ta bort det skulle exponera allt i tysthet.",
     5, False,
     f"""
-<p>Kapitel 19 fick en sida till telefonen. Det här kapitlet handlar om de två orden "en sida", eftersom servern som lämnar över den sitter i en mapp full av sådant som inte får färdas.</p>
+<p>[[Ch:machine-watches]] fick en sida till telefonen. Det här avsnittet handlar om de två orden "en sida", eftersom servern som lämnar över den sitter i en mapp full av sådant som inte får färdas.</p>
 
 {FIG["boundary"]()}
 
@@ -473,7 +473,7 @@ chapter(
 {N.flush()}
 
 <h3>Den anger sin egen ålder, två gånger</h3>
-<p>En körning som misslyckas skriver ingenting. Servern fortsätter servera den senaste goda sidan. Sidan ser identisk ut med en färsk, och ägaren läser förra torsdagens statusar i tron att de är kvällens. Det felet är osynligt för varje larm i kapitel 18, eftersom körningen antingen skedde eller inte, och sidans ålder är en annan fråga. Så sidan skriver ut den exakta tiden den genererades, med tidszon, i sidhuvudet, synlig på en telefon utan att rulla, och igen i första meningen i sidfoten. Sidan kan inte markera sig själv som gammal, eftersom det skulle kräva ett skript och skript är förbjudna; den kan bara göra sin ålder omöjlig att missa, och subtraktionen är ägarens.{N.ref("Beslut F1 led (c) krav 1, och beslut F2 som drar tillbaka krav 2. Genomfört 2026-09-13.")}</p>
+<p>En körning som misslyckas skriver ingenting. Servern fortsätter servera den senaste goda sidan. Sidan ser identisk ut med en färsk, och ägaren läser förra torsdagens statusar i tron att de är kvällens. Det felet är osynligt för varje larm som beskrivs ovan, eftersom körningen antingen skedde eller inte, och sidans ålder är en annan fråga. Så sidan skriver ut den exakta tiden den genererades, med tidszon, i sidhuvudet, synlig på en telefon utan att rulla, och igen i första meningen i sidfoten. Sidan kan inte markera sig själv som gammal, eftersom det skulle kräva ett skript och skript är förbjudna; den kan bara göra sin ålder omöjlig att missa, och subtraktionen är ägarens.{N.ref("Beslut F1 led (c) krav 1, och beslut F2 som drar tillbaka krav 2. Genomfört 2026-09-13.")}</p>
 {N.flush()}
 
 <h3>Den väljer aldrig</h3>
@@ -519,6 +519,8 @@ chapter(
 <li><strong>Tre hårda stopp</strong>: fallande försäljning, krympande marginal, svällande kundfordringar. De skilde inte bolagen som gick bra från dem som inte gjorde det.</li>
 <li><strong>Skuldgränserna, kvalitetstesterna som utslagsregel och köpkursens marginal som bindande linje.</strong> Ingen skilde ut avkastning. Kvalitetstesterna och marginalen skrivs fortfarande ut, som information.</li>
 </ul>
+
+[[fig:graveyard]]
 
 <h2>Det som blev kvar</h2>
 <p>Själva värderingen; siffror bara ur bolagens egna rapporter; tillväxtbedömningen skriven innan kursen syns; positivt fritt kassaflöde; högst sex procent av portföljen i ett bolag; och handdelarna som ingen data kan testa: att läsa rapporterna, bolagets egen mening om vad det säljer, bedömningen att verksamheten är förstådd. Deras test är skuggboken i kapitel 12, som prissätter varje "nej" mot index.</p>

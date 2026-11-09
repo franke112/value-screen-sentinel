@@ -168,7 +168,7 @@ chapter(
 <p>Metoden räknar ut vilken tillväxt det nuvarande priset förutsätter (kapitel 7). Innan det talet beräknas skriver ägaren ned vilken tillväxt han faktiskt tror på, med skäl, och filen tidsstämplas. Om marknadens tal sågs först är ägarens bedömning ogiltig för det bolaget i den omgången. Kapitel 8 förklarar varför regeln finns och vad den lånar från kliniska prövningar.</p>
 
 <h3>3. Ett underkänt test är slutgiltigt och vidgas aldrig för att släppa igenom ett namn</h3>
-<p>När ett bolag faller på ett test som gäller något annat än pris, för inte ett lägre pris tillbaka det. Bara ett namngivet nytt faktum kan göra det: en ny rapport, en ändrad prognos från bolaget, en vinstvarning. Och när en regel visar sig vara dåligt utformad tas den bort eller ersätts av ett daterat beslut som anger vad ändringen kostade. Den mjukas inte upp i det tysta för att ett visst namn nästan klarade sig. En regel ändras bara efter ett test som registrerats i förväg (beslut E164): en beslutsregel kommer in eller går ut bara på ett backtest som skrivits ned före körningen, medan en dataregel får läggas till fritt. Kapitel 5, 16 och 22.</p>
+<p>När ett bolag faller på ett test som gäller något annat än pris, för inte ett lägre pris tillbaka det. Bara ett namngivet nytt faktum kan göra det: en ny rapport, en ändrad prognos från bolaget, en vinstvarning. Och när en regel visar sig vara dåligt utformad tas den bort eller ersätts av ett daterat beslut som anger vad ändringen kostade. Den mjukas inte upp i det tysta för att ett visst namn nästan klarade sig. En regel ändras bara efter ett test som registrerats i förväg (beslut E164): en beslutsregel kommer in eller går ut bara på ett backtest som skrivits ned före körningen, medan en dataregel får läggas till fritt. Kapitel 5, [[n:machine-reads]] och [[n:tested]].</p>
 
 <h3>4. Varje nej spåras</h3>
 <p>Det mesta som metoden tittar på ger den nej. Ett system som bara mäter vad det köpte kan inte avgöra om dess nej var rätt. Därför registreras varje nej med dagens pris och en rad som anger skälet, och mäts mot marknaden i efterhand. Kapitel 12.</p>
@@ -210,13 +210,13 @@ chapter(
 
 <h3>Filter 1: finns det tillräckligt med färska data?</h3>
 <p>Filter 1 är en grind för gammal data. Det frågar om bolaget har tillräckligt med färska data för att alls kunna bedömas: en aktuell kurs och nyligen redovisade siffror. Ett namn med gammal data läggs åt sidan, eftersom varje senare steg skulle bygga på sand.{N.ref("Beslut E161 tog bort kursbandet ur vss/rules.py; filter 1 behåller bara färskhetskontrollen.")}</p>
-<p>Fram till november 2026 frågade filter 1 också om kursen låg 15 till 50 procent under sin högsta nivå det senaste året. Bandet klarade inte det test som skrevs för det: i ingen av marknaderna gick bolagen inom bandet bättre än de andra, så beslut E161 tog bort det. Fallet från toppen står kvar på raden som information. <a href="tested.html">Kapitel 22</a> berättar hur det kom fram.</p>
+<p>Fram till november 2026 frågade filter 1 också om kursen låg 15 till 50 procent under sin högsta nivå det senaste året. Bandet klarade inte det test som skrevs för det: i ingen av marknaderna gick bolagen inom bandet bättre än de andra, så beslut E161 tog bort det. Fallet från toppen står kvar på raden som information. <a href="tested.html">[[Ch:tested]]</a> berättar hur det kom fram.</p>
 {N.flush()}
 <p>Två frågor till följer med den här. Har bolaget varit börsnoterat i minst fem år? En yngre notering har inte tillräckligt med redovisad historik att testa, och ett bolag som knoppats av från ett annat räknas som nytt.{N.ref("Beslut E52 och E52.1: en notering yngre än fem år avvisas på saknade data, och en avknoppning är en ny notering.")} Och är företaget ett som metoden över huvud taget kan bedöma? Kapitel 5 behandlar den gränsen.</p>
 {N.flush()}
 
 <h3>Filter 2: gjorde företaget kassa?</h3>
-<p>För de namn som klarar sig, och bara för dem, hämtar verktyget bokslut och ställer en enda fråga. Genererade företaget ett positivt fritt kassaflöde, överskottskassa, under de senaste tolv månaderna? Fram till november 2026 ställdes två frågor till här: en gräns för skulden efter avdrag för kassan i förhållande till det årliga rörelseresultatet, och ett test på att omsättningen föll jämfört med samma kvartal ett år tidigare, två kvartal i rad. Båda testades och togs bort. <a href="tested.html">Kapitel 22</a> har resultatet.{N.ref("Tröskelvärdet finns i config/screener_filter2.yaml: positivt fritt kassaflöde (en förgrovning av spärr 3:s sex av åtta kvartal, eftersom kvartalsvis kassaflödeshistorik saknas för en stor del av listan). Skuldgränsen (nettoskuld i förhållande till EBITDA högst 2,5×, beslut E44) togs bort av E168; omsättningsledet (beslut E45) testades och togs bort.")}</p>
+<p>För de namn som klarar sig, och bara för dem, hämtar verktyget bokslut och ställer en enda fråga. Genererade företaget ett positivt fritt kassaflöde, överskottskassa, under de senaste tolv månaderna? Fram till november 2026 ställdes två frågor till här: en gräns för skulden efter avdrag för kassan i förhållande till det årliga rörelseresultatet, och ett test på att omsättningen föll jämfört med samma kvartal ett år tidigare, två kvartal i rad. Båda testades och togs bort. <a href="tested.html">[[Ch:tested]]</a> har resultatet.{N.ref("Tröskelvärdet finns i config/screener_filter2.yaml: positivt fritt kassaflöde (en förgrovning av spärr 3:s sex av åtta kvartal, eftersom kvartalsvis kassaflödeshistorik saknas för en stor del av listan). Skuldgränsen (nettoskuld i förhållande till EBITDA högst 2,5×, beslut E44) togs bort av E168; omsättningsledet (beslut E45) testades och togs bort.")}</p>
 {N.flush()}
 <p>Skuldtaket har sin egen historia. Den första versionen använde en generösare gräns, tre och en halv gång, med argumentet att ett grovt filter inte får förlora ett namn som den noggranna läsningen skulle behålla. Fyra dagar senare visade en testkörning att 72 namn klarade den generösa gränsen och sedan föll på metodens egna strängare test längre fram. Att släppa igenom dem gav inget annat än mer läsning. Taket skärptes genom ett daterat beslut som anger antalet. Det taket togs i sin tur bort i november 2026 (E168).{N.ref("Besluten E2 (2026-08-22, 3,5×) och E44 (2026-08-26, 2,5×), med mätningen av 72 namn i beslutstexten.")}</p>
 {N.flush()}
@@ -278,7 +278,7 @@ chapter(
 <p>Ett namn som klarar "varför"-spärren prövas sedan mot sitt bokslut för de senaste två åren: skulden inom en angiven multipel av resultatet, räntorna täckta minst fem gånger av rörelseresultatet, överskottskassa genererad under minst sex av de senaste åtta kvartalen, ingen revisorsanmärkning om bolagets fortsatta drift, inget byte av revisor, inga omräknade bokslut. Skuldmultipeln är information nu: den skrivs ut som kvalitetstest Q3 och avgör ingenting (E168). Sedan behöver det en daterad händelse inom nittio dagar som kan få marknaden att titta igen: ett resultatdatum, ett produktbeslut, ett avgörande. "Så småningom inser marknaden" är ingen händelse.{N.ref("Ramverket §3 spärr 3 och 5. Spärr 4, en värderingsrabatt mot jämförbara bolag, registreras som DATA SAKNAS för varje namn eftersom de jämförelsesiffror den behöver aldrig har sammanställts; den är inte borttagen, och återkommer när de finns (beslut E99).")}</p>
 {N.flush()}
 
-<p>Sedan finns det fyra <dfn>hårda diskvalificeringar</dfn>: sådant som ensamt avslutar läsningen, hur bra allt annat än ser ut. Två eller fler nedskärningar av bolagets egen prognos på fyra kvartal. Tre eller fler missade resultat på åtta kvartal. Att ligga nära ett brott mot ett låneavtal. Både vd:n och finanschefen lämnar inom tolv månader. Fram till november 2026 var de sju. Fallande omsättning, pressade marginaler och lager eller obetalda fakturor som hopar sig försvann med beslut E163, och skuldmultipeln med E168. Testerna bakom det finns i <a href="tested.html">kapitel 22</a>.{N.ref("Ramverket §4.2. 'Any one invalidates.'")}</p>
+<p>Sedan finns det fyra <dfn>hårda diskvalificeringar</dfn>: sådant som ensamt avslutar läsningen, hur bra allt annat än ser ut. Två eller fler nedskärningar av bolagets egen prognos på fyra kvartal. Tre eller fler missade resultat på åtta kvartal. Att ligga nära ett brott mot ett låneavtal. Både vd:n och finanschefen lämnar inom tolv månader. Fram till november 2026 var de sju. Fallande omsättning, pressade marginaler och lager eller obetalda fakturor som hopar sig försvann med beslut E163, och skuldmultipeln med E168. Testerna bakom det finns i <a href="tested.html">[[ch:tested]]</a>.{N.ref("Ramverket §4.2. 'Any one invalidates.'")}</p>
 {N.flush()}
 
 <h2>Varför en underkänd spärr är slutgiltig</h2>
@@ -427,13 +427,7 @@ chapter(
 <tbody>{_rows}</tbody>
 </table></div>
 
-<div class="explore js-only" id="rdcf-explore" hidden>
-<label for="rdcf-price">Flytta kursen och se hur antagandet flyttar sig</label>
-<input type="range" id="rdcf-price" min="80" max="400" step="5" value="160">
-<output id="rdcf-price-out" for="rdcf-price"></output>
-<output id="rdcf-out" aria-live="polite"></output>
-<p class="hint">Samma räkning som i tabellen. Utan skript är tabellen siffran.</p>
-</div>
+[[fig:rdcf]]
 
 <p>Läs tabellen från höger. Vid 100 förutsätter kursen att kassan knappt växer. Vid 250 förutsätter den en tillväxt som mycket få företag klarar i ett decennium. Metoden talar inte om vilket som stämmer. Den talar om vad du skulle behöva tro, och lämnar tillbaka trodden till dig.</p>
 
@@ -581,6 +575,8 @@ chapter(
 
 {FIG["funnel"]()}
 
+[[fig:funnel]]
+
 <div class="stage"><h3>INTAKE: läses, bevakas inte</h3><dl>
 <dt>Vad som händer</dt><dd>Ett namn studeras. Dess rapporter läses, siffror förs in och kontrolleras, en tillväxtbedömning kan skrivas. Ingenting om det bevakas ännu.</dd>
 <dt>Verktyget gör</dt><dd>Hämtar dess rapporter på begäran, lagrar dess siffror med ursprung, rapporterar vad som är verifierat och vad som saknas. Det bevakar inte kursen.</dd>
@@ -619,7 +615,7 @@ chapter(
 <dt>Ägaren gör</dt><dd>Värderar om vid varje rapport. Säljer vid säljlinjen, vid bull-värdet eller när skälet till köpet är borta.</dd>
 <dt>Faller ur när</dt><dd>Ägaren säljer. Försäljningen registreras och mäts mot marknaden från sitt eget datum.</dd>
 </dl></div>
-<p><strong>Ändrat i november 2026.</strong> Kursstoppet är borta (beslut E162): ingen stoppnivå, med eller utan återköp, hjälpte i testerna, och med courtage blev varje stopp en kostnad. Ägaren skriver fortfarande ner utgången före köpet, men som <code>stop_price: none</code>, ett beslut och inte ett tomt fält; ett tomt fält blockerar fortfarande. Att sälja när skälet till att äga är borta står kvar. Se <a href="tested.html">kapitel 22</a>.</p>
+<p><strong>Ändrat i november 2026.</strong> Kursstoppet är borta (beslut E162): ingen stoppnivå, med eller utan återköp, hjälpte i testerna, och med courtage blev varje stopp en kostnad. Ägaren skriver fortfarande ner utgången före köpet, men som <code>stop_price: none</code>, ett beslut och inte ett tomt fält; ett tomt fält blockerar fortfarande. Att sälja när skälet till att äga är borta står kvar. Se <a href="tested.html">[[ch:tested]]</a>.</p>
 
 <div class="stage"><h3>DROPPED: fått nej</h3><dl>
 <dt>Vad som händer</dt><dd>Namnet har fått nej: en hård diskvalificering, ett klass D-skäl, utanför cirkeln eller ägarens bedömning.</dd>
@@ -629,7 +625,7 @@ chapter(
 </dl></div>
 
 <h2>Det som är värt att lägga märke till</h2>
-<p>Varje pil mellan rutorna är en mänsklig handling: ägarens, eller, sedan E141 (2026-10-27), Claude Code-sessionens på hans uppdrag. Verktyget mäter var ett namn står, rapporterar det och pekar när något korsar en linje. Den schemalagda maskinen flyttar aldrig ett namn. Om ingen agerar flyttas ingenting. Det är ett designbeslut, och kapitel 13 förklarar varför.</p>
+<p>Varje pil mellan rutorna är en mänsklig handling: ägarens, eller, sedan E141 (2026-10-27), Claude Code-sessionens på hans uppdrag. Verktyget mäter var ett namn står, rapporterar det och pekar när något korsar en linje. Den schemalagda maskinen flyttar aldrig ett namn. Om ingen agerar flyttas ingenting. Det är ett designbeslut, och [[ch:machine-reads]] förklarar varför.</p>
 
 <h2>Huvudlistan</h2>
 <p>En fil till binder samman statusarna. <code>reports/HUVUDLISTA.md</code> är huvudlistan, byggd av <code>tools/master_list.py</code> och ombyggd varje natt. Den innehåller varje bolag som någonsin setts över, i grupper: ägda, kandidater, bevakade, att granska och nej. Varje rad har kursen, värdena för sämre fall, basfall och bättre fall, slaget av värde, skälet och nästa daterade händelse. Varje Claude Code-session öppnar med dess korta version, så ingen session börjar med att gissa var det står till.</p>
@@ -659,7 +655,7 @@ chapter(
 <p>Kapitel 8 gav ägarens tillväxtbedömning för basfallet. Kapitel 7:s räkning, körd framlänges med den bedömningen, ger ett värde per aktie. Det är ägarens uppskattning av vad BOLAG A är värt, och den är fel med ett belopp som ingen känner till. Därför är det inte köpkursen.</p>
 
 <p>Köpkursen är värdet multiplicerat med en marginal, och marginalen beror på hur säker ägaren är. Metoden kallar säkerhetsnivåerna <dfn>nivåer</dfn>, och det finns tre. Ett namn på nivå 1, ett som ägaren förstår väl och som har en stark balansräkning och något varaktigt som driver det framåt, får en köpkurs på 85 procent av värdet. Ett namn på nivå 2, mindre säkert eller i en konjunkturkänslig bransch, får 75. Ett namn på nivå 3, där skälet till att äga det har fått beskrivas om på vägen, får 65.{N.ref("Beslut E90, 2026-08-30. E90 knöt nivån till en övertygelsepoäng byggd av klarade spärrar, varningstecken och goda tecken. Poängen och de gröna flaggorna togs bort i november 2026 (E168); nivån är nu ett handfält som ägaren sätter, och marginalen är bara information.")} Marginalen finns för att ta upp fel i modellen och i indata, vilka i det här projektets egna granskningar vanligtvis har uppgått till fem till femton procent av värdet. Den finns inte för att ta upp att företaget går dåligt; det bär tillväxtbedömningen för det sämre fallet, och den skrivs ut bredvid köpkursen som information, inte inräknad i den.</p>
-<p><strong>Ändrat i november 2026.</strong> Marginalen räknas fortfarande ut och skrivs ut, men den binder ingenting: en kurs på högst 85 procent av värdet skilde inte ut senare avkastning i testerna, så beslut E168 gjorde den till information. Kön säger UNDER MBP, aldrig "köp". Se <a href="tested.html">kapitel 22</a>.</p>
+<p><strong>Ändrat i november 2026.</strong> Marginalen räknas fortfarande ut och skrivs ut, men den binder ingenting: en kurs på högst 85 procent av värdet skilde inte ut senare avkastning i testerna, så beslut E168 gjorde den till information. Kön säger UNDER MBP, aldrig "köp". Se <a href="tested.html">[[ch:tested]]</a>.</p>
 {N.flush()}
 
 <p>Köpkursen skrivs ut med två följeslagare: samma kurs omräknad med diskonteringsräntan en halv punkt lägre och en halv punkt högre. Ägaren ser hur mycket talet lutar sig mot en ränta som, enligt metodens egen medgivande, är en preferens. Ett förslag om att verktyget skulle lägga in veto mot varje beslut som vänder inom det bandet avvisades, med ett skäl värt att citera: en sådan regel kunde bara någonsin ta bort en slutsats, aldrig skapa en, "och det här ramverkets diagnostiserade fel är att det inte kan säga ja."{N.ref("Beslut E29. 'Fragility is DISPLAYED, never ADJUDICATED.'")}</p>
@@ -671,7 +667,7 @@ chapter(
 
 <h2>Z: utgången, bestämd först</h2>
 <p>Före varje köp skriver ägaren ned utgången: ett bull-värde, en säljlinje som satts för hand, eller det villkor som bryter tesen. Den sätts när ägaren inte har något intresse i svaret. När aktierna väl är ägda kommer varje skäl att inte sälja att verka övertygande, vilket är precis därför utgången skrevs tidigare. Sedan E162 får fältet säga "inget" för ett kursstopp, och det godtas; ett tomt fält blockerar fortfarande. Verktyget vägrar behandla ett ägt namn som komplett medan fältet är tomt, och rapporterar det före allt annat på sidan.{N.ref("Ett ägt namn med ett tomt utgångsfält är en blockering, som rapporteras före varje dom. Ramverket §6.4 nämner också tesutgångar: sälj när skälet till att äga är borta, till exempel en andra nedskärning av bolagets egen prognos.")}</p>
-<p><strong>Ändrat i november 2026.</strong> Z är nu ett skrivet beslut om utgången, och för den här ägaren är beslutet "inget kursstopp" (beslut E162, <a href="tested.html">kapitel 22</a>). Det som finns kvar av avsnittet är poängen: utgången bestäms innan pengarna rör sig, medan ingen har något intresse i svaret.</p>
+<p><strong>Ändrat i november 2026.</strong> Z är nu ett skrivet beslut om utgången, och för den här ägaren är beslutet "inget kursstopp" (beslut E162, <a href="tested.html">[[ch:tested]]</a>). Det som finns kvar av avsnittet är poängen: utgången bestäms innan pengarna rör sig, medan ingen har något intresse i svaret.</p>
 {N.flush()}
 
 <h2>Vad verktyget gör med allt detta</h2>
@@ -711,6 +707,8 @@ chapter(
 <p><dfn>Skuggboken</dfn> är en tabell med en rad per nej. Varje rad registrerar sex fakta och inget annat: bolaget, datumet för domen, vad domen var och om den står sig, den avslutade slutkursen det datumet i bolagets egen valuta, värdet om något hade fastställts, och en rad som anger vad som avgjorde.</p>
 
 {FIG["refusal_tracked"]()}
+
+[[fig:shadow]]
 
 <p>Det som medvetet inte registreras betyder lika mycket. Ingen tes. Ingen förväntan om vad kursen kommer att göra. Inget mål. Med beslutets ord: "en rad som argumenterar är en rad som kommer att argumenteras om." Boken är ett register över beslut och kurser, inte ett register över åsikter om dem.</p>
 

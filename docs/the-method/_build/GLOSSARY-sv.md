@@ -75,3 +75,26 @@ bank prospectus. Write "du" to the reader, never "ni".
 - Proper names (Buffett, Graham, Rappaport, SEC EDGAR, Yahoo, Claude).
 - Numbers and units: keep the figures, use Swedish decimal comma only in
   running prose (12,5 %), never inside code or diagram coordinates.
+
+## Added 2026-11-09 (the redesign)
+
+| English | Swedish |
+|---|---|
+| Prologue | Prolog |
+| The tests | Testerna |
+| The close | Avslutning |
+| the claim | påståendet |
+| CENTA at this step | CENTA i det här steget |
+| What the test said | Vad testet sade |
+| Try it | Prova själv |
+| In three lines | På tre rader |
+| The book in ten minutes | Boken på tio minuter |
+| the investor's route / the builder's route | investerarens väg / byggarens väg |
+| the bug museum / an exhibit | buggmuseet / ett föremål |
+| warning sign (plain word for hard kill) | varningstecken |
+| cushion | kudde |
+| edge (a proven advantage) | fördel |
+| attempt (a registered test) | försök |
+| spare cash (plain word for free cash flow) | fritt kassaflöde |
+| the master list | huvudlistan |
+| owned / candidates / watched / to review / no | ägda / kandidater / bevakas / att granska / nej |

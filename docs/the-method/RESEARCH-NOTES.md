@@ -532,3 +532,67 @@ not as its source.
 - Any Dalio material; Skitka (1999); ICMJE's 2005 statement; Registered
   Reports; Rappaport 1986; Penman; Essentia's performance claim; IBM
   Carbon's guidance; a source for "five to seven hues"; Zhu on hyperlinks.
+
+
+---
+
+## Addendum, 2026-11-09: the redesign
+
+The prose was judged good and the order and form the problem. What changed,
+and what each change rests on.
+
+**The order.** The story of the tests comes first (a prologue), because
+everything after it is what the tests left: a reader who meets the tests in
+chapter 22 has read twenty-one chapters under a false impression. Part One
+is the method as it stands; the tests chapter sits between the two parts;
+Part Two went from nine chapters to four by assembling sections of the old
+ones (`_build/content3.py`), so no prose was retyped in either language.
+Chapter numbers are no longer written in the text: a reference is a token
+resolved at build time (`_build/order.py`), so a reordering cannot leave a
+wrong number behind. Every old address still answers, with a one-line page
+that sends the reader on.
+
+**One frame for every chapter** (`_build/frame.py`): the claim in one
+sentence; the story and the rule; one real company at this step; what the
+test said; one command to try; three lines. Models: the fixed chapter
+shape of Greenblatt's *Little Book*, the story-then-number pairing of
+Damodaran's *Narrative and Numbers*, and the habit of admitting mistakes in
+print from Buffett's letters and Marks's memos. The ten-minute route is now
+a page of every chapter's claim and three lines, which takes ten minutes;
+the old route was nine whole chapters under the same name.
+
+**One company through the book.** CENTA (Central Garden & Pet) was bought,
+valued wrongly, valued again and sold within eight days. It is used because
+it shows the method failing in the order the method warns against, and the
+record of it is complete: every figure is from the company's own filings or
+the owner's own trades. NAME A stays for arithmetic.
+
+**Four figures a reader can move** (`_build/figures.py`, `site.js`), after
+the explorable explanations of Bret Victor, Nicky Case and Bartosz
+Ciechanowski: the reverse DCF with the price and the reader's own belief on
+one curve; one square per company for where each stands; every tested rule
+with what it claimed and what the test found; the shadow book by horizon.
+Each is complete as static HTML and SVG, so it reads with scripts off and in
+print. Decisions:
+
+- *Form before colour.* One curve and two markers for the reverse DCF (one
+  axis); a unit chart for part-to-whole at a ratio of 3 to 2,011, where a
+  bar would be invisible; a list, not a chart, for the rules; one bar per
+  horizon for the shadow book.
+- *Colour keeps the site's five meanings.* The squares are laid in the order
+  purple, orange, green, hatched grey, vermillion: run through a palette
+  validator, every adjacent pair in that order separates for colour-blind
+  readers (the order purple, green fails). No group is told apart by colour
+  alone: each has its label and its count, and "to review" is hatched.
+- *The shadow book uses no pass or fail colour.* A refusal that trailed the
+  index is not thereby right, so the two parts are dark and pale ink.
+- *Every value is reachable without hovering:* a readout under each figure
+  says in a sentence what the marks show, and updates on pointer, focus and
+  tap.
+- *No vendor figure.* The squares are the project's own counts; the shadow
+  book shows counts of refusals, never a price or a return; the tests are
+  told in words.
+
+**The bug museum** is a chapter because the faults are the most transferable
+part of the project, in the manner of Julia Evans's zines: each exhibit is
+what it looked like, the cause, how it was caught and what changed.
