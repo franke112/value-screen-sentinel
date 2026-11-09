@@ -14,6 +14,30 @@ the record of what you decided and why.
 > **[franke112.github.io/value-screen-sentinel/the-method](https://franke112.github.io/value-screen-sentinel/the-method/)**
 > *(på svenska: [the-method/sv](https://franke112.github.io/value-screen-sentinel/the-method/sv/))*
 
+## In ten seconds
+
+- **Values any US company from its SEC filings** in one command: bear, base
+  and bull per share, and the growth today's price assumes.
+- **Reads Nordic reports too**: the issuers' own PDFs and ESEF packages,
+  every figure with the sentence it came from.
+- **Watches everything you have valued, every night.** New reports are
+  fetched, read and the company valued again; your phone hears only when the
+  outcome changes.
+- **One master list** of every company you have ever looked at: owned,
+  candidates, watched, to review, and every "no" with its reason.
+- **Prices every "no"** against the index, so you learn whether your
+  refusals were right.
+- **Tested, not trusted.** Every mechanical rule went through a backtest
+  written down before it ran; the ones that failed were taken out of the
+  code.
+
+## Who it is for
+
+One private investor who wants **discipline, not tips**: a method written
+down, figures only from the companies themselves, and a record that shows
+afterwards whether the decisions were good. If you want signals to trade on,
+this is not it.
+
 ## What it looks like
 
 Ask whether Warren Buffett would own a company. Any US company works,
@@ -34,17 +58,33 @@ Coca-Cola is a fine business at three times what the method thinks it is
 worth, so the answer is **wait**. That is the most common answer, and on
 purpose.
 
-Every company you have valued sits in a queue. When one of them publishes a
-report, the report is fetched and read that night and the company is valued
-again. A message reaches your phone only when something changes the outcome
-(the messages are in Swedish: *titta* is "look", *utsikt* is "outlook"):
+Every Claude Code session opens with the master list. This is the author's
+own, on 2026-11-09 (prices in each listing's currency; the holdings are
+disclosed below):
+
+```
+HUVUDLISTAN 2026-11-09: 106 bolag -- ägda 3, kandidater 2, bevakas 14, att granska 13, nej 74
+ÄGDA: ACAD.ST 129.4 (base 158.74); CENTA 41.84 (base 40.19); CTSH 63.96 (base 58.03)
+KANDIDATER: SF.ST 6.29 (bear 4.42 / base 13.42); PACT.ST 139.8 (bear 148 / base 189)
+ATT GRANSKA, billigast: ZZ-B.ST 1.49 [grov]; MMS 1.45 [maskin]; STG.CO 1.31 [grov]; ...
+BEVAKAS under linjen: SFM 1.53; HRB 1.40; GNTX 1.37; DECK 1.35
+KOMMANDE: 2026-11-11 PACT.ST Capital Markets Day; 2026-11-17 ZZ-B.ST Q3 2026 interim report; ...
+```
+
+*ägda* = owned, *kandidater* = candidates, *bevakas* = watched, *att granska*
+= to review, *nej* = no. The number after a name is base value over price;
+*grov* (rough) and *maskin* (machine) say the value is a screen, not yet a
+full valuation.
+
+A message reaches your phone only when something changes the outcome
+(*titta* = look, *utsikt* = outlook):
 
 ```
 TITTA DHI 152.28 <= 156.86 (0.83x base 184.54, strike) -- value it properly now
 UTSIKT GNTX: värdet på fyra kvartal 27.10 -> 23.80 (-12%) efter kvartalet till 2026-09-30 -- läs rapporten
 ```
 
-*(The second line is an illustration of the format, not a real reading.)*
+*(The second line illustrates the format; it is not a real reading.)*
 
 ## Try it in five minutes
 
@@ -60,174 +100,149 @@ export VSS_SEC_CONTACT='mytool/1.0 (you@example.com)'   # SEC asks every caller 
 .venv/bin/python tools/warren.py KO AAPL     # would Warren own it?
 ```
 
-Then **[`SETUP.md`](SETUP.md)** covers the settings, starting your own
-watchlist and queue, phone alerts and the nightly timers.
+Reading reports with a model (the nightly reading, `vss earnings`,
+`vss pdfdraft`) needs an [OpenRouter](https://openrouter.ai) key in
+`VSS_OPENROUTER_KEY`. That costs a little per report read; everything else
+runs without it. **[`SETUP.md`](SETUP.md)** covers the settings, your own
+watchlist and queue, phone alerts (ntfy) and the nightly timers.
 
 ## How it works
 
 ```
  screen  ──>  read  ──>  value  ──>  queue  ──>  you decide
  weekly       the        bear /      nightly,    in a Claude Code
- ranking      company's  base /      one         session, every
- of ~2,000    own        bull per    message     reason written
+ sift of      company's  base /      one         session, every
+ ~2,000       own        bull per    message     reason written
  companies    reports    share       on change   down
 ```
 
 1. **Screen.** Every Saturday it sifts the market down to companies with
-   positive free cash flow and enough history to read, and lists them in a
-   fixed random order: the ranking key and the drawdown band it used to
-   apply did not hold in our tests, so the order no longer pretends to
-   know which is best.
+   positive free cash flow and enough history to read, in a fixed random
+   order: the ranking key it used to apply did not hold in our tests, so the
+   order no longer pretends to know which is best.
 2. **Read.** Figures come only from the company's own filings: SEC for the
-   US, the issuers' own report PDFs for the Nordics. Every number carries
-   its source.
-3. **Value.** A bear, base and bull value per share, from ten years of
-   cash flow at a 9.5% required return. Four quality tests are printed
-   beside it as information; as a rule for dropping names they did not
-   hold in our tests, so they no longer decide.
-4. **Queue.** Every valued company is held against its value every night.
-   You get one message when the price comes near or under it, a ban lifts,
-   or a new report changes the outlook (next section). A report that changes
-   nothing is a line in the night's report, not a message. The buy-price
-   cushion is shown, never binding.
+   US, the issuers' own reports for the Nordics. Every number carries its
+   source.
+3. **Value.** A bear, base and bull value per share from the cash the
+   business makes, at a 9.5 % required return. Four quality tests are
+   printed beside it as information.
+4. **Queue.** Every valued company is held against its value every night
+   (next section).
 5. **You decide.** The machine writes no verdict, no fair value and no buy
    price on its own. A person does that, in a session, with the reasons
    written down.
 
 ## Every night, without you
 
-Since November 2026 the queue does the first reading of every new report on
-its own:
-
-1. **It finds the report.** SEC EDGAR for US filers (10-Q, 10-K, 8-K item
-   2.02), the Nasdaq Nordic and Oslo feeds for Nordic issuers, the vendor's
-   report date elsewhere.
-2. **It reads it.** The document is fetched and read twice by a model
-   ([`vss/reportread.py`](vss/reportread.py), through `vss earnings`). A
-   figure the two readings disagree on is dropped, and every figure kept
-   carries the sentence it came from. The rules' hard kills are checked on
-   what was read.
+1. **It finds new reports.** SEC EDGAR for US filers (10-Q, 10-K, 8-K item
+   2.02), the Nasdaq Nordic and Oslo feeds for Nordic issuers, the report
+   date elsewhere.
+2. **It reads them.** The document is fetched and read twice by a model
+   ([`vss/reportread.py`](vss/reportread.py)). A figure the two readings
+   disagree on is dropped, and every figure kept carries the sentence it
+   came from.
 3. **It values the company again** on its last four quarters
    ([`vss/outlook.py`](vss/outlook.py)) and compares with its own reading
    before the report, so a bias in the method cancels and what is left is
    what the report changed.
 4. **It tells you only if the outcome changed**: the value moved 10 % or
-   more, a hard kill fired, guidance was cut, or a headline says profit
-   warning, guidance change, CEO or CFO leaving, a bid or a delisting.
-   Otherwise: "read: nothing changed", in the report.
+   more, guidance was cut, a rule fired, or a headline says profit warning,
+   guidance change, CEO or CFO leaving, a bid or a delisting. The price
+   reaching a value line is a message too. Everything else is a line in the
+   night's report: "read: nothing changed".
+5. **It rebuilds the master list**, `reports/HUVUDLISTA.md`
+   ([`tools/master_list.py`](tools/master_list.py)).
 
-All of it lands in **the master list**, `reports/HUVUDLISTA.md`, rebuilt every
-night ([`tools/master_list.py`](tools/master_list.py)): every company ever
-looked at, in five groups (owned, candidates, watched, to review, no), each
-with its price, bear, base and bull, the kind of value it is, why it is in
-that group and its next event. A Claude Code session opens with the short
-version of it, so it is the first thing you see.
+None of this decides. A machine reading is a flag to read the report; a buy
+still needs a full valuation and a person.
 
-None of this decides. A machine reading is a flag to read the report, and
-the value it computes is a screen; a buy still needs a full valuation and a
-person.
+## What it can do
+
+| What | Command |
+|---|---|
+| Value any US company from SEC filings, with four quality tests | `tools/warren.py KO` |
+| A rough bear / base / bull for any listing Yahoo covers | `tools/rough_fv.py EVO.ST` |
+| The nightly run: every watched name against its values | `vss run` |
+| The queue: price lines, new reports read, outlook changes | `vss queue` |
+| The master list of every company looked at | `tools/master_list.py` |
+| List and download a Nordic issuer's reports (Nasdaq Nordic, Oslo) | `vss nordic --ticker PACT.ST --reports` |
+| Read a Nordic issuer's ESEF report package | `vss esef --ticker X --draft` |
+| A model's draft of a report's statement lines, gated by quote checks | `vss pdfdraft` |
+| Read one report for figures and the rules' red flags | `vss earnings --ticker X --url ...` |
+| A figure counts as checked only when two independent machine readings print the same digits | `tools/cross_verify.py` |
+| The shadow book: every "no" priced against the index at 1, 3, 6 and 12 months | `vss shadow` |
+| Every closed position against OMXS30 and the S&P 500 ("sold too early?") | `vss sales` |
+| Companies that fell hard on news, with the headline | `vss newsdrop` |
+| One read-only page of the whole book | `vss overview` |
+| Walk one company through the review, step by step, in Claude Code | `/review` |
+| An independent review of the whole method and code, in Claude Code | `/granska` |
+
+Foreign dividend withholding in a Swedish ISK (Finland 35 %, Denmark 27 %,
+Norway 25 %, US 15 %) is counted as the plain yearly cost it is.
 
 ## Four habits it enforces
 
 1. **Figures come only from the company's own filings.** No source, no number.
 2. **You write your growth view down before you see the market's.** A view
    written after seeing the price doesn't count.
-3. **A failed test is final.** A company that fails on something other than
-   price does not come back because the price fell. Only a new fact brings it
-   back: a new report, a changed forecast.
-4. **Every "no" is tracked.** Each refusal is measured against the index at
-   1, 3, 6 and 12 months, so you find out whether your no's were right.
+3. **A rule enters or leaves only on a test registered in advance.** A rule
+   that sounds right is not evidence; since November 2026 a decision rule
+   changes only on a backtest written down before it runs.
+4. **Every "no" is tracked.** Each refusal is priced against the index, so
+   you find out whether your no's were right.
+
+## What the backtests taught us (November 2026)
+
+**We did not take the method on trust.** Between 29 October and 9 November
+2026 every mechanical rule was put through a test on history written down
+**before** it ran: 26 attempts, every one logged, the failures too. The US
+from SEC filings; prices with the delisted put back, and the whole Nordic
+test, from a commercial vendor under a personal licence (25,854 stocks,
+18,336 of them later delisted). The vendor's data and the figures computed
+from it stay private, so the results are verdicts in words; the scripts
+(`tools/backtest/`) and the rule each test was held to are public.
+**Attempt by attempt: [reference/backtest/WHAT-WE-TESTED.md](reference/backtest/WHAT-WE-TESTED.md).**
+
+The bar: better in both markets **and** both halves of each period, and
+from attempt #25 above what 1,000 random relabellings give.
+
+| Rule | What the test found | Ruling |
+|---|---|---|
+| A price stop under the purchase price | no stop level helped; with real trading costs every one cost money | removed (E162) |
+| Buy only after a 15-50 % fall from the high | did not help in either market | removed (E161) |
+| The screener's ranking key | did not sort returns by decile in both markets | removed (E167) |
+| Kills on falling revenue, margin and receivables | did not separate returns | removed (E163) |
+| Debt limits | did not lift the mean; the loss tail is re-tested on new data (#26) | removed (E168) |
+| Quality tests Q1-Q4 as a drop rule | did not separate returns | information only (E168) |
+| The buy-price cushion as a binding line | did not separate returns | information only (E168) |
+
+**What stayed:** the valuation, the growth view written before the price,
+figures only from the companies' own filings, positive free cash flow, the
+reading of reports, at most 6 % of the portfolio in one name, and the
+shadow book.
+
+**What it means:** survivorship flattered the first run badly; the Nordic
+result held in sample but not in a check run once on later years; and
+against Magic Formula, Quantitative Value, O'Shaughnessy and Piotroski ours
+beat none of twelve comparisons. **No proven edge.** A broad index fund is
+the base for the author's money; this method is the part that is studied,
+not trusted. The next test (#26) runs only on new data, in April 2027.
 
 ## What's in the box
 
 | Folder | What it is |
 |---|---|
 | `vss/` | the program (`python -m vss <command>`) |
-| `tools/` | tools run by hand: `warren.py`, `rough_fv.py`, `fetch_mfn.py`, ... |
+| `tools/` | tools run by hand, the master list, the backtest scripts |
 | `config/` | the watchlist, the queue, the screen's universe: **the author's own, as an example** |
-| `reference/` | the rules on two pages ([FRAMEWORK.md](reference/FRAMEWORK.md), since 2026-11-08) and every earlier ruling, with dates and reasons, in [archive/](reference/archive/) |
+| `reference/` | the rules on two pages ([FRAMEWORK.md](reference/FRAMEWORK.md)), every ruling with its date and reason ([archive/](reference/archive/)), the reviews of each company |
 | `docs/` | [the book](docs/the-method/) and [the technical manual](docs/MANUAL.md) |
 | `deploy/` | the nightly jobs (user-level systemd) |
+| `.claude/` | the Claude Code commands `/review` and `/granska` |
 | `tests/` | about 3,000 tests |
-| `reports/`, `data/`, `sources/` | what the runs write; your own fetched data lands here |
 
 Words like *strike*, *MBP*, *tier* or *WATCH-GATED* are explained in the
 **[glossary](GLOSSARY.md)**.
-
-## What the backtests taught us (November 2026)
-
-**We did not take the method on trust.** Between 29 October and 9 November
-2026 every mechanical rule in it was put through a test on history that was
-written down **before** it ran, and a rule that did not hold was taken out
-of the code. Twenty-six attempts, every one logged, the failures too.
-**The whole story, attempt by attempt, is in
-[reference/backtest/WHAT-WE-TESTED.md](reference/backtest/WHAT-WE-TESTED.md).**
-
-**What went through it.** US filers from SEC's own filings (public), and for
-the survivorship-free US prices and the whole Nordic test a commercial data
-vendor, [EODHD](https://eodhd.com), under a personal licence: daily prices
-2007-2026 for **25,854** US and Nordic common stocks, **18,336** of them
-later delisted (bankrupt, taken over, merged: exactly the companies a
-backtest on today's list forgets), and their financial statements, each
-dated to when it became public. Outside benchmarks: Ken French's country
-portfolios and the JKP factors.
-
-The licence allows private use only, so **the vendor's data and the figures
-computed from it stay private**: below are verdicts in words. What is
-public is everything needed to check us: the test scripts in
-`tools/backtest/`, the engine in `vss/`, and the rule each test was held
-to. With your own licence you can run them.
-
-**The bar every rule had to clear:** better in both markets (Nordics and
-US) **and** in both halves of each period, from attempt #25 also above
-what 1,000 random relabellings give. One pass among dozens of tries is
-counted as what chance gives, not as a finding.
-
-**What did not hold, and is gone from the code:**
-
-| Rule | What the test found | Ruling |
-|---|---|---|
-| A price stop under the purchase price | no stop level helped, with or without buying back; with Avanza's costs every one cost money | E162 |
-| Buy only after a 15-50 % fall from the high | did not help in either market | E161 |
-| The screener's ranking key (EBIT/assets + EBIT/EV) | did not sort returns by decile in both markets | E167 |
-| Hard kills on falling revenue, margin and receivables | did not separate returns | E163 |
-| Debt limits (2.5x in the screen, 3.5x as a kill) | did not lift the mean; their effect on the loss tail is re-tested on new data (#26) | E168 |
-| Quality tests Q1-Q4 as a drop rule and a tier step | did not separate returns; now printed as information | E168 |
-| The buy-price cushion (MBP) as a binding line | did not separate returns; now shown, never binding | E168 |
-| "Below its price of a year ago" | did not hold | E168 |
-| A lower-growth haircut on the derived growth | realised growth was not below the derived figure | E160 struck |
-
-**What stayed:** the valuation itself, the growth view written down before
-the price is seen, figures only from the companies' own filings, positive
-free cash flow, the reading of reports, the issuer's own sentence on what it
-sells, at most 6 % of the portfolio in one name, and the shadow book that
-prices every "no".
-
-**Other lessons:**
-
-1. **Survivorship flattered us.** With the delisted put back, the method's
-   cheap portfolio trailed the S&P 500 (total return) by far more than the
-   survivors-only run showed.
-2. **Nordics: strong in sample, not confirmed out of it.** Over 2010-2021
-   the cheaper companies by fair value beat the dearer ones in most years.
-   A pre-registered check on 2022-2023, run once, did **not** confirm it.
-3. **Where the sort worked, it worked by avoiding the dearest names**, not
-   by finding winners; and against real value funds in SEK the gain came
-   from the market, not from the sort.
-4. **Against Magic Formula, Quantitative Value, O'Shaughnessy and
-   Piotroski**, ours beat none of twelve comparisons.
-5. **Data traps we found in our own data and fixed**, each logged as its own
-   attempt: split-restated share counts, Nordic dates that were only period
-   ends, figures in another currency than the share, a ticker reused after
-   a takeover, the vendor's one-day bad prints, IFRS 16 leases.
-6. **A cost that was invisible:** in a Swedish ISK under the tax-free
-   allowance, foreign dividend withholding (Finland 35%, Denmark 27%,
-   Norway 25%, US 15%) is a plain yearly cost; the entry step now asks it.
-
-**Bottom line:** no proven edge. The tool is more honest about what it does
-not know, and a broad index fund remains the base for the owner's money;
-the method is the part that is studied, not trusted. The history used so
-far is now closed: the next test (#26) runs only on new data, in April 2027.
 
 ## What it is not
 
@@ -239,25 +254,22 @@ far is now closed: the next test (#26) runs only on new data, in April 2027.
 
 ## Disclosure
 
-**I own shares in AcadeMedia (ACAD.ST), Cognizant (CTSH) and Central Garden
-& Pet (CENTA)** as of 2026-11-07 (the CTSH and CENTA positions are being
-exited, two CENTA shares left; Cirrus Logic, CRUS, was sold in full on
-2026-10-20 and 2026-10-21 -- corrected 2026-11-08 from the broker's
-transaction list; this line said 2026-10-23). The record in this repository shows when I bought and sold
-others. The fair values, buy limits and stops in `config/watchlist.yaml` are
-my personal working notes. **Nothing here is a recommendation to buy, sell or
-hold any security.** If my holdings change, this line may be out of date: the
-watchlist's `status: HELD` entries are the current record.
+**As of 2026-11-09 I own shares in AcadeMedia (ACAD.ST)**, and one share of
+Cognizant (CTSH) and two of Central Garden & Pet (CENTA), both being sold.
+The record in this repository shows when I bought and sold others. The
+values and lines in `config/` are my personal working notes. **Nothing here
+is a recommendation to buy, sell or hold any security.** The watchlist's and
+queue's `HELD` entries are the current record if this line is out of date.
 
 ## Data
 
-No market data is shipped. Prices come from Yahoo Finance (via yfinance),
-filings from SEC EDGAR, the Nasdaq Nordic feed and MFN's public news feed,
-and headlines from Google News RSS. You fetch them yourself, at run time.
-The universe lists in `config/universe/` hold only tickers, names and
-listing facts, each with its source in its `.meta.json` (S&P lists from
-Wikipedia, CC BY-SA 4.0; STOXX Europe 600 from iShares; Nordic lists from
-Yahoo).
+No market data is shipped. You fetch it yourself, at run time: prices from
+Yahoo Finance (yfinance), filings from SEC EDGAR, Nordic reports from the
+Nasdaq Nordic feed, Euronext Oslo's NewsWeb and MFN, headlines from Google
+News RSS. Reports are read by the model you choose through OpenRouter. The
+universe lists in `config/universe/` hold only tickers, names and listing
+facts, each with its source in its `.meta.json` (S&P lists from Wikipedia,
+CC BY-SA 4.0; STOXX Europe 600 from iShares; Nordic lists from Yahoo).
 
 ## Questions?
 
