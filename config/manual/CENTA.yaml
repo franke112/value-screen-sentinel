@@ -362,9 +362,9 @@ annual:
         verified_kind: tagged
       working_capital_change:
         value: 126577000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2022-09-25..2023-09-30] 10-K 0000887733-25-000041 filed 2025-11-26 = 43,980,000 + us-gaap:IncreaseDecreaseInInventories [2022-09-25..2023-09-30] 10-K 0000887733-25-000041 filed 2025-11-26 = 86,980,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2022-09-25..2023-09-30] 10-K 0000887733-25-000041 filed 2025-11-26 = 8,813,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2022-09-25..2023-09-30] 10-K 0000887733-25-000041 filed 2025-11-26 = -19,962,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2022-09-25..2023-09-30] 10-K 0000887733-25-000041 filed 2025-11-26 = 6,766,000 = 126,577,000 (cash effect: an asset increase negated, a liability increase kept)"
+        page: "E140(1) tied to the cash flow statement: CENTA_FY2025_annual-report-10k_2025-11-26_en_a0.htm, 2022-09-25..2023-09-30. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable 43,980,000 + us-gaap:IncreaseDecreaseInInventories 86,980,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets 8,813,000 + us-gaap:IncreaseDecreaseInAccountsPayable -19,962,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities 6,766,000 = 126,577,000 (printed values, cash effect). The operating section's 18 rows sum to the printed operating cash flow 381,634,000 within 9,500; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2022-09-25..2023-09-30] 10-K 0000887733-25-000041 filed 2025-11-26"
@@ -463,9 +463,9 @@ annual:
         verified_kind: tagged
       working_capital_change:
         value: 143632000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-10-01..2024-09-28] 10-K 0000887733-25-000041 filed 2025-11-26 = 11,857,000 + us-gaap:IncreaseDecreaseInInventories [2023-10-01..2024-09-28] 10-K 0000887733-25-000041 filed 2025-11-26 = 84,306,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2023-10-01..2024-09-28] 10-K 0000887733-25-000041 filed 2025-11-26 = 11,944,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2023-10-01..2024-09-28] 10-K 0000887733-25-000041 filed 2025-11-26 = 18,373,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2023-10-01..2024-09-28] 10-K 0000887733-25-000041 filed 2025-11-26 = 17,152,000 = 143,632,000 (cash effect: an asset increase negated, a liability increase kept)"
+        page: "E140(1) tied to the cash flow statement: CENTA_FY2025_annual-report-10k_2025-11-26_en_a0.htm, 2023-10-01..2024-09-28. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable 11,857,000 + us-gaap:IncreaseDecreaseInInventories 84,306,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets 11,944,000 + us-gaap:IncreaseDecreaseInAccountsPayable 18,373,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities 17,152,000 = 143,632,000 (printed values, cash effect). The operating section's 18 rows sum to the printed operating cash flow 394,892,000 within 9,500; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: -60226000
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2023-10-01..2024-09-28] 10-K 0000887733-25-000041 filed 2025-11-26"
@@ -591,9 +591,9 @@ annual:
         verified_kind: machine_read_back
       working_capital_change:
         value: 50622000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-09-29..2025-09-27] 10-K 0000887733-25-000041 filed 2025-11-26 = 629,000 + us-gaap:IncreaseDecreaseInInventories [2024-09-29..2025-09-27] 10-K 0000887733-25-000041 filed 2025-11-26 = 31,278,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2024-09-29..2025-09-27] 10-K 0000887733-25-000041 filed 2025-11-26 = -2,740,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2024-09-29..2025-09-27] 10-K 0000887733-25-000041 filed 2025-11-26 = 20,107,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2024-09-29..2025-09-27] 10-K 0000887733-25-000041 filed 2025-11-26 = 1,348,000 = 50,622,000 (cash effect: an asset increase negated, a liability increase kept)"
+        page: "E140(1) tied to the cash flow statement: CENTA_FY2025_annual-report-10k_2025-11-26_en_a0.htm, 2024-09-29..2025-09-27. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable 629,000 + us-gaap:IncreaseDecreaseInInventories 31,278,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets -2,740,000 + us-gaap:IncreaseDecreaseInAccountsPayable 20,107,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities 1,348,000 = 50,622,000 (printed values, cash effect). The operating section's 18 rows sum to the printed operating cash flow 332,506,000 within 9,500; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: -3318000
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2024-09-29..2025-09-27] 10-K 0000887733-25-000041 filed 2025-11-26"
@@ -612,9 +612,9 @@ roll_forward:
   figures:
     working_capital_change:
       value: -50161000
-      page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-09-28..2026-06-27] 10-Q 0000887733-26-000022 filed 2026-08-06 = -130,770,000 + us-gaap:IncreaseDecreaseInInventories [2025-09-28..2026-06-27] 10-Q 0000887733-26-000022 filed 2026-08-06 = 22,268,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2025-09-28..2026-06-27] 10-Q 0000887733-26-000022 filed 2026-08-06 = 2,522,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2025-09-28..2026-06-27] 10-Q 0000887733-26-000022 filed 2026-08-06 = 8,189,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2025-09-28..2026-06-27] 10-Q 0000887733-26-000022 filed 2026-08-06 = 47,630,000 = -50,161,000 (cash effect: an asset increase negated, a liability increase kept)"
+      page: "E140(1) tied to the cash flow statement: CENTA_2026-06-27_quarterly-report-10q_2026-08-06_en_a0.htm, 2025-09-28..2026-06-27. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -130,770,000 + us-gaap:IncreaseDecreaseInInventories 22,268,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets 2,522,000 + us-gaap:IncreaseDecreaseInAccountsPayable 8,189,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities 47,630,000 = -50,161,000 (printed values, cash effect). The operating section's 15 rows sum to the printed operating cash flow 207,595,000 within 8,000; classes from config/manual/maps/cashflow-tags.yaml"
       status: VERIFIED
-      verified_kind: tagged
+      verified_kind: tied_statement
     operating_lease_liabilities:
       value: 215535000
       page: "E71 -- the lease liability from two stated parts the filer never totals, current and non-current portions of one liability by the taxonomy's own definition: us-gaap:OperatingLeaseLiabilityCurrent [as of 2026-06-27] 10-Q 0000887733-26-000022 filed 2026-08-06 = 50,686,000 + us-gaap:OperatingLeaseLiabilityNoncurrent [as of 2026-06-27] 10-Q 0000887733-26-000022 filed 2026-08-06 = 164,849,000 = 215,535,000"

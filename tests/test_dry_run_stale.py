@@ -14,8 +14,9 @@ def _row(ticker, close_date, as_of, *, status="HELD", stop=112.0, fv=68.97,
     """A row carrying the REAL assessment, as build_row makes it."""
     a = R.assess(ticker=ticker, status=status, last_close=close if close_date else None,
                  last_close_date=close_date, drawdown=0.1, fv_base=fv, tier=tier,
-                 stop_price=stop, catalyst_date=None, catalyst_resolved=None,
-                 catalyst_event=None, as_of=as_of, holidays=holidays)
+                 catalyst_date=None, catalyst_resolved=None,
+                 catalyst_event=None, as_of=as_of, holidays=holidays,
+                 stop_none=True)      # E162(4): the entry says `stop_price: none`
     return SimpleNamespace(entry=SimpleNamespace(ticker=ticker, status=status,
                                                  stop_price=stop),
                            assessment=a, source="live", closed_days=holidays,
@@ -57,10 +58,12 @@ def test_no_close_at_all_refuses():
 def _assess(**kw):
     base = dict(ticker="LIAB.ST", status="HELD", last_close=123.40,
                 last_close_date=date(2026, 9, 16), drawdown=0.1, fv_base=68.97,
-                tier=2, stop_price=112.0, catalyst_date=None,
+                tier=2, catalyst_date=None,
                 catalyst_resolved=None, catalyst_event=None,
                 as_of=date(2026, 9, 18))
     base.update(kw)
+    base.pop("stop_price", None)      # E162
+    base.setdefault("stop_none", True)
     return R.assess(**base)
 
 
@@ -69,7 +72,7 @@ def test_a_held_name_two_sessions_stale_is_blocked_and_says_so():
     assert a.blocked and not a.verdicts
     reason = " ".join(b.reason for b in a.blockers)
     assert "123.40" in reason and "2026-09-16" in reason and "2 trading days" in reason
-    assert "LEVEL NOT CHECKED" in reason and "stop 112.00" in reason and "MBP" in reason
+    assert "LEVEL NOT CHECKED" in reason and "MBP" in reason
 
 
 def test_a_name_with_no_level_keeps_three_sessions():
@@ -123,7 +126,7 @@ def test_the_push_lists_every_blocked_name_with_a_level_and_nothing_else():
     lines = block_push_lines(rows, as_of)
     assert [l.split(":")[0] for l in lines] == ["LIAB.ST", "SAP.DE"]
     assert "123.40 on 2026-09-16, 4 session(s) old" in lines[0]
-    assert "stop 112.00" in lines[0] and "NOT CHECKED" in lines[0]
+    assert "MBP 51.73" in lines[0] and "NOT CHECKED" in lines[0]
     # THE UNROUNDED record replay, which is what the live row uses:
     # 140.3746376700501 x 0.85 = 119.3184 -> 119.32.
     assert "MBP 119.32" in lines[1]

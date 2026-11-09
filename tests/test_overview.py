@@ -566,24 +566,11 @@ def test_a_stale_block_on_a_name_with_a_level_reaches_the_top_line():
                               stop_price=112.0, mbp=51.73)], [], as_of=AS_OF)
     assert [i.kind for i in items] == [O.A_UNCHECKABLE]
     assert "NOT CHECKED" in items[0].sentence and "2026-09-16" in items[0].sentence
-    assert "stop 112.00" in items[0].sentence
+    assert "MBP 51.73" in items[0].sentence and "stop" not in items[0].sentence   # E162
 
 
-def test_a_holding_with_no_stop_reaches_the_top_line():
-    items = O.attention([_row(status="HELD", blockers=(O.NO_STOP,))], [],
-                        as_of=AS_OF)
-    assert [i.kind for i in items] == [O.A_HELD_NO_STOP]
 
 
-def test_a_buy_line_crossed_with_no_stop_says_the_buy_is_not_actionable():
-    """"not YET actionable" was the wording before the qualifying clause
-    arrived, and it implied the stop was the only thing outstanding. It
-    may not be."""
-    items = O.attention(
-        [_row(verdicts=(O.AT_BELOW_MBP, O.NO_STOP_PRE_ENTRY),
-              price=59.92, mbp=67.04)], [], as_of=AS_OF)
-    assert "no stop set" in items[0].sentence
-    assert "not actionable" in items[0].sentence
 
 
 def test_a_level_that_could_not_be_checked_is_not_a_level_that_held():
@@ -625,12 +612,9 @@ def test_a_dropped_or_outside_name_never_reaches_the_top_line():
 
 def test_the_top_line_is_ordered_most_urgent_first():
     items = O.attention(
-        [_row(ticker="A", verdicts=(O.AT_BELOW_MBP,), price=1.0, mbp=2.0),
-         _row(ticker="B", status="HELD", blockers=(O.NO_STOP,)),
-         _row(ticker="C", verdicts=(O.STOP_BREACHED,), stop_price=9.0,
-              price=8.0)],
+        [_row(ticker="A", verdicts=(O.AT_BELOW_MBP,), price=1.0, mbp=2.0)],
         [_cal(ticker="D", when=AS_OF + timedelta(days=1))], as_of=AS_OF)
-    assert [i.ticker for i in items] == ["C", "B", "A", "D"]
+    assert [i.ticker for i in items] == ["A", "D"]
 
 
 def test_the_kinds_the_top_line_admits_are_a_closed_list(page):
@@ -1285,14 +1269,6 @@ def test_green_is_not_the_accent_and_needs_nothing_by_itself():
     assert O.attention([green], [], as_of=AS_OF) == []
 
 
-def test_a_name_that_needs_you_may_wear_any_tone():
-    """The thing that needs the owner can be red: a breached stop is an
-    attention item whatever the distance says."""
-    row = _row(status="HELD", verdicts=(O.STOP_BREACHED,), stop_price=9.0,
-               price=8.0, dist_fv=Distance(2.0))
-    assert tone(row.dist_fv.value)[0] == "d-remote"
-    assert [i.kind for i in O.attention([row], [], as_of=AS_OF)] == [
-        O.A_STOP_BREACHED]
 
 
 # --- the sparkline's below-fair-value segment --------------------------------

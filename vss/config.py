@@ -68,6 +68,10 @@ ALLOWED_KEYS = {
     # entry because the C4 / E42 exit test runs against it, and a HELD name
     # without one has no exit test at all (owner, 2026-09-20).
     "fv_bull",
+    # A value the owner or a ruling has declared VOID: the reason, in words.
+    # Nothing reads fv_base as a value while it is set -- the queue prints no
+    # base and no line for the name (review 3, L1: SAP.DE, 2026-11-08).
+    "fv_void",
     "tier",
     "dd_at_entry",
     "peak_date",
@@ -225,6 +229,8 @@ class WatchlistEntry:
     #: the exit test is the bull case (C4 / E42, and LIAB.ST's exit of
     #: 2026-09-19 is the worked example).
     fv_bull: float | None = None
+    #: the reason fv_base is VOID, or None (review 3, L1)
+    fv_void: str | None = None
     tier: int | None = None
     #: FRAMEWORK-EDITS E12: Gate 1 is evaluated ONCE, when a name enters
     #: PIPELINE, and is then frozen. This is the drawdown as measured at
@@ -237,6 +243,9 @@ class WatchlistEntry:
     dd_at_entry: float | None = None
     peak_date: date | None = None
     stop_price: float | None = None
+    #: E162: True where the entry says `stop_price: none` -- no price stop
+    #: by decision. False with stop_price None means the field is EMPTY.
+    stop_none: bool = False
     catalyst_date: date | None = None
     catalyst_resolved: date | None = None
     catalyst_event: str | None = None
@@ -279,6 +288,10 @@ class WatchlistEntry:
 def _where(index: int, ticker: Any = None) -> str:
     label = f" (ticker: {ticker})" if ticker else ""
     return f"watchlist entry #{index + 1}{label}"
+
+
+#: E162: the word that records "no price stop" as a decision.
+STOP_NONE = "none"
 
 
 def _as_float(value: Any, key: str, index: int, ticker: Any) -> float | None:
@@ -931,7 +944,8 @@ def _parse_mbp_basis(raw: Any, index: int,
 #: actually landed in the account, net of the broker's charges and FX --
 #: a different quantity from price x shares, kept apart from it.
 SALE_KEYS = ("date", "price", "currency", "shares", "account", "rule",
-             "run_record", "proceeds_sek", "note")
+             "run_record", "proceeds_sek", "note", "bought",
+             "counterfactual", "overrides", "to")
 #: The rule that fired. C1-C4 are FRAMEWORK section 6.4's exit rules as
 #: FRAMEWORK-EDITS numbers them (C4 = the fair-value-gap exit, E42 its
 #: horizon); `owner` is a discretionary sale outside any rule, which is
@@ -957,6 +971,19 @@ class SaleRecord:
     run_record: str | None = None
     proceeds_sek: float | None = None
     note: str | None = None
+    #: The first buy of the position this fill closes (a DATA field, E164).
+    #: With the last sale it bounds when the name was HELD, which decides
+    #: whether a shadow-book row may stand (E114: never-bought only).
+    bought: date | None = None
+    #: A sale that did NOT happen: what a rule the owner set aside would
+    #: have done (owner 2026-11-08, ACAD.ST against E157). Reported apart
+    #: as "undantag mot regel"; never in realised proceeds, the by-rule
+    #: table or a reconciliation. A DATA field (E164).
+    counterfactual: bool = False
+    #: With `counterfactual`: the ruling the owner set aside (e.g. E157).
+    overrides: str | None = None
+    #: With `counterfactual`: where the proceeds would have gone.
+    to: str | None = None
 
     @property
     def price_missing(self) -> bool:
@@ -1013,7 +1040,26 @@ def _parse_sales(raw: Any, index: int, ticker: Any,
         fill_currency = _as_text(item.get("currency"))
         fill_currency = (upper_safe_code(fill_currency.strip())
                          if fill_currency else currency)
+        bought = _as_date(item.get("bought"), "bought", index, ticker)
+        if bought is not None and bought > sale_date:
+            raise ConfigError(f"{where}: bought {bought} is after the sale "
+                              f"{sale_date}")
+        counterfactual = item.get("counterfactual", False)
+        if counterfactual not in (True, False, None):
+            raise ConfigError(f"{where}: counterfactual must be true or false, "
+                              f"got {counterfactual!r}")
+        counterfactual = bool(counterfactual)
+        overrides = _as_text(item.get("overrides"))
+        if counterfactual and not overrides:
+            raise ConfigError(f"{where}: a counterfactual fill names the ruling "
+                              f"it stands for (`overrides:`, e.g. E157)")
+        if not counterfactual and (overrides or item.get("to")):
+            raise ConfigError(f"{where}: `overrides` and `to` belong to a "
+                              f"counterfactual fill only")
         fills.append(SaleRecord(
+            counterfactual=counterfactual, overrides=overrides,
+            to=_as_text(item.get("to")),
+            bought=bought,
             date=sale_date, shares=shares, rule=rule, price=price,
             currency=fill_currency, account=_as_text(item.get("account")),
             run_record=_as_text(item.get("run_record")),
@@ -1239,7 +1285,11 @@ def parse_entry(raw: Any, index: int) -> WatchlistEntry:
     # that cannot be a price is a provenance problem, not a low number.
     fv_base = _as_float(raw.get("fv_base"), "fv_base", index, ticker)
     fv_bull = _as_float(raw.get("fv_bull"), "fv_bull", index, ticker)
-    stop_price = _as_float(raw.get("stop_price"), "stop_price", index, ticker)
+    # E162: `stop_price: none` is the DECISION that the name has no price
+    # stop; an empty field is not a decision and a HELD name blocks on it.
+    raw_stop = raw.get("stop_price")
+    stop_none = isinstance(raw_stop, str) and raw_stop.strip().lower() == STOP_NONE
+    stop_price = None if stop_none else _as_float(raw_stop, "stop_price", index, ticker)
     _check_price_leg(fv_base, "fv_base", index, ticker)
     _check_price_leg(fv_bull, "fv_bull", index, ticker)
     _check_price_leg(stop_price, "stop_price", index, ticker)
@@ -1276,10 +1326,12 @@ def parse_entry(raw: Any, index: int) -> WatchlistEntry:
         cik=_as_cik(raw.get("cik"), index, ticker),
         fv_base=fv_base,
         fv_bull=fv_bull,
+        fv_void=(str(raw["fv_void"]).strip() or None) if raw.get("fv_void") is not None else None,
         tier=tier,
         dd_at_entry=dd_at_entry,
         peak_date=peak_date,
         stop_price=stop_price,
+        stop_none=stop_none,
         catalyst_date=catalyst_date,
         catalyst_resolved=catalyst_resolved,
         catalyst_event=_as_text(raw.get("catalyst_event")),

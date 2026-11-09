@@ -1,0 +1,180 @@
+schema: vss/review v1
+ticker: UMG.AS
+date: '2026-09-25'
+status_at_start: PIPELINE
+prepare_report: reports/prepare/UMG.AS-2026-09-25.json
+prepare_waived: null
+steps:
+- step: gate-1
+  outcome: next
+  text: 42.7% is inside the 15–50% band (B2), and 2026-07-31 (−25.4% in one session)
+    is an identifiable, dateable catalyst (B1).
+  answered_at: '2026-09-25T12:39:09+02:00'
+  skipped: false
+  skip_reason: null
+  documents_opened: []
+  rulings_cited:
+  - B2
+  - B1
+  verification: []
+- step: gate-2
+  outcome: watch-gated
+  text: 'watch-gated
+
+
+    The catalyst is slower growth in subscription revenue, which raised concerns about
+    UMG''s streaming momentum. Subscription revenue growth fell to 6.7% in Q2 from
+    7.9% in the prior quarter.
+
+
+    That is a change in reported fundamentals, so it isn''t A. It isn''t B or C either.
+    It isn''t provably D, since growth is still positive and there is no demand destruction.
+    It can''t be classified with confidence, so the rule makes it D until proven otherwise.
+
+
+    Gate condition: the Q3 2026 subscription growth print. If growth stabilises at
+    or above about 6.7%, reclassify as A. If it decelerates further, it''s D, dropped.'
+  answered_at: '2026-09-25T12:48:01+02:00'
+  skipped: false
+  skip_reason: null
+  documents_opened:
+  - Reuters, 2026-07-31
+  rulings_cited: []
+  verification: []
+- step: gate-3
+  outcome: null
+  text: null
+  answered_at: null
+  skipped: true
+  skip_reason: Chain ended at gate-2 (watch-gated). Not run. Resume at gate-3 only
+    if the Q3 2026 print reclassifies gate-2 as A.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: gate-4
+  outcome: null
+  text: null
+  answered_at: null
+  skipped: true
+  skip_reason: Chain ended at gate-2 (watch-gated). Not run. Resume at gate-3 only
+    if the Q3 2026 print reclassifies gate-2 as A.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: gate-5
+  outcome: null
+  text: null
+  answered_at: null
+  skipped: true
+  skip_reason: Chain ended at gate-2 (watch-gated). Not run. Resume at gate-3 only
+    if the Q3 2026 print reclassifies gate-2 as A.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: hard-kills
+  outcome: null
+  text: null
+  answered_at: null
+  skipped: true
+  skip_reason: Chain ended at gate-2 (watch-gated). Not run. Resume at gate-3 only
+    if the Q3 2026 print reclassifies gate-2 as A.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: conviction
+  outcome: null
+  text: null
+  answered_at: null
+  skipped: true
+  skip_reason: Chain ended at gate-2 (watch-gated). Not run. Resume at gate-3 only
+    if the Q3 2026 print reclassifies gate-2 as A.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: basis
+  outcome: null
+  text: null
+  answered_at: null
+  skipped: true
+  skip_reason: Chain ended at gate-2 (watch-gated). Not run. Resume at gate-3 only
+    if the Q3 2026 print reclassifies gate-2 as A.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: flow
+  outcome: null
+  text: null
+  answered_at: null
+  skipped: true
+  skip_reason: Chain ended at gate-2 (watch-gated). Not run. Resume at gate-3 only
+    if the Q3 2026 print reclassifies gate-2 as A.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: net-debt
+  outcome: null
+  text: null
+  answered_at: null
+  skipped: true
+  skip_reason: Chain ended at gate-2 (watch-gated). Not run. Resume at gate-3 only
+    if the Q3 2026 print reclassifies gate-2 as A.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: divisor
+  outcome: null
+  text: null
+  answered_at: null
+  skipped: true
+  skip_reason: Chain ended at gate-2 (watch-gated). Not run. Resume at gate-3 only
+    if the Q3 2026 print reclassifies gate-2 as A.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: growth-view
+  outcome: null
+  text: null
+  answered_at: null
+  skipped: true
+  skip_reason: Chain ended at gate-2 (watch-gated). Not run. Resume at gate-3 only
+    if the Q3 2026 print reclassifies gate-2 as A.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: strike
+  outcome: null
+  text: null
+  answered_at: null
+  skipped: true
+  skip_reason: Chain ended at gate-2 (watch-gated). Not run. Resume at gate-3 only
+    if the Q3 2026 print reclassifies gate-2 as A.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: tier-mbp
+  outcome: null
+  text: null
+  answered_at: null
+  skipped: true
+  skip_reason: Chain ended at gate-2 (watch-gated). Not run. Resume at gate-3 only
+    if the Q3 2026 print reclassifies gate-2 as A.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+- step: verdict
+  outcome: null
+  text: null
+  answered_at: null
+  skipped: true
+  skip_reason: Chain exited at gate-2 (watch-gated). Nothing was priced, so no section-5
+    verdict applies. Status is set by a separate watchlist edit.
+  documents_opened: []
+  rulings_cited: []
+  verification: []
+growth_view: null
+note: Gate 2 could not be classified with confidence. Q2 2026 subscription revenue
+  growth slowed to 6.7% from 7.9% (Reuters, 2026-07-31). That is a change in reported
+  fundamentals, but there is no demonstrated demand destruction, so it is treated
+  as D until proven otherwise. Re-open gate-2 at UMG's Q3 2026 report. If growth is
+  at or above ~6.7%, reclassify as A and resume at gate-3. If it decelerates further,
+  DROPPED.

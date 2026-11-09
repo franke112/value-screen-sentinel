@@ -29,43 +29,23 @@ ROOT = Path(__file__).resolve().parents[1]
 FRAMEWORK = (ROOT / "reference" / "FRAMEWORK.md").read_text(encoding="utf-8")
 
 
-# --- E99: the scale rebased, and the gate is NOT deleted ------------------
+# --- E99/E100 (sweep D12, 2026-11-08: §4.3-4.4 and Gate 4 removed from FRAMEWORK;
+#     the tests that locked their text went with them) --------------------------
 
 
-def test_the_conviction_scale_counts_FOUR_gates():
-    assert "`Score = (Gates passed: 0–4) + Σ(green flags) − Σ(soft flags)`" in FRAMEWORK
-    assert "(Gates passed: 0–5)" not in FRAMEWORK
 
 
-def test_every_threshold_moved_down_by_one():
-    assert "- **≥ 6:** High conviction" in FRAMEWORK
-    assert "- **4–5:** Medium" in FRAMEWORK
-    assert "- **≤ 3:** Drop or watchlist" in FRAMEWORK
 
 
-def test_gate_4_is_DATA_MISSING_and_NOT_DELETED():
-    """A gate that is DATA MISSING is a gate waiting for data; a gate that
-    is deleted is a judgement nobody can revisit."""
-    assert "### Gate 4 — Valuation discount (at least 2 of 3) — **DATA MISSING (E99)**" in FRAMEWORK
-    # its three limbs are still there, word for word
-    assert "Forward P/E ≥ **20% below** its own 5-year median" in FRAMEWORK
-    assert "EV/EBIT or P/S below peer median" in FRAMEWORK
-    assert "FCF yield ≥ 1.5× sector median" in FRAMEWORK
-    assert "returns to the denominator" in FRAMEWORK
 
 
-def test_tier_1_keeps_its_other_two_conditions():
-    """A score that clears the bar does not by itself make a tier 1 --
-    UNA.AS scores 7 and is held at tier 2 on the fortress and domain
-    conditions."""
-    assert "Conviction **≥ 6** (E99), fortress balance sheet, secular tailwind" in FRAMEWORK
 
 
-def test_the_tier_table_carries_E90s_cushions_and_says_E100_governs_them():
-    assert "FV_base × **0.85**" in FRAMEWORK
-    assert "FV_base × **0.75**" in FRAMEWORK
-    assert "FV_base × **0.65**" in FRAMEWORK
-    assert "governed by E100" in FRAMEWORK
+def test_the_framework_carries_E90s_cushions():
+    """The rewritten FRAMEWORK (sweep D13) states E90's cushions, and the
+    code applies the same three."""
+    assert "tier 1 × 0.85" in FRAMEWORK and "tier 2 × 0.75" in FRAMEWORK
+    assert "tier 3 × 0.65" in FRAMEWORK and "E90" in FRAMEWORK
 
 
 def test_the_rebase_moves_no_name_GDDY_corrected_2026_09_19():
@@ -207,7 +187,7 @@ def test_a_tier_change_between_two_runs_is_marked_on_the_second(tmp_path: Path):
     night_one = R.assess(
         ticker="GDDY", status="WATCH-PRICED", last_close=close,
         last_close_date=date(2026, 8, 31), drawdown=0.34, fv_base=base,
-        tier=3, stop_price=None, catalyst_date=None, catalyst_resolved=None,
+        tier=3, catalyst_date=None, catalyst_resolved=None,
         catalyst_event=None, as_of=date(2026, 8, 31))
     assert night_one.mbp == pytest.approx(85.91)
     assert not any(v.code in (R.AT_BELOW_MBP, R.DEFINITION_CROSSING)
@@ -217,7 +197,7 @@ def test_a_tier_change_between_two_runs_is_marked_on_the_second(tmp_path: Path):
     night_two = R.assess(
         ticker="GDDY", status="WATCH-PRICED", last_close=close,
         last_close_date=date(2026, 9, 1), drawdown=0.34, fv_base=base,
-        tier=2, stop_price=None, catalyst_date=None, catalyst_resolved=None,
+        tier=2, catalyst_date=None, catalyst_resolved=None,
         catalyst_event=None, as_of=date(2026, 9, 1),
         previous_mbp=previous_mbps(db)["GDDY"])
     assert night_two.mbp == pytest.approx(99.13)
@@ -235,7 +215,7 @@ def test_the_same_move_caused_by_a_PRICE_FALL_is_not_marked(tmp_path: Path):
     verdict = R.assess(
         ticker="GDDY", status="WATCH-PRICED", last_close=80.0,
         last_close_date=date(2026, 9, 1), drawdown=0.46, fv_base=132.1752,
-        tier=3, stop_price=None, catalyst_date=None, catalyst_resolved=None,
+        tier=3, catalyst_date=None, catalyst_resolved=None,
         catalyst_event=None, as_of=date(2026, 9, 1),
         previous_mbp=previous_mbps(db)["GDDY"])
     codes = [v.code for v in verdict.verdicts]

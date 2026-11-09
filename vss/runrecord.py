@@ -881,6 +881,19 @@ class E140Block:
     #: E142 (2026-10-27): the method rebuild's legs, or None on a record
     #: struck before it.
     e142: "E142Params | None" = None
+    #: E154 (2026-11-07): working capital that consumed cash in all three
+    #: years stays in FCF0 and its year-to-date consumption is not
+    #: neutralised. False on a record struck before it, which replays as it was.
+    e154: bool = False
+    #: E154.1 (2026-11-08): the year-to-date working capital is neutralised
+    #: again as E140.1(3) says, also where E154 keeps the three years'. False
+    #: on a record struck 2026-11-07 under E154 alone, which replays as it was.
+    e154_1: bool = False
+
+    @property
+    def wc_kept(self) -> bool:
+        from .valuation import structural_wc
+        return self.e154 and structural_wc(self.years)
 
     def deal_price(self, end: str = "high") -> float:
         return float(sum((d.high if end == "high" else d.low) for d in self.deals))
@@ -896,7 +909,10 @@ class E140Block:
         if self.rolled_from is not None and self.wc_since_year_end is None:
             return None
         deals = sum((d.high if end == "high" else d.low) for d in self.deals)
-        return float(deals) + float(self.wc_since_year_end or 0.0)
+        wc = float(self.wc_since_year_end or 0.0)
+        if self.wc_kept and wc < 0 and not self.e154_1:
+            wc = 0.0          # E154 as struck 2026-11-07; E154.1 neutralises it again
+        return float(deals) + wc
 
 
 def struck_before(run_ts: datetime, since: datetime) -> bool:
@@ -1161,7 +1177,8 @@ class RunRecord:
             net_interest_paid=self.interest.net_interest_paid,
             tax_rate=self.e140.tax_rate,
             nci_dividends_paid=self.nci_dividends_paid,
-            deduct_acquisitions=self.e140.e142 is None)
+            deduct_acquisitions=self.e140.e142 is None,
+            keep_structural_wc=self.e140.e154)
 
     def fcf0(self) -> float:
         """FCF0 under E34, E36 and E105, from this record's own inputs --
@@ -1875,6 +1892,23 @@ def _e140_block(parsed, basis, bs_basis, ledger, inputs: list, kinds_of
                             kinds_of(got.figures)))
         return got.value
 
+    # E166 (2026-11-08): a US GAAP store's working capital is the figure TIED
+    # to the cash flow statement (vss/cfrecon.py), or it is DATA MISSING and
+    # section 5 refuses. The companyfacts tag-list sum is never read again:
+    # it dropped lines silently (GDDY 195.1m against 103.0m printed).
+    must_tie = parsed.origin == M.ORIGIN_XBRL
+
+    def tied(figs) -> bool:
+        return all(f is not None and f.verified_kind == M.KIND_TIED_STATEMENT
+                   for f in figs) and bool(figs)
+
+    def read_wc(on) -> float | None:
+        if must_tie:
+            got = M.resolve_on_basis(parsed, on, "working_capital_change")
+            if got.value is not None and not tied(got.figures):
+                return None
+        return read("working_capital_change", on)
+
     ifrs_lease = (parsed.operating_leases_in_ocf is not None
                   and not parsed.operating_leases_in_ocf.value)
     years = []
@@ -1899,7 +1933,7 @@ def _e140_block(parsed, basis, bs_basis, ledger, inputs: list, kinds_of
         years.append(NormalisedYear(
             label=year.label,
             operating_cash_flow=read("operating_cash_flow", year),
-            working_capital=read("working_capital_change", year),
+            working_capital=read_wc(year),
             capex=capex, sbc=read("sbc", year),
             acquisitions=read("acquisitions_paid", year),
             lease_cash=lease_cash))
@@ -1911,9 +1945,21 @@ def _e140_block(parsed, basis, bs_basis, ledger, inputs: list, kinds_of
     if rolled_from is not None:
         wc_since, wc_page = M.working_capital_since(parsed, rolled_from, cut)
         if wc_since is not None:
-            inputs.append(Input(
-                f"working_capital_change {rolled_from.isoformat()}..{cut.isoformat()}",
-                wc_since, wc_page, "store"))
+            # Review 2026-11-08 L2: the figure's own verification, as every
+            # other leg carries it -- the roll-forward's, or its quarters'.
+            rf = parsed.roll_forward
+            if rf is not None and rf.period_end == cut:
+                figs = [rf.figures.get("working_capital_change")]
+            else:
+                figs = [q.figures.get("working_capital_change") for q in parsed.periods
+                        if M.period_months(q.period) == M.QUARTER_MONTHS
+                        and rolled_from < q.period_end <= cut]
+            if must_tie and not tied(figs):
+                wc_since, wc_page = None, ""          # E166: not tied, DATA MISSING
+            else:
+                inputs.append(Input(
+                    f"working_capital_change {rolled_from.isoformat()}..{cut.isoformat()}",
+                    wc_since, wc_page, "store", kinds_of(figs)))
     country = tax_country(parsed.ticker)
     return E140Block(
         years=tuple(years), tax_country=country,
@@ -1925,7 +1971,7 @@ def _e140_block(parsed, basis, bs_basis, ledger, inputs: list, kinds_of
         deals_in_balance_sheet=tuple(d.name for d in ledger.deals
                                      if d not in in_bridge),
         rolled_from=rolled_from, wc_since_year_end=wc_since,
-        wc_since_page=wc_page)
+        wc_since_page=wc_page, e154=True, e154_1=True)
 
 
 def _e140_from(raw: Mapping[str, Any] | None) -> "E140Block | None":
@@ -1945,7 +1991,9 @@ def _e140_from(raw: Mapping[str, Any] | None) -> "E140Block | None":
         rolled_from=_as_date(raw.get("rolled_from")),
         wc_since_year_end=raw.get("wc_since_year_end"),
         wc_since_page=raw.get("wc_since_page", ""),
-        e142=(E142Params(**raw["e142"]) if raw.get("e142") else None))
+        e142=(E142Params(**raw["e142"]) if raw.get("e142") else None),
+        e154=bool(raw.get("e154", False)),
+        e154_1=bool(raw.get("e154_1", False)))
 
 
 def _as_date(value: Any) -> date | None:

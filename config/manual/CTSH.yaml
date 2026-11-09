@@ -370,10 +370,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: -177000000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-01-01..2023-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -43,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2023-01-01..2023-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = 123,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2023-01-01..2023-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -23,000,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2023-01-01..2023-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -4,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2023-01-01..2023-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -242,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2023-01-01..2023-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = 12,000,000 = -177,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        value: -189000000
+        page: "E140(1) tied to the cash flow statement: CTSH_FY2025_annual-report-10k_2026-02-12_en_a0.htm, 2023-01-01..2023-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -43,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets 123,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable -23,000,000 + us-gaap:IncreaseDecreaseInDeferredRevenue -4,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities -242,000,000 = -189,000,000 (printed values, cash effect). The operating section's 11 rows sum to the printed operating cash flow 2,330,000,000 within 6,000,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: -409000000
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2023-01-01..2023-12-31] 10-K 0001058290-26-000008 filed 2026-02-12"
@@ -467,10 +467,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: -498000000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-01-01..2024-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -49,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2024-01-01..2024-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -386,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2024-01-01..2024-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -23,000,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2024-01-01..2024-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = 44,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2024-01-01..2024-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -96,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2024-01-01..2024-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = 12,000,000 = -498,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        value: -510000000
+        page: "E140(1) tied to the cash flow statement: CTSH_FY2025_annual-report-10k_2026-02-12_en_a0.htm, 2024-01-01..2024-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -49,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets -386,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable -23,000,000 + us-gaap:IncreaseDecreaseInDeferredRevenue 44,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities -96,000,000 = -510,000,000 (printed values, cash effect). The operating section's 11 rows sum to the printed operating cash flow 2,124,000,000 within 6,000,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: -1615000000
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2024-01-01..2024-12-31] 10-K 0001058290-26-000008 filed 2026-02-12"
@@ -618,10 +618,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: -327000000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -366,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -118,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = -2,000,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = 55,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = 93,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12 = 11,000,000 = -327,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        value: -338000000
+        page: "E140(1) tied to the cash flow statement: CTSH_FY2025_annual-report-10k_2026-02-12_en_a0.htm, 2025-01-01..2025-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -366,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets -118,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable -2,000,000 + us-gaap:IncreaseDecreaseInDeferredRevenue 55,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities 93,000,000 = -338,000,000 (printed values, cash effect). The operating section's 11 rows sum to the printed operating cash flow 2,883,000,000 within 6,000,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2025-01-01..2025-12-31] 10-K 0001058290-26-000008 filed 2026-02-12"
@@ -694,10 +694,10 @@ roll_forward:
   url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0001058290.json"
   figures:
     working_capital_change:
-      value: -984000000
-      page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2026-01-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = -274,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2026-01-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = -219,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2026-01-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = 29,000,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2026-01-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = -20,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2026-01-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = -498,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2026-01-01..2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = -2,000,000 = -984,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+      value: -982000000
+      page: "E140(1) tied to the cash flow statement: CTSH_2026-06-30_quarterly-report-10q_2026-07-29_en_a0.htm, 2026-01-01..2026-06-30. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -274,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets -219,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable 29,000,000 + us-gaap:IncreaseDecreaseInDeferredRevenue -20,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities -498,000,000 = -982,000,000 (printed values, cash effect). The operating section's 11 rows sum to the printed operating cash flow 832,000,000 within 6,000,000; classes from config/manual/maps/cashflow-tags.yaml"
       status: VERIFIED
-      verified_kind: tagged
+      verified_kind: tied_statement
     operating_lease_liabilities:
       value: 534000000
       page: "E71 -- the lease liability from two stated parts the filer never totals, current and non-current portions of one liability by the taxonomy's own definition: us-gaap:OperatingLeaseLiabilityCurrent [as of 2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = 145,000,000 + us-gaap:OperatingLeaseLiabilityNoncurrent [as of 2026-06-30] 10-Q 0001058290-26-000031 filed 2026-07-29 = 389,000,000 = 534,000,000"

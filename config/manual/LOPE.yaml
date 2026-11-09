@@ -288,9 +288,9 @@ annual:
         verified_kind: tagged
       working_capital_change:
         value: -8120000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-01-01..2023-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = -1,398,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2023-01-01..2023-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = -1,639,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade [2023-01-01..2023-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = -3,109,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2023-01-01..2023-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = -1,974,000 = -8,120,000 (cash effect: an asset increase negated, a liability increase kept)"
+        page: "E140(1) tied to the cash flow statement: LOPE_FY2025_annual-report-10k_2026-02-18_en_a0.htm, 2023-01-01..2023-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -1,398,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets -1,639,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade -3,109,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities -1,974,000 = -8,120,000 (printed values, cash effect). The operating section's 12 rows sum to the printed operating cash flow 243,662,000 within 6,500; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001104659-26-017047 filed 2026-02-18, fiscal year to 2023-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
@@ -368,9 +368,9 @@ annual:
         verified_kind: tagged
       working_capital_change:
         value: 10949000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-01-01..2024-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = -4,137,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2024-01-01..2024-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = 1,170,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade [2024-01-01..2024-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = 9,664,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2024-01-01..2024-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = 4,252,000 = 10,949,000 (cash effect: an asset increase negated, a liability increase kept)"
+        page: "E140(1) tied to the cash flow statement: LOPE_FY2025_annual-report-10k_2026-02-18_en_a0.htm, 2024-01-01..2024-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -4,137,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets 1,170,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade 9,664,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities 4,252,000 = 10,949,000 (printed values, cash effect). The operating section's 12 rows sum to the printed operating cash flow 289,958,000 within 6,500; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001104659-26-017047 filed 2026-02-18, fiscal year to 2024-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
@@ -520,9 +520,9 @@ annual:
         verified_kind: tagged
       working_capital_change:
         value: -6781000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-01-01..2025-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = -1,330,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2025-01-01..2025-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = -4,192,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade [2025-01-01..2025-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = -3,451,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2025-01-01..2025-12-31] 10-K 0001104659-26-017047 filed 2026-02-18 = 2,192,000 = -6,781,000 (cash effect: an asset increase negated, a liability increase kept)"
+        page: "E140(1) tied to the cash flow statement: LOPE_FY2025_annual-report-10k_2026-02-18_en_a0.htm, 2025-01-01..2025-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -1,330,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets -4,192,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade -3,451,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities 2,192,000 = -6,781,000 (printed values, cash effect). The operating section's 13 rows sum to the printed operating cash flow 273,491,000 within 7,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001104659-26-017047 filed 2026-02-18, fiscal year to 2025-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
@@ -540,10 +540,10 @@ roll_forward:
   url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0001434588.json"
   figures:
     working_capital_change:
-      value: 40997000
-      page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2026-01-01..2026-06-30] 10-Q 0001104659-26-088674 filed 2026-07-30 = 50,041,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2026-01-01..2026-06-30] 10-Q 0001104659-26-088674 filed 2026-07-30 = -2,095,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade [2026-01-01..2026-06-30] 10-Q 0001104659-26-088674 filed 2026-07-30 = -7,841,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2026-01-01..2026-06-30] 10-Q 0001104659-26-088674 filed 2026-07-30 = 892,000 = 40,997,000 (cash effect: an asset increase negated, a liability increase kept)"
+      value: 56116000
+      page: "E140(1) tied to the cash flow statement: LOPE_2026-06-30_quarterly-report-10q_2026-07-30_en_a0.htm, 2026-01-01..2026-06-30. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable 50,041,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets -2,095,000 + us-gaap:IncreaseDecreaseInAccountsPayableTrade -7,841,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities 892,000 + lope:IncreaseDecreaseInContractWithCustomerLiabilityExcludingStudentDeposits 15,119,000 = 56,116,000 (printed values, cash effect). The operating section's 13 rows sum to the printed operating cash flow 196,855,000 within 7,000; classes from config/manual/maps/cashflow-tags.yaml"
       status: VERIFIED
-      verified_kind: tagged
+      verified_kind: tied_statement
     operating_lease_liabilities:
       value: 104212000
       page: "us-gaap:OperatingLeaseLiability [as of 2026-06-30] 10-Q 0001104659-26-088674 filed 2026-07-30"

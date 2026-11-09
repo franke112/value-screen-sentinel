@@ -173,31 +173,8 @@ def _series(last_close: float, last_volume: float, sessions: int = 60):
     return pd.DataFrame({"Close": closes, "Volume": volumes}, index=index)
 
 
-def test_a_phantom_halving_prints_DATA_MISSING_for_the_stop_check_not_a_breach():
-    """The one-call fix report B #7 named: `series_sanity.check` now runs
-    in `build_row`, before any level is compared. A 0.5x last bar on
-    ordinary volume is an uncorroborated discontinuity, and the close it
-    puts against the 80 stop is not a measurement."""
-    frame = _series(last_close=50.0, last_volume=1000.0)
-    fetched = F.FetchResult("HLD", frame, F.SOURCE_LIVE)
-    row = RUN.build_row(_held_entry(), fetched, date(2026, 8, 20), date(2026, 8, 20))
-    assert row.series_finding is not None
-    codes = [v.code for v in row.assessment.verdicts]
-    assert "STOP_BREACHED" not in codes
-    stop = next(v for v in row.assessment.verdicts if "stop check" in v.detail)
-    assert stop.code == "DATA_MISSING" and "K4" in stop.detail
-    assert RUN.to_record(row, datetime(2026, 8, 20, 22, 30), date(2026, 8, 20))[
-        "series_finding"] == row.series_finding
 
 
-def test_a_real_repricing_the_tape_corroborates_still_breaches():
-    """The control: the same halving on 20x the median volume is a repricing
-    that traded, carries no finding, and the stop check fires as before."""
-    frame = _series(last_close=50.0, last_volume=20_000.0)
-    fetched = F.FetchResult("HLD", frame, F.SOURCE_LIVE)
-    row = RUN.build_row(_held_entry(), fetched, date(2026, 8, 20), date(2026, 8, 20))
-    assert row.series_finding is None
-    assert "STOP_BREACHED" in [v.code for v in row.assessment.verdicts]
 
 
 def test_the_report_names_the_flagged_series_and_the_store_keeps_the_reason(project):

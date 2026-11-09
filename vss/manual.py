@@ -248,8 +248,16 @@ KIND_MACHINE_READ_BACK = "machine_read_back"
 #: against a model's reading of the PDF, or a later report's comparative.
 #: Set only by tools/cross_verify.py; one reading is never enough.
 KIND_TWO_SOURCE = "two_source"
+#: E166 (2026-11-08): a DERIVED working-capital figure -- the sum of the
+#: operating rows the committed cash-flow map classes as working capital,
+#: tied to the filer's printed operating cash flow (vss/cfrecon.py). Never
+#: verified in its own right: it stands on its parts, every one a fact the
+#: filer tagged, so it is as strong as `tagged` and no stronger. Set only by
+#: vss/cfrecon.py.
+KIND_TIED_STATEMENT = "tied_statement"
 VERIFIED_KINDS = (KIND_TAGGED, KIND_CROSS_DOCUMENT, KIND_SAME_PAGE,
-                  KIND_CAPTION_STATEMENT, KIND_MACHINE_READ_BACK, KIND_TWO_SOURCE)
+                  KIND_CAPTION_STATEMENT, KIND_MACHINE_READ_BACK, KIND_TWO_SOURCE,
+                  KIND_TIED_STATEMENT)
 
 
 class ManualError(ConfigError):
@@ -1726,10 +1734,6 @@ class ManualFile:
         newest = self.newest_period
         return newest.period_end if newest else None
 
-    @property
-    def newest_annual(self) -> AnnualEntry | None:
-        return self.annual[-1] if self.annual else None
-
     def _basis(self) -> tuple[dict[str, str], dict[str, tuple[str, int, float]]]:
         """Which block answers each field the two of them both carry.
 
@@ -1792,15 +1796,6 @@ class ManualFile:
             if figure is not None and figure.present:
                 return figure
         return None
-
-    def net_shares_for(self, holder) -> NetShares | None:
-        """The computed net for one holder, and nothing else's.
-
-        Deliberately per-holder: E16 subtracts two counts AT ONE PERIOD END,
-        and an issued count from one date minus a treasury count from
-        another is not a share count of anything.
-        """
-        return net_shares(holder)
 
     def basis_subtraction(self, basis: "Basis", rule: Subtraction):
         """The net and its operands, ALL resolved ON THE BASIS (E16/E18
@@ -4386,7 +4381,6 @@ def _coverage_from(ebit, denominator, parsed: ManualFile, basis: "Basis", rent_n
 
 #: FRAMEWORK §3 Gate 3 and §4.2.5: the two leverage thresholds E119 reads.
 GATE3_LEVERAGE_MAX = 2.5
-KILL_LEVERAGE_MAX = 3.5
 
 
 @dataclass(frozen=True)
@@ -4908,19 +4902,6 @@ def step3_block(parsed: ManualFile, basis: "Basis | None",
     return out
 
 
-def kill_leverage_reading(ticker: str, *,
-                          directory: Path = MANUAL_DIR) -> tuple[str, str] | None:
-    """E119's reading for the 4.2.5 kill, ``(state, line)`` at 3.5x, or None
-    where the name has no store. Never raises: a kill input that cannot be
-    read is the kill's CANNOT EVALUATE, not an exception in the watch."""
-    try:
-        parsed = load_manual(ticker, directory=directory)
-    except Exception:  # noqa: BLE001 -- no store, or one that does not load
-        return None
-    reading = gate3_leverage(parsed, section5_basis(parsed))
-    return reading.state(KILL_LEVERAGE_MAX), reading.line(KILL_LEVERAGE_MAX)
-
-
 def net_debt_on_basis(parsed: ManualFile,
                       basis: "Basis | None") -> tuple[float | None, str]:
     """E35 / E35.1 net debt on one basis, and one sentence naming what went in.
@@ -5105,22 +5086,6 @@ def ratio_states(parsed: ManualFile,
             out.append(RatioState(name, reads, basis.label, RATIO_OK,
                                   f"every leg on {basis.label}"))
     return tuple(out)
-
-
-def section5_period(parsed: ManualFile) -> ManualPeriod | None:
-    """The newest period that supplies a figure SECTION 5 reads.
-
-    Not simply the newest entry. `newest_period` is the max over every stored
-    period, so a file whose 2026 entry carries only `net_ppe` -- a line the
-    ranking key's fingerprint uses and no method of section 5 touches -- would
-    read as current while every figure section 5 would actually hand over came
-    out of 2023. That is exactly SHL.DE's shape in ranking.py rule 5, and it
-    is caught here the same way: by measuring on the rows that are read.
-    """
-    for period in reversed(parsed.periods):
-        if any(period.value(name) is not None for name in SECTION5_FIELDS):
-            return period
-    return None
 
 
 @dataclass(frozen=True)
@@ -6393,18 +6358,6 @@ def _with_subtracted_halves(parsed: "ManualFile",
                 continue
             out[half] = net_move * abs(value) / abs(net_value)
     return out
-
-
-def registered_view_tolerance(parsed: "ManualFile") -> "tuple[float, str] | None":
-    """E106 clause 4's answer for the gate, or None where it cannot be asked."""
-    record = registered_view_record(parsed)
-    if record is None:
-        return None
-    try:
-        fraction, _move, named = record.tolerance()
-    except Exception:      # noqa: BLE001 -- unmeasurable is not "inside"
-        return None
-    return fraction, named
 
 
 def gate_on_registered_view(parsed: "ManualFile", *, as_of: date,

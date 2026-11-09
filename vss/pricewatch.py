@@ -56,8 +56,6 @@ APPROACH_MULTIPLE = 1.25
 
 #: Gate 1's band (FRAMEWORK §3). A name with no value is watched on entering
 #: it; the upper edge is carried so the table can say "through it".
-BAND_LOW = 0.15
-BAND_HIGH = 0.50
 
 #: How far above a level the price must rise before that level may fire
 #: again.
@@ -106,7 +104,6 @@ class Watched:
     distance: float | None = None
     #: KIND_DRAWDOWN: the fall from the 52-week high, as a positive fraction.
     drawdown: float | None = None
-    in_band: bool = False
     #: E98: how the value was brought into the price's denomination, with
     #: the rate and date where one was used, so the arithmetic is checkable.
     conversion: str = ""
@@ -439,10 +436,8 @@ def watch_ranked(rows: Sequence[dict], *, prices: dict,
             item = Watched(
                 ticker, row["position"], KIND_DRAWDOWN, close=close,
                 currency=currency, drawdown=drawdown,
-                in_band=(drawdown is not None
-                         and BAND_LOW <= drawdown <= BAND_HIGH),
-                detail=(f"{why}: watched on the drawdown against Gate 1's "
-                        f"15–50% band"
+                detail=(f"{why}: the drawdown from the 52-week high, "
+                        f"information only (E161: no band)"
                         + (f" ({assessed.state})" if assessed else "")))
         out.append(item)
     return out
@@ -467,7 +462,7 @@ def render_table(items: Sequence[Watched]) -> list[str]:
             dist = f"{item.distance:+.1%}" if item.distance is not None else "--"
             watched_on = "reference distance"
         else:
-            level = f"{BAND_LOW:.0%}–{BAND_HIGH:.0%}"
+            level = "--"
             dist = (f"{item.drawdown:.1%} dd" if item.drawdown is not None
                     else "--")
             watched_on = "drawdown vs 52w high"

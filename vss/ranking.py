@@ -120,6 +120,8 @@ Eight rules the code must not soften:
 
 from __future__ import annotations
 
+import hashlib
+
 import math
 from dataclasses import dataclass, field
 from datetime import date
@@ -1268,8 +1270,23 @@ def competition_ranks(values: Sequence[float]) -> list[int]:
     return ranks
 
 
-def rank(scored: Sequence[Scored]) -> RankingResult:
-    """Split into the two sections and rank each -- E5(a), kept by E6."""
+#: E167 + granskning 2026-11-09: the draw's seed, the same every week.
+DRAW_SEED = "E167"
+
+
+def draw_key(seed: str, ticker: str) -> str:
+    """E167: the order is a draw, seeded so a run record reproduces it."""
+    return hashlib.sha256(f"{seed}|{ticker}".encode()).hexdigest()
+
+
+def rank(scored: Sequence[Scored], seed: str = "") -> RankingResult:
+    """Split into the two sections and ORDER each by a seeded draw (E167).
+
+    E43's key (EBIT / assets + EBIT / EV) no longer orders anything:
+    attempt #24 found it did not sort returns in both markets and both
+    halves, and the pre-registered consequence was a random order. The two
+    legs and their ranks are still computed and written as information.
+    ``seed`` is the screen's as-of date in a real run."""
     result = RankingResult(scored={s.ticker: s for s in scored})
     result.tally = Tally(STEP_RANK, count_in=len(scored))
 
@@ -1292,15 +1309,14 @@ def rank(scored: Sequence[Scored]) -> RankingResult:
             Ranked(s, quality_ranks[i], ey_ranks[i], quality_ranks[i] + ey_ranks[i])
             for i, s in enumerate(both)
         ]
-        # Ascending on the sum; an equal sum breaks alphabetically -- a stated
-        # arbitrary rule rather than an unstated one.
-        rows.sort(key=lambda r: (r.combined, r.ticker))
+        # E167: a seeded draw, not the sum of the ranks.
+        rows.sort(key=lambda r: draw_key(seed, r.ticker))
         result.main = rows
 
     if ey_only:
         ranks = competition_ranks([s.earnings_yield for s in ey_only])  # type: ignore[misc]
         rows = [Ranked(s, None, ranks[i], None) for i, s in enumerate(ey_only)]
-        rows.sort(key=lambda r: (r.ey_rank, r.ticker))
+        rows.sort(key=lambda r: draw_key(seed, r.ticker))
         result.yield_only = rows
 
     result.stale = sorted(stale, key=lambda s: s.ticker)
@@ -1365,6 +1381,11 @@ def rank_candidates(
                              close=closes.get(c.ticker),
                              fetched=fetched_date_for(fetched, c.ticker))
               for c in candidates]
-    result = rank([score(i, fx, as_of, investment_companies) for i in inputs])
+    # Granskning 2026-11-09 (2.4): ONE fixed seed, not the date. E93's weekly
+    # watch reports names entering and leaving the top 10 by position; a new
+    # draw every week would turn every one of those alerts into noise. With
+    # a fixed seed a position moves only when the set of passing names does.
+    result = rank([score(i, fx, as_of, investment_companies) for i in inputs],
+                  seed=DRAW_SEED)
     result.fx = fx
     return result

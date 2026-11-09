@@ -245,7 +245,7 @@
     "caption": "Net cash generated from operating activities",
     "value": 287.5,
     "quote": "Net cash generated from operating activities                                                                                                                   304.6       287.5",
-    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "file": "/tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/AUTO_AR25.pdf",
     "page": 132,
     "note": "Net cash generated from operating activities (after tax paid); 'Cash generated from operations' before tax is 379.0"
    },
@@ -254,28 +254,28 @@
      "caption": "Trade and other receivables",
      "value": -10.4,
      "quote": "Trade and other receivables                                                   0.6      (10.4)",
-     "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+     "file": "/tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/AUTO_AR25.pdf",
      "page": 153
     },
     {
      "caption": "Trade and other payables",
      "value": 6.0,
      "quote": "Trade and other payables                                                     (3.0)      6.0",
-     "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+     "file": "/tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/AUTO_AR25.pdf",
      "page": 153
     },
     {
      "caption": "Provisions",
      "value": 0.1,
      "quote": "Provisions                                                                    0.2        0.1",
-     "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+     "file": "/tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/AUTO_AR25.pdf",
      "page": 153
     },
     {
      "caption": "Inventory",
      "value": 1.0,
      "quote": "Inventory                                                                     0.6       1.0",
-     "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+     "file": "/tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/AUTO_AR25.pdf",
      "page": 153
     }
    ],
@@ -284,14 +284,14 @@
      "caption": "Purchases of intangible assets",
      "value": -0.2,
      "quote": "Purchases of intangible assets                                                                                                                                       –        (0.2)",
-     "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+     "file": "/tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/AUTO_AR25.pdf",
      "page": 132
     },
     {
      "caption": "Purchases of property, plant and equipment",
      "value": -3.6,
      "quote": "Purchases of property, plant and equipment                                                                                                                       (4.0)        (3.6)",
-     "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+     "file": "/tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/AUTO_AR25.pdf",
      "page": 132
     }
    ],
@@ -299,14 +299,14 @@
     "caption": "Payment of lease liabilities",
     "value": -2.7,
     "quote": "Payment of lease liabilities                                                                                                                        14            (2.5)       (2.7)",
-    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "file": "/tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/AUTO_AR25.pdf",
     "page": 132
    },
    "lease_interest": {
     "caption": "Interest on lease liabilities",
     "value": 0.1,
     "quote": "Interest on lease liabilities                                                                0.1             0.1",
-    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "file": "/tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/AUTO_AR25.pdf",
     "page": 147,
     "note": "Income-statement charge (note 14); lease cash interest not separately shown in the cash flow statement; 'Total cash outflow for leases' is the financing line 'Payment of lease liabilities'"
    },
@@ -314,7 +314,7 @@
     "caption": "Payment of interest on borrowings",
     "value": -3.4,
     "quote": "Payment of interest on borrowings                                                                                                                   31             (1.2)      (3.4)",
-    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "file": "/tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/AUTO_AR25.pdf",
     "page": 132,
     "note": "'Payment of interest on borrowings' (financing section)"
    },
@@ -322,21 +322,21 @@
     "caption": "Interest received on cash and cash equivalents",
     "value": 0.5,
     "quote": "Interest received on cash and cash equivalents                                                                                                                    0.9          0.5",
-    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "file": "/tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/AUTO_AR25.pdf",
     "page": 132
    },
    "tax_paid": {
     "caption": "Income taxes paid",
     "value": -91.5,
     "quote": "Income taxes paid                                                                                                                                               (95.1)      (91.5)",
-    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "file": "/tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/AUTO_AR25.pdf",
     "page": 132
    },
    "sbc": {
     "caption": "Share-based payments charge (excluding associated NI)",
     "value": 7.5,
     "quote": "Share-based payments charge (excluding associated NI)                         9.7        7.5",
-    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "file": "/tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/AUTO_AR25.pdf",
     "page": 153
    },
    "acquisitions": {
@@ -347,7 +347,7 @@
     "caption": "Proceeds from sale of property, plant and equipment",
     "value": 0.2,
     "quote": "Proceeds from sale of property, plant and equipment                                                                                                               0.3          0.2",
-    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "file": "/tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/AUTO_AR25.pdf",
     "page": 132,
     "note": "Proceeds from sale of PPE; no business disposal line"
    },
@@ -355,14 +355,14 @@
     "caption": "Cash generated from operations",
     "value": 379.0,
     "quote": "Cash generated from operations                                                                                                                      28         399.7       379.0",
-    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "file": "/tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/AUTO_AR25.pdf",
     "page": 132
    },
    "disposals_extra": {
     "caption": "Proceeds on disposal of shares in investment entities",
     "value": 1.0,
     "quote": "Proceeds on disposal of shares in investment entities                                                                                                                –          1.0",
-    "file": "<scratch>/e140/dl/AUTO_AR25.pdf",
+    "file": "/tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/AUTO_AR25.pdf",
     "page": 132
    }
   }

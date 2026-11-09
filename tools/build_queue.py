@@ -43,7 +43,13 @@ LEGACY = {
     "RKT.L": (23.88, 32.20, None, "reference/RKT.L-STRIKE-2026-08-30.md"),
 }
 TIER_CUSHION = {1: 0.85, 2: 0.75, 3: 0.65}   # E90, as vss run applies it
-HAND_FIELDS = ("sell_at", "look_at", "note", "gate_until", "gate_event", "name")
+HAND_FIELDS = ("sell_at", "look_at", "note", "gate_until", "gate_event", "name",
+               "base_cap", "base_cap_why", "bear_cap", "bull_cap",
+               "shares", "entry", "exit_pending", "override", "correction",
+               "cap_binds_both_ways", "bear_missing")
+#: a base cap stands until the name is struck again under the ruling that set
+#: it; a strike doc dated after the cap's date carries the ruling itself
+CAP_SINCE = "base_cap_since"
 
 
 def _num(s: str) -> float:
@@ -77,6 +83,13 @@ def harvest() -> dict[str, dict]:
     return out
 
 
+def _doc_date(source: str) -> str:
+    """The date in a strike doc's name (<T>-STRIKE-YYYY-MM-DD...)."""
+    import re
+    m = re.search(r"STRIKE-(\d{4}-\d{2}-\d{2})", source or "")
+    return m.group(1) if m else "9999-99-99"
+
+
 def build(existing: list[dict]) -> list[dict]:
     wl = {e["ticker"]: e for e in yaml.safe_load(WATCHLIST.read_text())["tickers"]}
     old = {e["ticker"]: e for e in existing}
@@ -96,9 +109,15 @@ def build(existing: list[dict]) -> list[dict]:
         if w.get("catalyst_date") and not w.get("catalyst_resolved"):
             row["gate_until"] = str(w["catalyst_date"])
             row["gate_event"] = str(w.get("catalyst_event") or "").split(" -- ")[0][:120]
-        for f in HAND_FIELDS:
-            if old.get(ticker, {}).get(f) is not None and f not in row:
-                row[f] = old[ticker][f]
+        prev = old.get(ticker, {})
+        recapped = (prev.get(CAP_SINCE) is not None
+                    and _doc_date(v["source"]) <= str(prev[CAP_SINCE]))
+        for f in HAND_FIELDS + (CAP_SINCE,):
+            if f in ("base_cap", "base_cap_why", "bear_cap", "bull_cap", CAP_SINCE,
+                     "cap_binds_both_ways") and not recapped:
+                continue
+            if prev.get(f) is not None and f not in row:
+                row[f] = prev[f]
         rows.append(row)
     strike_names = {r["ticker"] for r in rows}
     for e in existing:                      # machine and rough entries: kept as written
@@ -121,6 +140,23 @@ HEADER = """\
 # watchlist's MBP rule (base x E90 cushion by tier); a name with no tier has
 # a LOOK line instead (base x 0.85 for a strike, x 0.75 for machine/rough),
 # which says "strike it properly now", never "buy".
+#
+# portfolio_sek: the securities in the portfolio, from the owner's Avanza
+# kontoöversikt 2026-11-08: 248,476 SEK = shares 62,100 + Avanza Zero
+# 186,376; the buffer on the savings account is NOT in it. For the section 7
+# ceiling (E157: one name at most 6% of it) on every HELD row with shares.
+# WAS 190,000 until 2026-11-08: not the owner's figure but a session's
+# estimate in the ACAD note of 2026-11-02 (commit 830febd): the ~56,454 SEK
+# position taken as a ~30% sleeve, 56,454 / 0.30 = ~188,000 -> "~190k".
+# The core in that base: Avanza Zero alone since 2026-11-04; until then Avanza
+# Zero + Avanza USA (Avanza USA sold in full 2026-11-04, 38,584.74 SEK, with
+# 36,147.72 SEK of Avanza Zero; 74,200 SEK to the buffer account BUFFER-ACCOUNT).
+# Source: Avanza transaktioner 2026-11-08. Hand fields
+# base_cap / bear_cap / bull_cap: a lower value a later ruling gives before
+# the next strike (E154), dropped by this builder once the name is struck
+# again; exit_pending: a sell decided and not yet carried out, reminded weekly;
+# override: the owner set a rule aside for the name {rule, overrides, reason,
+# standing, expires, since}, printed beside the line it touches.
 """
 
 
@@ -128,9 +164,11 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true")
     a = ap.parse_args(argv)
-    existing = (yaml.safe_load(QUEUE.read_text()) or {}).get("names", []) if QUEUE.exists() else []
+    whole = (yaml.safe_load(QUEUE.read_text()) or {}) if QUEUE.exists() else {}
+    existing = whole.get("names", [])
     rows = build(existing)
-    text = HEADER + yaml.safe_dump({"names": rows}, sort_keys=False, allow_unicode=True, width=100)
+    top = {k: v for k, v in whole.items() if k != "names"}     # portfolio_sek and the like: kept
+    text = HEADER + yaml.safe_dump({**top, "names": rows}, sort_keys=False, allow_unicode=True, width=100)
     if a.write:
         QUEUE.write_text(text, encoding="utf-8")
         print(f"wrote {QUEUE.relative_to(ROOT)}: {len(rows)} names")

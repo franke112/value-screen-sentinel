@@ -1,0 +1,19 @@
+[Unit]
+Description=vss -- continue the one-time EODHD fundamentals fetch (private data, data/eodhd/), then rebuild the point-in-time index
+Documentation=file://%h/vss/tools/fetch_eodhd.py
+OnFailure=vss-failure@%n.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/vss
+ExecStart=%h/vss/.venv/bin/python tools/fetch_eodhd.py --budget 90000 --reserve 10000
+ExecStartPost=%h/vss/.venv/bin/python tools/eodhd_pit.py --build
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=vss-eodhd
+TimeoutStartSec=20h
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=%h/vss/data/eodhd
+NoNewPrivileges=true

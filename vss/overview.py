@@ -54,8 +54,7 @@ from .refresh import waits_for
 from .runner import (CACHE_DIR, DB_PATH, PROJECT_ROOT, REPORTS_DIR,
                      WATCHLIST_PATH, build_row, load_run_record)
 from . import heartbeat as HB
-from .rules import (AT_BELOW_MBP, DEFINITION_CROSSING, NO_STOP,
-                    NO_STOP_PRE_ENTRY, STALE_DATA, STOP_BREACHED)
+from .rules import AT_BELOW_MBP, DEFINITION_CROSSING, STALE_DATA
 from .runrecord import RecordError, RunRecord
 from .sales import DATA_MISSING, pct, settled_closes
 from .shadowbook import (BENCHMARKS, INCOMPLETE, SHADOW_BOOK_PATH,
@@ -69,7 +68,8 @@ MANUAL_DIR = PROJECT_ROOT / "config" / "manual"
 REFERENCE_DIR = PROJECT_ROOT / "reference"
 RUN_RECORDS_DIR = REFERENCE_DIR / "run-records"
 GROWTH_VIEWS_DIR = REFERENCE_DIR / "growth-views"
-FRAMEWORK_EDITS = REFERENCE_DIR / "FRAMEWORK-EDITS.md"
+#: moved to the archive 2026-11-08 (sweep D13); FRAMEWORK.md now holds the binding rules
+FRAMEWORK_EDITS = REFERENCE_DIR / "archive" / "FRAMEWORK-EDITS-2026-11-08.md"
 
 #: The order the live sections are printed in — held first, then the two
 #: halves of E27's WATCH, then the review queue, then E111's read-not-
@@ -217,13 +217,12 @@ class NameRow:
 #: Queue kinds, in the order they break ties. `actions` — how many owner
 #: acts would clear the item — is the primary sort, so the top of the queue
 #: is literally what one action would unblock.
-Q_STOP = "missing stop"
 Q_VIEW = "no growth view"
 Q_READBACK = "read-backs (E108 floor)"
 Q_PROVISIONAL = "PROVISIONAL value"
 Q_RECORD = "no run record named"
 Q_NEEDS_OWNER = "NEEDS OWNER (E92)"
-QUEUE_ORDER = (Q_STOP, Q_VIEW, Q_RECORD, Q_PROVISIONAL, Q_READBACK,
+QUEUE_ORDER = (Q_VIEW, Q_RECORD, Q_PROVISIONAL, Q_READBACK,
                Q_NEEDS_OWNER)
 
 
@@ -257,13 +256,11 @@ ATTENTION_HORIZON_DAYS = 7
 #: The kinds of thing that may reach the top line, MOST URGENT FIRST. The
 #: list is CLOSED on purpose: a top line that grew a fourth and a fifth
 #: category would be a second report, and the page already has one below.
-A_STOP_BREACHED = "stop breached"
-A_HELD_NO_STOP = "no stop on a holding"
 A_AT_BELOW_MBP = "maximum buy price crossed"
 A_DEFINITION = "the buy price moved, not the price"
 A_CATALYST = "a dated event this week"
 A_UNCHECKABLE = "a check could not run"
-ATTENTION_ORDER = (A_STOP_BREACHED, A_HELD_NO_STOP, A_AT_BELOW_MBP,
+ATTENTION_ORDER = (A_AT_BELOW_MBP,
                    A_DEFINITION, A_CATALYST, A_UNCHECKABLE)
 
 
@@ -617,18 +614,6 @@ def attention(rows: Sequence[NameRow], calendar: Sequence[CalendarItem], *,
         where = f"{row.ticker} ({row.name})" if row.name else row.ticker
         close = (f"{row.price:,.2f} {row.currency}" if row.price is not None
                  else DATA_MISSING)
-        if STOP_BREACHED in row.verdicts:
-            out.append(Attention(
-                A_STOP_BREACHED, row.ticker,
-                f"{where} has broken its stop — the close is {close} against "
-                f"a stop of {row.stop_price:,.2f}."
-                if row.stop_price is not None else
-                f"{where} has broken its stop, and the level is {DATA_MISSING}."))
-        if NO_STOP in row.blockers:
-            out.append(Attention(
-                A_HELD_NO_STOP, row.ticker,
-                f"{where} is held and has no stop set. It collects no "
-                f"verdict at all until one exists."))
         # A BUY-SIDE CONDITION NEVER STANDS ALONE. The qualifying clause
         # goes in the SAME SENTENCE, not a line below it: the reader who
         # stops after the first half is the reader this page is for.
@@ -639,9 +624,7 @@ def attention(rows: Sequence[NameRow], calendar: Sequence[CalendarItem], *,
                 f"MBP MOVED, not the price — E100 arms nothing on that. "
                 f"What else qualifies it: {qualifying_clause(row)}."))
         elif AT_BELOW_MBP in row.verdicts:
-            tail = ("" if NO_STOP_PRE_ENTRY not in row.verdicts else
-                    " It has no stop set, so the buy is not actionable "
-                    "either way.")
+            tail = ""
             out.append(Attention(
                 A_AT_BELOW_MBP, row.ticker,
                 f"{where} is at or below its maximum buy price — {close} "
@@ -649,15 +632,12 @@ def attention(rows: Sequence[NameRow], calendar: Sequence[CalendarItem], *,
                 f"{qualifying_clause(row)}.{tail}"))
         # A LEVEL THAT COULD NOT BE CHECKED IS NOT A LEVEL THAT HELD.
         # A STALE CLOSE ON A NAME CARRYING A LEVEL (owner, 2026-09-19): the
-        # nightly blocked it, so its stop and MBP were NOT checked -- the
-        # page says so, with where the name last stood.
+        # nightly blocked it, so its MBP was NOT checked -- the page says
+        # so, with where the name last stood (E162: no price stop).
         if STALE_DATA in row.blockers and (row.status == "HELD"
-                                           or row.mbp is not None
-                                           or row.stop_price is not None):
-            levels = " and ".join(
-                f"{label} {value:,.2f}" for label, value in
-                (("stop", row.stop_price), ("MBP", row.mbp)) if value is not None
-            ) or "its HELD checks"
+                                           or row.mbp is not None):
+            levels = (f"MBP {row.mbp:,.2f}" if row.mbp is not None
+                      else "its HELD checks")
             last = (f"{close} on {row.price_date.isoformat()}"
                     if row.price is not None and row.price_date else DATA_MISSING)
             if row.retained is not None:
@@ -668,8 +648,7 @@ def attention(rows: Sequence[NameRow], calendar: Sequence[CalendarItem], *,
                 f"{where} is BLOCKED on a stale close — the newest is {last} "
                 f"— so {levels} {'were' if ' and ' in levels else 'was'} "
                 f"NOT CHECKED tonight.",
-                within=(0 if row.status == "HELD" and row.stop_price is not None
-                        else 1 if row.status == "HELD" else 2)))
+                within=(1 if row.status == "HELD" else 2)))
         elif row.mbp is not None and row.price is None:
             out.append(Attention(
                 A_UNCHECKABLE, row.ticker,   # after every stale block
@@ -1415,37 +1394,6 @@ def collect_queue(rows: Sequence[NameRow], entries: Sequence[WatchlistEntry],
         if row.section == SECTION_DROPPED:
             continue
         entry = by_ticker.get(row.ticker)
-
-        # A missing stop on a HELD name. `rules.stop_blocker` is what
-        # decides this and `build_row` has already run it; the queue reads
-        # the blocker rather than re-deciding when a stop is required.
-        if NO_STOP in row.blockers:
-            out.append(QueueItem(
-                Q_STOP, row.ticker, 1,
-                "the name is BLOCKED and collects no verdict at all until a "
-                "stop exists (FRAMEWORK 0.4 / 6.4)",
-                "one `stop_price:` on the entry, at a level the owner "
-                "strikes. The tool never derives one, and a guessed stop is "
-                "worse than none.",
-                row.docs))
-        elif NO_STOP_PRE_ENTRY in row.verdicts and row.status == "WATCH-PRICED":
-            # ONLY WATCH-PRICED. `pre_entry_stop_flag` fires on every
-            # non-HELD name with no stop, DROPPED and INTAKE included, and
-            # a queue that asked for a stop on a dropped name would be
-            # asking for work nobody wants done. A WATCH-PRICED name is one
-            # that passed section 5 and is only too expensive -- it is the
-            # one that can become a buy, and FRAMEWORK 0.4 rule 4 says a
-            # buy is a price, a condition AND a stop.
-            out.append(QueueItem(
-                Q_STOP, row.ticker, 1,
-                "a buy verdict on this name becomes actionable; today it "
-                "carries the NO STOP DEFINED flag (FRAMEWORK 0.4 rule 4)",
-                "one `stop_price:`. The watchlist records the alternative "
-                "as an OPEN E-candidate -- a `stop_price` FORM carrying a "
-                "pre-registered derivation resolved at the actual blended "
-                "entry -- and until that is ruled, a WATCH name's stop "
-                "stays null and the level is written at entry.",
-                row.docs))
 
         if row.section == SECTION_OUTSIDE:
             # E51/E96 remove the name from section 5 entirely. There is no

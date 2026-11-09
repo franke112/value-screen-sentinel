@@ -1,5 +1,5 @@
 ---
-description: Walk one name through the playbook's steps, one at a time, and record only what the owner says
+description: Walk one name through the review's steps, one at a time, and record only what the owner says
 argument-hint: TICKER
 ---
 
@@ -22,8 +22,9 @@ session is the owner's.
    from today, say so and stop. Proceed without one ONLY if the owner says
    to, and then put the owner's words in the file as `prepare_waived`.
 2. **Read the step list from code, never from memory.** Read
-   `tools/playbook/steps.py` (the steps, their `question`, `sections`,
-   `exits`), `tools/playbook/placement.py` (which rulings bind which step),
+   `vss/review_steps.py` (the steps, their `question`, `sections`,
+   `exits`), `reference/FRAMEWORK.md` (the binding rules, each naming its
+   ruling in `reference/archive/`),
    `vss/review.py`'s `REVIEW_STEPS` (which steps this status walks) and the
    name's prepare report. Never improvise a step, a question or an enum:
    the step's outcome vocabulary is `vss review --schema`'s table.
@@ -62,10 +63,11 @@ Then wait. The owner's reply is one of:
 - an answer: record `outcome` (from the vocabulary), `text` (the owner's
   words VERBATIM, never your paraphrase), `answered_at` (now, ISO with
   zone), `documents_opened` and `rulings_cited` as the owner named them;
-- `p`: show the precedents for this step from the playbook
-  (`docs/playbook/<step>.html`'s "how we decided before", or
-  `tools/playbook/sources.py`'s precedent sources) and ask the question
-  again. Precedents are shown only when asked;
+- `p`: show the precedents for this step -- the rulings
+  `reference/FRAMEWORK.md` names for it, read in
+  `reference/archive/FRAMEWORK-EDITS-2026-11-08.md`, and the name's earlier
+  reviews under `reference/reviews/` -- and ask the question again.
+  Precedents are shown only when asked;
 - `s: <reason>`: record `skipped: true`, `skip_reason` verbatim, `outcome`
   null. A skip without a reason is not a skip; ask for the reason.
 
@@ -94,7 +96,7 @@ the MBP; the run record's value; g\*; the prepare report's stands line
 that quotes fv_base; any earlier strike document; any other name's
 figures. Until `growth_view` is written you do not open those, you do not
 quote them, and you do not say whether the market price is above or below
-anything. The playbook's anchoring guard (`register your view first`) is
+anything. The review's anchoring guard (`register your view first`) is
 the same rule; it is yours here.
 
 Ask for the three rates as fractions the owner types (0.025 for 2.5%) and
@@ -155,7 +157,5 @@ Then ask, each as its own question with a STOP between:
    `.venv/bin/python -m vss review --record reference/reviews/$ARGUMENTS/<today>.yaml`.
    The owner runs it. It appends the note, registers the view, and
    stores nothing else: never status, fv_base, tier, mbp or stop.
-4. End with the playbook step the name now sits on (`STATUS_STEP` of the
-   status the owner wrote, or the step the walk stopped at), in one line,
-   and the reminder that the playbook is rebuilt in the same commit as the
-   record (CLAUDE.md, same-commit rule).
+4. End with the step the name now sits on (`STATUS_STEP` of the status
+   the owner wrote, or the step the walk stopped at), in one line.

@@ -1,0 +1,16 @@
+# Written by `vss sales --reconcile` (E165). Do not edit by hand.
+ruling: E165
+reconciled_on: '2026-11-08'
+export: 2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv
+export_from: '2020-05-27'
+export_through: '2026-11-04'
+since: '2026-05-13'
+status: CLEAN
+matched: 30
+differing: []
+not_booked: []
+not_on_export: []
+core_funds_not_in_sales:
+- 2026-11-04 Avanza USA 63.1588 at 257.12, 16,239.39 SEK, account ACCOUNT-B
+- 2026-11-04 Avanza USA 86.9063 at 257.12, 22,345.35 SEK, account ACCOUNT-A
+- 2026-11-04 Avanza Zero 63.397 at 570.18, 36,147.72 SEK, account ACCOUNT-B

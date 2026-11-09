@@ -80,7 +80,9 @@ COLUMNS: tuple[str, ...] = (
     "fv_base", "decided_by", "source",
 )
 #: The three verdicts E114 admits. WATCH-PRICED, PIPELINE and HELD are
-#: not refusals and are not in the book.
+#: not refusals and are not in the book. (An OVERRIDE kind for an owned
+#: name was added and removed on 2026-11-08: the book measures what was
+#: never bought; an owner's override is a counterfactual `sales:` fill.)
 VERDICTS: tuple[str, ...] = ("DROPPED", "WATCH-GATED", "INTAKE")
 #: STANDING holds until deliberately removed; EXPIRY is re-read when a
 #: named event arrives; OPEN means nothing has been decided yet, which is
@@ -156,6 +158,24 @@ class Verdict:
         """The MAJOR unit. A return is scale-invariant, so GBX and GBP
         give the same figure; the FX pair only exists for the major."""
         return major_unit(self.currency) or self.currency
+
+
+def held_on(day: date, sales) -> bool:
+    """Was the name HELD on `day`, as its `sales:` fills say (owner,
+    2026-11-08)? A shadow-book row is valid only when it was not: the day
+    is AFTER the last sale, or BEFORE the first buy (`bought`). Where no
+    fill carries `bought`, a day on or before the last sale counts as held
+    -- the conservative reading, since the book measures never-bought only.
+    A name with no sales was never held, as far as the record shows."""
+    if not sales:
+        return False
+    last = max(s.date for s in sales)
+    if day > last:
+        return False
+    starts = [s.bought for s in sales if getattr(s, "bought", None)]
+    if starts and day < min(starts):
+        return False
+    return True
 
 
 def _row_float(raw: str, field: str, ticker: str) -> float | None:

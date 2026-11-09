@@ -51,7 +51,7 @@ A verification item, on the `basis` step, one per figure the prepare report list
 - **INTAKE**: `intake`, `gate-1`, `gate-2`, `gate-3`, `gate-4`, `gate-5`, `hard-kills`, `conviction`, `basis`, `flow`, `net-debt`, `divisor`, `growth-view`, `strike`, `tier-mbp`, `verdict`
 - **DROPPED**: `intake`, `gate-1`, `gate-2`, `gate-3`, `gate-4`, `gate-5`, `hard-kills`, `conviction`, `basis`, `flow`, `net-debt`, `divisor`, `growth-view`, `strike`, `tier-mbp`, `verdict`
 
-Every id is a step of `tools/playbook/steps.py`; the order is the chain's. A resumed review keeps every earlier step as an entry with `skipped: true` and the resume reason.
+Every id is a step of `vss/review_steps.py`; the order is the chain's. A resumed review keeps every earlier step as an entry with `skipped: true` and the resume reason.
 
 ## Each step's outcome vocabulary
 
@@ -60,13 +60,13 @@ Every id is a step of `tools/playbook/steps.py`; the order is the chain's. A res
 | step | outcomes | question |
 |---|---|---|
 | `intake` | `next`, `pipeline`, `dropped` | Is the record complete enough that watching this name would be watching something? |
-| `gate-1` | `next`, `watch-gated`, `dropped` | Does the name pass Gate 1? |
+| `gate-1` | `next`, `watch-gated`, `dropped` | E161: the 15-50% band no longer gates; the drawdown is information. Is there a decline, and what dated event caused it (for Gate 2)? |
 | `gate-2` | `next`, `watch-gated`, `dropped` | Which one class does the decline fall into, under Gate 2? |
 | `gate-3` | `next`, `watch-gated`, `dropped` | Does the name pass Gate 3? |
 | `gate-4` | `next`, `watch-gated`, `dropped` | Can Gate 4 be evaluated for this name at all? |
 | `gate-5` | `next`, `watch-gated`, `dropped` | Is there a dated event within 90 days, under Gate 5? |
-| `hard-kills` | `next`, `dropped`, `watch-gated` | Does any 4.1 hard kill trip on the issuer's own figures? |
-| `conviction` | `next`, `dropped`, `watch-gated` | What is the 4.3 score, and which flags carry it? |
+| `hard-kills` | `next`, `dropped`, `watch-gated` | Does any 4.1 hard kill still in force (4.2.3-4.2.6; E163 removed 4.2.1, 4.2.2 and 4.2.7) trip on the issuer's own figures? |
+| `conviction` | `next`, `dropped`, `watch-gated` | What is the 4.3 score -- gates passed only, since E168 removed the green flags and the 4.3 soft flag (attempt #25) -- and which gates carry it? |
 | `basis` | `next`, `dropped` | Is every figure the basis reads VERIFIED, on one twelve-month window? |
 | `flow` | `next`, `dropped` | Which legs form FCF0, and is each one a stated figure? |
 | `net-debt` | `next`, `dropped` | Which legs form net debt, and is each one a stated figure or a named zero? |
@@ -79,7 +79,7 @@ Every id is a step of `tools/playbook/steps.py`; the order is the chain's. A res
 ## What `--validate` refuses
 
 - a top-level or step key the schema does not name (a figure can enter the file only through the fields above);
-- a step name not in `tools/playbook/steps.py`, a step missing, extra or out of order for the status;
+- a step name not in `vss/review_steps.py`, a step missing, extra or out of order for the status;
 - a step neither skipped with a `skip_reason` nor answered: an answered step needs an `outcome` from its vocabulary, non-empty `text` and an `answered_at`;
 - a section-5 step (`growth-view`, `strike`, `tier-mbp`, `verdict`) answered with `growth_view` absent, or with `registered_at` later than that step's `answered_at` (E28);
 - a `growth_view` whose rates are not numbers in -50%..+50% as fractions, out of bear <= base <= bull, or with empty `reasons`;

@@ -1,0 +1,731 @@
+# THE CASH FLOW STATEMENT'S OPERATING ROWS: tag -> class.
+#
+# Read by vss/cfrecon.py (data rule under E164, decided by the owner
+# 2026-11-08). Every row between net income and "net cash provided by
+# operating activities" must be classed here, or the name's working capital
+# is DATA MISSING and section 5 does not run for it. The rows must also sum
+# to the printed operating cash flow exactly.
+#
+# The classes (the owner's three):
+#   rörelsekapital  -- E140(1)'s operating working capital. Stripped from
+#                      FCF0 as a swing (or kept under E154). The ONLY class
+#                      that enters `working_capital_change`.
+#   kvar-i-flödet   -- a cash line that stays in the flow: tax, lease and
+#                      long-term lines (E140(1)), E123's inventory where it
+#                      is the business, and whatever is not named as working
+#                      capital.
+#   icke-kassapost  -- a non-cash adjustment to net income. It stays in the
+#                      flow; it is named apart only for the reader.
+#
+# section: adjustments | changes -- WHERE THE FILING PRINTS THE ROW, read
+#   from it (vss/cfrecon.py finds the "changes in ... assets and
+#   liabilities" heading). A row standing in another section than its entry
+#   says is DATA MISSING. Owner, 2026-11-08: a row under the changes heading
+#   is working capital whatever its tag; an entry there in another class
+#   must name its E140(1) exception (e140_exception: tax | lease |
+#   long-term | E123), or the map does not load.
+# class: följer-sektion -- a CATCH-ALL ("Other", "Other, net"): working
+#   capital under the changes heading, a non-cash adjustment above it.
+#
+# A tag missing from the map STOPS the name (DATA MISSING) and is put to the
+# owner. The session never adds one; it may only list it under `pending:`
+# with a proposal.
+#
+# Flags:
+#   fordran: true          -- a receivable. Where one is stripped, a row
+#                             with följer_fordran is stripped with it.
+#   följer_fordran: true   -- a loan book's provision for losses, added back
+#                             above the receivable (E140(1), HRB's Emerald
+#                             Advance). Only a ROW of the statement can
+#                             follow; a provision tagged in a note never
+#                             does. The old companyfacts sum took CTSH's
+#                             11m from a note, which is why its FY2025 was
+#                             -327m and the statement's is -338m.
+#
+# `overrides:` is per ticker and wins over `tags:`. A tag that means
+# different things at different filers (IncreaseDecreaseInDepositsOutstanding)
+# is classed ONLY in an override, so a new filer using it stops on DATA
+# MISSING instead of inheriting a meaning.
+#
+# Every entry has a note. A change here changes values: it is a data-rule
+# change and lands with the re-valuation table that shows what moved.
+
+tags:
+  # --- non-cash adjustments ------------------------------------------------
+  us-gaap:DepreciationDepletionAndAmortization:
+    section: adjustments
+    class: icke-kassapost
+    note: depreciation and amortization
+  us-gaap:ShareBasedCompensation:
+    section: adjustments
+    class: icke-kassapost
+    note: SBC; FCF0 deducts it separately (E140(1))
+  us-gaap:DeferredIncomeTaxExpenseBenefit:
+    section: adjustments
+    class: icke-kassapost
+    note: deferred taxes
+  us-gaap:DeferredIncomeTaxesAndTaxCredits:
+    section: adjustments
+    class: icke-kassapost
+    note: deferred taxes (GDDY's element)
+  hrb:DeferredIncomeTaxExpenseBenefitIncludingDiscontinuedOperations:
+    section: adjustments
+    class: icke-kassapost
+    note: HRB "Deferred taxes"
+  us-gaap:OtherNoncashIncomeExpense:
+    section: adjustments
+    class: följer-sektion
+    note: >-
+      CATCH-ALL: "Other" / "Other, net" (GDDY, CENTA, CTSH), printed above the
+      changes heading in all five filings -> a non-cash adjustment
+  us-gaap:AmortizationOfFinancingCosts:
+    section: adjustments
+    class: icke-kassapost
+    note: amortization of deferred financing costs
+  us-gaap:GainLossOnSaleOfBusiness:
+    section: adjustments
+    class: icke-kassapost
+    note: gain on sale of a business; the proceeds are investing
+  us-gaap:GainLossOnSaleOfPropertyPlantEquipment:
+    section: adjustments
+    class: icke-kassapost
+    note: gain on sale of property; the proceeds are investing
+  us-gaap:DisposalGroupNotDiscontinuedOperationGainLossOnDisposal:
+    section: adjustments
+    class: icke-kassapost
+    note: CENTA "Facility closures and business exit costs", the non-cash part
+  us-gaap:OtherAssetImpairmentCharges:
+    section: adjustments
+    class: icke-kassapost
+    note: asset impairments
+  cent:ImpairmentOfIntangibleAssetsExcludingGoodwillNet:
+    section: adjustments
+    class: icke-kassapost
+    note: CENTA "Impairment of intangibles"
+  cent:LesseeOperatingAndFinanceLeasesNonCashLeaseExpense:
+    section: adjustments
+    class: icke-kassapost
+    note: CENTA "Non-cash lease expense"; its cash side is the lease row below
+  us-gaap:GainLossOnSaleOfMortgageLoans:
+    section: adjustments
+    class: icke-kassapost
+    note: NVR "Gain on sale of loans, net"; the cash is in the proceeds row
+  nvr:ContractLandDepositImpairmentRecoveries:
+    section: adjustments
+    class: icke-kassapost
+    note: NVR contract land deposit impairments / recoveries (10-K element)
+  nvr:ContractLandDepositImpairmentChargesNetOfRecoveries:
+    section: adjustments
+    class: icke-kassapost
+    note: NVR contract land deposit impairments, net (10-Q element)
+  hrb:ProvisionForBadDebtsAndLoanLosses:
+    section: adjustments
+    class: icke-kassapost
+    följer_fordran: true
+    note: >-
+      HRB "Provision for credit losses" (Emerald Advance); stripped with the
+      receivable (E140(1)). An extension element since the FY2026 10-K, so
+      companyfacts no longer carries it
+  # --- working capital (E140(1)) -------------------------------------------
+  us-gaap:IncreaseDecreaseInAccountsReceivable:
+    section: changes
+    class: rörelsekapital
+    fordran: true
+    note: receivables
+  us-gaap:IncreaseDecreaseInReceivables:
+    section: changes
+    class: rörelsekapital
+    fordran: true
+    note: receivables (NVR's element)
+  us-gaap:IncreaseDecreaseInInventories:
+    section: changes
+    class: rörelsekapital
+    note: inventories -- except where E123's shape keeps them in the flow (overrides)
+  us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets:
+    section: changes
+    class: rörelsekapital
+    note: >-
+      prepaid and other operating assets. HRB's caption includes noncurrent
+      assets; the filer prints one line and it is read as one
+  gddy:IncreaseDecreaseinPrepaidExpenseRegistryFees:
+    section: changes
+    class: rörelsekapital
+    note: >-
+      GDDY "Prepaid domain name registry fees" -- prepaid operating asset,
+      the counterpart of deferred revenue (E140(1) "prepaid ... assets").
+      Missed by the companyfacts sum (independent review 3, H1)
+  us-gaap:IncreaseDecreaseInOtherOperatingAssets:
+    section: changes
+    class: rörelsekapital
+    note: CTSH "Other current and noncurrent assets" -- one printed line
+  us-gaap:IncreaseDecreaseInOtherOperatingCapitalNet:
+    section: changes
+    class: rörelsekapital
+    note: >-
+      GDDY "Other operating assets and liabilities" (E140(1) "other
+      operating assets"). Missed by the companyfacts sum (review 3, H1)
+  us-gaap:IncreaseDecreaseInAccountsPayable:
+    section: changes
+    class: rörelsekapital
+    note: payables
+  us-gaap:IncreaseDecreaseInAccruedLiabilities:
+    section: changes
+    class: rörelsekapital
+    note: accrued liabilities
+  us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities:
+    section: changes
+    class: rörelsekapital
+    note: payables and accrued liabilities, one line
+  us-gaap:IncreaseDecreaseInContractWithCustomerLiability:
+    section: changes
+    class: rörelsekapital
+    note: >-
+      deferred revenue / customer deposits; E140.1(2): deferred-revenue
+      growth stays out of FCF0
+  us-gaap:IncreaseDecreaseInDeferredRevenue:
+    section: changes
+    class: rörelsekapital
+    note: deferred revenue (CTSH); E140.1(2)
+  us-gaap:IncreaseDecreaseInOtherOperatingLiabilities:
+    section: changes
+    class: rörelsekapital
+    note: CTSH "Other current and noncurrent liabilities" -- one printed line
+  us-gaap:IncreaseDecreaseInOtherCurrentLiabilities:
+    section: changes
+    class: rörelsekapital
+    note: HRB "Deferred revenue, other current and noncurrent liabilities" -- one line
+  # --- cash lines that stay in the flow -------------------------------------
+  us-gaap:IncreaseDecreaseInAccruedIncomeTaxesPayable:
+    section: changes
+    class: kvar-i-flödet
+    e140_exception: tax
+    note: income-tax line (E140(1); HRB's reserve release is not a swing)
+  us-gaap:IncreaseDecreaseInOtherNoncurrentLiabilities:
+    section: changes
+    class: kvar-i-flödet
+    e140_exception: long-term
+    note: long-term line (E140(1)); CENTA "Other long-term obligations"
+  cent:IncreaseDecreaseInOperatingLeaseLiabilities:
+    section: changes
+    class: kvar-i-flödet
+    e140_exception: lease
+    note: >-
+      lease line (E140(1), E117); CENTA 10-K "Operating lease liabilities" --
+      the same row as the 10-Q's us-gaap:IncreaseDecreaseInOperatingLeaseLiability
+  us-gaap:IncreaseDecreaseInOperatingLeaseLiability:
+    section: changes
+    class: kvar-i-flödet
+    e140_exception: lease
+    note: >-
+      CENTA 10-Q "Operating lease liabilities" -- THE SAME ROW the 10-K tags
+      as cent:IncreaseDecreaseInOperatingLeaseLiabilities; a lease line,
+      E140(1)/E117. Classed by the owner 2026-11-08 (was pending)
+  us-gaap:OtherOperatingActivitiesCashFlowStatement:
+    section: changes
+    class: följer-sektion
+    note: >-
+      CATCH-ALL: "Other, net", printed UNDER the changes heading in NVR's
+      10-K and 10-Q and HRB's 10-K (read 2026-11-08) -> working capital
+  us-gaap:EquityMethodInvestmentDividendsOrDistributions:
+    section: adjustments
+    class: kvar-i-flödet
+    note: distributions received from joint ventures (NVR); cash earned
+  us-gaap:PaymentsForOriginationOfMortgageLoansHeldForSale:
+    section: adjustments
+    class: rörelsekapital
+    note: >-
+      NVR "Mortgage loans closed" -- E140(1) clarification (2), owner
+      2026-11-08: loans held for sale turn over within the operating cycle
+      and are funded by a repurchase facility under financing
+  us-gaap:ProceedsFromSaleOfMortgageLoansHeldForSale:
+    section: adjustments
+    class: rörelsekapital
+    note: NVR "Mortgage loans sold" -- with the row above, E140(1) clarification (2)
+
+
+  # --- classed 2026-11-08 in the sweep (A1): the 17 other US queue names ------
+  acn:DepreciationAmortizationAndOther:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: session
+    note: ACN -- "Depreciation, amortization and other" -- non-cash adjustment [beslutat av sessionen 2026-11-08]
+  aos:PensionSettlementIncomeExpenseNonCashTaxes:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: session
+    note: AOS -- "Pension settlement non-cash taxes" -- non-cash adjustment [beslutat av sessionen 2026-11-08]
+  bkng:DebtInstrumentConvertibleConversionGainsLosses:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: session
+    note: BKNG -- "Amortization of debt discount and change in fair value of th" -- non-cash adjustment [beslutat av sessionen 2026-11-08]
+  bkng:ForeignCurrencyTransactionGainLossbeforetaxassociatedwiththeremeasurementofnonfunctionalcurrencydebt:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: session
+    note: BKNG -- "Unrealized foreign currency transaction losses (gains) relat" -- non-cash adjustment [beslutat av sessionen 2026-11-08]
+  bkng:ProvisionForExpectedCreditLossesAndChargebacks:
+    section: adjustments
+    class: icke-kassapost
+    följer_fordran: true
+    classified_by: session
+    note: BKNG -- "Provision for expected credit losses and chargebacks" -- non-cash adjustment [beslutat av sessionen 2026-11-08]; a provision for credit losses follows a stripped receivable, as the old companyfacts path did for any receivable (E140(1), xbrl.py E140_PROVISION_TAGS) [beslutat av sessionen 2026-11-08]
+  bkng:ShareBasedCompensationAndOtherStockBasedExpense:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: session
+    note: BKNG -- "Stock-based compensation expense" -- non-cash adjustment [beslutat av sessionen 2026-11-08]
+  cprt:GainLossOnExtinguishmentOfLiabilities:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: session
+    note: CPRT -- "Gain on extinguishment of liabilities" -- non-cash adjustment [beslutat av sessionen 2026-11-08]
+  deck:AmortizationOfCloudComputingArrangements:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: session
+    note: DECK -- "Amortization on cloud computing arrangements" -- non-cash adjustment [beslutat av sessionen 2026-11-08]
+  deck:ImpairmentChargesOfCloudComputingArrangementsOperatingLeaseAndOtherLongLivedAssets:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: session
+    note: DECK -- "Impairment of property and equipment and cloud computing arr" -- non-cash adjustment [beslutat av sessionen 2026-11-08]
+  gntx:GainOnDispositionOfAssets:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: session
+    note: GNTX -- "Gain on disposal of assets" -- non-cash adjustment [beslutat av sessionen 2026-11-08]
+  gntx:LossOnDispositionOfAssets:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: session
+    note: GNTX -- "Loss on disposal of assets" -- non-cash adjustment [beslutat av sessionen 2026-11-08]
+  lope:AssetImpairmentAndDisposalCharges:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: session
+    note: LOPE -- "Lease termination, impairment and other" -- non-cash adjustment [beslutat av sessionen 2026-11-08]
+  lope:DepreciationAndAmortizationExcludingIntangibleAssets:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: session
+    note: LOPE -- "Depreciation and amortization" -- non-cash adjustment [beslutat av sessionen 2026-11-08]
+  pep:ImpairmentAndOtherCharges:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: session
+    note: PEP -- "Impairment and other charges" -- non-cash adjustment [beslutat av sessionen 2026-11-08]
+  pep:PaymentsForProductRecallRelatedImpact:
+    section: adjustments
+    class: kvar-i-flödet
+    classified_by: session
+    note: PEP -- "Cash payments for product recall-related impact" -- cash paid for the recall -- a cash line, stays [beslutat av sessionen 2026-11-08]
+  pep:ProductRecallRelatedImpact:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: session
+    note: PEP -- "Product recall-related impact" -- non-cash adjustment [beslutat av sessionen 2026-11-08]
+  pep:TaxPaymentsRelatedToTheTaxCutsAndJobsActTCJAct:
+    section: adjustments
+    class: kvar-i-flödet
+    classified_by: session
+    note: PEP -- "Tax payments related to the Tax Cuts and Jobs Act (TCJ Act)" -- cash tax paid (TCJA transition tax) -- a cash line, stays [beslutat av sessionen 2026-11-08]
+  pep:TaxpaymentsrelatedtotheTCJAct:
+    section: adjustments
+    class: kvar-i-flödet
+    classified_by: session
+    note: PEP -- "Tax payments related to the TCJ Act" -- cash tax paid (TCJA transition tax) -- a cash line, stays [beslutat av sessionen 2026-11-08]
+  tpr:ChangesToLeaseRelatedBalancesNet:
+    section: adjustments
+    class: kvar-i-flödet
+    e140_exception: lease
+    classified_by: session
+    note: TPR -- "Changes to lease related balances, net" -- lease balances (E117) -- a cash line, stays [beslutat av sessionen 2026-11-08]
+  ulta:NetLossOfEquityAffiliate:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: session
+    note: ULTA -- "Equity net loss of affiliate" -- non-cash adjustment [beslutat av sessionen 2026-11-08]
+  ulta:NoncashLeaseExpense:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: session
+    note: ULTA -- "Non-cash lease expense" -- non-cash adjustment [beslutat av sessionen 2026-11-08]
+  us-gaap:AccretionAmortizationOfDiscountsAndPremiumsInvestments:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: MUSA -- "Amortization of discount on marketable securities" -- non-cash adjustment
+  us-gaap:AllocatedShareBasedCompensationExpense:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: AOS,LOPE -- "Stock based compensation expense" -- non-cash adjustment
+  us-gaap:AmortizationOfIntangibleAssets:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: LOPE -- "Amortization of intangible assets" -- non-cash adjustment
+  us-gaap:AssetImpairmentCharges:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: AOS,CROX,MUSA,TPR,ZTS -- "Non-cash impairments" -- non-cash adjustment
+  us-gaap:AssetRetirementObligationAccretionExpense:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: MUSA -- "Accretion of asset retirement obligations" -- non-cash adjustment
+  us-gaap:BusinessCombinationContingentConsiderationArrangementsChangeInAmountOfContingentConsiderationLiability1:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: GNTX -- "Remeasurement of earnout provision" -- non-cash adjustment
+  us-gaap:BusinessCombinationSeparatelyRecognizedTransactionsNetGainsAndLosses:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: PEP -- "Acquisition and divestiture-related charges" -- non-cash adjustment
+  us-gaap:CapitalizedComputerSoftwareAmortization1:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: TPR -- "Amortization of cloud computing arrangements" -- non-cash adjustment
+  us-gaap:DepreciationAmortizationAndAccretionNet:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: CPRT,DECK -- "Depreciation and amortization, including debt cost" -- non-cash adjustment
+  us-gaap:DepreciationAndAmortization:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: LII,MUSA -- "Depreciation and amortization" -- non-cash adjustment
+  us-gaap:EmployeeBenefitsAndShareBasedCompensationNoncash:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: ULTA -- "Stock-based compensation expense" -- non-cash adjustment
+  us-gaap:EquityMethodInvestmentOtherThanTemporaryImpairment:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: GNTX -- "Impairment charges - investments" -- non-cash adjustment
+  us-gaap:EquitySecuritiesFvNiGainLoss:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: BKNG -- "Net (gains) losses on equity securities" -- non-cash adjustment
+  us-gaap:GainLossOnDispositionOfAssets1:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: DECK -- "Loss on disposal of assets" -- non-cash adjustment
+  us-gaap:GainLossOnSalesOfAssetsAndAssetImpairmentCharges:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: ZTS -- "Net loss/(gain) on sale of businesses, excluding transaction" -- non-cash adjustment
+  us-gaap:GainOnSaleOfInvestments:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: GNTX -- "Gain on sale of investments and equity method investment inc" -- non-cash adjustment
+  us-gaap:GainsLossesOnExtinguishmentOfDebt:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: TPR -- "Loss on extinguishment of debt" -- non-cash adjustment
+  us-gaap:GoodwillAndIntangibleAssetImpairment:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: BKNG,GNTX -- "Impairment" -- non-cash adjustment
+  us-gaap:ImpairmentOfIntangibleAssetsFinitelived:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: DECK -- "Impairment of intangible assets" -- non-cash adjustment
+  us-gaap:ImpairmentOfIntangibleAssetsIndefinitelivedExcludingGoodwill:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: GNTX -- "Impairment charges - intangible assets" -- non-cash adjustment
+  us-gaap:ImpairmentOfLongLivedAssetsHeldForUse:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: LII -- "Impairment on net assets held for sale" -- non-cash adjustment
+  us-gaap:IncomeLossFromEquityMethodInvestments:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: CPRT,LII -- "Equity in losses (income) from unconsolidated affiliates" -- non-cash adjustment
+  us-gaap:IncomeLossFromEquityMethodInvestmentsNetOfDividendsOrDistributions:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: ALV -- "Undistributed earnings from equity method investments, net o" -- non-cash adjustment
+  us-gaap:IncreaseDecreaseInDeferredIncomeTaxes:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: ACN,DHI,ULTA -- "Deferred tax expense (benefit)" -- non-cash adjustment
+  us-gaap:IncreaseDecreaseInDerivativeAssetsAndLiabilities:
+    section: adjustments
+    class: kvar-i-flödet
+    classified_by: session
+    note: ZTS -- "Settlement of derivative contracts" -- cash settlement of derivatives -- a cash line, stays [beslutat av sessionen 2026-11-08]
+  us-gaap:IncreaseDecreaseInOperatingCapital:
+    section: adjustments
+    class: rörelsekapital
+    classified_by: session
+    note: MUSA -- "Net (increases) decrease in noncash operating working capita" -- one net working-capital line, printed among the adjustments (no changes heading) [beslutat av sessionen 2026-11-08]
+  us-gaap:InventoryWriteDown:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: CROX,ZTS -- "Inventory donations" -- non-cash adjustment
+  us-gaap:LossOnSaleOfInvestments:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: GNTX -- "Loss on sale of investments and equity method investment los" -- non-cash adjustment
+  us-gaap:OperatingLeaseCost:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: CROX -- "Operating lease cost" -- non-cash adjustment
+  us-gaap:OperatingLeaseRightOfUseAssetAmortizationExpense:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: BKNG,PEP,SFM -- "Operating lease amortization" -- non-cash adjustment
+  us-gaap:PaymentsForMergerRelatedCosts:
+    section: adjustments
+    class: kvar-i-flödet
+    classified_by: session
+    note: PEP -- "Cash payments for acquisition and divestiture-related charge" -- cash paid for deal costs -- a cash line, stays [beslutat av sessionen 2026-11-08]
+  us-gaap:PaymentsForRestructuring:
+    section: adjustments
+    class: kvar-i-flödet
+    classified_by: session
+    note: PEP -- "Cash payments for restructuring charges" -- cash paid for restructuring -- a cash line, stays [beslutat av sessionen 2026-11-08]
+  us-gaap:PensionAndOtherPostretirementBenefitContributions:
+    section: adjustments
+    class: kvar-i-flödet
+    classified_by: session
+    note: PEP -- "Pension and retiree medical plan contributions" -- cash pension contributions -- a cash line, stays [beslutat av sessionen 2026-11-08]
+  us-gaap:PensionAndOtherPostretirementBenefitExpense:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: PEP -- "Pension and retiree medical plan expenses" -- non-cash adjustment
+  us-gaap:PensionContributions:
+    section: adjustments
+    class: kvar-i-flödet
+    classified_by: session
+    note: LII -- "Pension contributions" -- cash pension contributions -- a cash line, stays [beslutat av sessionen 2026-11-08]
+  us-gaap:PensionExpense:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: LII -- "Pension expense" -- non-cash adjustment
+  us-gaap:PensionExpenseReversalOfExpenseNoncash:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: AOS -- "Pension settlement income" -- non-cash adjustment
+  us-gaap:ProductionRelatedImpairmentsOrCharges:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: DHI -- "Inventory and land option charges" -- non-cash adjustment
+  us-gaap:ProvisionForDoubtfulAccounts:
+    section: adjustments
+    class: icke-kassapost
+    följer_fordran: true
+    classified_by: session
+    note: CPRT,CROX,DECK,LII,TPR -- "Allowance for credit losses" -- non-cash adjustment [beslutat av sessionen 2026-11-08]; a provision for credit losses follows a stripped receivable, as the old companyfacts path did for any receivable (E140(1), xbrl.py E140_PROVISION_TAGS) [beslutat av sessionen 2026-11-08]
+  us-gaap:ProvisionForLoanLeaseAndOtherLosses:
+    section: adjustments
+    class: icke-kassapost
+    följer_fordran: true
+    classified_by: session
+    note: GNTX -- "Provision for credit losses" -- non-cash adjustment [beslutat av sessionen 2026-11-08]; a provision for credit losses follows a stripped receivable, as the old companyfacts path did for any receivable (E140(1), xbrl.py E140_PROVISION_TAGS) [beslutat av sessionen 2026-11-08]
+  us-gaap:RestructuringCosts:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: LII,MUSA -- "Restructuring charges, net of cash paid" -- non-cash adjustment
+  us-gaap:RestructuringCostsAndAssetImpairmentCharges:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: PEP -- "Restructuring and impairment charges" -- non-cash adjustment
+  us-gaap:UnrealizedGainLossOnDerivatives:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: LII -- "Unrealized losses (gains), net on derivative contracts" -- non-cash adjustment
+  us-gaap:UnrealizedGainLossOnInvestments:
+    section: adjustments
+    class: icke-kassapost
+    classified_by: owner 2026-11-08 (standard us-gaap class, unambiguous definition)
+    note: BKNG -- "Net losses (gains) on equity securities" -- non-cash adjustment
+  cprt:IncreaseDecreaseInVehiclePoolingCosts:
+    section: changes
+    class: rörelsekapital
+    classified_by: session
+    note: CPRT -- "Vehicle pooling costs" -- operating working capital under the changes heading [beslutat av sessionen 2026-11-08]
+  crox:IncreaseDecreaseInRightOfUseAssetsAndOperatingLeaseLiabilities:
+    section: changes
+    class: kvar-i-flödet
+    e140_exception: lease
+    classified_by: session
+    note: CROX -- "Right-of-use assets and operating lease liabilities" -- lease line (E140(1), E117) [beslutat av sessionen 2026-11-08]
+  deck:IncreaseDecreaseInOperatingLeaseRightOfUseAssetsAndOperatingLeaseLiabilities:
+    section: changes
+    class: kvar-i-flödet
+    e140_exception: lease
+    classified_by: session
+    note: DECK -- "Net operating lease assets and lease liabilities" -- lease line (E140(1), E117) [beslutat av sessionen 2026-11-08]
+  deck:IncreaseDecreaseInOperatingLeaseRightofUseAssetsAndOperatingLeaseLiabilities:
+    section: changes
+    class: kvar-i-flödet
+    e140_exception: lease
+    classified_by: session
+    note: DECK -- "Net operating lease assets and lease liabilities" -- lease line (E140(1), E117) [beslutat av sessionen 2026-11-08]
+  lii:IncreaseDecreaseinOperatingleaseassetandliabilitynet:
+    section: changes
+    class: kvar-i-flödet
+    e140_exception: lease
+    classified_by: session
+    note: LII -- "Leases, net" -- lease line (E140(1), E117) [beslutat av sessionen 2026-11-08]
+  lope:IncreaseDecreaseInContractWithCustomerLiabilityExcludingStudentDeposits:
+    section: changes
+    class: rörelsekapital
+    classified_by: session
+    note: LOPE -- "Deferred revenue" -- operating working capital under the changes heading [beslutat av sessionen 2026-11-08]
+  lope:IncreaseDecreaseInOperatingLeaseLiabilitiesRecognizedInExchangeForRightOfUseAssets:
+    section: changes
+    class: kvar-i-flödet
+    e140_exception: lease
+    classified_by: session
+    note: LOPE -- "Right-of-use assets and lease liabilities" -- lease line (E140(1), E117) [beslutat av sessionen 2026-11-08]
+  ulta:IncreaseDecreaseInCurrentOperatingLeaseLiabilities:
+    section: changes
+    class: kvar-i-flödet
+    e140_exception: lease
+    classified_by: session
+    note: ULTA -- "Operating lease liabilities" -- lease line (E140(1), E117) [beslutat av sessionen 2026-11-08]
+  us-gaap:IncreaseDecreaseInAccountsAndNotesReceivable:
+    section: changes
+    class: rörelsekapital
+    classified_by: session
+    note: LII,PEP -- "Accounts and notes receivable" -- operating working capital under the changes heading [beslutat av sessionen 2026-11-08]
+  us-gaap:IncreaseDecreaseInAccountsPayableTrade:
+    section: changes
+    class: rörelsekapital
+    classified_by: session
+    note: DECK,LOPE -- "Trade accounts payable" -- operating working capital under the changes heading [beslutat av sessionen 2026-11-08]
+  us-gaap:IncreaseDecreaseInAccruedSalaries:
+    section: changes
+    class: rörelsekapital
+    classified_by: session
+    note: SFM -- "Accrued salaries and benefits" -- operating working capital under the changes heading [beslutat av sessionen 2026-11-08]
+  us-gaap:IncreaseDecreaseInAccruedTaxesPayable:
+    section: changes
+    class: kvar-i-flödet
+    e140_exception: tax
+    classified_by: session
+    note: SFM,ZTS -- "Accrued income tax" -- income-tax line (E140(1)) [beslutat av sessionen 2026-11-08]
+  us-gaap:IncreaseDecreaseInEmployeeRelatedLiabilities:
+    section: changes
+    class: rörelsekapital
+    classified_by: session
+    note: ACN -- "Accrued payroll and related benefits" -- operating working capital under the changes heading [beslutat av sessionen 2026-11-08]
+  us-gaap:IncreaseDecreaseInIncomeTaxesPayableNetOfIncomeTaxesReceivable:
+    section: changes
+    class: kvar-i-flödet
+    e140_exception: tax
+    classified_by: session
+    note: LII,ULTA -- "Income taxes payable and receivable, net" -- income-tax line (E140(1)) [beslutat av sessionen 2026-11-08]
+  us-gaap:IncreaseDecreaseInIncomeTaxesReceivable:
+    section: changes
+    class: kvar-i-flödet
+    e140_exception: tax
+    classified_by: session
+    note: CPRT,CROX,DECK -- "Income taxes receivable" -- income-tax line (E140(1)) [beslutat av sessionen 2026-11-08]
+  us-gaap:IncreaseDecreaseInLeasingReceivables:
+    section: changes
+    class: kvar-i-flödet
+    e140_exception: lease
+    classified_by: session
+    note: LII -- "Leases, net" -- lease line (E140(1), E117) [beslutat av sessionen 2026-11-08]
+  us-gaap:IncreaseDecreaseInMortgageLoansHeldForSale:
+    section: changes
+    class: rörelsekapital
+    classified_by: session
+    note: DHI -- "(Increase) decrease in mortgage loans held for sale" -- mortgage loans held for sale -- E140(1) clarification (2) [beslutat av sessionen 2026-11-08]
+  us-gaap:IncreaseDecreaseInOperatingLiabilities:
+    section: changes
+    class: rörelsekapital
+    classified_by: session
+    note: BKNG -- "Deferred merchant bookings and other current liabilities" -- operating working capital under the changes heading [beslutat av sessionen 2026-11-08]
+  us-gaap:IncreaseDecreaseInOtherAccountsPayableAndAccruedLiabilities:
+    section: changes
+    class: rörelsekapital
+    classified_by: session
+    note: CROX -- "Accrued expenses and other liabilities" -- operating working capital under the changes heading [beslutat av sessionen 2026-11-08]
+  us-gaap:IncreaseDecreaseInOtherCurrentAssetsAndLiabilitiesNet:
+    section: changes
+    class: rörelsekapital
+    classified_by: session
+    note: AOS -- "Current assets and liabilities" -- operating working capital under the changes heading [beslutat av sessionen 2026-11-08]
+  us-gaap:IncreaseDecreaseInOtherNoncurrentAssetsAndLiabilitiesNet:
+    section: changes
+    class: kvar-i-flödet
+    e140_exception: long-term
+    classified_by: session
+    note: AOS -- "Noncurrent assets and liabilities" -- long-term line (E140(1)) [beslutat av sessionen 2026-11-08]
+
+overrides:
+  NVR:
+    us-gaap:IncreaseDecreaseInInventories:
+      section: changes
+      class: kvar-i-flödet
+      e140_exception: E123
+      note: E140(1) E123's shape -- the homes are the business
+    us-gaap:IncreaseDecreaseInDepositsOutstanding:
+      section: changes
+      class: kvar-i-flödet
+      e140_exception: E123
+      note: >-
+        "Increase in contract land deposits" -- inventory in E123's shape,
+        E140(1) as clarified by the owner 2026-11-08: NVR's substitute for
+        the land reserve PHM carries in inventory
+  DHI:
+    dhi:IncreaseDecreaseInRentalProperties:
+      section: changes
+      class: kvar-i-flödet
+      e140_exception: E123
+      classified_by: session
+      note: DHI -- "Decrease (increase) in rental properties" -- homebuilder inventory/land/rental homes -- E123 shape by clarification (2)'s principle (must grow with sales, carried by equity); E140(1) names only NVR and PHM, so this is an OVERRIDE for DHI [beslutat av sessionen 2026-11-08]
+    us-gaap:IncreaseDecreaseInFinishedGoodsAndWorkInProcessInventories:
+      section: changes
+      class: kvar-i-flödet
+      e140_exception: E123
+      classified_by: session
+      note: DHI -- "Decrease in construction in progress and finished homes" -- homebuilder inventory/land/rental homes -- E123 shape by clarification (2)'s principle (must grow with sales, carried by equity); E140(1) names only NVR and PHM, so this is an OVERRIDE for DHI [beslutat av sessionen 2026-11-08]
+    us-gaap:IncreaseDecreaseInInventoryForLongTermContractsOrPrograms:
+      section: changes
+      class: kvar-i-flödet
+      e140_exception: E123
+      classified_by: session
+      note: DHI -- "Increase in residential land and lots — developed, under dev" -- homebuilder inventory/land/rental homes -- E123 shape by clarification (2)'s principle (must grow with sales, carried by equity); E140(1) names only NVR and PHM, so this is an OVERRIDE for DHI [beslutat av sessionen 2026-11-08]
+
+# --- WAITING FOR THE OWNER'S CLASSIFICATION -----------------------------------
+# Empty after the sweep of 2026-11-08 (A1). A tag that appears later stops its
+# name (DATA MISSING) and is listed here with a proposal.
+pending: {}

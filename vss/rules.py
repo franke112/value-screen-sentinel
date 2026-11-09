@@ -11,7 +11,7 @@ Authority for these rules, in order of precedence:
   1. The SCOPE given by the user, plus their explicit answers on
      verdict combination, RSI's role, DATA MISSING reach and --dry-run.
   2. reference/SPEC.md, for the items that do not conflict with (1):
-     inclusive dislocation band, 52w high semantics, DATA MISSING never
+     52w high semantics (the dislocation band went in E161), DATA MISSING never
      meaning FAIL, and blockers being emitted instead of verdicts.
 
 The catalyst gate reads the structured ``catalyst_resolved`` date only.
@@ -62,11 +62,6 @@ MBP_DEF_E28 = "e28_bear_case"
 MBP_DEF_E90 = "e90_base_cushion"
 VALID_MBP_DEFINITIONS = (MBP_DEF_SUPERSEDED, MBP_DEF_E28, MBP_DEF_E90)
 
-#: Dislocation band, both bounds INCLUSIVE. Exactly 0.15 and exactly 0.50
-#: are inside the band and therefore do NOT raise OUTSIDE DISLOCATION BAND.
-DISLOCATION_MIN = 0.15
-DISLOCATION_MAX = 0.50
-
 #: price <= mbp * this factor (and above mbp) => APPROACHING MBP.
 APPROACHING_MBP_FACTOR = 1.05
 
@@ -113,18 +108,14 @@ MAX_CLOSE_AGE_TRADING_DAYS = 3
 MAX_CLOSE_AGE_TRADING_DAYS_LEVEL = 1
 
 
-def carries_level(status: str | None, mbp: float | None,
-                  stop_price: float | None) -> bool:
-    """HELD, or an MBP or a stop to compare a close with."""
-    return status == "HELD" or mbp is not None or stop_price is not None
+def carries_level(status: str | None, mbp: float | None) -> bool:
+    """HELD, or an MBP to compare a close with (E162: no price stop)."""
+    return status == "HELD" or mbp is not None
 
 
-def unchecked_levels(status: str | None, mbp: float | None,
-                     stop_price: float | None) -> str:
+def unchecked_levels(status: str | None, mbp: float | None) -> str:
     """The words a stale block carries for a name with a level."""
     parts = []
-    if stop_price is not None:
-        parts.append(f"stop {stop_price:,.2f}")
     if mbp is not None:
         parts.append(f"MBP {mbp:,.2f}")
     if not parts:
@@ -252,11 +243,8 @@ class TickerAssessment:
 
 
 # Verdict codes
-STOP_BREACHED = "STOP_BREACHED"
 AT_BELOW_MBP = "AT_BELOW_MBP"
 APPROACHING_MBP = "APPROACHING_MBP"
-OUTSIDE_BAND = "OUTSIDE_BAND"
-NO_STOP_PRE_ENTRY = "NO_STOP_PRE_ENTRY"
 DROPPED = "DROPPED"
 #: E111: the verdict an INTAKE name collects, which is none of the others.
 INTAKE = "INTAKE"
@@ -266,6 +254,7 @@ NO_ACTION = "NO_ACTION"
 # Blocker codes
 NO_DATA = "NO_DATA"
 STALE_DATA = "STALE_DATA"
+NO_STOP = "NO_STOP"
 #: E122(d): the vendor restated a close ACROSS a level this name carries.
 #: The held close stands, the name collects no verdict, and the owner rules.
 PRICE_CORRECTION = "PRICE_CORRECTION"
@@ -279,7 +268,6 @@ CALENDAR_MISMATCH = "CALENDAR_MISMATCH"
 #: and silencing a holding's STOP to enforce a bull would be the failure
 #: the gate exists to prevent.
 CATALYST_UNRESOLVED = "CATALYST_UNRESOLVED"
-NO_STOP = "NO_STOP"
 
 
 # --- MBP ------------------------------------------------------------------
@@ -464,19 +452,18 @@ def catalyst_blocker(
     )
 
 
-def missing_stop_blocker(status: str | None, stop_price: float | None) -> Blocker | None:
-    """A HELD position with no stop is blocked, never actioned.
+def missing_stop_blocker(status: str | None, stop_price: float | None,
+                         stop_none: bool = False) -> Blocker | None:
+    """E162: a HELD name whose `stop_price` is EMPTY is blocked.
 
-    Only HELD. A waiting name -- WATCH-PRICED, WATCH-GATED or PIPELINE --
-    has no position to exit, so a missing stop is not an emergency; it is
-    a prerequisite for entry, reported as the NO STOP DEFINED flag in
-    ``pre_entry_stop_flag``.
+    There is no price stop any more, but "no stop" must be WRITTEN
+    (`stop_price: none  # E162`) so a decision and a forgotten field never
+    look alike. Only HELD: a waiting name has no position to exit.
     """
-    if status != "HELD":
+    if status != "HELD" or stop_price is not None or stop_none:
         return None
-    if stop_price is None:
-        return Blocker(NO_STOP, "no stop defined (FRAMEWORK 0.4 / 6.4)")
-    return None
+    return Blocker(NO_STOP, "stop_price is empty -- write `stop_price: none` "
+                            "(no price stop, E162) or a level")
 
 
 def collect_blockers(
@@ -484,7 +471,6 @@ def collect_blockers(
     status: str | None,
     last_close: float | None,
     last_close_date: date | None,
-    stop_price: float | None,
     catalyst_date: date | None,
     catalyst_resolved: date | None,
     catalyst_event: str | None,
@@ -494,6 +480,8 @@ def collect_blockers(
     holidays: frozenset[date] | None = frozenset(),
     pending_correction: str | None = None,
     calendar_mismatch: str | None = None,
+    stop_price: float | None = None,
+    stop_none: bool = False,
 ) -> tuple[Blocker, ...]:
     """Every blocker that applies. Blockers always fire, independently."""
     no_data = no_data_blocker(last_close, fetch_error)
@@ -503,12 +491,12 @@ def collect_blockers(
     # ``holidays`` is the exchange's closed weekdays over the window (owner,
     # 2026-09-19: no block when the exchange had no session); None means no
     # calendar could answer, and the naive count is used AND NAMED.
-    level = carries_level(status, mbp, stop_price)
+    level = carries_level(status, mbp)
     notes = []
     if holidays is None:
         notes.append("no exchange calendar for this name: counted Monday to Friday")
     if level:
-        notes.append(unchecked_levels(status, mbp, stop_price))
+        notes.append(unchecked_levels(status, mbp))
     stale = None if no_data else stale_close_blocker(
         last_close_date, as_of,
         MAX_CLOSE_AGE_TRADING_DAYS_LEVEL if level else MAX_CLOSE_AGE_TRADING_DAYS,
@@ -525,70 +513,12 @@ def collect_blockers(
         # one trading day of the name being live.
         Blocker(CALENDAR_MISMATCH, calendar_mismatch) if calendar_mismatch else None,
         catalyst_blocker(catalyst_date, catalyst_resolved, as_of, catalyst_event),
-        missing_stop_blocker(status, stop_price),
+        missing_stop_blocker(status, stop_price, stop_none),
     ]
     return tuple(b for b in found if b is not None)
 
 
 # --- Verdicts (SCOPE 5) ----------------------------------------------------
-
-
-def stop_verdict(
-    status: str | None, last_close: float | None, stop_price: float | None,
-    series_finding: str | None = None,
-) -> Verdict | None:
-    """STOP BREACHED for a HELD name at or below its stop.
-
-    A risk check: it evaluates regardless of whether other manual fields
-    are absent. Boundary is inclusive -- exactly at the stop is breached.
-
-    ``series_finding`` is K4's verdict on the SERIES (`series_sanity.check`):
-    a scale switch or an uncorroborated discontinuity inside the window.
-    When it is set the close is not a measurement, so the check is DATA
-    MISSING and never STOP BREACHED -- MNST's feed halved its price for
-    four weeks in 2026, and a HELD name on such a feed would have printed
-    a breach against a stop the market never touched. A REAL repricing
-    that the tape corroborates carries no finding and still breaches.
-    """
-    if last_close is None:
-        return None
-    if status != "HELD":
-        return None  # no position to exit; see pre_entry_stop_flag
-    if stop_price is None:
-        return Verdict(DATA_MISSING, "DATA MISSING", "stop check: stop_price not set")
-    if series_finding:
-        return Verdict(
-            DATA_MISSING, "DATA MISSING",
-            f"stop check: the price series cannot be measured (K4) -- "
-            f"{series_finding}",
-        )
-    if last_close <= stop_price:
-        return Verdict(
-            STOP_BREACHED,
-            "STOP BREACHED",
-            f"close {last_close:.2f} <= stop {stop_price:.2f}",
-        )
-    return None
-
-
-def pre_entry_stop_flag(status: str | None, stop_price: float | None) -> Verdict | None:
-    """Flag a non-HELD name that has no stop defined.
-
-    Not a blocker: there is no position to exit, so the MBP checks still
-    run normally. But FRAMEWORK 0.4 rule 4 says a name is a buy below
-    price X, under conditions Y, *with stop Z* -- so a buy verdict on a
-    name with no stop is not yet actionable. The flag rides alongside the
-    verdicts to say so.
-    """
-    if status == "HELD":
-        return None
-    if stop_price is not None:
-        return None
-    return Verdict(
-        NO_STOP_PRE_ENTRY,
-        "NO STOP DEFINED",
-        "required before entry (FRAMEWORK 0.4 / 6.4)",
-    )
 
 
 #: E100 (2026-09-01): the mark on a crossing the DEFINITION caused.
@@ -688,88 +618,6 @@ def mbp_verdict(last_close: float | None, mbp: float | None,
     return None
 
 
-def in_dislocation_band(drawdown: float | None) -> bool | None:
-    """FRAMEWORK Gate 1's level limb, as a PREDICATE.
-
-    True inside [0.15, 0.50], False outside, and ``None`` -- DATA MISSING --
-    when the drawdown could not be computed at all. The third value is not a
-    convenience: a name whose 52-week high is unknown has not failed Gate 1,
-    it has not been tested, and a caller that collapses ``None`` to False
-    would silently convert an ungathered fact into a rejection.
-
-    Both bounds are INCLUSIVE per FRAMEWORK-EDITS B2: exactly 0.15 and
-    exactly 0.50 are inside the band.
-
-    This exists separately from ``dislocation_verdict`` because a verdict is
-    a reporting shape -- ``Verdict`` or ``None``, where ``None`` means "no
-    finding" -- and reading it as a filter inverts that meaning. Callers
-    that need to decide keep or drop call THIS. Callers that need to report
-    call the verdict. Neither reimplements the band.
-    """
-    if drawdown is None:
-        return None
-    return DISLOCATION_MIN <= drawdown <= DISLOCATION_MAX
-
-
-def fell_over_year(return_12m: float | None) -> bool | None:
-    """FRAMEWORK-EDITS E127: has the price FALLEN over the trailing year?
-
-    True when the close is BELOW the close of a year ago, False at or above
-    it, ``None`` -- DATA MISSING -- when there is no close a year back. The
-    band asks how far a name sits below its PEAK and cannot tell a fall
-    from a pullback after a run-up: HUNT.OL and CF entered the 2026-09-26
-    top 10 at 15.5% and 17.7% below highs set five and twenty-four days
-    earlier, +1150% and +24.5% on the year.
-
-    SCREENER ONLY. Filter 1 reads it after the band; `vss run` does not, and
-    Gate 1 on the watchlist is unchanged by E127. Zero is not a fall.
-    """
-    if return_12m is None:
-        return None
-    return return_12m < 0
-
-
-def dislocation_verdict(drawdown: float | None,
-                        series_finding: str | None = None) -> Verdict | None:
-    """OUTSIDE DISLOCATION BAND when drawdown leaves [0.15, 0.50].
-
-    K4: with a ``series_finding`` the 52-week high on the far side of the
-    break is not comparable with today's close, so the drawdown across it
-    is not a measurement -- DATA MISSING, whatever number it came to.
-
-    Both bounds inclusive: exactly 0.15 and exactly 0.50 are inside.
-    """
-    if series_finding:
-        return Verdict(
-            DATA_MISSING, "DATA MISSING",
-            f"dislocation check: a drawdown measured across a break is not "
-            f"a measurement (K4) -- {series_finding}",
-        )
-    inside = in_dislocation_band(drawdown)
-    if inside is None:
-        return Verdict(
-            DATA_MISSING, "DATA MISSING", "dislocation check: drawdown not computable"
-        )
-    if inside:
-        return None
-    return Verdict(
-        OUTSIDE_BAND,
-        "OUTSIDE DISLOCATION BAND",
-        f"drawdown {drawdown:.1%} outside "
-        f"{DISLOCATION_MIN:.0%}-{DISLOCATION_MAX:.0%}",
-    )
-
-
-def frozen_gate_1(status: str | None, dd_at_entry: float | None,
-                  peak_date: date | None) -> bool:
-    """Is Gate 1 FROZEN for this name (FRAMEWORK-EDITS E12)?
-
-    Only a PIPELINE name whose entry carries the pair. A holding reads
-    today's level (B1); a WATCH-* name has its own re-entry rule (E27); a
-    PIPELINE entry written before the pair existed has nothing frozen and
-    is read on today's level, which the report says.
-    """
-    return status == "PIPELINE" and dd_at_entry is not None and peak_date is not None
 
 
 def collect_verdicts(
@@ -778,25 +626,18 @@ def collect_verdicts(
     last_close: float | None,
     drawdown: float | None,
     mbp: float | None,
-    stop_price: float | None,
     mbp_superseded: bool = False,
     previous_mbp: float | None = None,
     series_finding: str | None = None,
-    dd_at_entry: float | None = None,
-    peak_date: date | None = None,
 ) -> tuple[Verdict, ...]:
     """Every verdict that applies, in stable reporting order.
 
-    Verdicts are COLLECTED, not first-match-wins: a HELD name below both
-    its stop and its MBP reports both, so a stop breach can never be
-    masked by another rule firing first.
+    Verdicts are COLLECTED, not first-match-wins. E162: there is no price
+    stop any more (attempts #10, #18), so no stop verdict and no
+    pre-entry stop flag.
 
-    E12: for a PIPELINE name carrying `dd_at_entry` and `peak_date`, the
-    dislocation verdict is struck on the FROZEN reading, never on today's
-    drawdown -- leaving PIPELINE takes an information event, not a
-    re-reading of the band. Today's figure stays on the row as context.
-    The frozen reading is a stored number, not a measurement across
-    today's series, so K4's finding does not reach it.
+    E161: Gate 1's 15-50% band is no longer a verdict (attempts #12, #21);
+    the drawdown stays on the row as a field.
     """
     # A dropped name is out of the funnel. Running the entry checks over
     # it would report a missing stop "required before entry" for a name
@@ -819,25 +660,9 @@ def collect_verdicts(
                         "stop, and no checks run. Promotion to PIPELINE is "
                         "what starts E12's clock, and it is the owner's act"),)
 
-    if frozen_gate_1(status, dd_at_entry, peak_date):
-        band = dislocation_verdict(dd_at_entry, None)
-        if band is not None:
-            today = "DATA MISSING" if drawdown is None else f"{drawdown:.1%}"
-            band = Verdict(
-                band.code, band.label,
-                f"{band.detail} -- FROZEN AT ENTRY per E12, against the 52-week "
-                f"closing high of {peak_date.isoformat()}; today's reading "
-                f"{today} is context",
-            )
-    else:
-        band = dislocation_verdict(drawdown, series_finding)
-
     found = [
-        stop_verdict(status, last_close, stop_price, series_finding),
-        pre_entry_stop_flag(status, stop_price),
         mbp_verdict(last_close, mbp, mbp_superseded, series_finding,
                     previous_mbp=previous_mbp),
-        band,
     ]
     verdicts = [v for v in found if v is not None]
     if not verdicts:
@@ -857,7 +682,6 @@ def assess(
     drawdown: float | None,
     fv_base: float | None,
     tier: int | None,
-    stop_price: float | None,
     catalyst_date: date | None,
     catalyst_resolved: date | None,
     catalyst_event: str | None,
@@ -865,8 +689,6 @@ def assess(
     fetch_error: str | None = None,
     bear_value: float | None = None,
     series_finding: str | None = None,
-    dd_at_entry: float | None = None,
-    peak_date: date | None = None,
     #: E100: the MBP the previous FULL run recorded for this name. Where a
     #: close sits at or below tonight's MBP and ABOVE that one, the crossing
     #: is the definition moving and not the price, and it arms nothing.
@@ -878,6 +700,10 @@ def assess(
     pending_correction: str | None = None,
     #: E121(e): a session the derived calendar denies, in words.
     calendar_mismatch: str | None = None,
+    #: E162: the entry's stop field -- a level, or `none` by decision
+    #: (stop_none). Read only to tell a decision from an empty field.
+    stop_price: float | None = None,
+    stop_none: bool = False,
 ) -> TickerAssessment:
     """Full assessment for one ticker.
 
@@ -912,7 +738,6 @@ def assess(
         status=status,
         last_close=last_close,
         last_close_date=last_close_date,
-        stop_price=stop_price,
         catalyst_date=catalyst_date,
         catalyst_resolved=catalyst_resolved,
         catalyst_event=catalyst_event,
@@ -922,6 +747,8 @@ def assess(
         holidays=holidays,
         pending_correction=pending_correction,
         calendar_mismatch=calendar_mismatch,
+        stop_price=stop_price,
+        stop_none=stop_none,
     )
     if blockers:
         return TickerAssessment(ticker=ticker, blockers=blockers, verdicts=(),
@@ -931,12 +758,9 @@ def assess(
         last_close=last_close,
         drawdown=drawdown,
         mbp=mbp,
-        stop_price=stop_price,
         mbp_superseded=superseded,
         previous_mbp=previous_mbp,
         series_finding=series_finding,
-        dd_at_entry=dd_at_entry,
-        peak_date=peak_date,
     )
     return TickerAssessment(ticker=ticker, blockers=(), verdicts=verdicts,
                             mbp=mbp, mbp_superseded=superseded)
@@ -958,23 +782,6 @@ TRIP = "TRIP"
 NO_TRIP = "NO_TRIP"
 CANNOT_EVALUATE = "CANNOT_EVALUATE"
 
-#: Revenue must decline year-over-year this many quarters running (4.2.1).
-#: YoY, not sequential: sequential would fire every Q1 on a seasonal name.
-REVENUE_DECLINE_QUARTERS = 2
-
-#: Sequential declines needed for the 4.3 SOFT flag. Catches the case YoY
-#: misses -- a name eroding quarter on quarter while lapping a weak base.
-SEQUENTIAL_DECLINE_QUARTERS = 3
-
-#: Operating margin compression threshold, in BASIS POINTS.
-#: Compared in bps with rounding rather than as a fraction: subtracting
-#: two margins in binary float leaves ~1e-17 of noise, which made an
-#: exactly-150bps compression read as 150.00000000000014 and trip a rule
-#: documented as "> 150bps".
-MARGIN_COMPRESSION_BPS = 150.0
-
-#: Decimal places used to damp float noise before a threshold comparison.
-COMPARISON_PRECISION = 6
 
 #: THE UNIT CONTRACT. A ratio is stored as a FRACTION, never a percentage:
 #: an operating margin of 6.6 per cent is 0.066. Every layer obeys it --
@@ -1034,14 +841,10 @@ GUIDANCE_CUT_WINDOW = 4
 EPS_MISS_LIMIT = 3
 EPS_MISS_WINDOW = 8
 
-NET_DEBT_EBITDA_MAX = 3.5
-
 #: NOT from FRAMEWORK 4.2, which says only "covenant proximity" without a
 #: number. This is a chosen default; change it deliberately.
 COVENANT_HEADROOM_MIN = 0.10
 
-WORKING_CAPITAL_MULTIPLE = 1.5
-WORKING_CAPITAL_QUARTERS = 2
 
 EXEC_DEPARTURE_WINDOW_DAYS = 365
 
@@ -1335,299 +1138,10 @@ def basis_mismatch(a: Quarter, b: Quarter) -> str | None:
     return None
 
 
-def _year_ago(quarters, index, ppy: int = QUARTERS_PER_YEAR):
-    """The same period one year earlier, or None if there is none.
-
-    Matched by LABEL, not by position: 2026-Q2's year-ago is the entry
-    labelled 2025-Q2, 2026-H1's is 2025-H1. Positional look-back (index
-    minus ``ppy``) is right only when the history is contiguous and every
-    period has the same length; a gap, or a half_yearly history that holds
-    a YYYY-FY beside YYYY-H1 rows (which the overlap guard allows, since
-    they do not overlap), would pair unlike periods and call it YoY. With
-    label matching a missing comparator is None -> CANNOT EVALUATE, which
-    is the honest answer. Positional look-back remains the fallback for
-    labels the schema cannot parse (tests build ad-hoc ones).
-    """
-    parts = period_parts(getattr(quarters[index], "period", None))
-    if parts is not None:
-        year, kind = parts
-        wanted = f"{year - 1}-{kind}"
-        for i in range(index - 1, -1, -1):
-            if quarters[i].period == wanted:
-                return quarters[i]
-        return None
-    prior = index - ppy
-    return quarters[prior] if prior >= 0 else None
-
-
-# --- 4.2.1 Revenue declining 2+ consecutive quarters ----------------------
-
-
-def revenue_decline_kill(quarters: Sequence[Quarter], ppy: int = QUARTERS_PER_YEAR) -> KillResult:
-    """4.2.1, read on an ORGANIC basis where the issuer discloses one (E30).
-
-    B9 ruled one direction: reported down, organic up, NOT a kill -- UNA.AS,
-    where reported turnover fell four quarters on currency and disposals
-    while underlying growth was positive throughout. E30 rules the mirror
-    JD.L exposed: reported UP and organic DOWN IS a kill, and the reported
-    figure does not rescue it. Reported +10.5%, organic -0.1% then -1.3%.
-
-    One rule, both directions: 4.2.1 measures DEMAND, and organic is the
-    measure of demand.
-
-    THE BASIS IS NAMED IN THE RESULT, which is what B20 actually asked for.
-    A window that mixes the two is CANNOT EVALUATE rather than a number: a
-    run of declines counted partly on one measure and partly on another is
-    not a run.
-    """
-    run, unit = periods_for(REVENUE_DECLINE_QUARTERS, ppy), period_unit(ppy)
-    rule = "4.2.1"
-    if len(quarters) < run:
-        return _cannot(rule, f"Revenue declining {run}+ consecutive {unit} (YoY)",
-                       f"needs {run} {unit} of history")
-
-    recent = quarters[-run:]
-    organic = [q.revenue_yoy_organic is not None for q in recent]
-    if any(organic) and not all(organic):
-        without = ", ".join(q.period for q in recent
-                            if q.revenue_yoy_organic is None)
-        return _cannot(
-            rule, f"Revenue declining {run}+ consecutive {unit} (YoY, organic)",
-            f"organic growth is disclosed for some of the window and not for "
-            f"{without}; a run counted partly on organic and partly on "
-            f"reported is not a run (E30)")
-
-    on_organic = all(organic)
-    basis_label = "organic" if on_organic else "reported"
-    name = f"Revenue declining {run}+ consecutive {unit} (YoY, {basis_label})"
-
-    # B9/E30, SAID RATHER THAN IMPLIED. A kill struck on REPORTED revenue is
-    # a kill the carve-out did not reach, and until 2026-09-01 the only sign
-    # of that was the word "reported" in the name. B9 exists because a
-    # reported decline can be a disposal or a currency move rather than a
-    # loss of demand -- UNA.AS fell 4.6/3.5/2.7/3.3% on four consecutive
-    # reported quarters while underlying growth ran 3.0-5.8% throughout --
-    # so a reader must be able to tell "no organic figure was disclosed"
-    # from "the organic series was checked and declined too".
-    #
-    # THE XBRL ROUTE CAN NEVER SUPPLY ONE: us-gaap tags no organic measure,
-    # `xbrl.as_quarter` records that absence as by-construction, and this
-    # is where that absence becomes visible instead of inferred.
-    carve_out = "" if on_organic else (
-        f" No organic figure is on file for {'any of' if not any(organic) else 'all of'} "
-        f"the window, so B9's carve-out could not be applied and this run is "
-        f"counted on REPORTED revenue -- which a disposal, a demerger or a "
-        f"currency move can produce without any loss of demand. Where the "
-        f"release states an underlying figure, enter `revenue_yoy_organic`; "
-        f"the XBRL route cannot supply one (no us-gaap tag exists).")
-
-    def read(q: Quarter) -> float | None:
-        return q.revenue_yoy_organic if on_organic else q.revenue_yoy
-
-    field = "revenue_yoy_organic" if on_organic else "revenue_yoy"
-    if any(read(q) is None for q in recent):
-        missing = ", ".join(q.period for q in recent if read(q) is None)
-        return _cannot(rule, name, f"{field} not set for {missing}{carve_out}")
-
-    # A YoY figure that mixes bases is not a YoY figure. The reported
-    # series carries the basis marker, so this check runs whichever
-    # measure is read: a constant-currency quarter against a reported one
-    # is a mismatch even where an organic rate exists for both.
-    for i in range(len(quarters) - run, len(quarters)):
-        prior = _year_ago(quarters, i, ppy)
-        if prior is not None:
-            problem = basis_mismatch(quarters[i], prior)
-            if problem:
-                return _cannot(rule, name, problem)
-
-    figures = tuple(
-        f"{q.period} revenue YoY {read(q):+.1%} ({basis_label})"
-        + (f", reported {q.revenue_yoy:+.1%}"
-           if on_organic and q.revenue_yoy is not None else "")
-        for q in recent)
-
-    if all(read(q) < 0 for q in recent):
-        # THE KILL ITSELF CARRIES THE CARVE-OUT'S ABSENCE. This is the one
-        # place it matters most: a hard kill struck on reported revenue,
-        # with no organic series to test it against, is exactly the verdict
-        # B9 was ruled to prevent -- and B9's own case (UNA.AS) TRIPS here
-        # if the organic figures are not on file.
-        detail = (f"{run} consecutive YoY declines on {basis_label} revenue"
-                  + carve_out)
-        if on_organic and all(q.revenue_yoy is not None and q.revenue_yoy > 0
-                              for q in recent):
-            # JD.L's shape, named where it occurs so the verdict cannot
-            # read as an arithmetic slip.
-            detail += (" -- reported revenue GREW throughout and does not "
-                       "rescue it (E30)")
-        return _result(rule, name, TRIP, detail, figures)
-    return _result(rule, name, NO_TRIP,
-                   f"no consecutive YoY decline run on {basis_label} revenue",
-                   figures)
-
-
-# --- 4.3 SOFT flag: sequential erosion YoY would miss ---------------------
-
-
-def sequential_decline_soft_flag(quarters: Sequence[Quarter], ppy: int = QUARTERS_PER_YEAR) -> KillResult:
-    """NOT a hard kill. FRAMEWORK 4.3 territory, worth -1.
-
-    Catches the name that erodes quarter on quarter while lapping a weak
-    base, so 4.2.1 never fires and the deterioration surfaces four
-    quarters late.
-    """
-    run, unit = periods_for(SEQUENTIAL_DECLINE_QUARTERS, ppy), period_unit(ppy)
-    rule = "4.3.soft"
-    name = f"Revenue declining {run}+ consecutive {unit} (sequential)"
-    need = run + 1
-    if len(quarters) < need:
-        return _cannot(rule, name, f"needs {need} {unit} of history")
-
-    recent = quarters[-need:]
-    if any(q.revenue is None for q in recent):
-        missing = ", ".join(q.period for q in recent if q.revenue is None)
-        return _cannot(rule, name, f"revenue not set for {missing}")
-    for earlier, later in zip(recent, recent[1:]):
-        problem = basis_mismatch(later, earlier)
-        if problem:
-            return _cannot(rule, name, problem)
-
-    steps = [(b.period, b.revenue - a.revenue) for a, b in zip(recent, recent[1:])]
-    figures = tuple(f"{p} sequential change {d:+,.1f}" for p, d in steps)
-    if all(d < 0 for _, d in steps):
-        return _result(rule, name, TRIP,
-                       f"{run} consecutive sequential declines "
-                       f"-- SOFT FLAG (-1), not a 4.2 hard kill", figures)
-    return _result(rule, name, NO_TRIP, "no sequential decline run", figures)
+# E168 (attempt #25): the 4.3 sequential-decline soft flag is removed.
 
 
 # --- 4.2.2 Op margin compression > 150bps YoY with flat/declining revenue --
-
-
-def _margin_excluding_one_off(quarter: Quarter) -> tuple[float | None, str | None]:
-    """The margin with the quantified one-off taken out, or why it cannot be.
-
-    ``class_c_impact`` is the one-off's effect on REPORTED operating
-    profit, so removing it is a subtraction in margin terms:
-    ``op_margin - class_c_impact / revenue``. Lindab's 2025-Q4 reports a
-    3.1% margin with a -106 MSEK one-off on 3,134 MSEK of revenue, which
-    is 6.5% ex one-off -- the adjusted margin the report itself states.
-
-    A quarter with no recorded one-off has nothing to exclude and keeps
-    its reported margin. A quarter with a one-off but no revenue cannot
-    express it as a margin at all; that is CANNOT EVALUATE, not an
-    exemption granted on the strength of an unquantifiable number.
-    """
-    if quarter.class_c_impact is None:
-        return quarter.op_margin, None
-    if not quarter.revenue:
-        return None, (
-            f"{quarter.period} records a class_c_impact of "
-            f"{quarter.class_c_impact:,.1f} but no revenue, so the one-off "
-            f"cannot be expressed as a margin and its effect on the "
-            f"compression cannot be measured"
-        )
-    return quarter.op_margin - quarter.class_c_impact / quarter.revenue, None
-
-
-def margin_compression_kill(quarters: Sequence[Quarter], ppy: int = QUARTERS_PER_YEAR) -> KillResult:
-    """4.2.2, evaluated on the margin EXCLUDING quantified one-offs.
-
-    FRAMEWORK 4.2 exempts compression "explained by a quantified Class C
-    event", and explaining is a matter of size: a 2 MSEK one-off does not
-    explain a 400bps collapse. The rule therefore recomputes both
-    margins with their one-offs removed and applies the 150bps threshold
-    to what is left. A one-off large enough to account for the
-    compression exempts it; one that is not, does not.
-
-    Both quarters are adjusted, not just the latest. A one-off that
-    flattered the year-ago base manufactures compression that never
-    happened, and a one-off that flatters the LATEST quarter hides
-    compression that did -- so the ex-one-off figure is the one the
-    threshold reads, in both directions.
-    """
-    rule = "4.2.2"
-    name = "Op margin compression > 150bps YoY with flat/declining revenue"
-    if len(quarters) < ppy + 1:
-        return _cannot(rule, name, f"needs {ppy + 1} {period_unit(ppy)} for a YoY margin comparison")
-
-    latest = quarters[-1]
-    prior = _year_ago(quarters, len(quarters) - 1, ppy)
-    if prior is None:
-        return _cannot(rule, name, "no year-ago period")
-    if latest.op_margin is None or prior.op_margin is None:
-        return _cannot(rule, name, f"op_margin not set for {latest.period} or {prior.period}")
-    if latest.revenue_yoy is None:
-        return _cannot(rule, name, f"revenue_yoy not set for {latest.period}")
-    problem = basis_mismatch(latest, prior)
-    if problem:
-        return _cannot(rule, name, problem)
-
-    latest_ex, problem = _margin_excluding_one_off(latest)
-    if problem:
-        return _cannot(rule, name, problem)
-    prior_ex, problem = _margin_excluding_one_off(prior)
-    if problem:
-        return _cannot(rule, name, problem)
-
-    compression_bps = round(
-        (prior.op_margin - latest.op_margin) * 10_000, COMPARISON_PRECISION
-    )
-    compression_ex_bps = round(
-        (prior_ex - latest_ex) * 10_000, COMPARISON_PRECISION
-    )
-    one_offs = tuple(q for q in (latest, prior) if q.class_c_impact is not None)
-
-    if one_offs:
-        figures = (
-            f"{latest.period} op margin {latest.op_margin:.2%} reported, "
-            f"{latest_ex:.2%} ex one-off",
-            f"{prior.period} op margin {prior.op_margin:.2%} reported, "
-            f"{prior_ex:.2%} ex one-off",
-            f"compression {compression_bps:+.0f}bps reported, "
-            f"{compression_ex_bps:+.0f}bps ex one-off",
-        ) + tuple(
-            f"{q.period} class_c_impact {q.class_c_impact:,.1f} excluded"
-            for q in one_offs
-        ) + (f"{latest.period} revenue YoY {latest.revenue_yoy:+.1%}",)
-    else:
-        figures = (
-            f"{latest.period} op margin {latest.op_margin:.2%}",
-            f"{prior.period} op margin {prior.op_margin:.2%}",
-            f"compression {compression_bps:+.0f}bps",
-            f"{latest.period} revenue YoY {latest.revenue_yoy:+.1%}",
-        )
-
-    # The threshold reads the ex-one-off figure. Where they differ, the
-    # reported number is still shown: a reader must be able to see what
-    # the one-off did, not just be told it was handled.
-    if compression_ex_bps <= MARGIN_COMPRESSION_BPS:
-        if one_offs and compression_bps > MARGIN_COMPRESSION_BPS:
-            detail = (
-                f"compression of {compression_bps:+.0f}bps IS explained by the "
-                f"quantified Class C event(s): {compression_ex_bps:+.0f}bps remains "
-                f"once they are excluded, within {MARGIN_COMPRESSION_BPS:.0f}bps"
-            )
-        else:
-            detail = f"compression within {MARGIN_COMPRESSION_BPS:.0f}bps"
-        return _result(rule, name, NO_TRIP, detail, figures)
-    if latest.revenue_yoy > 0:
-        return _result(rule, name, NO_TRIP, "revenue growing, not flat/declining", figures)
-    if one_offs:
-        detail = (
-            f"compression > {MARGIN_COMPRESSION_BPS:.0f}bps with flat/declining "
-            f"revenue: {compression_ex_bps:+.0f}bps remains after excluding the "
-            f"quantified Class C event(s), which therefore do NOT explain it"
-        )
-    else:
-        detail = (
-            f"compression > {MARGIN_COMPRESSION_BPS:.0f}bps with flat/declining "
-            f"revenue and no quantified Class C event"
-        )
-    return _result(rule, name, TRIP, detail, figures)
-
-
-# --- 4.2.3 2+ guidance cuts within trailing 4 quarters --------------------
 
 
 def guidance_cuts_kill(quarters: Sequence[Quarter], ppy: int = QUARTERS_PER_YEAR) -> KillResult:
@@ -1692,56 +1206,27 @@ def eps_misses_kill(quarters: Sequence[Quarter], ppy: int = QUARTERS_PER_YEAR) -
     return _result(rule, name, NO_TRIP, f"{len(misses)} EPS miss(es)", figures)
 
 
-# --- 4.2.5 Net debt/EBITDA > 3.5x or covenant proximity -------------------
+# --- 4.2.5 covenant proximity (E168: the net debt / EBITDA leg removed) ----
 
 
-def leverage_kill(quarters: Sequence[Quarter],
-                  derived: tuple[str, str] | None = None) -> KillResult:
-    """``derived`` is E119's reading off the store, ``(state, line)`` with
-    state PASS / REVIEW / FAIL / DATA MISSING (`manual.gate3_leverage` at
-    3.5x). It is read ONLY where no stated quarterly figure exists: a
-    stated `net_debt_ebitda` or `covenant_headroom` takes precedence."""
-    rule, name = "4.2.5", "Net debt/EBITDA > 3.5x or covenant proximity"
-    stated = bool(quarters) and (quarters[-1].net_debt_ebitda is not None
-                                 or quarters[-1].covenant_headroom is not None)
-    if not stated and derived is not None:
-        state, line = derived
-        if state == "FAIL":
-            return _result(rule, name, TRIP, f"E119 DERIVED -- {line}", (line,))
-        if state in ("PASS", "REVIEW"):
-            return _result(rule, name, NO_TRIP, f"E119 DERIVED -- {line}", (line,))
-        return _cannot(rule, name, f"E119: {line}")
+def covenant_kill(quarters: Sequence[Quarter]) -> KillResult:
+    """4.2.5's covenant-proximity leg, the part attempt #25 could not test.
+
+    E168 (2026-11-09) removed the net debt / EBITDA > 3.5x leg: it did not
+    separate returns in both markets and both halves. A stated
+    ``net_debt_ebitda`` is still shown as information, never a trip."""
+    rule, name = "4.2.5", "Covenant proximity"
     if not quarters:
         return _cannot(rule, name, "no quarterly history")
-
     latest = quarters[-1]
-    if latest.net_debt_ebitda is None and latest.covenant_headroom is None:
-        return _cannot(rule, name,
-                       f"net_debt_ebitda and covenant_headroom both not set for {latest.period}")
-
-    figures = []
-    if latest.net_debt_ebitda is not None:
-        # E117 clause 5 (owner, 2026-09-19): until a rent-bearing ratio forms
-        # from the store, the kill reads the ISSUER'S STATED ratio -- lease-
-        # inclusive for an IFRS 16 filer -- and says so, rather than going blind.
-        figures.append(f"{latest.period} net debt/EBITDA {latest.net_debt_ebitda:.2f}x "
-                       f"(issuer-stated; lease-inclusive under IFRS 16 -- E117 "
-                       f"clause 5 pending)")
-    if latest.covenant_headroom is not None:
-        figures.append(f"{latest.period} covenant headroom {latest.covenant_headroom:.1%}")
-    figures = tuple(figures)
-
-    if latest.net_debt_ebitda is not None and latest.net_debt_ebitda > NET_DEBT_EBITDA_MAX:
-        return _result(rule, name, TRIP,
-                       f"net debt/EBITDA {latest.net_debt_ebitda:.2f}x exceeds "
-                       f"{NET_DEBT_EBITDA_MAX}x", figures)
-    if latest.covenant_headroom is not None and latest.covenant_headroom <= COVENANT_HEADROOM_MIN:
+    if latest.covenant_headroom is None:
+        return _cannot(rule, name, f"covenant_headroom not set for {latest.period}")
+    figures = (f"{latest.period} covenant headroom {latest.covenant_headroom:.1%}",)
+    if latest.covenant_headroom <= COVENANT_HEADROOM_MIN:
         return _result(rule, name, TRIP,
                        f"covenant headroom {latest.covenant_headroom:.1%} at or below the "
                        f"{COVENANT_HEADROOM_MIN:.0%} proximity threshold", figures)
-    if latest.net_debt_ebitda is None:
-        return _cannot(rule, name, f"net_debt_ebitda not set for {latest.period}")
-    return _result(rule, name, NO_TRIP, "leverage within limit", figures)
+    return _result(rule, name, NO_TRIP, "covenant headroom above the threshold", figures)
 
 
 # --- 4.2.6 CEO and CFO departure within trailing 12 months ----------------
@@ -1776,73 +1261,15 @@ def exec_departure_kill(
 # --- 4.2.7 Receivables/inventory outgrowing revenue 1.5x for 2+ quarters ---
 
 
-def working_capital_kill(quarters: Sequence[Quarter], ppy: int = QUARTERS_PER_YEAR) -> KillResult:
-    """Channel stuffing / demand fade signal."""
-    run, unit = periods_for(WORKING_CAPITAL_QUARTERS, ppy), period_unit(ppy)
-    rule = "4.2.7"
-    name = f"Receivables or inventory growing > 1.5x revenue growth for {run}+ {unit}"
-    need = ppy + run
-    if len(quarters) < need:
-        return _cannot(rule, name, f"needs {need} {unit} for YoY working-capital growth")
-
-    figures, flagged, missing = [], [], []
-    for i in range(len(quarters) - run, len(quarters)):
-        q, prior = quarters[i], _year_ago(quarters, i, ppy)
-        if prior is None:
-            missing.append(q.period)
-            continue
-        if q.revenue_yoy is None:
-            missing.append(f"{q.period} revenue_yoy")
-            continue
-        problem = basis_mismatch(q, prior)
-        if problem:
-            return _cannot(rule, name, problem)
-
-        hit = False
-        for label, now_v, then_v in (
-            ("receivables", q.receivables, prior.receivables),
-            ("inventory", q.inventory, prior.inventory),
-        ):
-            if now_v is None or then_v is None:
-                missing.append(f"{q.period} {label}")
-                continue
-            if then_v == 0:
-                missing.append(f"{q.period} {label} (zero base)")
-                continue
-            growth = round((now_v - then_v) / then_v, COMPARISON_PRECISION)
-            figures.append(f"{q.period} {label} YoY {growth:+.1%} vs revenue "
-                           f"{q.revenue_yoy:+.1%}")
-            # 1.5x a negative growth rate is meaningless: if revenue is
-            # flat or shrinking, any working-capital growth is the signal.
-            if q.revenue_yoy <= 0:
-                hit = hit or growth > 0
-            else:
-                threshold = round(
-                    WORKING_CAPITAL_MULTIPLE * q.revenue_yoy, COMPARISON_PRECISION
-                )
-                hit = hit or growth > threshold
-        flagged.append(hit)
-
-    if missing:
-        return _cannot(rule, name, f"not set: {', '.join(missing)}")
-    if flagged and all(flagged):
-        return _result(rule, name, TRIP,
-                       f"working capital outgrew revenue {run} "
-                       f"{unit} running", tuple(figures))
-    return _result(rule, name, NO_TRIP, "working capital in line", tuple(figures))
-
-
 def evaluate_hard_kills(
     quarters: Sequence[Quarter] | None,
     exec_changes: Sequence[ExecChange] | None,
     as_of: date,
     reporting_frequency: str = DEFAULT_REPORTING_FREQUENCY,
-    derived_leverage: tuple[str, str] | None = None,
 ) -> tuple[KillResult, ...]:
-    """Every FRAMEWORK 4.2 rule, plus the 4.3 sequential soft flag last.
-
-    ``derived_leverage`` is E119's store reading for 4.2.5, used only where
-    the quarters state neither leverage input (see `leverage_kill`).
+    """Every FRAMEWORK 4.2 rule still in force. E163 removed 4.2.1, 4.2.2 and
+    4.2.7 (attempt #24); E168 removed 4.2.5's leverage leg and the 4.3 soft
+    flag (attempt #25).
 
     Absent history is not silence: every rule still reports, saying which
     input it lacked.
@@ -1861,12 +1288,8 @@ def evaluate_hard_kills(
         )
     qs = list(quarters or ())
     return (
-        revenue_decline_kill(qs, ppy),
-        margin_compression_kill(qs, ppy),
         guidance_cuts_kill(qs, ppy),
         eps_misses_kill(qs, ppy),
-        leverage_kill(qs, derived_leverage),
+        covenant_kill(qs),
         exec_departure_kill(exec_changes, as_of),
-        working_capital_kill(qs, ppy),
-        sequential_decline_soft_flag(qs, ppy),
     )

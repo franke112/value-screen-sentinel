@@ -481,10 +481,8 @@ def run_earnings(
             combined.append(quarter)
             combined.sort(key=lambda q: R.period_sort_key(q.period))
         # The provisional quarter is evaluated but never persisted.
-        from .manual import kill_leverage_reading
         results = R.evaluate_hard_kills(
-            combined, entry.exec_changes, as_of, entry.reporting_frequency,
-            derived_leverage=kill_leverage_reading(entry.ticker))
+            combined, entry.exec_changes, as_of, entry.reporting_frequency)
 
     unresolved_catalyst = (
         entry.catalyst_date

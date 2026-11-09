@@ -221,48 +221,20 @@ def test_evaluate_rejects_an_unknown_frequency():
 
 def test_half_yearly_rule_names_say_half_years_and_converted_counts():
     names = {r.rule: r.name for r in R.evaluate_hard_kills(halves(), [], AS_OF, "half_yearly")}
-    # E30 names the basis 4.2.1 read. These halves carry no organic rate,
-    # so it falls back to reported and says so.
-    assert names["4.2.1"] == \
-        "Revenue declining 1+ consecutive half-years (YoY, reported)"
     assert names["4.2.3"] == "2+ guidance cuts within trailing 2 half-years"
     assert names["4.2.4"] == "3+ EPS misses within trailing 4 half-years"
-    assert names["4.2.7"].endswith("for 1+ half-years")
-    assert names["4.3.soft"] == "Revenue declining 2+ consecutive half-years (sequential)"
 
 
 def test_quarterly_rule_names_are_unchanged():
     names = {r.rule: r.name for r in R.evaluate_hard_kills([], [], AS_OF)}
-    assert names["4.2.1"] == "Revenue declining 2+ consecutive quarters (YoY)"
     assert names["4.2.3"] == "2+ guidance cuts within trailing 4 quarters"
     assert names["4.2.4"] == "3+ EPS misses within trailing 8 quarters"
-    assert names["4.2.7"] == "Receivables or inventory growing > 1.5x revenue growth for 2+ quarters"
-    assert names["4.3.soft"] == "Revenue declining 3+ consecutive quarters (sequential)"
 
 
-def test_one_half_year_of_yoy_decline_trips_4_2_1_on_a_half_yearly_name():
-    """Two quarters are six months; so is one half-year. The literal span."""
-    qs = halves(6, revenue_yoy=[0.03] * 5 + [-0.01])
-    assert R.revenue_decline_kill(qs, 2).state == R.TRIP
-    # the same six months on a quarterly name would need two observations
-    assert R.revenue_decline_kill(qs, 4).state == R.NO_TRIP
 
 
-def test_yoy_margin_comparison_looks_back_two_halves():
-    """2025-H2 vs 2024-H2: index -2, not -4 (the list runs 2023-H1 .. 2025-H2)."""
-    qs = halves(6, op_margin=[0.20, 0.21, 0.20, 0.21, 0.20, 0.17],
-                revenue_yoy=[0.02] * 5 + [-0.01])
-    r = R.margin_compression_kill(qs, 2)
-    assert r.state == R.TRIP                      # 0.21 -> 0.17 = 400bps, revenue down
-    assert "2024-H2 op margin 21.00%" in " ".join(r.figures)
-    # on a quarterly look-back (index -4) the comparator would be 2023-H2 at 0.21 too,
-    # but the rule would demand 5 periods of history first
-    assert R.margin_compression_kill(qs[-4:], 4).state == R.CANNOT_EVALUATE
 
 
-def test_margin_rule_needs_three_halves_not_five():
-    r = R.margin_compression_kill(halves(2, op_margin=0.2, revenue_yoy=0.0), 2)
-    assert r.state == R.CANNOT_EVALUATE and "needs 3 half-years" in r.detail
 
 
 def test_guidance_window_is_two_halves():
@@ -280,44 +252,14 @@ def test_eps_window_is_four_halves():
     assert R.eps_misses_kill(qs, 4).state == R.TRIP        # 8-quarter window sees all three
 
 
-def test_working_capital_needs_three_halves_and_reads_one():
-    qs = halves(3, revenue_yoy=[0.02, 0.02, 0.02], receivables=[100, 100, 110], inventory=[50, 50, 50])
-    r = R.working_capital_kill(qs, 2)
-    assert r.state == R.TRIP                      # +10% receivables vs +2% revenue, one half-year
-    assert R.working_capital_kill(qs, 4).state == R.CANNOT_EVALUATE
 
 
-def test_sequential_soft_flag_needs_two_declines_on_halves():
-    qs = halves(3, revenue=[100, 99, 98])
-    assert R.sequential_decline_soft_flag(qs, 2).state == R.TRIP
-    assert R.sequential_decline_soft_flag(qs, 4).state == R.CANNOT_EVALUATE
 
 
-def test_year_ago_is_matched_by_label_not_position():
-    """A gap in the history must not pair 2026-Q2 with 2025-Q1."""
-    qs = [R.Quarter(period=p, basis="reported", accounting="gaap", revenue_yoy=0.05,
-                    op_margin=m, receivables=rv, inventory=iv)
-          for p, m, rv, iv in (("2025-Q1", 0.10, 100, 50), ("2025-Q3", 0.20, 100, 50),
-                               ("2025-Q4", 0.20, 100, 50), ("2026-Q1", 0.20, 100, 50),
-                               ("2026-Q2", 0.20, 100, 50))]
-    # 2025-Q2 is missing: positional look-back would land on 2025-Q1 (0.10) and
-    # report 1,000bps of EXPANSION against a quarter that is not the year-ago.
-    assert R._year_ago(qs, 4, 4) is None
-    r = R.margin_compression_kill(qs, 4)
-    assert r.state == R.CANNOT_EVALUATE and "no year-ago period" in r.detail
 
 
-def test_a_full_year_beside_halves_never_becomes_a_half_years_comparator():
-    qs = [R.Quarter(period=p, basis="reported", accounting="gaap", revenue_yoy=0.02, op_margin=0.18)
-          for p in ("2024-FY", "2025-FY", "2026-H1")]
-    assert R._year_ago(qs, 2, 2) is None            # 2025-H1 is not loaded
-    assert R.margin_compression_kill(qs, 2).state == R.CANNOT_EVALUATE
 
 
-def test_label_matching_agrees_with_position_on_a_contiguous_history():
-    qs = halves(6, op_margin=0.2, revenue_yoy=0.01)
-    assert R._year_ago(qs, 5, 2).period == "2024-H2"
-    assert R._year_ago(qs, 4, 2).period == "2024-H1"
 
 
 # ============================ admission (earnings) =========================

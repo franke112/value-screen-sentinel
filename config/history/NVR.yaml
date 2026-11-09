@@ -1,6 +1,10 @@
 ticker: NVR
 currency: USD
 money_unit: whole
+# B7 (owner, 2026-11-08): DECLARED cyclical. The window 2015-2025 holds no
+# housing downturn, so E143(3) cannot see the cycle; the bear is DATA MISSING
+# and the name gets no buy line until 2006-2011 are entered by hand.
+declared_cyclical: "homebuilder: revenue and margin fell by more than half in 2007-2011; enter 2006-2011 by hand to normalise the cycle"
 sources:
   xbrl:
     kind: sec-xbrl

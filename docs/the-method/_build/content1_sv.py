@@ -210,6 +210,7 @@ chapter(
 
 <h3>Filter 1: har kursen fallit tillräckligt, men inte för mycket?</h3>
 <p>Metoden letar efter företag som marknaden tillfälligt har tappat intresset för. Den första frågan är därför om kursen ligger mellan 15 och 50 procent under sin högsta nivå det senaste året. Mindre än 15 och ingenting har hänt. Mer än 50 och arbetsantagandet är att något faktiskt är trasigt, vilket är en annan sorts bolag och ligger utanför ramen.{N.ref("Ramverket §3 spärr 1; bandet är implementerat en enda gång i vss/rules.py och återanvänds av både screenern och nattkörningen.")}</p>
+<p><strong>Borttaget i november 2026.</strong> Bandet klarade inte det test som skrevs för det: i ingen av marknaderna gick bolagen inom bandet bättre än de andra, så beslut E161 tog bort det ur koden. Filter 1 frågar nu bara om kursdatan är färsk; fallet från toppen står kvar på raden som information. <a href="tested.html">Kapitel 22</a> berättar hur det kom fram.</p>
 {N.flush()}
 <p>Två frågor till följer med den här. Har bolaget varit börsnoterat i minst fem år? En yngre notering har inte tillräckligt med redovisad historik att testa, och ett bolag som knoppats av från ett annat räknas som nytt.{N.ref("Beslut E52 och E52.1: en notering yngre än fem år avvisas på saknade data, och en avknoppning är en ny notering.")} Och är företaget ett som metoden över huvud taget kan bedöma? Kapitel 5 behandlar den gränsen.</p>
 {N.flush()}
@@ -618,6 +619,7 @@ chapter(
 <dt>Ägaren gör</dt><dd>Värderar om vid varje rapport. Säljer vid stoppet eller när skälet till köpet är borta.</dd>
 <dt>Faller ur när</dt><dd>Ägaren säljer. Försäljningen registreras och mäts mot marknaden från sitt eget datum.</dd>
 </dl></div>
+<p><strong>Ändrat i november 2026.</strong> Kursstoppet är borta (beslut E162): ingen stoppnivå, med eller utan återköp, hjälpte i testerna, och med courtage blev varje stopp en kostnad. Ägaren skriver fortfarande ner utgången före köpet, men som <code>stop_price: none</code>, ett beslut och inte ett tomt fält; ett tomt fält blockerar fortfarande. Att sälja när skälet till att äga är borta står kvar. Se <a href="tested.html">kapitel 22</a>.</p>
 
 <div class="stage"><h3>DROPPED: fått nej</h3><dl>
 <dt>Vad som händer</dt><dd>Namnet har fått nej: en hård diskvalificering, ett klass D-skäl, utanför cirkeln eller ägarens bedömning.</dd>
@@ -654,6 +656,7 @@ chapter(
 <p>Kapitel 8 gav ägarens tillväxtbedömning för basfallet. Kapitel 7:s räkning, körd framlänges med den bedömningen, ger ett värde per aktie. Det är ägarens uppskattning av vad BOLAG A är värt, och den är fel med ett belopp som ingen känner till. Därför är det inte köpkursen.</p>
 
 <p>Köpkursen är värdet multiplicerat med en marginal, och marginalen beror på hur säker ägaren är. Metoden kallar säkerhetsnivåerna <dfn>nivåer</dfn>, och det finns tre. Ett namn på nivå 1, ett som ägaren förstår väl och som har en stark balansräkning och något varaktigt som driver det framåt, får en köpkurs på 85 procent av värdet. Ett namn på nivå 2, mindre säkert eller i en konjunkturkänslig bransch, får 75. Ett namn på nivå 3, där skälet till att äga det har fått beskrivas om på vägen, får 65.{N.ref("Beslut E90, 2026-08-30. Nivå är ingen känsla: den kommer från en övertygelsepoäng byggd av klarade spärrar, varningstecken och goda tecken, och nivå 1 kräver dessutom en balansräkning som en fästning och en långsiktig medvind. 'A score alone does not make a tier 1.'")} Marginalen finns för att ta upp fel i modellen och i indata, vilka i det här projektets egna granskningar vanligtvis har uppgått till fem till femton procent av värdet. Den finns inte för att ta upp att företaget går dåligt; det bär tillväxtbedömningen för det sämre fallet, och den skrivs ut bredvid köpkursen som information, inte inräknad i den.</p>
+<p><strong>Ändrat i november 2026.</strong> Marginalen räknas fortfarande ut och skrivs ut, men den binder ingenting: en kurs på högst 85 procent av värdet skilde inte ut senare avkastning i testerna, så beslut E168 gjorde den till information. Kön säger UNDER MBP, aldrig "köp". Se <a href="tested.html">kapitel 22</a>.</p>
 {N.flush()}
 
 <p>Köpkursen skrivs ut med två följeslagare: samma kurs omräknad med diskonteringsräntan en halv punkt lägre och en halv punkt högre. Ägaren ser hur mycket talet lutar sig mot en ränta som, enligt metodens egen medgivande, är en preferens. Ett förslag om att verktyget skulle lägga in veto mot varje beslut som vänder inom det bandet avvisades, med ett skäl värt att citera: en sådan regel kunde bara någonsin ta bort en slutsats, aldrig skapa en, "och det här ramverkets diagnostiserade fel är att det inte kan säga ja."{N.ref("Beslut E29. 'Fragility is DISPLAYED, never ADJUDICATED.'")}</p>
@@ -665,6 +668,7 @@ chapter(
 
 <h2>Z: utgången, bestämd först</h2>
 <p>Före varje köp skriver ägaren ett stopp: en kurs där positionen säljs, vad berättelsen än är just då. Det sätts när ägaren inte har något intresse i svaret. När aktierna väl är ägda kommer varje skäl att inte sälja att verka övertygande, vilket är precis därför talet skrevs tidigare. Verktyget vägrar behandla ett ägt namn som komplett utan ett, och rapporterar ett saknat stopp före allt annat på sidan.{N.ref("Ett ägt namn utan stopp är en blockering, som rapporteras före varje dom. Ramverket §6.4 nämner också tesstopp: sälj när skälet till att äga är borta, till exempel en andra nedskärning av bolagets egen prognos.")}</p>
+<p><strong>Ändrat i november 2026.</strong> Z är nu ett skrivet beslut om utgången, och för den här ägaren är beslutet "inget kursstopp" (beslut E162, <a href="tested.html">kapitel 22</a>). Det som finns kvar av avsnittet är poängen: utgången bestäms innan pengarna rör sig, medan ingen har något intresse i svaret.</p>
 {N.flush()}
 
 <h2>Vad verktyget gör med allt detta</h2>

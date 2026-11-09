@@ -229,11 +229,14 @@ def _fill_cell(row: FillRow) -> str:
 
 
 def render(rows: list[FillRow], *, run_ts: datetime, settled: date,
-           written_to: Path | None) -> str:
+           written_to: Path | None, reconciled: list[str] | None = None) -> str:
     out: list[str] = []
     out.append(f"# vss sales -- every closed position against the index -- "
                f"{run_ts.date().isoformat()}")
     out.append("")
+    for line in reconciled or ():
+        out.append(line)
+        out.append("")
     out.append(f"Run {run_ts.isoformat(timespec='minutes')}; closes settled "
                f"through {settled.isoformat()}. Prices and index levels come "
                f"from the tool's own price path (`vss.fetch.get_history`), "
@@ -250,6 +253,11 @@ def render(rows: list[FillRow], *, run_ts: datetime, settled: date,
         return "\n".join(out)
 
     labels = [label for _, label in INDICES]
+    # Owner 2026-11-08: a counterfactual fill (a sale a set-aside rule would
+    # have made) is never a realised fill. It is reported apart, below, and
+    # reaches no table, count or total of the realised record.
+    exceptions = [r for r in rows if r.sale.counterfactual]
+    rows = [r for r in rows if not r.sale.counterfactual]
     head = (["Name", "Sale date", "Rule", "Shares", "Fill", "Proceeds SEK",
              "Last settled close", "Change since fill"] + labels
             + [f"{d}d" for d in MARK_DAYS] + ["Run record", "Account"])
@@ -332,6 +340,27 @@ def render(rows: list[FillRow], *, run_ts: datetime, settled: date,
                   f"Read the rule rows against their marks, not the to-date "
                   f"column alone."))
     out.append("")
+    if exceptions:
+        out.append("## Undantag mot regel (counterfactual -- never realised)")
+        out.append("")
+        out.append("A sale a rule would have made and the owner set aside. "
+                   "Not in any table, count or total above.")
+        out.append("")
+        out.append("| Name | Date | Overrides | Shares | Fill | Would-be SEK | To | "
+                   "Change since | " + " | ".join(labels) + " |")
+        out.append("|---|---|---|---|---|---|---|---|" + "---|" * len(labels))
+        for r in exceptions:
+            legs = {leg.label: leg for leg in r.index_legs}
+            cells = [f"`{r.ticker}` {r.name}", r.sale.date.isoformat(),
+                     r.sale.overrides or DASH, num(r.sale.shares, 0), _fill_cell(r),
+                     num(r.sale.proceeds_sek, 2) if r.sale.proceeds_sek is not None else DASH,
+                     r.sale.to or DASH,
+                     f"**{DATA_MISSING}**" if not r.priced else pct(r.price_change)]
+            for label in labels:
+                leg = legs.get(label)
+                cells.append(DASH if leg is None or leg.change is None else pct(leg.change))
+            out.append("| " + " | ".join(cells) + " |")
+        out.append("")
     out.append(f"Written to `{written_to}`." if written_to
                else "DRY RUN -- nothing written.")
     return "\n".join(out)
@@ -346,8 +375,11 @@ Fetcher = Callable[[str], FetchResult]
 def run_sales(*, watchlist_path: Path = WATCHLIST_PATH,
               cache_dir: Path = CACHE_DIR, reports_dir: Path = REPORTS_DIR,
               now: datetime | None = None, dry_run: bool = False,
-              fetch: Fetcher | None = None) -> tuple[int, str]:
+              fetch: Fetcher | None = None,
+              stamp_path: Path | None = None) -> tuple[int, str]:
     """Build the sales record. Returns (exit code, markdown)."""
+    if stamp_path is None:
+        from .sales_reconcile import STAMP_PATH as stamp_path
     run_ts = now or datetime.now().astimezone()
     settled = M.settled_through(run_ts)
     entries = [e for e in load_watchlist(watchlist_path) if e.sales]
@@ -378,8 +410,37 @@ def run_sales(*, watchlist_path: Path = WATCHLIST_PATH,
     if not dry_run:
         reports_dir.mkdir(parents=True, exist_ok=True)
         written = reports_dir / f"SALES-RECORD-{run_ts.date().isoformat()}.md"
-    markdown = render(rows, run_ts=run_ts, settled=settled, written_to=written)
+    from .sales_reconcile import load_stamp, stamp_lines
+    reconciled = stamp_lines(load_stamp(stamp_path),
+                             [s for e in entries for s in e.sales])
+    markdown = render(rows, run_ts=run_ts, settled=settled, written_to=written,
+                      reconciled=reconciled)
     if written is not None:
         written.write_text(markdown + "\n", encoding="utf-8")
         log.info("wrote %s", written)
     return 0, markdown
+
+
+def run_reconcile(export: Path, *, watchlist_path: Path = WATCHLIST_PATH,
+                  since: date | None = None, stamp_path: Path | None = None,
+                  today: date | None = None) -> tuple[int, str]:
+    """E165: reconcile `sales:` against an account export, write the stamp."""
+    from .sales_reconcile import STAMP_PATH, read_export, reconcile, write_stamp
+    booked = [(e.ticker, s) for e in load_watchlist(watchlist_path) for s in e.sales]
+    fills, first, last = read_export(export)
+    if since is None:
+        since = min((s.date for _, s in booked), default=first or date.today())
+    result = reconcile(booked, fills, export_name=export.name, export_from=first,
+                       export_through=last, since=since)
+    write_stamp(result, on=today or date.today(), path=stamp_path or STAMP_PATH)
+    out = [f"# vss sales --reconcile -- {export.name}", "",
+           f"Export rows {first} to {last}; reconciled from {since}. "
+           f"Status **{'CLEAN' if result.clean else 'DIFF'}**: "
+           f"{result.matched} fills matched."]
+    for title, items in (("Differ (proceeds or account)", result.differing),
+                         ("On the export, not booked", result.not_booked),
+                         ("Booked, not on the export", result.not_on_export),
+                         ("Core funds (FRAMEWORK §7, never in sales:)", result.core_funds)):
+        if items:
+            out += ["", f"## {title}", ""] + [f"- {i}" for i in items]
+    return (0 if result.clean else 1), "\n".join(out)

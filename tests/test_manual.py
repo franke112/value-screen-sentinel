@@ -4535,9 +4535,8 @@ def test_E111_an_INTAKE_MAY_carry_a_growth_view_a_store_and_a_value():
 def test_E111_an_INTAKE_collects_NO_verdicts_and_is_not_ACTIONABLE():
     from vss import rules as R
     verdicts = R.collect_verdicts(
-        status="INTAKE", last_close=100.0, stop_price=None, mbp=None,
-        mbp_superseded=False, drawdown=-0.40, series_finding=None,
-        dd_at_entry=None, peak_date=None)
+        status="INTAKE", last_close=100.0, mbp=None,
+        mbp_superseded=False, drawdown=-0.40, series_finding=None)
     assert [v.code for v in verdicts] == [R.INTAKE]
     assert "read, not watched" in verdicts[0].detail
     assert not R.TickerAssessment("X", verdicts=tuple(verdicts)).actionable
@@ -4688,8 +4687,7 @@ def test_E119_derives_EBITDA_on_one_window_and_the_information_line_can_REVIEW()
     """CTSH, 2026-09-19: no stated EBITDA, so operating income + D&A, on the
     section 5 basis against E117's net debt on that basis; the newest
     quarter's net debt over the same EBITDA is the information line."""
-    from vss.manual import (GATE3_LEVERAGE_MAX, KILL_LEVERAGE_MAX, Leverage,
-                            gate3_leverage)
+    from vss.manual import GATE3_LEVERAGE_MAX, Leverage, gate3_leverage
     parsed = load_manual("CTSH", directory=MANUAL_DIR)
     got = gate3_leverage(parsed, section5_basis(parsed))
     assert got.ebitda == 3_389_000_000 + 550_000_000 and "DERIVED" in got.ebitda_source
@@ -4697,21 +4695,14 @@ def test_E119_derives_EBITDA_on_one_window_and_the_information_line_can_REVIEW()
     assert got.latest_period == "2026-Q2"
     assert got.latest_net_debt == pytest.approx(791_000_000)
     assert round(got.latest_ratio, 2) == 0.20
-    assert got.state(GATE3_LEVERAGE_MAX) == "PASS" == got.state(KILL_LEVERAGE_MAX)
+    assert got.state(GATE3_LEVERAGE_MAX) == "PASS"
     assert any("pension_deficit" in c for c in got.carried)
     # the information line alone crossing the threshold records REVIEW
     review = Leverage(ebitda=100.0, ebitda_source="DERIVED", net_debt=200.0,
                       ratio=2.0, latest_net_debt=300.0, latest_ratio=3.0)
     assert review.state(GATE3_LEVERAGE_MAX) == "REVIEW"
-    assert review.state(KILL_LEVERAGE_MAX) == "PASS"
 
 
-def test_E119_the_kill_reads_the_derived_ratio_only_where_nothing_is_stated():
-    from vss import rules as RU
-    derived = ("FAIL", "net debt 400 / EBITDA 100 = 4.00x")
-    assert RU.leverage_kill([], derived).state == RU.TRIP
-    assert RU.leverage_kill([], ("PASS", "x")).state == RU.NO_TRIP
-    assert RU.leverage_kill([], None).state == RU.CANNOT_EVALUATE
 
 
 def test_E112_a_missing_leg_is_DATA_MISSING_and_never_a_FAIL():

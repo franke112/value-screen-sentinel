@@ -149,10 +149,9 @@ def test_us_route_fetches_the_facts_and_writes_a_sec_xbrl_store(repo):
     assert "xbrl.run_xbrl_annual" in data["steps"][3]["reused"]
     assert (repo / "reports" / "prepare" / f"NKE-{RUN_TS.date()}.md").exists()
     assert data["summary"].startswith(("ready for review", "blocked on"))
-    assert any(c["name"].startswith("Gate 1 level leg") for c in data["checks"])
-    # the frozen leg (E12) is read off the entry, not today's price
-    gate1 = next(c for c in data["checks"] if c["name"].startswith("Gate 1 level leg"))
-    assert "frozen" in gate1["name"] and "0.31" not in gate1["name"]
+    assert any(c["name"].startswith("drawdown from the 52-week high") for c in data["checks"])
+    # E161: no band and no frozen leg; the drawdown is information only
+    assert not any(c["name"].startswith("Gate 1 level leg") for c in data["checks"])
 
 
 def test_us_route_is_idempotent_and_names_the_force_backup(repo):

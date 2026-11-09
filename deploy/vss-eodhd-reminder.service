@@ -1,0 +1,8 @@
+[Unit]
+Description=vss -- remind the owner to take ONE month of EODHD Fundamentals for the yearly Nordic refresh
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/vss
+EnvironmentFile=-%h/.config/vss/vss.env
+ExecStart=%h/vss/.venv/bin/python -c "from vss.watch import post_ntfy; print(post_ntfy(['Dags för årets EODHD-månad: köp Fundamentals (59,99 $, en månad), säg sedan till Claude att hämta årets bokslut för Norden. Säg upp direkt efteråt.'], title='vss: EODHD i april'))"

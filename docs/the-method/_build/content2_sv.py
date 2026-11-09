@@ -1,4 +1,4 @@
-"""Del två — maskinen. Kapitel 13 till 23.
+"""Del två — maskinen. Kapitel 13 till 24.
 
 Samma pedagogik som i del ett: först den enkla versionen, sedan det tekniska
 ordet, en gång. Varje faktum om systemet är hämtat ur förvaret: enhetsfilerna
@@ -483,6 +483,55 @@ chapter(
 )}
 """,
     [("Översiktssidans generator och dess beslut", "repo: vss/overview.py; vss/render.py; reference/FRAMEWORK-EDITS.md F1, F2")],
+)
+
+# ---------------------------------------------------------------------------
+# 22. VAD TESTERNA TOG BORT (tillagt 2026-11-09)
+# ---------------------------------------------------------------------------
+N = Notes()
+chapter(
+    "tested", "Vad testerna tog bort",
+    "Varje mekanisk regel i metoden testades på historik, med testet nedskrivet innan det kördes. De flesta höll inte och togs bort ur koden. Så här gick det till, och det här är kvar.",
+    8, True,
+    f"""
+<p>Allt i kapitlen före det här byggdes av böcker, forskning och noggranna resonemang. Så byggs de flesta investeringsmetoder, och det är inga bevis. I november 2026 ställdes metoden inför rätta: tjugosex försök på historik, vart och ett registrerat innan det kördes, varje resultat loggat, även misslyckandena.</p>
+
+<h2>Reglerna för prövningen</h2>
+<p>Ett test skrevs ner först: vad som påstås, vilken data, exakt vad som mäts, ribban, och vad som händer med regeln vid vartdera utfallet. Sedan kördes det en gång.{N.ref("Försöksloggen, reference/backtest/ATTEMPTS.md i den privata repot, en commit per registrering före commiten med resultatet. Den publika sammanfattningen är reference/backtest/WHAT-WE-TESTED.md.")} En regel räknades som hållbar bara om den hjälpte i <em>båda</em> marknaderna, Norden och USA, <em>och</em> i båda halvorna av varje period. I sista omgången måste den också slå vad tusen slumpvisa ommärkningar av samma bolag ger. Varje titt räknades, för efter femtio försök är ett godkänt vad slumpen ger.{N.ref("Harvey, Liu och Zhu, '... and the Cross-Section of Expected Returns', Review of Financial Studies 29 (2016): med många tester, ett t-värde över 3.")}</p>
+{N.flush()}
+
+<p>Historiken gick från 2016 till 2020 i USA och 2010 till 2021 i Norden. Varje siffra kom in först den dag den blev offentlig, och bolagen som senare gick i konkurs eller köptes upp lades tillbaka. Ett test på dagens lista glömmer just dem, och vår första körning, som bara kunde prissätta överlevarna, smickrade metoden kraftigt.</p>
+
+{decision("En regel som inte håller tas bort ur koden, den behålls inte som vana.", "Beslut E164: en regel om vad som köps, behålls, säljs eller värderas kommer in i eller lämnar metoden bara på ett sådant test. En regel om hur en siffra läses får läggas till fritt.", "Metoden förlorade de flesta av sina mekaniska delar på tio dagar, också några som ägaren tyckte om.")}
+
+<h2>Det som försvann</h2>
+<ul>
+<li><strong>Kursstoppet.</strong> Ingen stoppnivå hjälpte, med eller utan återköp, och med courtage kostade varje stopp pengar. Utgången skrivs fortfarande ner före köpet; för den här ägaren lyder den "inget kursstopp".</li>
+<li><strong>Bandet på 15-50 procent</strong> från kapitel 4. Bolagen inom det gick inte bättre än de andra.</li>
+<li><strong>Screenerns rankingnyckel.</strong> Den sorterade inte senare avkastning per decil i båda marknaderna. Screenern listar nu de bolag som går igenom i en fast slumpordning: filtren väljer, och ordningen låtsas inte längre veta.</li>
+<li><strong>Tre hårda stopp</strong>: fallande försäljning, krympande marginal, svällande kundfordringar. De skilde inte bolagen som gick bra från dem som inte gjorde det.</li>
+<li><strong>Skuldgränserna, kvalitetstesterna som utslagsregel och köpkursens marginal som bindande linje.</strong> Ingen skilde ut avkastning. Kvalitetstesterna och marginalen skrivs fortfarande ut, som information.</li>
+</ul>
+
+<h2>Det som blev kvar</h2>
+<p>Själva värderingen; siffror bara ur bolagens egna rapporter; tillväxtbedömningen skriven innan kursen syns; positivt fritt kassaflöde; högst sex procent av portföljen i ett bolag; och handdelarna som ingen data kan testa: att läsa rapporterna, bolagets egen mening om vad det säljer, bedömningen att verksamheten är förstådd. Deras test är skuggboken i kapitel 12, som prissätter varje "nej" mot index.</p>
+
+<h2>Det prövningen inte hittade</h2>
+<p>Ett försprång. I Norden slog de billigare bolagen efter verkligt värde de dyrare de flesta av åren metoden utvecklades på, men en kontroll på två senare år, registrerad i förväg och körd en gång, bekräftade det inte. Där sorteringen fungerade, fungerade den genom att undvika de dyraste bolagen snarare än genom att hitta vinnare. Mot fyra publicerade värdemetoder vann den ingen av tolv jämförelser. Den ärliga sammanfattningen är den som README:n ger: en bred indexfond är basen, och den här metoden är den del som studeras, inte den man litar på.</p>
+
+<h2>Fel i vår egen data</h2>
+<p>Halva arbetet var att hitta var historiken ljög. Aktieantal omräknade för senare splittar bredvid ojusterade kurser; rapportdatum som bara var periodens slut; siffror i en annan valuta än aktiens; ett värdepapper under två tickers; en ticker som återanvänts efter ett uppköp; en leverantörs enstaka felaktiga dag läst som en konkurs. Vart och ett hittades genom att läsa hela utdata eller av en oberoende granskning, loggades, rättades, och de berörda körningarna gjordes om som nya försök, aldrig i tysthet.</p>
+
+<h2>Historiken är stängd</h2>
+<p>Efter sista omgången stängde ägaren de här åren: metoden trimmas inte vidare på data den redan anpassats till. En fråga lämnas öppen med avsikt. Skuldgränserna kan skära bort förlusterna i botten även om de inte lyfte genomsnittet; det är registrerat nu, mätt på medianen och andelen bolag som tappar tre fjärdedelar av sitt värde, och det körs bara på ny data, i april 2027.</p>
+
+{fold("Var man kontrollerar det här", '''
+<p>Redogörelsen försök för försök: <code>reference/backtest/WHAT-WE-TESTED.md</code>. Skripten: <code>tools/backtest/</code>, mot motorn i <code>vss/</code>. Besluten: E160 till E169 i <code>reference/archive/</code>. Kurs- och rapportdatan kom från en kommersiell leverantör under privat licens, så dess siffror publiceras inte; med en egen licens återskapar skripten dem.</p>
+''')}
+""",
+    [("Försöken och deras regel", "repo: reference/backtest/WHAT-WE-TESTED.md; tools/backtest/; reference/archive/FRAMEWORK-EDITS-2026-11-08.md E160-E169"),
+     ("Många tester", "Harvey, Liu och Zhu (2016), Review of Financial Studies 29"),
+     ("Externa jämförelser", "Ken Frenchs datasamling; Jensen, Kelly och Pedersen (2023), Journal of Finance, jkpfactors.com (CC BY-NC 4.0)")],
 )
 
 # ---------------------------------------------------------------------------

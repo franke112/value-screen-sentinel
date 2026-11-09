@@ -17,7 +17,7 @@ EODHD fundamentals (data/eodhd/fundamentals/); where a CIK has several
 symbols, the one trading on the test day with the larger volume wins.
 
 A COMPANY THAT STOPPED TRADING BEFORE THE HORIZON. EODHD's series ends at
-the last print (a failed bank's last trade), not at what the holders finally got. Two
+the last print (SVB: 106 USD), not at what the holders finally got. Two
 policies, both written, so the result is shown under each:
 - `last` (run-eodhd/): the last price stands and the money waits in cash --
   right for a takeover, kind to a failure;
@@ -86,8 +86,44 @@ def frame(symbol: str) -> pd.DataFrame | None:
                 _FRAMES[symbol] = None          # an empty download: no price, not a guess
             else:
                 f = f.dropna(subset=["close", "adjusted_close"]).set_index("date").sort_index()
+                if CLEAN_SPIKES:
+                    f = drop_spikes(f, symbol)
                 _FRAMES[symbol] = f if len(f) else None
     return _FRAMES[symbol]
+
+
+#: ROUND 2, ATTEMPTS #15 (found 2026-11-08 reading A1's rows): EODHD prints
+#: one-day spikes -- NOLA-B.ST 4,858 between 476 and 492 on 2019-06-10,
+#: BUFAB.ST 331,250 between 104 and 109, FAG.ST 199,125 on 2013-05-10; 98 in
+#: the backtest's 2,145 series, 81 of them on four Stockholm days
+#: (2013-05-10, 2019-06-10, 2019-06-17, 2019-08-05). The level-break guard
+#: (M2) read each as the company ENDING, cut the series there and refused
+#: every return whose prior year held one. A day on which the close AND the
+#: adjusted close move more than SPIKE_FACTOR and the next day moves back,
+#: its neighbours within 2x of each other, is a bad print and is dropped
+#: before anything reads the series. A real level break does not come back
+#: the next day and still reaches the guard.
+SPIKE_FACTOR = 5.0
+CLEAN_SPIKES = True
+DROPPED_SPIKES: list[tuple[str, str]] = []
+
+
+def drop_spikes(f: pd.DataFrame, symbol: str = "") -> pd.DataFrame:
+    if len(f) < 3:
+        return f
+    bad = []
+    for col in ("close", "adjusted_close"):
+        x = f[col]
+        up, back = x / x.shift(1), x.shift(-1) / x
+        around = (x.shift(-1) / x.shift(1))
+        hit = (((up > SPIKE_FACTOR) & (back < 1 / SPIKE_FACTOR)) |
+               ((up < 1 / SPIKE_FACTOR) & (back > SPIKE_FACTOR))) & (around < 2) & (around > 0.5)
+        bad.append(hit.fillna(False))
+    drop = bad[0] & bad[1]
+    if drop.any():
+        DROPPED_SPIKES.extend((symbol, d) for d in f.index[drop])
+        f = f[~drop]
+    return f
 
 
 def on(f: pd.DataFrame, day: date, col: str = "close") -> tuple[date, float] | None:
@@ -114,11 +150,65 @@ def symbol_for(cik: int, day: date, cmap: dict[int, list[str]]) -> str | None:
     return best
 
 
+#: M4 of the independent review 2026-11-07: a day on which the vendor's
+#: ADJUSTED close moves more than this AND this far from the printed close is
+#: an adjustment error (KOG.OL 2022-05-12: adjusted +36% on a close of -2.4%;
+#: SAS.ST's 2020 rights issue: adjusted +46% on a close of -61%). A real
+#: split, dividend or rights issue moves the printed close, never only the
+#: adjusted one. A window holding such a day has no return (refused).
+SUSPECT_MOVE = 0.15
+SUSPECT_GAP = 0.10
+
+
+def suspect_days(f: pd.DataFrame, start: date, end: date) -> list[str]:
+    w = f[(f.index >= start.isoformat()) & (f.index <= end.isoformat())]
+    w = w[(w["close"] > 0) & (w["adjusted_close"] > 0)]
+    cr, ar = w["close"].pct_change(), w["adjusted_close"].pct_change()
+    return list(w.index[(ar.abs() > SUSPECT_MOVE) & ((ar - cr).abs() > SUSPECT_GAP)])
+
+
+#: Review 2026-11-08 M2: a LEVEL BREAK -- the close AND the adjusted close
+#: moving together by more than this factor in one step, or a gap of more
+#: than BREAK_GAP_DAYS between two trading days -- is another security under
+#: the same ticker (COH.US after Coach became TPR, NCS.US, HIQ.ST), a
+#: listing carried through a bankruptcy (HK.US) or a broken series
+#: (ASRT.US at 0.0133). M4 cannot see it: the two series agree. The series
+#: is cut at the break and judged as a delisting there; a break in the year
+#: before the start refuses the return (the start price is suspect).
+BREAK_FACTOR = 5.0
+BREAK_GAP_DAYS = 365
+
+
+def level_breaks(f: pd.DataFrame, start: date, end: date) -> list[str]:
+    w = f[(f.index >= start.isoformat()) & (f.index <= end.isoformat())]
+    w = w[(w["close"] > 0) & (w["adjusted_close"] > 0)]
+    if len(w) < 2:
+        return []
+    c, a = w["close"], w["adjusted_close"]
+    cr, ar = c / c.shift(1), a / a.shift(1)
+    jump = ((cr > BREAK_FACTOR) | (cr < 1 / BREAK_FACTOR)) & ((ar > BREAK_FACTOR) | (ar < 1 / BREAK_FACTOR))
+    days = pd.to_datetime(pd.Series(w.index, index=w.index))
+    gap = days.diff().dt.days > BREAK_GAP_DAYS
+    return list(w.index[jump | gap])
+
+
 def total_return(f: pd.DataFrame, start: date, end: date, policy: str) -> tuple[float | None, str]:
-    """(return, how): how is 'held', 'delisted-last' or 'delisted-bust'."""
+    """(return, how): how is 'held', 'delisted-last' or 'delisted-bust';
+    None with 'adjustment suspect' where `suspect_days` finds one."""
     a = on(f, start, "adjusted_close")
     if a is None or a[1] <= 0:
         return None, "no start"
+    if level_breaks(f, start - timedelta(days=BREAK_GAP_DAYS), start):
+        return None, "level break before the start: the start price is suspect"
+    brk = level_breaks(f, start, end)
+    if brk:
+        # The series is another security, or a listing carried through a
+        # bankruptcy, from the break on: the company ENDED there, and the
+        # delisting policy below judges how.
+        f = f[f.index < brk[0]]
+    bad = suspect_days(f, start, end)
+    if bad:
+        return None, f"adjustment suspect ({bad[0]})"
     b = on(f, end, "adjusted_close")
     if b is not None:
         return b[1] / a[1] - 1, "held"
@@ -167,10 +257,13 @@ def reprice(row: dict, cmap, index, policy: str) -> dict:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--date", action="append", type=date.fromisoformat)
+    ap.add_argument("--suffix", default="",
+                    help="write run-eodhd<suffix>/ and run-eodhd-bust<suffix>/ (a new attempt beside the old)")
     a = ap.parse_args(argv)
     cmap = cik_map()
     index = PL.prices(PL.INDEX)
     for policy, out in OUT.items():
+        out = out.with_name(out.name + a.suffix) if a.suffix else out
         out.mkdir(parents=True, exist_ok=True)
         for d in a.date or list(U.TEST_DATES):
             src = R.OUT / f"{d.isoformat()}.jsonl"

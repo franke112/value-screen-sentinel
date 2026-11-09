@@ -17,7 +17,7 @@ import pytest
 from vss import snapshot as store
 from vss.filters import (
     EXCLUSION_SCHEMA,
-    STEP_DISLOCATION,
+    STEP_HIGH_52W,
     STEP_SERIES_SANITY,
     STEP_EXCLUSION_LIST,
     STEP_PRICE_COVERAGE,
@@ -33,7 +33,6 @@ from vss.filters import (
     run_filter1,
 )
 from vss.metrics import compute
-from vss.rules import DISLOCATION_MAX, DISLOCATION_MIN, in_dislocation_band
 from vss.universe import ON_MISSING, ON_VALUE, Instrument, SCHEMA, Tally
 from tests._vendor_data import need
 
@@ -264,7 +263,7 @@ def test_an_unmeasurable_series_is_rejected_ON_MISSING_never_on_value():
     sanity = {t.step: t for t in result.tallies}[STEP_SERIES_SANITY]
     assert sanity.rejected_on_missing == 1
     assert sanity.rejected_on_value == 0
-    band = {t.step: t for t in result.tallies}[STEP_DISLOCATION]
+    band = {t.step: t for t in result.tallies}[STEP_HIGH_52W]
     assert band.count_in == 0, "an unmeasurable series reached the band anyway"
     (ticker, finding), = result.unmeasurable
     assert ticker == "A.ST" and "scale" in finding.kind
@@ -280,26 +279,16 @@ def test_the_unmeasurable_name_would_otherwise_have_been_a_candidate():
     assert [c.ticker for c in result.candidates] == ["A.ST"]
 
 
-def test_a_shallow_decline_is_rejected_on_a_value():
-    frames = {"A.ST": flat_then_drop(100.0, 95.0)}      # 5% off
-    result = run_filter1([instrument("A.ST")], frames, date(2026, 8, 21))
-    assert result.candidates == []
-    band = {t.step: t for t in result.tallies}[STEP_DISLOCATION]
-    assert band.rejected_on_value == 1
-    assert band.rejected_on_missing == 0
-
-
-def test_a_collapse_beyond_the_band_is_rejected_too():
-    frames = {"A.ST": flat_then_drop(100.0, 40.0)}      # 60% off
-    result = run_filter1([instrument("A.ST")], frames, date(2026, 8, 21))
-    assert result.candidates == []
-
-
-def test_both_bounds_are_inclusive_through_the_imported_predicate():
-    for low in (85.0, 50.0):                            # exactly 15% and 50%
+def test_e161_a_shallow_decline_and_a_collapse_are_no_longer_rejected():
+    """E161: the 15-50% band is gone; 5% and 60% off the high both pass."""
+    for low in (95.0, 40.0):
         frames = {"A.ST": flat_then_drop(100.0, low)}
         result = run_filter1([instrument("A.ST")], frames, date(2026, 8, 21))
         assert [c.ticker for c in result.candidates] == ["A.ST"], low
+        high = {t.step: t for t in result.tallies}[STEP_HIGH_52W]
+        assert high.rejected_on_value == 0
+
+
 
 
 def test_no_series_is_rejected_on_missing_data_not_on_a_value():
@@ -350,7 +339,7 @@ def test_a_single_close_is_DATA_MISSING_not_a_drawdown_of_zero():
     assert age.rejected_on_value == 0
     assert age.rejected_on_missing == 1
     # And the band never saw it, so it cannot have failed there on a value.
-    assert tallies[STEP_DISLOCATION].count_in == 0
+    assert tallies[STEP_HIGH_52W].count_in == 0
 
 
 def test_a_fresh_close_says_nothing_about_how_far_back_the_series_reaches():
@@ -374,7 +363,7 @@ def test_a_fresh_close_says_nothing_about_how_far_back_the_series_reaches():
     tallies = {t.step: t for t in result.tallies}
     assert tallies[STEP_LISTING_AGE].rejected_on_missing == 1    # D.ST, 5 rows
     assert tallies[STEP_LISTING_AGE].rejected_on_value == 0
-    assert tallies[STEP_DISLOCATION].rejected_on_value == 2      # B.ST and C.ST
+    assert tallies[STEP_HIGH_52W].rejected_on_value == 0      # E161: B.ST and C.ST pass
     assert tallies[STEP_PRICE_COVERAGE].rejected_on_missing == 1   # E.ST, no series
     reason, = {r.reason for r in result.rejections
                if r.step == STEP_LISTING_AGE and r.kind == ON_MISSING}
@@ -406,7 +395,7 @@ def test_e52_subsumes_the_52_week_bar_in_one_direction_only():
     tallies = {t.step: t for t in result.tallies}
     assert result.candidates == []
     assert tallies[STEP_LISTING_AGE].rejected_on_missing == 1
-    assert tallies[STEP_DISLOCATION].count_in == 0
+    assert tallies[STEP_HIGH_52W].count_in == 0
 
     # The bar itself still does its own job inside metrics.compute, which
     # `vss run` reaches without passing filter 1 at all.
@@ -446,32 +435,10 @@ def test_rsi_and_sma_are_carried_but_never_decide():
         assert f"metrics.{name}" not in body.split("Candidate(")[0]
 
 
-def test_the_band_comes_from_rules_and_is_not_restated():
-    """Not as a number, and not as prose either.
-
-    A message reading "outside 15%-50%" is a second copy of the rule: change
-    the band and the report describes the old one. The text is built from the
-    imported constants.
-    """
-    source = (ROOT / "vss" / "filters.py").read_text(encoding="utf-8")
-    assert "in_dislocation_band" in source
-    assert "0.15" not in source and "0.50" not in source
-    for restated in ("15%-50%", "15% - 50%", "15-50%", "0.15 <=", "<= 0.50"):
-        assert restated not in source, f"filters.py restates the band as {restated!r}"
 
 
-def test_the_band_text_tracks_the_constants(monkeypatch):
-    from vss import filters, rules
-
-    assert filters.BAND_TEXT == f"{rules.DISLOCATION_MIN:.0%}-{rules.DISLOCATION_MAX:.0%}"
 
 
-def test_a_rejection_message_quotes_the_live_band():
-    frames = {"A.ST": flat_then_drop(100.0, 95.0)}
-    result = run_filter1([instrument("A.ST")], frames, date(2026, 8, 21))
-    from vss.filters import BAND_TEXT
-
-    assert BAND_TEXT in result.rejections[0].reason
 
 
 # --- B1, reported as context ----------------------------------------------
@@ -559,8 +526,6 @@ def test_acceptance_filter1_replayed_on_2026_07_27_contains_sap(fixture_snapshot
     assert sap.last_close == pytest.approx(151.28, abs=0.01)
     assert sap.high_52w == pytest.approx(254.75, abs=0.01)
     assert sap.drawdown == pytest.approx(0.406, abs=0.001)
-    assert DISLOCATION_MIN <= sap.drawdown <= DISLOCATION_MAX
-    assert in_dislocation_band(sap.drawdown) is True
 
 
 def test_acceptance_is_measured_at_the_replay_date_not_the_snapshot_edge(fixture_snapshot):
@@ -958,20 +923,17 @@ def run_up_then_pullback(base: float, peak: float, end: float,
     return series([base] * (days - rise - fall) + up + down)
 
 
-def test_e127_a_pullback_after_a_run_up_is_rejected_on_value():
-    """In the band, and up on the year: rejected at the trailing-year step,
-    never at the band -- the funnel says which of the two removed it."""
+def test_e168_a_pullback_after_a_run_up_now_passes_with_its_return_carried():
+    """E168 (attempt #25) removed E127's rejection: up on the year passes,
+    and the 12-month return still travels as a field."""
     from vss.filters import STEP_TRAILING_YEAR
 
     frames = {"UP.OL": run_up_then_pullback(10.0, 100.0, 84.0)}
     result = run_filter1([instrument("UP.OL")], frames, date(2026, 8, 21))
-    assert result.candidates == []
+    assert [c.ticker for c in result.candidates] == ["UP.OL"]
+    assert result.candidates[0].return_12m > 0
     tallies = {t.step: t for t in result.tallies}
-    assert tallies[STEP_DISLOCATION].count_out == 1
-    assert tallies[STEP_TRAILING_YEAR].rejected_on_value == 1
-    (rejection,) = [r for r in result.rejections if r.step == STEP_TRAILING_YEAR]
-    assert rejection.kind == ON_VALUE
-    assert "E127" in rejection.reason
+    assert tallies[STEP_TRAILING_YEAR].rejected_on_value == 0
 
 
 def test_e127_a_name_below_its_close_of_a_year_ago_passes_and_carries_it():
@@ -983,13 +945,12 @@ def test_e127_a_name_below_its_close_of_a_year_ago_passes_and_carries_it():
     assert candidate.return_12m == pytest.approx(-0.25)
 
 
-def test_e127_zero_is_not_a_fall_and_no_close_a_year_back_is_missing():
-    from vss.rules import fell_over_year
 
-    assert fell_over_year(-0.001) is True
-    assert fell_over_year(0.0) is False
-    assert fell_over_year(0.25) is False
-    assert fell_over_year(None) is None
-    # Below the coverage bar there is no year-ago close, never a later one.
-    short = compute(flat_then_drop(100.0, 75.0, days=200), date(2026, 8, 21))
-    assert short.return_12m is None and short.close_year_ago is None
+
+def test_e161_filter1_carries_no_band():
+    """E161 (2026-11-08): Gate 1's band is removed from the code, not disabled."""
+    from vss import rules
+    source = (ROOT / "vss" / "filters.py").read_text(encoding="utf-8")
+    assert "in_dislocation_band" not in source and "DISLOCATION_M" not in source
+    assert not hasattr(rules, "in_dislocation_band")
+    assert not hasattr(rules, "DISLOCATION_MIN")

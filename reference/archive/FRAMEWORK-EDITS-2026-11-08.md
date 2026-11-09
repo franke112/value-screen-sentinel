@@ -13218,7 +13218,7 @@ Nothing is re-struck by this ruling; it governs rulings from today.
 
 **DECIDED 2026-11-07 by the session under E141** (review H4). The review
 found true that the Nordic backtest's `returns_stop8` turns the cheapest
-fifth from +10.2 to -30.8 pp over three years, and that ACAD.ST is ~2.4x
+fifth from a gain to a large loss over three years [figures kept private: licensed vendor data], and that ACAD.ST is ~2.4x
 section 7's binding ceiling (476 x 117.50 against 1% of ~190,000 SEK / 8%
 = ~23,750 SEK) with nothing in the tool saying so.
 
@@ -13346,10 +13346,9 @@ pre-registered, run on wrez-devour).
 > test before a stop came off a held position, and #10 is that test.
 
 Why: in both markets and both halves, no stop helped any selection.
-Without re-entry every stop cost 10-57 pp over three years (−8%: −26 to
-−40 pp; three positions in four fall 8% below entry within three years).
-With re-entry −30% costs about nothing (Nordic cheapest fifth −0.3 / −0.2
-pp by half, US +0.6 / +2.8) and the drawdown is that of holding. A stop
+Without re-entry every stop cost heavily over three years, the −8% stop
+most; most positions fall 8% below entry at some point within three years.
+With re-entry −30% costs about nothing [figures kept private: licensed vendor data] and the drawdown is that of holding. A stop
 without re-entry lowers drawdown only by leaving the market. Trading costs,
 not in the test, make every stop worse. E155 does not reach this: no test,
 gate, kill or value moves, and E157 tightens the same position.
@@ -13375,7 +13374,7 @@ reference/BACKTEST-CONCENTRATION-2026-11-08.md (attempt #11/#11b).
 
 Why: choosing names at random from the best fifth, the median outcome is
 about the fifth's whatever the count; fewer names only widen the spread
-(three names: 5–95% between about −50 and +80 pp). No test has shown the
+(three names: a far wider 5–95% range [figures kept private: licensed vendor data]). No test has shown the
 method an edge out of sample (Nordic confirm 2022–23: NOT CONFIRMED), so
 concentration buys variance and no return.
 
@@ -13395,7 +13394,7 @@ the cap without a stop (`POSITION_SHARE = 0.06`).
 > concentration test (reference/BACKTEST-CONCENTRATION-2026-11-08.md,
 > attempt #11/#11b) N names drawn at random from the best fifth have the
 > fifth's median whatever N is, and fewer names only widen the spread
-> (three names: 5-95 % between about -50 and +80 pp over three years).
+> (three names: a far wider 5-95 % range over three years [figures kept private: licensed vendor data]).
 > More names are always better for the risk, at no cost in the median.
 > The floor of five is therefore what the valuation work can carry, and
 > is raised when it can carry more; it is not a target.
@@ -13413,8 +13412,8 @@ reference/BACKTEST-BAND-MOMENTUM-2026-11-08.md (attempt #12) and the live
 key's measurement (#8/#9).
 
 > **(1)** Found: in the US the band adds nothing to the E43 key; in the
-> Nordics the band's names trailed the rest by 22 pp over three years
-> (−14.8 vs +7.7; half 1 −29.0 vs +7.3, half 2 −0.6 vs +8.2). Nothing
+> Nordics the band's names trailed the rest over three years, in both
+> halves [figures kept private: licensed vendor data]. Nothing
 > measured supports it.
 > **(2)** Not yet changed. Gate 1 is the screener's filter 1, a strike
 > gate, `frozen_gate_1` and the OUTSIDE DISLOCATION BAND event; dropping it
@@ -13482,9 +13481,9 @@ that has not shown it holds is removed from the code, not marked.
 
 What it rested on: FRAMEWORK §3 Gate 1, the dislocation thesis of the
 original framework (2026-08), B2 (inclusive bounds), E12 (frozen at
-entry). What removed it: attempt #12 (Nordic band names −14.8 vs +7.7 pp
-at 3 y; inside the band the best fifth −32.1 / +13.3 by half against
-+6.5 / +6.7 over all), #8 (US: the band adds nothing to the E43 key),
+entry). What removed it: attempt #12 (Nordic band names trailed the rest
+at 3 y; inside the band the best fifth was worse than over all names in
+one half [figures kept private: licensed vendor data]), #8 (US: the band adds nothing to the E43 key),
 #21 (in the composite the band costs in both markets).
 
 Measured, as E155(1) asks of a loosening (the band is a screener filter and
@@ -13524,9 +13523,8 @@ What it rested on: §6.4's technical stop (−8 to −12%), C1, E102, then
 E156's −30% catastrophe stop with re-entry, adopted 2026-11-08 because it
 "costs about nothing". What removed it: attempt #10 (no stop variant holds
 in any selection, either market, either half; without re-entry every stop
-costs 10–57 pp over three years) and #18 (with Avanza Mini costs −30% +
-re-entry still costs: cheapest fifth Nordic −0.8 / −0.8 pp by half, E43
-best fifth Nordic −1.6 / −3.0). A rule that does no good and costs a
+costs heavily over three years) and #18 (with Avanza Mini costs −30% +
+re-entry still costs a little in every Nordic half [figures kept private: licensed vendor data]). A rule that does no good and costs a
 little has not shown it holds.
 
 E155: the ruling is the owner's, and it loosens an exit on two HELD names
@@ -13537,9 +13535,8 @@ CTSH above 53.45 on 2026-11-07), so no exit is suppressed today; the next
 **Not a reversal of E156 (owner 2026-11-08).** Attempts #10 and #18
 support BOTH options: −30% with re-entry and no stop at all. In #10 the
 two are within about a point of each other in every selection, market and
-half (cheapest fifth −0.3 / −0.2 pp by half in the Nordics, +0.6 / +2.8 in
-the US); in #18, with Avanza Mini costs, −30% + re-entry costs −0.8 / −0.8
-(Nordic cheapest fifth) and −1.6 / −3.0 (Nordic E43 best fifth). Neither
+half; in #18, with Avanza Mini costs, −30% + re-entry costs a little in
+the Nordics [figures kept private: licensed vendor data]. Neither
 helps. E156 chose −30% + re-entry; E162 chooses the SIMPLER of the two
 equivalent options. The evidence did not change between them.
 
@@ -13709,3 +13706,85 @@ VERIFIED. GDDY's FY2025 figure was 195.1m against 103.0m on the statement.
 
 Amends E140(1)'s reading path (the tag list in `vss/xbrl.py` no longer
 feeds a record) and E21's notion of a verified leg (a seventh kind).
+
+### E167 — the E43 ranking key is removed; the screener's order is random
+
+Attempt #24 tested three ordering candidates: the E43 key (EBIT / assets +
+EBIT / EV), fv / price, and the Q1-Q4 composite (#21). None sorted by the
+rule (no rank correlation reached 0.8 in both markets [figures kept private: licensed vendor data]). The
+pre-registered consequence: **E43 is removed and the order is random.**
+
+- `vss/ranking.rank` orders the names that pass by a seeded draw. The seed
+  was the screen's as-of date; since 171e1ee (granskning 2026-11-09, E169)
+  it is one fixed seed, `DRAW_SEED = "E167"`, so a name keeps its place from
+  week to week and E93's top-10 alerts fire only when the set changes. The two legs
+  are still computed and written to ranking.csv as information; they no
+  longer order anything.
+- The top-N cut is therefore a random sample of the names that passed the
+  filters, as the rule intends: the filters are what select, not the order.
+- **Nordic screen** (`tools/nordic_screen.py`), beslutat av sessionen
+  2026-11-09: it keeps listing the names under their own fv, because fv
+  against price is the method's buy line itself, which #24 did not decide.
+  The sentence that said the cheapest group beat history is removed and
+  replaced by #24's result (fv / price did not sort [figures kept private: licensed vendor data]).
+
+### E168 — attempt #25: every testable filter left in the method is removed (2026-11-09)
+
+Registered before the run (`9caf47c`, ATTEMPTS #25), run once on the VPS,
+result `reference/backtest/RESULT-A25-2026-11-09.md` (private: computed from licensed vendor data). Rule: the spread
+(through minus stopped, 3-year excess) > 0 in both markets and both halves
+and above a permutation p95 in each market. **None of the ten held.**
+
+| Part | Removed | Commit |
+|---|---|---|
+| (1) | filter 2's leverage limb (<= 2.5x) and Gate 3's same leg in `vss prepare` | 0a751da |
+| (2) | 4.2.5's net debt / EBITDA > 3.5x leg (covenant proximity stays: not testable) and the 4.3 soft flag | 4cabf25 |
+| (3) | E145 Q1-Q4 decide nothing (no drop, no sell at base, no tier step); Q5 stays | f99fc94 |
+| (4) | the MBP cushion binds nothing: the queue says UNDER MBP, information | 9bc7fba |
+| (5) | the green flags leave the conviction score (gates only) | 9bc7fba |
+| (6) | E127, "below its close of a year ago", in filter 1 | 3e37cb5 |
+
+**Stays:** filter 2's FCF limb (not testable: every valued name has a
+positive flow), Gate 3's other legs, 4.2.3, 4.2.4, 4.2.6, covenant
+proximity, Q5, Gates 2 and 5 (hand parts).
+
+**Measured (E155(1)).** No value moves. PNDORA.CO, LOPE and ALV, dropped by
+E145 on 2026-10-27, return to the status they had (WATCH-GATED, INTAKE,
+PIPELINE; ALV still stopped as absurd). Filter 1 lets 1,679 names through on
+the 2026-11-08 snapshot: the weekly fundamentals fetch grows with it.
+
+**Held names (E155(2)), waiting for a second session:** CTSH's and
+ACAD.ST's tier step (Q4) and CENTA's sell at base (Q1-Q4 fail). Since
+E168(4) tiers feed only MBP, which is information, the tier steps change no
+signal; CENTA's sell line (base 42.24) is a live signal and stands.
+
+**No more trimming on this history** (owner 2026-11-09): Nordic 2010-2021
+and US 2016-2020 have now carried #1-#25. The next test waits for new data.
+
+### E169 — granskning 2026-11-09: the sweep's B rulings named, B8 reversed, S-B7(2) narrowed, held names closed, risk filters tested on the tail
+
+**DECIDED 2026-11-09 by the second session (E155(2), E141)** after
+the independent review of 2026-11-09 (private: it reads licensed vendor data).
+
+> **(1) Names.** The sweep of 2026-11-08 called its rulings B5-B8; this log
+> already had B5-B8 (§4.2-§4.3, 2026-08). The sweep's are **S-B5** (`fv_void`),
+> **S-B6** (absurd bear stops), **S-B7** (cycle needs a downturn) and **S-B8**
+> (CENTA's Burpee). FRAMEWORK cites them so.
+> **(2) S-B8 reversed.** A deal that has closed and been paid, with no
+> published price, enters the bridge as its estimated range, as ACAD.ST's
+> and CTSH's do; never as zero (§1: not defaulted). CENTA base 42.24 -> 40.19
+> (f602d55).
+> **(3) S-B7(2) narrowed.** One repaired year is forgiven only where the
+> history file declares it with a non-economic cause (`one_year_forgiven`).
+> HRB FY2020 is declared (unchanged, 72.80); AUTO.L, DECK, MC.PA, RMV.L and
+> ULTA stay cyclical; none had been re-struck, so no value moves (4066b9f).
+> **(4) Held names.** CENTA: the sell at base is gone (E168); the exit stands
+> as the owner's of 2026-10-27, `exit_pending` without a price. CTSH and
+> ACAD.ST: the tier steps stand; they feed only MBP, which is information.
+> **(5) Risk filters** are tested on the median and the loss tail
+> (FRAMEWORK §6); #26 registers that test for the debt filters and Q1-Q3 on
+> the April 2027 data. Until then they stay out (E168, E164).
+
+Also fixed in code, not rulings: the queue's report check keeps its window
+when it fails and says so once (bdfbae7); the screener's draw has one fixed
+seed so E93's weekly alerts are not noise (171e1ee).

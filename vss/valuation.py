@@ -328,12 +328,21 @@ class NormalisedFlow:
     fcf0: float
 
 
+def structural_wc(years) -> bool:
+    """E154: working capital consumed cash (a negative cash effect) in EVERY
+    year of the mean."""
+    years = tuple(years)
+    return bool(years) and all(y.working_capital is not None and float(y.working_capital) < 0
+                               for y in years)
+
+
 def normalised_free_cash_flow_zero(
         *, years: "tuple[NormalisedYear, ...] | list[NormalisedYear]",
         interest_in_ocf: bool | None, net_interest_paid: float | None,
         tax_rate: float | None,
         nci_dividends_paid: float | None,
-        deduct_acquisitions: bool = True) -> NormalisedFlow:
+        deduct_acquisitions: bool = True,
+        keep_structural_wc: bool = False) -> NormalisedFlow:
     """E140 / E140.1's FCF0. THE ONE PLACE THAT SUM IS FORMED.
 
     (1) The MEAN over the last three fiscal years of operating cash flow
@@ -351,6 +360,12 @@ def normalised_free_cash_flow_zero(
     the flow AND the growth; the programme is valued in the bridge at the
     acquirer's own record (`deal_programme_value`). The repeat-buyer test
     and the mean are still formed and returned.
+
+    E154 (2026-11-07): ``keep_structural_wc=True`` -- where working capital
+    CONSUMED cash in all three years, that is what the growth needs, not
+    noise, and it stays in the flow (`structural_wc`). Mixed years, or a
+    release, are stripped as (1) says. Records struck before E154 pass
+    False and replay unchanged (E87).
 
     Every leg of every year must be stated; an absent one is DATA MISSING
     and refuses. Fewer than three years refuses: a mean of two is not the
@@ -376,6 +391,8 @@ def normalised_free_cash_flow_zero(
                     f"with no acquisitions states a NAMED ZERO")
         flow = (float(y.operating_cash_flow) - float(y.working_capital)
                 + float(y.capex) - abs(float(y.sbc)))
+        if keep_structural_wc and structural_wc(years):
+            flow += float(y.working_capital)       # E154: the cash growth took stays out
         if y.lease_cash is not None:
             flow -= abs(float(y.lease_cash))
         flows.append(flow)
@@ -607,3 +624,18 @@ def anchored_rate(core_expected_return: float, premium: float) -> float:
             f"{HURDLE_PREMIUM_MIN:.1%}-{HURDLE_PREMIUM_MAX:.1%}, got "
             f"{premium:.3%}. Moving it is a change to the ruling, not an input")
     return core_expected_return + premium
+
+
+def absurd_cases(bear: float | None, base: float | None) -> str | None:
+    """Review 3 / sweep B6 (owner, 2026-11-08): a bear at or below zero, or a
+    bear above the base, is not a valuation but a sign that a leg or a level
+    is wrong (HRB's -4.65 came from a calendar year read as a cycle). The
+    name STOPS: no fair value is printed and no line is drawn from it.
+    Returns the reason, or None where the three cases are in order."""
+    if bear is None or base is None:
+        return None
+    if bear <= 0:
+        return f"ABSURD: bear {bear:,.2f} is not above zero (base {base:,.2f})"
+    if bear > base:
+        return f"ABSURD: bear {bear:,.2f} is above base {base:,.2f}"
+    return None

@@ -360,10 +360,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: 233700000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsPayable [2023-01-01..2023-12-31] 10-K 0001609711-26-000010 filed 2026-02-25 = 28,300,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2023-01-01..2023-12-31] 10-K 0001609711-26-000010 filed 2026-02-25 = 56,200,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability [2023-01-01..2023-12-31] 10-K 0001609711-26-000010 filed 2026-02-25 = 149,200,000 = 233,700,000 (cash effect: an asset increase negated, a liability increase kept)"
+        value: 130500000
+        page: "E140(1) tied to the cash flow statement: GDDY_FY2025_annual-report-10k_2026-02-25_en_a0.htm, 2023-01-01..2023-12-31. Working capital = gddy:IncreaseDecreaseinPrepaidExpenseRegistryFees -41,900,000 + us-gaap:IncreaseDecreaseInAccountsPayable 28,300,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities 56,200,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability 149,200,000 + us-gaap:IncreaseDecreaseInOtherOperatingCapitalNet -61,300,000 = 130,500,000 (printed values, cash effect). The operating section's 10 rows sum to the printed operating cash flow 1,047,600,000 within 550,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2023-01-01..2023-12-31] 10-K 0001609711-25-000023 filed 2025-02-20"
@@ -457,10 +457,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: 170200000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsPayable [2024-01-01..2024-12-31] 10-K 0001609711-26-000010 filed 2026-02-25 = -65,500,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2024-01-01..2024-12-31] 10-K 0001609711-26-000010 filed 2026-02-25 = 300,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability [2024-01-01..2024-12-31] 10-K 0001609711-26-000010 filed 2026-02-25 = 235,400,000 = 170,200,000 (cash effect: an asset increase negated, a liability increase kept)"
+        value: 61200000
+        page: "E140(1) tied to the cash flow statement: GDDY_FY2025_annual-report-10k_2026-02-25_en_a0.htm, 2024-01-01..2024-12-31. Working capital = gddy:IncreaseDecreaseinPrepaidExpenseRegistryFees -42,300,000 + us-gaap:IncreaseDecreaseInAccountsPayable -65,500,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities 300,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability 235,400,000 + us-gaap:IncreaseDecreaseInOtherOperatingCapitalNet -66,700,000 = 61,200,000 (printed values, cash effect). The operating section's 10 rows sum to the printed operating cash flow 1,287,700,000 within 550,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2024-01-01..2024-12-31] 10-K 0001609711-25-000023 filed 2025-02-20"
@@ -614,10 +614,10 @@ annual:
         status: VERIFIED
         verified_kind: same_page
       working_capital_change:
-        value: 195100000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsPayable [2025-01-01..2025-12-31] 10-K 0001609711-26-000010 filed 2026-02-25 = -14,500,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2025-01-01..2025-12-31] 10-K 0001609711-26-000010 filed 2026-02-25 = 2,800,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability [2025-01-01..2025-12-31] 10-K 0001609711-26-000010 filed 2026-02-25 = 206,800,000 = 195,100,000 (cash effect: an asset increase negated, a liability increase kept)"
+        value: 103000000
+        page: "E140(1) tied to the cash flow statement: GDDY_FY2025_annual-report-10k_2026-02-25_en_a0.htm, 2025-01-01..2025-12-31. Working capital = gddy:IncreaseDecreaseinPrepaidExpenseRegistryFees -35,100,000 + us-gaap:IncreaseDecreaseInAccountsPayable -14,500,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities 2,800,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability 206,800,000 + us-gaap:IncreaseDecreaseInOtherOperatingCapitalNet -57,000,000 = 103,000,000 (printed values, cash effect). The operating section's 10 rows sum to the printed operating cash flow 1,599,400,000 within 550,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001609711-26-000010 filed 2026-02-25, fiscal year to 2025-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
@@ -684,10 +684,10 @@ roll_forward:
       status: VERIFIED
       verified_kind: machine_read_back
     working_capital_change:
-      value: 209100000
-      page: "E140(1): us-gaap:IncreaseDecreaseInAccountsPayable [2026-01-01..2026-06-30] 10-Q 0001609711-26-000088 filed 2026-07-31 = 55,600,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2026-01-01..2026-06-30] 10-Q 0001609711-26-000088 filed 2026-07-31 = -39,900,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability [2026-01-01..2026-06-30] 10-Q 0001609711-26-000088 filed 2026-07-31 = 193,400,000 = 209,100,000 (cash effect: an asset increase negated, a liability increase kept)"
+      value: 128900000
+      page: "E140(1) tied to the cash flow statement: GDDY_2026-06-30_quarterly-report-10q_2026-07-31_en_a0.htm, 2026-01-01..2026-06-30. Working capital = gddy:IncreaseDecreaseinPrepaidExpenseRegistryFees -35,300,000 + us-gaap:IncreaseDecreaseInAccountsPayable 55,600,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities -39,900,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability 193,400,000 + us-gaap:IncreaseDecreaseInOtherOperatingCapitalNet -44,900,000 = 128,900,000 (printed values, cash effect). The operating section's 10 rows sum to the printed operating cash flow 914,000,000 within 550,000; classes from config/manual/maps/cashflow-tags.yaml"
       status: VERIFIED
-      verified_kind: tagged
+      verified_kind: tied_statement
     financial_liabilities_current:
       value: 15000000
       page: "us-gaap:LongTermDebtCurrent [as of 2026-06-30] 10-Q 0001609711-26-000088 filed 2026-07-31"

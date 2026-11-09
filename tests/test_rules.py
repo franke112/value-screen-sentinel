@@ -23,13 +23,17 @@ def base(**overrides):
         drawdown=0.25,
         fv_base=200.0,      # tier 2 -> mbp 140.00
         tier=2,
-        stop_price=80.0,
         catalyst_date=None,
         catalyst_resolved=None,
         catalyst_event=None,
         as_of=TODAY,
     )
     kwargs.update(overrides)
+    # E162(4): an entry says `stop_price: none` (stop_none) unless the test
+    # passes stop_price=None, which is the EMPTY field that blocks a HELD name.
+    blank = "stop_price" in overrides and overrides["stop_price"] is None
+    kwargs.pop("stop_price", None)
+    kwargs.setdefault("stop_none", not blank)
     return kwargs
 
 
@@ -203,69 +207,24 @@ def test_unresolved_catalyst_blocks_and_emits_no_verdict():
 # --- missing stop is a blocker, per the framework -------------------------
 
 
-def test_missing_stop_blocks_held_only():
-    b = R.missing_stop_blocker("HELD", None)
-    assert b is not None and b.code == R.NO_STOP
-    assert "no stop defined" in b.reason
 
 
-@pytest.mark.parametrize("status", ["WATCH-GATED", "PIPELINE"])
-def test_missing_stop_does_not_block_unheld(status):
-    """No position, nothing to exit -- a missing stop is not an emergency."""
-    assert R.missing_stop_blocker(status, None) is None
 
 
-def test_stop_present_never_blocks():
-    assert R.missing_stop_blocker("HELD", 80.0) is None
-    assert R.missing_stop_blocker("WATCH-GATED", 80.0) is None
 
 
-def test_held_without_stop_produces_blocker_not_action():
-    a = R.assess(**base(status="HELD", stop_price=None, last_close=1.0))
-    assert a.blocked
-    assert a.actionable is False
-    assert a.verdicts == ()
-    assert R.NO_STOP in {b.code for b in a.blockers}
 
 
-@pytest.mark.parametrize("status", ["WATCH-GATED", "PIPELINE"])
-def test_unheld_without_stop_is_flagged_not_blocked(status):
-    """WATCH-GATED/PIPELINE keep their normal MBP verdicts, plus the flag."""
-    a = R.assess(**base(status=status, stop_price=None, last_close=100.0, drawdown=0.25))
-    assert not a.blocked
-    assert R.NO_STOP_PRE_ENTRY in codes(a.verdicts)
-    assert R.AT_BELOW_MBP in codes(a.verdicts)   # mbp is 140.0, close is 100.0
-    assert a.actionable is True
 
 
-def test_pre_entry_flag_wording_marks_it_as_a_prerequisite():
-    v = R.pre_entry_stop_flag("WATCH-GATED", None)
-    assert v is not None and v.label == "NO STOP DEFINED"
-    assert "required before entry" in v.detail
 
 
-def test_pre_entry_flag_absent_when_stop_is_set():
-    assert R.pre_entry_stop_flag("WATCH-GATED", 80.0) is None
 
 
-def test_pre_entry_flag_never_applies_to_held():
-    """HELD without a stop is blocked, so it must not also be flagged."""
-    assert R.pre_entry_stop_flag("HELD", None) is None
 
 
-def test_unheld_missing_stop_reports_the_flag_not_data_missing():
-    """One statement about the missing stop, not two."""
-    a = R.assess(**base(status="WATCH-GATED", stop_price=None, last_close=100.0, drawdown=0.25))
-    stop_related = [
-        v for v in a.verdicts if "stop" in f"{v.label} {v.detail}".lower()
-    ]
-    assert len(stop_related) == 1
-    assert stop_related[0].code == R.NO_STOP_PRE_ENTRY
 
 
-def test_unheld_without_stop_still_gets_dislocation_verdict():
-    a = R.assess(**base(status="WATCH-GATED", stop_price=None, last_close=100.0, drawdown=0.90))
-    assert R.OUTSIDE_BAND in codes(a.verdicts)
 
 
 def test_no_data_blocks():
@@ -294,27 +253,14 @@ def test_multiple_blockers_are_all_reported():
 # --- STOP BREACHED --------------------------------------------------------
 
 
-def test_stop_breached_exactly_at_stop():
-    v = R.stop_verdict("HELD", 80.0, 80.0)
-    assert v is not None and v.code == R.STOP_BREACHED
 
 
-def test_stop_breached_below_stop():
-    assert R.stop_verdict("HELD", 79.99, 80.0).code == R.STOP_BREACHED
 
 
-def test_no_stop_breach_just_above_stop():
-    assert R.stop_verdict("HELD", 80.01, 80.0) is None
 
 
-def test_stop_breach_only_applies_to_held():
-    assert R.stop_verdict("WATCH-GATED", 50.0, 80.0) is None
-    assert R.stop_verdict("PIPELINE", 50.0, 80.0) is None
 
 
-def test_stop_check_without_stop_price_is_data_missing():
-    v = R.stop_verdict("HELD", 50.0, None)
-    assert v is not None and v.code == R.DATA_MISSING
 
 
 # --- MBP ------------------------------------------------------------------
@@ -344,7 +290,7 @@ def test_no_mbp_verdict_above_5_percent_boundary():
 def test_at_and_approaching_are_mutually_exclusive():
     """Exactly at MBP is AT/BELOW only -- never both labels at once."""
     verdicts = R.collect_verdicts(
-        status="WATCH-GATED", last_close=140.0, drawdown=0.25, mbp=140.0, stop_price=80.0
+        status="WATCH-GATED", last_close=140.0, drawdown=0.25, mbp=140.0
     )
     assert codes(verdicts) == {R.AT_BELOW_MBP}
 
@@ -358,30 +304,16 @@ def test_mbp_check_without_fv_base_is_data_missing():
 # --- dislocation band -----------------------------------------------------
 
 
-def test_drawdown_exactly_15_percent_is_inside_band():
-    assert R.dislocation_verdict(0.15) is None
 
 
-def test_drawdown_exactly_50_percent_is_inside_band():
-    assert R.dislocation_verdict(0.50) is None
 
 
-def test_drawdown_below_band_is_outside():
-    v = R.dislocation_verdict(0.1499)
-    assert v is not None and v.code == R.OUTSIDE_BAND
 
 
-def test_drawdown_above_band_is_outside():
-    v = R.dislocation_verdict(0.5001)
-    assert v is not None and v.code == R.OUTSIDE_BAND
 
 
-def test_drawdown_mid_band_is_inside():
-    assert R.dislocation_verdict(0.30) is None
 
 
-def test_missing_drawdown_is_data_missing():
-    assert R.dislocation_verdict(None).code == R.DATA_MISSING
 
 
 # --- collection semantics -------------------------------------------------
@@ -389,45 +321,28 @@ def test_missing_drawdown_is_data_missing():
 
 def test_no_action_when_nothing_fires():
     verdicts = R.collect_verdicts(
-        status="WATCH-GATED", last_close=200.0, drawdown=0.25, mbp=140.0, stop_price=80.0
+        status="WATCH-GATED", last_close=200.0, drawdown=0.25, mbp=140.0
     )
     assert codes(verdicts) == {R.NO_ACTION}
 
 
 def test_verdicts_are_collected_not_first_match_wins():
-    """A HELD name under stop, under MBP and outside the band reports all three."""
+    """E161/E162: no band and no stop verdict; the MBP verdict stands alone."""
     verdicts = R.collect_verdicts(
-        status="HELD", last_close=70.0, drawdown=0.60, mbp=140.0, stop_price=80.0
+        status="HELD", last_close=70.0, drawdown=0.60, mbp=140.0
     )
-    assert codes(verdicts) == {R.STOP_BREACHED, R.AT_BELOW_MBP, R.OUTSIDE_BAND}
+    assert codes(verdicts) == {R.AT_BELOW_MBP}
 
 
-def test_stop_breach_is_never_masked_by_the_mbp_rule():
-    a = R.assess(**base(status="HELD", last_close=70.0, drawdown=0.25))
-    assert R.STOP_BREACHED in codes(a.verdicts)
-    assert R.AT_BELOW_MBP in codes(a.verdicts)
 
 
 # --- missing manual fields never silently skip a check --------------------
 
 
-def test_missing_fv_base_does_not_suppress_the_stop_check():
-    a = R.assess(**base(status="HELD", fv_base=None, last_close=70.0, drawdown=0.25))
-    assert R.STOP_BREACHED in codes(a.verdicts)
-    assert R.DATA_MISSING in codes(a.verdicts)
-    assert a.mbp is None
 
 
-def test_missing_tier_does_not_suppress_the_stop_check():
-    a = R.assess(**base(status="HELD", tier=None, last_close=70.0, drawdown=0.25))
-    assert R.STOP_BREACHED in codes(a.verdicts)
-    assert R.DATA_MISSING in codes(a.verdicts)
 
 
-def test_missing_fv_base_still_evaluates_the_dislocation_band():
-    a = R.assess(**base(fv_base=None, drawdown=0.90))
-    assert R.OUTSIDE_BAND in codes(a.verdicts)
-    assert R.DATA_MISSING in codes(a.verdicts)
 
 
 def test_data_missing_makes_a_ticker_actionable_never_silent():
@@ -536,32 +451,26 @@ def test_dropped_is_a_valid_status():
 
 def test_a_dropped_name_collects_one_verdict_and_no_checks():
     verdicts = R.collect_verdicts(status="DROPPED", last_close=41.06, drawdown=0.492,
-                                  mbp=None, stop_price=None)
+                                  mbp=None)
     assert [v.code for v in verdicts] == [R.DROPPED]
     assert "kept as a record" in verdicts[0].detail
 
 
-def test_a_dropped_name_is_not_told_it_needs_a_stop_before_entry():
-    """There is no entry. The flag would be advice about a decision made."""
-    verdicts = R.collect_verdicts(status="DROPPED", last_close=41.06, drawdown=0.492,
-                                  mbp=None, stop_price=None)
-    assert not any(v.code == R.NO_STOP_PRE_ENTRY for v in verdicts)
-    assert not any(v.code == R.DATA_MISSING for v in verdicts)
 
 
 def test_the_same_name_as_a_candidate_still_gets_both_flags():
     """The suppression is the status's doing, not a change to the checks."""
     verdicts = R.collect_verdicts(status="WATCH-GATED", last_close=41.06, drawdown=0.492,
-                                  mbp=None, stop_price=None)
+                                  mbp=None)
     codes = [v.code for v in verdicts]
-    assert R.NO_STOP_PRE_ENTRY in codes and R.DATA_MISSING in codes
+    assert codes == [R.DATA_MISSING]      # E162: no pre-entry stop flag
 
 
 def test_a_dropped_name_stays_out_of_the_actions_table():
     assessment = R.TickerAssessment(
         ticker="NKE",
         verdicts=R.collect_verdicts(status="DROPPED", last_close=41.06,
-                                    drawdown=0.492, mbp=None, stop_price=None))
+                                    drawdown=0.492, mbp=None))
     assert assessment.actionable is False
     assert assessment.blocked is False
 
@@ -573,47 +482,19 @@ def test_a_dropped_name_is_still_blocked_by_stale_data():
     assert blocker is not None
 
 
-def test_a_dropped_name_has_no_position_to_exit():
-    assert R.missing_stop_blocker("DROPPED", None) is None
-    assert R.stop_verdict("DROPPED", 41.06, 50.0) is None
 
 
 # --- in_dislocation_band: the predicate behind the verdict -----------------
 
 
-def test_in_dislocation_band_is_true_inside():
-    assert R.in_dislocation_band(0.223) is True
-    assert R.in_dislocation_band(0.30) is True
 
 
-def test_in_dislocation_band_bounds_are_inclusive():
-    assert R.in_dislocation_band(R.DISLOCATION_MIN) is True
-    assert R.in_dislocation_band(R.DISLOCATION_MAX) is True
 
 
-def test_in_dislocation_band_is_false_outside():
-    assert R.in_dislocation_band(0.112) is False
-    assert R.in_dislocation_band(0.51) is False
-    assert R.in_dislocation_band(0.0) is False
-    assert R.in_dislocation_band(-0.05) is False
 
 
-def test_in_dislocation_band_returns_none_for_data_missing():
-    """Not False. An untested name has not failed the gate."""
-    assert R.in_dislocation_band(None) is None
 
 
-def test_the_verdict_and_the_predicate_cannot_disagree():
-    values = [None, -0.10, 0.0, 0.1499, 0.15, 0.2, 0.50, 0.5001, 0.9]
-    for drawdown in values:
-        inside = R.in_dislocation_band(drawdown)
-        verdict = R.dislocation_verdict(drawdown)
-        if inside is None:
-            assert verdict is not None and verdict.code == R.DATA_MISSING
-        elif inside:
-            assert verdict is None
-        else:
-            assert verdict is not None and verdict.code == R.OUTSIDE_BAND
 
 
 # --- E27: the split changed the vocabulary, not the entry arithmetic ------
@@ -631,18 +512,13 @@ def test_e27_both_waiting_statuses_behave_as_the_old_watch_did(status):
     owner makes, not a verdict this module issues. If a future rule ever
     does treat them differently, it should fail here first.
     """
-    assert R.missing_stop_blocker(status, None) is None
-    assert R.missing_stop_blocker(status, 80.0) is None
-    assert R.stop_verdict(status, 50.0, 80.0) is None
-
-    flag = R.pre_entry_stop_flag(status, None)
-    assert flag is not None and flag.code == R.NO_STOP_PRE_ENTRY
-    assert R.pre_entry_stop_flag(status, 80.0) is None
+    kwargs = dict(last_close=50.0, drawdown=0.25, mbp=None)
+    assert [v.code for v in R.collect_verdicts(status=status, **kwargs)] == [R.DATA_MISSING]
 
 
 def test_e27_the_two_waiting_statuses_collect_identical_verdicts():
     """Same inputs, same verdicts -- the split is not a behaviour change."""
-    kwargs = dict(last_close=140.0, drawdown=0.25, mbp=140.0, stop_price=80.0)
+    kwargs = dict(last_close=140.0, drawdown=0.25, mbp=140.0)
     priced = R.collect_verdicts(status="WATCH-PRICED", **kwargs)
     gated = R.collect_verdicts(status="WATCH-GATED", **kwargs)
     assert [v.code for v in priced] == [v.code for v in gated]
@@ -678,9 +554,9 @@ def test_e90_assess_is_base_times_cushion_and_unmarked():
     a = R.assess(
         ticker="AAA", status="HELD", last_close=140.0,
         last_close_date=date(2026, 8, 24), drawdown=0.25,
-        fv_base=200.0, tier=2, stop_price=80.0,
+        fv_base=200.0, tier=2,
         catalyst_date=None, catalyst_resolved=None, catalyst_event=None,
-        as_of=date(2026, 8, 24),
+        as_of=date(2026, 8, 24), stop_none=True,
     )
     assert a.mbp == 150.0 and a.mbp_superseded is False
     detail = [v.detail for v in a.verdicts if v.code == R.AT_BELOW_MBP][0]
@@ -694,9 +570,9 @@ def test_e90_the_bear_value_no_longer_sets_the_figure():
     common = dict(
         ticker="AAA", status="HELD", last_close=140.0,
         last_close_date=date(2026, 8, 24), drawdown=0.25,
-        fv_base=200.0, tier=2, stop_price=80.0,
+        fv_base=200.0, tier=2,
         catalyst_date=None, catalyst_resolved=None, catalyst_event=None,
-        as_of=date(2026, 8, 24),
+        as_of=date(2026, 8, 24), stop_none=True,
     )
     without = R.assess(**common)
     assert without.mbp == 150.0 and without.mbp_superseded is False
@@ -730,9 +606,9 @@ def test_e32_no_mbp_is_not_superseded_it_is_absent():
     a = R.assess(
         ticker="AAA", status="HELD", last_close=140.0,
         last_close_date=date(2026, 8, 24), drawdown=0.25,
-        fv_base=None, tier=None, stop_price=80.0,
+        fv_base=None, tier=None,
         catalyst_date=None, catalyst_resolved=None, catalyst_event=None,
-        as_of=date(2026, 8, 24),
+        as_of=date(2026, 8, 24), stop_none=True,
     )
     assert a.mbp is None and a.mbp_superseded is False
     detail = [v.detail for v in a.verdicts if v.code == R.DATA_MISSING][0]
@@ -742,7 +618,7 @@ def test_e32_no_mbp_is_not_superseded_it_is_absent():
 # --- E39: a nulled fair value leaves the stop working ---------------------
 
 
-def test_a_nulled_fair_value_produces_no_mbp_and_leaves_the_stop_alive():
+def test_a_nulled_fair_value_produces_no_mbp():
     """E39, as arithmetic. `fv_base` and `tier` go to null; `stop_price`
     does not, because a stop is a statement about how much the owner will
     lose and not about what the company is worth. The one thing that must
@@ -752,9 +628,6 @@ def test_a_nulled_fair_value_produces_no_mbp_and_leaves_the_stop_alive():
     assert R.compute_mbp(None, None) is None
     assert R.compute_mbp(None, 1) is None
     assert R.compute_mbp(185.0, None) is None
-    # and the stop is untouched by any of it
-    assert R.stop_verdict("HELD", 100.0, 112.0).code == R.STOP_BREACHED
-    assert R.stop_verdict("HELD", 126.30, 112.0) is None
 
 
 def test_a_held_name_with_no_fair_value_is_DATA_MISSING_not_a_verdict():
@@ -775,80 +648,52 @@ PHANTOM = ("2026-08-20 closed -50% (100 -> 50) on 1.0x the median volume; a "
            "is not comparable with today's close")
 
 
-def test_a_flagged_series_makes_the_stop_check_DATA_MISSING_never_a_breach():
-    """Build 2 item 0. Both held names carry live stops; a feed quoting two
-    scales must print DATA MISSING for the stop check, not a breach."""
-    v = R.stop_verdict("HELD", 50.0, 80.0, series_finding=PHANTOM)
-    assert v is not None and v.code == R.DATA_MISSING
-    assert "K4" in v.detail and "50%" in v.detail
-    # the same close with NO finding is a breach -- the finding is the gate
-    assert R.stop_verdict("HELD", 50.0, 80.0).code == R.STOP_BREACHED
 
 
-def test_a_flagged_series_withholds_the_mbp_and_dislocation_checks_too():
+def test_a_flagged_series_withholds_the_mbp_check_too():
     assert R.mbp_verdict(50.0, 140.0, series_finding=PHANTOM).code == R.DATA_MISSING
-    assert R.dislocation_verdict(0.52, series_finding=PHANTOM).code == R.DATA_MISSING
-    # a missing stop_price still says so first: the finding does not hide it
-    assert "stop_price not set" in R.stop_verdict("HELD", 50.0, None, PHANTOM).detail
 
 
 def test_assess_carries_the_finding_and_strikes_no_breach_on_it():
     a = R.assess(
         ticker="X", status="HELD", last_close=50.0,
         last_close_date=date(2026, 8, 20), drawdown=0.52,
-        fv_base=200.0, tier=2, stop_price=80.0,
+        fv_base=200.0, tier=2,
         catalyst_date=None, catalyst_resolved=None, catalyst_event=None,
-        as_of=date(2026, 8, 20), series_finding=PHANTOM,
+        as_of=date(2026, 8, 20), series_finding=PHANTOM, stop_none=True,
     )
     codes = [v.code for v in a.verdicts]
-    assert R.STOP_BREACHED not in codes and R.AT_BELOW_MBP not in codes
-    assert codes == [R.DATA_MISSING] * 3
+    assert R.AT_BELOW_MBP not in codes
+    assert codes == [R.DATA_MISSING]      # the MBP's; E161/E162 took the band's and the stop's
     assert not a.blocked            # K4 is not a blocker: the row still prints
 
 
 # --- E12: Gate 1 is frozen at entry for a PIPELINE name (build item 5) ------
 
 
-def test_a_pipeline_name_with_a_frozen_reading_is_not_re_read():
-    """PNDORA.CO, E11's own case: written at 15.64% against the 2025-08-22
-    peak, reading 13.0% two days later once the peak aged out. Under E12
-    the band verdict is struck on the frozen 15.64% and the name stays."""
-    a = R.assess(**base(status="PIPELINE", stop_price=None, drawdown=0.130,
-                        dd_at_entry=0.1564, peak_date=date(2025, 8, 22)))
-    assert R.OUTSIDE_BAND not in codes(a.verdicts)
 
 
-def test_without_the_frozen_pair_a_pipeline_name_reads_todays_level():
-    a = R.assess(**base(status="PIPELINE", stop_price=None, drawdown=0.130))
-    assert R.OUTSIDE_BAND in codes(a.verdicts)
 
 
-def test_a_frozen_reading_outside_the_band_says_it_is_frozen():
-    a = R.assess(**base(status="PIPELINE", stop_price=None, drawdown=0.25,
-                        dd_at_entry=0.60, peak_date=date(2025, 8, 22)))
-    (band,) = [v for v in a.verdicts if v.code == R.OUTSIDE_BAND]
-    assert "60.0%" in band.detail
-    assert "FROZEN AT ENTRY per E12" in band.detail
-    assert "2025-08-22" in band.detail and "today's reading 25.0%" in band.detail
 
 
-def test_only_a_pipeline_name_freezes_gate_1():
-    """A holding reads today's level (B1); a WATCH name has E27's rule."""
-    for status in ("HELD", "WATCH-GATED", "WATCH-PRICED"):
-        a = R.assess(**base(status=status, drawdown=0.130,
-                            dd_at_entry=0.1564, peak_date=date(2025, 8, 22)))
-        assert R.OUTSIDE_BAND in codes(a.verdicts), status
-    assert R.frozen_gate_1("PIPELINE", 0.2, date(2026, 1, 1))
-    assert not R.frozen_gate_1("PIPELINE", 0.2, None)
-    assert not R.frozen_gate_1("HELD", 0.2, date(2026, 1, 1))
 
 
-def test_a_series_finding_does_not_reach_a_frozen_reading():
-    """The frozen figure is a stored number, not a measurement across
-    today's series, so K4's DATA MISSING does not replace it."""
-    a = R.assess(**base(status="PIPELINE", stop_price=None, drawdown=0.130,
-                        dd_at_entry=0.1564, peak_date=date(2025, 8, 22),
-                        series_finding="scale switch on 2026-07-20"))
-    band = [v for v in a.verdicts if "dislocation" in v.detail.lower()]
-    assert band == []
-    assert R.OUTSIDE_BAND not in codes(a.verdicts)
+
+
+# --- E162(4): "no stop" is written, never left blank ------------------------
+
+def test_e162_a_held_name_with_an_empty_stop_field_is_blocked():
+    a = R.assess(**base(status="HELD", stop_price=None))
+    assert R.NO_STOP in {b.code for b in a.blockers}
+    assert a.verdicts == ()
+
+
+def test_e162_stop_none_is_a_decision_and_does_not_block():
+    a = R.assess(**base(status="HELD", stop_none=True))
+    assert R.NO_STOP not in {b.code for b in a.blockers}
+
+
+def test_e162_a_waiting_name_is_never_blocked_for_its_stop():
+    for status in ("WATCH-PRICED", "WATCH-GATED", "PIPELINE"):
+        assert R.missing_stop_blocker(status, None) is None

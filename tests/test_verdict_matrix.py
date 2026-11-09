@@ -47,19 +47,15 @@ FROZEN_NOW = datetime(2026, 8, 20, 22, 30)
 EXPECTED: dict[str, set[str]] = {
     "MSFT": {R.AT_BELOW_MBP},
     "UNA.AS": {R.AT_BELOW_MBP},
-    "SAP.DE": {R.STOP_BREACHED, R.APPROACHING_MBP},
-    "HNSA.ST": {R.OUTSIDE_BAND, R.APPROACHING_MBP},
+    "SAP.DE": {R.APPROACHING_MBP},
+    "HNSA.ST": {R.APPROACHING_MBP},
     "NKE": {R.NO_ACTION},
-    "MC.PA": {R.STOP_BREACHED, R.AT_BELOW_MBP},
+    "MC.PA": {R.AT_BELOW_MBP},
 }
 
-#: Drawdown is computed from price history, so no manual field can tune
-#: it. MSFT (11.2%) and UNA.AS (13.7%) sit below the 0.15 floor and
-#: therefore also carry OUTSIDE_BAND. Recorded rather than worked around.
-ALSO_EXPECTED: dict[str, set[str]] = {
-    "MSFT": {R.OUTSIDE_BAND},
-    "UNA.AS": {R.OUTSIDE_BAND},
-}
+#: E161 (2026-11-08) removed the band verdict MSFT and UNA.AS carried for
+#: their drawdowns; nothing rides along any more.
+ALSO_EXPECTED: dict[str, set[str]] = {}
 
 
 @pytest.fixture(scope="module")
@@ -93,12 +89,6 @@ def test_expected_verdicts_fire(rows, ticker, expected):
     )
 
 
-@pytest.mark.parametrize("ticker,extra", sorted((t, s) for t, s in ALSO_EXPECTED.items()))
-def test_drawdown_driven_extras_are_recorded(rows, ticker, extra):
-    """These ride along because real drawdown is untunable, not by accident."""
-    assert extra <= codes(rows[ticker])
-
-
 def test_exact_verdict_sets(rows):
     """Nothing fires beyond what is documented -- no silent extra verdicts."""
     for ticker, row in rows.items():
@@ -109,8 +99,7 @@ def test_exact_verdict_sets(rows):
 def test_every_verdict_path_is_exercised(rows):
     fired = {c for row in rows.values() for c in codes(row)}
     assert {
-        R.AT_BELOW_MBP, R.APPROACHING_MBP, R.STOP_BREACHED,
-        R.OUTSIDE_BAND, R.NO_ACTION,
+        R.AT_BELOW_MBP, R.APPROACHING_MBP, R.NO_ACTION,
     } <= fired
 
 
@@ -119,14 +108,6 @@ def test_no_ticker_is_blocked(rows):
     assert [t for t, r in rows.items() if r.assessment.blocked] == []
 
 
-def test_collect_all_holds_on_real_prices(rows):
-    """MC.PA carries a stop breach AND a buy signal simultaneously.
-
-    Under first-match-wins only one would survive, and the buy signal
-    would vanish silently.
-    """
-    assert codes(rows["MC.PA"]) == {R.STOP_BREACHED, R.AT_BELOW_MBP}
-    assert len(rows["MC.PA"].assessment.verdicts) == 2
 
 
 def test_prices_are_actually_frozen(rows):

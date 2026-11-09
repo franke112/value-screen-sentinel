@@ -452,6 +452,28 @@ def prune_snapshots(root: Path, *, keep: int = KEEP_SNAPSHOTS,
 # --- the report ------------------------------------------------------------
 
 
+#: Rulings that changed WHICH names the screen can rank, with the date
+#: they took effect. A run compared against one struck before such a date
+#: says so in its own report, so a reader a year on does not read a new
+#: name in the top 10 as the market moving (owner, 2026-11-08).
+METHOD_CHANGES: tuple[tuple[date, str, str], ...] = (
+    (date(2026, 11, 8), "E161",
+     "Gate 1's 15-50% band was removed from filter 1. Replayed on the "
+     "2026-11-07 snapshot, filter 1 passed 276 names with the band and "
+     "389 without it"),
+)
+
+
+def method_changes_between(previous_as_of: str | None, as_of: date
+                           ) -> list[tuple[date, str, str]]:
+    """The METHOD_CHANGES dated after the compared run and on or before
+    this one. None for a first run: there is nothing to diff against."""
+    if not previous_as_of:
+        return []
+    before = date.fromisoformat(str(previous_as_of)[:10])
+    return [c for c in METHOD_CHANGES if before < c[0] <= as_of]
+
+
 def render_screen_report(*, as_of: date, run_ts: datetime,
                          coverage: Coverage, changes: Sequence[Change],
                          current: Sequence[dict],
@@ -474,6 +496,10 @@ def render_screen_report(*, as_of: date, run_ts: datetime,
     out.append(f"- **Compared against:** "
                f"{previous_as_of or 'nothing — this is the first stored run'}")
     out.append(f"- **Coverage:** {coverage.line}")
+    for when, ruling, what in method_changes_between(previous_as_of, as_of):
+        out.append(f"- **METHOD CHANGED ({ruling}, {when.isoformat()}):** {what}. "
+                   f"A name new to the top 10 against `{previous_as_of}` may be "
+                   f"there because of {ruling}, not because the market moved.")
     if pruned:
         out.append(f"- **Pruned:** {', '.join(p.name for p in pruned)} "
                    f"(keeping the last {KEEP_SNAPSHOTS} snapshots; every "

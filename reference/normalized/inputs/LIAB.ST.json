@@ -256,7 +256,7 @@
    "ocf": {
     "value": 1711,
     "quote": "Cash flow from operating activities                                               1,438   1,711",
-    "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+    "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
     "page": 76,
     "columns": "[current,prior]=['1,438', '1,711']",
     "caption": "Cash flow from operating activities(?=\\s{3,}[\\d\u2013-])"
@@ -265,7 +265,7 @@
     {
      "value": 471,
      "quote": "Stock (increase \u2212 /decrease +)                                                     341     471",
-     "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+     "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
      "page": 76,
      "columns": "[current,prior]=['341', '471']",
      "caption": "Stock (increase \u2212 /decrease +)"
@@ -273,7 +273,7 @@
     {
      "value": 35,
      "quote": "Operating receivables (increase \u2212 /decrease +)                                     140      35",
-     "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+     "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
      "page": 76,
      "columns": "[current,prior]=['140', '35']",
      "caption": "Operating receivables (increase \u2212 /decrease +)"
@@ -281,7 +281,7 @@
     {
      "value": -91,
      "quote": "Operating liabilities (increase + /decrease \u2212)                                    \u2013196     \u201391",
-     "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+     "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
      "page": 76,
      "columns": "[current,prior]=['\u2013196', '\u201391']",
      "caption": "Operating liabilities (increase + /decrease \u2212)"
@@ -289,7 +289,7 @@
     {
      "value": 415,
      "quote": "Total change in working capital                                                    285     415",
-     "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+     "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
      "page": 76,
      "columns": "[current,prior]=['285', '415']",
      "caption": "Total change in working capital"
@@ -299,7 +299,7 @@
     {
      "value": -43,
      "quote": "Investments in intangible assets                                           17      \u201350     \u201343",
-     "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+     "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
      "page": 76,
      "columns": "[current,prior]=['\u201350', '\u201343']",
      "caption": "Investments in intangible assets"
@@ -307,7 +307,7 @@
     {
      "value": -251,
      "quote": "Investments in tangible fixed assets                                       18      \u2013179   \u2013251",
-     "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+     "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
      "page": 76,
      "columns": "[current,prior]=['\u2013179', '\u2013251']",
      "caption": "Investments in tangible fixed assets"
@@ -316,7 +316,7 @@
    "lease_principal": {
     "value": -327,
     "quote": "Repayment of lease liabilities                                          28, 30    \u2013375    \u2013327",
-    "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+    "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
     "page": 76,
     "columns": "[current,prior]=['\u2013375', '\u2013327']",
     "caption": "Repayment of lease liabilities"
@@ -324,7 +324,7 @@
    "interest_paid": {
     "value": -175,
     "quote": "Interest paid                                                                     \u2013251     \u2013175",
-    "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+    "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
     "page": 76,
     "columns": "[current,prior]=['\u2013251', '\u2013175']",
     "caption": "Interest paid"
@@ -332,7 +332,7 @@
    "interest_received": {
     "value": 12,
     "quote": "Interest received                                                                   17      12",
-    "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+    "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
     "page": 76,
     "columns": "[current,prior]=['17', '12']",
     "caption": "Interest received"
@@ -340,7 +340,7 @@
    "tax_paid": {
     "value": -330,
     "quote": "Tax paid                                                                          \u2013258    \u2013330",
-    "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+    "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
     "page": 76,
     "columns": "[current,prior]=['\u2013258', '\u2013330']",
     "caption": "Tax paid"
@@ -348,7 +348,7 @@
    "acquisitions": {
     "value": -473,
     "quote": "Acquisition of Group companies                                              5    \u20131,382   \u2013473",
-    "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+    "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
     "page": 76,
     "columns": "[current,prior]=['\u20131,382', '\u2013473']",
     "caption": "Acquisition of Group companies"
@@ -356,7 +356,7 @@
    "divestments": {
     "value": 0,
     "quote": "Divestment of Group companies                                                         \u2013       \u2013",
-    "file": "~/vss/sources/<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+    "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
     "page": 76,
     "columns": "[current,prior]=['\u2013', '\u2013']",
     "caption": "Divestment of Group companies"
@@ -365,7 +365,7 @@
     "caption": "Note 30 text, prior year in FY2024 report: SEK 58 m (38)",
     "value": 38,
     "quote": "Recognised interest expenses regarding lease",
-    "file": "<scratch>/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
+    "file": "/tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/LIAB2024.pdf (https://mb.cision.com/Main/1983/4134741/3383737.pdf)",
     "page": 125,
     "note": "note text: 'interest expenses regarding lease-related liabilities for total operations amount to SEK x m (y)'; excludes interest on short/low-value leases"
    },

@@ -281,7 +281,11 @@ def test_the_book_is_sorted_by_date_then_ticker(tmp_path):
 #: Any other name appearing here is a module that could act on a refusal's
 #: subsequent price, which is the thing E114 forbids.
 SHADOW_BOOK_READERS = {"shadowbook.py", "__main__.py", "overview.py",
-                       "render.py"}
+                       "render.py",
+                       # the review's step list (moved from tools/playbook,
+                       # sweep D14) NAMES the module as a step's source; it
+                       # imports nothing and reads no row
+                       "review_steps.py"}
 
 #: What the page may take from the module: the book, the measurement, the
 #: benchmark labels, the INCOMPLETE marker and the path. Every one of them
@@ -509,7 +513,7 @@ def test_every_committed_verdict_date_is_a_settled_session_or_unpriced():
 
 def test_every_re_dated_row_says_where_it_moved_from():
     moved = [v for v in load_shadow_book() if "RE-DATED" in v.source]
-    assert len(moved) == 7, [v.ticker for v in moved]   # MUSA and NHY.OL re-dated 2026-09-19 -> 09-18; SAP.DE 2026-09-20 -> 09-18 (backfill of 2026-10-29)
+    assert len(moved) == 5, [v.ticker for v in moved]   # HNSA.ST and MSFT moved to arkiv 2026-11-08 (held on their verdict date); MUSA and NHY.OL re-dated 2026-09-19 -> 09-18; SAP.DE 2026-09-20 -> 09-18 (backfill of 2026-10-29)
     for verdict in moved:
         assert "RE-DATED from" in verdict.source, verdict.source
         # Both ends of the move are on the row: the date it now carries,
@@ -538,3 +542,30 @@ def test_the_sample_sentence_names_the_reason_that_actually_fired(tmp_path):
     markdown = report(tmp_path, old, frames)
     assert "Not one fixed window has elapsed" not in markdown
     assert f"fewer than {SAMPLE_FLOOR} measurable rows" in markdown
+
+
+# --- owner 2026-11-08: the book measures what was NEVER bought, per row ---
+
+def test_no_committed_row_falls_inside_a_holding_period():
+    """A row is valid only if its name was not HELD on its verdict_date:
+    after the last sale in `sales:`, or before the first buy (`bought`)."""
+    from vss.config import load_watchlist
+    from vss.shadowbook import held_on
+    sales = {e.ticker: e.sales for e in load_watchlist(Path("config/watchlist.yaml"))}
+    held = [(v.ticker, v.verdict_date) for v in load_shadow_book()
+            if held_on(v.verdict_date, sales.get(v.ticker, ()))]
+    assert held == [], f"rows measure an owned name: {held}"
+
+
+def test_held_on_reads_the_holding_period_from_the_fills():
+    from vss.config import SaleRecord
+    from vss.shadowbook import held_on
+    fills = (SaleRecord(date(2026, 10, 20), 10, "owner", bought=date(2026, 9, 10)),
+             SaleRecord(date(2026, 10, 21), 7, "owner", bought=date(2026, 9, 10)))
+    assert held_on(date(2026, 9, 8), fills) is False      # before the first buy
+    assert held_on(date(2026, 10, 1), fills) is True      # inside
+    assert held_on(date(2026, 10, 21), fills) is True     # the day of the last sale
+    assert held_on(date(2026, 10, 22), fills) is False    # after
+    no_buy = (SaleRecord(date(2026, 8, 21), 4, "C4"),)
+    assert held_on(date(2026, 8, 1), no_buy) is True      # unknown start: held
+    assert held_on(date(2026, 8, 1), ()) is False         # never sold, never held

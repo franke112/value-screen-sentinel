@@ -165,9 +165,19 @@ def listed_investment_companies() -> frozenset[str]:
 
 
 def rank_frozen(candidates, records, table):
-    return rank_candidates(candidates, records, table, ASOF,
-                           closes=load_closes(), fetched=FETCHED,
-                           investment_companies=listed_investment_companies())
+    """The E43 key's values, in the key's own order.
+
+    E167 (2026-11-09) made the screener's order a seeded draw; the key's
+    sum and both placings are still computed and written to ranking.csv as
+    information. This acceptance holds those VALUES on real data, so it
+    re-sorts by the sum (ties alphabetical, as the key did) before reading
+    places.
+    """
+    result = rank_candidates(candidates, records, table, ASOF,
+                             closes=load_closes(), fetched=FETCHED,
+                             investment_companies=listed_investment_companies())
+    result.main.sort(key=lambda r: (r.combined, r.ticker))
+    return result
 
 
 @pytest.fixture(scope="module")

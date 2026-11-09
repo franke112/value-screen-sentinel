@@ -353,10 +353,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: 10089000
-        page: "E140(1): us-gaap:IncreaseDecreaseInReceivables [2023-01-01..2023-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = -59,653,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2023-01-01..2023-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = 49,105,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability [2023-01-01..2023-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = 20,637,000 = 10,089,000 (cash effect: an asset increase negated, a liability increase kept; dropped as combined or as E123 inventory: IncreaseDecreaseInInventories)"
+        value: 197370000
+        page: "E140(1) tied to the cash flow statement: NVR_FY2025_annual-report-10k_2026-02-11_en_a0.htm, 2023-01-01..2023-12-31. Working capital = us-gaap:PaymentsForOriginationOfMortgageLoansHeldForSale -5,740,199,000 + us-gaap:ProceedsFromSaleOfMortgageLoansHeldForSale 5,949,657,000 + us-gaap:IncreaseDecreaseInReceivables -59,653,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities 49,105,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability 20,637,000 + us-gaap:OtherOperatingActivitiesCashFlowStatement -22,177,000 = 197,370,000 (printed values, cash effect). The operating section's 15 rows sum to the printed operating cash flow 1,497,993,000 within 8,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0000906163-26-000018 filed 2026-02-11, fiscal year to 2023-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
@@ -428,10 +428,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: -32066000
-        page: "E140(1): us-gaap:IncreaseDecreaseInReceivables [2024-01-01..2024-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = 62,664,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2024-01-01..2024-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = -83,215,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability [2024-01-01..2024-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = -11,515,000 = -32,066,000 (cash effect: an asset increase negated, a liability increase kept; dropped as combined or as E123 inventory: IncreaseDecreaseInInventories)"
+        value: 41097000
+        page: "E140(1) tied to the cash flow statement: NVR_FY2025_annual-report-10k_2026-02-11_en_a0.htm, 2024-01-01..2024-12-31. Working capital = us-gaap:PaymentsForOriginationOfMortgageLoansHeldForSale -6,267,493,000 + us-gaap:ProceedsFromSaleOfMortgageLoansHeldForSale 6,351,178,000 + us-gaap:IncreaseDecreaseInReceivables 62,664,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities -83,215,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability -11,515,000 + us-gaap:OtherOperatingActivitiesCashFlowStatement -10,522,000 = 41,097,000 (printed values, cash effect). The operating section's 15 rows sum to the printed operating cash flow 1,374,462,000 within 8,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0000906163-26-000018 filed 2026-02-11, fiscal year to 2024-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
@@ -579,10 +579,10 @@ annual:
         status: VERIFIED
         verified_kind: same_page
       working_capital_change:
-        value: -273352000
-        page: "E140(1): us-gaap:IncreaseDecreaseInReceivables [2025-01-01..2025-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = -57,368,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2025-01-01..2025-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = -142,268,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability [2025-01-01..2025-12-31] 10-K 0000906163-26-000018 filed 2026-02-11 = -73,716,000 = -273,352,000 (cash effect: an asset increase negated, a liability increase kept; dropped as combined or as E123 inventory: IncreaseDecreaseInInventories)"
+        value: -334012000
+        page: "E140(1) tied to the cash flow statement: NVR_FY2025_annual-report-10k_2026-02-11_en_a0.htm, 2025-01-01..2025-12-31. Working capital = us-gaap:PaymentsForOriginationOfMortgageLoansHeldForSale -6,045,981,000 + us-gaap:ProceedsFromSaleOfMortgageLoansHeldForSale 5,994,849,000 + us-gaap:IncreaseDecreaseInReceivables -57,368,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities -142,268,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability -73,716,000 + us-gaap:OtherOperatingActivitiesCashFlowStatement -9,528,000 = -334,012,000 (printed values, cash effect). The operating section's 15 rows sum to the printed operating cash flow 1,121,320,000 within 8,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0000906163-26-000018 filed 2026-02-11, fiscal year to 2025-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
@@ -644,10 +644,10 @@ roll_forward:
       status: VERIFIED
       verified_kind: machine_read_back
     working_capital_change:
-      value: 127690000
-      page: "E140(1): us-gaap:IncreaseDecreaseInReceivables [2026-01-01..2026-06-30] 10-Q 0000906163-26-000093 filed 2026-08-05 = 33,002,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2026-01-01..2026-06-30] 10-Q 0000906163-26-000093 filed 2026-08-05 = 49,200,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability [2026-01-01..2026-06-30] 10-Q 0000906163-26-000093 filed 2026-08-05 = 45,488,000 = 127,690,000 (cash effect: an asset increase negated, a liability increase kept; dropped as combined or as E123 inventory: IncreaseDecreaseInInventories)"
+      value: 371844000
+      page: "E140(1) tied to the cash flow statement: NVR_2026-06-30_quarterly-report-10q_2026-08-05_en_a0.htm, 2026-01-01..2026-06-30. Working capital = us-gaap:PaymentsForOriginationOfMortgageLoansHeldForSale -2,412,511,000 + us-gaap:ProceedsFromSaleOfMortgageLoansHeldForSale 2,665,140,000 + us-gaap:IncreaseDecreaseInReceivables 33,002,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities 49,200,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability 45,488,000 + us-gaap:OtherOperatingActivitiesCashFlowStatement -8,475,000 = 371,844,000 (printed values, cash effect). The operating section's 13 rows sum to the printed operating cash flow 188,156,000 within 7,000; classes from config/manual/maps/cashflow-tags.yaml"
       status: VERIFIED
-      verified_kind: tagged
+      verified_kind: tied_statement
     financial_liabilities_current:
       value: 0
       page: "E107 searched zero: SEC XBRL facts of the 10-Q 0000906163-26-000093 balance sheet as of 2026-06-30, searched on 2026-10-27 for every us-gaap element that could state CURRENT borrowings (Debt, Borrowing, LineOfCredit, CommercialPaper, NotesPayable; assets, capacities and fair-value memos excluded) -- none is tagged on that date with a value"

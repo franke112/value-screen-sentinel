@@ -333,9 +333,9 @@ annual:
         verified_kind: tagged
       working_capital_change:
         value: 128654000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-01-01..2023-12-31] 10-K 0001334036-26-000006 filed 2026-02-12 = -13,317,000 + us-gaap:IncreaseDecreaseInInventories [2023-01-01..2023-12-31] 10-K 0001334036-26-000006 filed 2026-02-12 = 86,350,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2023-01-01..2023-12-31] 10-K 0001334036-26-000006 filed 2026-02-12 = -31,839,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2023-01-01..2023-12-31] 10-K 0001334036-26-000006 filed 2026-02-12 = 37,197,000 + us-gaap:IncreaseDecreaseInOtherAccruedLiabilities [2023-01-01..2023-12-31] 10-K 0001334036-24-000025 filed 2024-02-15 = 46,695,000 + us-gaap:ProvisionForDoubtfulAccounts [2023-01-01..2023-12-31] 10-K 0001334036-26-000006 filed 2026-02-12 = 3,568,000 = 128,654,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        page: "E140(1) tied to the cash flow statement: CROX_FY2025_annual-report-10k_2026-02-12_en_a0.htm, 2023-01-01..2023-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -13,317,000 + us-gaap:IncreaseDecreaseInInventories 86,350,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets -31,839,000 + us-gaap:IncreaseDecreaseInAccountsPayable 37,197,000 + us-gaap:IncreaseDecreaseInOtherAccountsPayableAndAccruedLiabilities 46,695,000 + us-gaap:ProvisionForDoubtfulAccounts 3,568,000 = 128,654,000 (printed values, cash effect). The operating section's 16 rows sum to the printed operating cash flow 930,444,000 within 8,500; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2023-01-01..2023-12-31] 10-K 0001334036-25-000009 filed 2025-02-13"
@@ -424,10 +424,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: 56053000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-01-01..2024-12-31] 10-K 0001334036-26-000006 filed 2026-02-12 = 42,587,000 + us-gaap:IncreaseDecreaseInInventories [2024-01-01..2024-12-31] 10-K 0001334036-26-000006 filed 2026-02-12 = 22,055,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2024-01-01..2024-12-31] 10-K 0001334036-26-000006 filed 2026-02-12 = -13,892,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2024-01-01..2024-12-31] 10-K 0001334036-26-000006 filed 2026-02-12 = 3,951,000 + us-gaap:ProvisionForDoubtfulAccounts [2024-01-01..2024-12-31] 10-K 0001334036-26-000006 filed 2026-02-12 = 1,352,000 = 56,053,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        value: 66024000
+        page: "E140(1) tied to the cash flow statement: CROX_FY2025_annual-report-10k_2026-02-12_en_a0.htm, 2024-01-01..2024-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable 42,587,000 + us-gaap:IncreaseDecreaseInInventories 22,055,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets -13,892,000 + us-gaap:IncreaseDecreaseInAccountsPayable 3,951,000 + us-gaap:IncreaseDecreaseInOtherAccountsPayableAndAccruedLiabilities 9,971,000 + us-gaap:ProvisionForDoubtfulAccounts 1,352,000 = 66,024,000 (printed values, cash effect). The operating section's 16 rows sum to the printed operating cash flow 992,486,000 within 8,500; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2024-01-01..2024-12-31] 10-K 0001334036-25-000009 filed 2025-02-13"
@@ -562,10 +562,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: -41809000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-01-01..2025-12-31] 10-K 0001334036-26-000006 filed 2026-02-12 = -6,169,000 + us-gaap:IncreaseDecreaseInInventories [2025-01-01..2025-12-31] 10-K 0001334036-26-000006 filed 2026-02-12 = -13,842,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2025-01-01..2025-12-31] 10-K 0001334036-26-000006 filed 2026-02-12 = -22,317,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2025-01-01..2025-12-31] 10-K 0001334036-26-000006 filed 2026-02-12 = 709,000 + us-gaap:ProvisionForDoubtfulAccounts [2025-01-01..2025-12-31] 10-K 0001334036-26-000006 filed 2026-02-12 = -190,000 = -41,809,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        value: -41285000
+        page: "E140(1) tied to the cash flow statement: CROX_FY2025_annual-report-10k_2026-02-12_en_a0.htm, 2025-01-01..2025-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -6,169,000 + us-gaap:IncreaseDecreaseInInventories -13,842,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets -22,317,000 + us-gaap:IncreaseDecreaseInAccountsPayable 709,000 + us-gaap:IncreaseDecreaseInOtherAccountsPayableAndAccruedLiabilities 524,000 + us-gaap:ProvisionForDoubtfulAccounts -190,000 = -41,285,000 (printed values, cash effect). The operating section's 16 rows sum to the printed operating cash flow 710,431,000 within 8,500; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001334036-26-000006 filed 2026-02-12, fiscal year to 2025-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
@@ -584,9 +584,9 @@ roll_forward:
   figures:
     working_capital_change:
       value: -197438000
-      page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2026-01-01..2026-06-30] 10-Q 0001334036-26-000052 filed 2026-07-30 = -154,913,000 + us-gaap:IncreaseDecreaseInInventories [2026-01-01..2026-06-30] 10-Q 0001334036-26-000052 filed 2026-07-30 = -22,832,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2026-01-01..2026-06-30] 10-Q 0001334036-26-000052 filed 2026-07-30 = -21,297,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2026-01-01..2026-06-30] 10-Q 0001334036-26-000052 filed 2026-07-30 = 1,604,000 = -197,438,000 (cash effect: an asset increase negated, a liability increase kept)"
+      page: "E140(1) tied to the cash flow statement: CROX_2026-06-30_quarterly-report-10q_2026-07-30_en_a0.htm, 2026-01-01..2026-06-30. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -154,913,000 + us-gaap:IncreaseDecreaseInInventories -22,832,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets -21,297,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities 1,604,000 = -197,438,000 (printed values, cash effect). The operating section's 13 rows sum to the printed operating cash flow 270,768,000 within 7,000; classes from config/manual/maps/cashflow-tags.yaml"
       status: VERIFIED
-      verified_kind: tagged
+      verified_kind: tied_statement
     operating_lease_liabilities:
       value: 381544000
       page: "us-gaap:OperatingLeaseLiability [as of 2026-06-30] 10-Q 0001334036-26-000052 filed 2026-07-30"

@@ -147,7 +147,7 @@ def test_stale_cache_still_trips_the_staleness_gate(tmp_path, monkeypatch):
     verdict = assess(
         ticker="AAA", status="WATCH-GATED", last_close=computed.last_close,
         last_close_date=computed.last_close_date, drawdown=computed.drawdown,
-        fv_base=100.0, tier=2, stop_price=50.0, catalyst_date=None,
+        fv_base=100.0, tier=2, catalyst_date=None,
         catalyst_resolved=None, catalyst_event=None, as_of=date(2026, 8, 20),
     )
     assert verdict.blocked

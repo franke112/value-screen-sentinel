@@ -386,9 +386,9 @@ annual:
         verified_kind: tagged
       working_capital_change:
         value: -478000000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-01-01..2023-12-31] 10-K 0001555280-26-000011 filed 2026-02-12 = -102,000,000 + us-gaap:IncreaseDecreaseInInventories [2023-01-01..2023-12-31] 10-K 0001555280-26-000011 filed 2026-02-12 = -361,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2023-01-01..2023-12-31] 10-K 0001555280-26-000011 filed 2026-02-12 = -95,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2023-01-01..2023-12-31] 10-K 0001555280-26-000011 filed 2026-02-12 = 13,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2023-01-01..2023-12-31] 10-K 0001555280-26-000011 filed 2026-02-12 = 67,000,000 = -478,000,000 (cash effect: an asset increase negated, a liability increase kept)"
+        page: "E140(1) tied to the cash flow statement: ZTS_FY2025_annual-report-10k_2026-02-12_en_a0.htm, 2023-01-01..2023-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -102,000,000 + us-gaap:IncreaseDecreaseInInventories -361,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets -95,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable 13,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities 67,000,000 = -478,000,000 (printed values, cash effect). The operating section's 15 rows sum to the printed operating cash flow 2,353,000,000 within 8,000,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001555280-26-000011 filed 2026-02-12, fiscal year to 2023-12-31, searched on 2026-10-29 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
@@ -498,9 +498,9 @@ annual:
         verified_kind: tagged
       working_capital_change:
         value: 96000000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-01-01..2024-12-31] 10-K 0001555280-26-000011 filed 2026-02-12 = -61,000,000 + us-gaap:IncreaseDecreaseInInventories [2024-01-01..2024-12-31] 10-K 0001555280-26-000011 filed 2026-02-12 = -40,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2024-01-01..2024-12-31] 10-K 0001555280-26-000011 filed 2026-02-12 = 52,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2024-01-01..2024-12-31] 10-K 0001555280-26-000011 filed 2026-02-12 = 31,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2024-01-01..2024-12-31] 10-K 0001555280-26-000011 filed 2026-02-12 = 114,000,000 = 96,000,000 (cash effect: an asset increase negated, a liability increase kept)"
+        page: "E140(1) tied to the cash flow statement: ZTS_FY2025_annual-report-10k_2026-02-12_en_a0.htm, 2024-01-01..2024-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -61,000,000 + us-gaap:IncreaseDecreaseInInventories -40,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets 52,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable 31,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities 114,000,000 = 96,000,000 (printed values, cash effect). The operating section's 15 rows sum to the printed operating cash flow 2,953,000,000 within 8,000,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001555280-26-000011 filed 2026-02-12, fiscal year to 2024-12-31, searched on 2026-10-29 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
@@ -627,9 +627,9 @@ annual:
         verified_kind: tagged
       working_capital_change:
         value: -469000000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-01-01..2025-12-31] 10-K 0001555280-26-000011 filed 2026-02-12 = -236,000,000 + us-gaap:IncreaseDecreaseInInventories [2025-01-01..2025-12-31] 10-K 0001555280-26-000011 filed 2026-02-12 = -199,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2025-01-01..2025-12-31] 10-K 0001555280-26-000011 filed 2026-02-12 = -165,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2025-01-01..2025-12-31] 10-K 0001555280-26-000011 filed 2026-02-12 = 46,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2025-01-01..2025-12-31] 10-K 0001555280-26-000011 filed 2026-02-12 = 85,000,000 = -469,000,000 (cash effect: an asset increase negated, a liability increase kept)"
+        page: "E140(1) tied to the cash flow statement: ZTS_FY2025_annual-report-10k_2026-02-12_en_a0.htm, 2025-01-01..2025-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -236,000,000 + us-gaap:IncreaseDecreaseInInventories -199,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets -165,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable 46,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities 85,000,000 = -469,000,000 (printed values, cash effect). The operating section's 15 rows sum to the printed operating cash flow 2,904,000,000 within 8,000,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001555280-26-000011 filed 2026-02-12, fiscal year to 2025-12-31, searched on 2026-10-29 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
@@ -648,9 +648,9 @@ roll_forward:
   figures:
     working_capital_change:
       value: -550000000
-      page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2026-01-01..2026-06-30] 10-Q 0001555280-26-000040 filed 2026-08-06 = -172,000,000 + us-gaap:IncreaseDecreaseInInventories [2026-01-01..2026-06-30] 10-Q 0001555280-26-000040 filed 2026-08-06 = -137,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2026-01-01..2026-06-30] 10-Q 0001555280-26-000040 filed 2026-08-06 = -158,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2026-01-01..2026-06-30] 10-Q 0001555280-26-000040 filed 2026-08-06 = 9,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2026-01-01..2026-06-30] 10-Q 0001555280-26-000040 filed 2026-08-06 = -92,000,000 = -550,000,000 (cash effect: an asset increase negated, a liability increase kept)"
+      page: "E140(1) tied to the cash flow statement: ZTS_2026-06-30_quarterly-report-10q_2026-08-06_en_a0.htm, 2026-01-01..2026-06-30. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -172,000,000 + us-gaap:IncreaseDecreaseInInventories -137,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets -158,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable 9,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities -92,000,000 = -550,000,000 (printed values, cash effect). The operating section's 15 rows sum to the printed operating cash flow 1,056,000,000 within 8,000,000; classes from config/manual/maps/cashflow-tags.yaml"
       status: VERIFIED
-      verified_kind: tagged
+      verified_kind: tied_statement
     cash_and_equivalents:
       value: 1476000000
       page: "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2026-06-30] 10-Q 0001555280-26-000040 filed 2026-08-06"

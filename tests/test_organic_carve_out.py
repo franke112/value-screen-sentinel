@@ -48,72 +48,21 @@ def _q(period, yoy, organic=None):
 # --- the measurement, kept ------------------------------------------------
 
 
-def test_B9s_own_case_trips_without_the_figure_and_is_spared_with_it():
-    """**THE ONE THAT MATTERS.** The same four quarters, read twice."""
-    without = R.revenue_decline_kill([_q(p, y) for p, y in UNA_REPORTED])
-    assert without.state == R.TRIP, (
-        "B9's own case must trip when no organic figure is on file -- that "
-        "is the defect this whole change exists to close")
-    assert "reported" in without.name
-
-    with_it = R.revenue_decline_kill(
-        [_q(p, y, o) for (p, y), o in zip(UNA_REPORTED, UNA_ORGANIC)])
-    assert with_it.state == R.NO_TRIP
-    assert "organic" in with_it.name
 
 
-def test_the_mixed_window_still_refuses_under_E30():
-    """A run counted partly on organic and partly on reported is not a run."""
-    quarters = [_q(p, y, o) for (p, y), o in zip(UNA_REPORTED, UNA_ORGANIC)]
-    quarters[2] = _q("2025-Q4", -0.027, None)
-    result = R.revenue_decline_kill(quarters)
-    assert result.state == R.CANNOT_EVALUATE
-    assert "partly on organic and partly on reported" in result.detail
 
 
 # --- the absence is SAID, not implied -------------------------------------
 
 
-def test_a_kill_on_reported_revenue_says_the_carve_out_could_not_apply():
-    """E30's visibility clause. Until now the only sign that the carve-out
-    had not been reached was the word 'reported' in the verdict name."""
-    result = R.revenue_decline_kill([_q(p, y) for p, y in UNA_REPORTED])
-    assert result.state == R.TRIP
-    assert "No organic figure is on file" in result.detail
-    assert "B9's carve-out could not be applied" in result.detail
-    assert "revenue_yoy_organic" in result.detail
 
 
-def test_it_names_the_XBRL_route_as_structurally_unable_to_supply_one():
-    """`as_quarter` records the absence as by-construction; this is where a
-    reader of the VERDICT learns it, rather than a reader of the source."""
-    result = R.revenue_decline_kill([_q(p, y) for p, y in UNA_REPORTED])
-    assert "no us-gaap tag exists" in result.detail
 
 
-def test_a_CANNOT_EVALUATE_on_reported_carries_it_too():
-    quarters = [_q("2025-Q3", -0.03), _q("2025-Q4", None)]
-    result = R.revenue_decline_kill(quarters)
-    assert result.state == R.CANNOT_EVALUATE
-    assert "B9's carve-out could not be applied" in result.detail
 
 
-def test_a_verdict_struck_ON_organic_carries_no_such_note():
-    """It did apply. Saying it could not would be false."""
-    result = R.revenue_decline_kill(
-        [_q(p, y, o) for (p, y), o in zip(UNA_REPORTED, UNA_ORGANIC)])
-    assert "could not be applied" not in result.detail
-    assert "no us-gaap tag" not in result.detail
 
 
-def test_an_organic_decline_still_trips_and_says_reported_did_not_rescue_it():
-    """The carve-out spares a reported decline; it does not spare a real
-    one. JD.L's shape, unchanged."""
-    quarters = [_q("2025-Q3", 0.02, -0.03), _q("2025-Q4", 0.01, -0.02)]
-    result = R.revenue_decline_kill(quarters)
-    assert result.state == R.TRIP
-    assert "organic" in result.name
-    assert "reported revenue GREW throughout" in result.detail
 
 
 # --- the model is asked for it, and told never to invent it ---------------

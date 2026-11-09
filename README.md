@@ -10,7 +10,7 @@ assumes, and watches every name you have valued, every night.
 **It never tells you to buy anything.** It measures, you decide, and it keeps
 the record of what you decided and why.
 
-> **How it works and why, in 23 short chapters (or a ten-minute route):**
+> **How it works and why, in 24 short chapters (or a ten-minute route):**
 > **[franke112.github.io/value-screen-sentinel/the-method](https://franke112.github.io/value-screen-sentinel/the-method/)**
 > *(på svenska: [the-method/sv](https://franke112.github.io/value-screen-sentinel/the-method/sv/))*
 
@@ -70,17 +70,21 @@ watchlist and queue, phone alerts and the nightly timers.
  companies    reports    share       on change   down
 ```
 
-1. **Screen.** Every Saturday it ranks the market on quality and cheapness,
-   among companies that have fallen 15-50% from their high.
+1. **Screen.** Every Saturday it sifts the market down to companies with
+   positive free cash flow and enough history to read, and lists them in a
+   fixed random order: the ranking key and the drawdown band it used to
+   apply did not hold in our tests, so the order no longer pretends to
+   know which is best.
 2. **Read.** Figures come only from the company's own filings: SEC for the
    US, the issuers' own report PDFs for the Nordics. Every number carries
    its source.
-3. **Value.** Four quality tests come first: a business that fails them is
-   not worth a price. Then a bear, base and bull value per share, from ten
-   years of cash flow at a 9.5% required return.
-4. **Queue.** Every valued company is held against its lines every night.
-   You get one message when one crosses a line, a ban lifts or a report
-   comes in.
+3. **Value.** A bear, base and bull value per share, from ten years of
+   cash flow at a 9.5% required return. Four quality tests are printed
+   beside it as information; as a rule for dropping names they did not
+   hold in our tests, so they no longer decide.
+4. **Queue.** Every valued company is held against its value every night.
+   You get one message when the price comes near or under it, a ban lifts or a
+   report comes in. The buy-price cushion is shown, never binding.
 5. **You decide.** The machine writes no verdict, no fair value and no buy
    price on its own. A person does that, in a session, with the reasons
    written down.
@@ -114,70 +118,78 @@ Words like *strike*, *MBP*, *tier* or *WATCH-GATED* are explained in the
 
 ## What the backtests taught us (November 2026)
 
-We tested the method's core on history: the same valuation code, run
-mechanically (without the hand reading a live review adds), with every
-figure entering only on the day it became public.
+**We did not take the method on trust.** Between 29 October and 9 November
+2026 every mechanical rule in it was put through a test on history that was
+written down **before** it ran, and a rule that did not hold was taken out
+of the code. Twenty-six attempts, every one logged, the failures too.
+**The whole story, attempt by attempt, is in
+[reference/backtest/WHAT-WE-TESTED.md](reference/backtest/WHAT-WE-TESTED.md).**
 
-**What went through it.** US filers from SEC's own filings (public). For the
-survivorship-free US re-pricing and the whole Nordic test, a commercial data
-vendor, [EODHD](https://eodhd.com), under a personal, private licence:
+**What went through it.** US filers from SEC's own filings (public), and for
+the survivorship-free US prices and the whole Nordic test a commercial data
+vendor, [EODHD](https://eodhd.com), under a personal licence: daily prices
+2007-2026 for **25,854** US and Nordic common stocks, **18,336** of them
+later delisted (bankrupt, taken over, merged: exactly the companies a
+backtest on today's list forgets), and their financial statements, each
+dated to when it became public. Outside benchmarks: Ken French's country
+portfolios and the JKP factors.
 
-- daily prices 2007-2026 for **25,854** US and Nordic common stocks --
-  **40.9 million** daily closes -- of which **18,336** were later delisted
-  (bankrupt, taken over, merged): exactly the companies a backtest on
-  today's list forgets;
-- financial statements for the same 25,854, **about one million** reporting
-  periods, each dated to when it became public (filing date in the US,
-  report date + 1 day in the Nordics);
-- the method's valuation on **5,925** US and **2,628** Nordic company-dates;
-- Ken French's public country portfolios as an outside benchmark.
+The licence allows private use only, so **the vendor's data and the figures
+computed from it stay private**: below are verdicts in words. What is
+public is everything needed to check us: the test scripts in
+`tools/backtest/`, the engine in `vss/`, and the rule each test was held
+to. With your own licence you can run them.
 
-The licence allows private use only, so **the vendor's data and every
-figure computed from it stay private**: what follows are conclusions in
-words, not results tables. (A sibling project, DonkeyInvestor, ran a
-momentum search on the same price history plus 1,061,840 earnings reports,
-4.3 million SEC insider trades and Avanza's live quotes; its lessons fed
-several of the points below.)
+**The bar every rule had to clear:** better in both markets (Nordics and
+US) **and** in both halves of each period, from attempt #25 also above
+what 1,000 random relabellings give. One pass among dozens of tries is
+counted as what chance gives, not as a finding.
 
-1. **Survivorship flattered us.** Our first US test could only price
-   companies still listed. With the delisted put back, the method's cheap
-   portfolio trailed the S&P 500 (total return). A plain EBIT/EV ranking
-   did better, though it trailed the index too once broken price series
-   were taken out. The live screen's own ranking sorts the market -- its
-   best fifth beat its worst in most years -- but its best fifth also
-   trailed the index, and the drawdown band added nothing.
-2. **Nordics: strong in sample, not confirmed out of it.** Over 2010-2021,
-   the period we developed on, the cheaper companies by the method's fair
-   value beat the dearer ones in most years -- less clearly than first
-   measured, once data faults found by independent reviews were fixed
-   (figures reported in another currency than the share trades in, the
-   vendor's broken price adjustments, and tickers reused by another
-   security). A pre-registered check
-   on 2022-2023, run once, did **not** confirm it: one year held, one
-   reversed. The weekly Nordic screen is therefore a list of candidates to
-   review, not an edge.
-3. **The most stable signal was negative:** the dearest names by the method
-   did poorly most of the time.
-4. **A fixed stop 8% under the purchase price hurt in every test** -- noise
-   sells you out before the thesis is tested.
-5. **The strict buy rule** (price at most 65% of fair value, all four
-   quality tests passed) **almost never fired** -- too rare to measure.
-6. **Data traps, now guarded against:** share counts restated for later
-   splits next to unadjusted prices; Nordic "filing dates" that are just the
-   period end; IFRS 16 leases making rent-heavy companies (schools, hotels,
-   gyms) look cheap; one security under two tickers; a ticker reused after a
-   rename; rounding noise in adjusted prices.
-7. **How we test now:** every run that is looked at goes into an attempt
-   log; a confirmation is pre-registered -- hypothesis, data, decision rule,
-   consequences -- and run once behind a code lock; results are checked
-   against random shuffles and against Ken French's portfolios.
-8. **A cost that was invisible:** in a Swedish ISK under the tax-free
+**What did not hold, and is gone from the code:**
+
+| Rule | What the test found | Ruling |
+|---|---|---|
+| A price stop under the purchase price | no stop level helped, with or without buying back; with Avanza's costs every one cost money | E162 |
+| Buy only after a 15-50 % fall from the high | did not help in either market | E161 |
+| The screener's ranking key (EBIT/assets + EBIT/EV) | did not sort returns by decile in both markets | E167 |
+| Hard kills on falling revenue, margin and receivables | did not separate returns | E163 |
+| Debt limits (2.5x in the screen, 3.5x as a kill) | did not lift the mean; their effect on the loss tail is re-tested on new data (#26) | E168 |
+| Quality tests Q1-Q4 as a drop rule and a tier step | did not separate returns; now printed as information | E168 |
+| The buy-price cushion (MBP) as a binding line | did not separate returns; now shown, never binding | E168 |
+| "Below its price of a year ago" | did not hold | E168 |
+| A lower-growth haircut on the derived growth | realised growth was not below the derived figure | E160 struck |
+
+**What stayed:** the valuation itself, the growth view written down before
+the price is seen, figures only from the companies' own filings, positive
+free cash flow, the reading of reports, the issuer's own sentence on what it
+sells, at most 6 % of the portfolio in one name, and the shadow book that
+prices every "no".
+
+**Other lessons:**
+
+1. **Survivorship flattered us.** With the delisted put back, the method's
+   cheap portfolio trailed the S&P 500 (total return) by far more than the
+   survivors-only run showed.
+2. **Nordics: strong in sample, not confirmed out of it.** Over 2010-2021
+   the cheaper companies by fair value beat the dearer ones in most years.
+   A pre-registered check on 2022-2023, run once, did **not** confirm it.
+3. **Where the sort worked, it worked by avoiding the dearest names**, not
+   by finding winners; and against real value funds in SEK the gain came
+   from the market, not from the sort.
+4. **Against Magic Formula, Quantitative Value, O'Shaughnessy and
+   Piotroski**, ours beat none of twelve comparisons.
+5. **Data traps we found in our own data and fixed**, each logged as its own
+   attempt: split-restated share counts, Nordic dates that were only period
+   ends, figures in another currency than the share, a ticker reused after
+   a takeover, the vendor's one-day bad prints, IFRS 16 leases.
+6. **A cost that was invisible:** in a Swedish ISK under the tax-free
    allowance, foreign dividend withholding (Finland 35%, Denmark 27%,
    Norway 25%, US 15%) is a plain yearly cost; the entry step now asks it.
 
 **Bottom line:** no proven edge. The tool is more honest about what it does
 not know, and a broad index fund remains the base for the owner's money;
-the method is the part that is studied, not trusted.
+the method is the part that is studied, not trusted. The history used so
+far is now closed: the next test (#26) runs only on new data, in April 2027.
 
 ## What it is not
 

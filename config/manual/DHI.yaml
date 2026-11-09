@@ -299,10 +299,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: -78000000
-        page: "E140(1): us-gaap:IncreaseDecreaseInOtherOperatingAssets [2022-10-01..2023-09-30] 10-K 0000882184-25-000081 filed 2025-11-19 = 23,800,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2022-10-01..2023-09-30] 10-K 0000882184-25-000081 filed 2025-11-19 = -101,800,000 = -78,000,000 (cash effect: an asset increase negated, a liability increase kept)"
+        value: -211900000
+        page: "E140(1) tied to the cash flow statement: DHI_FY2025_annual-report-10k_2025-11-19_en_a0.htm, 2022-10-01..2023-09-30. Working capital = us-gaap:IncreaseDecreaseInOtherOperatingAssets 23,800,000 + us-gaap:IncreaseDecreaseInMortgageLoansHeldForSale -133,900,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities -101,800,000 = -211,900,000 (printed values, cash effect). The operating section's 11 rows sum to the printed operating cash flow 4,304,100,000 within 600,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: -212900000
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2022-10-01..2023-09-30] 10-K 0000882184-25-000081 filed 2025-11-19"
@@ -386,10 +386,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: -311800000
-        page: "E140(1): us-gaap:IncreaseDecreaseInOtherOperatingAssets [2023-10-01..2024-09-30] 10-K 0000882184-25-000081 filed 2025-11-19 = -331,400,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2023-10-01..2024-09-30] 10-K 0000882184-25-000081 filed 2025-11-19 = 19,600,000 = -311,800,000 (cash effect: an asset increase negated, a liability increase kept)"
+        value: -269400000
+        page: "E140(1) tied to the cash flow statement: DHI_FY2025_annual-report-10k_2025-11-19_en_a0.htm, 2023-10-01..2024-09-30. Working capital = us-gaap:IncreaseDecreaseInOtherOperatingAssets -331,400,000 + us-gaap:IncreaseDecreaseInMortgageLoansHeldForSale 42,400,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities 19,600,000 = -269,400,000 (printed values, cash effect). The operating section's 11 rows sum to the printed operating cash flow 2,189,800,000 within 600,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: -40400000
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2023-10-01..2024-09-30] 10-K 0000882184-25-000081 filed 2025-11-19"
@@ -497,10 +497,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: -164500000
-        page: "E140(1): us-gaap:IncreaseDecreaseInOtherOperatingAssets [2024-10-01..2025-09-30] 10-K 0000882184-25-000081 filed 2025-11-19 = -248,200,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2024-10-01..2025-09-30] 10-K 0000882184-25-000081 filed 2025-11-19 = 83,700,000 = -164,500,000 (cash effect: an asset increase negated, a liability increase kept)"
+        value: -253500000
+        page: "E140(1) tied to the cash flow statement: DHI_FY2025_annual-report-10k_2025-11-19_en_a0.htm, 2024-10-01..2025-09-30. Working capital = us-gaap:IncreaseDecreaseInOtherOperatingAssets -248,200,000 + us-gaap:IncreaseDecreaseInMortgageLoansHeldForSale -89,000,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities 83,700,000 = -253,500,000 (printed values, cash effect). The operating section's 11 rows sum to the printed operating cash flow 3,420,900,000 within 600,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: -53100000
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2024-10-01..2025-09-30] 10-K 0000882184-25-000081 filed 2025-11-19"
@@ -542,10 +542,10 @@ roll_forward:
       status: VERIFIED
       verified_kind: same_page
     working_capital_change:
-      value: 169100000
-      page: "E140(1): us-gaap:IncreaseDecreaseInOtherOperatingAssets [2025-10-01..2026-06-30] 10-Q 0000882184-26-000096 filed 2026-07-23 = -108,800,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2025-10-01..2026-06-30] 10-Q 0000882184-26-000096 filed 2026-07-23 = 277,900,000 = 169,100,000 (cash effect: an asset increase negated, a liability increase kept)"
+      value: -255000000
+      page: "E140(1) tied to the cash flow statement: DHI_2026-06-30_quarterly-report-10q_2026-07-23_en_a0.htm, 2025-10-01..2026-06-30. Working capital = us-gaap:IncreaseDecreaseInOtherOperatingAssets -108,800,000 + us-gaap:IncreaseDecreaseInMortgageLoansHeldForSale -424,100,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities 277,900,000 = -255,000,000 (printed values, cash effect). The operating section's 11 rows sum to the printed operating cash flow 880,800,000 within 600,000; classes from config/manual/maps/cashflow-tags.yaml"
       status: VERIFIED
-      verified_kind: tagged
+      verified_kind: tied_statement
     operating_lease_liabilities:
       value: 71300000
       page: "us-gaap:OperatingLeaseLiability [as of 2026-06-30] 10-Q 0000882184-26-000096 filed 2026-07-23"

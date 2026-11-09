@@ -346,10 +346,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: -65200000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-01-01..2023-12-31] 10-K 0001573516-26-000090 filed 2026-02-18 = -56,300,000 + us-gaap:IncreaseDecreaseInInventories [2023-01-01..2023-12-31] 10-K 0001573516-26-000090 filed 2026-02-18 = -22,100,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2023-01-01..2023-12-31] 10-K 0001573516-26-000090 filed 2026-02-18 = 25,200,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2023-01-01..2023-12-31] 10-K 0001573516-26-000090 filed 2026-02-18 = -12,000,000 = -65,200,000 (cash effect: an asset increase negated, a liability increase kept)"
+        value: -42100000
+        page: "E140(1) tied to the cash flow statement: MUSA_FY2025_annual-report-10k_2026-02-18_en_a0.htm, 2023-01-01..2023-12-31. Working capital = us-gaap:IncreaseDecreaseInOperatingCapital -42,100,000 = -42,100,000 (printed values, cash effect). The operating section's 10 rows sum to the printed operating cash flow 784,000,000 within 550,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2023-01-01..2023-12-31] 10-K 0001573516-24-000007 filed 2024-02-16"
@@ -442,10 +442,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: -1800000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-01-01..2024-12-31] 10-K 0001573516-26-000090 filed 2026-02-18 = 65,400,000 + us-gaap:IncreaseDecreaseInInventories [2024-01-01..2024-12-31] 10-K 0001573516-26-000090 filed 2026-02-18 = -60,200,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2024-01-01..2024-12-31] 10-K 0001573516-26-000090 filed 2026-02-18 = -3,100,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2024-01-01..2024-12-31] 10-K 0001573516-26-000090 filed 2026-02-18 = -3,900,000 = -1,800,000 (cash effect: an asset increase negated, a liability increase kept)"
+        value: 32800000
+        page: "E140(1) tied to the cash flow statement: MUSA_FY2025_annual-report-10k_2026-02-18_en_a0.htm, 2024-01-01..2024-12-31. Working capital = us-gaap:IncreaseDecreaseInOperatingCapital 32,800,000 = 32,800,000 (printed values, cash effect). The operating section's 10 rows sum to the printed operating cash flow 847,600,000 within 550,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001573516-26-000090 filed 2026-02-18, fiscal year to 2024-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
@@ -572,10 +572,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: -20200000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-01-01..2025-12-31] 10-K 0001573516-26-000090 filed 2026-02-18 = -8,100,000 + us-gaap:IncreaseDecreaseInInventories [2025-01-01..2025-12-31] 10-K 0001573516-26-000090 filed 2026-02-18 = -11,400,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2025-01-01..2025-12-31] 10-K 0001573516-26-000090 filed 2026-02-18 = 3,600,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2025-01-01..2025-12-31] 10-K 0001573516-26-000090 filed 2026-02-18 = -4,300,000 = -20,200,000 (cash effect: an asset increase negated, a liability increase kept)"
+        value: -33100000
+        page: "E140(1) tied to the cash flow statement: MUSA_FY2025_annual-report-10k_2026-02-18_en_a0.htm, 2025-01-01..2025-12-31. Working capital = us-gaap:IncreaseDecreaseInOperatingCapital -33,100,000 = -33,100,000 (printed values, cash effect). The operating section's 10 rows sum to the printed operating cash flow 813,900,000 within 550,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001573516-26-000090 filed 2026-02-18, fiscal year to 2025-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
@@ -593,10 +593,10 @@ roll_forward:
   url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0001573516.json"
   figures:
     working_capital_change:
-      value: 33700000
-      page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2026-01-01..2026-06-30] 10-Q 0001573516-26-000166 filed 2026-08-06 = -103,300,000 + us-gaap:IncreaseDecreaseInInventories [2026-01-01..2026-06-30] 10-Q 0001573516-26-000166 filed 2026-08-06 = -4,400,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2026-01-01..2026-06-30] 10-Q 0001573516-26-000166 filed 2026-08-06 = -5,800,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2026-01-01..2026-06-30] 10-Q 0001573516-26-000166 filed 2026-08-06 = 147,200,000 = 33,700,000 (cash effect: an asset increase negated, a liability increase kept)"
+      value: 44400000
+      page: "E140(1) tied to the cash flow statement: MUSA_2026-06-30_quarterly-report-10q_2026-08-06_en_a0.htm, 2026-01-01..2026-06-30. Working capital = us-gaap:IncreaseDecreaseInOperatingCapital 44,400,000 = 44,400,000 (printed values, cash effect). The operating section's 8 rows sum to the printed operating cash flow 555,000,000 within 450,000; classes from config/manual/maps/cashflow-tags.yaml"
       status: VERIFIED
-      verified_kind: tagged
+      verified_kind: tied_statement
     operating_lease_liabilities:
       value: 576300000
       page: "us-gaap:OperatingLeaseLiability [as of 2026-06-30] 10-Q 0001573516-26-000166 filed 2026-08-06"

@@ -12,7 +12,7 @@ from pathlib import Path
 
 import pytest
 
-from vss.pricewatch import (APPROACH_MULTIPLE, BAND_HIGH, BAND_LOW,
+from vss.pricewatch import (APPROACH_MULTIPLE,
                             DEFAULT_TOP_N, EVENT_APPROACH, EVENT_REFERENCE,
                             KIND_DRAWDOWN, KIND_REFERENCE, KIND_SKIPPED,
                             REARM_MARGIN, REFERENCE_CUSHION, Watched,
@@ -68,15 +68,8 @@ def test_a_name_without_a_value_is_watched_on_the_drawdown():
         readiness={"BBB": Readiness("BBB", STATE_NEEDS_VIEW)}, as_of=AS_OF)
     item = watched[0]
     assert item.kind == KIND_DRAWDOWN
-    assert item.drawdown == 0.20 and item.in_band
-    assert "Gate 1" in item.detail
-
-
-def test_a_drawdown_outside_the_band_is_not_in_band():
-    watched = watch_ranked(
-        rows("BBB"), prices={"BBB": Metrics(close=99.0, drawdown=0.05)},
-        readiness={"BBB": Readiness("BBB", STATE_NEEDS_VIEW)}, as_of=AS_OF)
-    assert not watched[0].in_band
+    assert item.drawdown == 0.20
+    assert "E161" in item.detail and "information only" in item.detail
 
 
 # --- a name outside the circle is NEVER watched ---------------------------
@@ -203,7 +196,7 @@ def test_the_drawdown_figure_is_still_computed_and_printed():
     item = watch_ranked(
         rows("BBB"), prices={"BBB": Metrics(close=80.0, drawdown=0.312)},
         readiness={"BBB": Readiness("BBB", STATE_NEEDS_VIEW)}, as_of=AS_OF)[0]
-    assert item.drawdown == 0.312 and item.in_band
+    assert item.drawdown == 0.312
     assert "31.2%" in "\n".join(render_table([item]))
 
 

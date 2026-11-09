@@ -23,8 +23,8 @@ session's whole output. This module is the guard on it:
     equal).
 
 WHAT IT IS NOT. It composes no verdict, no tier, no fair value and no
-growth rate. Every enum here is the playbook's own (`tools/playbook/
-steps.py`: a step's `exits`), every refusal is a fact about the file's
+growth rate. Every enum here is the step list's own (`vss/review_steps.py`:
+a step's `exits`), every refusal is a fact about the file's
 shape or ordering, and the words in the file are the owner's.
 """
 
@@ -49,15 +49,10 @@ GROWTH_VIEWS_DIR = PROJECT_ROOT / "reference" / "growth-views"
 
 
 def _steps_module():
-    """`tools/playbook/steps.py`, the one step list. `tools/` is a sibling
-    of `vss/`, on the path when run from the repository root and put there
-    here otherwise."""
-    try:
-        from tools.playbook import steps
-    except ImportError:  # pragma: no cover - a checkout run from elsewhere
-        sys.path.insert(0, str(PROJECT_ROOT))
-        from tools.playbook import steps
-    return steps
+    """`vss/review_steps.py`, the one step list (moved out of the removed
+    playbook, sweep D14, 2026-11-08)."""
+    from . import review_steps
+    return review_steps
 
 
 # --------------------------------------------------------------- the step table
@@ -75,7 +70,7 @@ _RESTRIKE = ("hard-kills", "conviction",
              "growth-view", "strike", "tier-mbp", "verdict")
 
 #: Which steps a review walks, by the status the name holds when it
-#: starts. Every id is a `tools/playbook/steps.py` step; the order is the
+#: starts. Every id is a `vss/review_steps.py` step; the order is the
 #: chain's. INTAKE and DROPPED open with the intake question (is the
 #: record complete enough to watch?) because neither is watched.
 REVIEW_STEPS: dict[str, tuple[str, ...]] = {
@@ -363,7 +358,7 @@ def validate(path: Path, *, root: Path = PROJECT_ROOT,
     seen = [str(s.get("step")) if isinstance(s, dict) else "?" for s in steps]
     for s in seen:
         if s not in steps_mod.BY_ID:
-            refusals.append(f"unknown step {s!r}: not in tools/playbook/steps.py")
+            refusals.append(f"unknown step {s!r}: not in vss/review_steps.py")
     if tuple(seen) != expected:
         refusals.append(f"a {status} review walks {', '.join(expected)} in that order; the file has "
                         f"{', '.join(seen) or 'nothing'}")
@@ -812,7 +807,7 @@ def schema_markdown() -> str:
          "## The steps a review walks, by the status it starts from", ""]
     for status in VALID_STATUSES:
         L.append(f"- **{status}**: " + ", ".join(f"`{s}`" for s in steps_for(status)))
-    L += ["", "Every id is a step of `tools/playbook/steps.py`; the order is the chain's. "
+    L += ["", "Every id is a step of `vss/review_steps.py`; the order is the chain's. "
           "A resumed review keeps every earlier step as an entry with `skipped: true` and the "
           "resume reason.", "",
           "## Each step's outcome vocabulary", "",
@@ -833,7 +828,7 @@ def schema_markdown() -> str:
     L += ["", "## What `--validate` refuses", "",
           "- a top-level or step key the schema does not name (a figure can enter the file only "
           "through the fields above);",
-          "- a step name not in `tools/playbook/steps.py`, a step missing, extra or out of order "
+          "- a step name not in `vss/review_steps.py`, a step missing, extra or out of order "
           "for the status;",
           "- a step neither skipped with a `skip_reason` nor answered: an answered step needs an "
           "`outcome` from its vocabulary, non-empty `text` and an `answered_at`;",

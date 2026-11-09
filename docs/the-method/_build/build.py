@@ -263,7 +263,7 @@ INDEX_BODY = {
 
 <div class="routes">
 <div class="route"><h2>Ten minutes</h2><p>Seven chapters that carry the whole argument: the problem, what value is, the inversion, writing the belief first, why the machine cannot decide, the dead man's switch, and the close. About {short_min} minutes.</p><a class="go" href="{first_short}.html">Start the short route</a></div>
-<div class="route"><h2>The whole thing</h2><p>All twenty-three chapters in order. Part One is the method; Part Two is the machine. About {total_min} minutes, in sittings. Each chapter says what it is about in its first line.</p><a class="go" href="{first}.html">Start at chapter 1</a></div>
+<div class="route"><h2>The whole thing</h2><p>All twenty-four chapters in order. Part One is the method; Part Two is the machine. About {total_min} minutes, in sittings. Each chapter says what it is about in its first line.</p><a class="go" href="{first}.html">Start at chapter 1</a></div>
 </div>
 
 <h2>How the site is built to be read</h2>
@@ -296,7 +296,7 @@ INDEX_BODY = {
 
 <div class="routes">
 <div class="route"><h2>Tio minuter</h2><p>Sju kapitel som bär hela resonemanget: problemet, vad värde är, omvändningen, att skriva ner tron först, varför maskinen inte kan bestämma, dödmansgreppet och avslutningen. Ungefär {short_min} minuter.</p><a class="go" href="{first_short}.html">Börja den korta vägen</a></div>
-<div class="route"><h2>Hela vägen</h2><p>Alla tjugotre kapitel i ordning. Del ett är metoden; del två är maskinen. Ungefär {total_min} minuter, i flera omgångar. Varje kapitel säger vad det handlar om i sin första rad.</p><a class="go" href="{first}.html">Börja med kapitel 1</a></div>
+<div class="route"><h2>Hela vägen</h2><p>Alla tjugofyra kapitel i ordning. Del ett är metoden; del två är maskinen. Ungefär {total_min} minuter, i flera omgångar. Varje kapitel säger vad det handlar om i sin första rad.</p><a class="go" href="{first}.html">Börja med kapitel 1</a></div>
 </div>
 
 <h2>Hur sajten är byggd för att läsas</h2>

@@ -146,7 +146,9 @@ def test_the_prior_record_stands_and_the_new_strike_is_E142s(tmp_path):
     assert [d.name.split()[0] for d in block.deals] == ["DyFlex"]
     parts = struck.record.e142_parts()
     assert parts["deal_credit"] == pytest.approx(17_577_658.23, rel=1e-6) and parts["programme"] < 0
-    assert struck.fv == pytest.approx(69.42, abs=0.01)   # the 2026-10-28 stated-organic strike; 73.96 before it, 73.82 before E146
+    # 58.03 under E154.1 (the three years' working capital kept, the -984m year to
+    # date neutralised); 55.92 under E154 as struck 2026-11-07; 69.42 on the 2026-10-28 stated-organic strike, 73.96 before it, 73.82 before E146
+    assert struck.fv == pytest.approx(58.03, abs=0.01)
 
 
 # --- the table: link 5 ----------------------------------------------------
@@ -241,4 +243,71 @@ def test_the_doc_prints_the_E140_parts_and_both_deal_ends(tmp_path):
     assert "bridge rolled (E140.1(3)):** 2025-09-27 -> 2026-06-27" in doc
     assert "already in the balance sheet: Champion" in doc
     assert "deals at LOW end" in S.table(struck)
+    # E169 (2026-11-09): B8 reversed -- Burpee is back as its estimated
+    # range (paid, price undisclosed); the bridge takes the high end.
     assert struck.record.at_deal_end("low") > struck.fv
+    assert round(struck.fv, 2) == 40.19
+
+
+def test_a_crash_in_the_quality_tests_is_named_not_read_as_no_history(tmp_path, monkeypatch):
+    """Independent review 2026-11-07 L1: the E145 tests raising used to print
+    'no history file -- not tested' although the history was there."""
+    from vss import history as HI
+
+    def boom(*a, **k):
+        raise ValueError("synthetic")
+    monkeypatch.setattr(HI, "quality", boom)
+    struck = S.strike_one("CTSH", as_of=AS_OF, run_ts=RUN_TS, stamp="test",
+                          entry=entry("CTSH"),
+                          records_dir=pre_e140_records(tmp_path))
+    lines = "\n".join(S.quality_lines(struck))
+    assert "no history file" not in lines
+    assert "NOT TESTED: the tests raised ValueError: synthetic" in lines
+
+
+def test_E154_structural_working_capital_stays_in_and_old_records_replay(tmp_path):
+    """Independent review 2026-11-07 H3, ruled E154: CTSH's working capital
+    took cash in all three years (-177, -498, -327m), so it stays in FCF0
+    and the -984m year to date is not added back. The 2026-10-28 record,
+    struck before E154, still replays to 69.42."""
+    import json
+    from dataclasses import replace
+    from vss import runrecord as R
+    raw = json.loads((REPO / "reference/run-records/CTSH-2026-10-28-organic.json").read_text())
+    old = R.RunRecord.from_dict(raw)
+    assert old.e140.e154 is False and old.strike() == pytest.approx(69.42, abs=0.01)
+    new = replace(old, e140=replace(old.e140, e154=True))
+    assert new.e140.wc_kept
+    assert new.normalised_flow().mean == pytest.approx(old.normalised_flow().mean - 334_000_000, rel=1e-9)
+    assert new.strike() == pytest.approx(55.92, abs=0.01)
+    # E154.1 (review 2026-11-08 M1): the year-to-date swing is neutralised again,
+    # +984m / 466m shares = +2.11 a share; the E154 record above still replays.
+    fixed = replace(new, e140=replace(new.e140, e154_1=True))
+    assert fixed.strike() == pytest.approx(58.03, abs=0.01)
+    assert fixed.e140.added_debt() == pytest.approx(300_000_000 - 984_000_000)
+    assert R.RunRecord.from_dict(new.to_dict()).e140.e154 is True
+
+
+def test_a_new_strike_carries_E154_and_says_how_working_capital_entered(tmp_path):
+    struck = S.strike_one("CTSH", as_of=AS_OF, run_ts=RUN_TS, stamp="test",
+                          entry=entry("CTSH"),
+                          records_dir=pre_e140_records(tmp_path))
+    assert struck.record.e140.e154 is True
+    # Review 2026-11-08 L2: the year-to-date working capital carries its own verification.
+    ytd = [i for i in struck.record.inputs if i.name.startswith("working_capital_change ")]
+    assert ytd and ytd[0].verified.startswith("VERIFIED")
+    doc = S.document(struck)
+    assert "working capital (E154):** consumed cash in all three years -- KEPT" in doc
+    assert "year-to-date swing neutralised (E154.1)" in doc
+    assert "fv at ROIIC +-5 pp" in doc
+    assert "the buy rule is NOT evidenced" in doc
+
+
+def test_a_bear_level_floored_at_zero_is_named_in_the_document():
+    """Review 2026-11-08 L1: BKNG's 2020 loss year floors its bear level at 0."""
+    import json
+    from vss import runrecord as R
+    bkng = R.RunRecord.from_dict(json.loads((REPO / "reference/run-records/BKNG-2026-11-08-e154-1.json").read_text()))
+    ctsh = R.RunRecord.from_dict(json.loads((REPO / "reference/run-records/CTSH-2026-11-08-e154-1.json").read_text()))
+    assert "FLOORED AT ZERO" in S.bear_note(bkng)
+    assert S.bear_note(ctsh) == ""

@@ -210,6 +210,7 @@ chapter(
 
 <h3>Filter 1: has the price fallen enough, but not too much?</h3>
 <p>The method is looking for businesses the market has temporarily lost interest in. So the first question is whether the price sits between 15 and 50 percent below its highest point of the last year. Less than 15 and nothing has happened. More than 50 and the working assumption is that something is actually broken, which is a different kind of company and out of scope.{N.ref("Framework §3 gate 1; the band is implemented once in vss/rules.py and reused by both the screener and the nightly run.")}</p>
+<p><strong>Removed, November 2026.</strong> This band did not survive the test written for it: in neither market did the names inside it do better than the rest, so ruling E161 took it out of the code. Filter 1 now asks only whether the price data is fresh; the fall from the high stays on the row as information. <a href="tested.html">Chapter 22</a> tells how that was found.</p>
 {N.flush()}
 <p>Two more questions ride with this one. Has the company been listed for at least five years? A younger listing does not have enough reported history to test, and a company spun out of another counts as new.{N.ref("Ruling E52 and E52.1: a listing younger than five years is rejected on missing data, and a spin-off is a new listing.")} And is the business one the method can judge at all? Chapter 5 covers that boundary.</p>
 {N.flush()}
@@ -618,6 +619,7 @@ chapter(
 <dt>The owner does</dt><dd>Re-values on every report. Sells at the stop or when the reason for buying is gone.</dd>
 <dt>Falls out when</dt><dd>The owner sells. The sale is recorded and measured against the market from its own date.</dd>
 </dl></div>
+<p><strong>Changed, November 2026.</strong> The price stop is gone (ruling E162): no stop level, with or without buying back, helped in the tests, and with trading costs every one cost money. The owner still writes the exit down before buying, but it is written as <code>stop_price: none</code>, a decision and not a blank; a blank still blocks. Selling because the reason for owning is gone stays. See <a href="tested.html">chapter 22</a>.</p>
 
 <div class="stage"><h3>DROPPED: refused</h3><dl>
 <dt>What happens</dt><dd>The name has been refused: a hard kill, a class D reason, outside the circle, or the owner's judgement.</dd>
@@ -654,6 +656,7 @@ chapter(
 <p>Chapter 8 produced the owner's base-case growth view. Chapter 7's arithmetic, run forwards with that view, gives a value per share. That is the owner's estimate of what NAME A is worth, and it is wrong by an amount nobody knows. So it is not the buy price.</p>
 
 <p>The buy price is the value multiplied by a cushion, and the cushion depends on how sure the owner is. The method calls the levels of sureness <dfn>tiers</dfn>, and there are three. A tier 1 name, one the owner understands well and which has a strong balance sheet and something durable pushing it along, gets a buy price of 85 percent of value. A tier 2 name, less sure or in a cyclical business, gets 75. A tier 3 name, where the reason for owning it has had to be re-described along the way, gets 65.{N.ref("Ruling E90, 2026-08-30. Tier is not a feeling: it comes from a conviction score built from gates passed, warning signs and good signs, and tier 1 additionally requires a fortress balance sheet and a secular tailwind. 'A score alone does not make a tier 1.'")} The cushion is there to absorb errors in the model and in the inputs, which in this project's own reviews have typically been five to fifteen percent of value. It is not there to absorb the business doing badly; the low-case growth view carries that, and it is printed beside the buy price as information, not folded into it.</p>
+<p><strong>Changed, November 2026.</strong> The cushion is still computed and printed, but it binds nothing: a price at or below 85 percent of value did not separate later returns in the tests, so ruling E168 made it information. The queue says UNDER MBP, never "buy". See <a href="tested.html">chapter 22</a>.</p>
 {N.flush()}
 
 <p>The buy price is printed with two companions: the same price recomputed with the discount rate half a point lower and half a point higher. The owner sees how much the number leans on a rate that is, by the method's own admission, a preference. A proposal that the tool should veto any decision that reverses inside that band was refused, with a reason worth quoting: such a rule could only ever remove a conclusion, never produce one, "and this framework's diagnosed defect is that it cannot say yes."{N.ref("Ruling E29. 'Fragility is DISPLAYED, never ADJUDICATED.'")}</p>
@@ -665,6 +668,7 @@ chapter(
 
 <h2>Z: the exit, decided first</h2>
 <p>Before any purchase, the owner writes a stop: a price at which the position is sold, whatever the story is at the time. It is set when the owner has no stake in the answer. Once the shares are owned, every reason not to sell will seem compelling, which is precisely why the number was written earlier. The tool refuses to treat a held name as complete without one, and reports a missing stop ahead of everything else on the page.{N.ref("A held name with no stop is a blocker, reported before any verdict. Framework §6.4 also names thesis stops: sell when the reason for owning is gone, such as a second cut to the company's own forecast.")}</p>
+<p><strong>Changed, November 2026.</strong> Z is now a written decision about the exit, and for this owner the decision is "no price stop" (ruling E162, <a href="tested.html">chapter 22</a>). What survives of this section is its point: the exit is decided before the money moves, while there is no stake in the answer.</p>
 {N.flush()}
 
 <h2>What the tool does with all this</h2>

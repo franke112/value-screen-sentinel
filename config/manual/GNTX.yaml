@@ -284,10 +284,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: -16463067
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-01-01..2023-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -45,251,116 + us-gaap:IncreaseDecreaseInInventories [2023-01-01..2023-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 2,127,242 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2023-01-01..2023-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -4,101,866 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2023-01-01..2023-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -4,453,376 + us-gaap:IncreaseDecreaseInAccountsPayable [2023-01-01..2023-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 40,951,490 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2023-01-01..2023-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -5,735,441 + us-gaap:ProvisionForLoanLeaseAndOtherLosses [2023-01-01..2023-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 0 = -16,463,067 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForLoanLeaseAndOtherLosses` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        value: -12009691
+        page: "E140(1) tied to the cash flow statement: GNTX_FY2025_annual-report-10k_2026-02-24_en_a0.htm, 2023-01-01..2023-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -45,251,116 + us-gaap:IncreaseDecreaseInInventories 2,127,242 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets -4,101,866 + us-gaap:IncreaseDecreaseInAccountsPayable 40,951,490 + us-gaap:IncreaseDecreaseInAccruedLiabilities -5,735,441 + us-gaap:ProvisionForLoanLeaseAndOtherLosses 0 = -12,009,691 (printed values, cash effect). The operating section's 17 rows sum to the printed operating cash flow 537,249,592 within 9; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: -18936539
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2023-01-01..2023-12-31] 10-K 0000355811-26-000010 filed 2026-02-24"
@@ -355,10 +355,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: -46956047
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-01-01..2024-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 27,106,680 + us-gaap:IncreaseDecreaseInInventories [2024-01-01..2024-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -32,624,417 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2024-01-01..2024-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -9,873,572 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2024-01-01..2024-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -6,563,157 + us-gaap:IncreaseDecreaseInAccountsPayable [2024-01-01..2024-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -26,021,165 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2024-01-01..2024-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 1,019,584 + us-gaap:ProvisionForLoanLeaseAndOtherLosses [2024-01-01..2024-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 0 = -46,956,047 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForLoanLeaseAndOtherLosses` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        value: -40392890
+        page: "E140(1) tied to the cash flow statement: GNTX_FY2025_annual-report-10k_2026-02-24_en_a0.htm, 2024-01-01..2024-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable 27,106,680 + us-gaap:IncreaseDecreaseInInventories -32,624,417 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets -9,873,572 + us-gaap:IncreaseDecreaseInAccountsPayable -26,021,165 + us-gaap:IncreaseDecreaseInAccruedLiabilities 1,019,584 + us-gaap:ProvisionForLoanLeaseAndOtherLosses 0 = -40,392,890 (printed values, cash effect). The operating section's 17 rows sum to the printed operating cash flow 498,213,220 within 9; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: -2870769
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2024-01-01..2024-12-31] 10-K 0000355811-26-000010 filed 2026-02-24"
@@ -491,10 +491,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: 60012876
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-01-01..2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -14,615,535 + us-gaap:IncreaseDecreaseInInventories [2025-01-01..2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 18,138,298 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2025-01-01..2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 214,617 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2025-01-01..2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -1,888,944 + us-gaap:IncreaseDecreaseInAccountsPayable [2025-01-01..2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 52,402,600 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2025-01-01..2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = -1,684,568 + us-gaap:ProvisionForLoanLeaseAndOtherLosses [2025-01-01..2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24 = 7,446,408 = 60,012,876 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForLoanLeaseAndOtherLosses` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        value: 61901820
+        page: "E140(1) tied to the cash flow statement: GNTX_FY2025_annual-report-10k_2026-02-24_en_a0.htm, 2025-01-01..2025-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -14,615,535 + us-gaap:IncreaseDecreaseInInventories 18,138,298 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets 214,617 + us-gaap:IncreaseDecreaseInAccountsPayable 52,402,600 + us-gaap:IncreaseDecreaseInAccruedLiabilities -1,684,568 + us-gaap:ProvisionForLoanLeaseAndOtherLosses 7,446,408 = 61,901,820 (printed values, cash effect). The operating section's 17 rows sum to the printed operating cash flow 587,126,291 within 9; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: -156291946
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2025-01-01..2025-12-31] 10-K 0000355811-26-000010 filed 2026-02-24"
@@ -512,10 +512,10 @@ roll_forward:
   url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0000355811.json"
   figures:
     working_capital_change:
-      value: 25533484
-      page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2026-01-01..2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04 = -17,821,395 + us-gaap:IncreaseDecreaseInInventories [2026-01-01..2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04 = -2,696,794 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2026-01-01..2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04 = 23,045,953 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2026-01-01..2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04 = -3,103,663 + us-gaap:IncreaseDecreaseInAccountsPayable [2026-01-01..2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04 = -1,854,712 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2026-01-01..2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04 = 22,869,807 + us-gaap:ProvisionForLoanLeaseAndOtherLosses [2026-01-01..2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04 = 5,094,288 = 25,533,484 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForLoanLeaseAndOtherLosses` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+      value: 28637147
+      page: "E140(1) tied to the cash flow statement: GNTX_2026-06-30_quarterly-report-10q_2026-08-04_en_a0.htm, 2026-01-01..2026-06-30. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -17,821,395 + us-gaap:IncreaseDecreaseInInventories -2,696,794 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets 23,045,953 + us-gaap:IncreaseDecreaseInAccountsPayable -1,854,712 + us-gaap:IncreaseDecreaseInAccruedLiabilities 22,869,807 + us-gaap:ProvisionForLoanLeaseAndOtherLosses 5,094,288 = 28,637,147 (printed values, cash effect). The operating section's 16 rows sum to the printed operating cash flow 321,663,680 within 8; classes from config/manual/maps/cashflow-tags.yaml"
       status: VERIFIED
-      verified_kind: tagged
+      verified_kind: tied_statement
     operating_lease_liabilities:
       value: 7491139
       page: "us-gaap:OperatingLeaseLiability [as of 2026-06-30] 10-Q 0000355811-26-000048 filed 2026-08-04"

@@ -1,0 +1,9 @@
+[Unit]
+Description=vss -- the yearly EODHD reminder, 15 April 09:00 (after the Nordic annual reports; the backtest's 30 April date)
+
+[Timer]
+OnCalendar=*-04-15 09:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,364 @@
+{
+  "ticker": "DHI",
+  "currency": "USD",
+  "run_ts": "2026-11-08T22:05:24+01:00",
+  "basis": "annual FY2025",
+  "shares": {
+    "count": 283000000.0,
+    "basis": "weighted-average DILUTED count for roll-forward balance sheet 2026-06-30, the same window as the flows (E38)",
+    "as_of": "2026-06-30",
+    "point_in_time": null,
+    "point_in_time_as_of": null,
+    "unit": "whole",
+    "divisor_basis": "weighted_average",
+    "prior_average": null,
+    "drift": null
+  },
+  "sbc": {
+    "treatment": "deducted",
+    "amount": 131000000.0,
+    "basis": ""
+  },
+  "interest": {
+    "in_operating_cash_flow": true,
+    "page": "SEC XBRL companyfacts for CIK 0000882184 (D.R. Horton, Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000882184.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+    "net_interest_paid": 207800000.0,
+    "source": "cash_flow_statement"
+  },
+  "bridge": {
+    "net_debt": 5033900000.0,
+    "items": {
+      "short_term_investments": null,
+      "current_financial_assets": null,
+      "leases": 0.0,
+      "pensions": 0.0,
+      "asset_retirement_obligations": 0.0,
+      "prepaid_delivery_obligations": 0.0,
+      "non_controlling_interests": "not a bridge item — E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+    },
+    "note": "borrowings 0 + 7,112,600,000 + finance leases 0 (E117: the operating lease liability 71,300,000 LEAVES net debt, its rent being in the flow; finance leases stay) + pension deficit 0 (E35.1) + asset retirement obligations 0 (E68) + prepaid delivery obligations 0 (E81) - cash 2,078,700,000 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+  },
+  "dates": {
+    "flows_window_end": "2025-09-30",
+    "balance_sheet": "2026-06-30",
+    "share_count": "2026-06-30",
+    "price": "2026-10-27"
+  },
+  "growth": {
+    "base": 0.04,
+    "view_file": "E144: derived from config/history/DHI.yaml",
+    "view_date": "2026-10-28",
+    "bear": 0.007612158904120037,
+    "bull": 0.04
+  },
+  "operating_cash_flow": 3420900000.0,
+  "capex": -137400000.0,
+  "conventions": {
+    "horizon_years": 10,
+    "terminal_growth": 0.025,
+    "mid_year": false,
+    "first_year_flow": "FCF0 * (1 + g)"
+  },
+  "rate": {
+    "rate": 0.095,
+    "core_expected_return": null,
+    "premium": null,
+    "band": 0.005
+  },
+  "inputs": [
+    {
+      "name": "capex_combined",
+      "value": -137400000.0,
+      "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2024-10-01..2025-09-30] 10-K 0000882184-25-000081 filed 2025-11-19",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "operating_cash_flow",
+      "value": 3420900000.0,
+      "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2024-10-01..2025-09-30] 10-K 0000882184-25-000081 filed 2025-11-19",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "sbc",
+      "value": 131000000.0,
+      "provenance": "us-gaap:ShareBasedCompensation [2024-10-01..2025-09-30] 10-K 0000882184-25-000081 filed 2025-11-19",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "net_interest_paid",
+      "value": 207800000.0,
+      "provenance": "HAND, 2026-10-28 (E141 decision). DHI_FY2025_annual-report-10k_2025-11-19_en_a0.htm (10-K 0000882184-25-000081 filed 2025-11-19), Note E inventory interest table, year ended September 30: 'Interest incurred (1) 241.7 203.7 203.5' (2025, 2024, 2023, in millions), footnote (1): 'includes interest on the Company's mortgage repurchase facilities of $ 33.9 million, $ 58.6 million and $ 45.9 million'. This filer prints NO interest paid: 'the Company's active inventory exceeded its debt level, and all interest incurred was capitalized to inventory', so the cash interest leaves through inventory inside operating activities (ASC 230) and is never a separate line. Entered: interest incurred 241.7 LESS the mortgage repurchase facility's 33.9 = 207.8 million. The repurchase facility funds mortgage loans held for sale and its interest is the mortgage operation's own cost of goods, earned back in its interest income; its debt STAYS in net debt (notes payable as printed), so leaving its interest in the flow errs low on both sides. Interest received is not stated apart from 'Other income'; nothing is netted, and the add-back is the cost side only.",
+      "entered_by": "store",
+      "verified": "VERIFIED (same_page)"
+    },
+    {
+      "name": "diluted_weighted_average_shares",
+      "value": 283000000.0,
+      "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2026-04-01..2026-06-30] 10-Q 0000882184-26-000096 filed 2026-07-23",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "financial_liabilities_current",
+      "value": 0.0,
+      "provenance": "DHI_2026-06-30_quarterly-report-10q_2026-07-23_en_a0.htm (10-Q 0000882184-26-000096 filed 2026-07-23), Consolidated Balance Sheets, June 30, 2026 (in millions), every liability caption: 'Accounts payable 1,388.4', 'Deferred tax liability, net 43.4', 'Accrued expenses and other liabilities 3,560.4', 'Notes payable 7,112.6', 'Total liabilities 12,104.8'. The balance sheet is UNCLASSIFIED: 'Notes payable' is the whole of the debt -- homebuilding senior notes, Forestar's notes, the rental and Forestar revolvers and the mortgage repurchase facilities -- and the whole caption is carried in `financial_liabilities_noncurrent`. A current part entered here would count it twice.",
+      "entered_by": "store",
+      "verified": "VERIFIED (same_page)"
+    },
+    {
+      "name": "financial_liabilities_noncurrent",
+      "value": 7112600000.0,
+      "provenance": "us-gaap:NotesPayable [as of 2026-06-30] 10-Q 0000882184-26-000096 filed 2026-07-23",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "lease_liabilities",
+      "value": 71300000.0,
+      "provenance": "us-gaap:OperatingLeaseLiability [as of 2026-06-30] 10-Q 0000882184-26-000096 filed 2026-07-23",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "pension_deficit",
+      "value": 0.0,
+      "provenance": "DHI_2026-06-30_quarterly-report-10q_2026-07-23_en_a0.htm (10-Q 0000882184-26-000096 filed 2026-07-23), Consolidated Balance Sheets, June 30, 2026 (in millions), every liability caption: 'Accounts payable 1,388.4', 'Deferred tax liability, net 43.4', 'Accrued expenses and other liabilities 3,560.4', 'Notes payable 7,112.6', 'Total liabilities 12,104.8'. 'defined benefit' and 'pension' appear nowhere in the FY2025 10-K; the employee plan is a 401(k) with matching contributions.",
+      "entered_by": "store",
+      "verified": "VERIFIED (same_page)"
+    },
+    {
+      "name": "asset_retirement_obligation",
+      "value": 0.0,
+      "provenance": "E68.1 caption zero. DHI_2026-06-30_quarterly-report-10q_2026-07-23_en_a0.htm (10-Q 0000882184-26-000096 filed 2026-07-23), Consolidated Balance Sheets, June 30, 2026 (in millions), every liability caption: 'Accounts payable 1,388.4', 'Deferred tax liability, net 43.4', 'Accrued expenses and other liabilities 3,560.4', 'Notes payable 7,112.6', 'Total liabilities 12,104.8'. No asset retirement or decommissioning caption; neither term appears in the FY2025 10-K. A homebuilder.",
+      "entered_by": "store",
+      "verified": "VERIFIED (same_page)"
+    },
+    {
+      "name": "prepaid_delivery_obligation",
+      "value": 0.0,
+      "provenance": "E81 caption zero. DHI_2026-06-30_quarterly-report-10q_2026-07-23_en_a0.htm (10-Q 0000882184-26-000096 filed 2026-07-23), Consolidated Balance Sheets, June 30, 2026 (in millions), every liability caption: 'Accounts payable 1,388.4', 'Deferred tax liability, net 43.4', 'Accrued expenses and other liabilities 3,560.4', 'Notes payable 7,112.6', 'Total liabilities 12,104.8'. No streaming, prepaid-offtake or prepaid-delivery caption; customer deposits on homes under contract sit inside 'Accrued expenses and other liabilities' as working capital and are NOT this leg.",
+      "entered_by": "store",
+      "verified": "VERIFIED (same_page)"
+    },
+    {
+      "name": "cash_and_equivalents",
+      "value": 2078700000.0,
+      "provenance": "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2026-06-30] 10-Q 0000882184-26-000096 filed 2026-07-23",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "operating_lease_liabilities",
+      "value": 71300000.0,
+      "provenance": "us-gaap:OperatingLeaseLiability [as of 2026-06-30] 10-Q 0000882184-26-000096 filed 2026-07-23",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2023 capex_combined",
+      "value": -148600000.0,
+      "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2022-10-01..2023-09-30] 10-K 0000882184-25-000081 filed 2025-11-19",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2023 operating_cash_flow",
+      "value": 4304100000.0,
+      "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2022-10-01..2023-09-30] 10-K 0000882184-25-000081 filed 2025-11-19",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2023 working_capital_change",
+      "value": -211900000.0,
+      "provenance": "E140(1) tied to the cash flow statement: DHI_FY2025_annual-report-10k_2025-11-19_en_a0.htm, 2022-10-01..2023-09-30. Working capital = us-gaap:IncreaseDecreaseInOtherOperatingAssets 23,800,000 + us-gaap:IncreaseDecreaseInMortgageLoansHeldForSale -133,900,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities -101,800,000 = -211,900,000 (printed values, cash effect). The operating section's 11 rows sum to the printed operating cash flow 4,304,100,000 within 600,000; classes from config/manual/maps/cashflow-tags.yaml",
+      "entered_by": "store",
+      "verified": "VERIFIED (tied_statement)"
+    },
+    {
+      "name": "annual FY2023 sbc",
+      "value": 111200000.0,
+      "provenance": "us-gaap:ShareBasedCompensation [2022-10-01..2023-09-30] 10-K 0000882184-25-000081 filed 2025-11-19",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2023 acquisitions_paid",
+      "value": -212900000.0,
+      "provenance": "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2022-10-01..2023-09-30] 10-K 0000882184-25-000081 filed 2025-11-19",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2024 capex_combined",
+      "value": -165300000.0,
+      "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2023-10-01..2024-09-30] 10-K 0000882184-25-000081 filed 2025-11-19",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2024 operating_cash_flow",
+      "value": 2189800000.0,
+      "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2023-10-01..2024-09-30] 10-K 0000882184-25-000081 filed 2025-11-19",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2024 working_capital_change",
+      "value": -269400000.0,
+      "provenance": "E140(1) tied to the cash flow statement: DHI_FY2025_annual-report-10k_2025-11-19_en_a0.htm, 2023-10-01..2024-09-30. Working capital = us-gaap:IncreaseDecreaseInOtherOperatingAssets -331,400,000 + us-gaap:IncreaseDecreaseInMortgageLoansHeldForSale 42,400,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities 19,600,000 = -269,400,000 (printed values, cash effect). The operating section's 11 rows sum to the printed operating cash flow 2,189,800,000 within 600,000; classes from config/manual/maps/cashflow-tags.yaml",
+      "entered_by": "store",
+      "verified": "VERIFIED (tied_statement)"
+    },
+    {
+      "name": "annual FY2024 sbc",
+      "value": 118100000.0,
+      "provenance": "us-gaap:ShareBasedCompensation [2023-10-01..2024-09-30] 10-K 0000882184-25-000081 filed 2025-11-19",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2024 acquisitions_paid",
+      "value": -40400000.0,
+      "provenance": "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2023-10-01..2024-09-30] 10-K 0000882184-25-000081 filed 2025-11-19",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2025 capex_combined",
+      "value": -137400000.0,
+      "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2024-10-01..2025-09-30] 10-K 0000882184-25-000081 filed 2025-11-19",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2025 operating_cash_flow",
+      "value": 3420900000.0,
+      "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2024-10-01..2025-09-30] 10-K 0000882184-25-000081 filed 2025-11-19",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2025 working_capital_change",
+      "value": -253500000.0,
+      "provenance": "E140(1) tied to the cash flow statement: DHI_FY2025_annual-report-10k_2025-11-19_en_a0.htm, 2024-10-01..2025-09-30. Working capital = us-gaap:IncreaseDecreaseInOtherOperatingAssets -248,200,000 + us-gaap:IncreaseDecreaseInMortgageLoansHeldForSale -89,000,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities 83,700,000 = -253,500,000 (printed values, cash effect). The operating section's 11 rows sum to the printed operating cash flow 3,420,900,000 within 600,000; classes from config/manual/maps/cashflow-tags.yaml",
+      "entered_by": "store",
+      "verified": "VERIFIED (tied_statement)"
+    },
+    {
+      "name": "annual FY2025 sbc",
+      "value": 131000000.0,
+      "provenance": "us-gaap:ShareBasedCompensation [2024-10-01..2025-09-30] 10-K 0000882184-25-000081 filed 2025-11-19",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2025 acquisitions_paid",
+      "value": -53100000.0,
+      "provenance": "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2024-10-01..2025-09-30] 10-K 0000882184-25-000081 filed 2025-11-19",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "working_capital_change 2025-09-30..2026-06-30",
+      "value": 169100000.0,
+      "provenance": "year to date roll-forward 2026-06-30: E140(1): us-gaap:IncreaseDecreaseInOtherOperatingAssets [2025-10-01..2026-06-30] 10-Q 0000882184-26-000096 filed 2026-07-23 = -108,800,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2025-10-01..2026-06-30] 10-Q 0000882184-26-000096 filed 2026-07-23 = 277,900,000 = 169,100,000 (cash effect: an asset increase negated, a liability increase kept)",
+      "entered_by": "store",
+      "verified": ""
+    }
+  ],
+  "tool_commit": "tools/replay_e166.py, dd84d65",
+  "notes": "E166 (2026-11-08) replay of reference/run-records/DHI-2026-10-28.json: working capital tied to the cash flow statement (vss/cfrecon.py, config/manual/DHI.yaml); E154 and E154.1 on as today's rules; every other input unchanged. Moved: annual FY2023 -78,000,000 -> -211,900,000; annual FY2024 -311,800,000 -> -269,400,000; annual FY2025 -164,500,000 -> -253,500,000; year to date 169,100,000 -> -255,000,000",
+  "money_unit": "whole",
+  "nci_dividends_paid": 0.0,
+  "undetermined": [],
+  "fcf_reported": {
+    "value": null,
+    "page": "",
+    "verified": false
+  },
+  "net_debt_reported": {
+    "value": null,
+    "page": "",
+    "verified": false
+  },
+  "net_income": {
+    "value": 3585200000.0,
+    "page": "us-gaap:NetIncomeLoss [2024-10-01..2025-09-30] 10-K 0000882184-25-000081 filed 2025-11-19",
+    "verified": true
+  },
+  "lease": {
+    "in_operating_cash_flow": true,
+    "page": "SEC XBRL companyfacts for CIK 0000882184 (D.R. Horton, Inc.) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0000882184.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 842-20-45-5(a): a lessee classifies payments for operating leases within OPERATING activities, so this filer's `operating_cash_flow` already bears them; the stated cash paid is `us-gaap:OperatingLeasePayments`, written as `operating_lease_payments` where tagged. No filer-specific tag states the classification because the standard leaves no choice",
+    "principal_added_back": null,
+    "leg": "none -- the operating cash flow bears the rent (E117)",
+    "rule": "E117",
+    "lease_cash_deducted": null,
+    "principal_paid": null,
+    "interest_paid": null,
+    "liability_excluded": 71300000.0
+  },
+  "e140": {
+    "years": [
+      {
+        "label": "annual FY2023",
+        "operating_cash_flow": 4304100000.0,
+        "working_capital": -211900000.0,
+        "capex": -148600000.0,
+        "sbc": 111200000.0,
+        "acquisitions": -212900000.0,
+        "lease_cash": null
+      },
+      {
+        "label": "annual FY2024",
+        "operating_cash_flow": 2189800000.0,
+        "working_capital": -269400000.0,
+        "capex": -165300000.0,
+        "sbc": 118100000.0,
+        "acquisitions": -40400000.0,
+        "lease_cash": null
+      },
+      {
+        "label": "annual FY2025",
+        "operating_cash_flow": 3420900000.0,
+        "working_capital": -253500000.0,
+        "capex": -137400000.0,
+        "sbc": 131000000.0,
+        "acquisitions": -53100000.0,
+        "lease_cash": null
+      }
+    ],
+    "tax_country": "US",
+    "tax_rate": 0.25,
+    "ledger": "reference/events/DHI.yaml",
+    "ledger_dated": "2026-10-28",
+    "cut": "2026-06-30",
+    "deals": [],
+    "deals_in_balance_sheet": [
+      "SK Builders (homebuilding operations, Greenville SC)"
+    ],
+    "rolled_from": "2025-09-30",
+    "wc_since_year_end": -255000000.0,
+    "wc_since_page": "E140(1) tied to the cash flow statement: DHI_2026-06-30_quarterly-report-10q_2026-07-23_en_a0.htm, 2025-10-01..2026-06-30. Working capital = us-gaap:IncreaseDecreaseInOtherOperatingAssets -108,800,000 + us-gaap:IncreaseDecreaseInMortgageLoansHeldForSale -424,100,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities 277,900,000 = -255,000,000 (printed values, cash effect). The operating section's 11 rows sum to the printed operating cash flow 880,800,000 within 600,000; classes from config/manual/maps/cashflow-tags.yaml",
+    "e142": {
+      "history": "config/history/DHI.yaml",
+      "repeat_buyer": true,
+      "acquisitions_mean": 102133333.33333333,
+      "roiic_base": 0.1152474468221592,
+      "roiic_bear": 0.0,
+      "roiic_base_how": "operating profit 1,359,666,667 (2015-2017 mean) -> 5,779,766,667 (2023-2025 mean); organic x2.590 (2 of 8 years at the view's 4.0%); after tax 25.0%: 1,693,557,389 on capital added 14,694,966,667 = 11.52%",
+      "roiic_bear_how": "operating profit 2,983,000,000 (2020) -> 4,739,900,000 (2025); organic x1.686; after tax 25.0%: -217,726,772 on capital added 12,383,500,000 = -1.76%",
+      "cyclical": false,
+      "level_base": 1.0,
+      "level_bear": 0.6890603158167228,
+      "level_how": "not cyclical (E143(3)); bear level x0.689: the weakest E140 year 2,218,200,000 over the mean 3,219,166,667 (E143(4))",
+      "growth_how": "E144: organic 12.15%/yr over 8 years, last five 11.02% (2016-2025, 8 of them PROXY from deal-free years); owner earnings per share 27.64%/yr; cap 4%; worst 3-year 0.76%, best 5-year 19.60%",
+      "pension_after_tax": true
+    },
+    "e154": true,
+    "e154_1": true
+  }
+}

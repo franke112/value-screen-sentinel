@@ -233,7 +233,7 @@ def test_e27_the_live_watchlist_migrated_the_three_names_it_had():
     status = {e["ticker"]: str(e["status"]).strip().upper() for e in raw["tickers"]}
     assert status["MC.PA"] == "WATCH-PRICED"
     assert status["DECK"] == "WATCH-GATED"
-    assert status["PNDORA.CO"] == "DROPPED"   # E145 Q2, 2026-10-27
+    assert status["PNDORA.CO"] == "WATCH-GATED"   # E145's drop undone by E168, 2026-11-09
 
 
 def test_e27_mc_pa_alert_is_labelled_not_an_mbp():
@@ -256,7 +256,7 @@ def test_e27_mc_pa_alert_is_labelled_not_an_mbp():
     # remains no buy price
     # 2026-10-27 (E142-E145, E141): re-struck on the method-check record at 392.95;
     # still no tier, so still no MBP
-    assert row.get("fv_base") == 392.95 and row.get("tier") is None
+    assert row.get("fv_base") == 311.85   # E154.1 2026-11-08 (306.9 under E154, 392.95 before) and row.get("tier") is None
     notes = row["notes"].upper()
     assert "NOT AN MBP" in notes
     assert "NOT BUYABLE" in notes
@@ -1048,9 +1048,6 @@ def test_a_zero_stop_would_otherwise_be_a_stop_that_can_never_breach():
     close ever breaches. The HELD row would report AT/BELOW MBP -- a buy --
     on a position whose exit is unreachable.
     """
-    from vss.rules import missing_stop_blocker, stop_verdict
-    assert missing_stop_blocker("HELD", 0.0) is None
-    assert stop_verdict("HELD", 41.0, 0.0) is None
     with pytest.raises(ConfigError, match="a stop of 0 can never breach"):
         parse_entry(entry(status="HELD", stop_price=0), 0)
 
@@ -1296,3 +1293,13 @@ def test_a_shadowed_store_figure_would_be_a_figure_nobody_chose():
                 (f"{path}: `{key}:` at line {first} is SHADOWED by line "
                  f"{second} and the two state different values -- the store "
                  f"figure is whichever was written last")
+
+
+def test_e162_stop_none_parses_as_a_decision_and_blank_as_empty():
+    """`stop_price: none` is the decision (E162); blank is not."""
+    decided = parse_entry(entry(status="HELD", fv_bull=200.0, stop_price="none"), 0)
+    assert decided.stop_price is None and decided.stop_none is True
+    blank = parse_entry(entry(status="HELD", fv_bull=200.0, stop_price=None), 0)
+    assert blank.stop_price is None and blank.stop_none is False
+    level = parse_entry(entry(status="HELD", fv_bull=200.0, stop_price=82.25), 0)
+    assert level.stop_price == 82.25 and level.stop_none is False

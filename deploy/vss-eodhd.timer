@@ -1,0 +1,9 @@
+[Unit]
+Description=vss -- the EODHD fetch, daily after the quota resets (00:00 UTC), until every file is on disk
+
+[Timer]
+OnCalendar=*-*-* 01:30:00 UTC
+Persistent=true
+
+[Install]
+WantedBy=timers.target

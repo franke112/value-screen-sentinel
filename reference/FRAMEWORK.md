@@ -39,21 +39,24 @@ the full text, the reasons and the history stay. The old framework is
   The deal programme and pending deals are valued at the acquirer's own
   ROIIC, as min(ROIIC, r) / r.
 - **Level (E143).** The three-year mean is rolled one year forward.
-- **Cycles (E143, with B7 and E148).**
+- **Cycles (E143, with S-B7 and E148; S-B7 as amended by E169).**
   - A cyclical business is normalised over its cycle, and the bear case
     lowers the level.
   - Cyclical needs a downturn in the history. A business declared cyclical
     with none in its history has bear DATA MISSING and no buy line.
-  - One year whose fall is repaired the next year is not a cycle.
+  - One year whose fall is repaired the next year is not a cycle **only
+    where the history declares that year with a non-economic cause**
+    (`one_year_forgiven`; HRB FY2020, the moved filing deadline). A
+    repaired year alone, such as a COVID year, stays a cycle.
 - **Growth (E144).** Growth is derived from the issuer's own organic
   history, capped at 4 % (8 % where seven years support it). Where there
   are fewer than five organic years, the registered view stands.
-- **Absurd values (B6).** A bear at or below zero, or above base, stops the
+- **Absurd values (S-B6).** A bear at or below zero, or above base, stops the
   name as absurd.
-- **Void values (B5).** A value the watchlist marks void (`fv_void`) is
+- **Void values (S-B5).** A value the watchlist marks void (`fv_void`) is
   never read.
 
-## 3. Quality (**E145**, with **E148**)
+## 3. Quality (**E145**, with **E148**; **E168**: Q1-Q4 information only)
 
 | Test | Requirement |
 |---|---|
@@ -63,23 +66,30 @@ the full text, the reasons and the history stay. The old framework is
 | **Q4** | ROIIC ≥ r for a repeat buyer |
 | **Q5** | The issuer's own sentence on what it sells, to whom, and why the customer returns |
 
-- A watched name failing Q1-Q3 is dropped.
-- A held name failing Q1-Q3 is sold once the price reaches base.
-- Q4 lowers the tier one step.
+- **Q1-Q4 are printed and decide nothing** (E168, attempt #25: neither the
+  drop rule Q1-Q3 nor Q4's tier step separated returns in both markets and
+  both halves). A failing name is not dropped, not sold at base, and its
+  tier is not lowered.
+- **Q5 stays** as the hand part: a name without the sentence is not struck.
 - The tests never change a value.
+- **Held names** (E155(2), read by the second session 2026-11-09, E169):
+  CTSH's and ACAD.ST's tier steps stand as written; they feed only MBP,
+  which is information. CENTA's sell at base is gone; its exit stands as the
+  owner's decision of 2026-10-27, without a price.
 
-## 4. Hard kills (§4.2, until ATTEMPTS #24 decides 4.2.1 / 4.2.2 / 4.2.7)
+## 4. Hard kills (§4.2, **E163**: 4.2.1, 4.2.2 and 4.2.7 removed by attempt #24; **E168**: 4.2.5's 3.5× leg removed by attempt #25)
 
 Any one invalidates:
 
-1. Revenue declining in 2+ consecutive quarters: organic where disclosed,
-   reported otherwise.
-2. Operating margin down > 150 bps YoY on flat or declining revenue.
-3. 2+ guidance cuts in the trailing 4 quarters.
-4. 3+ EPS misses in the trailing 8 quarters.
-5. Net debt / EBITDA > 3.5× or covenant proximity.
-6. CEO **and** CFO departure within 12 months.
-7. Receivables or inventory growing > 1.5× revenue for 2+ quarters.
+1. 2+ guidance cuts in the trailing 4 quarters (4.2.3).
+2. 3+ EPS misses in the trailing 8 quarters (4.2.4).
+3. Covenant proximity (4.2.5). Its net debt / EBITDA > 3.5× leg is gone
+   (E168); whether it returns is attempt #26, on the April 2027 data.
+4. CEO **and** CFO departure within 12 months (4.2.6).
+
+Falling revenue, a compressed margin or swelling receivables or inventory
+is information for Gate 2 and the growth view, never a kill (E163; #24:
+none of the three sorted returns in both markets and both halves).
 
 ## 5. Status, line and size
 
@@ -88,9 +98,11 @@ Any one invalidates:
     applies.
   - WATCH-GATED: the name failed something other than price. Re-entry needs
     a named information event, never a price.
-- **MBP (E90).** MBP is the base value × the tier cushion: tier 1 × 0.85,
-  tier 2 × 0.75, tier 3 × 0.65. The tier is a hand field. MBP is
-  information; the owner buys as he likes.
+- **MBP (E90, E168).** MBP is the base value × the tier cushion:
+  tier 1 × 0.85, tier 2 × 0.75, tier 3 × 0.65. The tier is a hand field. MBP is
+  information and binds nothing: attempt #25 found that a price at or below
+  0.85 × fv did not separate returns in both markets and both halves. The
+  queue says UNDER MBP, never KÖP; the owner buys as he likes.
 - **Size (E157).** One name is at most 6 % of the whole portfolio.
 - **Stop (E162).** There is no price stop, by decision (attempts #10, #18).
   `stop_price: none` is written; a blank field blocks.
@@ -99,6 +111,10 @@ Any one invalidates:
 
 ## 6. Rules about rules
 
+- **Risk filters (E169).** A filter whose job is to avoid losses (debt,
+  a kill) is tested on the median and on the share of names losing more
+  than 75 %, not on the mean alone: a mean is carried by a few large
+  winners.
 - **Two kinds of rule (E164).**
   - A **decision rule** (what is bought, held, sold or valued) enters or
     leaves this file only on a test registered in

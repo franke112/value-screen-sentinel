@@ -33,6 +33,8 @@ def SeriesPoint(ticker, line, period_end, value, statement="income",
     return AnnualPoint(ticker, line, period_end, value, statement, period_months)
 from vss.prices import STATUS_OK, STATUS_STALE
 from vss.ranking import (
+    DRAW_SEED,
+    draw_key,
     EBIT_ALIASES,
     EV_IMPOSSIBLE_NOTE,
     QUALITY_BASIS_UNKNOWN,
@@ -589,8 +591,8 @@ def test_highest_value_is_rank_one():
     assert competition_ranks([1, 3, 2]) == [3, 1, 2]
 
 
-def test_the_two_placings_are_summed_and_sorted_ascending():
-    """B wins both legs, C loses both, A is in between -- no tie to resolve."""
+def test_the_two_placings_are_summed_but_order_nothing():
+    """E167: the sum is computed as information; the order is the seeded draw."""
     fundamentals = {
         # EBIT/TA: A 10%, B 20%, C 1%
         "A": record("A", ebit=100.0, total_assets=1000.0, ev=1000.0),   # EY 10%
@@ -598,21 +600,28 @@ def test_the_two_placings_are_summed_and_sorted_ascending():
         "C": record("C", ebit=10.0, total_assets=1000.0, ev=1000.0),    # EY 1%
     }
     result = rank_candidates([Candidate(t) for t in "ABC"], fundamentals, euro(), ASOF)
-    assert [r.ticker for r in result.main] == ["B", "A", "C"]
-    assert [r.combined for r in result.main] == [2, 4, 6]
+    assert {r.ticker: r.combined for r in result.main} == {"B": 2, "A": 4, "C": 6}
     for row in result.main:
         assert row.combined == row.quality_rank + row.ey_rank
+    assert [r.ticker for r in result.main] == sorted("ABC", key=lambda t: draw_key(DRAW_SEED, t))
 
 
-def test_an_equal_sum_breaks_alphabetically():
-    fundamentals = {
-        # Z beats A on the quality leg, A beats Z on yield: sums equal.
-        "A": record("A", ebit=100.0, total_assets=1000.0, ev=500.0),
-        "Z": record("Z", ebit=100.0, total_assets=500.0, ev=2000.0),
-    }
-    result = rank_candidates([Candidate("Z"), Candidate("A")], fundamentals, euro(), ASOF)
-    assert [r.combined for r in result.main] == [3, 3]
-    assert [r.ticker for r in result.main] == ["A", "Z"]
+def test_the_draw_seed_is_the_same_every_week():
+    """Granskning 2026-11-09 (2.4): E93 alerts on top-10 positions; a seed
+    that moved with the date would reshuffle them every week."""
+    fundamentals = {t: record(t, ebit=100.0, total_assets=1000.0, ev=1000.0) for t in "ABCDEFGH"}
+    cands = [Candidate(t) for t in "ABCDEFGH"]
+    one = rank_candidates(cands, fundamentals, euro(), date(2026, 11, 7))
+    two = rank_candidates(cands, fundamentals, euro(), date(2026, 11, 14))
+    assert [r.ticker for r in one.main] == [r.ticker for r in two.main]
+
+
+def test_the_draw_is_reproducible_and_moves_with_the_seed():
+    tickers = [f"T{i}" for i in range(40)]
+    one = sorted(tickers, key=lambda t: draw_key("2026-11-09", t))
+    assert one == sorted(tickers, key=lambda t: draw_key("2026-11-09", t))
+    assert one != sorted(tickers, key=lambda t: draw_key("2026-11-16", t))
+    assert one != sorted(tickers)
 
 
 def test_one_legged_names_go_to_their_own_section_never_interleaved():
@@ -633,8 +642,7 @@ def test_the_yield_only_section_is_ranked_on_its_own_yields():
         "H": record("H", sector="Real Estate", ebit=100.0, ev=1000.0),
     }
     result = rank_candidates([Candidate("L"), Candidate("H")], fundamentals, euro(), ASOF)
-    assert [r.ticker for r in result.yield_only] == ["H", "L"]
-    assert [r.ey_rank for r in result.yield_only] == [1, 2]
+    assert {r.ticker: r.ey_rank for r in result.yield_only} == {"H": 1, "L": 2}
 
 
 def test_a_name_with_neither_component_is_unrankable_and_named():

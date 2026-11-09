@@ -3,7 +3,7 @@
 Two steps run here, and they are kept separable on purpose:
 
     step 0  the exclusion list -- names already owned or already decided
-    filter 1  the dislocation band, FRAMEWORK Gate 1's level limb
+    filter 1  price coverage, listing age, a measurable 52-week high, E127
 
 Separable, because the acceptance test for filter 1 uses SAP.DE, and SAP.DE
 is on the exclusion list. A test that ran the whole chain would report an
@@ -12,10 +12,8 @@ it first". ``run_filter1`` therefore takes instruments and knows nothing
 about exclusions; ``apply_exclusions`` is called by the chain, never by the
 filter.
 
-The band itself is NOT implemented here. ``rules.in_dislocation_band`` is the
-one implementation, the same module ``vss run`` evaluates the live watchlist
-with. This module decides which names to hand it and what to do with the
-answer.
+E161 (2026-11-08): the dislocation band is no longer a filter; the
+drawdown from the 52-week high travels as a field.
 
 RSI, SMA50 and SMA200 are computed for every candidate and travel as FIELDS.
 Nothing in this module reads them to keep or drop a name -- see the standing
@@ -43,16 +41,8 @@ from .metrics import (
 from .series_sanity import STEP_SERIES_SANITY
 from .series_sanity import check as series_check
 from .rules import (
-    DISLOCATION_MAX,
-    DISLOCATION_MIN,
-    fell_over_year,
-    in_dislocation_band,
     stale_close_blocker,
 )
-
-#: The band as text, built from the constants so a change to the rule
-#: cannot leave the report describing the old one.
-BAND_TEXT = f"{DISLOCATION_MIN:.0%}-{DISLOCATION_MAX:.0%}"
 from .universe import ON_MISSING, ON_VALUE, Instrument, Rejection, Tally, UniverseError
 
 EXCLUSIONS_PATH = Path("config/screener_exclusions.csv")
@@ -84,9 +74,12 @@ STEP_LISTING_AGE = "listing_age"
 STEP_PRICE_COVERAGE = "price_coverage"
 #: STEP_SERIES_SANITY sits between the two on purpose: it asks whether the
 #: series can be measured at all, which is upstream of what it measures to.
-STEP_DISLOCATION = "dislocation"
-#: E127. After the band: a name inside it must ALSO be below its close of a
-#: year ago. Its own step, so the funnel shows which of the two removed it.
+#: E161: Gate 1's 15-50% band is gone (attempts #12, #21: it cost in both
+#: markets). What stays is that the drawdown must be MEASURABLE -- every
+#: candidate carries it as a field -- so a name without a 52-week high is
+#: rejected ON MISSING here, never on value.
+STEP_HIGH_52W = "high_52w"
+#: E127's step, kept in the tally only: E168 removed the rejection.
 STEP_TRAILING_YEAR = "trailing_year"
 
 #: B1's window: the "bulk of the decline in the trailing 3-6 months" clause.
@@ -427,7 +420,7 @@ def apply_circle_of_competence(
     )
 
 
-# --- filter 1: the dislocation band ---------------------------------------
+# --- filter 1: prices (the band went in E161) -----------------------------
 
 
 @dataclass(frozen=True)
@@ -552,7 +545,7 @@ def run_filter1(
     coverage = Tally(STEP_PRICE_COVERAGE, count_in=len(instruments))
     listing_age = Tally(STEP_LISTING_AGE)
     sanity = Tally(STEP_SERIES_SANITY)
-    band = Tally(STEP_DISLOCATION)
+    high = Tally(STEP_HIGH_52W)
     year = Tally(STEP_TRAILING_YEAR)
     rejections: list[Rejection] = []
     candidates: list[Candidate] = []
@@ -653,67 +646,31 @@ def run_filter1(
         usable.append((instrument, frame, metrics))
     sanity.count_out = len(usable)
 
-    band.count_in = len(usable)
-    in_band: list[tuple[Instrument, pd.DataFrame, Metrics]] = []
+    high.count_in = len(usable)
+    measurable: list[tuple[Instrument, pd.DataFrame, Metrics]] = []
 
     for instrument, frame, metrics in usable:
-        inside = in_dislocation_band(metrics.drawdown)
-        if inside is None:
-            # REACHABLE, AND THE COMMON WAY IN IS A SHORT SERIES. This said
-            # "near-unreachable": everything here cleared price_coverage, so
-            # it has a fresh close, so a 52-week high exists. The second step
-            # does not follow -- a FRESH close says nothing about how far
-            # BACK the series reaches, and `metrics.compute` now returns
-            # DATA MISSING for `high_52w` below 52 weeks plus five trading
-            # days of coverage rather than the maximum of whatever rows
-            # arrived (REVIEW-4 report B 7.2: 120 rows of DECK's cache read
-            # 22.4% against a true 28.4%). A non-positive high is the other
-            # way in. Either way it is MISSING DATA, never a failed band:
-            # the name did not fail, the band could not be evaluated for it.
+        if metrics.drawdown is None:
+            # A short series or a non-positive high: MISSING DATA, never a
+            # value rejection (REVIEW-4 report B 7.2).
             why = ("series does not cover 52 weeks"
                    if metrics.covers_52_weeks is False
                    else "no 52-week high")
-            band.reject(ON_MISSING, f"drawdown not computable ({why})")
+            high.reject(ON_MISSING, f"drawdown not computable ({why})")
             rejections.append(
-                Rejection(instrument.key, STEP_DISLOCATION, ON_MISSING,
+                Rejection(instrument.key, STEP_HIGH_52W, ON_MISSING,
                           f"drawdown not computable ({why})")
             )
             continue
-        if not inside:
-            band.reject(ON_VALUE, f"drawdown outside the {BAND_TEXT} band")
-            rejections.append(
-                Rejection(instrument.key, STEP_DISLOCATION, ON_VALUE,
-                          f"drawdown {metrics.drawdown:.1%} outside {BAND_TEXT}")
-            )
-            continue
-        in_band.append((instrument, frame, metrics))
-    band.count_out = len(in_band)
+        measurable.append((instrument, frame, metrics))
+    high.count_out = len(measurable)
 
-    # --- E127: has the price actually FALLEN over the year?
-    #
-    # Ruled by the owner 2026-09-28 after HUNT.OL and CF. The band measures
-    # the distance from a PEAK, so a run-up followed by a 15% pullback reads
-    # exactly like a year-long fall. A close at or above the close of a year
-    # ago is a rejection ON VALUE; no close a year back is ON MISSING.
-    year.count_in = len(in_band)
-    for instrument, frame, metrics in in_band:
-        fell = fell_over_year(metrics.return_12m)
-        if fell is None:
-            year.reject(ON_MISSING, "no close a year back")
-            rejections.append(
-                Rejection(instrument.key, STEP_TRAILING_YEAR, ON_MISSING,
-                          "12-month return not computable (no close a year back)")
-            )
-            continue
-        if not fell:
-            year.reject(ON_VALUE, "price not below its close of a year ago")
-            rejections.append(
-                Rejection(instrument.key, STEP_TRAILING_YEAR, ON_VALUE,
-                          f"12-month return {metrics.return_12m:+.1%}: "
-                          f"{metrics.last_close:g} against {metrics.close_year_ago:g} "
-                          f"on {metrics.close_year_ago_date.isoformat()} (E127)")
-            )
-            continue
+    # --- E127 REMOVED by E168 (attempt #25, 2026-11-09): "below its close of a
+    # year ago" did not separate returns (Nordic -14.1 pp at 3 years). The
+    # 12-month return is still carried as a field; it rejects nothing. The
+    # step stays in the tally so the yield table keeps its shape.
+    year.count_in = len(measurable)
+    for instrument, frame, metrics in measurable:
         candidates.append(
             Candidate(
                 ticker=instrument.ticker_yahoo or "",
@@ -746,7 +703,7 @@ def run_filter1(
     # nothing here may stand in for it.
     candidates.sort(key=lambda c: c.ticker)
     return Filter1Result(candidates=candidates, rejections=rejections,
-                         tallies=[coverage, listing_age, sanity, band, year],
+                         tallies=[coverage, listing_age, sanity, high, year],
                          unmeasurable=unmeasurable, naive_calendar=naive_calendar)
 
 
@@ -772,8 +729,6 @@ NOT_APPLICABLE = "NOT APPLICABLE"
 FLAG = "FLAG"
 
 LIMB_FCF = "free_cash_flow"
-LIMB_LEVERAGE = "net_debt_to_ebitda"
-LIMB_REVENUE = "revenue_trend"
 
 
 class Filter2Error(UniverseError):
@@ -785,26 +740,10 @@ class Filter2Config:
     status: str
     proposed: str | None
     fcf_min: float
-    leverage_max: float
-    leverage_na_sectors: frozenset[str]
-    non_positive_ebitda_with_debt: str
-    non_positive_ebitda_with_cash: str
-    #: The ANNUAL fallback's action and shape (E45: FLAG, B9's reading).
-    revenue_action: str
-    revenue_lookback_years: int
-    revenue_flag_after: int
     on_missing_action: str
     raw: Mapping
-    #: The QUARTERLY rule (E45): how many quarters are read, how many
-    #: consecutive year-on-year declines from the newest quarter kill, what
-    #: the kill's state is, and how far apart two ends must be to count as
-    #: the same quarter a year apart.
-    revenue_quarters: int = 8
-    revenue_kill_after: int = 2
-    revenue_kill_action: str = "KILL"
-    revenue_year_ago_window: tuple[int, int] = (350, 380)
-    #: E46: tickers exempt on the leverage limb because the owner lists them
-    #: as investment companies. Loaded from INVESTMENT_COMPANIES_PATH.
+    #: E46: the owner's investment companies (read by the ranking's quality
+    #: leg since E168 removed the leverage limb). From INVESTMENT_COMPANIES_PATH.
     investment_companies: frozenset[str] = frozenset()
 
     @property
@@ -849,53 +788,20 @@ def load_filter2_config(path: Path = FILTER2_CONFIG_PATH,
         raise Filter2Error(f"{path}: no filter 2 config")
     document = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     limbs = document.get("limbs") or {}
-    for name in (LIMB_FCF, LIMB_LEVERAGE, LIMB_REVENUE):
-        if name not in limbs:
-            raise Filter2Error(f"{path.name}: limb {name!r} is missing")
-
-    leverage = limbs[LIMB_LEVERAGE]
-    revenue = limbs[LIMB_REVENUE]
-    degenerate = leverage.get("non_positive_ebitda") or {}
+    if LIMB_FCF not in limbs:
+        raise Filter2Error(f"{path.name}: limb {LIMB_FCF!r} is missing")
     action = str(document.get("on_missing_action", "pass_through")).lower()
     if action not in ("pass_through", "reject"):
         raise Filter2Error(
             f"{path.name}: on_missing_action must be 'pass_through' or 'reject'"
         )
-    if str(revenue.get("action", "")).upper() not in ("FLAG", "KILL"):
-        raise Filter2Error(f"{path.name}: revenue_trend.action must be FLAG or KILL")
-    # E45: the quarterly rule, and its annual fallback. A config that names
-    # the quarterly rule without a fallback block reads the fallback from
-    # the limb's own keys, so the pre-E45 shape still loads.
-    fallback = revenue.get("annual_fallback") or {}
-    if not isinstance(fallback, Mapping):
-        raise Filter2Error(f"{path.name}: revenue_trend.annual_fallback must be a mapping")
-    fallback_action = str(fallback.get("action", revenue.get("action", "FLAG"))).upper()
-    if fallback_action not in ("FLAG", "KILL"):
-        raise Filter2Error(f"{path.name}: revenue_trend.annual_fallback.action must be FLAG or KILL")
-    window = revenue.get("year_ago_window_days") or [350, 380]
-    if (not isinstance(window, (list, tuple)) or len(window) != 2
-            or int(window[0]) >= int(window[1])):
-        raise Filter2Error(f"{path.name}: revenue_trend.year_ago_window_days must be [low, high]")
 
     return Filter2Config(
         status=str(document.get("status", "PROPOSED")),
         proposed=str(document.get("proposed")) if document.get("proposed") else None,
         fcf_min=float(limbs[LIMB_FCF].get("min", 0.0)),
-        leverage_max=float(leverage["max"]),
-        leverage_na_sectors=frozenset(leverage.get("not_applicable_sectors") or ()),
-        non_positive_ebitda_with_debt=str(degenerate.get("with_net_debt", FAIL)).upper(),
-        non_positive_ebitda_with_cash=str(degenerate.get("with_net_cash", PASS)).upper(),
-        revenue_action=fallback_action,
-        revenue_lookback_years=int(fallback.get("lookback_years",
-                                                revenue.get("lookback_years", 4))),
-        revenue_flag_after=int(fallback.get("flag_when_consecutive_declines",
-                                            revenue.get("flag_when_consecutive_declines", 2))),
         on_missing_action=action,
         raw=document,
-        revenue_quarters=int(revenue.get("quarters", 8)),
-        revenue_kill_after=int(revenue.get("kill_when_consecutive_declines", 2)),
-        revenue_kill_action=str(revenue.get("action", "KILL")).upper(),
-        revenue_year_ago_window=(int(window[0]), int(window[1])),
         investment_companies=(load_investment_companies(investment_companies_path)
                               if investment_companies_path is not None else frozenset()),
     )
@@ -963,205 +869,10 @@ def fcf_limb(record, config: Filter2Config) -> Limb:
     return Limb(LIMB_FCF, FAIL, f"TTM free cash flow {value:,.0f}")
 
 
-#: HOW FAR APART FOUR CONSECUTIVE QUARTER ENDS SIT, first to last, in days:
-#: three quarters, with 52/53-week drift. A wider span means a hole.
-TTM_SPAN_DAYS = (250, 290)
-
-
-def statement_ebitda(record) -> tuple[float | None, str]:
-    """EBITDA as the FILER'S STATEMENTS carry it, for the leverage limb.
-
-    THE FIX OF 2026-08-30 (a bug, not a ruling). The limb read the vendor's
-    `ebitda` INFO FIELD against the vendor's `totalDebt`, which includes
-    lease liabilities. For an IFRS 16 filer the info field sits a median
-    10% BELOW the statement's EBITDA line -- it appears to exclude the
-    depreciation on right-of-use assets -- while for a US GAAP filer the
-    two agree (median -0.2%; measured over 485 stored records,
-    2026-08-26). So an IFRS filer's leases were in the numerator and not
-    in the denominator: AD.AS read 2.98x and was rejected where the
-    consistent pair reads 2.20x. The statement line (EBIT + D&A as the
-    filer prints them) carries the ROU depreciation add-back, and the
-    lease-inclusive debt pairs with it.
-
-    TTM from the four newest quarterly points where they are consecutive
-    (first-to-last span in TTM_SPAN_DAYS) and each carries a D&A add-back
-    (EBITDA != EBIT in the same quarter -- the vendor's quarterly EBITDA
-    line equals EBIT for some filers, a hole); otherwise the newest annual
-    line; otherwise (None, ""), which the limb reports as DATA MISSING with
-    the reason rather than computing a wrong ratio (E4 pass-through).
-    """
-    quarters = (record.quarterly_series("EBITDA")
-                if hasattr(record, "quarterly_series") else [])
-    ebit = dict(record.quarterly_series("EBIT")
-                if hasattr(record, "quarterly_series") else [])
-    if len(quarters) >= 4:
-        last = quarters[-4:]
-        span = (last[-1][0] - last[0][0]).days
-        consecutive = TTM_SPAN_DAYS[0] <= span <= TTM_SPAN_DAYS[1]
-        with_da = all(ebit.get(end) is None or value != ebit.get(end)
-                      for end, value in last)
-        if consecutive and with_da:
-            return sum(value for _, value in last), f"TTM to {last[-1][0].isoformat()}"
-    annual = record.annual_series("EBITDA") if hasattr(record, "annual_series") else []
-    if annual:
-        end, value = annual[-1]
-        return value, f"annual to {end.isoformat()}"
-    return None, ""
-
-
-def leverage_limb(record, config: Filter2Config) -> Limb:
-    if record is None:
-        return Limb(LIMB_LEVERAGE, DATA_MISSING, NOT_FETCHED)
-    if record.ticker in config.investment_companies:
-        # E46: the owner's list decides, never the vendor's string. Checked
-        # first, so Latour reads as what it is whatever the string says.
-        return Limb(LIMB_LEVERAGE, NOT_APPLICABLE,
-                    "investment company (E46 list): net debt over consolidated "
-                    "EBITDA is not the leverage of a holding company")
-    sector = record.text("sector")
-    if sector and sector in config.leverage_na_sectors:
-        # FRAMEWORK Gate 3 excludes financials from this limb. Not a pass,
-        # not a fail, not missing data -- the precedent is FRAMEWORK-EDITS B7.
-        return Limb(LIMB_LEVERAGE, NOT_APPLICABLE,
-                    f"sector {sector}: Gate 3 excludes it from this limb")
-    debt = record.value("totalDebt")
-    cash = record.value("totalCash")
-    # THE PAIR MUST TREAT LEASES THE SAME WAY (fix of 2026-08-30): the
-    # vendor's `totalDebt` includes lease liabilities, so the EBITDA is the
-    # STATEMENT'S line, which carries the ROU depreciation add-back under
-    # IFRS 16 -- never the info field, which for an IFRS filer does not.
-    ebitda, basis = statement_ebitda(record)
-    info = record.value("ebitda")
-    if debt is None or cash is None:
-        return Limb(LIMB_LEVERAGE, DATA_MISSING, "no total debt or total cash reported")
-    net_debt = debt - cash
-    if net_debt <= 0:
-        return Limb(LIMB_LEVERAGE, PASS, f"net cash {-net_debt:,.0f}")
-    if ebitda is None:
-        return Limb(LIMB_LEVERAGE, DATA_MISSING,
-                    f"net debt {net_debt:,.0f} but no EBITDA on the filer's "
-                    f"statements (four consecutive quarters or an annual line); "
-                    f"the vendor's info field "
-                    + (f"{info:,.0f}" if info is not None else "is absent")
-                    + " is not read, because it does not treat leases the way "
-                    "totalDebt does -- a consistent pair cannot be formed")
-    if ebitda <= 0:
-        state = (config.non_positive_ebitda_with_debt if net_debt > 0
-                 else config.non_positive_ebitda_with_cash)
-        return Limb(LIMB_LEVERAGE, state,
-                    f"EBITDA {ebitda:,.0f} ({basis}) not positive, net debt "
-                    f"{net_debt:,.0f}")
-    ratio = net_debt / ebitda
-    state = PASS if ratio <= config.leverage_max else FAIL
-    return Limb(LIMB_LEVERAGE, state,
-                f"net debt/EBITDA {ratio:.2f}x on statement EBITDA {ebitda:,.0f} "
-                f"({basis}); vendor info field "
-                + (f"{info:,.0f}" if info is not None else "absent")
-                + " not read")
-
-
-def _annual_revenue_trend(record, config: Filter2Config, prefix: str) -> Limb:
-    """B9's reading, kept as the FALLBACK: the annual trend, and it FLAGS.
-
-    ``prefix`` says why the quarters could not be read, so the detail names
-    the basis a reader is looking at.
-    """
-    points = record.revenue_series()[-config.revenue_lookback_years:]
-    if len(points) < 2:
-        return Limb(LIMB_REVENUE, DATA_MISSING,
-                    f"{prefix}{len(points)} annual revenue point(s); a trend needs two")
-    declines = 0
-    worst = 0
-    changes = []
-    for (_, previous), (_, current) in zip(points, points[1:]):
-        change = (current - previous) / abs(previous) if previous else None
-        changes.append(change)
-        if change is not None and change < 0:
-            declines += 1
-            worst = max(worst, declines)
-        else:
-            declines = 0
-    shape = ", ".join("--" if c is None else f"{c:+.1%}" for c in changes)
-    if worst >= config.revenue_flag_after:
-        state = FAIL if config.revenue_action == "KILL" else FLAG
-        return Limb(LIMB_REVENUE, state,
-                    f"{prefix}{worst} consecutive annual declines ({shape})")
-    return Limb(LIMB_REVENUE, PASS, f"{prefix}annual change {shape}")
-
-
-def _year_ago(by_end: Mapping[date, float], end: date,
-              window: tuple[int, int]) -> tuple[date, float] | None:
-    """The quarter ending a year before ``end``, by DATE, not by position.
-
-    A hole in the vendor's quarters (#1345) shifts positions; dates do not.
-    Fiscal quarters a year apart sit 350-380 days apart (52/53-week years
-    included), and nothing outside that window is the same quarter.
-    """
-    low, high = window
-    hits = [(e, v) for e, v in by_end.items() if low <= (end - e).days <= high]
-    if not hits:
-        return None
-    return max(hits)
-
-
-def revenue_limb(record, config: Filter2Config) -> Limb:
-    """FRAMEWORK 4.2.1 as written, on the vendor's QUARTERS (E45): two or
-    more consecutive year-on-year declines counted from the newest quarter
-    FAIL the name. The annual series is the FALLBACK where the quarters
-    cannot be read, and there the limb only FLAGS (B9's reading).
-
-    A comparison the quarters cannot form -- no quarter a year before, or a
-    NaN on either side -- is DATA MISSING and BREAKS the run: a kill is
-    never struck across a hole, and never with a zero in it. Fewer than
-    ``revenue_kill_after`` measurable comparisons at the newest end means
-    the quarters are unavailable for the test, and the annual fallback
-    says so.
-    """
-    if record is None:
-        return Limb(LIMB_REVENUE, DATA_MISSING, NOT_FETCHED)
-    quarters = (record.quarterly_series("Total Revenue")
-                if hasattr(record, "quarterly_series") else [])
-    quarters = quarters[-config.revenue_quarters:]
-    if not quarters:
-        return _annual_revenue_trend(
-            record, config, "annual fallback (no quarterly revenue from the vendor): ")
-
-    by_end = dict(quarters)
-    comparisons: list[tuple[date, float | None]] = []
-    for end, value in reversed(quarters):
-        prior = _year_ago(by_end, end, config.revenue_year_ago_window)
-        if prior is None or prior[1] == 0:
-            comparisons.append((end, None))
-        else:
-            comparisons.append((end, (value - prior[1]) / abs(prior[1])))
-
-    measurable = 0
-    run = 0
-    for _, change in comparisons:
-        if change is None:
-            break
-        measurable += 1
-        if change < 0:
-            run += 1
-        else:
-            break
-    shape = ", ".join(
-        f"{end.isoformat()} {'--' if change is None else f'{change:+.1%}'}"
-        for end, change in comparisons
-    )
-    if run >= config.revenue_kill_after:
-        state = FAIL if config.revenue_kill_action == "KILL" else FLAG
-        return Limb(LIMB_REVENUE, state,
-                    f"{run} consecutive quarterly YoY declines from the newest "
-                    f"quarter (4.2.1, E45): {shape}")
-    if measurable < config.revenue_kill_after and run == measurable:
-        # The run reached a hole before it could be judged either way: the
-        # quarters cannot answer, and the annual series is read instead.
-        why = (f"{len(quarters)} quarter(s) stored, {measurable} year-on-year "
-               f"comparison(s) measurable at the newest end: {shape}")
-        return _annual_revenue_trend(
-            record, config, f"annual fallback (quarters unavailable -- {why}): ")
-    return Limb(LIMB_REVENUE, PASS, f"quarterly YoY, newest first: {shape}")
+#: E168 (attempt #25, 2026-11-09): the leverage limb (net debt / EBITDA <=
+#: 2.5x) is removed -- it did not separate returns in both markets and both
+#: halves. The FCF limb stays (not testable: every valued name has a
+#: positive flow).
 
 
 def run_filter2(
@@ -1182,11 +893,7 @@ def run_filter2(
 
     for candidate in candidates:
         record = fundamentals.get(candidate.ticker)
-        limbs = (
-            fcf_limb(record, config),
-            leverage_limb(record, config),
-            revenue_limb(record, config),
-        )
+        limbs = (fcf_limb(record, config),)
         verdict = Assessed(candidate.ticker, limbs)
         assessed[candidate.ticker] = verdict
 
@@ -1219,7 +926,7 @@ def limb_matrix(assessed: Mapping[str, Assessed]) -> dict[str, dict[str, int]]:
     """Per limb: how many PASS, FAIL, DATA MISSING, NOT APPLICABLE, FLAG."""
     states = (PASS, FAIL, DATA_MISSING, NOT_APPLICABLE, FLAG)
     table = {name: {state: 0 for state in states}
-             for name in (LIMB_FCF, LIMB_LEVERAGE, LIMB_REVENUE)}
+             for name in (LIMB_FCF,)}
     for verdict in assessed.values():
         for limb in verdict.limbs:
             table[limb.name][limb.state] = table[limb.name].get(limb.state, 0) + 1

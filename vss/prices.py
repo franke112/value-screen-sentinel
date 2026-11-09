@@ -99,13 +99,6 @@ class FetchOutcome:
     statuses: list[TickerFetch] = field(default_factory=list)
     tally: Tally = field(default_factory=lambda: Tally("price_fetch"))
 
-    def by_status(self) -> dict[str, list[str]]:
-        out: dict[str, list[str]] = {s: [] for s in ALL_STATUSES}
-        for item in self.statuses:
-            out.setdefault(item.status, []).append(item.ticker)
-        return out
-
-
 def batches(tickers: Sequence[str], size: int = BATCH_SIZE) -> list[list[str]]:
     """Split into fixed-size batches, order preserved, no ticker lost."""
     if size < 1:

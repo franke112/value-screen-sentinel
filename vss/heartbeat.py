@@ -150,12 +150,6 @@ class ComponentFailure:
                 + (f". {self.consequence}" if self.consequence else ""))
 
 
-def find_failure(failures: "Sequence[ComponentFailure]",
-                 name: str) -> "ComponentFailure | None":
-    """The failure recorded for ``name``, or None if that component ran."""
-    return next((f for f in failures if f.name == name), None)
-
-
 @dataclass(frozen=True)
 class Coverage:
     """Did a run that reached its end actually cover the list? (D2)

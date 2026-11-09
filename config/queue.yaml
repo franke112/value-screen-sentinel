@@ -8,6 +8,24 @@
 # watchlist's MBP rule (base x E90 cushion by tier); a name with no tier has
 # a LOOK line instead (base x 0.85 for a strike, x 0.75 for machine/rough),
 # which says "strike it properly now", never "buy".
+#
+# portfolio_sek: the securities in the portfolio, from the owner's Avanza
+# kontoöversikt 2026-11-08: 248,476 SEK = shares 62,100 + Avanza Zero
+# 186,376; the buffer on the savings account is NOT in it. For the section 7
+# ceiling (E157: one name at most 6% of it) on every HELD row with shares.
+# WAS 190,000 until 2026-11-08: not the owner's figure but a session's
+# estimate in the ACAD note of 2026-11-02 (commit 830febd): the ~56,454 SEK
+# position taken as a ~30% sleeve, 56,454 / 0.30 = ~188,000 -> "~190k".
+# The core in that base: Avanza Zero alone since 2026-11-04; until then Avanza
+# Zero + Avanza USA (Avanza USA sold in full 2026-11-04, 38,584.74 SEK, with
+# 36,147.72 SEK of Avanza Zero; 74,200 SEK to the buffer account BUFFER-ACCOUNT).
+# Source: Avanza transaktioner 2026-11-08. Hand fields
+# base_cap / bear_cap / bull_cap: a lower value a later ruling gives before
+# the next strike (E154), dropped by this builder once the name is struck
+# again; exit_pending: a sell decided and not yet carried out, reminded weekly;
+# override: the owner set a rule aside for the name {rule, overrides, reason,
+# standing, expires, since}, printed beside the line it touches.
+portfolio_sek: 248476
 names:
 - ticker: ACAD.ST
   kind: strike
@@ -18,10 +36,23 @@ names:
   source: reference/ACAD.ST-STRIKE-2026-10-27-goodwill.md
   status: HELD
   tier: 3
-  stop: 108.1
+  stop: none
   sell_at:
   - price: 150
-    action: halve the position (238 of 476) -- owner 2026-11-04
+    action: halve -- owner 2026-11-04 (the E157 trim is set aside by the owner's override, 2026-11-08)
+  shares: 486
+  entry: 117.75
+  override:
+    rule: owner
+    overrides: E157
+    reason: ägarens val
+    standing: EXPIRY
+    expires: vid nästa ACAD-rapport (Q2 2026/27, 2027-02-01)
+    since: '2026-11-08'
+    accounting: 486 aktier = 60 653 SEK = 24,4 % av 248 476; enligt E157 119 aktier; 367 (45 802 SEK)
+      hade sålts till Avanza Zero
+    counterfactual: watchlist ACAD.ST sales:, 2026-11-06, 367 at 124.80 to Avanza Zero (overrides E157)
+    replaces: exit_pending OPEN (E157 trim, restored by the E160 revert 9cd5588)
 - ticker: ACN
   kind: strike
   ccy: USD
@@ -34,6 +65,11 @@ names:
   stop: null
   gate_until: '2026-10-01'
   gate_event: FY2026 annual results, 2026-10-01
+  base_cap: 240.32
+  base_cap_why: E154 rörelsekapital
+  bear_cap: 144.39
+  bull_cap: 308.33
+  base_cap_since: '2026-11-07'
 - ticker: ALV
   kind: strike
   ccy: USD
@@ -41,9 +77,15 @@ names:
   base: 71.74
   bull: 99.72
   source: reference/ALV-STRIKE-2026-10-27-check.md
-  status: DROPPED
+  status: PIPELINE
   tier: null
   stop: null
+  base_cap: 71.14
+  bear_cap: -18.44
+  bull_cap: 98.94
+  base_cap_why: E166 rörelsekapital
+  base_cap_since: '2026-11-08'
+  cap_binds_both_ways: true
 - ticker: AMAT
   kind: machine
   ccy: USD
@@ -64,6 +106,12 @@ names:
   tier: null
   stop: null
   name: A. O. Smith
+  base_cap: 64.3
+  bear_cap: 38.25
+  bull_cap: 85.49
+  base_cap_why: E166 rörelsekapital
+  base_cap_since: '2026-11-08'
+  cap_binds_both_ways: true
 - ticker: AUTO.L
   kind: strike
   ccy: GBX
@@ -76,6 +124,11 @@ names:
   stop: null
   gate_until: '2026-11-05'
   gate_event: Half-year results 2026-11-05
+  base_cap: 494.49
+  base_cap_why: E154 rörelsekapital
+  bear_cap: 364.54
+  bull_cap: 640.82
+  base_cap_since: '2026-11-07'
 - ticker: AVGO
   kind: machine
   ccy: USD
@@ -106,6 +159,19 @@ names:
   stop: null
   gate_until: '2027-04-27'
   gate_event: Q1 2027 results
+  base_cap: 168.5
+  base_cap_why: E166 rörelsekapital
+  bear_cap: -8.55
+  bull_cap: 219.18
+  base_cap_since: '2026-11-08'
+  cap_binds_both_ways: true
+  correction:
+    since: '2026-11-08'
+    text: 'TITTA ÅTERKALLAD (raden i köns tabell; spärrad till 2027-04-27, aldrig skickad som meddelande).
+      "Deferred merchant bookings and other current liabilities" (kundförskott) saknades i den gamla taggsumman;
+      nu rörelsekapital enligt E166 och E140.1(2). base 204,27 -> 168,50, titta-linje 173,63 -> 143,22;
+      kurs 160,67 (2026-11-06) ligger nu över. reference/run-records/BKNG-2026-11-08-e166.json [beslutat
+      av sessionen 2026-11-08: samma rättelse som ägaren bad om för NVR]'
 - ticker: BOUV.OL
   kind: strike
   ccy: null
@@ -126,10 +192,12 @@ names:
   source: reference/CENTA-STRIKE-2026-10-27-check.md
   status: HELD
   tier: null
-  stop: null
-  sell_at:
-  - price: 40.19
-    action: 'sell the last 2 shares (E145: fails Q1-Q4, a held name is sold at base; limit 40.19 of 2026-10-27)'
+  stop: none
+  shares: 2
+  exit_pending:
+    since: '2026-10-27'
+    why: ägarens exit (146 av 148 sålda 10-27/28 till marknadspris); de 2 sista utan priskrav -- E145:s sälj vid
+      base är borta (E168), beslutet står som ägarens (E169)
 - ticker: CPRT
   kind: strike
   ccy: USD
@@ -140,6 +208,12 @@ names:
   status: INTAKE
   tier: null
   stop: null
+  base_cap: 26.69
+  bear_cap: 18.17
+  bull_cap: 35.46
+  base_cap_why: E166 rörelsekapital
+  base_cap_since: '2026-11-08'
+  cap_binds_both_ways: true
 - ticker: CROX
   kind: strike
   ccy: USD
@@ -150,6 +224,12 @@ names:
   status: DROPPED
   tier: null
   stop: null
+  base_cap: 170.97
+  bear_cap: -18.94
+  bull_cap: 248.9
+  base_cap_why: E166 rörelsekapital
+  base_cap_since: '2026-11-08'
+  cap_binds_both_ways: true
 - ticker: CSCO
   kind: machine
   ccy: USD
@@ -168,7 +248,18 @@ names:
   source: reference/CTSH-STRIKE-2026-10-28-organic.md
   status: HELD
   tier: 3
-  stop: 53.45
+  stop: none
+  base_cap: 58.03
+  base_cap_why: E154.1 rörelsekapital
+  bear_cap: 39.08
+  bull_cap: 68.61
+  shares: 1
+  entry: 58.097
+  exit_pending:
+    since: '2026-10-29'
+    why: tesstopp 4.2.3 (två sänkta prognoser), hela posten, 1 aktie (Avanza 2026-11-08 visar 640 SEK;
+      var 3)
+  base_cap_since: '2026-11-08'
 - ticker: DECK
   kind: strike
   ccy: USD
@@ -203,6 +294,12 @@ names:
   look_at: 142.61
   note: 'Not taken in 2026-10-28 (Gate 1 12.4%, 4.2.3 kill): revisit under 142.61 or after Apr 2027'
   name: D.R. Horton
+  base_cap: 174.93
+  base_cap_why: E166 rörelsekapital
+  bear_cap: 81.61
+  bull_cap: 174.93
+  base_cap_since: '2026-11-08'
+  cap_binds_both_ways: true
 - ticker: EVO.ST
   kind: rough
   ccy: SEK
@@ -226,6 +323,12 @@ names:
   stop: null
   gate_until: '2026-11-09'
   gate_event: Q3 2026 results
+  base_cap: 92.72
+  bear_cap: 34.42
+  bull_cap: 151.9
+  base_cap_why: E166 rörelsekapital
+  base_cap_since: '2026-11-08'
+  cap_binds_both_ways: true
 - ticker: GNTX
   kind: strike
   ccy: USD
@@ -233,11 +336,15 @@ names:
   base: 27.45
   bull: 29.62
   source: reference/GNTX-STRIKE-2026-10-27.md
-  status: WATCH-GATED
+  status: WATCH-PRICED
   tier: null
   stop: null
-  gate_until: '2027-02-01'
-  gate_event: Q4 2026 results
+  base_cap: 27.08
+  bear_cap: 15.49
+  bull_cap: 29.25
+  base_cap_why: E166 rörelsekapital
+  base_cap_since: '2026-11-08'
+  cap_binds_both_ways: true
 - ticker: HIAB.HE
   kind: rough
   ccy: EUR
@@ -269,6 +376,12 @@ names:
   stop: null
   gate_until: '2027-05-07'
   gate_event: Q3 FY2027 (tax season) -- condition 2 of the gate
+  base_cap: 72.8
+  bear_cap: 35.86
+  bull_cap: 96.61
+  base_cap_why: E166 + B7 (FY2020 ett reparerat år, ej cyklisk)
+  base_cap_since: '2026-11-08'
+  cap_binds_both_ways: true
 - ticker: INGR
   kind: machine
   ccy: USD
@@ -330,6 +443,12 @@ names:
   tier: null
   stop: null
   name: Lennox International
+  base_cap: 307.66
+  bear_cap: 91.53
+  bull_cap: 307.66
+  base_cap_why: E166 rörelsekapital
+  base_cap_since: '2026-11-08'
+  cap_binds_both_ways: true
 - ticker: LOPE
   kind: strike
   ccy: USD
@@ -337,9 +456,15 @@ names:
   base: 136.56
   bull: 146.29
   source: reference/LOPE-STRIKE-2026-10-27-check.md
-  status: DROPPED
+  status: INTAKE
   tier: null
   stop: null
+  base_cap: 135.99
+  bear_cap: 4.38
+  bull_cap: 145.71
+  base_cap_why: E166 rörelsekapital
+  base_cap_since: '2026-11-08'
+  cap_binds_both_ways: true
 - ticker: MC.PA
   kind: strike
   ccy: EUR
@@ -350,6 +475,11 @@ names:
   status: WATCH-PRICED
   tier: null
   stop: null
+  base_cap: 311.85
+  base_cap_why: E154.1 rörelsekapital
+  bear_cap: 188.89
+  bull_cap: 317.79
+  base_cap_since: '2026-11-08'
 - ticker: MEKKO.HE
   kind: strike
   ccy: EUR
@@ -362,6 +492,11 @@ names:
   stop: null
   gate_until: '2027-02-11'
   gate_event: FY2026 results
+  base_cap: 9.64
+  base_cap_why: E154.1 rörelsekapital
+  bear_cap: 8.15
+  bull_cap: 14.33
+  base_cap_since: '2026-11-08'
 - ticker: MMS
   kind: machine
   ccy: USD
@@ -384,6 +519,12 @@ names:
   status: DROPPED
   tier: null
   stop: null
+  base_cap: 256.37
+  base_cap_why: E166 rörelsekapital
+  bear_cap: 191.12
+  bull_cap: 288.61
+  base_cap_since: '2026-11-08'
+  cap_binds_both_ways: true
 - ticker: NTAP
   kind: machine
   ccy: USD
@@ -400,11 +541,23 @@ names:
   base: 7682.75
   bull: 7682.75
   source: reference/NVR-STRIKE-2026-10-27-check.md
-  status: WATCH-GATED
+  status: WATCH-PRICED
   tier: null
   stop: null
-  gate_until: '2027-01-28'
-  gate_event: Q4 2026 results
+  base_cap: 7193.71
+  bear_cap: 4783.1
+  bull_cap: 7193.71
+  base_cap_why: E166 rörelsekapital
+  base_cap_since: '2026-11-08'
+  cap_binds_both_ways: true
+  correction:
+    since: '2026-11-08'
+    text: 'TITTA ÅTERKALLAD (raden i köns tabell; spärrad till 2027-01-28, aldrig skickad som meddelande).
+      Rörelsekapitalet omklassat efter bolagets egen sektion i kassaflödesanalysen (E166): bolånerader
+      (E140(1) klarläggande 2) och "Other, net" (under changes-rubriken). base 7 682,75 -> 7 193,71, titta-linje
+      6 530,34 -> 6 114,65; kurs 6 298,29 (2026-11-06) ligger nu över. reference/run-records/NVR-2026-11-08-e166.json'
+  bear_missing: deklarerad cyklisk (husbyggare); historiken 2015-2025 saknar nedgång -- läs in 2006-2011
+    för hand (B7)
 - ticker: OLED
   kind: machine
   ccy: USD
@@ -436,6 +589,12 @@ names:
   tier: null
   stop: null
   name: PepsiCo
+  base_cap: 54.3
+  base_cap_why: E166 rörelsekapital
+  bear_cap: 42.66
+  bull_cap: 71.82
+  base_cap_since: '2026-11-08'
+  cap_binds_both_ways: true
 - ticker: PHM
   kind: machine
   ccy: USD
@@ -454,7 +613,7 @@ names:
   base: 903.81
   bull: 933.93
   source: reference/PNDORA.CO-STRIKE-2026-10-27-check.md
-  status: DROPPED
+  status: WATCH-GATED
   tier: null
   stop: null
 - ticker: QLYS
@@ -529,6 +688,12 @@ names:
   stop: null
   gate_until: '2027-07-29'
   gate_event: Q2 2027 results
+  base_cap: 76.15
+  bear_cap: 37.33
+  bull_cap: 76.15
+  base_cap_why: E166 rörelsekapital
+  base_cap_since: '2026-11-08'
+  cap_binds_both_ways: true
 - ticker: TPR
   kind: strike
   ccy: null
@@ -550,6 +715,12 @@ names:
   status: INTAKE
   tier: null
   stop: null
+  base_cap: 608.43
+  bear_cap: 82.07
+  bull_cap: 608.43
+  base_cap_why: E166 rörelsekapital
+  base_cap_since: '2026-11-08'
+  cap_binds_both_ways: true
 - ticker: UMG.AS
   kind: rough
   ccy: EUR

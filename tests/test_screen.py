@@ -245,7 +245,7 @@ def test_filter1_report_carries_the_yield_table_with_both_columns(
     # E127 adds the trailing-year step after the band.
     assert steps[-8:] == ["exclusion_list", "circle_of_competence",
                           "commodity_price", "price_coverage", "listing_age",
-                          "series_sanity", "dislocation", "trailing_year"]
+                          "series_sanity", "high_52w", "trailing_year"]
 
 
 def test_filter1_names_an_inert_exclusion_entry(universe: Path, tmp_path: Path,
@@ -321,8 +321,8 @@ def test_a_snapshot_taken_during_the_session_demotes_todays_bar(
 def test_a_snapshot_taken_after_the_close_reads_todays_bar(
         universe: Path, tmp_path: Path, exclusions: Path):
     """The complement: the 22:17 CEST snapshot (16:17 New York) has every
-    close settled, and the same series is priced at the 90 print, which is a
-    10% drawdown and OUTSIDE the band -- the name is rejected on value."""
+    close settled, and the same series is priced at the 90 print, a 10%
+    drawdown -- E161: no band, so the name passes on the settled print."""
     screen.snapshot_only(
         as_of=AS_OF, universe_dir=universe, snapshot_root=tmp_path / "snaps",
         download=downloader({"VOLV-B.ST": _live_print()}), sleep=lambda _: None,
@@ -333,9 +333,8 @@ def test_a_snapshot_taken_after_the_close_reads_todays_bar(
         exclusions_path=exclusions, runs_root=tmp_path / "runs",
     )
     assert run.settled == AS_OF
-    assert run.result.candidates == []
-    rejected = [r for r in run.result.rejections if r.key == "VOLV-B.ST"]
-    assert rejected and "10.0%" in rejected[0].reason
+    (volvo,) = run.result.candidates
+    assert volvo.last_close == 90.0 and volvo.drawdown == pytest.approx(0.10)
     assert "settled through 2026-08-21" in run.report
 
 
@@ -523,7 +522,7 @@ def test_filter2_report_states_the_decided_thresholds_and_their_source(chain):
     )
     assert "[DECIDED]" in run.report
     assert "FRAMEWORK-EDITS E2, E3, E4" in run.report
-    assert "3.5x" in run.report
+    assert "E168 removed the net debt / EBITDA limb" in run.report
     assert "It has failed" in run.report and "to fail it" in run.report
 
 
@@ -586,7 +585,7 @@ def test_the_yield_report_gains_a_filter2_row(chain):
     # sharing one would be indistinguishable in the funnel.
     assert steps[-9:] == ["exclusion_list", "circle_of_competence",
                           "commodity_price", "price_coverage", "listing_age",
-                          "series_sanity", "dislocation", "trailing_year",
+                          "series_sanity", "high_52w", "trailing_year",
                           "filter2"]
     assert "filter2" in run.report
 
@@ -609,7 +608,7 @@ def test_rank_produces_two_sections_and_saves_the_full_list(chain, tmp_path: Pat
     text = run.ranking_path.read_text(encoding="utf-8")
     header, *rows = text.splitlines()
     assert header.startswith("section,combined_rank,quality_rank,ey_rank,ticker")
-    assert "TOP 20 -- RANKED ON BOTH COMPONENTS" in run.report
+    assert "FIRST 20 IN A SEEDED RANDOM ORDER (E167" in run.report
     assert "EARNINGS YIELD ONLY" in run.report
 
     # Every saved row carries its market. The full list is the deliverable;
@@ -938,8 +937,6 @@ def test_a_broken_universe_exits_with_a_code_not_a_traceback(tmp_path: Path):
 
 
 def test_framework_constants_are_imported_from_rules_never_redefined():
-    assert screen.DISLOCATION_MIN is rules.DISLOCATION_MIN
-    assert screen.DISLOCATION_MAX is rules.DISLOCATION_MAX
     assert screen.MAX_CLOSE_AGE_TRADING_DAYS is rules.MAX_CLOSE_AGE_TRADING_DAYS
     for name in SCREENER_MODULES:
         source = Path(name).read_text(encoding="utf-8")

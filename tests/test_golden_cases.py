@@ -600,7 +600,8 @@ def test_G13_tagged_fact_VERIFIED():
     assert M.VERIFIED_KINDS == ("tagged", "cross_document", "same_page",
                                 "caption_statement",   # E78 added the fourth
                                 "machine_read_back",   # E131 the fifth
-                                "two_source")          # E151 the sixth
+                                "two_source",          # E151 the sixth
+                                "tied_statement")      # E166 the seventh
     assert "VERIFIED (tagged)" in M.render_report(parsed, gate)
 
 
@@ -1046,7 +1047,8 @@ def test_phase_5_wrote_its_printout_and_NOT_the_watchlist():
     # shares at 114.40), with the bull the HELD rule requires.
     assert [e.ticker for e in entries.values() if e.status == "HELD"] == ["CTSH", "ACAD.ST", "CENTA"]
     assert entries["ACAD.ST"].fv_bull == 181.95
-    assert entries["CTSH"].stop_price == 53.45 and entries["CTSH"].fv_bull == 109.95   # the method-check record's bull, 2026-10-27 (E142: 109.81) (E140: 72.41, E117: 104.66)
+    assert entries["CTSH"].stop_price is None   # E162 nulled it (was 53.45)
+    assert entries["CTSH"].fv_bull == 109.95   # the method-check record's bull, 2026-10-27 (E142: 109.81) (E140: 72.41, E117: 104.66)
     assert entries["CRUS"].status == "DROPPED"
 
 

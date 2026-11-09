@@ -14,14 +14,23 @@ THE TRANSLATION (each a deliberate choice, named):
   (Revenues, OperatingIncomeLoss, NetIncomeLoss, NetCash...OperatingActivities,
   PaymentsToAcquirePropertyPlantAndEquipment, Assets, StockholdersEquity,
   Goodwill, CashAndCashEquivalentsAtCarryingValue, ...); the unit is labelled
-  USD for the engine but is the issuer's own currency, and so is the price,
-  so every per-share value and ratio is in one currency;
+  USD for the engine but is the TRADING currency: every figure is converted
+  from its own report's `currency_symbol` (EVO reports EUR, EQNR USD, MOWI
+  EUR; one in seven Nordic files) at the rate on the day it became known,
+  so every per-share value and ratio is in the price's currency. A row with
+  no currency takes the nearest-dated row's that has one; a label switch
+  the revenue does not bear out is overruled by the later label
+  (`correct_labels`: EODHD often stamps old periods with the trading
+  currency); a switch that fits neither reading, a file with no currency
+  at all, or a figure whose rate is missing, does not enter (refused,
+  never assumed). Before 2026-11-07 nothing was converted -- the independent
+  review's K1 (reference/reviews/method/2026-11-07-OBEROENDE-GRANSKNING.md);
 - working capital: EODHD's `changeInWorkingCapital` IS the cash effect, so
   `IncreaseDecreaseInOperatingCapital` = minus it;
 - DEBT INCLUDES LEASES (`shortLongTermDebtTotal`): under IFRS 16 the lease
   principal is a FINANCING flow, so rent is NOT in the operating cash flow
   and the lease liability is debt -- the opposite case to E117's US one;
-  checked on one held name against the borrowings its ESEF package tags.
+  checked on ACAD.ST: total less leases = 2,656m, the borrowings its ESEF
   package tags;
 - tax: the country's statutory rate (valuation.STATUTORY_TAX_RATE), not M3's
   US one;
@@ -36,7 +45,7 @@ chose from, not the S&P 500. Delisting: the `bust` policy of
 `eodhd_reprice` (a collapse before delisting is a total loss).
 
 A STOP VARIANT is written beside it: `returns_stop8` exits at the first close
-8% below the entry (a typical stop distance).
+8% below the entry (ACAD's 108.10 under 117.50 is that distance).
 """
 from __future__ import annotations
 
@@ -67,7 +76,7 @@ SYMBOLS = ROOT / "data" / "eodhd" / "symbols.csv"     # vss's own copy (2026-11-
 OUT = ROOT / "data" / "backtest" / "nordic"
 NORDIC = ("ST", "OL", "CO", "HE")
 TEST_DATES = tuple(date(y, 4, 30) for y in range(2010, 2022))
-#: THE LOCK (the private pre-registration): dates
+#: THE LOCK (reference/backtest/PREREG-NORDIC-CONFIRM-2026-11-07.md): dates
 #: from here on are the CONFIRMATION, run once, with --confirm, into their
 #: own directory; a second run is refused.
 CONFIRM_FROM = date(2022, 1, 1)
@@ -77,6 +86,8 @@ SIZE_MIN_USD = 300e6
 STOP = 0.08
 COUNTRY = {"ST": "SE", "OL": "NO", "CO": "DK", "HE": "FI"}
 FX_TICKER = {"SEK": "SEKUSD=X", "NOK": "NOKUSD=X", "DKK": "DKKUSD=X", "EUR": "EURUSD=X"}
+#: currencies fixed to the euro (old Finnish reports are in markka)
+EUR_FIXED = {"FIM": 5.94573}
 EXCLUDED_GICS = ("Financials", "Real Estate")
 EXCLUDED_SECTORS = ("Financial Services", "Real Estate")   # EODHD's own; banks often carry no GICS
 #: IFRS 16: rent is NOT in the operating cash flow and EODHD gives no lease
@@ -139,12 +150,175 @@ def _num(v):
         return None
 
 
-def facts_from_eodhd(symbol: str, d: dict) -> dict:
-    """EODHD statements as companyfacts: each entry FILED on its known date."""
+def report_currencies(d: dict) -> dict[str, str]:
+    """period end -> the currency its statements are in; a period with no
+    `currency_symbol` takes the nearest-dated period's that has one."""
+    stated: dict[str, str] = {}
+    ends: set[str] = set()
+    for statement in ("Income_Statement", "Cash_Flow", "Balance_Sheet"):
+        for freq in ("yearly", "quarterly"):
+            for pe, e in (((d.get("Financials") or {}).get(statement) or {}).get(freq) or {}).items():
+                if not isinstance(e, dict):
+                    continue
+                ends.add(pe)
+                c = e.get("currency_symbol")
+                if c:
+                    stated.setdefault(pe, c)
+    if not stated:
+        return {}
+    keyed = sorted(stated)
+    out = {}
+    for pe in ends:
+        if pe in stated:
+            out[pe] = stated[pe]
+        else:
+            near = min(keyed, key=lambda k: abs((date.fromisoformat(k) - date.fromisoformat(pe)).days))
+            out[pe] = stated[near]
+    return out
+
+
+#: a label switch is believed only if converting makes the revenue series
+#: at least this much smoother (in log terms) than leaving it as printed
+SWITCH_EVIDENCE = 0.5
+#: the walk back for the REAL switch (ATTEMPTS #14) looks only between
+#: currencies at least this far apart (NOK or SEK against EUR or USD)
+SWITCH_FLOOR_RATE = 3.0
+
+
+def correct_labels(d: dict, currency_of: dict[str, str], fx) -> tuple[dict[str, str], list[str], str | None]:
+    """EODHD's `currency_symbol` is not always right: older periods are often
+    labelled in the TRADING currency while the figures are in the reporting
+    one (Stora Enso's 2019-23 euro figures read SEK, Var Energi's and
+    Maersk's dollar figures NOK/DKK, Ericsson's kronor EUR on Helsinki). So
+    every switch of label between consecutive periods (yearly, then
+    quarterly revenue, newest first) must show in the figures: converted at
+    the switch, the series must be clearly smoother than as printed. A
+    switch the figures do not bear out means the currency did NOT change,
+    and the LATER label -- the one the vendor has kept current -- is carried
+    back. Switches between currencies within 25% of each other (SEK/NOK)
+    cannot be told apart and stand as labelled. A switch whose figures fit
+    NEITHER reading (a merger in the same year, a broken vendor row) is a
+    refusal of the whole file. Returns the corrected map, a note per
+    relabelling, and the refusal or None."""
+    import math
+    out = dict(currency_of)
+    notes: list[str] = []
+    inc = (d.get("Financials") or {}).get("Income_Statement") or {}
+    # quarterly FIRST (2026-11-08): a currency change falls inside a fiscal
+    # year (Tomra: between Q3 and Q4 2024), which only the quarters can place
+    for freq in ("quarterly", "yearly"):
+        series = []
+        for pe, e in sorted((inc.get(freq) or {}).items()):
+            v = _num(e.get("totalRevenue")) if isinstance(e, dict) else None
+            if v and v > 0 and pe in out:
+                series.append((pe, v))
+        for i in range(len(series) - 1, 0, -1):
+            (p0, v0), (p1, v1) = series[i - 1], series[i]
+            c0, c1 = out[p0], out[p1]
+            if c0 == c1:
+                continue
+            k = fx(c1, c0, date.fromisoformat(p1))
+            if k is None or abs(math.log(k)) < math.log(1.25):
+                continue
+            raw = abs(math.log(v1 / v0))
+            conv = abs(math.log(v1 * k / v0))
+            step = abs(math.log(k))
+            if raw - conv >= SWITCH_EVIDENCE * step:
+                continue                                  # borne out: a real switch
+            if raw < SWITCH_EVIDENCE * step:              # continuous as printed: one currency
+                # DEFECT FIX 2026-11-08 (wrez-devour, ATTEMPTS #14): carry the
+                # later label back only as far as the figures stay in it. Walk
+                # back over the periods still labelled c0; where the revenue
+                # itself jumps by about the rate (converted, it is smooth), the
+                # company really changed currency THERE, under one label --
+                # Tomra: NOK to EUR for 2024 (14,756 -> 1,348), both labelled
+                # NOK, then EUR from 2025. Before this, the EUR label was
+                # carried over all of Tomra's NOK years (x8-11).
+                floor = ""
+                for j in range(i - 1, 0, -1):
+                    (q0, w0), (q1, w1) = series[j - 1], series[j]
+                    if out[q1] != c0:
+                        floor = q1                        # the run of c0 labels ends here
+                        break
+                    if out[q0] != c0:
+                        floor = q0
+                        break
+                    kj = fx(c1, c0, date.fromisoformat(q1))
+                    if kj is None or abs(math.log(kj)) < math.log(SWITCH_FLOOR_RATE):
+                        continue      # NOK/DKK, SEK/NOK: a switch cannot be told from a season
+                    if (abs(math.log(w1 / w0)) - abs(math.log(w1 * kj / w0))
+                            < SWITCH_EVIDENCE * abs(math.log(kj))):
+                        continue
+                    # the new level must HOLD: the median of up to three
+                    # periods each side differs by about the rate (one noisy
+                    # quarter of an investment company is not a switch -- VNV)
+                    before = statistics.median(v for _, v in series[max(0, j - 3):j])
+                    after = statistics.median(v for _, v in series[j:min(i + 1, j + 3)])
+                    if abs(math.log(before / (after * kj))) < SWITCH_EVIDENCE * abs(math.log(kj)) \
+                            and abs(math.log(before / after)) >= SWITCH_EVIDENCE * abs(math.log(kj)):
+                        floor = q0                        # the real switch: after q0
+                        break
+                for pe in out:
+                    if floor < pe <= p0 and out[pe] == c0:
+                        out[pe] = c1
+                notes.append(f"{c0} label before {p1} read as {c1} (revenue {v0:,.0f} -> {v1:,.0f})"
+                             + (f", back to the real switch after {floor}" if floor else ""))
+                continue
+            return out, notes, (f"label {c0}->{c1} at {p1}: revenue {v0:,.0f} -> {v1:,.0f} "
+                                f"fits neither one currency nor the switch")
+    return out, notes, None
+
+
+def fx_factor(frm: str, to: str, day: date) -> float | None:
+    """Units of `to` per unit of `frm` on `day` (None if a rate is missing)."""
+    peg = 1.0
+    if frm in EUR_FIXED:
+        frm, peg = "EUR", peg / EUR_FIXED[frm]
+    if to in EUR_FIXED:
+        to, peg = "EUR", peg * EUR_FIXED[to]
+    if frm == to:
+        return peg
+    a, b = fx_usd(frm, day), fx_usd(to, day)
+    return peg * a / b if a and b else None
+
+
+#: (symbol, why) of every file or figure refused for want of a currency/rate
+CURRENCY_REFUSED: list[tuple[str, str]] = []
+#: (symbol, note) of every currency label the figures overruled
+RELABELLED: list[tuple[str, str]] = []
+
+
+def quarter_start(end: date) -> date:
+    """The first day of the three months ending `end`. DEFECT FIX
+    2026-11-08 (ATTEMPTS #17): the start was `(end.replace(day=1) - 62
+    days).replace(day=1)`, right only for September (Jul 1 - Sep 30); Q4,
+    Q1 and Q2 spanned ~120 days, `xbrl.build_quarters` (80-100 days) dropped
+    them, and every Nordic quarterly kill was read on Q3s alone."""
+    m, y = end.month - 2, end.year
+    if m <= 0:
+        m, y = m + 12, y - 1
+    return date(y, m, 1)
+
+
+def facts_from_eodhd(symbol: str, d: dict, fx=None) -> dict:
+    """EODHD statements as companyfacts: each entry FILED on its known date,
+    in the TRADING currency (`fx(frm, to, day)`, default `fx_factor`)."""
+    fx = fx or fx_factor
     hist = (d.get("Earnings") or {}).get("History") or {}
     report_of = {v.get("date"): v.get("reportDate") for v in hist.values() if isinstance(v, dict)}
     gaap: dict = {}
     dei: dict = {}
+    trading = (d.get("General") or {}).get("CurrencyCode") or ""
+    currency_of = report_currencies(d)
+    if not currency_of or not trading:
+        CURRENCY_REFUSED.append((symbol, "no reporting or trading currency in the file"))
+        return {"facts": {"us-gaap": gaap, "dei": dei}}
+    currency_of, notes, problem = correct_labels(d, currency_of, fx)
+    if problem:
+        CURRENCY_REFUSED.append((symbol, problem))
+        return {"facts": {"us-gaap": gaap, "dei": dei}}
+    RELABELLED.extend((symbol, n) for n in notes)
+    missing_rate: set[str] = set()
 
     def put(tag, unit, entry):
         gaap.setdefault(tag, {"units": {}})["units"].setdefault(unit, []).append(entry)
@@ -162,29 +336,36 @@ def facts_from_eodhd(symbol: str, d: dict) -> dict:
                     continue
                 end = date.fromisoformat(pe)
                 start = (PL.years_after(end, -1) + timedelta(days=1)
-                         if months == 12 else
-                         (end.replace(day=1) - timedelta(days=62)).replace(day=1))
+                         if months == 12 else quarter_start(end))
+                k = fx(currency_of[pe], trading, date.fromisoformat(known))
+                if k is None:
+                    missing_rate.add(currency_of[pe])
+                    k_ok = False
+                else:
+                    k_ok = True
                 base = {"end": pe, "filed": known, "form": form,
                         "fp": "FY" if months == 12 else "Q", "accn": f"eodhd-{symbol}-{freq}-{pe}"}
                 for field, tag in mapping.items():
                     v = _num(e.get(field))
-                    if v is None:
+                    if v is None or not k_ok:
                         continue
                     if tag in POSITIVE:
                         v = abs(v)
-                    entry = dict(base, val=v)
+                    entry = dict(base, val=v * k)
                     if kind == "dur":
                         entry["start"] = start.isoformat()
                     put(tag, "USD", entry)
-                if statement == "Cash_Flow":
+                if statement == "Cash_Flow" and k_ok:
                     cwc = _num(e.get("changeInWorkingCapital"))
                     if cwc is not None:
-                        put(M.WC_WHOLE, "USD", dict(base, val=-cwc, start=start.isoformat()))
+                        put(M.WC_WHOLE, "USD", dict(base, val=-cwc * k, start=start.isoformat()))
                 if statement == "Balance_Sheet":
                     sh = _num(e.get("commonStockSharesOutstanding"))
                     if sh:
                         dei.setdefault("EntityCommonStockSharesOutstanding", {"units": {}})[
                             "units"].setdefault("shares", []).append(dict(base, val=sh))
+    for c in sorted(missing_rate):
+        CURRENCY_REFUSED.append((symbol, f"no {c}->{trading} rate for some figures (those left out)"))
     return {"facts": {"us-gaap": gaap, "dei": dei}}
 
 
@@ -200,7 +381,7 @@ DUP_WINDOW = 60          # trading days of returns compared for a duplicate
 
 
 def return_signature(f, day: date) -> tuple | None:
-    """CORRECTION 8 (2026-11-07, logged in the private attempt log): the last DUP_WINDOW daily
+    """CORRECTION 8 (2026-11-07, ATTEMPTS #5): the last DUP_WINDOW daily
     returns before `day`, rounded. Two tickers with the same signature are
     ONE security listed twice (a renamed or re-registered ticker); compared
     on RETURNS, not levels, since two copies may be split-adjusted apart
@@ -218,10 +399,10 @@ def splits(f) -> list[tuple[str, float]]:
     """(date, k) for every share split in the price file: the printed close
     jumps against the adjusted one by a near-whole factor (2:1 -> k 2,
     1:10 reverse -> k 0.1). A jump that is no whole factor -- a spin-off
-    (a spin-off adjusts the price by a non-whole factor) -- changes no share count and is not one."""
+    (Atlas Copco's Epiroc, 0.73) -- changes no share count and is not one."""
     ratio = f["close"] / f["adjusted_close"]
     jump = ratio / ratio.shift(1)
-    # CORRECTION 5 (2026-11-07, logged in the private attempt log): EODHD rounds adjusted_close to
+    # CORRECTION 5 (2026-11-07, ATTEMPTS #5): EODHD rounds adjusted_close to
     # four decimals, so where it is small the ratio is rounding noise and
     # "jumps" (DonkeyInvestor). A jump is read only where the adjusted close
     # is at least SPLIT_NOISE_FLOOR on both days.
@@ -241,8 +422,8 @@ def splits(f) -> list[tuple[str, float]]:
 def shares_known(facts: dict, day: date, f=None) -> float | None:
     """The newest share count known before `day`, ON THE DAY'S SHARE BASIS.
 
-    EODHD restates share counts for later splits (a 4:1 split shows up as four
-    times the shares in every earlier period). Per split
+    EODHD restates share counts for later splits (Atlas Copco 2016: 4,862m on
+    today's basis against ~1,215m then; Novo Nordisk the same). Per split
     after `day`, the series itself decides: if the count jumps by about k
     across the split, it is as reported and is left; if it does not, it is
     restated and is divided by k."""
@@ -273,9 +454,9 @@ _FX: dict = {}
 def fx_usd(currency: str, day: date) -> float | None:
     if currency == "USD":
         return 1.0
-    t = FX_TICKER.get(currency)
-    if t is None:
+    if not currency or not currency.isalpha():
         return None
+    t = FX_TICKER.get(currency, f"{currency}USD=X")
     if t not in _FX:
         _FX[t] = PL.prices(t)
     got = PL.close_on(_FX[t], day) if _FX[t] is not None else None
@@ -285,7 +466,12 @@ def fx_usd(currency: str, day: date) -> float | None:
 def stop_return(f, start: date, end: date) -> float | None:
     """Exit at the first close 8% below the entry close; else held to the end."""
     a = EP.on(f, start, "close")
-    if a is None:
+    if a is None or EP.level_breaks(f, start - timedelta(days=EP.BREAK_GAP_DAYS), start):
+        return None
+    brk = EP.level_breaks(f, start, end)
+    if brk:
+        f = f[f.index < brk[0]]       # review 2026-11-08 M2: the company ended at the break
+    if EP.suspect_days(f, start, end):
         return None
     window = f[(f.index > start.isoformat()) & (f.index <= end.isoformat())]
     hit = window[window["close"] <= a[1] * (1 - STOP)]
@@ -393,9 +579,13 @@ def main(argv=None) -> int:
     ap.add_argument("--date", action="append", type=date.fromisoformat)
     ap.add_argument("--confirm", action="store_true",
                     help="THE one pre-registered confirmation run (2022-04-30, 2023-04-30)")
+    ap.add_argument("--out", type=Path, default=None,
+                    help="another output directory for a development run (never the confirmation)")
     a = ap.parse_args(argv)
     dates = list(CONFIRM_DATES) if a.confirm else (a.date or list(TEST_DATES))
-    out_dir = CONFIRM_OUT if a.confirm else OUT
+    if a.confirm and a.out:
+        raise SystemExit("the confirmation writes only to its own directory")
+    out_dir = CONFIRM_OUT if a.confirm else (a.out or OUT)
     if not a.confirm and any(d >= CONFIRM_FROM for d in dates):
         raise SystemExit("dates from 2022 on are the locked confirmation: only --confirm, once")
     if a.confirm and CONFIRM_OUT.exists() and any(CONFIRM_OUT.glob("*.jsonl")):
@@ -413,6 +603,7 @@ def main(argv=None) -> int:
                   f"{sum(1 for r in ok if V.passes_quality(r))} pass Q1-Q4", flush=True)
         for dup in DUPLICATES:
             print(f"duplicate (identical returns): {dup}", flush=True)
+        print(f"currency: {len(CURRENCY_REFUSED)} refusals, {len(RELABELLED)} labels overruled", flush=True)
     finally:
         M.tax_for = tax
     return 0

@@ -30,6 +30,32 @@ inte är programmerare men som fattar besluten.
 - Ingen reflexmässig enighet och ingen reflexmässig kritik. Det som är bra
   ska också sägas, med skälet.
 
+## Vad som räknas som ett fynd -- och när granskningen är klar (2026-11-09)
+
+Ägaren, 2026-11-09: varje granskning hittar något, vi fixar, nästa hittar
+något nytt, och det loopar. Ett stort system har alltid något att anmärka
+på. Därför:
+
+- **Avgränsning.** Granska det som ändrats sedan förra granskningen i
+  `reference/reviews/method/` (`git log` sedan dess), plus kedjan som det
+  ändrade bär. Inte hela systemet igen, om inte ägaren ber om det.
+- **Ett FYND är bara** något som, med en körning som bevis, kan
+  1. ändra ett köp, ett sälj eller en hållning,
+  2. flytta ett värde (fv, bear, bull, MBP) mer än 2 %,
+  3. få ett larm att utebli, gå fel eller bli brus, eller
+  4. låta en siffra utan källa nå ett beslut.
+- **Allt annat** (namn, ordval, dokument, kodstil, teoretiska risker utan
+  ett verkligt namn som drabbas) går i en kort lista **"Smått, inget
+  beslut påverkas"** sist i rapporten. Det räknas inte som fynd och skickas
+  inte till ägaren.
+- **"Inga väsentliga fynd" är ett giltigt och väntat resultat.** Skriv det
+  rakt ut när det är så. Leta inte vidare för att ha något att visa.
+- **En efterhandsanalys är aldrig ett fynd om en regel.** Den kan bara bli
+  ett förregistrerat försök i `reference/backtest/ATTEMPTS.md`.
+- **Varje fynd har en färdig åtgärd** som nästa session kan göra utan att
+  fråga, eller en enda fråga till ägaren. Ägaren får aldrig en lista att
+  tänka ut åtgärder till.
+
 ## Det du granskar
 
 Kedjan från data till köpbeslut, och koden som bär den:
@@ -49,12 +75,12 @@ Kedjan från data till köpbeslut, och koden som bär den:
    utspädning, källskatt)? Räkna om fv för minst tre riktiga namn i
    `config/manual/` för hand och jämför med verktyget.
 3. **Reglerna** -- `reference/FRAMEWORK.md` och de 150+ besluten i
-   `reference/FRAMEWORK-EDITS.md`. Motsäger de varandra? Har de blivit så
+   `reference/archive/FRAMEWORK-EDITS-2026-11-08.md` (arkivet; FRAMEWORK.md är sedan 2026-11-08 två sidor). Motsäger de varandra? Har de blivit så
    många att metoden anpassats i efterhand till enskilda bolag? Vilka beslut
    flyttade ett utfall åt rätt håll för ett bolag som redan ägdes eller
    övervägdes? Är "E141 -- sessionen beslutar" en risk?
 4. **Grindar, köpregel, stopp och storlek** -- `docs/manual/`,
-   `tools/playbook/`, `config/watchlist.yaml`, `vss/queue.py`,
+   `vss/review_steps.py`, `config/watchlist.yaml`, `vss/queue.py`,
    `vss/watch.py`. MBP, nivåer, stopp, positionsstorlek. Stämmer reglerna
    med vad backtesten säger om stopp och köpregeln?
 5. **Screenern** -- `vss/screen.py`, `vss/ranking.py`, `vss/filters.py`,
@@ -63,12 +89,11 @@ Kedjan från data till köpbeslut, och koden som bär den:
 6. **Backtesten** -- `tools/backtest/` (pit, method, run, measure,
    eodhd_reprice, nordic, confirm_nordic) och `reference/backtest/`.
    Point-in-time på riktigt? Avnoterade med? Felkurser och återanvända
-   tickers (ett känt fall i den privata datan: ett bolag som bytte ticker
-   gav en orimlig avkastning och klarade ändå floatkontrollen)? Jämförelseindex
-   rätt (totalavkastning)? Försöksloggen, förregistreringen och resultaten
-   från de EODHD-baserade testen är PRIVATA (licensen) och finns inte här --
-   granska koden och de slutsatser README beskriver i ord, och säg vad som
-   inte går att pröva utan datan.
+   tickers (ett känt fall: COH.US ger +4 200 % och klarar floatkontrollen)?
+   Jämförelseindex rätt (totalavkastning)? Hur många försök kostade
+   resultaten (`reference/backtest/ATTEMPTS.md`)? Höll förregistreringen
+   (`PREREG-...`, `RESULT-...`)? Stöder resultaten det verktyget används
+   till i dag?
 7. **Kodkvalitet** -- tester som bara låser in dagens tal i stället för att
    pröva logiken; tysta `except`; fail-closed eller inte; timers och vad som
    händer när en körning misslyckas; säkerhet (nycklar, `~/.config`).
@@ -87,10 +112,8 @@ förlorat om sessionen blir lång.
   uppslag men läs HELA utdata när du jagar fel). Underagenter: högst 2-3,
   Sonnet på medium eller lägre, bara för att hämta och läsa -- bedömningen
   gör du själv.
-- **EODHD-data finns inte i den här publika kopian** (privat licens). De
-  verktyg som behöver den (`tools/fetch_eodhd.py`, `tools/backtest/nordic.py`,
-  `tools/nordic_screen.py`) granskas som kod; hämta inte EODHD-data med någon
-  annans nyckel.
+- **EODHD-data är privat** (`data/eodhd/`): använd den, men publicera eller
+  kopiera aldrig något ur den utanför den privata repot.
 - Testsviten: `.venv/bin/python -m pytest -q` (cirka 4 minuter). `vss
   doctor` för miljön.
 - Om något är oklart enligt reglerna eller kräver ägarens omdöme: skriv det
@@ -98,8 +121,7 @@ förlorat om sessionen blir lång.
 
 ## Leverans
 
-Skriv `reference/reviews/method/<dagens datum>-OBEROENDE-GRANSKNING.md`
-(den publika kopian -- inga personuppgifter, inga kontonummer):
+Skriv `reference/reviews/method/<dagens datum>-OBEROENDE-GRANSKNING.md`:
 
 1. **Sammanfattning** (högst 15 rader): går det att lita på att verktyget
    tar fram köpvärda aktier? De tre allvarligaste fynden.

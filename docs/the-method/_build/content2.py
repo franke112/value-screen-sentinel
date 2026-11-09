@@ -1,4 +1,4 @@
-"""Part Two — the machine. Chapters 13 to 23.
+"""Part Two — the machine. Chapters 13 to 24.
 
 Same pedagogy as Part One: plain version first, the technical word once,
 after it. Every fact about the system is read from the repository: the unit
@@ -483,6 +483,55 @@ chapter(
 )}
 """,
     [("The overview page generator and its rulings", "repo: vss/overview.py; vss/render.py; reference/FRAMEWORK-EDITS.md F1, F2")],
+)
+
+# ---------------------------------------------------------------------------
+# 22. WHAT THE TESTS REMOVED (added 2026-11-09)
+# ---------------------------------------------------------------------------
+N = Notes()
+chapter(
+    "tested", "What the tests removed",
+    "Every mechanical rule in the method was tested on history, with the test written down before it ran. Most did not hold, and were taken out of the code. This is how that was done, and what is left.",
+    8, True,
+    f"""
+<p>Everything in the chapters before this one was built from books, papers and careful reasoning. That is how most investment methods are built, and it is not evidence. In November 2026 the method was put on trial: twenty-six attempts on history, each one registered before it ran, every result logged, the failures too.</p>
+
+<h2>The rules of the trial</h2>
+<p>A test was written down first: what is claimed, which data, exactly what is measured, the bar, and what happens to the rule on either outcome. Then it ran once.{N.ref("The attempt log, reference/backtest/ATTEMPTS.md in the private repository, one commit per registration ahead of the commit with its result. The public summary is reference/backtest/WHAT-WE-TESTED.md.")} A rule counted as holding only if it helped in <em>both</em> markets, the Nordics and the US, <em>and</em> in both halves of each period. From the last round it also had to beat what a thousand random relabellings of the same names give. Every look was counted, because after fifty tries one pass is what chance produces.{N.ref("Harvey, Liu and Zhu, '... and the Cross-Section of Expected Returns', Review of Financial Studies 29 (2016): with many tests, a t-statistic above 3.")}</p>
+{N.flush()}
+
+<p>The history ran from 2016 to 2020 in the US and 2010 to 2021 in the Nordics, with every figure entering only on the day it became public, and with the companies that later went bust or were taken over put back in. A test on today's list of companies forgets exactly those, and our first run, which could only price survivors, flattered the method badly.</p>
+
+{decision("A rule that does not hold is removed from the code, not kept as a habit.", "Ruling E164: a rule about what is bought, held, sold or valued enters or leaves the method only on such a test. A rule about how a figure is read may be added freely.", "The method lost most of its mechanical parts in ten days, including some the owner liked.")}
+
+<h2>What went</h2>
+<ul>
+<li><strong>The price stop.</strong> No stop level helped, with or without buying back, and with trading costs every one cost money. The exit is still written down before buying; for this owner it reads "no price stop".</li>
+<li><strong>The 15-50 percent band</strong> of chapter 4. The names inside it did no better than the rest.</li>
+<li><strong>The screener's ranking key.</strong> It did not sort later returns by decile in both markets. The screener now lists the names that pass in a fixed random order: the filters select, and the order no longer pretends to know.</li>
+<li><strong>Three hard kills</strong>: falling revenue, a squeezed margin, swelling receivables. They did not separate the names that did well from those that did not.</li>
+<li><strong>The debt limits, the quality tests as a drop rule, and the buy-price cushion as a binding line.</strong> None separated returns. The quality tests and the cushion are still printed, as information.</li>
+</ul>
+
+<h2>What stayed</h2>
+<p>The valuation itself; figures only from the companies' own filings; the growth view written before the price is seen; positive free cash flow; at most six percent of the portfolio in one name; and the hand parts no data can test: reading the reports, the issuer's own sentence on what it sells, the judgement that the business is understood. Their test is the shadow book of chapter 12, which prices every "no" against the index.</p>
+
+<h2>What the trial did not find</h2>
+<p>An edge. In the Nordics the cheaper companies by fair value beat the dearer ones in most of the years the method was developed on, but a check on two later years, registered in advance and run once, did not confirm it. Where the sort worked, it worked by avoiding the dearest names rather than by finding winners. Against four published value methods it won none of twelve comparisons. The honest summary is the one the README gives: a broad index fund is the base, and this method is the part that is studied, not trusted.</p>
+
+<h2>Faults in our own data</h2>
+<p>Half the work was finding where the history lied. Share counts restated for later splits beside unadjusted prices; report dates that were only period ends; figures in another currency than the share; one security under two tickers; a ticker reused after a takeover; a vendor's single bad day read as a company going bust. Each was found by reading full output or by an independent review, logged, fixed, and the affected runs redone as new attempts, never quietly.</p>
+
+<h2>The history is closed</h2>
+<p>After the last round the owner closed these years: the method is not trimmed further on data it has already been fitted to. One question is left open on purpose. The debt limits may cut the losses at the bottom even though they did not lift the average; that is registered now, measured on the median and the share of names losing three quarters of their value, and it runs only on new data, in April 2027.</p>
+
+{fold("Where to check this", '''
+<p>The attempt-by-attempt account: <code>reference/backtest/WHAT-WE-TESTED.md</code>. The scripts: <code>tools/backtest/</code>, against the engine in <code>vss/</code>. The rulings: E160 to E169 in <code>reference/archive/</code>. The price and statement data came from a commercial vendor under a private licence, so its figures are not published; with your own licence the scripts reproduce them.</p>
+''')}
+""",
+    [("The attempts and their rule", "repo: reference/backtest/WHAT-WE-TESTED.md; tools/backtest/; reference/archive/FRAMEWORK-EDITS-2026-11-08.md E160-E169"),
+     ("Multiple testing", "Harvey, Liu and Zhu (2016), Review of Financial Studies 29"),
+     ("Outside benchmarks", "Ken French data library; Jensen, Kelly and Pedersen (2023), Journal of Finance, jkpfactors.com (CC BY-NC 4.0)")],
 )
 
 # ---------------------------------------------------------------------------

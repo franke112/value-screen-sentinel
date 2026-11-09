@@ -169,7 +169,7 @@ def test_schema_md_is_what_the_code_prints():
 
 
 def test_every_status_has_a_step_list_of_playbook_steps():
-    from tools.playbook.steps import BY_ID, CHAIN_IDS
+    from vss.review_steps import BY_ID, CHAIN_IDS
     from vss.rules import VALID_STATUSES
     for status in VALID_STATUSES:
         ids = V.steps_for(status)
@@ -181,7 +181,7 @@ def test_every_status_has_a_step_list_of_playbook_steps():
 
 
 def test_outcome_vocabulary_is_the_steps_exits():
-    from tools.playbook.steps import BY_ID
+    from vss.review_steps import BY_ID
     assert V.outcomes_for("gate-1") == ("next",) + BY_ID["gate-1"].exits
     assert V.outcomes_for("verdict") == BY_ID["verdict"].exits + ("held",)
     assert "next" not in V.outcomes_for("verdict")
@@ -487,41 +487,7 @@ def test_the_cli_wires_validate_record_and_schema(repo, capsys):
     assert "## The steps a review walks" in capsys.readouterr().out
 
 
-# ------------------------------------------------------------ 4. the playbook
-
-def test_a_review_lands_on_the_playbook_step_pages(tmp_path):
-    import tools.build_playbook as B
-    from tools.playbook.steps import BY_ID
-    from test_playbook import FIXTURE_EDITS, FIXTURE_WATCHLIST, text_of
-    root = tmp_path
-    (root / "reference" / "reviews" / "BBB").mkdir(parents=True)
-    (root / "config").mkdir()
-    (root / "reference" / "FRAMEWORK.md").write_text(
-        (REPO / "reference" / "FRAMEWORK.md").read_text(encoding="utf-8"), encoding="utf-8")
-    (root / "reference" / "FRAMEWORK-EDITS.md").write_text(FIXTURE_EDITS, encoding="utf-8")
-    (root / "config" / "watchlist.yaml").write_text(FIXTURE_WATCHLIST, encoding="utf-8")
-    doc = full_review("BBB")
-    doc["steps"][0]["text"] = "Gate 1 passes: the drawdown is real and dated by the owner"
-    doc["steps"][2] = skipped("gate-3", "nothing new since the intake")
-    doc["growth_view"]["reasons"] = "a business growing with its market at 6.5%"
-    (root / "reference" / "reviews" / "BBB" / f"{DAY}.yaml").write_text(
-        yaml.safe_dump(doc, sort_keys=False), encoding="utf-8")
-    m = B.collect(root=root, watchlist=root / "config" / "watchlist.yaml", built=DAY, with_git=False)
-    reviews = [p for p in m.precedents if p.source == "review session"]
-    assert {p.step for p in reviews} == set(V.steps_for("PIPELINE")) - {"gate-3"}
-    g1 = next(p for p in reviews if p.step == "gate-1")
-    assert g1.ticker == "BBB" and g1.when.isoformat() == DAY and g1.verdict == "next"
-    assert g1.line.startswith("Gate 1 passes")
-    assert g1.href.endswith(f"reviews/BBB/{DAY}.yaml#gate-1")
-    # the step page shows the owner's words; the guarded page redacts the figure
-    page = text_of(B.render_step(m, BY_ID["gate-1"]))
-    assert "Gate 1 passes: the drawdown is real and dated by the owner" in page
-    guarded = text_of(B.render_step(m, BY_ID["growth-view"]))
-    assert "a business growing with its market at [figure]" in guarded and "6.5%" not in guarded
-    # the name page carries its path
-    bbb = next(n for n in m.names if n.ticker == "BBB")
-    own = text_of(B.render_step(m, BY_ID["verdict"], bbb))
-    assert "WATCH-PRICED, alert at MBP" in own
+# ------------------------------------------------------------ 4. the listing
 
 
 def test_prepare_lists_the_reviews_a_name_has(repo):
@@ -546,5 +512,5 @@ def test_the_command_file_carries_the_three_clauses():
     assert "ONE STEP AT A TIME" in text
     assert "vss review --validate" in text and "vss review --record" in text
     assert "The owner runs it" in text
-    for step_source in ("tools/playbook/steps.py", "tools/playbook/placement.py", "config/review/SCHEMA.md"):
+    for step_source in ("vss/review_steps.py", "reference/FRAMEWORK.md", "config/review/SCHEMA.md"):
         assert step_source in text

@@ -1,0 +1,9 @@
+[Unit]
+Description=vss -- the Nordic screen, Saturdays 08:00
+
+[Timer]
+OnCalendar=Sat *-*-* 08:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

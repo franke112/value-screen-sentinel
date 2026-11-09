@@ -1359,17 +1359,6 @@ def withdraw_figure(text: str, period: str, name: str,
     raise ReferenceError(f"`{period}` carries no `{name}` to withdraw")
 
 
-def _figure_provenance(parsed, period: str, name: str):
-    """(figure, entry) for one field on one period, or (None, None)."""
-    for entry in list(parsed.periods) + list(parsed.annual):
-        if _label(entry) != period:
-            continue
-        figure = entry.figures.get(name)
-        if figure is not None and figure.present:
-            return figure, entry
-    return None, None
-
-
 def confirm_disagreements(ticker: str, *, manual_dir: Path | None = None,
                           sources_root: Path | None = None,
                           confirmer: Callable | None = None,

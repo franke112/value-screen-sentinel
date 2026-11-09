@@ -470,9 +470,9 @@ annual:
         verified_kind: tagged
       working_capital_change:
         value: -2272966000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -601,935,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -853,202,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 46,512,000 + us-gaap:IncreaseDecreaseInEmployeeRelatedLiabilities [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -614,771,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 28,401,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -277,971,000 = -2,272,966,000 (cash effect: an asset increase negated, a liability increase kept)"
+        page: "E140(1) tied to the cash flow statement: ACN_FY2026_annual-report-10k_2026-10-16_en_a0.htm, 2023-09-01..2024-08-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -601,935,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets -853,202,000 + us-gaap:IncreaseDecreaseInAccountsPayable 46,512,000 + us-gaap:IncreaseDecreaseInDeferredRevenue 28,401,000 + us-gaap:IncreaseDecreaseInEmployeeRelatedLiabilities -614,771,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities -277,971,000 = -2,272,966,000 (printed values, cash effect). The operating section's 12 rows sum to the printed operating cash flow 9,131,027,000 within 6,500; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: -6582702000
         page: "us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates [2023-09-01..2024-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
@@ -627,9 +627,9 @@ annual:
         verified_kind: same_page
       working_capital_change:
         value: -750097000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -1,021,191,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -1,067,698,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -110,554,000 + us-gaap:IncreaseDecreaseInEmployeeRelatedLiabilities [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 904,322,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 706,585,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -161,561,000 = -750,097,000 (cash effect: an asset increase negated, a liability increase kept)"
+        page: "E140(1) tied to the cash flow statement: ACN_FY2026_annual-report-10k_2026-10-16_en_a0.htm, 2024-09-01..2025-08-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -1,021,191,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets -1,067,698,000 + us-gaap:IncreaseDecreaseInAccountsPayable -110,554,000 + us-gaap:IncreaseDecreaseInDeferredRevenue 706,585,000 + us-gaap:IncreaseDecreaseInEmployeeRelatedLiabilities 904,322,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities -161,561,000 = -750,097,000 (printed values, cash effect). The operating section's 12 rows sum to the printed operating cash flow 11,474,399,000 within 6,500; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: -1471255000
         page: "us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates [2024-09-01..2025-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"
@@ -762,9 +762,9 @@ annual:
         verified_kind: same_page
       working_capital_change:
         value: -651656000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -1,282,203,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -652,262,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 270,211,000 + us-gaap:IncreaseDecreaseInEmployeeRelatedLiabilities [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 1,177,578,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = 520,558,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16 = -685,538,000 = -651,656,000 (cash effect: an asset increase negated, a liability increase kept)"
+        page: "E140(1) tied to the cash flow statement: ACN_FY2026_annual-report-10k_2026-10-16_en_a0.htm, 2025-09-01..2026-08-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -1,282,203,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets -652,262,000 + us-gaap:IncreaseDecreaseInAccountsPayable 270,211,000 + us-gaap:IncreaseDecreaseInDeferredRevenue 520,558,000 + us-gaap:IncreaseDecreaseInEmployeeRelatedLiabilities 1,177,578,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities -685,538,000 = -651,656,000 (printed values, cash effect). The operating section's 12 rows sum to the printed operating cash flow 12,363,346,000 within 6,500; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: -4940884000
         page: "us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates [2025-09-01..2026-08-31] 10-K 0001467373-26-000049 filed 2026-10-16"

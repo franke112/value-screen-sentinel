@@ -1,0 +1,379 @@
+{
+  "ticker": "ZTS",
+  "currency": "USD",
+  "run_ts": "2026-11-08T22:05:25+01:00",
+  "basis": "annual FY2025",
+  "shares": {
+    "count": 417700000.0,
+    "basis": "weighted-average DILUTED count for roll-forward balance sheet 2026-06-30, the same window as the flows (E38)",
+    "as_of": "2026-06-30",
+    "point_in_time": null,
+    "point_in_time_as_of": null,
+    "unit": "whole",
+    "divisor_basis": "weighted_average",
+    "prior_average": null,
+    "drift": null
+  },
+  "sbc": {
+    "treatment": "deducted",
+    "amount": 83000000.0,
+    "basis": ""
+  },
+  "interest": {
+    "in_operating_cash_flow": true,
+    "page": "SEC XBRL companyfacts for CIK 0001555280 (Zoetis Inc) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001555280.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 230-10-45-17(d): under US GAAP interest paid is an OPERATING cash outflow for every filer, so this filer's `operating_cash_flow` already bears its interest. No tag states it because the standard leaves no choice to state",
+    "net_interest_paid": 129000000.0,
+    "source": "income_statement_net"
+  },
+  "bridge": {
+    "net_debt": 7646000000.0,
+    "items": {
+      "short_term_investments": null,
+      "current_financial_assets": null,
+      "leases": 7000000.0,
+      "pensions": 42000000.0,
+      "asset_retirement_obligations": 25000000.0,
+      "prepaid_delivery_obligations": 0.0,
+      "non_controlling_interests": "not a bridge item — E105 deducts the dividends PAID to minorities in the FLOW, and declines to value the stake as a liability (a second unaudited lever, E29's ground)"
+    },
+    "note": "borrowings 0 + 9,048,000,000 + finance leases 7,000,000 (E117: the operating lease liability 248,000,000 LEAVES net debt, its rent being in the flow; finance leases stay) + pension deficit 42,000,000 (E35.1) + asset retirement obligations 25,000,000 (E68) + prepaid delivery obligations 0 (E81) - cash 1,476,000,000 - other current financial assets DATA MISSING, so nothing is subtracted for them: omitting an ASSET raises net debt and lowers the value, which is the safe direction. No NCI, associate, preferred or convertible leg exists in this schema (E35); a separately presented pension ASSET is not netted (E35.1). Capex legs: combined: capex_combined, the one line the issuer prints"
+  },
+  "dates": {
+    "flows_window_end": "2025-12-31",
+    "balance_sheet": "2026-06-30",
+    "share_count": "2026-06-30",
+    "price": "2026-10-29"
+  },
+  "growth": {
+    "base": 0.04,
+    "view_file": "E144: derived from config/history/ZTS.yaml",
+    "view_date": "2026-10-29",
+    "bear": 0.04,
+    "bull": 0.04
+  },
+  "operating_cash_flow": 2904000000.0,
+  "capex": -621000000.0,
+  "conventions": {
+    "horizon_years": 10,
+    "terminal_growth": 0.025,
+    "mid_year": false,
+    "first_year_flow": "FCF0 * (1 + g)"
+  },
+  "rate": {
+    "rate": 0.095,
+    "core_expected_return": null,
+    "premium": null,
+    "band": 0.005
+  },
+  "inputs": [
+    {
+      "name": "capex_combined",
+      "value": -621000000.0,
+      "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2025-01-01..2025-12-31] 10-K 0001555280-26-000011 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "operating_cash_flow",
+      "value": 2904000000.0,
+      "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-01-01..2025-12-31] 10-K 0001555280-26-000011 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "sbc",
+      "value": 83000000.0,
+      "provenance": "us-gaap:ShareBasedCompensation [2025-01-01..2025-12-31] 10-K 0001555280-26-000011 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "net_finance_costs",
+      "value": 129000000.0,
+      "provenance": "E18: finance_costs_period - finance_income_period, both on annual FY2025",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "diluted_weighted_average_shares",
+      "value": 417700000.0,
+      "provenance": "us-gaap:WeightedAverageNumberOfDilutedSharesOutstanding [2026-04-01..2026-06-30] 10-Q 0001555280-26-000040 filed 2026-08-06",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "financial_liabilities_current",
+      "value": 0.0,
+      "provenance": "us-gaap:CommercialPaper [as of 2026-06-30] 10-Q 0001555280-26-000040 filed 2026-08-06 -- CONCEPT: commercial paper outstanding, read as the current borrowing because this filer tags neither a current-maturities nor a short-term-borrowings element at this year end",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "financial_liabilities_noncurrent",
+      "value": 9048000000.0,
+      "provenance": "us-gaap:LongTermDebtNoncurrent [as of 2026-06-30] 10-Q 0001555280-26-000040 filed 2026-08-06",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "lease_liabilities",
+      "value": 255000000.0,
+      "provenance": "CARRIED from the fiscal year-end 2025-12-31 onto the roll-forward 2026-06-30 (E140.1(3): the lease pair, neither stated on the interim balance sheet; the interim balance sheet does not restate it) -- E65 -- operating and finance lease liabilities: us-gaap:OperatingLeaseLiability [as of 2025-12-31] 10-K 0001555280-26-000011 filed 2026-02-12 = 248,000,000 + us-gaap:FinanceLeaseLiability [as of 2025-12-31] 10-K 0001555280-26-000011 filed 2026-02-12 = 7,000,000, added in full = 255,000,000",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "pension_deficit",
+      "value": 42000000.0,
+      "provenance": "CARRIED from the fiscal year-end 2025-12-31 onto the roll-forward 2026-06-30 (E140.1(3): measured once a year (E41); the interim balance sheet does not restate it) -- ZTS_FY2025_annual-report-10k_2026-02-12_en_a0.htm (10-K 0001555280-26-000011 filed 2026-02-12), Note 14 Benefit Plans, Obligations and Funded Status--Dedicated Plans: 'Funded status--Projected benefit obligation in excess of plan assets at end of year (a) $ (42) $ (42)', (a) 'Included in Other noncurrent liabilities'.",
+      "entered_by": "store",
+      "verified": "VERIFIED (same_page)"
+    },
+    {
+      "name": "asset_retirement_obligation",
+      "value": 25000000.0,
+      "provenance": "CARRIED from the fiscal year-end 2025-12-31 onto the roll-forward 2026-06-30 (E140.1(3): measured once a year (E41); the interim balance sheet does not restate it) -- ZTS_FY2025_annual-report-10k_2026-02-12_en_a0.htm (10-K 0001555280-26-000011 filed 2026-02-12), Note 3 accounting policies, Asset Retirement Obligations: 'As of December 31, 2025 and 2024, accruals for asset retirement obligations are $ 25 million and $ 23 million, respectively, and are included in Other noncurrent liabilities.'",
+      "entered_by": "store",
+      "verified": "VERIFIED (same_page)"
+    },
+    {
+      "name": "prepaid_delivery_obligation",
+      "value": 0.0,
+      "provenance": "CARRIED from the fiscal year-end 2025-12-31 onto the roll-forward 2026-06-30 (E140.1(3): a NAMED ZERO at the year-end, a structural absence; the interim balance sheet does not restate it) -- E81 caption zero. ZTS_FY2025_annual-report-10k_2026-02-12_en_a0.htm (10-K 0001555280-26-000011 filed 2026-02-12), Consolidated Balance Sheets, December 31, 2025, every liability caption: 'Accounts payable 487', 'Dividends payable 232', 'Accrued expenses 852', 'Accrued compensation and related items 410', 'Income taxes payable 147', 'Other current liabilities 107', 'Long-term debt 9,042', 'Operating lease liabilities 196', 'Other taxes payable 276', 'Other noncurrent liabilities 248'. No prepaid-delivery caption; contract liabilities of about $17 million (revenue note) are working capital, not this leg.",
+      "entered_by": "store",
+      "verified": "VERIFIED (same_page)"
+    },
+    {
+      "name": "cash_and_equivalents",
+      "value": 1476000000.0,
+      "provenance": "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2026-06-30] 10-Q 0001555280-26-000040 filed 2026-08-06",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "operating_lease_liabilities",
+      "value": 248000000.0,
+      "provenance": "CARRIED from the fiscal year-end 2025-12-31 onto the roll-forward 2026-06-30 (E140.1(3): the lease pair, neither stated on the interim balance sheet; the interim balance sheet does not restate it) -- us-gaap:OperatingLeaseLiability [as of 2025-12-31] 10-K 0001555280-26-000011 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2023 capex_combined",
+      "value": -732000000.0,
+      "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2023-01-01..2023-12-31] 10-K 0001555280-26-000011 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2023 operating_cash_flow",
+      "value": 2353000000.0,
+      "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2023-01-01..2023-12-31] 10-K 0001555280-26-000011 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2023 working_capital_change",
+      "value": -478000000.0,
+      "provenance": "E140(1) tied to the cash flow statement: ZTS_FY2025_annual-report-10k_2026-02-12_en_a0.htm, 2023-01-01..2023-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -102,000,000 + us-gaap:IncreaseDecreaseInInventories -361,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets -95,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable 13,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities 67,000,000 = -478,000,000 (printed values, cash effect). The operating section's 15 rows sum to the printed operating cash flow 2,353,000,000 within 8,000,000; classes from config/manual/maps/cashflow-tags.yaml",
+      "entered_by": "store",
+      "verified": "VERIFIED (tied_statement)"
+    },
+    {
+      "name": "annual FY2023 sbc",
+      "value": 60000000.0,
+      "provenance": "us-gaap:ShareBasedCompensation [2023-01-01..2023-12-31] 10-K 0001555280-26-000011 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2023 acquisitions_paid",
+      "value": 0.0,
+      "provenance": "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001555280-26-000011 filed 2026-02-12, fiscal year to 2023-12-31, searched on 2026-10-29 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search",
+      "entered_by": "store",
+      "verified": "UNVERIFIED"
+    },
+    {
+      "name": "annual FY2024 capex_combined",
+      "value": -655000000.0,
+      "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2024-01-01..2024-12-31] 10-K 0001555280-26-000011 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2024 operating_cash_flow",
+      "value": 2953000000.0,
+      "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2024-01-01..2024-12-31] 10-K 0001555280-26-000011 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2024 working_capital_change",
+      "value": 96000000.0,
+      "provenance": "E140(1) tied to the cash flow statement: ZTS_FY2025_annual-report-10k_2026-02-12_en_a0.htm, 2024-01-01..2024-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -61,000,000 + us-gaap:IncreaseDecreaseInInventories -40,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets 52,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable 31,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities 114,000,000 = 96,000,000 (printed values, cash effect). The operating section's 15 rows sum to the printed operating cash flow 2,953,000,000 within 8,000,000; classes from config/manual/maps/cashflow-tags.yaml",
+      "entered_by": "store",
+      "verified": "VERIFIED (tied_statement)"
+    },
+    {
+      "name": "annual FY2024 sbc",
+      "value": 74000000.0,
+      "provenance": "us-gaap:ShareBasedCompensation [2024-01-01..2024-12-31] 10-K 0001555280-26-000011 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2024 acquisitions_paid",
+      "value": 0.0,
+      "provenance": "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001555280-26-000011 filed 2026-02-12, fiscal year to 2024-12-31, searched on 2026-10-29 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search",
+      "entered_by": "store",
+      "verified": "UNVERIFIED"
+    },
+    {
+      "name": "annual FY2025 capex_combined",
+      "value": -621000000.0,
+      "provenance": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment [2025-01-01..2025-12-31] 10-K 0001555280-26-000011 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2025 operating_cash_flow",
+      "value": 2904000000.0,
+      "provenance": "us-gaap:NetCashProvidedByUsedInOperatingActivities [2025-01-01..2025-12-31] 10-K 0001555280-26-000011 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2025 working_capital_change",
+      "value": -469000000.0,
+      "provenance": "E140(1) tied to the cash flow statement: ZTS_FY2025_annual-report-10k_2026-02-12_en_a0.htm, 2025-01-01..2025-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -236,000,000 + us-gaap:IncreaseDecreaseInInventories -199,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets -165,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable 46,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities 85,000,000 = -469,000,000 (printed values, cash effect). The operating section's 15 rows sum to the printed operating cash flow 2,904,000,000 within 8,000,000; classes from config/manual/maps/cashflow-tags.yaml",
+      "entered_by": "store",
+      "verified": "VERIFIED (tied_statement)"
+    },
+    {
+      "name": "annual FY2025 sbc",
+      "value": 83000000.0,
+      "provenance": "us-gaap:ShareBasedCompensation [2025-01-01..2025-12-31] 10-K 0001555280-26-000011 filed 2026-02-12",
+      "entered_by": "store",
+      "verified": "VERIFIED (tagged)"
+    },
+    {
+      "name": "annual FY2025 acquisitions_paid",
+      "value": 0.0,
+      "provenance": "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001555280-26-000011 filed 2026-02-12, fiscal year to 2025-12-31, searched on 2026-10-29 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search",
+      "entered_by": "store",
+      "verified": "UNVERIFIED"
+    },
+    {
+      "name": "working_capital_change 2025-12-31..2026-06-30",
+      "value": -550000000.0,
+      "provenance": "year to date roll-forward 2026-06-30: E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2026-01-01..2026-06-30] 10-Q 0001555280-26-000040 filed 2026-08-06 = -172,000,000 + us-gaap:IncreaseDecreaseInInventories [2026-01-01..2026-06-30] 10-Q 0001555280-26-000040 filed 2026-08-06 = -137,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2026-01-01..2026-06-30] 10-Q 0001555280-26-000040 filed 2026-08-06 = -158,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2026-01-01..2026-06-30] 10-Q 0001555280-26-000040 filed 2026-08-06 = 9,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities [2026-01-01..2026-06-30] 10-Q 0001555280-26-000040 filed 2026-08-06 = -92,000,000 = -550,000,000 (cash effect: an asset increase negated, a liability increase kept)",
+      "entered_by": "store",
+      "verified": ""
+    }
+  ],
+  "tool_commit": "tools/replay_e166.py, dd84d65",
+  "notes": "E166 (2026-11-08) replay of reference/run-records/ZTS-2026-10-29.json: working capital tied to the cash flow statement (vss/cfrecon.py, config/manual/ZTS.yaml); E154 and E154.1 on as today's rules; every other input unchanged. Moved: nothing",
+  "money_unit": "whole",
+  "nci_dividends_paid": 0.0,
+  "undetermined": [],
+  "fcf_reported": {
+    "value": null,
+    "page": "",
+    "verified": false
+  },
+  "net_debt_reported": {
+    "value": null,
+    "page": "",
+    "verified": false
+  },
+  "net_income": {
+    "value": 2673000000.0,
+    "page": "us-gaap:NetIncomeLoss [2025-01-01..2025-12-31] 10-K 0001555280-26-000011 filed 2026-02-12",
+    "verified": true
+  },
+  "lease": {
+    "in_operating_cash_flow": true,
+    "page": "SEC XBRL companyfacts for CIK 0001555280 (Zoetis Inc) -- https://data.sec.gov/api/xbrl/companyfacts/CIK0001555280.json. The filing each figure came out of is named on the figure itself, with its tag and context period. ASC 842-20-45-5(a): a lessee classifies payments for operating leases within OPERATING activities, so this filer's `operating_cash_flow` already bears them; the stated cash paid is `us-gaap:OperatingLeasePayments`, written as `operating_lease_payments` where tagged. No filer-specific tag states the classification because the standard leaves no choice",
+    "principal_added_back": null,
+    "leg": "none -- the operating cash flow bears the rent (E117)",
+    "rule": "E117",
+    "lease_cash_deducted": null,
+    "principal_paid": null,
+    "interest_paid": null,
+    "liability_excluded": 248000000.0
+  },
+  "e140": {
+    "years": [
+      {
+        "label": "annual FY2023",
+        "operating_cash_flow": 2353000000.0,
+        "working_capital": -478000000.0,
+        "capex": -732000000.0,
+        "sbc": 60000000.0,
+        "acquisitions": 0.0,
+        "lease_cash": null
+      },
+      {
+        "label": "annual FY2024",
+        "operating_cash_flow": 2953000000.0,
+        "working_capital": 96000000.0,
+        "capex": -655000000.0,
+        "sbc": 74000000.0,
+        "acquisitions": 0.0,
+        "lease_cash": null
+      },
+      {
+        "label": "annual FY2025",
+        "operating_cash_flow": 2904000000.0,
+        "working_capital": -469000000.0,
+        "capex": -621000000.0,
+        "sbc": 83000000.0,
+        "acquisitions": 0.0,
+        "lease_cash": null
+      }
+    ],
+    "tax_country": "US",
+    "tax_rate": 0.25,
+    "ledger": "reference/events/ZTS.yaml",
+    "ledger_dated": "2026-10-29",
+    "cut": "2026-06-30",
+    "deals": [
+      {
+        "name": "Neogen animal genomics business (GeneSeek)",
+        "closed": null,
+        "low": 160000000.0,
+        "high": 160000000.0,
+        "fcf": 0.0,
+        "source": "Neogen press release 2026-03-02: sale to Zoetis for $160 million, subject to customary closing adjustments; about $90 million of sales in Neogen FY2025. Zoetis 10-Q 2026-06-30 Note 5: expected to complete in the second half of 2026. No profit figure published; fcf 0 (E140 lessons: private targets may publish no profit)."
+      },
+      {
+        "name": "VitalRADS (veterinary teleradiology, from Thrive Pet Healthcare)",
+        "closed": "2026-07-31",
+        "low": 50000000.0,
+        "high": 300000000.0,
+        "fcf": 0.0,
+        "source": "Zoetis release 2026-07-14 (agreement, terms not disclosed); Q2 release 2026-08-06: completed in July. The day of closing is not printed; the last day of July is taken. Price NOT DISCLOSED: the range is the session's bound for an undisclosed, sub-material deal, not a figure."
+      }
+    ],
+    "deals_in_balance_sheet": [],
+    "rolled_from": "2025-12-31",
+    "wc_since_year_end": -550000000.0,
+    "wc_since_page": "E140(1) tied to the cash flow statement: ZTS_2026-06-30_quarterly-report-10q_2026-08-06_en_a0.htm, 2026-01-01..2026-06-30. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -172,000,000 + us-gaap:IncreaseDecreaseInInventories -137,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets -158,000,000 + us-gaap:IncreaseDecreaseInAccountsPayable 9,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingLiabilities -92,000,000 = -550,000,000 (printed values, cash effect). The operating section's 15 rows sum to the printed operating cash flow 1,056,000,000 within 8,000,000; classes from config/manual/maps/cashflow-tags.yaml",
+    "e142": {
+      "history": "config/history/ZTS.yaml",
+      "repeat_buyer": false,
+      "acquisitions_mean": 0.0,
+      "roiic_base": 1.9170345549738217,
+      "roiic_bear": 1.9170345549738217,
+      "roiic_base_how": "operating profit 669,000,000 (2015) -> 1,700,000,000 (2017); organic x1.082 (2 of 2 years at the view's 4.0%); after tax 25.0%: 732,307,200 on capital added 382,000,000 = 191.70%",
+      "roiic_bear_how": "operating profit 669,000,000 (2015) -> 1,700,000,000 (2017); organic x1.082 (2 of 2 years at the view's 4.0%); after tax 25.0%: 732,307,200 on capital added 382,000,000 = 191.70%",
+      "cyclical": false,
+      "level_base": 1.0,
+      "level_bear": 0.8948215330602692,
+      "level_how": "not cyclical (E143(3)); bear level x0.895: the weakest E140 year 2,039,000,000 over the mean 2,278,666,667 (E143(4))",
+      "growth_how": "E144: organic 7.14%/yr over 6 years, last five 7.24% (2020-2025, 6 of them PROXY from deal-free years); owner earnings per share 16.11%/yr; cap 4%; worst 3-year 5.42%, best 5-year 8.14%",
+      "pension_after_tax": true
+    },
+    "e154": true,
+    "e154_1": true
+  }
+}

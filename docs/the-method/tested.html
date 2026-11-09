@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What the tests removed · The slow way, made survivable</title>
+<meta name="description" content="Every mechanical rule in the method was tested on history, with the test written down before it ran. Most did not hold, and were taken out of the code. This is how that was done, and what is left.">
+<link rel="alternate" hreflang="en" href="tested.html">
+<link rel="alternate" hreflang="sv" href="sv/tested.html">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="tested" data-title="What the tests removed">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+<a class="brand" href="index.html">The slow way, made survivable</a>
+<span class="where">Chapter 22 of 24</span>
+<a class="lang" href="sv/tested.html" hreflang="sv" lang="sv">Svenska</a>
+</header>
+<div class="frame">
+<div class="chapters"><input type="checkbox" id="menu-toggle" class="menu-toggle"><label for="menu-toggle" class="menu-label">Contents</label><nav aria-label="Chapters" id="contents"><ol><li class="home"><a href="index.html"><span class="n">&nbsp;</span>Start here: the map</a></li><li class="part">Part One · The method</li><li><a href="01-the-problem.html"><span class="n">1</span><span>The problem</span><span class="short">10-min route</span></a></li><li><a href="02-value.html"><span class="n">2</span><span>What value investing is</span><span class="short">10-min route</span></a></li><li><a href="03-this-project.html"><span class="n">3</span><span>This project&#x27;s flavour</span></a></li><li><a href="04-the-screen.html"><span class="n">4</span><span>The screener: two thousand to a handful</span></a></li><li><a href="05-refusal.html"><span class="n">5</span><span>Why a name is refused, and why that is the normal outcome</span></a></li><li><a href="06-what-gets-read.html"><span class="n">6</span><span>What gets read</span></a></li><li><a href="07-reverse-dcf.html"><span class="n">7</span><span>The reverse DCF</span><span class="short">10-min route</span></a></li><li><a href="08-pre-registration.html"><span class="n">8</span><span>Pre-registration: write the belief before you see the number</span><span class="short">10-min route</span></a></li><li><a href="09-three-outcomes.html"><span class="n">9</span><span>The three outcomes</span></a></li><li><a href="10-the-funnel.html"><span class="n">10</span><span>The funnel: six statuses</span></a></li><li><a href="11-the-decision.html"><span class="n">11</span><span>The decision</span></a></li><li><a href="12-shadow-book.html"><span class="n">12</span><span>The shadow book</span></a></li><li class="part">Part Two · The machine</li><li><a href="13-why-a-machine.html"><span class="n">13</span><span>Why the method needed a machine</span><span class="short">10-min route</span></a></li><li><a href="14-the-pieces.html"><span class="n">14</span><span>How the program is put together</span></a></li><li><a href="15-the-record.html"><span class="n">15</span><span>Where the data lives and how it is kept honest</span></a></li><li><a href="16-the-rules-file.html"><span class="n">16</span><span>The rules file</span><span class="short">10-min route</span></a></li><li><a href="17-the-nightly-run.html"><span class="n">17</span><span>The nightly run</span></a></li><li><a href="18-dead-mans-switch.html"><span class="n">18</span><span>The dead man&#x27;s switch</span><span class="short">10-min route</span></a></li><li><a href="19-the-phone.html"><span class="n">19</span><span>The phone problem</span></a></li><li><a href="20-the-boundary.html"><span class="n">20</span><span>The boundary</span></a></li><li><a href="21-the-page.html"><span class="n">21</span><span>The page that arrives</span></a></li><li><a href="tested.html" aria-current="page"><span class="n">22</span><span>What the tests removed</span><span class="short">10-min route</span></a></li><li><a href="22-limits.html"><span class="n">23</span><span>What it does not do</span></a></li><li><a href="23-close.html"><span class="n">24</span><span>The slow way, made survivable</span><span class="short">10-min route</span></a></li><li class="part">Appendix</li><li><a href="sources.html"><span class="n">&nbsp;</span>All sources</a></li></ol></nav></div>
+<main id="main">
+<div class="article">
+<p class="crumb"><a href="index.html">The map</a> · Part Two · The machine · Chapter 22 of 24</p><h1>What the tests removed</h1><p class="lede">Every mechanical rule in the method was tested on history, with the test written down before it ran. Most did not hold, and were taken out of the code. This is how that was done, and what is left. <span class="time">About 8 minutes · on the 10-minute route.</span></p>
+<p>Everything in the chapters before this one was built from books, papers and careful reasoning. That is how most investment methods are built, and it is not evidence. In November 2026 the method was put on trial: twenty-six attempts on history, each one registered before it ran, every result logged, the failures too.</p>
+
+<h2>The rules of the trial</h2>
+<p>A test was written down first: what is claimed, which data, exactly what is measured, the bar, and what happens to the rule on either outcome. Then it ran once.<a class="noteref" href="#n1" id="r1" aria-label="note 1">1</a><span class="note" id="n1" role="note"><span class="nn">1</span>The attempt log, reference/backtest/ATTEMPTS.md in the private repository, one commit per registration ahead of the commit with its result. The public summary is reference/backtest/WHAT-WE-TESTED.md.</span> A rule counted as holding only if it helped in <em>both</em> markets, the Nordics and the US, <em>and</em> in both halves of each period. From the last round it also had to beat what a thousand random relabellings of the same names give. Every look was counted, because after fifty tries one pass is what chance produces.<a class="noteref" href="#n2" id="r2" aria-label="note 2">2</a><span class="note" id="n2" role="note"><span class="nn">2</span>Harvey, Liu and Zhu, '... and the Cross-Section of Expected Returns', Review of Financial Studies 29 (2016): with many tests, a t-statistic above 3.</span></p>
+
+
+<p>The history ran from 2016 to 2020 in the US and 2010 to 2021 in the Nordics, with every figure entering only on the day it became public, and with the companies that later went bust or were taken over put back in. A test on today's list of companies forgets exactly those, and our first run, which could only price survivors, flattered the method badly.</p>
+
+<dl class="decision"><dt>Decided</dt><dd>A rule that does not hold is removed from the code, not kept as a habit.</dd><dt>Why</dt><dd>Ruling E164: a rule about what is bought, held, sold or valued enters or leaves the method only on such a test. A rule about how a figure is read may be added freely.</dd><dt>Cost</dt><dd>The method lost most of its mechanical parts in ten days, including some the owner liked.</dd></dl>
+
+<h2>What went</h2>
+<ul>
+<li><strong>The price stop.</strong> No stop level helped, with or without buying back, and with trading costs every one cost money. The exit is still written down before buying; for this owner it reads "no price stop".</li>
+<li><strong>The 15-50 percent band</strong> of chapter 4. The names inside it did no better than the rest.</li>
+<li><strong>The screener's ranking key.</strong> It did not sort later returns by decile in both markets. The screener now lists the names that pass in a fixed random order: the filters select, and the order no longer pretends to know.</li>
+<li><strong>Three hard kills</strong>: falling revenue, a squeezed margin, swelling receivables. They did not separate the names that did well from those that did not.</li>
+<li><strong>The debt limits, the quality tests as a drop rule, and the buy-price cushion as a binding line.</strong> None separated returns. The quality tests and the cushion are still printed, as information.</li>
+</ul>
+
+<h2>What stayed</h2>
+<p>The valuation itself; figures only from the companies' own filings; the growth view written before the price is seen; positive free cash flow; at most six percent of the portfolio in one name; and the hand parts no data can test: reading the reports, the issuer's own sentence on what it sells, the judgement that the business is understood. Their test is the shadow book of chapter 12, which prices every "no" against the index.</p>
+
+<h2>What the trial did not find</h2>
+<p>An edge. In the Nordics the cheaper companies by fair value beat the dearer ones in most of the years the method was developed on, but a check on two later years, registered in advance and run once, did not confirm it. Where the sort worked, it worked by avoiding the dearest names rather than by finding winners. Against four published value methods it won none of twelve comparisons. The honest summary is the one the README gives: a broad index fund is the base, and this method is the part that is studied, not trusted.</p>
+
+<h2>Faults in our own data</h2>
+<p>Half the work was finding where the history lied. Share counts restated for later splits beside unadjusted prices; report dates that were only period ends; figures in another currency than the share; one security under two tickers; a ticker reused after a takeover; a vendor's single bad day read as a company going bust. Each was found by reading full output or by an independent review, logged, fixed, and the affected runs redone as new attempts, never quietly.</p>
+
+<h2>The history is closed</h2>
+<p>After the last round the owner closed these years: the method is not trimmed further on data it has already been fitted to. One question is left open on purpose. The debt limits may cut the losses at the bottom even though they did not lift the average; that is registered now, measured on the median and the share of names losing three quarters of their value, and it runs only on new data, in April 2027.</p>
+
+<details class="fold"><summary>Where to check this</summary><div class="inner">
+<p>The attempt-by-attempt account: <code>reference/backtest/WHAT-WE-TESTED.md</code>. The scripts: <code>tools/backtest/</code>, against the engine in <code>vss/</code>. The rulings: E160 to E169 in <code>reference/archive/</code>. The price and statement data came from a commercial vendor under a private licence, so its figures are not published; with your own licence the scripts reproduce them.</p>
+</div></details>
+<section class="sources"><h2>Sources for this chapter</h2><ol><li>The attempts and their rule <span class="how">— read from this repository: reference/backtest/WHAT-WE-TESTED.md; tools/backtest/; reference/archive/FRAMEWORK-EDITS-2026-11-08.md E160-E169</span></li><li>Multiple testing<br><a href="Harvey, Liu and Zhu (2016), Review of Financial Studies 29" rel="noopener">Harvey, Liu and Zhu (2016), Review of Financial Studies 29</a></li><li>Outside benchmarks<br><a href="Ken French data library; Jensen, Kelly and Pedersen (2023), Journal of Finance, jkpfactors.com (CC BY-NC 4.0)" rel="noopener">Ken French data library; Jensen, Kelly and Pedersen (2023), Journal of Finance, jkpfactors.com (CC BY-NC 4.0)</a></li></ol></section><nav class="pager" aria-label="Previous and next chapter"><a class="prev" href="21-the-page.html" rel="prev"><span class="lab">Previous · 21</span>The page that arrives</a><a class="next" href="22-limits.html" rel="next"><span class="lab">Next · 23</span>What it does not do</a><a class="short-next" href="23-close.html"><span class="lab">Next on the 10-minute route · 24</span>The slow way, made survivable</a><span class="keys" hidden>Keyboard: ← previous chapter, → next chapter.</span></nav><p class="foot">The slow way, made survivable. Built 2026-11-07 from the repository as it stood that day. NAME A and NAME B are fictional; no company, price or holding appears on this site. Not financial advice: one private investor&#x27;s method, shared as it is.</p>
+</div>
+</main>
+</div>
+<script src="site.js"></script>
+</body>
+</html>

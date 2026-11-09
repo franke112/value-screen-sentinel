@@ -789,3 +789,14 @@ def test_an_incomplete_run_says_so_and_names_no_name():
         basis_reasons=[], first_run=False, report=Path("r.md"))
     assert title.endswith(": INCOMPLETE")
     assert not any("BRO" in l or "AON" in l for l in lines)
+
+
+def test_a_run_across_e161_says_new_top_10_names_may_be_the_ruling():
+    """Owner 2026-11-08: the report itself names E161 and 276 -> 389."""
+    from datetime import date
+    from vss import screenwatch as SW
+    hits = SW.method_changes_between("2026-11-07", date(2026, 11, 14))
+    assert [h[1] for h in hits] == ["E161"]
+    assert "276" in hits[0][2] and "389" in hits[0][2]
+    assert SW.method_changes_between("2026-11-14", date(2026, 11, 21)) == []
+    assert SW.method_changes_between(None, date(2026, 11, 14)) == []

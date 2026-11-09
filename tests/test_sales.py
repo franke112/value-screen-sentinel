@@ -200,3 +200,94 @@ def test_a_name_whose_prices_cannot_be_fetched_is_named_not_dropped(tmp_path):
     code, text = S.run_sales(watchlist_path=watchlist, reports_dir=tmp_path / "reports",
                              now=now, dry_run=True, fetch=fetch)
     assert code == 0 and "`XXX.ST`" in text and "delisted" in text
+
+
+# --- E165: sales: reconciled against an account export ---------------------
+
+def _export(tmp_path, rows):
+    p = tmp_path / "export.csv"
+    head = ("Datum;Konto;Typ av transaktion;Värdepapper/beskrivning;Antal;Kurs;"
+            "Belopp;Transaktionsvaluta;Courtage;Valutakurs;Instrumentvaluta;ISIN;Resultat")
+    p.write_text("﻿" + head + "\n" + "\n".join(rows) + "\n", encoding="utf-8")
+    return p
+
+
+def test_e165_reconcile_matches_fills_and_names_every_difference(tmp_path):
+    from datetime import date
+    from vss.config import SaleRecord
+    from vss.sales_reconcile import read_export, reconcile
+    export = _export(tmp_path, [
+        "2026-10-21;ACCOUNT-A;Sälj;Cirrus Logic;-7;110,65;7619,4;SEK;19,13;;USD;;",
+        "2026-10-20;ACCOUNT-A;Sälj;Cirrus Logic;-10;110,43;10874,74;SEK;27,25;;USD;;",
+        "2026-11-04;ACCOUNT-B;Sälj;Avanza Zero;-63,397024;570,18;36147,72;SEK;;;SEK;;",
+        "2026-11-04;ACCOUNT-A;Köp;AcadeMedia;10;123;-1233,08;SEK;3,08;;SEK;;",
+    ])
+    booked = [("CRUS", SaleRecord(date(2026, 10, 20), 10, "owner", 110.43, "USD", "ACCOUNT-A",
+                                  proceeds_sek=10874.74)),
+              ("CRUS", SaleRecord(date(2026, 10, 23), 7, "owner", 110.65, "USD", "ACCOUNT-A",
+                                  proceeds_sek=7619.40))]          # the old guessed date
+    fills, first, last = read_export(export)
+    r = reconcile(booked, fills, export_name="x", export_from=first, export_through=last,
+                  since=date(2026, 5, 1))
+    assert r.matched == 1 and not r.clean
+    assert any("Cirrus Logic" in x and "2026-10-21" in x for x in r.not_booked)
+    assert r.not_on_export == ["CRUS 2026-10-23 7 at 110.65"]
+    assert len(r.core_funds) == 1 and "Avanza Zero" in r.core_funds[0]
+
+
+def test_e165_the_report_prints_the_last_reconciliation_and_what_it_misses():
+    from datetime import date
+    from vss.config import SaleRecord
+    from vss.sales_reconcile import stamp_lines
+    assert "NOT RECONCILED" in stamp_lines(None, [])[0]
+    stamp = {"reconciled_on": "2026-11-08", "export": "e.csv", "export_from": "2020-05-27",
+             "export_through": "2026-11-04", "status": "CLEAN", "matched": 30}
+    lines = stamp_lines(stamp, [SaleRecord(date(2026, 11, 20), 1, "owner", 1.0)])
+    assert "2026-11-08" in lines[0] and "CLEAN" in lines[0]
+    assert any("NOT COVERED" in l and "2026-11-04" in l for l in lines)
+
+
+# --- owner 2026-11-08: a counterfactual fill never reaches the realised record ---
+
+def test_a_counterfactual_fill_never_reaches_the_totals_or_the_by_rule_table():
+    from datetime import date, datetime
+    from types import SimpleNamespace
+    from vss.config import SaleRecord
+    from vss import sales as S
+    def r(ticker, sale):
+        return SimpleNamespace(ticker=ticker, name=ticker, status="HELD", sale=sale,
+                               last=100.0, last_date=date(2026, 11, 6), error=None,
+                               priced=True, price_change=0.1, index_legs=[], marks=[])
+    real = SaleRecord(date(2026, 10, 20), 10, "owner", 110.43, "USD", "ACCOUNT-A",
+                      proceeds_sek=10874.74)
+    cf = SaleRecord(date(2026, 11, 6), 367, "owner", 124.80, "SEK",
+                    proceeds_sek=45802, counterfactual=True, overrides="E157",
+                    to="Avanza Zero")
+    md = S.render([r("CRUS", real), r("ACAD.ST", cf)], run_ts=datetime(2026, 11, 8, 20),
+                  settled=date(2026, 11, 7), written_to=None)
+    realised, _, apart = md.partition("## Undantag mot regel")
+    assert "ACAD.ST" not in realised and "45,802" not in realised
+    assert "1 fill(s) across 1 position(s)" in realised
+    assert "| owner | 1 |" in realised                 # by-rule counts the real fill only
+    assert "ACAD.ST" in apart and "E157" in apart and "Avanza Zero" in apart
+
+
+def test_a_counterfactual_fill_is_validated_and_never_reconciled(tmp_path):
+    from datetime import date
+    import pytest
+    from vss.config import ConfigError, SaleRecord, _parse_sales
+    with pytest.raises(ConfigError, match="overrides"):
+        _parse_sales([{"date": "2026-11-06", "shares": 1, "rule": "owner",
+                       "counterfactual": True}], 0, "X", "SEK")
+    with pytest.raises(ConfigError, match="counterfactual fill only"):
+        _parse_sales([{"date": "2026-11-06", "shares": 1, "rule": "owner",
+                       "overrides": "E157"}], 0, "X", "SEK")
+    from vss.sales_reconcile import reconcile, stamp_lines
+    cf = SaleRecord(date(2026, 11, 6), 367, "owner", 124.80, counterfactual=True,
+                    overrides="E157")
+    res = reconcile([("ACAD.ST", cf)], [], export_name="x", export_from=date(2020, 1, 1),
+                    export_through=date(2026, 11, 8), since=date(2026, 1, 1))
+    assert res.clean and res.not_on_export == []
+    stamp = {"reconciled_on": "2026-11-08", "export": "e", "export_from": "2020-05-27",
+             "export_through": "2026-11-04", "status": "CLEAN", "matched": 0}
+    assert not any("NOT COVERED" in l for l in stamp_lines(stamp, [cf]))

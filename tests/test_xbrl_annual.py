@@ -795,10 +795,10 @@ def test_no_note_in_the_repo_still_says_the_period_end_count_is_untagged():
     `dei:EntityCommonStockSharesOutstanding` are tagged; the path could not
     reach them because it never asked.
     """
-    for path in (Path("vss/xbrl.py"), Path("reference/FRAMEWORK-EDITS.md")):
+    for path in (Path("vss/xbrl.py"), Path("reference/archive/FRAMEWORK-EDITS-2026-11-08.md")):
         text = path.read_text(encoding="utf-8")
         assert "neither of those is a tagged fact" not in text, path
-    edits = Path("reference/FRAMEWORK-EDITS.md").read_text(encoding="utf-8")
+    edits = Path("reference/archive/FRAMEWORK-EDITS-2026-11-08.md").read_text(encoding="utf-8")
     assert "CORRECTION OF RECORD, 2026-08-26" in edits
     assert "dei:EntityCommonStockSharesOutstanding" in edits
 

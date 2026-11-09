@@ -346,10 +346,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: -1006000000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-01-01..2023-12-31] 10-K 0001075531-26-000009 filed 2026-02-18 = -1,330,000,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2023-01-01..2023-12-31] 10-K 0001075531-26-000009 filed 2026-02-18 = 155,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2023-01-01..2023-12-31] 10-K 0001075531-26-000009 filed 2026-02-18 = 169,000,000 = -1,006,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        value: 2039000000
+        page: "E140(1) tied to the cash flow statement: BKNG_FY2025_annual-report-10k_2026-02-18_en_a0.htm, 2023-01-01..2023-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -1,330,000,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets 155,000,000 + us-gaap:IncreaseDecreaseInOperatingLiabilities 2,742,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingCapitalNet 142,000,000 + bkng:ProvisionForExpectedCreditLossesAndChargebacks 330,000,000 = 2,039,000,000 (printed values, cash effect). The operating section's 15 rows sum to the printed operating cash flow 7,344,000,000 within 8,000,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2023-01-01..2023-12-31] 10-K 0001075531-24-000014 filed 2024-02-22"
@@ -442,10 +442,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: -296000000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-01-01..2024-12-31] 10-K 0001075531-26-000009 filed 2026-02-18 = -506,000,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2024-01-01..2024-12-31] 10-K 0001075531-26-000009 filed 2026-02-18 = -12,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2024-01-01..2024-12-31] 10-K 0001075531-26-000009 filed 2026-02-18 = 222,000,000 = -296,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        value: 779000000
+        page: "E140(1) tied to the cash flow statement: BKNG_FY2025_annual-report-10k_2026-02-18_en_a0.htm, 2024-01-01..2024-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -506,000,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets -12,000,000 + us-gaap:IncreaseDecreaseInOperatingLiabilities 1,361,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingCapitalNet -476,000,000 + bkng:ProvisionForExpectedCreditLossesAndChargebacks 412,000,000 = 779,000,000 (printed values, cash effect). The operating section's 15 rows sum to the printed operating cash flow 8,323,000,000 within 8,000,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001075531-26-000009 filed 2026-02-18, fiscal year to 2024-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
@@ -572,10 +572,10 @@ annual:
         status: VERIFIED
         verified_kind: same_page
       working_capital_change:
-        value: -435000000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-01-01..2025-12-31] 10-K 0001075531-26-000009 filed 2026-02-18 = -730,000,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2025-01-01..2025-12-31] 10-K 0001075531-26-000009 filed 2026-02-18 = 100,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2025-01-01..2025-12-31] 10-K 0001075531-26-000009 filed 2026-02-18 = 195,000,000 = -435,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        value: 951000000
+        page: "E140(1) tied to the cash flow statement: BKNG_FY2025_annual-report-10k_2026-02-18_en_a0.htm, 2025-01-01..2025-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -730,000,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets 100,000,000 + us-gaap:IncreaseDecreaseInOperatingLiabilities 796,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingCapitalNet 369,000,000 + bkng:ProvisionForExpectedCreditLossesAndChargebacks 416,000,000 = 951,000,000 (printed values, cash effect). The operating section's 15 rows sum to the printed operating cash flow 9,409,000,000 within 8,000,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001075531-26-000009 filed 2026-02-18, fiscal year to 2025-12-31, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
@@ -593,10 +593,10 @@ roll_forward:
   url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0001075531.json"
   figures:
     working_capital_change:
-      value: -690000000
-      page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2026-01-01..2026-06-30] 10-Q 0001075531-26-000037 filed 2026-08-04 = -795,000,000 + us-gaap:ProvisionForDoubtfulAccounts [2026-01-01..2026-06-30] 10-Q 0001075531-26-000037 filed 2026-08-04 = 105,000,000 = -690,000,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+      value: 3608000000
+      page: "E140(1) tied to the cash flow statement: BKNG_2026-06-30_quarterly-report-10q_2026-08-04_en_a0.htm, 2026-01-01..2026-06-30. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -795,000,000 + us-gaap:IncreaseDecreaseInOperatingLiabilities 4,207,000,000 + us-gaap:IncreaseDecreaseInOtherOperatingCapitalNet -21,000,000 + bkng:ProvisionForExpectedCreditLossesAndChargebacks 217,000,000 = 3,608,000,000 (printed values, cash effect). The operating section's 13 rows sum to the printed operating cash flow 6,934,000,000 within 7,000,000; classes from config/manual/maps/cashflow-tags.yaml"
       status: VERIFIED
-      verified_kind: tagged
+      verified_kind: tied_statement
     cash_and_equivalents:
       value: 17214000000
       page: "us-gaap:CashAndCashEquivalentsAtCarryingValue [as of 2026-06-30] 10-Q 0001075531-26-000037 filed 2026-08-04"

@@ -358,10 +358,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: -173751000
-        page: "E140(1): us-gaap:IncreaseDecreaseInReceivables [2023-01-29..2024-02-03] 10-K 0001104659-26-035243 filed 2026-03-26 = -8,517,000 + us-gaap:IncreaseDecreaseInInventories [2023-01-29..2024-02-03] 10-K 0001104659-26-035243 filed 2026-03-26 = -138,685,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2023-01-29..2024-02-03] 10-K 0001104659-26-035243 filed 2026-03-26 = 14,648,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2023-01-29..2024-02-03] 10-K 0001104659-26-035243 filed 2026-03-26 = -20,873,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2023-01-29..2024-02-03] 10-K 0001104659-26-035243 filed 2026-03-26 = -62,238,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability [2023-01-29..2024-02-03] 10-K 0001104659-26-035243 filed 2026-03-26 = 41,914,000 = -173,751,000 (cash effect: an asset increase negated, a liability increase kept)"
+        value: -188835000
+        page: "E140(1) tied to the cash flow statement: ULTA_FY2026_annual-report-10k_2026-03-26_en_a0.htm, 2023-01-29..2024-02-03. Working capital = us-gaap:IncreaseDecreaseInReceivables -8,517,000 + us-gaap:IncreaseDecreaseInInventories -138,685,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets 14,648,000 + us-gaap:IncreaseDecreaseInAccountsPayable -20,873,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities -62,238,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability 41,914,000 + us-gaap:IncreaseDecreaseInOtherOperatingCapitalNet -15,084,000 = -188,835,000 (printed values, cash effect). The operating section's 15 rows sum to the printed operating cash flow 1,476,266,000 within 8,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001104659-26-035243 filed 2026-03-26, fiscal year to 2024-02-03, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
@@ -438,10 +438,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: -154394000
-        page: "E140(1): us-gaap:IncreaseDecreaseInReceivables [2024-02-04..2025-02-01] 10-K 0001104659-26-035243 filed 2026-03-26 = -15,395,000 + us-gaap:IncreaseDecreaseInInventories [2024-02-04..2025-02-01] 10-K 0001104659-26-035243 filed 2026-03-26 = -226,078,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2024-02-04..2025-02-01] 10-K 0001104659-26-035243 filed 2026-03-26 = -13,515,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2024-02-04..2025-02-01] 10-K 0001104659-26-035243 filed 2026-03-26 = 30,297,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2024-02-04..2025-02-01] 10-K 0001104659-26-035243 filed 2026-03-26 = 6,303,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability [2024-02-04..2025-02-01] 10-K 0001104659-26-035243 filed 2026-03-26 = 63,994,000 = -154,394,000 (cash effect: an asset increase negated, a liability increase kept)"
+        value: -152153000
+        page: "E140(1) tied to the cash flow statement: ULTA_FY2026_annual-report-10k_2026-03-26_en_a0.htm, 2024-02-04..2025-02-01. Working capital = us-gaap:IncreaseDecreaseInReceivables -15,395,000 + us-gaap:IncreaseDecreaseInInventories -226,078,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets -13,515,000 + us-gaap:IncreaseDecreaseInAccountsPayable 30,297,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities 6,303,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability 63,994,000 + us-gaap:IncreaseDecreaseInOtherOperatingCapitalNet 2,241,000 = -152,153,000 (printed values, cash effect). The operating section's 15 rows sum to the printed operating cash flow 1,338,605,000 within 8,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "E107 searched zero: SEC XBRL companyfacts for the 10-K 0001104659-26-035243 filed 2026-03-26, fiscal year to 2025-02-01, searched on 2026-10-27 for us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired, us-gaap:PaymentsToAcquireBusinessesAndInterestInAffiliates, us-gaap:PaymentsToAcquireBusinessesGross -- none tagged for the year. A filer tags every line of its cash flow statement; an extension element would not be seen by this search"
@@ -586,10 +586,10 @@ annual:
         status: VERIFIED
         verified_kind: same_page
       working_capital_change:
-        value: 37837000
-        page: "E140(1): us-gaap:IncreaseDecreaseInReceivables [2025-02-02..2026-01-31] 10-K 0001104659-26-035243 filed 2026-03-26 = -71,375,000 + us-gaap:IncreaseDecreaseInInventories [2025-02-02..2026-01-31] 10-K 0001104659-26-035243 filed 2026-03-26 = -135,801,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2025-02-02..2026-01-31] 10-K 0001104659-26-035243 filed 2026-03-26 = -25,607,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2025-02-02..2026-01-31] 10-K 0001104659-26-035243 filed 2026-03-26 = 89,061,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2025-02-02..2026-01-31] 10-K 0001104659-26-035243 filed 2026-03-26 = 108,201,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability [2025-02-02..2026-01-31] 10-K 0001104659-26-035243 filed 2026-03-26 = 73,358,000 = 37,837,000 (cash effect: an asset increase negated, a liability increase kept)"
+        value: 10240000
+        page: "E140(1) tied to the cash flow statement: ULTA_FY2026_annual-report-10k_2026-03-26_en_a0.htm, 2025-02-02..2026-01-31. Working capital = us-gaap:IncreaseDecreaseInReceivables -71,375,000 + us-gaap:IncreaseDecreaseInInventories -135,801,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets -25,607,000 + us-gaap:IncreaseDecreaseInAccountsPayable 89,061,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities 108,201,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability 73,358,000 + us-gaap:IncreaseDecreaseInOtherOperatingCapitalNet -27,597,000 = 10,240,000 (printed values, cash effect). The operating section's 16 rows sum to the printed operating cash flow 1,502,780,000 within 8,500; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: -386813000
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2025-02-02..2026-01-31] 10-K 0001104659-26-035243 filed 2026-03-26"
@@ -607,10 +607,10 @@ roll_forward:
   url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0001403568.json"
   figures:
     working_capital_change:
-      value: -382070000
-      page: "E140(1): us-gaap:IncreaseDecreaseInReceivables [2026-02-01..2026-08-01] 10-Q 0001104659-26-102442 filed 2026-08-27 = 47,127,000 + us-gaap:IncreaseDecreaseInInventories [2026-02-01..2026-08-01] 10-Q 0001104659-26-102442 filed 2026-08-27 = -226,791,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2026-02-01..2026-08-01] 10-Q 0001104659-26-102442 filed 2026-08-27 = 5,645,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2026-02-01..2026-08-01] 10-Q 0001104659-26-102442 filed 2026-08-27 = -47,328,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2026-02-01..2026-08-01] 10-Q 0001104659-26-102442 filed 2026-08-27 = -120,902,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability [2026-02-01..2026-08-01] 10-Q 0001104659-26-102442 filed 2026-08-27 = -39,821,000 = -382,070,000 (cash effect: an asset increase negated, a liability increase kept)"
+      value: -369718000
+      page: "E140(1) tied to the cash flow statement: ULTA_2026-08-01_quarterly-report-10q_2026-08-27_en_a0.htm, 2026-02-01..2026-08-01. Working capital = us-gaap:IncreaseDecreaseInReceivables 47,127,000 + us-gaap:IncreaseDecreaseInInventories -226,791,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets 5,645,000 + us-gaap:IncreaseDecreaseInAccountsPayable -47,328,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities -120,902,000 + us-gaap:IncreaseDecreaseInContractWithCustomerLiability -39,821,000 + us-gaap:IncreaseDecreaseInOtherOperatingCapitalNet 12,352,000 = -369,718,000 (printed values, cash effect). The operating section's 16 rows sum to the printed operating cash flow 381,590,000 within 8,500; classes from config/manual/maps/cashflow-tags.yaml"
       status: VERIFIED
-      verified_kind: tagged
+      verified_kind: tied_statement
     operating_lease_liabilities:
       value: 2184453000
       page: "E71 -- the lease liability from two stated parts the filer never totals, current and non-current portions of one liability by the taxonomy's own definition: us-gaap:OperatingLeaseLiabilityCurrent [as of 2026-08-01] 10-Q 0001104659-26-102442 filed 2026-08-27 = 312,648,000 + us-gaap:OperatingLeaseLiabilityNoncurrent [as of 2026-08-01] 10-Q 0001104659-26-102442 filed 2026-08-27 = 1,871,805,000 = 2,184,453,000"

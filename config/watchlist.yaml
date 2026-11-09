@@ -129,6 +129,24 @@ tickers:
     # struck 2026-08-21 in the section 5.2 workbook (FRAMEWORK-EDITS C4 table),
     # before run records were introduced (Build 2 item 9).
     sales:
+      - date: 2026-06-10
+        price: 402.95
+        currency: USD
+        shares: 2
+        account: "ACCOUNT-A"
+        rule: owner
+        run_record:
+        proceeds_sek: 7629.07
+        note: "MISSING until 2026-11-08; booked from Avanza transaktioner 2026-11-08 (konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv; first booked from the 2026-10-29 export, verified against this list the same day); no run record (rule: owner)"
+      - date: 2026-07-27
+        price: 390.36
+        currency: USD
+        shares: 2
+        account: "ACCOUNT-A"
+        rule: owner
+        run_record:
+        proceeds_sek: 7552.62
+        note: "MISSING until 2026-11-08; booked from Avanza transaktioner 2026-11-08 (konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv; first booked from the 2026-10-29 export, verified against this list the same day); no run record (rule: owner)"
       - date: 2026-08-21
         price: 482.43
         currency: USD
@@ -336,6 +354,15 @@ tickers:
     # record: fv_base 43.5 / FV_bull 51.0 were struck 2026-08-22 in
     # una-valuation.xlsx (FRAMEWORK-EDITS C4, second application).
     sales:
+      - date: 2026-06-17
+        price: 50.53
+        currency: EUR
+        shares: 4
+        account: "ACCOUNT-A"
+        rule: owner
+        run_record:
+        proceeds_sek: 2185.96
+        note: "MISSING until 2026-11-08; booked from Avanza transaktioner 2026-11-08 (konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv; first booked from the 2026-10-29 export, verified against this list the same day); no run record (rule: owner)"
       - date: 2026-08-24
         price: 54.81
         currency: EUR
@@ -569,6 +596,8 @@ tickers:
         price: 120.70
         currency: SEK
         shares: 121
+        account: "ACCOUNT-B"           # booked 2026-11-08 from the Avanza transaction list (was blank)
+        proceeds_sek: 14568.19       # booked 2026-11-08 from the Avanza transaction list (was blank)
         rule: C4
         run_record: reference/run-records/LIAB.ST-2026-09-19-e117.json
         note: >-
@@ -885,6 +914,7 @@ tickers:
     #   four EPS-footnote operands, read back), moving fv +0.64%; FCF0 and
     #   net cash unchanged. MBP is E90's base x 0.85 = 119.32 (derived).
     fv_base: 140.37     # was 185 (E39-nulled 2026-08-26), then 139.48 (E87-nulled 2026-08-30, re-struck same day, then E91 moved the divisor)
+    fv_void: "struck 2026-08-30 under the pre-E117 lease treatment and pre-E140, E106-bounded; no bull ever struck (watchlist note 2026-09-20). Re-strike on the Q3 2026 reading deferred 2026-11-02. Independent review 3 (2026-11-08) L1"
     run_record: reference/run-records/SAP.DE-2026-08-30-e91.json   # priors: SAP.DE-2026-08-30.json (E88 divisor, 139.48) and SAP.DE-2026-08-26.json -- history, still replay
     # B45: the fills, exact as Avanza printed them (owner, 2026-08-30). Struck
     # against the linked run record (RESTRIKE-2026-08-26-b: FV_bull 174.30).
@@ -1188,6 +1218,26 @@ tickers:
     catalyst_date:
     catalyst_resolved:
     catalyst_event:
+    # B45 fills, booked 2026-11-08 from the Avanza transaction list (rule: owner, no run record).
+    sales:
+      - date: 2026-08-21
+        price: 40.64
+        currency: SEK
+        shares: 9
+        account: "ACCOUNT-A"
+        rule: owner
+        run_record:
+        proceeds_sek: 364.76
+        note: "MISSING until 2026-11-08; booked from Avanza transaktioner 2026-11-08 (konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv; first booked from the 2026-10-29 export, verified against this list the same day). The status said sold 2026-08-22; the fills are 2026-08-21"
+      - date: 2026-08-21
+        price: 40.64
+        currency: SEK
+        shares: 31
+        account: "ACCOUNT-B"
+        rule: owner
+        run_record:
+        proceeds_sek: 1256.69
+        note: "MISSING until 2026-11-08; booked from Avanza transaktioner 2026-11-08 (konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv; first booked from the 2026-10-29 export, verified against this list the same day)"
     notes: |
       sold 2026-08-22; never analyzed, outside framework scope. (Entire position.)
       History below is kept as a record only.
@@ -1358,6 +1408,17 @@ tickers:
         accounting: gaap
         period_basis: fiscal
         source: release
+    # B45 fills, booked 2026-11-08 from the Avanza transaction list (rule: owner, no run record).
+    sales:
+      - date: 2026-07-14
+        price: 42.835
+        currency: USD
+        shares: 71
+        account: "ACCOUNT-B"
+        rule: owner
+        run_record:
+        proceeds_sek: 29255.91
+        note: "MISSING until 2026-11-08; booked from Avanza transaktioner 2026-11-08 (konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv; first booked from the 2026-10-29 export, verified against this list the same day); bought 2026-05-15/21/22 (27 + 24 + 20) in ACCOUNT-B"
     notes: |
       Alert at 40 USD. An alert level is NOT an MBP — compute properly.
 
@@ -1427,8 +1488,8 @@ tickers:
     # been through §3, so nothing about it was ever disqualified -- the
     # alert is the whole of its state.
     status: WATCH-PRICED
-    fv_base: 392.95     # re-struck after the method check 2026-10-27, reference/MC.PA-STRIKE-2026-10-27-check.md (E141). EARLIER: 392.62 -- E142-E145 re-strike 2026-10-27, reference/MC.PA-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 342.63 -- E140/E140.1 re-strike 2026-10-27, reference/MC.PA-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 321.94 -- first strike 2026-09-19 (owner A4): reference/MC.PA-STRIKE-2026-09-19.md, FY2025 basis, E117
-    run_record: reference/run-records/MC.PA-2026-10-27-check.json     # the method-check record. EARLIER: reference/run-records/MC.PA-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/MC.PA-2026-10-27.json
+    fv_base: 311.85     # E154.1 2026-11-08: 306.9 -> 311.85 (the year-to-date working capital neutralised again, review 2026-11-08 M1; reference/run-records/MC.PA-2026-11-08-e154-1.json). EARLIER: 306.9 -- E154 2026-11-07: 392.95 -> 306.9 (working capital kept, reference/run-records/MC.PA-2026-11-07-e154.json). EARLIER: re-struck after the method check 2026-10-27, reference/MC.PA-STRIKE-2026-10-27-check.md (E141). EARLIER: 392.62 -- E142-E145 re-strike 2026-10-27, reference/MC.PA-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 342.63 -- E140/E140.1 re-strike 2026-10-27, reference/MC.PA-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 321.94 -- first strike 2026-09-19 (owner A4): reference/MC.PA-STRIKE-2026-09-19.md, FY2025 basis, E117
+    run_record: reference/run-records/MC.PA-2026-11-08-e154-1.json     # E154.1 replay of reference/run-records/MC.PA-2026-11-07-e154.json. EARLIER: reference/run-records/MC.PA-2026-11-07-e154.json -- E154 replay of reference/run-records/MC.PA-2026-10-27-check.json, working capital kept. EARLIER: reference/run-records/MC.PA-2026-10-27-check.json -- the method-check record. EARLIER: reference/run-records/MC.PA-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/MC.PA-2026-10-27.json
     tier:
     stop_price:
     catalyst_date:
@@ -1551,7 +1612,7 @@ tickers:
     # about price and no price level may wake it. The verdict below is
     # unchanged, and its closing sentence is now the rule for this status
     # rather than a convention carried on the note.
-    status: DROPPED      # E145 (E141 decision 2026-10-27): Q2 stability fails (operating profit fell below half its peak and did not regain it within three years) -- reference/PNDORA.CO-STRIKE-2026-10-27-e142.md. Was WATCH-GATED
+    status: WATCH-GATED      # restored to its status before E145 -- E168 2026-11-09 (attempt #25; beslutat av sessionen 2026-11-09): E145's Q1-Q4 drop nothing any more, so the Q2 fail no longer drops the name. EARLIER: DROPPED -- E145 (E141 decision 2026-10-27): Q2 stability fails (operating profit fell below half its peak and did not regain it within three years) -- reference/PNDORA.CO-STRIKE-2026-10-27-e142.md. Was WATCH-GATED
     # FRAMEWORK-EDITS E12, 2026-08-24: Gate 1 frozen at entry. Both figures are
     # the ones already on record from the 2026-08-21 screener run --
     # data/screener_runs/2026-08-21/filter1-candidates.csv carries the drawdown
@@ -1718,7 +1779,7 @@ tickers:
     #   before any comparison, so a tier here gives an MBP in pence against
     #   a close in pence; fv_base stays written in GBP, the record's unit.
     #   Golden case G17 pins it.
-    fv_base: 4.99     # re-struck after the method check 2026-10-27, reference/AUTO.L-STRIKE-2026-10-27-check.md (E141). EARLIER: 4.99 -- E142-E145 re-strike 2026-10-27, reference/AUTO.L-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 4.84 -- E140/E140.1 re-strike 2026-10-27, reference/AUTO.L-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 4.84
+    fv_base: 4.94     # E154 2026-11-07: 4.99 -> 4.94 (working capital kept, reference/run-records/AUTO.L-2026-11-07-e154.json). EARLIER: re-struck after the method check 2026-10-27, reference/AUTO.L-STRIKE-2026-10-27-check.md (E141). EARLIER: 4.99 -- E142-E145 re-strike 2026-10-27, reference/AUTO.L-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 4.84 -- E140/E140.1 re-strike 2026-10-27, reference/AUTO.L-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 4.84
     # TIER 3, owner 2026-09-19 (AUTO.L-T). Section 4.4 score 5 -> tier 2 on
     #   the scale (tier 1 fails on the tailwind), SHIFTED ONE TIER STRICTER
     #   UNDER E77 (regime ELEVATED, standing) -> tier 3, MBP 314.36p (483.63p x 0.65; the 314.2p first quoted was a rounding slip). NO REGIME
@@ -1728,7 +1789,7 @@ tickers:
     #   485.8-514.9p against a value of 484p are at or above value -- the test
     #   that withheld GDDY's ASR. Tier is 3 either way.
     tier: 3
-    run_record: reference/run-records/AUTO.L-2026-10-27-check.json     # the method-check record. EARLIER: reference/run-records/AUTO.L-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/AUTO.L-2026-10-27.json
+    run_record: reference/run-records/AUTO.L-2026-11-07-e154.json     # E154 replay of reference/run-records/AUTO.L-2026-10-27-check.json, working capital kept. EARLIER: reference/run-records/AUTO.L-2026-10-27-check.json -- the method-check record. EARLIER: reference/run-records/AUTO.L-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/AUTO.L-2026-10-27.json
     catalyst_date: 2026-11-05
     catalyst_event: >-
       Half-year results 2026-11-05 -- the reassessment point. The name also
@@ -1949,6 +2010,10 @@ tickers:
                     # still supplies neither reference figure (both are
                     # non-GAAP APMs with no us-gaap element).
     currency: USD
+    # WATCH-PRICED 2026-11-09 (E163, attempt #24; beslutat av sessionen
+    # 2026-11-09): the 4.2.1 and 4.2.2 kills below were removed, so the gate's
+    # reason falls. The bear stays DATA MISSING (B7, no downturn in the
+    # 2015-2025 history), so the name still has no line. EARLIER:
     # WATCH-GATED, re-walked 2026-10-27 (E141 decision,
     # reference/reviews/NVR/2026-10-27.yaml): Gate 3 now forms under E147
     # and passes, but the section 4.2 hard kills trip -- four consecutive
@@ -1956,18 +2021,17 @@ tickers:
     # operating margin -307bps. A kill is not a price: NO PRICE LEVEL MAY
     # WAKE THIS NAME; no tier, no MBP. EARLIER: gated 2026-09-19 on Gate 3
     # DATA MISSING (no stated operating income).
-    status: WATCH-GATED
-    catalyst_date: 2027-01-28          # Q4 2026 results release. NOT the issuer's date -- NVR publishes no calendar; last year's release was 2026-01-28 (8-K item 2.02), carried as the expected date.
-    catalyst_resolved:                 # set the day the Q4 2026 release is read.
-    catalyst_event: Q4 2026 results -- is Q4 revenue at or above Q4 2025's 2,712.6m (the revenue kill clears), and is the operating margin (pre-tax + interest, E147) within 150bps of Q4 2025's?
+    status: WATCH-PRICED
+    # catalyst_date (cleared 2026-11-09, E163): 2027-01-28          # Q4 2026 results release. NOT the issuer's date -- NVR publishes no calendar; last year's release was 2026-01-28 (8-K item 2.02), carried as the expected date.
+    # catalyst_event (cleared 2026-11-09, E163): Q4 2026 results -- is Q4 revenue at or above Q4 2025's 2,712.6m (the revenue kill clears), and is the operating margin (pre-tax + interest, E147) within 150bps of Q4 2025's?
     # ACCEPTED by the owner 2026-08-30 (Part D): fv_base 4,978.10 with the
     #   record link; tier stays empty per B22, so no MBP forms. The growth
     #   view's registration was CONFIRMED by the owner at the acceptance:
     #   the base 2.5% is the owner's own figure (raised from a proposed 2),
     #   bear -3 / bull 6.5 explicitly approved -- reference/growth-views/NVR.md
     #   stands as written.
-    fv_base: 7682.75     # re-struck after the method check 2026-10-27, reference/NVR-STRIKE-2026-10-27-check.md (E141). EARLIER: 7682.75 -- E142-E145 re-strike 2026-10-27, reference/NVR-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 6614.83 -- E140/E140.1 re-strike 2026-10-27, reference/NVR-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 4867.82
-    run_record: reference/run-records/NVR-2026-10-27-check.json     # the method-check record. EARLIER: reference/run-records/NVR-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/NVR-2026-10-27.json
+    fv_base: 7193.71     # E166 2026-11-08: 7682.75 -> 7193.71 (working capital tied to the cash flow statement, reference/run-records/NVR-2026-11-08-e166.json). EARLIER: 7682.75 -- re-struck after the method check 2026-10-27, reference/NVR-STRIKE-2026-10-27-check.md (E141). EARLIER: 7682.75 -- E142-E145 re-strike 2026-10-27, reference/NVR-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 6614.83 -- E140/E140.1 re-strike 2026-10-27, reference/NVR-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 4867.82
+    run_record: reference/run-records/NVR-2026-11-08-e166.json     # E166 replay of reference/run-records/NVR-2026-10-27-check.json, working capital tied (vss/cfrecon.py). EARLIER: reference/run-records/NVR-2026-10-27-check.json -- the method-check record. EARLIER: reference/run-records/NVR-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/NVR-2026-10-27.json
     dd_at_entry: 0.2546
     peak_date: 2025-09-08
     notes: |2-
@@ -2089,6 +2153,8 @@ tickers:
     #   carries NO LEVEL and no exit test.
     status: DROPPED
     notes: >-
+      2026-11-08 SALES CORRECTED (source: Avanza transaktioner 2026-11-08): bought 2026-09-10 17 at 115.87 USD (-19,183.51 SEK); sold 2026-10-20 10 at 110.43 (10,874.74; proceeds were blank) and 2026-10-21 7 at 110.65 (7,619.40; the date was 2026-10-23, a guess), all ACCOUNT-A.
+
       OWNED OUTSIDE THE FRAMEWORK. Bought 2026-09-10, two days after the drop:
       17 shares at 115.87 USD, account ACCOUNT-A, 19,183.51 SEK (Avanza
       transaction list, konto/2026-10-05-avanza-transaktioner-*.png; recorded
@@ -2113,15 +2179,17 @@ tickers:
       above. Booked in `sales:` below.
     sales:
       - date: 2026-10-20
+        bought: 2026-09-10       # first buy of the position (Avanza transaktioner 2026-11-08: 17 at 115.87)
         price: 110.43
         currency: USD
         shares: 10
         account: "ACCOUNT-A"
         rule: owner
         run_record:
-        proceeds_sek:
-        note: "discretionary partial sale outside the framework (name DROPPED); account taken from the purchase (all 17 bought in ACCOUNT-A), proceeds_sek to be booked from the Avanza transaction list"
-      - date: 2026-10-23
+        proceeds_sek: 10874.74
+        note: "discretionary partial sale outside the framework (name DROPPED). proceeds_sek 10,874.74 booked 2026-11-08 from Avanza transaktioner 2026-11-08 (was blank); account confirmed ACCOUNT-A"
+      - date: 2026-10-21
+        bought: 2026-09-10       # first buy of the position (Avanza transaktioner 2026-11-08: 17 at 115.87)
         price: 110.65
         currency: USD
         shares: 7
@@ -2129,7 +2197,7 @@ tickers:
         rule: owner
         run_record:
         proceeds_sek: 7619.40
-        note: "the last 7 shares, sold ahead of the 2026-11-04 plan on the owner's word (reported 2026-10-24 from the Avanza transaction list: '-7 110,65 USD 7 619,40 SEK'); trade date not stated, 2026-10-23 taken as the last session before the report; account taken from the purchase. CRUS position now ZERO"
+        note: "the last 7 shares, sold ahead of the 2026-11-04 plan on the owner's word (reported 2026-10-24 from the Avanza transaction list: '-7 110,65 USD 7 619,40 SEK'); DATE CORRECTED 2026-11-08 from 2026-10-23 (a guess: 'the last session before the report') to 2026-10-21, the trade date on Avanza transaktioner 2026-11-08; account confirmed ACCOUNT-A. CRUS position now ZERO"
   # --- added by hand, 2026-08-27, to build config/manual/CTSH.yaml via
   # `vss xbrl` -- not a screener entry, no dd_at_entry/peak_date because
   # E12's PIPELINE freeze never applied to this name.
@@ -2160,7 +2228,7 @@ tickers:
     cik: 1058290    # SEC EDGAR company search, confirmed 2026-08-27:
                     # CIK 0001058290, Teaneck NJ, SIC 7371, most recent
                     # filing dated 2026-08-27
-    fv_base: 69.42     # re-struck 2026-10-28 on the stated organic growth 2021-2025 (3.18% derived against the 4% view), reference/CTSH-STRIKE-2026-10-28-organic.md (bear 47.21, bull 79.99), E141; Q4 still FAILS (ROIIC 0.56%), tier 3 stands. EARLIER: 73.96 -- re-struck after the method check 2026-10-27, reference/CTSH-STRIKE-2026-10-27-check.md (E141). EARLIER: 73.82 -- E142-E145 re-strike 2026-10-27, reference/CTSH-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 57.89 -- E140/E140.1 re-strike 2026-10-27, reference/CTSH-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 84.16
+    fv_base: 58.03     # E154.1 2026-11-08: 55.92 -> 58.03 (the year-to-date working capital neutralised again, review 2026-11-08 M1; reference/run-records/CTSH-2026-11-08-e154-1.json). EARLIER: 55.92 -- E154 2026-11-07: 69.42 -> 55.92 (working capital kept, reference/run-records/CTSH-2026-11-07-e154.json). EARLIER: re-struck 2026-10-28 on the stated organic growth 2021-2025 (3.18% derived against the 4% view), reference/CTSH-STRIKE-2026-10-28-organic.md (bear 47.21, bull 79.99), E141; Q4 still FAILS (ROIIC 0.56%), tier 3 stands. EARLIER: 73.96 -- re-struck after the method check 2026-10-27, reference/CTSH-STRIKE-2026-10-27-check.md (E141). EARLIER: 73.82 -- E142-E145 re-strike 2026-10-27, reference/CTSH-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 57.89 -- E140/E140.1 re-strike 2026-10-27, reference/CTSH-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 84.16
     tier: 3     # E145 Q4 (ROIIC -1.9% against r 9.5%; 0.56% on the stated organic growth, 2026-10-28) lowers the tier one step, E141 decision 2026-10-27. EARLIER: 2
     # stop 2026-08-30 (owner, stop session): 58.92 = 64.04 (settled close
     #   2026-08-28, the entry the AT/BELOW-MBP signal prices) x 0.92 -- C1's
@@ -2173,13 +2241,13 @@ tickers:
     #   entry 58.097 (2 x 58.10 + 1 x 58.09) x 0.92 = 53.45. 0.92 is still
     #   C1's tight end: the trailing-year drawdown at the fill was ~33%
     #   (86.70 -> 58.10), not the 40-50% class. Was 58.92.
-    stop_price: 53.45
+    stop_price: none       # E162 2026-11-08: no price stop, by decision (attempts #10, #18). Was 53.45
     # THE EXIT TEST a HELD name must carry (config.load_watchlist): the
     #   bull of the SAME record as fv_base, replayed at the pre-registered
     #   g_bull 7% -- `vss strike --ticker CTSH --dry-run`, 2026-10-05,
     #   reproduces fv_base 84.16 exactly and gives bear 63.25 / bull 104.66.
     fv_bull: 109.95     # the method-check record's bull case. EARLIER: 109.81 -- the E142 record's bull case, for the C4 / E42 exit test. EARLIER: 72.41 -- of the E140 record 2026-10-27, bear 43.07 (was 104.66 on the E117 record)
-    run_record: reference/run-records/CTSH-2026-10-28-organic.json     # the stated-organic record. EARLIER: reference/run-records/CTSH-2026-10-27-check.json -- the method-check record. EARLIER: reference/run-records/CTSH-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/CTSH-2026-10-27.json
+    run_record: reference/run-records/CTSH-2026-11-08-e154-1.json     # E154.1 replay of reference/run-records/CTSH-2026-11-07-e154.json. EARLIER: reference/run-records/CTSH-2026-11-07-e154.json -- E154 replay of reference/run-records/CTSH-2026-10-28-organic.json, working capital kept. EARLIER: reference/run-records/CTSH-2026-10-28-organic.json -- the stated-organic record. EARLIER: reference/run-records/CTSH-2026-10-27-check.json -- the method-check record. EARLIER: reference/run-records/CTSH-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/CTSH-2026-10-27.json
     catalyst_date: 2026-10-28          # Q3 2026 results -- the next scheduled section 6.4 reassessment (owner, 2026-08-30); E77's regime adjustment applies at that re-score, not before (E77, decided 2026-08-30)
     catalyst_resolved: 2026-10-29      # Q3 2026 read 2026-10-29: the FY2026 outlook cut a second time -> 4.2.3 kill, thesis stop (7db89d6); the sale is the owner's
     catalyst_event: >-
@@ -2187,11 +2255,26 @@ tickers:
       Re-scored then under E77 (regime elevated, one tier stricter). E145 Q4
       (ROIIC below r, E141 decision 2026-10-27) already took the tier 2 -> 3,
       and there is no tier below 3, so MBP (E90: base x cushion, on the
-      stated-organic strike of 2026-10-28, fv_base 69.42) 45.12 -> 45.12 USD (on the E142
+      E154.1 replay of 2026-11-08, fv_base 58.03) 37.72 -> 37.72 USD (on the
+      E154 replay of 2026-11-07, fv_base 55.92, it read 36.35; on the
+      stated-organic strike of 2026-10-28, fv_base 69.42, it read 45.12; on the E142
       strike after the method check, fv_base 73.96, it read 48.07; on the E140
       strike 43.41 -> 37.63, on the E117 strike 63.12 -> 54.70). (Arithmetic corrected
       2026-08-30 at E90; the E28-era prediction here read 46.78 -> 40.10.)
+    # B45 fills (source: Avanza transaktioner 2026-11-08, the owner's word).
+    sales:
+      - date: 2026-11-03
+        price: 62.98
+        currency: USD
+        shares: 2
+        account: "ACCOUNT-A"
+        rule: owner
+        run_record:
+        proceeds_sek: 1220.93
+        note: "2 of 3 sold (4.2.3 thesis stop, exit_pending since 2026-10-29); 1 share kept in ACCOUNT-B. Bought 2026-09-25: 1 at 58.09 USD in ACCOUNT-B (-587.34 SEK) and 2 at 58.10 USD in ACCOUNT-A (-1,164.95 SEK)."
     notes: |2-
+      2026-11-08 SALE BOOKED (source: Avanza transaktioner 2026-11-08): 2026-11-03 2 shares at 62.98 USD, account ACCOUNT-A, proceeds 1,220.93 SEK, rule: owner. Holding 1 share in ACCOUNT-B, confirmed by the owner -- the queue's derived 3 -> 1 of earlier today stands, now on the transaction list. Bought 2026-09-25: 1 at 58.09 USD (ACCOUNT-B, -587.34) and 2 at 58.10 USD (ACCOUNT-A, -1,164.95).
+      2026-11-08 POSITION (source: Avanza kontoöversikt 2026-11-08): CTSH 640 SEK, being wound down (exit_pending since 2026-10-29). config/queue.yaml said 3 shares; 640 SEK is ONE share -- 640 / 64.72 (close 2026-11-06) = 9.89 SEK/USD, the same rate CENTA's 807 SEK gives (807 / (2 x 40.80) = 9.89), while 3 shares would need 3.30 SEK/USD. Corrected 3 -> 1 in the queue (DERIVED from the overview's value, not read as a count). A sale of 2 shares is therefore missing from the `sales:` block; it is booked only on the owner's word with its fill.
       WATCH-PRICED 2026-08-29. Re-struck 2026-08-30 under E70 (a lease is counted once, in net debt, never also in the flow), Method C, FY2025 basis, twelve months ended 2025-12-31: FCF0 2,451 -> 2,643 USD m, the 192 USD m of operating lease payments the flow bore added back (leg operating_lease_payments, declaration 3.1; the 598 USD m lease liability stays in net debt). fv_base 89.38 USD (band 96.38 / 89.38 / 83.33 across r 9.0-10.0%, E29), bear 66.83, bull 111.48, g_base 4% / g_bear 0% / g_bull 7% (reference/growth-views/CTSH.md, pre-registered 2026-08-27, unchanged). Of the move from 83.01, E70 alone gives 89.43; the rest is the bridge under E65 (finance leases 22 USD m beside operating, net debt -489 -> -467). Tier 2 (section 4.4 score 5 of 2026-08-29 -- 3 gates passed + 2 green flags - 0 soft flags -- not re-scored). MBP 46.78 USD = bear 66.83 x 0.70 (band 43.85-50.15 across r 9.0-10.0%, E29). Prior strike 2026-08-28: fv_base 83.01, bear 62.09, bull 103.50, MBP 43.46 (reference/run-records/CTSH-2026-08-28.json). Last close 64.04 USD (2026-08-28) sits above MBP -- WATCH-PRICED per E27, limit alert armed at 46.78, not a buy at today's price.
       GATE 2 = CLASS B, SECTOR ROTATION. Ruled by the owner 2026-08-28 on evidence outside the three filings read for reports/CTSH-reading-2026-08-28.md; recorded here with the evidence, not only the conclusion. On 2026-06-18 CTSH fell more than 10% in one session to a fresh 52-week low. The catalyst was Accenture cutting guidance and Berenberg withdrawing its Buy rating the same day, framing AI deflation as a SECTOR-WIDE theme, naming Accenture its top pick, and concluding Cognizant lacked the differentiated mix to offset the pressure (TIKR, "Cognizant Stock Drops 10% to a 52-Week Low", 2026-06-19). Cognizant itself did nothing that day -- no filing, no release. PEER CONFIRMATION: Gartner (ticker IT) fell 37.6% year to date and 62.7% over 52 weeks across the same window -- a LARGER fall than CTSH's, in the same industry (Yahoo Finance / Barchart, 2026-06-10). That peer move is what makes this B (sold with the group) rather than A (an isolated re-rating) -- the filings alone could not have supplied it. AGAINST STRUCTURAL IMPAIRMENT: Cognizant beat adjusted EPS estimates in each of the last five quarters; Q1 2026 revenue +5.8% to $5.41bn, adjusted EPS $1.40 against a $1.33 estimate. MANAGEMENT ACTED AGAINST THE PRICE: the board doubled the 2026 buyback target to $2bn; CEO Ravi Kumar S said the price "significantly undervalues those prospects"; a director (Rohleder) bought 4,034 shares on the open market on 2026-06-10 at $52.00 ($209,768) -- the single open-market purchase the Form 4 crawl found (reports/CTSH-reading-2026-08-28.md, S6) -- eight days before the 18 June break.
       TWO THINGS THAT CUT THE OTHER WAY, recorded so this entry stays honest. Management acknowledged a "softening demand environment" and "heightened macroeconomic uncertainty" in the June quarter -- language that appears in neither the 10-K nor reference/growth-views/CTSH.md's base-case rationale. And Project Leap ($230-320m, disclosed only in the two 2026 10-Qs) postdates the February break entirely -- it cannot have caused it, but it is a live, AI-framed restructuring running concurrently with the June sector rotation. Both argue for RE-TESTING g_base 4% against the Q3 2026 results, due **2026-10-28** -- that is the re-assessment date this entry is carrying forward to; it re-tests the growth view, not Gate 1 or Gate 2, which are not frozen for a WATCH-PRICED name the way E12 freezes a PIPELINE one. E76 VERDICT DICTATED BY THE OWNER 2026-08-31, recorded verbatim in reports/CTSH-reading-2026-08-28.md section 11: "aktien har återhämtat sig för mycket för att vi ska hoppa in pga AI som tar deras kund timmar tror vi men namnet omprövas vid Q3 2026-10-28". NO BUY. Status stays WATCH-PRICED; fv_base 89.38, tier 2, the derived MBP and stop_price 58.92 are all UNCHANGED by this dictation.
@@ -2229,7 +2312,7 @@ tickers:
     cik: 1609711    # https://www.sec.gov/files/company_tickers.json fetched
                     # 2026-08-30: row 836 {cik_str: 1609711, ticker: GDDY,
                     # title: GoDaddy Inc.}; Delaware, SIC 7373, Tempe AZ
-    fv_base: 79.99     # re-struck after the method check 2026-10-27, reference/GDDY-STRIKE-2026-10-27-check.md (E141). EARLIER: 79.99 -- E142-E145 re-strike 2026-10-27, reference/GDDY-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 77.03 -- E140/E140.1 re-strike 2026-10-27, reference/GDDY-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 129.03
+    fv_base: 92.72     # E166 2026-11-08: 79.99 -> 92.72 (working capital tied to the cash flow statement, reference/run-records/GDDY-2026-11-08-e166.json). EARLIER: 79.99 -- re-struck after the method check 2026-10-27, reference/GDDY-STRIKE-2026-10-27-check.md (E141). EARLIER: 79.99 -- E142-E145 re-strike 2026-10-27, reference/GDDY-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 77.03 -- E140/E140.1 re-strike 2026-10-27, reference/GDDY-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 129.03
     # TIER 3 -> 2 on 2026-09-01, under E99. NOT a re-score: the section 4.4
     #   score of 2026-08-30 stands at 6 and no figure in it moved. Gate 4
     #   left the DENOMINATOR (it has never been evaluable for any name), so
@@ -2263,7 +2346,7 @@ tickers:
     #   owner's act, recorded here only. The Avanza order is the owner's;
     #   the field is the tool's requirement, not the order.
     stop_price:
-    run_record: reference/run-records/GDDY-2026-10-27-check.json     # the method-check record. EARLIER: reference/run-records/GDDY-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/GDDY-2026-10-27.json
+    run_record: reference/run-records/GDDY-2026-11-08-e166.json     # E166 replay of reference/run-records/GDDY-2026-10-27-check.json, working capital tied (vss/cfrecon.py). EARLIER: reference/run-records/GDDY-2026-10-27-check.json -- the method-check record. EARLIER: reference/run-records/GDDY-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/GDDY-2026-10-27.json
     catalyst_date: 2026-11-09
     catalyst_event: >-
       Q3 2026 results -- the reassessment point. Expected before the 10-Q
@@ -2440,7 +2523,7 @@ tickers:
     cik: 1434588
     name: GRAND CANYON EDUCATION, INC.
     currency: USD
-    status: DROPPED      # E145 (E141 decision 2026-10-27): Q2 stability fails (operating profit fell below half its peak and did not regain it within three years) -- reference/LOPE-STRIKE-2026-10-27-e142.md. Was INTAKE
+    status: INTAKE      # restored to its status before E145 -- E168 2026-11-09 (attempt #25; beslutat av sessionen 2026-11-09): E145's Q1-Q4 drop nothing any more, so the Q2 fail no longer drops the name. EARLIER: DROPPED -- E145 (E141 decision 2026-10-27): Q2 stability fails (operating profit fell below half its peak and did not regain it within three years) -- reference/LOPE-STRIKE-2026-10-27-e142.md. Was INTAKE
     notes: >-
       E111 INTAKE, 2026-09-04. record COMPLETE. Intaken 2026-09-04. FCF0 242,120,000 USD, net cash 4,439,000, 28,024,000 diluted shares. NO GROWTH VIEW IS REGISTERED, so nothing has been struck.
   - ticker: MEKKO.HE
@@ -2479,9 +2562,8 @@ tickers:
     dd_at_entry: 0.2441     # E12, stamped on promotion: settled close 9.60 (2026-11-06) against the 52-week closing high 12.70
     peak_date: 2026-01-15
     tier: 2            # section 4.4 score 4 or 5 (gates 3-4 +2 green -1 soft): medium conviction; MBP 10.95 x 0.75 = 8.21
-    fv_base: 10.95     # reference/MEKKO.HE-STRIKE-2026-10-27-check.md (bear 9.25, bull 16.33), basis annual FY2025; refreshed on the FY2026 annual report
-    run_record: reference/run-records/MEKKO.HE-2026-10-27-check.json
-    # NO dd_at_entry AND NO peak_date, DELIBERATELY. E12's stamp is what
+    fv_base: 9.64     # E154.1 2026-11-08: 9.53 -> 9.64 (the year-to-date working capital neutralised again, review 2026-11-08 M1; reference/run-records/MEKKO.HE-2026-11-08-e154-1.json). EARLIER: 9.53 -- E154 2026-11-07: 10.95 -> 9.53 (working capital kept, reference/run-records/MEKKO.HE-2026-11-07-e154.json). EARLIER: reference/MEKKO.HE-STRIKE-2026-10-27-check.md (bear 9.25, bull 16.33), basis annual FY2025; refreshed on the FY2026 annual report
+    run_record: reference/run-records/MEKKO.HE-2026-11-08-e154-1.json     # E154.1 replay of reference/run-records/MEKKO.HE-2026-11-07-e154.json. EARLIER: reference/run-records/MEKKO.HE-2026-11-07-e154.json -- E154 replay of reference/run-records/MEKKO.HE-2026-10-27-check.json, working capital kept. EARLIER: reference/run-records/MEKKO.HE-2026-10-27-check.json -- NO dd_at_entry AND NO peak_date, DELIBERATELY. E12's stamp is what
     # PROMOTION TO PIPELINE writes (E111), and `rules.frozen_gate_1` fires
     # for PIPELINE alone: a WATCH-GATED name has its own re-entry rule under
     # E27 and has nothing to freeze. Gate 1 stays readable on today's level,
@@ -2689,7 +2771,7 @@ tickers:
       registered: 2026-10-20
     name: AcadeMedia AB (publ)
     currency: SEK
-    status: HELD         # 476 SHARES HELD, blended entry 117.50 SEK, about 56,454 SEK at 2026-11-02 (owner: "jag har 476 academedia aktier inköpspris 117.5 totalt"); the 433 added 2026-10-29 / later average ~117.81 (derived). BOUGHT 2026-10-28: 43 shares at 114.40 SEK, the owner's word ("academedia har jag köpt 43 st på 114,4 kr"), above the tier-3 MBP 103.18 and before the Q1 read of 2026-11-02. EARLIER: WATCH-PRICED -- E141 decision 2026-10-27 after the full walk reference/reviews/ACAD.ST/2026-10-27.yaml: score 4, tier 3, MBP 103.18 (158.74 x 0.65) against 112.40. EARLIER: PIPELINE -- RESTORED 2026-10-27 (E141 decision): the E145 drop was an ERROR -- Q1 ran on all capital employed because the history had no goodwill row; with goodwill taken out Q1 PASSES (median 48.1%), reference/ACAD.ST-STRIKE-2026-10-27-goodwill.md. Only Q4 fails (ROIIC 7.2%), which lowers the tier one step. EARLIER: DROPPED -- E145 Q1, reference/ACAD.ST-STRIKE-2026-10-27-e142.md. Was PIPELINE
+    status: HELD         # 486 SHARES HELD, GAV 117.75 SEK incl. courtage (117.46 excl.), 57,228.12 SEK in five buys 2026-10-28..11-03 (source: Avanza transaktioner 2026-11-08; REPLACES the blended entry 117.50, which was the 476 after 2026-11-02 -- the buy of 2026-11-03 was missing). EARLIER: 486 SHARES HELD (Avanza kontoöversikt 2026-11-08: 486 x 124.80 = 60,653 SEK; WAS 476 here -- corrected 2026-11-08, the 10 further shares' price and date are not on the overview, so the blended entry below covers the 476 only). EARLIER: 476 SHARES HELD, blended entry 117.50 SEK, about 56,454 SEK at 2026-11-02 (owner: "jag har 476 academedia aktier inköpspris 117.5 totalt"); the 433 added 2026-10-29 / later average ~117.81 (derived). BOUGHT 2026-10-28: 43 shares at 114.40 SEK, the owner's word ("academedia har jag köpt 43 st på 114,4 kr"), above the tier-3 MBP 103.18 and before the Q1 read of 2026-11-02. EARLIER: WATCH-PRICED -- E141 decision 2026-10-27 after the full walk reference/reviews/ACAD.ST/2026-10-27.yaml: score 4, tier 3, MBP 103.18 (158.74 x 0.65) against 112.40. EARLIER: PIPELINE -- RESTORED 2026-10-27 (E141 decision): the E145 drop was an ERROR -- Q1 ran on all capital employed because the history had no goodwill row; with goodwill taken out Q1 PASSES (median 48.1%), reference/ACAD.ST-STRIKE-2026-10-27-goodwill.md. Only Q4 fails (ROIIC 7.2%), which lowers the tier one step. EARLIER: DROPPED -- E145 Q1, reference/ACAD.ST-STRIKE-2026-10-27-e142.md. Was PIPELINE
     dd_at_entry: 0.0
     peak_date: 2026-10-19
     fv_base: 158.74     # re-struck after the method check 2026-10-27, reference/ACAD.ST-STRIKE-2026-10-27-check.md (E141). EARLIER: 173.63 -- E142-E145 re-strike 2026-10-27, reference/ACAD.ST-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 25.91 -- E140/E140.1 re-strike 2026-10-27, reference/ACAD.ST-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 152.32 -- vss strike 2026-10-24 on the registered view 4.5/3.5/7 (bear 140.19, bull 187.01), basis annual FY2026, close 110.40, g* 0.66%
@@ -2701,11 +2783,25 @@ tickers:
     #   old 97-105 range the price broke out of in mid-October -- sits under
     #   it, and C1 lets the cap tighten the stop, never loosen it. A daily
     #   close under 108.10 sells. The order is the owner's to place.
-    stop_price: 108.10
+    stop_price: none       # E162 2026-11-08: no price stop, by decision (attempts #10, #18). Was 82.25      -- E156 (2026-11-08): catastrophe stop -30% from blended entry 117.50; was 108.10 (-8%, E102)
     catalyst_date: 2026-11-02          # Q1 2026/27 interim report (July-September 2026), the issuer's financial calendar.
     catalyst_resolved: 2026-11-02      # Q1 2026/27 read 2026-11-02, sources/ACAD.ST_2027-Q1_interim-report-q1-and-q3_2026-11-02_en_a0.pdf; see the note of that date.
     catalyst_event: Q1 2026/27 interim -- organic growth and EBIT against Q1 2025/26 (EBIT 292 against 272), receivables growth against sales growth, and any word from the new government on profits in existing schools.
     run_record: reference/run-records/ACAD.ST-2026-10-27-goodwill.json     # Q1 re-read with goodwill out; value unchanged. EARLIER: reference/run-records/ACAD.ST-2026-10-27-check.json -- the method-check record. EARLIER: reference/run-records/ACAD.ST-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/ACAD.ST-2026-10-27.json
+    # A COUNTERFACTUAL fill (owner 2026-11-08): what E157 would have sold, set
+    # aside by the owner. `vss sales` reports it apart ("undantag mot regel")
+    # and never in realised proceeds, the by-rule table or a reconciliation.
+    sales:
+      - date: 2026-11-06
+        price: 124.80
+        currency: SEK
+        shares: 367
+        rule: owner
+        proceeds_sek: 45802
+        counterfactual: true
+        overrides: E157
+        to: Avanza Zero
+        note: "E157 (6% of 248,476 = 14,909 SEK) keeps 119 of 486; 367 x 124.80 = 45,801.60 SEK would have gone to Avanza Zero. Owner: 'ägarens val', standing EXPIRY at the next ACAD.ST report (2027-02-01). Moved here from the shadow book's OVERRIDE row (arkiv/2026-11-08-shadow-book-ogiltiga/)."
     notes: |2-
       STRUCK 2026-10-24 (owner: "ja kör acad") once the AR 2025/26 gave the five legs: fv_base 152.32 against 110.40. FCF0 982 excludes the acquisition spend (1,036 in FY2026, 333 the year before) -- if the 4.5% base needs it, the value is overstated. Additional purchase considerations (reclassified to other liabilities in the AR) are not a net-debt leg under any ruling and are not in it. Off-band value intake 2026-10-20 (a one-off cheapness scan of names NOT in the 15-50% band, vendor FCF/EV 11.4%). Store config/manual/ACAD.ST.yaml from the year-end report 2025/26; five legs (pension, ARO, prepaid delivery, diluted average, sbc) wait for the Annual Report 2025/26 due 2026-10-23, so NO fv_base yet. A PROVISIONAL scratch strike with prior-year stand-ins gave base 152 / bear 140 / bull 187 against 114.80, g* 1.1% -- not a struck value and not entered. Political risk: Swedish profit-limitation proposals (SOU 2025:37), the L-SD agreement of March 2026, and the election of 2026-09-13. No tier and no mbp. This entry is review work, not a buy.
 
@@ -2717,6 +2813,11 @@ tickers:
 
       2026-11-02 Q1 2026/27 READ (sources/ACAD.ST_2027-Q1_interim-report-q1-and-q3_2026-11-02_en_a0.pdf): the thesis holds, nothing to do. Net sales 4,679 (+14.1%), organic incl. bolt-ons 4.8% (6.4% a year ago; target 5-7%); EBIT 343 against 292 (+17.5%), adj. EBITA margin 4.6% (4.4%). Free cash flow before expansion 195 against -111. Current receivables 1,569 against 1,438 (+9.1%) under sales growth (+14.1%): the receivables question of 10-27 is closed, no §4.2.7. Net debt ex IFRS 16 2,102 (1,244), 1.0x adj. EBITDA, the rise is Florencius, Kindernet and Kids&Co. (completed 10-01). No guidance (the company gives none) and no word in the report on profit rules; the new government has not proposed a law on EXISTING schools, so the Gate 2 class D trigger has not fired. Next: Q2 2027-02-01. Stop still undefined (blocker).
 
+      2026-11-08 BUYS BOOKED (source: Avanza transaktioner 2026-11-08, the owner's word), account ACCOUNT-A: 2026-10-28 43 at 114.40 (-4,931.50); 2026-10-29 171 at 116.60 (-19,988.45); 2026-10-29 42 at 116.80 (-4,917.86); 2026-11-02 220 at 118.60 (-26,157.23); 2026-11-03 10 at 123.00 (-1,233.08). Sum 486 shares, 57,228.12 SEK incl. courtage; GAV 117.75 (Avanza's, incl. courtage; 117.46 excl.). Old figures: blended entry 117.50 (the 476 held after 2026-11-02); the note below calling the 10 shares' price DATA MISSING is answered here (123.00 on 2026-11-03).
+      2026-11-08 POSITION CORRECTED (source: Avanza kontoöversikt 2026-11-08, the owner's paste): 486 shares at 124.80 = 60,653 SEK, not 476. Old figure 476 (owner 2026-11-02), new 486; the 10-share difference has no price or date on the overview -- the blended entry 117.50 is the 476's, and the entry of the whole 486 is DATA MISSING until a contract note is in konto/.
+      2026-11-08 E157 BASE CORRECTED (source: Avanza kontoöversikt 2026-11-08): securities 248,476 SEK = shares 62,100 + Avanza Zero 186,376; the savings-account buffer is not counted. WAS 190,000 -- the "~190k SEK in all" of the 2026-11-02 note below was the session's estimate (the ~56,454 SEK position as a ~30% sleeve), not a figure the owner gave. config/queue.yaml portfolio_sek and tools/build_queue.py's header carry the new base.
+      2026-11-08 E157 BASE, DATED (source: Avanza transaktioner 2026-11-08): the core in the 248,476 is Avanza Zero ALONE since 2026-11-04. Until 2026-11-04 it was Avanza Zero + Avanza USA; on 2026-11-04 Avanza USA was sold in full (63.1588 + 86.9063 units at 257.12 = 38,584.74 SEK) and 63.397024 units of Avanza Zero at 570.18 (36,147.72 SEK); 74,200 SEK went to the buffer account BUFFER-ACCOUNT (+8.59 SEK on 2026-11-02), which is outside the base.
+      2026-11-08 OWNER OVERRIDE OF E157: rule: owner, overrides: E157, reason "ägarens val", standing: EXPIRY at the next ACAD.ST report (Q2 2026/27, 2027-02-01). 486 shares = 24.4% of 248,476; under E157 119 shares, 367 (45,802 SEK) would be sold into Avanza Zero. Recorded in config/queue.yaml `override:` and, since 2026-11-08 evening, as a COUNTERFACTUAL fill in `sales:` (367 at 124.80 = 45,802 SEK to Avanza Zero, overrides E157); it first stood as a shadow-book OVERRIDE row, moved out to arkiv/ (an owned name does not belong in the book).
       2026-11-02 POSITION (owner): 476 shares, blended entry 117.50 SEK, about 56,454 SEK -- the rest of the satellite money. Stop 108.10 (117.50 x 0.92, C1). §7 RISK CHECK, stated to the owner: at the stop the loss is 476 x 9.40 = ~4,474 SEK; with the sleeve ~30% of the portfolio (~190k SEK in all) 1% is ~1,900 SEK and the rule caps the position at ~1,900 / 8% = ~23,750 SEK, so the position is ~2.4x the ceiling. The owner's act; recorded, not reversed.
   - ticker: ALV
     # PROMOTED TO PIPELINE by the owner 2026-10-20 ON VALUE (E139), from the
@@ -2735,11 +2836,11 @@ tickers:
       registered: 2026-10-20
     name: Autoliv, Inc.
     currency: USD
-    status: DROPPED      # E145 (E141 decision 2026-10-27): Q2 stability and Q3 debt fail -- reference/ALV-STRIKE-2026-10-27-e142.md. Was PIPELINE
+    status: PIPELINE      # restored to its status before E145 -- E168 2026-11-09 (attempt #25; beslutat av sessionen 2026-11-09): E145's Q1-Q4 drop nothing any more, so the Q2 and Q3 fail no longer drops the name. EARLIER: DROPPED -- E145 (E141 decision 2026-10-27): Q2 stability and Q3 debt fail -- reference/ALV-STRIKE-2026-10-27-e142.md. Was PIPELINE
     dd_at_entry: 0.11542261596053782
     peak_date: 2026-06-02
-    fv_base: 71.74     # re-struck after the method check 2026-10-27, reference/ALV-STRIKE-2026-10-27-check.md (E141). EARLIER: 68.15 -- E142-E145 re-strike 2026-10-27, reference/ALV-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 85.89 -- E140/E140.1 re-strike 2026-10-27, reference/ALV-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 134.34 -- vss strike 2026-10-20 on the registered view 1/3/5 (bear 112.88, bull 159.37), close 116.49, g* 1.36%
-    run_record: reference/run-records/ALV-2026-10-27-check.json     # the method-check record. EARLIER: reference/run-records/ALV-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/ALV-2026-10-27.json
+    fv_base: 71.14     # E166 2026-11-08: 71.74 -> 71.14 (working capital tied to the cash flow statement, reference/run-records/ALV-2026-11-08-e166.json). EARLIER: 71.74 -- re-struck after the method check 2026-10-27, reference/ALV-STRIKE-2026-10-27-check.md (E141). EARLIER: 68.15 -- E142-E145 re-strike 2026-10-27, reference/ALV-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 85.89 -- E140/E140.1 re-strike 2026-10-27, reference/ALV-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 134.34 -- vss strike 2026-10-20 on the registered view 1/3/5 (bear 112.88, bull 159.37), close 116.49, g* 1.36%
+    run_record: reference/run-records/ALV-2026-11-08-e166.json     # E166 replay of reference/run-records/ALV-2026-10-27-check.json, working capital tied (vss/cfrecon.py). EARLIER: reference/run-records/ALV-2026-10-27-check.json -- the method-check record. EARLIER: reference/run-records/ALV-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/ALV-2026-10-27.json
     notes: >-
       Store config/manual/ALV.yaml (SEC XBRL FY2021-FY2025 plus 10-K hand
       legs, commit 13e4533), basis annual FY2025: FCF0 793m, net debt
@@ -2764,25 +2865,50 @@ tickers:
     name: Central Garden & Pet Company (Class A)
     currency: USD
     status: HELD         # BOUGHT 2026-10-20: 30 shares at 36.73 USD, the owner's word in the session (account and SEK amount not yet stated; book from the Avanza transaction list). ADDED 2026-10-23: 46 shares at 39.22 USD, 18,027.42 SEK (owner, reported 2026-10-24). ADDED 2026-10-26: 51 shares at 39.33 USD, 20,063 SEK (owner, reported 2026-10-27); 148 held. SOLD 2026-10-28: 146 shares at 38.34 USD (owner: "jag har sålt av har bara 2 st centa kvar", "de såldes på 38.34"; SEK to be booked from Avanza); 2 held
+    stop_price: none       # E162 2026-11-08: no price stop, by decision (attempts #10, #18)
     dd_at_entry: 0.11847285072337377
     peak_date: 2026-08-06
-    fv_base: 40.19     # re-struck after the method check 2026-10-27, reference/CENTA-STRIKE-2026-10-27-check.md (E141). EARLIER: 40.19 -- E142-E145 re-strike 2026-10-27, reference/CENTA-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 28.6 -- E140/E140.1 re-strike 2026-10-27, reference/CENTA-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 61.83 -- vss strike 2026-10-20 on the registered view 2/-1/3.5 (bear 48.69), basis annual FY2025, close 35.79, g* -4.84%
+    fv_base: 40.19     # E169 2026-11-09: B8 reversed -- Burpee closed 2026-09-30 and was paid; an undisclosed price is the estimated range, as for ACAD.ST and CTSH, never zero (granskning 2026-11-09, 2.2); back to the E166 record. EARLIER: 42.24 -- B8 2026-11-08: 40.19 -> 42.24 (the Burpee estimate out of the bridge, reference/run-records/CENTA-2026-11-08-b8.json; E166 left the value unchanged). EARLIER: 40.19 -- re-struck after the method check 2026-10-27, reference/CENTA-STRIKE-2026-10-27-check.md (E141). EARLIER: 40.19 -- E142-E145 re-strike 2026-10-27, reference/CENTA-STRIKE-2026-10-27-e142.md, written under E140.1(4) and E141. EARLIER: 28.6 -- E140/E140.1 re-strike 2026-10-27, reference/CENTA-STRIKE-2026-10-27.md, written under E140.1(4) and E141. EARLIER: 61.83 -- vss strike 2026-10-20 on the registered view 2/-1/3.5 (bear 48.69), basis annual FY2025, close 35.79, g* -4.84%
     fv_bull: 54.7     # the method-check record's bull case. EARLIER: 54.7 -- the E142 record's bull case, for the C4 / E42 exit test. EARLIER: 33.82 -- the struck bull case, for the C4 / E42 exit test -- of the E140 record 2026-10-27 (was 69.64)
-    run_record: reference/run-records/CENTA-2026-10-27-check.json     # the method-check record. EARLIER: reference/run-records/CENTA-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/CENTA-2026-10-27.json
+    run_record: reference/run-records/CENTA-2026-11-08-e166.json     # E169: B8 reversed. EARLIER: reference/run-records/CENTA-2026-11-08-b8.json -- B8 replay of reference/run-records/CENTA-2026-11-08-e166.json (itself the E166 replay of reference/run-records/CENTA-2026-10-27-check.json), Burpee out. EARLIER: reference/run-records/CENTA-2026-10-27-check.json -- the method-check record. EARLIER: reference/run-records/CENTA-2026-10-27-e142.json -- E142 record. EARLIER: reference/run-records/CENTA-2026-10-27.json
     # No tier, no mbp, no stop_price: the tier is the owner's (section 4.4),
     #   and a HELD name with no stop is reported by the missing-stop blocker.
-    # B45: one item per fill. Price, account and SEK not yet given (owner, 2026-10-28).
+    # B45: one item per fill (source: Avanza transaktioner 2026-11-08, the owner's word).
+    # REPLACES one row of 2026-11-08's file: "2026-10-28, 146 at 38.34, account and SEK
+    # blank" -- the 75 sold 2026-10-27 at 38.80 were folded into it. Rule and run record kept.
     sales:
+      - date: 2026-10-27
+        price: 38.80
+        currency: USD
+        shares: 75
+        account: "ACCOUNT-A"
+        rule: owner
+        run_record: reference/run-records/CENTA-2026-10-27-check.json
+        proceeds_sek: 28830.73
+        note: "fails E145 Q1-Q4 at fv 40.19 (2026-10-27 decision); first of three fills"
       - date: 2026-10-28
         price: 38.34
         currency: USD
-        shares: 146
-        account:
+        shares: 61
+        account: "ACCOUNT-A"
         rule: owner
         run_record: reference/run-records/CENTA-2026-10-27-check.json
-        proceeds_sek:
-        note: "owner: 'jag har sålt av har bara 2 st centa kvar'; fails E145 Q1-Q4 at fv 40.19 (2026-10-27 decision); price 38.34 per the owner; SEK and account from Avanza"
+        proceeds_sek: 23054.31
+        note: "owner: 'jag har sålt av har bara 2 st centa kvar'"
+      - date: 2026-10-28
+        price: 38.34
+        currency: USD
+        shares: 10
+        account: "ACCOUNT-A"
+        rule: owner
+        run_record: reference/run-records/CENTA-2026-10-27-check.json
+        proceeds_sek: 3778.99
+        note: "third fill; 146 sold in all, 2 left (1 in ACCOUNT-A, 1 in ACCOUNT-B)"
     notes: >-
+      2026-11-08 SALES RECONCILED (source: Avanza transaktioner 2026-11-08): 148 bought 2026-10-20..26 (29 + 1 in ACCOUNT-B + 21 + 46 + 51), 146 sold in three fills -- 2026-10-27 75 at 38.80 USD (28,830.73 SEK), 2026-10-28 61 at 38.34 (23,054.31) and 10 at 38.34 (3,778.99), all ACCOUNT-A. 2 left, one in each account. OLD `sales:` row: one fill 2026-10-28, 146 at 38.34, account and SEK blank -- wrong date and price for 75 of the shares.
+
+      2026-11-08 POSITION (source: Avanza kontoöversikt 2026-11-08): CENTA 807 SEK = 2 shares x 40.80 (close 2026-11-06) at 9.89 SEK/USD -- agrees with the 2 shares on file; being wound down (sell at base pending since 2026-10-27).
+
       BOUGHT 2026-10-20, 30 shares at 36.73 USD (owner, in the session).
       ADDED 2026-10-23 (date not stated; reported 2026-10-24): 46 shares at
       39.22 USD, 18,027.42 SEK, funded in part by the last 7 CRUS. 76
@@ -2823,19 +2949,21 @@ tickers:
     name: GENTEX CORP
     cik: 355811    # https://www.sec.gov/files/company_tickers.json, fetched 2026-10-27
     currency: USD
+    # WATCH-PRICED 2026-11-09 (E163, attempt #24; beslutat av sessionen
+    # 2026-11-09): the 4.2.1 kill below was removed, so the gate's reason
+    # falls. Tier blank: the queue gives a LOOK line only. EARLIER:
     # WATCH-GATED, E141 decision 2026-10-27: section 4.2.1 hard kill --
     # revenue down year on year two quarters running, Q2 2026 651.3m vs
     # 657.9m (-1.0%) and Q3 2026 647.7m vs 655.2m (-1.1%); VOXX was in both
     # comparison quarters (closed 2025-04-01), so reported is like for
     # like. A kill is not a price: NO PRICE LEVEL MAY WAKE THIS NAME.
-    status: WATCH-GATED
+    status: WATCH-PRICED
     dd_at_entry: 0.2239
     peak_date: 2026-06-15
-    fv_base: 27.45     # first strike 2026-10-27, reference/GNTX-STRIKE-2026-10-27.md (bear 15.71, bull 29.62); close 20.21. E145: Q1-Q3, Q5 PASS; Q4 FAIL (ROIIC -21.0%: ten years of operating profit flat at ~480-500m on 750m of capital added)
-    run_record: reference/run-records/GNTX-2026-10-27.json
-    catalyst_date: 2027-02-01          # Q4 2026 results -- NOT the issuer's date; Gentex reported Q4 2025 in late January / early February.
-    catalyst_resolved:
-    catalyst_event: Q4 2026 results -- is Q4 2026 revenue at or above Q4 2025's 644.4m? If it is, the revenue kill clears and the gates are walked.
+    fv_base: 27.08     # E166 2026-11-08: 27.45 -> 27.08 (working capital tied to the cash flow statement, reference/run-records/GNTX-2026-11-08-e166.json). EARLIER: 27.45 -- first strike 2026-10-27, reference/GNTX-STRIKE-2026-10-27.md (bear 15.71, bull 29.62); close 20.21. E145: Q1-Q3, Q5 PASS; Q4 FAIL (ROIIC -21.0%: ten years of operating profit flat at ~480-500m on 750m of capital added)
+    run_record: reference/run-records/GNTX-2026-11-08-e166.json     # E166 replay of reference/run-records/GNTX-2026-10-27.json, working capital tied (vss/cfrecon.py). EARLIER: reference/run-records/GNTX-2026-10-27.json -- 
+    # catalyst_date (cleared 2026-11-09, E163): 2027-02-01          # Q4 2026 results -- NOT the issuer's date; Gentex reported Q4 2025 in late January / early February.
+    # catalyst_event (cleared 2026-11-09, E163): Q4 2026 results -- is Q4 2026 revenue at or above Q4 2025's 644.4m? If it is, the revenue kill clears and the gates are walked.
     notes: >-
       2026-10-27: screener #3 (2026-10-24). Struck 27.45 against 20.21 (26%
       under); net cash, tangible ROIC median 24.4%. Gated on the revenue
@@ -2871,8 +2999,8 @@ tickers:
     status: WATCH-GATED
     dd_at_entry: 0.3969
     peak_date: 2025-10-28
-    fv_base: 78.71     # bridge rolled to the Q3 10-Q 2026-09-27, reference/SFM-STRIKE-2026-10-29.md (bear 38.39, bull 78.71); close 62.00 (E141). EARLIER: 78.47 -- first strike 2026-10-27, reference/SFM-STRIKE-2026-10-27.md (bear 38.47, bull 78.47); close 64.41. E145: all five PASS (tangible ROIC median 38.1%, net cash)
-    run_record: reference/run-records/SFM-2026-10-29.json     # EARLIER: reference/run-records/SFM-2026-10-27.json
+    fv_base: 76.15     # E166 2026-11-08: 78.71 -> 76.15 (working capital tied to the cash flow statement, reference/run-records/SFM-2026-11-08-e166.json). EARLIER: 78.71 -- bridge rolled to the Q3 10-Q 2026-09-27, reference/SFM-STRIKE-2026-10-29.md (bear 38.39, bull 78.71); close 62.00 (E141). EARLIER: 78.47 -- first strike 2026-10-27, reference/SFM-STRIKE-2026-10-27.md (bear 38.47, bull 78.47); close 64.41. E145: all five PASS (tangible ROIC median 38.1%, net cash)
+    run_record: reference/run-records/SFM-2026-11-08-e166.json     # E166 replay of reference/run-records/SFM-2026-10-29.json, working capital tied (vss/cfrecon.py). EARLIER: reference/run-records/SFM-2026-10-29.json -- EARLIER: reference/run-records/SFM-2026-10-27.json
     catalyst_date: 2027-07-29          # Q2 2027 results -- NOT the issuer's date; Q2 2026 came 2026-07-29. The first release after which the July 2026 cut leaves the four-quarter window. EARLIER: 2026-10-28 (Q3 2026, the issuer's date; the entry said 10-29), resolved 2026-10-28 -- a third cut.
     catalyst_resolved:
     catalyst_event: Q2 2027 results -- no further outlook cut after October 2026 (the Q4 2026 release ~late February 2027 with the first FY2027 outlook, and Q1 2027 ~late April, included), so the trailing four quarters carry at most one cut. The re-strike on the FY2026 10-K (~late February 2027) comes first; fv 78.47 rests on a FY2026 EBIT ~11% above what is now guided.
@@ -2952,8 +3080,8 @@ tickers:
     status: WATCH-GATED
     dd_at_entry: 0.3166
     peak_date: 2026-01-09
-    fv_base: 218.18    # strike 2026-10-28 under E148, reference/BKNG-STRIKE-2026-10-28-e148.md (bear -2.96, bull 281.48); close 150.14. E145 Q1-Q5 PASS (Q2 on E148: 2020 repaired)
-    run_record: reference/run-records/BKNG-2026-10-28-e148.json
+    fv_base: 168.50     # E166 2026-11-08: 204.27 -> 168.50 (working capital tied to the cash flow statement, reference/run-records/BKNG-2026-11-08-e166.json). EARLIER: 204.27 -- E154.1 2026-11-08: 203.38 -> 204.27 (the year-to-date working capital neutralised again, review 2026-11-08 M1; reference/run-records/BKNG-2026-11-08-e154-1.json). EARLIER: 203.38 -- E154 2026-11-07: 218.18 -> 203.38 (working capital kept, reference/run-records/BKNG-2026-11-07-e154.json). EARLIER: strike 2026-10-28 under E148, reference/BKNG-STRIKE-2026-10-28-e148.md (bear -2.96, bull 281.48); close 150.14. E145 Q1-Q5 PASS (Q2 on E148: 2020 repaired)
+    run_record: reference/run-records/BKNG-2026-11-08-e166.json     # E166 replay of reference/run-records/BKNG-2026-11-08-e154-1.json, working capital tied (vss/cfrecon.py). EARLIER: reference/run-records/BKNG-2026-11-08-e154-1.json -- E154.1 replay of reference/run-records/BKNG-2026-11-07-e154.json. EARLIER: reference/run-records/BKNG-2026-11-07-e154.json -- E154 replay of reference/run-records/BKNG-2026-10-28-e148.json, working capital kept. EARLIER: reference/run-records/BKNG-2026-10-28-e148.json --
     catalyst_date: 2027-04-27          # Q1 2027 results -- NOT the issuer's date; Q1 2026 came in late April 2026. The first release after which the April 2026 cut leaves the four-quarter window.
     catalyst_resolved:
     catalyst_event: Q1 2027 results -- no further FY outlook cut since July 2026 (Q3 2026 results ~2026-11-03 and Q4 2026 in February included), so the trailing four quarters carry at most one cut; then Gate 2 is read (the AI-agent question below) and the gates walked.
@@ -2967,3 +3095,172 @@ tickers:
       airfares; Q3 guidance 4-6% revenue growth. Whether the AI agent is a
       narrative (Class A) or damage to the model (Class D) is the question
       Gate 2 must answer when the kill clears. Buybacks $3.7bn in Q2 2026.
+  # --- added 2026-11-08 to book a closed position's fills (B45) from the
+  # owner's Avanza transaction list; never screened, never valued.
+  # The ADR (yfinance NVO), a different listing from NOVO-B.CO (DKK), which is untouched.
+  - ticker: NVO
+    name: Novo Nordisk A/S (ADR)
+    currency: USD
+    status: DROPPED      # avslutad position, inte vägran enligt E27
+    fv_base:
+    tier:
+    stop_price:
+    sales:
+      - date: 2026-06-10
+        price: 43.615
+        currency: USD
+        shares: 36
+        account: "ACCOUNT-A"
+        rule: owner
+        run_record:
+        proceeds_sek: 14863.63
+        note: "före FRAMEWORK v2.0, 2026-06-11"
+      - date: 2026-06-17
+        price: 44.44
+        currency: USD
+        shares: 16
+        account: "ACCOUNT-A"
+        rule: owner
+        run_record:
+        proceeds_sek: 6742.60
+        note: "Avanza transaktioner 2026-11-08 (konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv)"
+    notes: >-
+      avslutad position, inte vägran enligt E27. Fills booked 2026-11-08 from Avanza transaktioner 2026-11-08 (konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv), rule: owner, no run record. Not in config/shadow_book.csv: `vss sales` measures what was sold; `vss shadow` measures what was never bought (E114).
+  # --- added 2026-11-08 to book a closed position's fills (B45) from the
+  # owner's Avanza transaction list; never screened, never valued.
+  - ticker: IBM
+    name: International Business Machines Corporation
+    currency: USD
+    status: DROPPED      # avslutad position, inte vägran enligt E27
+    fv_base:
+    tier:
+    stop_price:
+    sales:
+      - date: 2026-07-15
+        price: 212.18
+        currency: USD
+        shares: 6
+        account: "ACCOUNT-B"
+        rule: owner
+        run_record:
+        proceeds_sek: 12158.21
+        note: "Avanza transaktioner 2026-11-08 (konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv)"
+      - date: 2026-07-16
+        price: 205.775
+        currency: USD
+        shares: 8
+        account: "ACCOUNT-B"
+        rule: owner
+        run_record:
+        proceeds_sek: 15799.51
+        note: "Avanza transaktioner 2026-11-08 (konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv)"
+    notes: >-
+      avslutad position, inte vägran enligt E27. Fills booked 2026-11-08 from Avanza transaktioner 2026-11-08 (konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv), rule: owner, no run record. Not in config/shadow_book.csv: `vss sales` measures what was sold; `vss shadow` measures what was never bought (E114).
+  # --- added 2026-11-08 to book a closed position's fills (B45) from the
+  # owner's Avanza transaction list; never screened, never valued.
+  - ticker: UNH
+    name: UnitedHealth Group Incorporated
+    currency: USD
+    status: DROPPED      # avslutad position, inte vägran enligt E27
+    fv_base:
+    tier:
+    stop_price:
+    sales:
+      - date: 2026-05-15
+        price: 391.52
+        currency: USD
+        shares: 6
+        account: "ACCOUNT-A"
+        rule: owner
+        run_record:
+        proceeds_sek: 22086.21
+        note: "före FRAMEWORK v2.0, 2026-06-11"
+      - date: 2026-05-15
+        price: 391.67
+        currency: USD
+        shares: 3
+        account: "ACCOUNT-B"
+        rule: owner
+        run_record:
+        proceeds_sek: 11047.30
+        note: "före FRAMEWORK v2.0, 2026-06-11"
+      - date: 2026-05-18
+        price: 389.43
+        currency: USD
+        shares: 5
+        account: "ACCOUNT-B"
+        rule: owner
+        run_record:
+        proceeds_sek: 18184.22
+        note: "före FRAMEWORK v2.0, 2026-06-11"
+    notes: >-
+      avslutad position, inte vägran enligt E27. Fills booked 2026-11-08 from Avanza transaktioner 2026-11-08 (konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv), rule: owner, no run record. Not in config/shadow_book.csv: `vss sales` measures what was sold; `vss shadow` measures what was never bought (E114).
+  # --- added 2026-11-08 to book a closed position's fills (B45) from the
+  # owner's Avanza transaction list; never screened, never valued.
+  - ticker: IONQ
+    name: IonQ, Inc.
+    currency: USD
+    status: DROPPED      # avslutad position, inte vägran enligt E27
+    fv_base:
+    tier:
+    stop_price:
+    sales:
+      - date: 2026-05-13
+        price: 54.30
+        currency: USD
+        shares: 17
+        account: "ACCOUNT-A"
+        rule: owner
+        run_record:
+        proceeds_sek: 8566.52
+        note: "före FRAMEWORK v2.0, 2026-06-11"
+    notes: >-
+      avslutad position, inte vägran enligt E27. Fills booked 2026-11-08 from Avanza transaktioner 2026-11-08 (konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv), rule: owner, no run record. Not in config/shadow_book.csv: `vss sales` measures what was sold; `vss shadow` measures what was never bought (E114).
+  # --- added 2026-11-08 to book a closed position's fills (B45) from the
+  # owner's Avanza transaction list; never screened, never valued.
+  - ticker: MSON-B.ST
+    name: Midsona AB (publ) B
+    currency: SEK
+    status: DROPPED      # avslutad position, inte vägran enligt E27
+    fv_base:
+    tier:
+    stop_price:
+    sales:
+      - date: 2026-07-15
+        price: 14.50
+        currency: SEK
+        shares: 1
+        account: "ACCOUNT-B"
+        rule: owner
+        run_record:
+        proceeds_sek: 13.50
+        note: "Avanza transaktioner 2026-11-08 (konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv)"
+      - date: 2026-07-15
+        price: 14.50
+        currency: SEK
+        shares: 19
+        account: "ACCOUNT-B"
+        rule: owner
+        run_record:
+        proceeds_sek: 274.50
+        note: "Avanza transaktioner 2026-11-08 (konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv)"
+      - date: 2026-08-04
+        price: 11.55
+        currency: SEK
+        shares: 23
+        account: "ACCOUNT-A"
+        rule: owner
+        run_record:
+        proceeds_sek: 264.65
+        note: "Avanza transaktioner 2026-11-08 (konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv)"
+      - date: 2026-08-04
+        price: 11.55
+        currency: SEK
+        shares: 32
+        account: "ACCOUNT-B"
+        rule: owner
+        run_record:
+        proceeds_sek: 368.60
+        note: "Avanza transaktioner 2026-11-08 (konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv)"
+    notes: >-
+      avslutad position, inte vägran enligt E27. Fills booked 2026-11-08 from Avanza transaktioner 2026-11-08 (konto/2026-11-08-avanza-transaktioner-2020-05-27--2026-11-08.csv), rule: owner, no run record. Not in config/shadow_book.csv: `vss sales` measures what was sold; `vss shadow` measures what was never bought (E114).

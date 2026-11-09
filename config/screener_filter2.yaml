@@ -67,84 +67,12 @@ limbs:
   # The EBITDA leg is the vendor's own construction on its own period
   # (LIAB.ST read 3.75x here against the issuer's stated 2.70x, report B 6.2),
   # so the ratio here is a coarse reading of the gate, not the gate.
-  net_debt_to_ebitda:
-    rule: net_debt_over_ebitda_at_most
-    max: 2.5
-    framework: "section 3 Gate 3 (Net debt/EBITDA <= 2.5x)"
-    decided: 2026-08-26
-    amended_by: "FRAMEWORK-EDITS E44 (amends E2)"
-    not_chosen:
-      max: 3.5
-      framework: "section 4.2.5 hard kill (Net debt/EBITDA > 3.5x) -- E2's choice, superseded: a name at 3.3x fails Gate 3 by hand regardless"
-    on_missing: DATA_MISSING
+  # net_debt_to_ebitda: REMOVED 2026-11-09 by E168 (ATTEMPTS #25: the limb did
+  # not separate returns in both markets and both halves).
 
-    # Degenerate case the framework does not name, because an analyst would
-    # not need telling: EBITDA at or below zero leaves the ratio undefined.
-    # Proposed reading, and it is a reading, not a citation:
-    #   net debt > 0 and EBITDA <= 0  -> FAIL. Debt with no earnings to
-    #                                    service it is the condition the cap
-    #                                    exists to catch, at its extreme.
-    #   net debt <= 0 and EBITDA <= 0 -> PASS. Net cash: there is no leverage
-    #                                    to measure, so the limb has nothing
-    #                                    to object to.
-    non_positive_ebitda:
-      with_net_debt: FAIL
-      with_net_cash: PASS
-
-    # Gate 3 says "financials excluded". A machine cannot "use sector norms",
-    # so the limb is NOT EVALUATED for them -- NOT APPLICABLE, which is
-    # neither PASS nor FAIL nor DATA MISSING.
-    #
-    # Precedent: FRAMEWORK-EDITS B7, decided 2026-08-21, established exactly
-    # this third outcome for section 4.2.7's inventory limb, with a stated
-    # threshold and worked examples in both directions.
-    #
-    # The discriminator is the source list's own sector string, never a guess
-    # from the name -- the same rule the universe exclusions follow.
-    not_applicable_sectors:
-      - Financial Services
-      - Real Estate
-    not_applicable_reason: >
-      Gate 3 excludes financials from this limb and directs the analyst to
-      sector norms, which a machine has none of. Net debt is not a meaningful
-      construct for a bank, and the source returns no EBITDA for one anyway.
-      Real Estate is included by the owner's decision of 2026-08-22: property
-      is borrowed against asset value rather than EBITDA, the same logic that
-      already exempts financials. Recorded as FRAMEWORK-EDITS E3 in B7's form,
-      not left as a silent line in this file.
-
-  # ------------------------------------------------------ revenue trend ---
-  # FRAMEWORK section 4.2.1 is a HARD KILL: "revenue declining 2+ consecutive
-  # quarters". FRAMEWORK-EDITS E45 (2026-08-26, amends B9) applies it as
-  # written: the last eight QUARTERS of Total Revenue from the vendor's
-  # quarterly statement (build item 8), each against the same quarter a year
-  # earlier; two or more consecutive year-on-year declines counted from the
-  # newest quarter FAIL the name, ON VALUE, with the changes printed.
-  #
-  # Where the quarters are unavailable -- a half-yearly reporter (BUCN.SW),
-  # an empty quarterly endpoint, a hole that leaves fewer than two
-  # comparisons at the newest end (ERIC-B.ST's NaN prior) -- the limb falls
-  # back to the ANNUAL series and there only FLAGS, as B9 had it, and the
-  # detail says which basis was read and why.
-  #
-  # B9's organic carve-out (UNA.AS: four reported declines, organic growth in
-  # all eight quarters) now governs the HAND chain only. The screener cannot
-  # read the organic series, so a name in that shape is removed here on its
-  # reported quarters -- E45 states that cost and the owner pays it
-  # knowingly; an override is entered by hand, as every override is.
-  revenue_trend:
-    rule: quarterly_revenue_yoy_decline
-    action: KILL          # section 4.2.1 as written -- FRAMEWORK-EDITS E45
-    quarters: 8
-    kill_when_consecutive_declines: 2
-    year_ago_window_days: [350, 380]   # a quarter end and the same quarter a year earlier
-    annual_fallback:
-      action: FLAG        # B9's reading, where the vendor has no quarters
-      lookback_years: 4
-      flag_when_consecutive_declines: 2
-    framework: "section 4.2.1 (hard kill on 2+ consecutive quarterly YoY declines), applied as written per FRAMEWORK-EDITS E45"
-    decided: 2026-08-26
-    on_missing: DATA_MISSING
+  # The revenue-trend limb (FRAMEWORK 4.2.1 on the vendor's quarters, E45)
+  # was REMOVED by FRAMEWORK-EDITS E163 (2026-11-08, attempt #17: 4.2.1 does
+  # not separate returns in either market). The old block is in git history.
 
 # What happens to a limb with no data. DATA MISSING is a third state: a name
 # that could not be tested has not failed. Filter 2 passes it on, marked, so

@@ -19,8 +19,8 @@ the report says so and nothing is invented here.
                  which PROPOSES a quarters: block and writes no store),
                  reference_figures.obtain (E103 reference figures,
                  UNVERIFIED, into the store).
-    4. COMPUTE   rules.evaluate_hard_kills; runner.build_row (Gate 1 level
-                 leg, frozen under E12 for a PIPELINE name; the staleness
+    4. COMPUTE   rules.evaluate_hard_kills; runner.build_row (the drawdown as
+                 information, E161; the staleness
                  and catalyst blockers); manual.gate_on_registered_view,
                  ratio_states, scale_jumps, share_basis_steps, staleness;
                  filters' three limbs on manual.as_record.
@@ -80,22 +80,18 @@ MEASURED = "MEASURED (no threshold)"
 #: Which ruling decides each computed check. Metadata about the code's own
 #: rules, not a judgement: the check itself is imported.
 RULING_FOR = {
-    "4.2.1": "FRAMEWORK §4.2.1; B9, E30 (organic basis), E45",
-    "4.2.2": "FRAMEWORK §4.2.2; E9",
     "4.2.3": "FRAMEWORK §4.2.3",
     "4.2.4": "FRAMEWORK §4.2.4",
     "4.2.5": "FRAMEWORK §4.2.5",
     "4.2.6": "FRAMEWORK §4.2.6",
-    "4.2.7": "FRAMEWORK §4.2.7; B7, B10",
     "4.3": "FRAMEWORK §4.3 (soft flag)",
-    "gate-1": "FRAMEWORK §3 Gate 1; B2 (inclusive band), E12 (frozen for PIPELINE), E11",
+    "gate-1": "FRAMEWORK §3 Gate 1 (band removed by E161; the drawdown is information), E11",
     "staleness-price": "FRAMEWORK §1.2 as amended; C3, E47",
     "catalyst": "FRAMEWORK §3 Gate 5",
     "store-staleness": "FRAMEWORK §1.2; manual.staleness (fundamentals.MAX_REPORT_AGE_DAYS)",
     "basis": "E19, E20, E31 (one twelve-month window)",
     "unit-mix": "E19; B38 (a file in one unit)",
     "gate-3-leverage": "FRAMEWORK §3 Gate 3; E44 (2.5× at filter 2), E112 (numerator)",
-    "gate-3-revenue": "FRAMEWORK §4.2.1 at filter 2; E45",
     "gate-3-fcf": "FRAMEWORK §3 Gate 3 (FCF positive); E4 (no data passes through)",
     "coverage": "FRAMEWORK §3 Gate 3 (interest coverage ≥ 5×); E16, E18, E20, E112, E126",
     "conviction": "FRAMEWORK §4.4; E99 (Gate 4), E123 (the cash limbs), E126 (coverage, and the tier hold)",
@@ -189,7 +185,7 @@ class CountingTransport:
 
 # --------------------------------------------------------------------- 0 stands
 
-#: Which playbook step a watchlist status sits at (tools/playbook/steps.py
+#: Which playbook step a watchlist status sits at (vss/review_steps.py
 #: holds the screens; this is the same table, so the report can name the
 #: step without importing the site generator into the tool).
 STATUS_STEP = {"HELD": "held", "WATCH-PRICED": "watch-priced", "WATCH-GATED": "watch-gated",
@@ -717,11 +713,9 @@ def step_compute(entry: WatchlistEntry, out: Prepared, *, manual_dir: Path, cach
     step = out.step("compute")
     # 4a. hard kills on the owner's own quarters: block
     try:
-        from .manual import kill_leverage_reading
         results = R.evaluate_hard_kills(
-            entry.quarters, entry.exec_changes, as_of, entry.reporting_frequency,
-            derived_leverage=kill_leverage_reading(entry.ticker, directory=manual_dir))
-        step.reused += ["rules.evaluate_hard_kills", "manual.gate3_leverage (E119)"]
+            entry.quarters, entry.exec_changes, as_of, entry.reporting_frequency)
+        step.reused += ["rules.evaluate_hard_kills"]
         for k in results:
             out.checks.append(Check(f"{k.rule} {k.name}", _state(k), k.detail,
                                     RULING_FOR.get(k.rule, RULING_FOR["4.3"] if k.rule.startswith("4.3") else "FRAMEWORK §4.2")))
@@ -747,29 +741,13 @@ def step_compute(entry: WatchlistEntry, out: Prepared, *, manual_dir: Path, cach
         row = build_row(entry, fetched, as_of, settled_through(now),
                         calendars=calendars, use_calendar=True)
         step.reused += ["fetch.get_history (cache only)", "runner.build_row", "rules.assess"]
-        frozen = R.frozen_gate_1(entry.status, entry.dd_at_entry, entry.peak_date)
-        outside = [v for v in row.assessment.verdicts if v.code in (R.OUTSIDE_BAND, R.DATA_MISSING)
-                   and "dislocation" in v.detail.lower()]
-        if frozen:
-            # E12: the frozen reading is on the entry and needs no price.
-            today = (f"; today's drawdown {row.metrics.drawdown:.1%}" if row.metrics.drawdown is not None
-                     else "; no cached price series for today's reading")
-            out.checks.append(Check("Gate 1 level leg (frozen, E12)",
-                                    PASS if R.in_dislocation_band(entry.dd_at_entry) else FAIL,
-                                    f"dd_at_entry {entry.dd_at_entry:.1%} on {entry.peak_date}{today}",
-                                    RULING_FOR["gate-1"]))
-        elif fetched.frame is None:
-            out.checks.append(Check("Gate 1 level leg", MISSING,
-                                    f"no cached price series ({fetched.error or 'no cache'}); the nightly run fetches it",
-                                    RULING_FOR["gate-1"]))
-        else:
-            dd = row.metrics.drawdown
-            inside = R.in_dislocation_band(dd)
-            out.checks.append(Check("Gate 1 level leg (today)",
-                                    MISSING if inside is None else (PASS if inside else FAIL),
-                                    (f"drawdown {dd:.1%} from the 52-week high" if dd is not None else "drawdown not computable")
-                                    + (f"; {outside[0].detail}" if outside else ""),
-                                    RULING_FOR["gate-1"]))
+        # E161: Gate 1's 15-50% band is gone; the drawdown is information.
+        dd = row.metrics.drawdown
+        out.checks.append(Check("drawdown from the 52-week high (information, E161)",
+                                PASS if dd is not None else MISSING,
+                                (f"drawdown {dd:.1%}" if dd is not None else
+                                 f"not computable ({fetched.error or 'no cached series'})"),
+                                RULING_FOR["gate-1"]))
         for b in row.assessment.blockers:
             # `Blocker` carries `code` and `reason` -- never `label` or
             # `detail` (2026-09-20: the same misread that crashed the
@@ -841,8 +819,7 @@ def step_compute(entry: WatchlistEntry, out: Prepared, *, manual_dir: Path, cach
                             RULING_FOR["zero-basis"]))
     # E112 / E118 and E119: Gate 3's two limbs, formed off the store.
     if basis is not None:
-        from .manual import (GATE3_LEVERAGE_MAX, INVENTORY_LIMB_WHY, capitalisation,
-                             gate3_leverage, interest_coverage,
+        from .manual import (INVENTORY_LIMB_WHY, capitalisation, interest_coverage,
                              inventory_operating_asset)
         # E123 (2026-09-20): where the operating asset is inventory and its
         # purchase runs through operating cash flow, BOTH of Gate 3's cash
@@ -877,11 +854,8 @@ def step_compute(entry: WatchlistEntry, out: Prepared, *, manual_dir: Path, cach
             for line in step3_block(parsed, basis, notes=getattr(entry, "notes", "")):
                 out.checks.append(Check("E126 step 3, measured", MEASURED, line,
                                         RULING_FOR["coverage"]))
-        lev = gate3_leverage(parsed, basis)
-        state = lev.state(GATE3_LEVERAGE_MAX)
-        out.checks.append(Check("Gate 3 net debt / EBITDA (E119)",
-                                {"PASS": PASS, "FAIL": FAIL, "REVIEW": FLAG}.get(state, MISSING),
-                                lev.line(GATE3_LEVERAGE_MAX), RULING_FOR["gate-3-leverage"]))
+        # E168 (attempt #25): Gate 3's net debt / EBITDA leg is removed; the
+        # same 2.5x test did not separate returns at filter 2.
         # E126's hold: below four evaluable gates a name may carry a score
         # but NO TIER, and therefore no MBP. Printed on every packet, not
         # only where it bites, so the denominator is always visible.
@@ -898,17 +872,16 @@ def step_compute(entry: WatchlistEntry, out: Prepared, *, manual_dir: Path, cach
                             "declared" if parsed.interest_in_ocf else "not declared in the store", RULING_FOR["interest-net"]))
     # 4d. filter 2's three limbs on the store, as filter 2 would read it
     try:
-        from .filters import fcf_limb, leverage_limb, load_filter2_config, revenue_limb
+        from .filters import fcf_limb, load_filter2_config
         from .manual import as_record, inventory_operating_asset
         record = as_record(parsed, as_of=as_of)
         config = load_filter2_config()
-        step.reused += ["manual.as_record", "filters.fcf_limb", "filters.leverage_limb", "filters.revenue_limb"]
-        limbs = [(revenue_limb(record, config), "gate-3-revenue")]
+        step.reused += ["manual.as_record", "filters.fcf_limb"]   # E168: no leverage limb
+        limbs = []      # E163: the revenue-trend limb (4.2.1) is gone
         # E123: the two cash limbs are out of the count for this filer, so
         # filter 2's echo of them would re-assert what the ruling removed.
         if not inventory_operating_asset(parsed):
-            limbs = [(fcf_limb(record, config), "gate-3-fcf"),
-                     (leverage_limb(record, config), "gate-3-leverage")] + limbs
+            limbs = [(fcf_limb(record, config), "gate-3-fcf")] + limbs
         for limb, key in limbs:
             out.checks.append(Check(f"filter 2: {limb.name}", {"PASS": PASS, "FAIL": FAIL}.get(limb.state, MISSING), limb.detail, RULING_FOR[key]))
     except Exception as exc:  # noqa: BLE001

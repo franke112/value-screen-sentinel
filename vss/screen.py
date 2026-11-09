@@ -56,10 +56,11 @@ printed beside the drawdown, and read by no filter and by nothing in the
 ranking key. B41 asked whether a threshold would ever be drawn on them;
 E127 (2026-09-28) decided it: NO threshold on the low. What the month of
 record showed was answered by a DIFFERENT measure -- the 12-month return,
-which filter 1 does read (`rules.fell_over_year`). The low stays a field.
+which filter 1 read until E168 removed it (attempt #25). Both stay fields.
 -----------------------------------------------------------------------------
 
-The dislocation band and the staleness gate are IMPORTED from rules.py, which
+The staleness gate and the drawdown are IMPORTED from rules.py (the
+dislocation band went with E161, 2026-11-08), which
 is the same code ``vss run`` uses on the live watchlist. Nothing here
 reimplements a FRAMEWORK rule; if a rule is needed and rules.py has no
 callable for it, it gets extracted there first.
@@ -92,8 +93,6 @@ from .filters import (
     FILTER2_CONFIG_PATH,
     FLAG,
     LIMB_FCF,
-    LIMB_LEVERAGE,
-    LIMB_REVENUE,
     NOT_APPLICABLE,
     PASS,
     COMMODITY_PRICE_PATH,
@@ -109,8 +108,7 @@ from .filters import (
     run_filter1,
     run_filter2,
 )
-from .rules import (DISLOCATION_MAX, DISLOCATION_MIN,
-                    MAX_CLOSE_AGE_TRADING_DAYS)
+from .rules import MAX_CLOSE_AGE_TRADING_DAYS
 from .universe import (
     UniverseError,
     UniverseLoad,
@@ -264,7 +262,7 @@ def universe_report(
 
     lines.append(
         f"\nFRAMEWORK constants in force (imported from rules.py, never redefined here):\n"
-        f"  dislocation band {DISLOCATION_MIN:.0%}-{DISLOCATION_MAX:.0%} inclusive; "
+        f"  no dislocation band (E161); "
         f"staleness gate {MAX_CLOSE_AGE_TRADING_DAYS} trading days on the exchange "
         f"calendar (E47)"
     )
@@ -668,7 +666,7 @@ def _filter1_report(
     commodity_price_path: Path = COMMODITY_PRICE_PATH,
     db_path: Path = DB_PATH,
 ) -> str:
-    lines = [_heading(f"FILTER 1 -- DISLOCATION BAND  asof={as_of.isoformat()}")]
+    lines = [_heading(f"FILTER 1 -- PRICES  asof={as_of.isoformat()}")]
     lines.append(f"\n  snapshot        {snapshot_path}  (asof {snapshot_date.isoformat()})")
     if settled is not None and created_at is not None:
         demoted = sorted({c.last_close_date for c in result.candidates})
@@ -695,8 +693,8 @@ def _filter1_report(
             f"                  added to an index since then is present, one removed is\n"
             f"                  absent. That is survivorship, and it is not corrected."
         )
-    lines.append(f"  band            {DISLOCATION_MIN:.0%}-{DISLOCATION_MAX:.0%} inclusive, "
-                 f"from rules.in_dislocation_band")
+    lines.append("  band            none -- E161 (2026-11-08) removed Gate 1's 15-50% band; "
+                 "the drawdown is a field")
     lines.append(f"  staleness gate  {MAX_CLOSE_AGE_TRADING_DAYS} trading days ON THE "
                  f"EXCHANGE CALENDAR of each row's market (E47; config/exchange_calendars.yaml),\n"
                  f"                  from rules.stale_close_blocker")
@@ -715,7 +713,7 @@ def _filter1_report(
     lines.append("\n  rejections, split by whether a VALUE or its ABSENCE did it:")
     lines.append(reason_breakdown(tallies))
     lines.append(
-        "\n  Reading the two columns: on the DISLOCATION row, rej(missing) is\n"
+        "\n  Reading the two columns: on the HIGH_52W row, rej(missing) is\n"
         "  structurally near-zero rather than empirically zero. Everything reaching\n"
         "  that step cleared price_coverage and series_sanity, so it has a close\n"
         "  inside the 365-day window and its drawdown computes. Missing data shows\n"
@@ -751,7 +749,7 @@ def _filter1_report(
         subject="a world price the company does not set"))
     lines.append(_listing_age_block(as_of, result))
 
-    lines.append(f"\nCANDIDATES -- {len(result.candidates)} names inside the band")
+    lines.append(f"\nCANDIDATES -- {len(result.candidates)} names with a measurable drawdown (no band since E161, no E127 since E168)")
     lines.append(
         "  Ordered by ticker. This is an ORDER, not a ranking: the ranking key is\n"
         "  phase 5, it is approved as text before it is coded, and nothing here\n"
@@ -1289,7 +1287,7 @@ def filter2(
 
 
 FILTER2_COLUMNS = ("ticker", "marknad", "last_close", "drawdown", "rsi14",
-                   "fcf", "leverage", "revenue_trend", "detail")
+                   "fcf", "detail")
 
 
 def _write_filter2_candidates(runs_root: Path, as_of: date, result) -> Path:
@@ -1309,8 +1307,6 @@ def _write_filter2_candidates(runs_root: Path, as_of: date, result) -> Path:
                 "last_close": candidate.last_close, "drawdown": candidate.drawdown,
                 "rsi14": candidate.rsi14,
                 "fcf": verdict.state(LIMB_FCF),
-                "leverage": verdict.state(LIMB_LEVERAGE),
-                "revenue_trend": verdict.state(LIMB_REVENUE),
                 "detail": " | ".join(f"{l.name}: {l.detail}" for l in verdict.limbs),
             })
     return path
@@ -1358,14 +1354,8 @@ def _filter2_report(as_of, upstream, result, manifest, store_path, config_path,
         lines.append(f"  decided {config.raw.get('decided')} -- see FRAMEWORK-EDITS E2, E3, E4; "
                      f"the leverage cap as amended by E44 (2026-08-26)")
     lines.append(f"  {LIMB_FCF:<22}TTM free cash flow > {config.fcf_min:,.0f}")
-    lines.append(f"  {LIMB_LEVERAGE:<22}net debt/EBITDA <= {config.leverage_max}x, "
-                 f"NOT APPLICABLE for {', '.join(sorted(config.leverage_na_sectors))}")
-    lines.append(f"  {LIMB_REVENUE:<22}{config.revenue_kill_action} at "
-                 f"{config.revenue_kill_after} consecutive quarterly YoY declines from "
-                 f"the newest of {config.revenue_quarters} quarters (4.2.1, E45); "
-                 f"annual fallback {config.revenue_action} at "
-                 f"{config.revenue_flag_after} consecutive annual declines over "
-                 f"{config.revenue_lookback_years} years")
+    lines.append(f"  {'leverage':<22}none -- E168 removed the net debt / EBITDA limb (attempt #25)")
+    lines.append(f"  {'revenue trend':<22}none -- E163 removed the 4.2.1 limb (attempt #17)")
     lines.append(f"  {'missing data':<22}{config.on_missing_action}")
 
     tallies = list(upstream.tallies) + [result.tally]
@@ -1381,7 +1371,7 @@ def _filter2_report(as_of, upstream, result, manifest, store_path, config_path,
     lines.append(header)
     lines.append("  " + THIN[: len(header) - 2])
     matrix = limb_matrix(result.assessed)
-    for name in (LIMB_FCF, LIMB_LEVERAGE, LIMB_REVENUE):
+    for name in (LIMB_FCF,):
         row = matrix[name]
         lines.append(
             f"  {name:<22}{row[PASS]:>8}{row[FAIL]:>8}{row[DATA_MISSING]:>10}"
@@ -1398,16 +1388,6 @@ def _filter2_report(as_of, upstream, result, manifest, store_path, config_path,
         "      to fail it, on one year rather than eight quarters.\n"
         "\n"
         "  The manual chain still runs the real test."
-    )
-    lines.append(
-        f"\n  ON THE LEVERAGE LIMB, WHICH CAP. This filter rejects above Gate 3's own\n"
-        f"  {config.leverage_max}x, per FRAMEWORK-EDITS E44 (2026-08-26), which amends E2's\n"
-        "  choice of 4.2.5's 3.5x hard kill: the screener FEEDS Gate 3, and a name\n"
-        "  at 3.3x fails the hand chain regardless -- 72 names passed at 3.5x and\n"
-        "  failed the framework's own number on 2026-08-26, FGR.PA and AFRY.ST\n"
-        "  among them. The ratio is the vendor's net debt over the vendor's EBITDA,\n"
-        "  a coarse reading of the gate and not the gate; the number is printed\n"
-        "  with every rejection so the owner can override it by hand in section 3."
     )
     untested = [t for t, v in result.assessed.items() if v.untested]
     survived_untested = [c.ticker for c in result.survivors
@@ -1429,36 +1409,6 @@ def _filter2_report(as_of, upstream, result, manifest, store_path, config_path,
         f"  would have been dropped on the source's coverage rather than on anything\n"
         f"  the company did. FRAMEWORK-EDITS E4 is the decision that they are not."
     )
-    listed = sorted(t for t, v in result.assessed.items()
-                    if any(l.name == LIMB_LEVERAGE and "E46" in l.detail for l in v.limbs))
-    inert = sorted(config.investment_companies - set(result.assessed))
-    lines.append(
-        "  N/A is neither: FRAMEWORK Gate 3 excludes financials from the leverage\n"
-        "  limb and sends the analyst to sector norms, which a machine has none of,\n"
-        "  and FRAMEWORK-EDITS E3 adds Real Estate on the same logic -- property is\n"
-        "  borrowed against asset value, not against EBITDA. The precedent for a\n"
-        "  third outcome is B7. FRAMEWORK-EDITS E46 adds the owner's LIST of\n"
-        f"  investment companies ({len(config.investment_companies)} tickers in\n"
-        "  config/screener_investment_companies.yaml), which decides whatever the\n"
-        f"  vendor's string says: {len(listed)} of them entered filter 2 here"
-        + (f" ({', '.join(listed)})." if listed else ".")
-    )
-    if inert:
-        lines.append(
-            f"  {len(inert)} listed tickers are not among this run's entrants (outside the\n"
-            f"  band, or not in the universe) and were inert here: {', '.join(inert)}"
-        )
-    lines.append(
-        "  THE REVENUE LIMB KILLS ON QUARTERS (FRAMEWORK 4.2.1 as written, per\n"
-        "  FRAMEWORK-EDITS E45): two or more consecutive year-on-year declines\n"
-        "  counted from the newest quarter FAIL the name on value, and the changes\n"
-        "  are printed. Where the vendor has no quarters for a name -- a half-yearly\n"
-        "  reporter, an empty endpoint, a hole at the newest end -- the limb reads\n"
-        "  the ANNUAL series and there only FLAGS (B9's reading), and the detail\n"
-        "  says which basis it read. B9's organic carve-out (UNA.AS: four reported\n"
-        "  declines, organic growth in all eight) governs the hand chain; the\n"
-        "  screener cannot read the organic series, and E45 states that cost."
-    )
 
     stale = sorted(
         (t, records[t]) for t in result.assessed
@@ -1468,9 +1418,8 @@ def _filter2_report(as_of, upstream, result, manifest, store_path, config_path,
         lines.append(
             f"\nSTALE ANNUAL STATEMENTS -- {len(stale)} names\n"
             "  The quote summary's figures are current for these, so the FCF and\n"
-            "  leverage limbs are measured on today's numbers. The revenue-trend limb\n"
-            "  reads the annual statement and is therefore measured on an older\n"
-            "  window.\n"
+            "  leverage limbs are measured on today's numbers (the revenue-trend\n"
+            "  limb went in E163).\n"
             "  THIS PARAGRAPH USED TO STOP AT 'only the revenue-trend limb reads the\n"
             "  annual statement'. Phase 5 made that untrue: the ENTIRE ranking key --\n"
             "  gross profit, total assets and EBIT -- is read from the same annual\n"
@@ -1491,7 +1440,7 @@ def _filter2_report(as_of, upstream, result, manifest, store_path, config_path,
         "  nothing written to the watchlist."
     )
     header = (f"  {'ticker':<14}{'market':<12}{'dd':>8}{'RSI':>7}  "
-              f"{'fcf':<13}{'leverage':<15}{'revenue':<14}")
+              f"{'fcf':<13}")
     lines.append("")
     lines.append(header)
     lines.append("  " + THIN[: len(header) - 2])
@@ -1501,8 +1450,7 @@ def _filter2_report(as_of, upstream, result, manifest, store_path, config_path,
             f"  {candidate.ticker:<14}{candidate.marknad:<12}"
             f"{candidate.drawdown:>8.1%}"
             + _fmt(candidate.rsi14, ".1f", 7) + "  "
-            + f"{verdict.state(LIMB_FCF):<13}{verdict.state(LIMB_LEVERAGE):<15}"
-            + f"{verdict.state(LIMB_REVENUE):<14}"
+            + f"{verdict.state(LIMB_FCF):<13}"
         )
     if len(survivors) > 60:
         lines.append(f"  ... and {len(survivors) - 60} more, all in the CSV")
@@ -2330,7 +2278,8 @@ def _rank_report(as_of, upstream, result, table, fundamentals_manifest,
         "  the check is auditable and not merely asserted."
     )
 
-    lines.append(f"\nTOP {TOP_N} -- RANKED ON BOTH COMPONENTS")
+    lines.append(f"\nFIRST {TOP_N} IN A SEEDED RANDOM ORDER (E167: the E43 key orders nothing;"
+                 f"\n  the sum and both placings are shown as information)")
     header = (f"  {'#':>3} {'ticker':<13}{'sector':<24}{'sum':>5}{'EBIT/TA':>8}"
               f"{'EY':>7}{'EBIT/TA%':>10}{'EY%':>9}{'dd':>7}{'vs52wL':>8}")
     lines.append("")
@@ -2554,8 +2503,8 @@ def run_screen(
         "Pick one of:\n"
         "  --universe-report   what the committed lists contain, and what was excluded\n"
         "  --snapshot-only     fetch prices for the whole universe and store them\n"
-        "  --filter1           run the exclusion list and the dislocation band against\n"
-        "                      a stored snapshot; fetches nothing\n"
+        "  --filter1           run the exclusion list and the staleness gate against\n"
+        "                      a stored snapshot (no band since E161); fetches nothing\n"
         "  --fundamentals      fetch fundamentals for the survivors of filter 1, one\n"
         "                      ticker at a time, and store them beside the snapshot\n"
         "  --filter2           run the whole chain against stored data: step 0,\n"

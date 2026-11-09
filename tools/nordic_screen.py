@@ -5,10 +5,17 @@ core and ranked on fv/price. Private (EODHD data); never published.
     .venv/bin/python tools/nordic_screen.py --no-refresh    # value and rank on the files on disk
     .venv/bin/python tools/nordic_screen.py --notify        # and send the summary to ntfy
 
-WHY. The private Nordic backtest (README, 'What the backtests taught us'): over twelve test dates
+WHY. reference/BACKTEST-NORDIC-2026-11-07.md: over twelve test dates
 2010-2021 the cheaper two fifths of Nordic companies by the method's
-fv/price beat the Nordic market over 3 and 5 years,
-the dearer two trailed it (cheapest beat dearest 9 and 10 of 12 years).
+fv/price beat the dearer two fifths by +13.8 pp over 3 years (10 of 12
+years, p = 0.0002) and +21.0 pp over 5 (9 of 12) -- attempt #9, after the
+reviews' currency (K1), vendor-adjustment (M4) and level-break (2026-11-08
+M2) fixes; +12.8 / +20.7 without the last, +17.1 / +35.6 before them all. The pre-registered confirmation on
+2022-23 was NOT CONFIRMED (p = 0.49), run before the fixes and not repeated.
+ATTEMPT #24 (2026-11-09): fv/price does not sort by decile in both markets
+and both halves (rank 0.65 / 0.54). The list keeps the fv/price order
+because fv against price is the method's own buy line (E167, beslutat av
+sessionen 2026-11-09); it is not a claim that the cheap group wins.
 This screen applies the same engine (`tools/backtest/nordic.py`'s
 translation, `method.evaluate`) to TODAY and lists the cheapest 40%.
 
@@ -205,10 +212,10 @@ def render(day: date, rows: list[dict], before: set[str], where: dict[str, str])
     L = [f"# Nordisk screen {day.isoformat()}", "",
          f"{len(rows)} aktiva nordiska bolag över 300 MUSD (finans och fastighet undantagna); "
          f"{len(valued)} värderade av metodens kärna; listan är de billigaste {TOP_SHARE:.0%} "
-         f"({len(top)}) på fv/kurs. Historiskt (backtest 2010–2021) har den gruppen slagit den "
-         f"nordiska marknaden på 3 år, men den förregistrerade bekräftelsen "
-         f"2022–2023 gav **INTE BEKRÄFTAT** (ett år höll, ett vände; "
-         f"se README, 'What the backtests taught us'). "
+         f"({len(top)}) på fv/kurs. Ordningen är metodens köplinje, inte ett bevisat urval: "
+         f"försök #24 (2026-11-09) fann att fv/kurs inte sorterar avkastningen i båda "
+         f"marknaderna och båda halvorna (rangkorrelation 0,65 Norden, 0,54 USA; "
+         f"reports/attempts/A24-RESULT.md), och bekräftelsen 2022–2023 gav INTE BEKRÄFTAT. "
          f"**Kandidater för granskning, inte köp.**", "",
          "Källskatt/år = direktavkastning × källskatt (FI 35, DK 27, NO 25 %): en ren kostnad i ISK "
          f"så länge ISK-värdet är under fribeloppet ({WH.ALLOWANCE_SEK_2026:,} kr 2026). "
@@ -248,18 +255,37 @@ def render(day: date, rows: list[dict], before: set[str], where: dict[str, str])
     return "\n".join(L) + "\n", note
 
 
+def stale_warning(refresh_rc: int | None) -> str | None:
+    """A loud line when the EODHD refresh failed or the files are older than
+    a refresh cycle (the subscription runs one month a year): the ranking is
+    then on old reports and must say so (independent review M3)."""
+    fetched = sorted(N.FUND.glob("*.json.gz"), key=lambda f: f.stat().st_mtime)
+    age = ((datetime.now().timestamp() - fetched[-1].stat().st_mtime) / 86400) if fetched else None
+    parts = []
+    if refresh_rc not in (None, 0):
+        parts.append(f"EODHD-hämtningen misslyckades (kod {refresh_rc})")
+    if age is None or age > REFRESH_DAYS + 2:
+        parts.append("boksluten är " + (f"{age:.0f} dagar gamla" if age is not None else "inte hämtade"))
+    return ("VARNING: " + "; ".join(parts) + " -- rankingen bygger på gamla rapporter") if parts else None
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--no-refresh", action="store_true")
     ap.add_argument("--notify", action="store_true")
     a = ap.parse_args(argv)
     day = date.today()
+    refresh_rc = None
     if not a.no_refresh:
-        subprocess.run([sys.executable, str(ROOT / "tools" / "fetch_eodhd.py"),
-                        "--refresh-nordic", str(REFRESH_DAYS), "--budget", "30000"], check=False)
+        refresh_rc = subprocess.run([sys.executable, str(ROOT / "tools" / "fetch_eodhd.py"),
+                                     "--refresh-nordic", str(REFRESH_DAYS), "--budget", "30000"],
+                                    check=False).returncode
     rows = value_all(day)
     before = previous_top(day)
     md, note = render(day, rows, before, tracked())
+    warn = stale_warning(refresh_rc)
+    if warn:
+        md, note = f"> **{warn}**\n\n" + md, [warn] + note
     OUT_MD.mkdir(parents=True, exist_ok=True)
     OUT_JSON.mkdir(parents=True, exist_ok=True)
     (OUT_MD / f"NORDIC-SCREEN-{day.isoformat()}.md").write_text(md, encoding="utf-8")

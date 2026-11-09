@@ -340,10 +340,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: -186399000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-08-01..2024-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = -145,385,000 + us-gaap:IncreaseDecreaseInInventories [2023-08-01..2024-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = -3,698,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2023-08-01..2024-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = -71,067,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2023-08-01..2024-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 1,064,000 + us-gaap:IncreaseDecreaseInContractWithCustomerAsset [2023-08-01..2024-07-31] 10-K 0001628280-25-042946 filed 2025-09-26 = -32,622,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2023-08-01..2024-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 59,528,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2023-08-01..2024-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 1,867,000 + us-gaap:ProvisionForDoubtfulAccounts [2023-08-01..2024-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 3,914,000 = -186,399,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        value: -163319000
+        page: "E140(1) tied to the cash flow statement: CPRT_FY2026_annual-report-10k_2026-09-29_en_a0.htm, 2023-08-01..2024-07-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -145,385,000 + cprt:IncreaseDecreaseInVehiclePoolingCosts -9,542,000 + us-gaap:IncreaseDecreaseInInventories -3,698,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets -71,067,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets 1,064,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities 59,528,000 + us-gaap:IncreaseDecreaseInDeferredRevenue 1,867,000 + us-gaap:ProvisionForDoubtfulAccounts 3,914,000 = -163,319,000 (printed values, cash effect). The operating section's 17 rows sum to the printed operating cash flow 1,472,564,000 within 9,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 17662000
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2023-08-01..2024-07-31] 10-K 0001193125-26-405731 filed 2026-09-29"
@@ -425,10 +425,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: 51021000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = -33,950,000 + us-gaap:IncreaseDecreaseInInventories [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 4,655,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 7,748,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 478,000 + us-gaap:IncreaseDecreaseInContractWithCustomerAsset [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = -22,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 69,599,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 2,159,000 + us-gaap:ProvisionForDoubtfulAccounts [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 354,000 = 51,021,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        value: 67748000
+        page: "E140(1) tied to the cash flow statement: CPRT_FY2026_annual-report-10k_2026-09-29_en_a0.htm, 2024-08-01..2025-07-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -33,950,000 + cprt:IncreaseDecreaseInVehiclePoolingCosts 16,705,000 + us-gaap:IncreaseDecreaseInInventories 4,655,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets 7,748,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets 478,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities 69,599,000 + us-gaap:IncreaseDecreaseInDeferredRevenue 2,159,000 + us-gaap:ProvisionForDoubtfulAccounts 354,000 = 67,748,000 (printed values, cash effect). The operating section's 17 rows sum to the printed operating cash flow 1,799,750,000 within 9,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: -1223000
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2024-08-01..2025-07-31] 10-K 0001193125-26-405731 filed 2026-09-29"
@@ -559,10 +559,10 @@ annual:
         status: VERIFIED
         verified_kind: same_page
       working_capital_change:
-        value: -104006000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-08-01..2026-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = -80,629,000 + us-gaap:IncreaseDecreaseInInventories [2025-08-01..2026-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = -11,443,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2025-08-01..2026-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = -47,613,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2025-08-01..2026-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 690,000 + us-gaap:IncreaseDecreaseInContractWithCustomerAsset [2025-08-01..2026-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = -5,025,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities [2025-08-01..2026-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 32,507,000 + us-gaap:IncreaseDecreaseInDeferredRevenue [2025-08-01..2026-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 1,908,000 + us-gaap:ProvisionForDoubtfulAccounts [2025-08-01..2026-07-31] 10-K 0001193125-26-405731 filed 2026-09-29 = 5,599,000 = -104,006,000 (cash effect: an asset increase negated, a liability increase kept; the provision `ProvisionForDoubtfulAccounts` is deducted with the stripped receivable (E140(1): otherwise the credit loss is counted as cash earned))"
+        value: -105339000
+        page: "E140(1) tied to the cash flow statement: CPRT_FY2026_annual-report-10k_2026-09-29_en_a0.htm, 2025-08-01..2026-07-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable -80,629,000 + cprt:IncreaseDecreaseInVehiclePoolingCosts -6,358,000 + us-gaap:IncreaseDecreaseInInventories -11,443,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets -47,613,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets 690,000 + us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities 32,507,000 + us-gaap:IncreaseDecreaseInDeferredRevenue 1,908,000 + us-gaap:ProvisionForDoubtfulAccounts 5,599,000 = -105,339,000 (printed values, cash effect). The operating section's 17 rows sum to the printed operating cash flow 1,604,492,000 within 9,000; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: -5004000
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2025-08-01..2026-07-31] 10-K 0001193125-26-405731 filed 2026-09-29"

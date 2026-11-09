@@ -206,8 +206,6 @@ def entry_levels(entry: WatchlistEntry) -> dict[str, float]:
     """
     record, _ = load_run_record(entry)
     levels: dict[str, float] = {}
-    if entry.stop_price is not None:
-        levels["stop"] = float(entry.stop_price)
     if record is None:
         return levels
     from .fx import to_quote_units
@@ -327,6 +325,7 @@ def build_row(entry: WatchlistEntry, fetched: FetchResult, as_of: date,
         fv_base=fv_unrounded,
         tier=entry.tier,
         stop_price=entry.stop_price,
+        stop_none=entry.stop_none,
         catalyst_date=entry.catalyst_date,
         catalyst_resolved=entry.catalyst_resolved,
         catalyst_event=entry.catalyst_event,
@@ -334,9 +333,6 @@ def build_row(entry: WatchlistEntry, fetched: FetchResult, as_of: date,
         fetch_error=fetched.error,
         bear_value=fv_bear,
         series_finding=series_finding,
-        # E12: a PIPELINE entry's frozen Gate 1 reading, read and applied.
-        dd_at_entry=entry.dd_at_entry,
-        peak_date=entry.peak_date,
         # E100: the MBP the previous full run recorded, so a crossing the
         # DEFINITION caused can be told from one the price caused.
         previous_mbp=previous_mbp,
@@ -510,7 +506,7 @@ EXIT_STALE_DRY_RUN = 3
 
 def _level_blocked(r: TickerRow) -> bool:
     return r.assessment.blocked and carries_level(
-        r.entry.status, r.assessment.mbp, r.entry.stop_price)
+        r.entry.status, r.assessment.mbp)
 
 
 def stale_for_dry_run(rows: list[TickerRow], as_of: date) -> list[str]:
@@ -587,7 +583,7 @@ def block_push_lines(rows: list[TickerRow], as_of: date,
         nights = max((int((streaks or {}).get(f"{r.entry.ticker}|{b.code}", 1))
                       for b in r.assessment.blockers), default=1)
         out.append(f"{r.entry.ticker}: night {nights} — {where} ({why}). "
-                   f"{unchecked_levels(r.entry.status, r.assessment.mbp, r.entry.stop_price)}")
+                   f"{unchecked_levels(r.entry.status, r.assessment.mbp)}")
     return out
 
 
@@ -619,13 +615,6 @@ def unsent_nights(record: dict | None) -> list[dict]:
         return []
     backlog = [n for n in (record.get("unsent") or []) if isinstance(n, dict)]
     return backlog
-
-
-def previous_push_failure(record: dict | None) -> dict | None:
-    """The most recent unsent night, or None. Kept for the older callers;
-    `unsent_nights` is what the report prints."""
-    nights = unsent_nights(record)
-    return nights[-1] if nights else None
 
 
 def write_push_record(*, as_of: date, run_ts: datetime, lines: list[str],

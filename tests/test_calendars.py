@@ -163,11 +163,12 @@ def test_the_framework_texts_carry_e47_and_the_pointer():
     """Item 13: the three-way conflict Part 10.3 found is closed in the
     texts as well as the code -- FRAMEWORK-EDITS carries E47 and C3's
     DECIDED marker, and section 1.2 of the FRAMEWORK points at E47."""
-    edits = (ROOT / "reference" / "FRAMEWORK-EDITS.md").read_text(encoding="utf-8")
+    edits = (ROOT / "reference" / "archive" / "FRAMEWORK-EDITS-2026-11-08.md").read_text(encoding="utf-8")
     assert "### E47 — staleness is THREE trading days on the EXCHANGE CALENDAR" in edits
     c3 = edits[edits.index("### C3 —"):edits.index("### C4 —")]
     assert "DECIDED 2026-08-26" in c3
-    framework = (ROOT / "reference" / "FRAMEWORK.md").read_text(encoding="utf-8")
+    # §1.2's pointer went to the archive with the old FRAMEWORK (sweep D13)
+    framework = (ROOT / "reference" / "archive" / "FRAMEWORK-2026-11-08.md").read_text(encoding="utf-8")
     line = next(l for l in framework.splitlines() if l.startswith("- Prices, RSI, moving averages"))
     assert "E47" in line and "3 sessions" in line
     assert R.MAX_CLOSE_AGE_TRADING_DAYS == 3

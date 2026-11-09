@@ -222,7 +222,8 @@ class Strike:
     gate_refusals: tuple[str, ...] = ()
     ignored_gate: bool = False
     legs: tuple[LegMove, ...] = ()
-    #: E145's tests and the three anchors, printed and never valued.
+    #: E145's tests and the three anchors, printed and never valued. Since
+    #: E168 Q1-Q4 decide nothing either (drop, sell, tier); Q5 stays.
     quality: tuple = ()
     history_check: tuple[str, ...] = ()
 
@@ -394,6 +395,14 @@ def strike_one(ticker: str, *, as_of: date, run_ts: datetime, stamp: str,
         record.strike()
     except Exception as exc:  # noqa: BLE001 -- the leg is named, nothing written
         raise StrikeError(f"{ticker}: the record will not form -- {exc}") from exc
+    # B6 (2026-11-08): a bear at or under zero, or over base, stops the name.
+    # --ignore-gate does not reach it: it is not a gate but a broken value.
+    bear_g = record.growth.bear
+    why = V.absurd_cases(
+        record.strike(bear_g, case="bear") if bear_g is not None else None,
+        record.strike())
+    if why:
+        raise StrikeError(f"{ticker}: {why} -- the name stops; nothing is written")
 
     tier_after = getattr(entry, "tier", None) if entry is not None else None
     return Strike(
@@ -427,6 +436,10 @@ def apply_e142(record: R.RunRecord, history: "HI.History | None",
         full, worst = HI.roiic(history, tax, fallback)
     cyc = HI.cycle(history) if history is not None else HI.Cycle(
         False, 1.0, None, "no history file: no cycle test (E143(3))")
+    if cyc.bear_missing:
+        # B7 (2026-11-08): a declared cyclical whose history holds no
+        # downturn has no bear to strike -- DATA MISSING, nothing written.
+        raise StrikeError(f"{record.ticker}: bear DATA MISSING -- {cyc.how}")
     flows = list(flow.years)
     mean = sum(flows) / len(flows) if flows else 0.0
     if cyc.level_bear is not None:
@@ -475,16 +488,22 @@ def apply_e142(record: R.RunRecord, history: "HI.History | None",
     checks: tuple[str, ...] = ()
     if history is not None:
         checks = tuple(HI.check(history))
-        try:
-            legs = record.legs()
-            parts = record.e142_parts()
-            quality = HI.quality(history, tax=tax or 0.0, fcf0=parts["fcf0"],
-                                 net_debt=-legs.net_cash,
-                                 roiic_base=params.roiic_base,
-                                 repeat_buyer=params.repeat_buyer,
-                                 rate=record.rate.rate)
-        except Exception:  # noqa: BLE001 -- the record refuses elsewhere
-            quality = ()
+        if tax is None:
+            # Q1 is after tax: a missing rate is named, never read as zero
+            quality = (HI.Test("E145", None, "NOT TESTED: the E140 block has no tax rate"),)
+        else:
+            try:
+                legs = record.legs()
+                parts = record.e142_parts()
+                quality = HI.quality(history, tax=tax, fcf0=parts["fcf0"],
+                                     net_debt=-legs.net_cash,
+                                     roiic_base=params.roiic_base,
+                                     repeat_buyer=params.repeat_buyer,
+                                     rate=record.rate.rate)
+            except Exception as exc:  # noqa: BLE001 -- the record refuses elsewhere
+                # the document must not say "no history file" when there is one
+                quality = (HI.Test("E145", None,
+                                   f"NOT TESTED: the tests raised {type(exc).__name__}: {exc}"[:200]),)
     return record, quality, checks
 
 
@@ -656,7 +675,9 @@ def e142_lines(record: R.RunRecord) -> list[str]:
 def quality_lines(s: Strike) -> list[str]:
     if not s.quality:
         return ["- **would Warren own it (E145):** no history file -- not tested"]
-    out = ["- **would Warren own it (E145):**"]
+    out = ["- **would Warren own it (E145):** Q1-Q4 are INFORMATION since E168 "
+           "(attempt #25: they did not separate returns) -- they drop, sell and "
+           "lower nothing; Q5 is the hand part that stays"]
     for t in s.quality:
         mark = "PASS" if t.passed else ("FAIL" if t.passed is False else "n/a")
         out.append(f"  - {t.name}: **{mark}** -- {t.figure}")
@@ -684,6 +705,45 @@ def implied_return(record: R.RunRecord, price: float) -> float | None:
     return (lo + hi) / 2
 
 
+def implied_growth(record: R.RunRecord, price: float) -> float | None:
+    """B9 (owner, 2026-11-08): the growth the price implies -- the base case
+    (level, roll, programme, deals as struck) solved for g at the record's
+    own rate. None where no g in [-50 %, +30 %] reaches the price."""
+    lo, hi = -0.50, 0.30
+    f = lambda g: record._strike_unchecked(g, case="base") - price  # noqa: E731
+    try:
+        if f(lo) > 0 or f(hi) < 0:
+            return None
+    except Exception:  # noqa: BLE001
+        return None
+    for _ in range(100):
+        mid = (lo + hi) / 2
+        if f(mid) < 0:
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2
+
+
+#: B9: the step either side of the growth in force, in percentage points
+SENSITIVITY_STEP = 0.015
+
+
+def sensitivity(record: R.RunRecord, price: float | None,
+                registered: float | None) -> dict:
+    """B9: base at the registered g, at the derived g (the one the record
+    struck), at g -/+ 1.5 pp, and the g the price implies. Every value in the
+    RECORD's unit; the caller scales a GBX listing."""
+    g = record.growth.base
+    fv = lambda x: record._strike_unchecked(x, case="base")  # noqa: E731
+    out = {"g": g, "fv_g": fv(g), "fv_minus": fv(g - SENSITIVITY_STEP),
+           "fv_plus": fv(g + SENSITIVITY_STEP), "rate": record.rate.rate,
+           "registered": registered,
+           "fv_registered": fv(registered) if registered is not None else None,
+           "implied": implied_growth(record, price) if price else None}
+    return out
+
+
 def anchor_lines(s: Strike) -> list[str]:
     """The three anchors (method review section 6): g*, the return the
     price gives on the base case, and the tangible ROIC."""
@@ -694,6 +754,58 @@ def anchor_lines(s: Strike) -> list[str]:
     return [f"- **anchors:** g* {_num(s.g_star, '.2%')}; the base case returns "
             f"~{_num(irr, '.1%')} a year at today's price against r "
             f"{s.record.rate.rate:.1%}; tangible ROIC {q1}"]
+
+
+#: H1 of the independent review 2026-11-07, printed on every strike: what the
+#: method's buy rule has and has not been shown to do.
+EVIDENCE_NOTE = ("the buy rule is NOT evidenced: in the US backtest with delisted names "
+                 "(reference/BACKTEST-EODHD-2026-11-07.md) the <= 0.65 x fv portfolio trailed "
+                 "the S&P 500 by 34 pp over five years; in the Nordics fv/price sorted within "
+                 "2010-2021 and was NOT CONFIRMED on 2022-23. Size accordingly.")
+
+
+def bear_note(record) -> str:
+    """Review 2026-11-08 L1: a bear level floored at zero (E143(4), a past
+    loss year) values the business at no flow at all -- the bear figure is
+    then net cash per share, not a downside measure, and says so."""
+    p = record.e140.e142 if record.e140 is not None else None
+    if p is None or p.level_bear is None or p.level_bear > 0:
+        return ""
+    return (" -- the bear level is FLOORED AT ZERO (E143(4): a past loss year), so the "
+            "bear is net cash per share with no flow, not a downside measure")
+
+
+def wc_line(record) -> str | None:
+    """E154: how the three years' working capital entered FCF0."""
+    b = record.e140
+    if b is None:
+        return None
+    if not b.e154:
+        return "- **working capital (E154):** struck before E154 -- stripped whole as E140(1) said"
+    from .valuation import structural_wc
+    if structural_wc(b.years):
+        tail = ("the year-to-date swing neutralised (E154.1)" if b.e154_1 else
+                "the year-to-date consumption not neutralised (E154 as struck 2026-11-07)")
+        return ("- **working capital (E154):** consumed cash in all three years -- KEPT in FCF0 "
+                f"(what the growth needs); {tail}")
+    return "- **working capital (E154):** mixed or released -- stripped from FCF0 as E140(1)"
+
+
+def roiic_lines(s: Strike) -> list[str]:
+    """M1: the programme rests on an estimated ROIIC; fv at +-5 pp of it."""
+    p = s.record.e140.e142 if s.record.e140 else None
+    if p is None or not p.repeat_buyer or p.roiic_base is None:
+        return []
+    out = []
+    for d in (-0.05, 0.05):
+        try:
+            moved = replace(s.record, e140=replace(s.record.e140, e142=replace(
+                p, roiic_base=p.roiic_base + d)))
+            out.append(f"{p.roiic_base + d:.1%} -> {moved.strike():,.2f}")
+        except Exception as exc:  # noqa: BLE001
+            out.append(f"{p.roiic_base + d:.1%} -> not formed ({type(exc).__name__})")
+    return [f"- **fv at ROIIC +-5 pp (the programme is an estimate):** base ROIIC "
+            f"{p.roiic_base:.1%} -> {s.fv:,.2f}; " + "; ".join(out)]
 
 
 def document(s: Strike) -> str:
@@ -711,7 +823,7 @@ def document(s: Strike) -> str:
                "stop_price are the owner's.*", "",
              f"- **basis:** {s.record.basis}",
              f"- **fv_base:** {_num(prior_fv)} -> **{_num(s.fv)}** "
-             f"(bear {_num(s.bear)}, bull {_num(s.bull)})",
+             f"(bear {_num(s.bear)}, bull {_num(s.bull)})" + bear_note(s.record),
              f"- **FCF0:** {_num(s.record.fcf0(), ',.0f')}",
              f"- **net debt:** {_num(s.record.bridge.net_debt, ',.0f')}"
              + (f" on the balance sheet of {s.record.dates.balance_sheet}"
@@ -730,10 +842,14 @@ def document(s: Strike) -> str:
                      f"g* {_num(s.g_star, '.2%')}")
     lines.append(f"- **store's newest period:** {s.store_period or '--'}")
     if s.e142:
-        lines += anchor_lines(s) + quality_lines(s)
+        lines += anchor_lines(s) + quality_lines(s) + roiic_lines(s)
         if s.history_check:
             lines.append(f"- **history read-back: {len(s.history_check)} FAIL** -- "
                          + "; ".join(s.history_check[:5]))
+    w = wc_line(s.record)
+    if w:
+        lines.append(w)
+    lines.append(f"- **evidence:** {EVIDENCE_NOTE}")
     if s.ignored_gate:
         lines += ["", f"> **{IGNORE_GATE_NOTE}**", "",
                   *[f"> - {r}" for r in s.gate_refusals]]

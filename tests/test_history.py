@@ -157,8 +157,18 @@ def test_a_margin_that_only_rose_is_not_a_cycle():
 def test_a_margin_that_fell_below_half_its_peak_is_a_cycle():
     years = list(range(2016, 2026))
     h = _hist([_row("revenue", "a", years, [100] * 10),
-               _row("operating_profit", "a", years, [20, 20, 20, 5, 20, 20, 20, 20, 20, 20])])
+               _row("operating_profit", "a", years, [20, 20, 20, 5, 20, 20, 4, 20, 20, 20])])
     assert H.cycle(h).cyclical
+    # B7: ONE trough repaired the next year is forgiven (E148's reading)
+    once = _hist([_row("revenue", "a", years, [100] * 10),
+                  _row("operating_profit", "a", years, [20, 20, 20, 5, 20, 20, 20, 20, 20, 20])])
+    # B7(2) as amended 2026-11-09: forgiven ONLY where the history declares
+    # the year with a non-economic cause; a repaired year alone stays a cycle
+    assert H.cycle(once).cyclical
+    once = _hist([_row("revenue", "a", years, [100] * 10),
+                  _row("operating_profit", "a", years, [20, 20, 20, 5, 20, 20, 20, 20, 20, 20])],
+                 one_year_forgiven={2019: "a stated non-economic cause"})
+    assert not H.cycle(once).cyclical and "FY2019 forgiven" in H.cycle(once).how
 
 
 def test_a_pass_through_revenue_runs_neither_the_proxy_nor_the_margin_test():
@@ -207,6 +217,13 @@ def test_the_two_names_struck_below_zero_are_positive_under_E142(ticker):
     from datetime import date, datetime, timezone
 
     from vss import strike as S
+    if ticker == "LIAB.ST":
+        # B6 (2026-11-08): its base is positive under E142 (66.68) but its
+        # bear is -5.29, and a bear at or under zero stops the name.
+        with pytest.raises(S.StrikeError, match="ABSURD: bear -5.29"):
+            S.strike_one(ticker, as_of=date(2026, 10, 27),
+                         run_ts=datetime(2026, 10, 27, 15, tzinfo=timezone.utc), stamp="test")
+        return
     struck = S.strike_one(ticker, as_of=date(2026, 10, 27),
                           run_ts=datetime(2026, 10, 27, 15, tzinfo=timezone.utc),
                           stamp="test")
@@ -315,3 +332,37 @@ def test_organic_growth_printed_as_its_parts_is_checked_on_the_parts():
                     organic_from={"constant_currency_pct": 7.5, "acquisitions_bps": 100, "disposals_bps": 60})])
     assert h.rows[0].stated == (7.5, 100.0, 60.0)
     assert H._find_values(h.rows[0].quote, h.rows[0].stated) is None
+
+
+def test_one_repaired_year_is_not_a_cycle_hrb():
+    """B7 / E148's reading: HRB's FY2020 (the filing deadline moved into
+    FY2021) fell and was repaired the next year -- not a cycle."""
+    c = H.cycle(H.load("HRB"))
+    assert not c.cyclical and "FY2020 forgiven" in c.how
+
+
+def test_a_declared_cyclical_without_a_downturn_has_no_bear_nvr():
+    c = H.cycle(H.load("NVR"))
+    assert c.cyclical and c.bear_missing and c.level_bear is None
+    assert "bear DATA MISSING" in c.how
+
+
+def test_a_repaired_covid_year_without_a_declared_cause_stays_a_cycle():
+    """Granskning 2026-11-09 (2.3): the five names B7 would have declassified
+    automatically stay cyclical; only HRB declares its year."""
+    for t in ("AUTO.L", "DECK", "MC.PA", "RMV.L", "ULTA"):
+        assert H.cycle(H.load(t)).cyclical, t
+
+
+def test_two_bad_years_are_still_a_cycle():
+    rev = {2018: 100.0, 2019: 80.0, 2020: 105.0, 2021: 70.0, 2022: 110.0}
+    margins = {y: 0.2 for y in rev}
+    assert H._one_repaired_year(rev, margins) is None
+
+
+def test_nvr_does_not_strike_without_a_bear():
+    from datetime import date, datetime, timezone
+    from vss import strike as S
+    with pytest.raises(S.StrikeError, match="bear DATA MISSING"):
+        S.strike_one("NVR", as_of=date(2026, 11, 1),
+                     run_ts=datetime(2026, 11, 1, tzinfo=timezone.utc), stamp="t")

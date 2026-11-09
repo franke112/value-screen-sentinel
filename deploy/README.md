@@ -191,7 +191,7 @@ sleeps; he runs `vss refresh --due` **by hand** on report weeks.
 Scheduling it would need `ReadWritePaths` widened to `config/manual` —
 **that widening is the decision, not the plumbing.** It is decided. If a
 future session thinks it should be scheduled, that is a new owner decision,
-recorded as a dated entry beneath E92 in `reference/FRAMEWORK-EDITS.md`,
+recorded as a dated entry beneath E92 in `reference/archive/FRAMEWORK-EDITS-2026-11-08.md`,
 before any unit file changes.
 
 The **nightly run still surfaces** whatever a hand-run refresh left behind,
@@ -213,13 +213,44 @@ it (E92). `vss watch` keeps its own separate, older `VSS_NTFY_URL`: a
 refresh pointer is not a disclosure alert, and one may be set without the
 other.
 
-## `vss-overview.service` — the overview page, 2026-09-13
+## `vss-overview.service` / `vss-tunnel.service` — the overview page over a Cloudflare Tunnel, 2026-09-13
 
-`vss-overview.service` rebuilds `reports/OVERVIEW.html`, the read-only
-overview page. In the owner's deployment it is served behind Cloudflare
-Access over an outbound-only Cloudflare Tunnel (no inbound port, Caddy on
-`127.0.0.1` returning 404 for every path but the page). **The tunnel unit
-and its notes are specific to that server and are not included here.**
-Serve the page however suits you -- or just open the file.
+`reports/OVERVIEW.html` is served read-only at `https://vss.wrez.uk`, behind
+Cloudflare Access (one-time PIN to one address). **No inbound port is
+opened.** cloudflared makes an outbound connection, Caddy binds
+`127.0.0.1:8080` only, and the firewall is unchanged. The full record — the
+Access settings, the file permissions, the three bugs found during the
+build, and what the design does NOT protect against — is in
+**`deploy/TUNNEL-NOTES.md`**. Read it before changing either unit.
 
-Ruling **F1** (FRAMEWORK-EDITS, 2026-09-13) governs the page's shape.
+Ruling **F1** (FRAMEWORK-EDITS, 2026-09-13) governs these two units. No
+prior rule governed the overview page's shape; an earlier citation of
+"FRAMEWORK §4.7" was wrong — that section does not exist — and is withdrawn
+in F1.
+
+**These two units break the convention of this directory — Option C, owner
+ruling 2026-09-13:**
+
+| Unit | Kind | Control |
+|---|---|---|
+| `vss-overview.service` | USER unit, `~/.config/systemd/user/` | `systemctl --user` |
+| `vss-tunnel.service` | **SYSTEM** unit, `/etc/systemd/system/` | `sudo systemctl` |
+
+The tunnel credential in `/etc/cloudflared/` is `root:cloudflared` 640 and
+unreadable by `wrez`, so the daemon holding it cannot run as `wrez`. The
+cost is two conventions on one box, and one consequence worth knowing: a
+SYSTEM unit cannot invoke `OnFailure=vss-failure@%n.service`, which is a
+USER unit, so **if the tunnel dies permanently the phone stays silent.** The
+nightly run and its alerting are unaffected — they do not depend on either
+unit. Startup order between the two is not enforced; if the tunnel wins the
+race the page returns 502 until `Restart=always` recovers it.
+
+**The boundary:** `/etc/caddy/vss-overview.Caddyfile` serves `OVERVIEW.html`
+at `/` and returns 404 for every other path. `reports/` held 93 files on
+2026-09-13 — SHADOW-BOOK, CTSH-PREBUY, SALES-RECORD, BRIEFING, every daily
+run — and deleting the `handle { respond 404 }` block serves all of them.
+`bind 127.0.0.1` is load-bearing, and the site address must be `:8080`, not
+the IP form (see TUNNEL-NOTES for why).
+
+**Nothing from `/etc/cloudflared/` may enter the repository.** The two unit
+files contain no secrets and are tracked.

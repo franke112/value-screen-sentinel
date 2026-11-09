@@ -152,3 +152,48 @@ Each pair is old base -> E140.
 - Non-US halves now roll via a `roll_forward:` block (MC, MEKKO, RMV, RBREW, SAP); quarterly
   TTM stores via each 2026 quarter's `working_capital_change` (BOUV, LIAB, PNDORA).
 - Steps 4-6 wait on the owner (fv_base, UMG.AS commit, then vss-public and pushes).
+
+## Session 2026-10-27 (evening): the method rebuild, done in one sweep
+
+The owner: "bara kör o fixa allt i ett svep". **Read
+`reference/reviews/method/2026-10-27-REBUILD.md` first** -- sections 1-7
+are the review, section 8 what was built and every value.
+
+- **E142-E147** (bb6e87c, E141 decisions): acquisitions leave flow and
+  growth and are valued at the acquirer's own ROIIC; the mean rolls a year;
+  the cycle normalises; bear lowers the level; growth is DERIVED from
+  `config/history/<T>.yaml`; quality tests Q1-Q5; pension after tax; NVR's
+  operating profit = pre-tax + interest.
+- **Engine** (037bbd2, dab720b): `vss/history.py`, `vss history --ticker X
+  [--xbrl --write [--cik N]] [--check]`. 25 history files, every hand-read
+  row machine-checked against its PDF.
+- **All 25 names re-struck** under stamp `2026-10-27-e142`, one commit each.
+- **Watchlist** (44002e1): new fv_base on the nine names that carry one;
+  ACAD.ST, ALV, LOPE, PNDORA.CO DROPPED on E145; CTSH tier 2 -> 3 (Q4).
+- **~/vss-public** ported (8ffa732), scrubbed, README holdings CTSH + CENTA.
+  Not pushed.
+
+**Open:**
+
+1. **CENTA:** E145 -- a held name failing Q1-Q3 is sold once the price
+   reaches base 40.19. The order handed to the owner: limit sell 148 at
+   40.19. Record the fill in `sales:` on his word.
+2. **NVR** passes Q1-Q5 and sits ~25% under 7,682.75: re-run its gates
+   (E147 settles Gate 3's coverage) and set a tier -- the only buy
+   candidate the rebuild produced.
+3. **Control session:** `reference/METHOD-CHECK-PROMPT-2026-10-27.md`
+   (a NEW session, four questions, not a new hunt).
+4. Organic growth for the US repeat buyers (acquired revenue from the 10-K
+   notes) -- the view stands for them, marked.
+5. SAP.DE and RKT.L were not re-struck (blocked before).
+6. Pushes are the owner's: `cd ~/stocks && git push` and
+   `cd ~/vss-public && git push`.
+
+## Later still: the control session and its fixes
+
+- Control (6ab735d, `reference/reviews/method/2026-10-27-CHECK.md`): the
+  rebuild works; four faults.
+- **All four fixed** (8308452), all 25 re-struck as `2026-10-27-check`, the
+  watchlist points at those records (7b8d97d). ~/vss-public ported (04782c5).
+- Open: CENTA limit sell at 40.19 (147 on the ISK the owner showed; where
+  the 148th share sits is asked); NVR's gates; pushes are the owner's.

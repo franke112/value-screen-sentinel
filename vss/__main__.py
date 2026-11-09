@@ -319,6 +319,17 @@ def build_parser() -> argparse.ArgumentParser:
     )
     sales_cmd.add_argument("--config", metavar="PATH", default=None,
                            help="use an alternate watchlist")
+    sales_cmd.add_argument(
+        "--reconcile", metavar="EXPORT_CSV", default=None,
+        help="E165: match every sell row of an Avanza transaction export "
+             "against the booked fills, write config/sales_reconciled.yaml, "
+             "print the differences; exit 1 on any. Reads no prices",
+    )
+    sales_cmd.add_argument(
+        "--since", metavar="YYYY-MM-DD", default=None,
+        help="with --reconcile: the first date reconciled (default: the "
+             "earliest booked fill)",
+    )
 
     newsdrop_cmd = sub.add_parser(
         "newsdrop",
@@ -537,7 +548,7 @@ def build_parser() -> argparse.ArgumentParser:
     review_cmd = sub.add_parser(
         "review",
         help="the review session's record: validate a "
-             "reference/reviews/<TICKER>/<date>.yaml against the playbook's "
+             "reference/reviews/<TICKER>/<date>.yaml against the review's "
              "step list and E28's ordering, or record one -- the owner's note "
              "appended verbatim to the watchlist entry (backup first) and the "
              "growth view registered where the code keeps growth views. "
@@ -966,6 +977,16 @@ def main(argv: list[str] | None = None) -> int:
             code, report = run_newsdrop(
                 asof=date.fromisoformat(args.asof) if args.asof else date.today(),
                 limit=args.limit, notify=not args.no_notify)
+            print(report)
+            return code
+        if args.command == "sales" and args.reconcile:
+            from datetime import date as _date
+            from .sales import run_reconcile
+
+            code, report = run_reconcile(
+                Path(args.reconcile),
+                watchlist_path=overrides.get("watchlist_path", WATCHLIST_PATH),
+                since=_date.fromisoformat(args.since) if args.since else None)
             print(report)
             return code
         if args.command == "sales":

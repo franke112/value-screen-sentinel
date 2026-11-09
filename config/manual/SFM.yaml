@@ -330,10 +330,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: 21969000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2023-01-02..2023-12-31] 10-K 0001575515-26-000008 filed 2026-02-19 = 3,173,000 + us-gaap:IncreaseDecreaseInInventories [2023-01-02..2023-12-31] 10-K 0001575515-26-000008 filed 2026-02-19 = -10,857,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2023-01-02..2023-12-31] 10-K 0001575515-26-000008 filed 2026-02-19 = 2,210,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2023-01-02..2023-12-31] 10-K 0001575515-26-000008 filed 2026-02-19 = 3,482,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2023-01-02..2023-12-31] 10-K 0001575515-26-000008 filed 2026-02-19 = 12,215,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2023-01-02..2023-12-31] 10-K 0001575515-26-000008 filed 2026-02-19 = 11,746,000 = 21,969,000 (cash effect: an asset increase negated, a liability increase kept)"
+        value: 34849000
+        page: "E140(1) tied to the cash flow statement: SFM_FY2025_annual-report-10k_2026-02-19_en_a0.htm, 2023-01-02..2023-12-31. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable 3,173,000 + us-gaap:IncreaseDecreaseInInventories -10,857,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets 2,210,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets 3,482,000 + us-gaap:IncreaseDecreaseInAccountsPayable 12,215,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities 11,746,000 + us-gaap:IncreaseDecreaseInAccruedSalaries 12,880,000 = 34,849,000 (printed values, cash effect). The operating section's 16 rows sum to the printed operating cash flow 465,068,000 within 8,500; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: -13032000
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2023-01-02..2023-12-31] 10-K 0001575515-26-000008 filed 2026-02-19"
@@ -420,10 +420,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: 89025000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-01-01..2024-12-29] 10-K 0001575515-26-000008 filed 2026-02-19 = 30,007,000 + us-gaap:IncreaseDecreaseInInventories [2024-01-01..2024-12-29] 10-K 0001575515-26-000008 filed 2026-02-19 = -20,131,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2024-01-01..2024-12-29] 10-K 0001575515-26-000008 filed 2026-02-19 = 11,903,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2024-01-01..2024-12-29] 10-K 0001575515-26-000008 filed 2026-02-19 = -45,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2024-01-01..2024-12-29] 10-K 0001575515-26-000008 filed 2026-02-19 = 27,986,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2024-01-01..2024-12-29] 10-K 0001575515-26-000008 filed 2026-02-19 = 39,305,000 = 89,025,000 (cash effect: an asset increase negated, a liability increase kept)"
+        value: 112265000
+        page: "E140(1) tied to the cash flow statement: SFM_FY2025_annual-report-10k_2026-02-19_en_a0.htm, 2024-01-01..2024-12-29. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable 30,007,000 + us-gaap:IncreaseDecreaseInInventories -20,131,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets 11,903,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets -45,000 + us-gaap:IncreaseDecreaseInAccountsPayable 27,986,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities 39,305,000 + us-gaap:IncreaseDecreaseInAccruedSalaries 23,240,000 = 112,265,000 (printed values, cash effect). The operating section's 16 rows sum to the printed operating cash flow 645,214,000 within 8,500; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2024-01-01..2024-12-29] 10-K 0001575515-26-000008 filed 2026-02-19"
@@ -549,10 +549,10 @@ annual:
         status: VERIFIED
         verified_kind: tagged
       working_capital_change:
-        value: 11133000
-        page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2024-12-30..2025-12-28] 10-K 0001575515-26-000008 filed 2026-02-19 = 27,216,000 + us-gaap:IncreaseDecreaseInInventories [2024-12-30..2025-12-28] 10-K 0001575515-26-000008 filed 2026-02-19 = -83,766,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2024-12-30..2025-12-28] 10-K 0001575515-26-000008 filed 2026-02-19 = 36,672,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2024-12-30..2025-12-28] 10-K 0001575515-26-000008 filed 2026-02-19 = -5,433,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2024-12-30..2025-12-28] 10-K 0001575515-26-000008 filed 2026-02-19 = 11,198,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2024-12-30..2025-12-28] 10-K 0001575515-26-000008 filed 2026-02-19 = 25,246,000 = 11,133,000 (cash effect: an asset increase negated, a liability increase kept)"
+        value: 9158000
+        page: "E140(1) tied to the cash flow statement: SFM_FY2025_annual-report-10k_2026-02-19_en_a0.htm, 2024-12-30..2025-12-28. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable 27,216,000 + us-gaap:IncreaseDecreaseInInventories -83,766,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets 36,672,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets -5,433,000 + us-gaap:IncreaseDecreaseInAccountsPayable 11,198,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities 25,246,000 + us-gaap:IncreaseDecreaseInAccruedSalaries -1,975,000 = 9,158,000 (printed values, cash effect). The operating section's 16 rows sum to the printed operating cash flow 715,998,000 within 8,500; classes from config/manual/maps/cashflow-tags.yaml"
         status: VERIFIED
-        verified_kind: tagged
+        verified_kind: tied_statement
       acquisitions_paid:
         value: 0
         page: "us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired [2024-12-30..2025-12-28] 10-K 0001575515-26-000008 filed 2026-02-19"
@@ -571,10 +571,10 @@ roll_forward:
   url: "https://data.sec.gov/api/xbrl/companyfacts/CIK0001575515.json"
   figures:
     working_capital_change:
-      value: -12496000
-      page: "E140(1): us-gaap:IncreaseDecreaseInAccountsReceivable [2025-12-29..2026-09-27] 10-Q 0001575515-26-000060 filed 2026-10-28 = 8,495,000 + us-gaap:IncreaseDecreaseInInventories [2025-12-29..2026-09-27] 10-Q 0001575515-26-000060 filed 2026-10-28 = -13,339,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets [2025-12-29..2026-09-27] 10-Q 0001575515-26-000060 filed 2026-10-28 = 25,836,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets [2025-12-29..2026-09-27] 10-Q 0001575515-26-000060 filed 2026-10-28 = -3,647,000 + us-gaap:IncreaseDecreaseInAccountsPayable [2025-12-29..2026-09-27] 10-Q 0001575515-26-000060 filed 2026-10-28 = 4,819,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities [2025-12-29..2026-09-27] 10-Q 0001575515-26-000060 filed 2026-10-28 = -34,660,000 = -12,496,000 (cash effect: an asset increase negated, a liability increase kept)"
+      value: -43012000
+      page: "E140(1) tied to the cash flow statement: SFM_2026-09-27_quarterly-report-10q_2026-10-28_en_a0.htm, 2025-12-29..2026-09-27. Working capital = us-gaap:IncreaseDecreaseInAccountsReceivable 8,495,000 + us-gaap:IncreaseDecreaseInInventories -13,339,000 + us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets 25,836,000 + us-gaap:IncreaseDecreaseInOtherOperatingAssets -3,647,000 + us-gaap:IncreaseDecreaseInAccountsPayable 4,819,000 + us-gaap:IncreaseDecreaseInAccruedLiabilities -34,660,000 + us-gaap:IncreaseDecreaseInAccruedSalaries -30,516,000 = -43,012,000 (printed values, cash effect). The operating section's 16 rows sum to the printed operating cash flow 555,127,000 within 8,500; classes from config/manual/maps/cashflow-tags.yaml"
       status: VERIFIED
-      verified_kind: tagged
+      verified_kind: tied_statement
     operating_lease_liabilities:
       value: 2102475000
       page: "E71 -- the lease liability from two stated parts the filer never totals, current and non-current portions of one liability by the taxonomy's own definition: us-gaap:OperatingLeaseLiabilityCurrent [as of 2026-09-27] 10-Q 0001575515-26-000060 filed 2026-10-28 = 192,553,000 + us-gaap:OperatingLeaseLiabilityNoncurrent [as of 2026-09-27] 10-Q 0001575515-26-000060 filed 2026-10-28 = 1,909,922,000 = 2,102,475,000"

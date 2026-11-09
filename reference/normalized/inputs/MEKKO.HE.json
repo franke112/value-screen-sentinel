@@ -206,7 +206,7 @@
    "ocf": {
     "value": 29427,
     "quote": "CASH FLOW FROM OPERATING ACTIVITIES                                    29,107                29,427",
-    "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+    "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
     "page": 72,
     "columns": "[current,prior]=['29,107', '29,427']",
     "caption": "CASH FLOW FROM OPERATING ACTIVITIES(?=\\s{3,}[\\d])"
@@ -215,7 +215,7 @@
     {
      "value": -3342,
      "quote": "Change in working capital                                              -4,443                -3,342",
-     "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+     "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
      "page": 72,
      "columns": "[current,prior]=['-4,443', '-3,342']",
      "caption": "Change in working capital (total)"
@@ -223,7 +223,7 @@
     {
      "value": -7690,
      "quote": "non-interest-bearing trade receivables                                 2,046                 -7,690",
-     "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+     "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
      "page": 72,
      "columns": "[current,prior]=['2,046', '-7,690']",
      "caption": "Increase (-) / decrease (+) in current non-interest-bearing trade receivables"
@@ -231,7 +231,7 @@
     {
      "value": 4449,
      "quote": "in inventories                             -6,140                4,449",
-     "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+     "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
      "page": 72,
      "columns": "[current,prior]=['-6,140', '4,449']",
      "caption": "Increase (-) / decrease (+) in inventories"
@@ -239,7 +239,7 @@
     {
      "value": -101,
      "quote": "non-interest-bearing liabilities                                        -348                   -101",
-     "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+     "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
      "page": 72,
      "columns": "[current,prior]=['-348', '-101']",
      "caption": "Increase (+) / decrease (-) in current non-interest-bearing liabilities"
@@ -249,7 +249,7 @@
     {
      "value": -2025,
      "quote": "Investments in tangible and intangible assets                                  -2,330                         -2,025",
-     "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+     "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
      "page": 72,
      "columns": "[current,prior]=['-2,330', '-2,025']",
      "caption": "Investments in tangible and intangible assets"
@@ -258,7 +258,7 @@
    "lease_principal": {
     "value": -7381,
     "quote": "Payments of lease liabilities                                                   -7,978                         -7,381",
-    "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+    "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
     "page": 72,
     "columns": "[current,prior]=['-7,978', '-7,381']",
     "caption": "Payments of lease liabilities"
@@ -266,7 +266,7 @@
    "interest_paid": {
     "value": -1532,
     "quote": "Paid interest and payments on other financial expenses                  -1,418                -1,532",
-    "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+    "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
     "page": 72,
     "columns": "[current,prior]=['-1,418', '-1,532']",
     "caption": "Paid interest and payments on other financial expenses"
@@ -274,7 +274,7 @@
    "interest_received": {
     "value": 223,
     "quote": "Interest received and payments on other financial income                  633                    223",
-    "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+    "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
     "page": 72,
     "columns": "[current,prior]=['633', '223']",
     "caption": "Interest received and payments on other financial income"
@@ -282,7 +282,7 @@
    "tax_paid": {
     "value": -6919,
     "quote": "Taxes paid                                                             -6,900                 -6,919",
-    "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+    "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
     "page": 72,
     "columns": "[current,prior]=['-6,900', '-6,919']",
     "caption": "Taxes paid"
@@ -290,7 +290,7 @@
    "sbc": {
     "value": 417,
     "quote": "Share-based payments                                                     510                    417",
-    "file": "~/vss/sources/<scratch>/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
+    "file": "~/vss/sources//tmp/claude-1000/-home-wrez-stocks/0b6b4fcf-7fc4-4039-8529-a392a1177545/scratchpad/e140/dl/MEKKO2024.pdf (https://company.marimekko.com/app/uploads/2025/03/Marimekkos_year_2024.pdf)",
     "page": 72,
     "columns": "[current,prior]=['510', '417']",
     "caption": "Share-based payments"

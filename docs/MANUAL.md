@@ -23,8 +23,13 @@ computes, guesses, defaults or back-fills any of it.
 The one derived exception is `mbp`, which is computed from two manual inputs:
 
 ```
-mbp = fv_base * tier_multiplier        tier 1 = 0.80, tier 2 = 0.70, tier 3 = 0.60
+mbp = fv_base * tier_cushion           tier 1 = 0.85, tier 2 = 0.75, tier 3 = 0.65   (E90)
 ```
+
+The older 0.80 / 0.70 / 0.60 multipliers (`MBP_TIER_MULTIPLIER`) are kept
+only for the three figures E32 retains, and are marked wherever they print.
+**MBP is information since E168 (2026-11-09):** it binds nothing, and the
+queue says UNDER MBP, never KÖP.
 
 `mbp` is therefore **not** a watchlist field. Writing an `mbp:` key by hand
 fails the run with a provenance conflict. If `fv_base` or `tier` is absent,
@@ -903,9 +908,12 @@ foreign dividend withholding in a Swedish ISK.
 ## Screener: `vss screen`
 
 Phases 1 to 3, 5 and 6: it builds the universe, snapshots its prices, runs the
-exclusion list and the dislocation band, fetches fundamentals for the
-survivors, applies a coarse quality filter, and ranks what is left on
-Greenblatt's two components. It never writes to `config/watchlist.yaml`. The
+exclusion list and the staleness gate (no drawdown band since E161, no
+12-month-return test since E168), fetches fundamentals for the survivors,
+applies a coarse quality filter, and lists what is left in a seeded random
+order with one fixed seed, the same every week (E167, 2026-11-09: attempt #24
+found that the ranking key did not sort returns; its legs are still shown in
+`ranking.csv` as information). It never writes to `config/watchlist.yaml`. The
 design and the plan for phases 4, 6 and 7 are in `reference/SCREENER.md`.
 
 ```bash
@@ -955,23 +963,28 @@ means the symbol mapping is wrong. `STALE` is decided afterwards by
 `config/screener_exclusions.csv` -- names already owned or already decided,
 matched on `ticker_yahoo` exactly, never on name. Entries matching nothing are
 reported as inert, since an inert entry that reads as active is how an excluded
-name quietly comes back. Filter 1 is the dislocation band, imported from
-`rules.in_dislocation_band`; candidates land in
+name quietly comes back. Filter 1 is the staleness gate only: the 15-50 % dislocation band was
+removed by E161 (attempts #12, #21) and E127's "below a year ago" by E168
+(attempt #25); the drawdown stays on the row as information. Candidates land in
 `data/screener_runs/<ASOF>/filter1-candidates.csv` ordered by ticker, which is
 an order and not a ranking.
 
 `--fundamentals` fetches only the survivors of filter 1, one ticker at a time,
 and stores them beside the price snapshot. Status is recorded per ticker AND
 per field: a bank returns cash and debt but no EBITDA, and a ticker-level `OK`
-would hide the gap. `--filter2` then applies coarse quality -- positive free
-cash flow, net debt/EBITDA, revenue trend -- with the thresholds in
+would hide the gap. `--filter2` then applies one coarse test -- positive free
+cash flow (the leverage limb went with E168, the revenue trend with E163) -- with the threshold in
 `config/screener_filter2.yaml` rather than in code, each citing its FRAMEWORK
 section.
 
-`--rank` then applies the ranking key of FRAMEWORK-EDITS E6: gross
-profitability (gross profit / total assets, after Novy-Marx 2013) and earnings
-yield, ranked separately, the placings summed. It is the only ordering the tool
-produces, and it is still review work rather than advice. Names that cannot be
+`--rank` then orders the names that passed by a seeded draw with one fixed
+seed (E167, 2026-11-09; `DRAW_SEED` in `vss/ranking.py`, fixed since
+171e1ee so a name keeps its place from week to week). The ranking key it
+used before -- E6's gross profitability and earnings yield, later E43's
+EBIT / assets and EBIT / EV -- did not sort returns by decile in either
+market (attempt #24); its legs are still computed and written to
+`ranking.csv` as information. The order is review work, not advice.
+The rest of this paragraph describes how the legs are computed. Names that cannot be
 ranked on the quality leg -- financials, property, and any name missing a line
 -- are ranked on earnings yield alone in their own section, never interleaved.
 E6 replaced E5's Greenblatt ROIC because that denominator went to zero for
@@ -1333,34 +1346,29 @@ That is the gate erring toward flagging, by design.
 ### Verdicts
 
 For non-blocked tickers only. Verdicts are **collected, not first-match-wins**
--- a holding under both its stop and its MBP reports both, so a stop breach
-can never be masked by another rule firing first.
+-- every one that applies is reported.
 
 | Verdict | Condition |
 |---|---|
-| `STOP BREACHED` | `status == HELD` and `close <= stop_price` |
-| `AT/BELOW MBP` | `close <= mbp` |
+| `AT/BELOW MBP` | `close <= mbp` (information since E168) |
 | `APPROACHING MBP` | `mbp < close <= mbp * 1.05` |
-| `OUTSIDE DISLOCATION BAND` | drawdown outside `[0.15, 0.50]` |
-| `NO STOP DEFINED` | not `HELD` and no `stop_price` — required before entry |
+| `DROPPED` / `INTAKE` | the name's status; it collects no other verdict |
 | `DATA MISSING` | a manual field the check needs is absent |
 | `NO ACTION` | nothing above fired |
 
-Boundaries are inclusive: exactly at MBP is `AT/BELOW MBP`; exactly at the
-stop is `STOP BREACHED`; drawdown of exactly 0.15 or exactly 0.50 is *inside*
-the band. `AT/BELOW MBP` and `APPROACHING MBP` are mutually exclusive.
+Boundaries are inclusive: exactly at MBP is `AT/BELOW MBP`.
+`AT/BELOW MBP` and `APPROACHING MBP` are mutually exclusive.
 
-A missing `stop_price` is treated by status. A `HELD` name is blocked --
-there is an open position with no defined exit. A waiting name
-has nothing to exit, so it is not blocked: it gets its normal MBP and
-dislocation verdicts plus a `NO STOP DEFINED` flag, so a buy verdict is never
-acted on before the §6.4 stop decision is made.
+**Removed:** `STOP BREACHED` and `NO STOP DEFINED` went with the price stop
+(E162, 2026-11-08, attempts #10 and #18), `OUTSIDE DISLOCATION BAND` with the
+band (E161, attempts #12 and #21). What remains of the stop is a blocker: an
+EMPTY `stop_price` on a `HELD` name blocks it (`NO_STOP`), because "no stop"
+must be written as the decision it is, `stop_price: none`.
 
 `DATA MISSING` is never `FAIL` and never `NO ACTION`. A missing input means
 the check could not be evaluated -- the tool never substitutes a default to
 avoid the state, and a check is never skipped silently. A missing field only
-suppresses the checks that need it: an absent `fv_base` leaves the stop check
-and the dislocation check fully evaluated.
+suppresses the checks that need it.
 
 ### Data availability
 
@@ -1473,9 +1481,9 @@ vss/
   render.py    the overview page's HTML and stylesheet -- no other importer
   runner.py    orchestration (all I/O lives here)
   universe.py  screener: the static universe -- schema, exclusions, dedup
-  filters.py   screener: exclusion list, dislocation band, coarse quality
+  filters.py   screener: exclusion list, staleness gate, coarse quality
   fx.py        screener: exchange rates, once per run per pair
-  ranking.py   screener: share-class collapse + the Greenblatt key
+  ranking.py   screener: share-class collapse + the seeded draw (E167)
   pipeline.py  screener: phase 6 -- the only module that writes the watchlist
   fundamentals.py  screener: per-ticker fundamentals, two status layers
   manual.py    hand-entered fundamentals: schema, four checks, the 5 gate

@@ -340,7 +340,8 @@ def _is_rule_quote(q: str) -> bool:
     global _RULES
     if _RULES is None:
         _RULES = "".join(_flat(Path(p).read_text()) for p in
-                         ("reference/FRAMEWORK-EDITS.md",
+                         ("reference/archive/FRAMEWORK-EDITS-2026-11-08.md",
+                          "reference/archive/FRAMEWORK-2026-11-08.md",
                           "reference/FRAMEWORK.md") if Path(p).exists())
     return len(q) > 25 and _flat(q)[:60] in _RULES
 

@@ -1,5 +1,5 @@
 """The pre-registered evaluation of the Nordic backtest
-(the private pre-registration (kept with the licensed data, not published)). Every number and
+(reference/backtest/PREREG-NORDIC-CONFIRM-2026-11-07.md). Every number and
 rule here was fixed and committed BEFORE the confirmation dates were run.
 
     .venv/bin/python -m tools.backtest.confirm_nordic --dev       # 2010-2021 (informational)

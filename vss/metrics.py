@@ -13,7 +13,7 @@ Semantics follow reference/SPEC.md 2, which does not conflict with SCOPE:
     it is a FIELD that no filter and no ranking key reads.
   * The 12-month return (FRAMEWORK-EDITS E127) is the close against the
     latest close on or before as_of - 365 days, under the same coverage
-    bar. Filter 1 reads it; see `rules.fell_over_year`.
+    bar. Carried as a field; E168 removed E127's rejection.
   * Volume ratio excludes today from its denominator.
   * Rows dated after ``as_of`` are dropped before anything is measured, so
     ``compute(df, as_of)`` answers for ``as_of`` whatever the frame carries.

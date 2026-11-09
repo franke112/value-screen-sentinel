@@ -94,6 +94,17 @@ class History:
     #: cycle. The reason is written in the file; the effect is that the
     #: organic PROXY and the revenue/margin cycle tests are not run.
     revenue_pass_through: str = ""
+    #: B7 (owner, 2026-11-08): the business is DECLARED cyclical, with the
+    #: reason (a homebuilder). Where the history holds no downturn, the cycle
+    #: cannot be normalised from it: the bear is DATA MISSING and the name
+    #: gets no buy line, until the downturn years are entered by hand.
+    declared_cyclical: str = ""
+    #: B7(2) as amended by granskning 2026-11-09 (2.3): the ONE year whose
+    #: fall is forgiven, with its NON-ECONOMIC cause written out (HRB FY2020:
+    #: the filing deadline moved into the next fiscal year). Never automatic:
+    #: in a 2015-2025 window a fast-repaired COVID year is the only downturn
+    #: many cyclical names show, and forgiving it would take their cycle away.
+    one_year_forgiven: dict = field(default_factory=dict)
     #: E148.1: owner earnings (operating cash flow less capex, WHOLE units)
     #: of up to three filed years BEFORE the window. Read only by Q2's
     #: repair clause, for the earlier best a negative first year must
@@ -196,6 +207,9 @@ def parse(raw: dict[str, Any], *, path: str = "") -> History:
                    fiscal_year_end=str(raw.get("fiscal_year_end") or "12-31"),
                    path=path, years=years,
                    revenue_pass_through=str(raw.get("revenue_pass_through") or ""),
+                   declared_cyclical=str(raw.get("declared_cyclical") or ""),
+                   one_year_forgiven={int(y): str(v) for y, v in
+                                      (raw.get("one_year_forgiven") or {}).items()},
                    owner_earnings_before_window={
                        int(y): float(v) for y, v in
                        (raw.get("owner_earnings_before_window") or {}).items()})
@@ -514,6 +528,36 @@ class Cycle:
     level_base: float
     level_bear: float | None   # None: the record's own three years decide
     how: str
+    #: B7: declared cyclical with no downturn in the history -- the bear
+    #: cannot be struck and the name gets no buy line
+    bear_missing: bool = False
+
+
+def _one_repaired_year(rev: dict, margins: dict) -> int | None:
+    """The one year E148's reading forgives, or None: the ONLY year whose
+    revenue fell more than the cycle threshold or whose margin fell below
+    half its earlier peak, with both repaired the very next year."""
+    bad = []
+    peak = None
+    for y in sorted(rev):
+        fell = (y - 1) in rev and rev[y - 1] > 0 and rev[y] / rev[y - 1] - 1 < -CYCLICAL_REVENUE_FALL
+        m = margins.get(y)
+        trough = (m is not None and peak is not None and peak > 0
+                  and (m <= 0 or peak > CYCLICAL_MARGIN_RATIO * m))
+        if fell or trough:
+            bad.append(y)
+        if m is not None:
+            peak = m if peak is None else max(peak, m)
+    if len(bad) != 1:
+        return None
+    y = bad[0]
+    nxt, prev = y + 1, y - 1
+    if nxt not in rev or prev not in rev or rev[nxt] < rev[prev]:
+        return None
+    pk = max((margins[k] for k in margins if k < y), default=None)
+    if pk is None or margins.get(nxt) is None or margins[nxt] * CYCLICAL_MARGIN_RATIO < pk:
+        return None
+    return y
 
 
 def cycle(h: History) -> Cycle:
@@ -534,6 +578,18 @@ def cycle(h: History) -> Cycle:
                          + h.revenue_pass_through + ")")
         return Cycle(True, 1.0, None, f"CYCLICAL on profit (fell {worst:.0%} from a peak); "
                      "revenue is a pass-through, no margin normalisation")
+    # B7 (owner, 2026-11-08), E148's reading: ONE year whose fall is
+    # REPAIRED the next year -- revenue back above the year before the fall,
+    # the margin back above half its earlier peak -- is forgiven, as Q2
+    # forgives one repaired year. A single repaired year is not a cycle
+    # (HRB FY2020: the filing deadline moved into the next fiscal year).
+    forgiven = _one_repaired_year(rev, margins)
+    if forgiven is not None and forgiven not in h.one_year_forgiven:
+        forgiven = None      # repaired, but no non-economic cause is declared
+    if forgiven is not None:
+        rev = {y: v for y, v in rev.items() if y != forgiven}
+        margins = {y: v for y, v in margins.items() if y != forgiven}
+        falls = [rev[y] / rev[y - 1] - 1 for y in rev if (y - 1) in rev and rev[y - 1] > 0]
     if falls and min(falls) < -CYCLICAL_REVENUE_FALL:
         why.append(f"revenue fell {min(falls):.0%} in a year")
     # A margin that ROSE is not a cycle (GDDY, LII, DECK): only a fall
@@ -547,7 +603,15 @@ def cycle(h: History) -> Cycle:
     if fall is not None:
         why.append(f"operating margin fell from {fall[0]:.1%} to {fall[1]:.1%}")
     if not why:
-        return Cycle(False, 1.0, None, "not cyclical (E143(3))")
+        if h.declared_cyclical:
+            return Cycle(True, 1.0, None,
+                         f"DECLARED CYCLICAL ({h.declared_cyclical}) and the history "
+                         f"{min(rev, default='?')}-{max(rev, default='?')} holds no downturn: "
+                         f"the cycle cannot be normalised from it -- bear DATA MISSING, "
+                         f"no buy line (B7)", bear_missing=True)
+        note = (f"; FY{forgiven} forgiven as one repaired year (E148, B7)"
+                if forgiven is not None else "")
+        return Cycle(False, 1.0, None, "not cyclical (E143(3))" + note)
     oe = owner_earnings(h)
     oem = {y: oe[y] / rev[y] for y in oe if y in rev and rev[y] > 0}
     ys = sorted(oem)
