@@ -44,7 +44,7 @@ read it front to back.
 | `<TICKER>-STRIKE-<date>.md` | one valuation run, every figure with its source |
 | `<TICKER>-GATED-*.md`, `<TICKER>-GATES-*.md` | why a name was stopped, or let through |
 | `growth-views/` | the pre-registered growth views (E28) |
-| `reviews/` | a name walked through the playbook, step by step |
+| `reviews/` | a name walked through the review's steps, one at a time |
 | `run-records/` | the machine-readable record behind each strike |
 | `events/` | the deals ledger per company |
 | `backtest/` | the back-test, and its honest result |

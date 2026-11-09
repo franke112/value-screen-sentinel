@@ -236,7 +236,8 @@ not trusted. The next test (#26) runs only on new data, in April 2027.
 | `tools/` | tools run by hand, the master list, the backtest scripts |
 | `config/` | the watchlist, the queue, the screen's universe: **the author's own, as an example** |
 | `reference/` | the rules on two pages ([FRAMEWORK.md](reference/FRAMEWORK.md)), every ruling with its date and reason ([archive/](reference/archive/)), the reviews of each company |
-| `docs/` | [the book](docs/the-method/) and [the technical manual](docs/MANUAL.md) |
+| `docs/` | [the book](docs/the-method/), [the manual](docs/MANUAL.md) (tasks step by step), [the command reference](docs/REFERENCE.md) (generated from the code), [why it behaves as it does](docs/EXPLANATION.md), [the changelog](docs/CHANGELOG.md) |
+| `AGENTS.md` | for an AI agent: which commands change nothing, which write, which reach the phone |
 | `deploy/` | the nightly jobs (user-level systemd) |
 | `.claude/` | the Claude Code commands `/review` and `/granska` |
 | `tests/` | about 3,000 tests |

@@ -2,12 +2,23 @@
 
 PY := .venv/bin/python
 
-.PHONY: playbook playbook-test
+.PHONY: test reference schema book
 
-## The decision playbook: docs/playbook/, gitignored. Rebuild after any
-## ruling, verdict or CLI change (docs/manual/playbook.md).
-playbook:
-	$(PY) tools/build_playbook.py
+## The whole suite.
+test:
+	$(PY) -m pytest -q
 
-playbook-test:
-	$(PY) -m pytest tests/test_playbook.py -q
+## docs/REFERENCE.md, generated from the argument parsers and deploy/.
+## Same commit as any change to a parser, a timer or a tool (CLAUDE.md).
+reference:
+	$(PY) tools/build_manual_reference.py > docs/REFERENCE.md
+	$(PY) -m pytest tests/test_manual_reference.py -q
+
+## config/review/SCHEMA.md, generated from vss/review.py.
+schema:
+	$(PY) -m vss review --schema > config/review/SCHEMA.md
+	$(PY) -m pytest tests/test_review.py -q
+
+## The book, both languages (docs/the-method/).
+book:
+	cd docs/the-method/_build && python3 build.py

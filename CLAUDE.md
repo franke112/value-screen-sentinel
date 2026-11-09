@@ -1,11 +1,11 @@
 # CLAUDE.md
 
 Instructions for any Claude session working in this repository. Rules about the
-INVESTMENT FRAMEWORK live in `reference/FRAMEWORK.md` and its rulings in
-`reference/FRAMEWORK-EDITS.md`; this file is about how the work itself is done.
-
-*Note for an analysis session: FRAMEWORK §11 binds analysis sessions only and
-expressly does not bind engineering sessions (FRAMEWORK-EDITS A1).*
+INVESTMENT FRAMEWORK live in `reference/FRAMEWORK.md` (two pages since
+2026-11-08); the rulings it names are archived in
+`reference/archive/FRAMEWORK-EDITS-2026-11-08.md`, and what was struck in
+`reference/archive/STRUCK-2026-11-08.md`. This file is about how the work
+itself is done. What is safe to run is in [`AGENTS.md`](AGENTS.md).
 
 ## Cost discipline
 
@@ -35,7 +35,7 @@ rather than starting.
 
 Opus is the default and nothing switches automatically. The owner may switch
 a clearly mechanical session to Sonnet by hand (`/model sonnet`): inkorg,
-docs, playbook rebuilds, running tests for a decided change, fetching. The
+docs, running tests for a decided change, fetching. The
 commit trailer names the model, so `git log` records which one did what.
 
 **A Sonnet session or subagent STOPS and hands back to Opus when:**
@@ -105,35 +105,49 @@ never WHAT it may conclude. No finding is weaker for having been expensive
 to reach, and none is safer for having been cheap.
 
 
-## Same-commit rule — 2026-09-13
-
-The decision playbook (`docs/playbook/`, gitignored; `docs/manual/playbook.md`)
-is generated from the repo's own sources. **Rebuild it in the same commit as
-any ruling, verdict or CLI change** — an entry in FRAMEWORK-EDITS, a status
-or note on the watchlist, a shadow-book row, a subcommand or flag:
-
-    .venv/bin/python tools/build_playbook.py && .venv/bin/python -m pytest tests/test_playbook.py -q
-
-(`make playbook` does the same where `make` is installed; the VPS has none.)
-
-A new numbered entry in FRAMEWORK-EDITS fails the test until it is placed in
-`tools/playbook/placement.py`. Place it; do not skip the test.
-
-## The review session's files -- same-commit rule, 2026-09-14
+## The review session's files -- same-commit rule, 2026-09-14 (playbook removed 2026-11-08)
 
 `config/review/SCHEMA.md` is generated from `vss/review.py` and a test
 holds the two equal; `.claude/commands/review.md` is the session's
 instructions and a test holds its three load-bearing clauses (never
 propose, the view before any implied number, resume where the name
-stands). **Any change to `vss/review.py`, to `tools/playbook/steps.py`
+stands). **Any change to `vss/review.py`, to `vss/review_steps.py`
 or to the command file lands in one commit with:**
 
     .venv/bin/python -m vss review --schema > config/review/SCHEMA.md
-    .venv/bin/python tools/build_playbook.py && .venv/bin/python -m pytest tests/test_review.py tests/test_playbook.py -q
+    .venv/bin/python -m pytest tests/test_review.py -q
 
-A review file under `reference/reviews/` and the `vss review --record`
-that follows it are a verdict for the same-commit rule above: rebuild the
-playbook in that commit.
+The decision playbook and its same-commit rule were removed in the sweep of
+2026-11-08; the step list lives in `vss/review_steps.py`.
+
+## The command reference -- same-commit rule, 2026-11-09
+
+`docs/REFERENCE.md` is generated from the argument parsers, from
+`deploy/*.timer` and from the facts tables in
+`tools/build_manual_reference.py`; a test holds the file equal to the code.
+**Any change to a parser (`vss/__main__.py`, a `tools/*.py`), to a timer or
+its service, or to that tool lands in one commit with:**
+
+    .venv/bin/python tools/build_manual_reference.py > docs/REFERENCE.md
+    .venv/bin/python -m pytest tests/test_manual_reference.py -q
+
+A new subcommand or tool needs a facts entry there (what it reads, writes,
+calls and sends, and the form that changes nothing) or the test fails. A
+tool that takes arguments exposes `build_parser()`. Which commands are safe
+to run, which write and which reach the phone: [`AGENTS.md`](AGENTS.md).
+
+## The master list first -- 2026-11-09
+
+The list of every company looked at is to be read like the morning paper. A
+SessionStart hook runs `tools/master_list.py --short`, and **the session's
+first output is that block** (owned, candidates, watched under the line, the
+cheapest to review, coming events), before anything else. The hook lives in
+`.claude/settings.json`, which is not shipped: `docs/MANUAL.md` section 2.12
+shows the four lines to add. The full list is `reports/HUVUDLISTA.md`,
+rebuilt by `vss queue` every night. The phone carries only what changes the
+outlook, never the list itself. Prepare every review step the machine or the
+session can do -- figures checked, the business described, every angle read
+-- so the owner gets a verdict, not homework.
 
 ## inkorg -> the right place -> utkorg -- 2026-10-05
 

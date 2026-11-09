@@ -85,8 +85,13 @@ views **before** you run a valuation (`reference/FRAMEWORK.md`, E28).
 yours from the three-name example, `cp config/queue.example.yaml
 config/queue.yaml`, value your own names, and `tools/build_queue.py --write`
 harvests the strikes into it. The
-rulings in `reference/FRAMEWORK-EDITS.md` are mine too -- read them as the
+rulings in `reference/archive/` are mine too -- read them as the
 reasoning behind the current rules, and make your own.
+
+`config/watchlist.example.yaml` is a starting shape, and **its two entries
+are dummies** no vendor knows: replace them with real symbols before the
+first run, or a dry run refuses (exit 3). `docs/MANUAL.md` sections 2.3 and
+2.4 take a real company in.
 
 ## 5. Scheduling (optional)
 
@@ -106,18 +111,28 @@ sudo loginctl enable-linger $USER     # so they fire when you are logged out
 | Timer | When | What |
 |---|---|---|
 | `vss.timer` | daily 22:30 | the nightly run over the watchlist |
-| `vss-mfn.timer` | daily 22:40 | new Nordic report PDFs for the queue's names |
-| `vss-queue.timer` | weekdays 22:50 | the queue: buy / look / sell lines, gates, reports |
+| `vss-mfn.timer` | daily 22:40 | new Nordic report PDFs for the queue's names, then the second-reading check |
+| `vss-queue.timer` | weekdays 22:50 | the queue: its lines, gates and every new report read |
+| `vss-watch.timer` | daily 13:00 and 23:30 | new filings for watched names |
 | `vss-screen.timer` | Saturdays 08:00 | the weekly screen |
 | `vss-checkin.timer` | daily 09:30 | the check that everything above ran |
-| `vss-watch.timer` | see `deploy/README.md` | new filings for watched names |
+
+Every timer with the exact command it runs is in
+[`docs/REFERENCE.md`](docs/REFERENCE.md#timers), read off these files. The
+others (`vss-newsdrop`, `vss-nordic-screen`, `vss-eodhd*`) are a shadow
+screen and jobs that need a paid data licence of your own.
 
 ## 6. Working with Claude Code
 
 Open the folder in Claude Code. `CLAUDE.md` tells every session how to
 work here: what costs effort, what a session may and may not write, and
-when to stop and ask. The `/review` command walks one name through the
-playbook. **The tool measures; you decide** -- no session writes a verdict,
-a fair value or a buy price on its own.
+when to stop and ask; [`AGENTS.md`](AGENTS.md) lists which commands change
+nothing, which write and which reach the phone. The `/review` command walks
+one name through the review's steps, one at a time. **The tool measures; you
+decide** -- no session writes a verdict, a fair value or a buy price on its
+own.
+
+The manual is [`docs/MANUAL.md`](docs/MANUAL.md): one page of tasks, with
+every command and flag in [`docs/REFERENCE.md`](docs/REFERENCE.md).
 
 *Not financial advice. See [LICENSE](LICENSE) (MIT).*

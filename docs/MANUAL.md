@@ -1,1100 +1,699 @@
 # vss -- the technical manual
 
-*Moved out of the front page on 2026-11-07 so the README can be read in a minute. Nothing was cut. New here? Start with the [README](../README.md), [`SETUP.md`](../SETUP.md) and the [glossary](../GLOSSARY.md).*
-
-
-
-A small CLI that watches a hand-maintained value-investing watchlist. Every
-run fetches daily OHLCV, computes a fixed set of metrics, applies a staleness
-gate, and emits a markdown report to `reports/YYYY-MM-DD.md` and to stdout.
+`vss` watches a hand-maintained list of companies. Every night it fetches
+prices, reads new reports, holds each valued company against its value and
+tells your phone only when something changed. What a company is worth is
+decided in a review, by a person, with every figure traced to the company's
+own filings.
 
 Its defining rule: **stale or unresolved data produces a blocker, never a
-verdict.** The tool would rather tell you it cannot judge than judge on bad
-data.
+verdict.** The tool would rather say it cannot judge than judge on bad data.
+
+This manual has four parts, and you rarely need more than one at a time.
+
+| Part | Read it when |
+|---|---|
+| [1. Getting started](#part-1----getting-started) | once, to install and make the first run |
+| [2. How to](#part-2----how-to) | you have a task: take a name in, value it, read a report |
+| [3. Reference](#part-3----reference) | you need the exact fields, messages and states |
+| [4. Explanation](#part-4----explanation) | you want to know *why* a command behaves as it does |
+
+Beside it: **[`REFERENCE.md`](REFERENCE.md)** lists every command, flag,
+timer, environment variable and file -- it is generated from the code and a
+test holds it equal, so where this manual and that page disagree, that page
+is right. [`CHANGELOG.md`](CHANGELOG.md) says what changed and when. New
+here? Start with the [README](../README.md) and the
+[glossary](../GLOSSARY.md). An AI agent working in the repository reads
+[`AGENTS.md`](../AGENTS.md).
+
+Every command below is run from the repository root with the virtual
+environment's interpreter: `.venv/bin/python -m vss ...` or
+`.venv/bin/python tools/<tool>.py ...`.
 
 ---
 
-## What it does and does not do
+## Part 1 -- Getting started
 
-`vss` computes **market data only**. Everything requiring judgment is a
-MANUAL field you fill in by hand in `config/watchlist.yaml`; the tool never
-computes, guesses, defaults or back-fills any of it.
+Do this once. From a fresh clone it takes about five minutes: on 2026-11-07
+(Debian 13, Python 3.13) clone and install took 29 seconds and the first
+full run over 43 names 14 seconds.
 
-The one derived exception is `mbp`, which is computed from two manual inputs:
+### 1.1 Install
 
-```
-mbp = fv_base * tier_cushion           tier 1 = 0.85, tier 2 = 0.75, tier 3 = 0.65   (E90)
-```
-
-The older 0.80 / 0.70 / 0.60 multipliers (`MBP_TIER_MULTIPLIER`) are kept
-only for the three figures E32 retains, and are marked wherever they print.
-**MBP is information since E168 (2026-11-09):** it binds nothing, and the
-queue says UNDER MBP, never KÖP.
-
-`mbp` is therefore **not** a watchlist field. Writing an `mbp:` key by hand
-fails the run with a provenance conflict. If `fv_base` or `tier` is absent,
-`mbp` is `DATA MISSING` and every MBP-dependent verdict reports `DATA
-MISSING` rather than a guess.
-
----
-
-## Repository history
-
-This repo's history was re-initialized on 2026-08-20 and starts from a single
-initial commit. The original history carried a dated portfolio snapshot --
-holdings, position values and P/L -- inside `reference/FRAMEWORK.md` §9 and
-later in `snapshots/`. That history was discarded rather than carried into any
-future remote.
-
-`snapshots/` is gitignored, so the dated portfolio snapshots -- holdings,
-position values and P/L -- stay on disk and outside git. **`config/watchlist.yaml`
-is TRACKED as of 2026-08-25**, on the owner's decision: the repository is private
-and the verdict history belongs in git rather than only in `.bak` files. What
-that file carries is decisions -- status, `fv_base`, `tier`, `stop_price`, notes
-and hand-entered quarterly figures -- and not quantities, cost basis or P/L.
-Note the one-way property: committing a file puts it in history permanently, and
-ignoring it later stops future commits without removing what is already there.
-
----
-
-## Quick start: about five minutes
-
-Tested from a fresh clone on 2026-11-07 (Debian 13, Python 3.13): clone and
-install took **29 seconds**, the first full run over 43 names **14 seconds**.
+Linux, Python 3.11 or later, a network connection. `vss` is built and tested
+on Python 3.13.
 
 ```bash
 git clone https://github.com/franke112/value-screen-sentinel.git ~/vss
 cd ~/vss
-python3 -m venv .venv                      # see "Install" below if ensurepip is missing
-.venv/bin/python -m pip install -r requirements.txt
-
-# 1. settings: a contact address for SEC, and (optional) a phone topic
-mkdir -p ~/.config/vss
-cp deploy/vss.env.example ~/.config/vss/vss.env && chmod 600 ~/.config/vss/vss.env
-$EDITOR ~/.config/vss/vss.env              # VSS_SEC_CONTACT=yourtool/1.0 (you@example.com)
-                                           # NTFY_TOPIC / VSS_NTFY_URL = a private ntfy.sh topic
-
-# 2. try it -- nothing is written with --dry-run / --no-notify
-.venv/bin/python -m vss run --dry-run      # the nightly report, on the author's watchlist
-.venv/bin/python tools/warren.py KO AAPL   # would Warren own it?
-.venv/bin/python -m vss queue --no-notify  # every valued name against its lines
-
-# 3. make it yours: the watchlist and the queue in the repo are the AUTHOR'S
-cp config/watchlist.example.yaml config/watchlist.yaml   # or edit the author's
-$EDITOR config/queue.yaml                                 # or rebuild: tools/build_queue.py --write
-
-# 4. run it every night (user-level systemd; the timers are listed in SETUP.md)
-mkdir -p ~/.config/systemd/user
-cp deploy/*.service deploy/*.timer ~/.config/systemd/user/
-systemctl --user daemon-reload
-systemctl --user enable --now vss.timer vss-screen.timer vss-checkin.timer \
-    vss-watch.timer vss-queue.timer vss-mfn.timer
-sudo loginctl enable-linger $USER          # so the timers fire when you are logged out
-```
-
-The units expect the clone at **`~/vss`** (`%h/vss` in `deploy/*.service`).
-Clone elsewhere and you change those paths. The hand-reading of reports and the
-decisions are done in Claude Code sessions -- see `CLAUDE.md` and
-`reference/FRAMEWORK.md` -- the machine only fetches, computes and tells.
-
-## What changed on 2026-11-08 (the sweep)
-
-- **Rules.** `reference/FRAMEWORK.md` is two pages. The rulings are archived in `reference/archive/` (`FRAMEWORK-EDITS-2026-11-08.md`, the old framework, and `STRUCK-2026-11-08.md`).
-- **Working capital (E166).** Working capital is tied to the cash flow statement. `vss/cfrecon.py` uses `config/manual/maps/cashflow-tags.yaml`, and a store that does not tie does not strike.
-- **The queue** gains four things:
-  - the growth the price implies, and a sensitivity table;
-  - void values, which it never reads (`fv_void`);
-  - absurd bears, which stop the name (B6);
-  - declared cyclicals with no downturn in their history, which get no line (B7).
-- **Removed.** The decision playbook. The review's steps live in `vss/review_steps.py`.
-
-These changes are in the private repository from 2026-11-08 and reach this copy's code at the next port.
-
-## Install
-
-Requires Python 3.11+ and a working network connection.
-
-> **Note on the Python version.** This box is Debian 13, which ships Python
-> 3.13.5 and does not package 3.11 at all. `vss` is built and tested on
-> 3.13.5. Nothing in the code depends on a version-specific feature, so a
-> 3.11 venv works identically if you install one later.
-
-```bash
-cd ~/vss
 python3 -m venv .venv
-.venv/bin/python -m pip install --upgrade pip
 .venv/bin/python -m pip install -r requirements.txt
 ```
 
-If `python3 -m venv` fails with **"ensurepip is not available"** (the case on
-this machine -- Debian splits it into a separate package), either install the
-package:
+Clone to **`~/vss`** if you mean to use the timers: the units in `deploy/`
+name that path (`%h/vss`).
+
+If `python3 -m venv` fails with *"ensurepip is not available"* (Debian
+splits it into its own package), either `sudo apt install python3-venv`, or
+without root:
 
 ```bash
-sudo apt install python3.13-venv
-```
-
-or, without root, bootstrap pip into the venv by hand:
-
-```bash
-cd ~/vss
 python3 -m venv --without-pip .venv
 curl -sSL https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py
 .venv/bin/python /tmp/get-pip.py
 .venv/bin/python -m pip install -r requirements.txt
 ```
 
-Then create your watchlist:
+### 1.2 Settings
+
+```bash
+mkdir -p ~/.config/vss
+cp deploy/vss.env.example ~/.config/vss/vss.env
+chmod 600 ~/.config/vss/vss.env
+$EDITOR ~/.config/vss/vss.env
+```
+
+Only `VSS_SEC_CONTACT` is needed to begin: SEC asks every automated caller
+for a contact address, and without one the US routes are not called. A model
+key (`VSS_OPENROUTER_KEY`) is needed only for reading reports with a model;
+a phone topic (`NTFY_TOPIC`) only for messages. Every variable is in
+[REFERENCE.md, Environment variables](REFERENCE.md#environment-variables).
+The file is read by the commands themselves and by the timers; a variable
+set in the shell wins over it.
+
+### 1.3 The first run
+
+Nothing below sends a message or changes a decision. (The one side effect:
+if a queue name has published a new report, `vss queue --dry-run` fetches
+and reads it into `data/autoread/`, which needs the model key.)
+
+```bash
+.venv/bin/python -m vss doctor             # can this machine run vss? exit 0 or 1
+.venv/bin/python -m vss run --dry-run      # the nightly report, on the author's watchlist
+.venv/bin/python tools/warren.py KO AAPL   # quality tests and a value for any US filer
+.venv/bin/python -m vss queue --dry-run    # every valued name against its lines
+```
+
+What to expect:
+
+- `vss doctor` prints one line per check and exits `1` if anything FAILs. A
+  missing ntfy topic is a warning, not a failure.
+- `vss run --dry-run` prints `DRY RUN — nothing written` and then the
+  report. It still fetches prices. **It can refuse:** if a held name, or one
+  with a buy line, has a close more than one session old, it prints no
+  report and exits `3` -- a trigger check on a stale close is the one
+  failure that loses money silently. Run it again after the market's data
+  has settled.
+- `tools/warren.py` prints bear / base / bull per share and four quality
+  tests. It is a *screen*: a name that passes is worth a hand read, never a
+  buy.
+
+### 1.4 Make it yours
+
+The watchlist and the queue in the repository are **the author's**, kept as
+a worked example. Start your own:
 
 ```bash
 cp config/watchlist.example.yaml config/watchlist.yaml
+cp config/queue.example.yaml config/queue.yaml
 $EDITOR config/watchlist.yaml
 ```
 
-`config/watchlist.yaml` is tracked (since 2026-08-25) and so is the example.
-Its dated `.bak-` copies are ignored -- git keeps the history now.
+**The example's two entries are dummies.** No vendor knows `EXMPL.ST` or
+`DUMMY.AS`; a run on the file as it stands fetches nothing, and a dry run
+refuses with exit `3`. Replace them with real symbols first. The fields are
+in [3.2 The watchlist](#32-the-watchlist); taking a real company in is
+[2.3](#23-take-a-us-company-in) or [2.4](#24-take-a-nordic-company-in).
+
+### 1.5 Run it every night
+
+Optional. User-level systemd, no root except the last line:
+
+```bash
+mkdir -p ~/.config/systemd/user
+cp deploy/*.service deploy/*.timer ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable --now vss.timer vss-queue.timer vss-watch.timer \
+    vss-mfn.timer vss-screen.timer vss-checkin.timer
+sudo loginctl enable-linger $USER          # so the timers fire when you are logged out
+```
+
+What each timer runs, and when, is in
+[REFERENCE.md, Timers](REFERENCE.md#timers). Enable only what you use:
+`vss-newsdrop.timer` is a shadow screen, and `vss-eodhd*.timer` and
+`vss-nordic-screen.timer` need a paid data licence of your own
+([2.14](#214-the-nordic-screen-and-the-backtests)). More in
+[2.11](#211-schedule-it-and-reach-your-phone).
 
 ---
 
-## Usage
+## Part 2 -- How to
+
+Each task is a short sequence of commands. Flags not shown here are in
+[REFERENCE.md](REFERENCE.md); the reasons are in
+[EXPLANATION.md](EXPLANATION.md).
+
+### 2.1 Read the nightly report
 
 ```bash
-cd ~/vss
-
-.venv/bin/python -m vss run                    # fetch, report, persist
-.venv/bin/python -m vss run --dry-run          # print the report, write nothing
-.venv/bin/python -m vss run --ticker VOLV-B.ST # restrict to one ticker
-
-.venv/bin/python -m vss screen --universe-report              # what the universe holds
-.venv/bin/python -m vss screen --snapshot-only --asof 2026-08-21
-
-.venv/bin/python -m vss overview               # regenerate reports/OVERVIEW.html
-```
-
-The **report goes to stdout** and **all logs go to stderr**, so they split
-cleanly:
-
-```bash
+.venv/bin/python -m vss run                      # fetch, report, persist
+.venv/bin/python -m vss run --dry-run            # print the report, write nothing
+.venv/bin/python -m vss run --ticker VOLV-B.ST   # one name only
 .venv/bin/python -m vss run > today.md 2> today.log
 ```
 
-`--dry-run` prints a `DRY RUN — nothing written` banner as the first line of
-stdout, then writes no report file, no database row and no price cache entry.
-(It does still fetch, and yfinance maintains its own HTTP/timezone cache under
-`data/yf-cache/`.)
+The report goes to stdout and every log line to stderr. A full run writes
+`reports/<date>.md`, one row per name in `data/vss.sqlite`, and regenerates
+`reports/OVERVIEW.html`. A `--ticker` run is a **partial run** and says so
+throughout; it writes `reports/<date>.<TICKER>.md` and can never overwrite
+the day's full report.
 
-`--ticker` produces a **partial run**, and the report says so throughout: the
-title is marked `SCOPED to X`, a `PARTIAL RUN — 1 of N tickers` banner sits at
-the top, and no section generalises about "every ticker". A scoped run writes
-`reports/YYYY-MM-DD.<TICKER>.md` rather than the day's full report, so it can
-never overwrite it, and its database rows carry `ticker_filter` so partial
-history is distinguishable from full coverage.
+Read it top down: **NEEDS OWNER** (what a report-date refresh left waiting),
+the data-freshness line, **BLOCKERS** (names that got no verdict, and why),
+**ACTIONS** (every verdict that fired), then the full table. The states are
+in [3.5](#35-the-nightly-report).
 
-Exit codes: `0` a run completed (even if individual tickers errored -- those
-appear as ERROR rows), `2` the watchlist is missing or malformed, `130`
-interrupted.
-
----
-
-## Earnings: `vss earnings`
-
-Reads a **primary source** quarterly/annual report for any ticker on the
-watchlist and flags FRAMEWORK §4.2 trips.
-
-**Status changes the framing, never the rules.** §4.2 is read in two
-situations. On a `HELD` name it is thesis invalidation — the alert says `4.2
-POSSIBLE TRIP - VERIFY AGAINST SOURCE`. On a waiting candidate — `WATCH-PRICED`,
-`WATCH-GATED` or `PIPELINE` — it
-is the §4 Phase 2 VALIDATION gate that decides whether the name may become a
-position at all — the alert says `4.2 FAILS VALIDATION - VERIFY AGAINST
-SOURCE`, because there is no thesis to invalidate yet. Same rules, same
-figures, same arithmetic; what differs is what a trip *means*, and the alert
-states the status it read. Clearing §4.2 on a candidate is one gate of Phase 2,
-not a decision — the alert says that too.
-
-```bash
-export VSS_OPENROUTER_KEY=...          # required; never embedded in the repo
-export VSS_OPENROUTER_MODEL=...        # optional, defaults to deepseek/deepseek-v4-flash
-
-.venv/bin/python -m vss earnings --ticker MSFT --url https://microsoft.com/ir/...
-.venv/bin/python -m vss earnings --ticker MSFT --text-file ./q4.txt
-.venv/bin/python -m vss earnings --ticker MSFT --url ... --no-shadow
-```
-
-**You supply the URL.** vss has no news feed and never guesses at IR page
-layouts, so "primary source, never a news article" holds by construction. The
-daily report nags you instead: any HELD ticker whose `catalyst_date` has passed
-with `catalyst_resolved` empty gets an EARNINGS TO INGEST line with the exact
-command to run.
-
-**Shadow mode is ON by default** — every decision is logged to
-`earnings_runs` in sqlite and nothing is sent. The alert carries a SHADOW
-banner, and each row records its own `shadow` flag so history can never imply
-an alert went out when it did not. `--no-shadow` drops the banner.
-
-**What the LLM does and does not do.** It extracts stated figures and the
-verbatim sentence each came from, flags reported-vs-constant-currency and
-GAAP-vs-non-GAAP, and returns `null` for anything not stated. It never derives,
-estimates or reconciles a figure, never decides materiality, and never writes
-prose. Every §4.2 judgement is a pure function in `rules.py`.
-
-**Three hard boundaries**, each enforced by a test:
-
-- `eps_consensus` is MANUAL ONLY. It is absent from the extraction schema; if a
-  model returns it anyway the value is discarded and the run marked uncertain.
-  Rule 4.2.4 reports CANNOT EVALUATE until you enter consensus yourself.
-- Extracted figures **never** reach `quarters:`. They are proposed as a YAML
-  block in the alert; you enter them. Same for `exec_changes` and
-  `catalyst_resolved`.
-- Any extraction failure, null figure, missing basis or model-flagged ambiguity
-  marks the run **EXTRACTION UNCERTAIN** and alerts anyway. It never degrades
-  silently.
-- **A quote must contain the figure it claims to source.** `"Inventories"` does
-  not evidence `1397`, and an allowance-for-doubtful-accounts sentence does not
-  evidence a receivables balance. A figure whose quote lacks the number is set
-  to null and reported as `PROVENANCE UNVERIFIABLE`. Magnitudes are never
-  reconciled — a quote saying "80.9 billion" does not support `80876`, because
-  inferring the scale would be deriving the figure. Table-sourced figures also
-  record `period_column`, the verbatim column heading read, since a balance
-  sheet carries more than one period column. An explicit scale word is honoured
-  as a unit conversion — `"$90.0 billion"` does support `90000` stated in
-  millions — but a *different* quantity still fails, so it never supports
-  `90007`.
-- **The quote must come from wherever the number was read.** A release states
-  the same figure twice, in a summary sentence and in a statement table, at
-  different precisions. Reporting the table's number while quoting the prose
-  cites two different sources. Read a table row → quote the row including the
-  number and name the column; read prose → report the prose's own precision
-  and quote the sentence. The prompt carries worked correct-and-wrong examples
-  of both.
-- **Negative claims need provenance too.** `guidance_action: none` is a claim
-  about the source. Without a quote it becomes null, not `"none"` — otherwise
-  it is indistinguishable from the model not looking.
-- **Ratios are fractions, on both sides.** An operating margin of 6.6 per cent
-  is `0.066`, never `6.6` — the rules layer multiplies by 10,000 for basis
-  points, so a percentage makes every §4.2 threshold wrong by 100×. The prompt
-  converts the quoted percentage; the loader rejects a ratio outside its band
-  (`rules.FRACTION_BANDS`) as a **hard error**, not a flag. A figure in the
-  wrong units is not a figure to evaluate. It is never silently rescaled: `6.6`
-  could be a misreported 6.6% or a real 660%, and picking one would be vss
-  deciding what the source said. The bands are asymmetric where the arithmetic
-  is — a margin cannot exceed 100%, but a pre-revenue name can lose many times
-  its revenue. Full contract in `reference/SPEC.md` §2.
-- **`op_income / revenue` must equal `op_margin`** to within 0.1pp, or the
-  watchlist fails to load. This is not arithmetic hygiene: it catches a quarter
-  assembled from two different *measures*, which is otherwise invisible once
-  the numbers are in the file. It is also the only check that catches a
-  negative percentage margin, since `-3.1` sits inside a band that must stay
-  open for genuine deep losses.
-- **A table row survives flattening as a row.** Two faults made the provenance
-  rule unsatisfiable from a real EDGAR statement table: cells were joined with
-  nothing between them (`1,3921,900`, in which 1,392 is not a number under any
-  reading), and a cell holding a `<div>` split the row across two lines, so the
-  label had no figure and the figures had no name. A `<tr>` is now one line,
-  cells separated by spaces.
-- **`--text-file` flattens markup, exactly as `--url` does.** The two paths had
-  diverged, so a saved EDGAR exhibit passed to `--text-file` reached the model
-  as 286KB of tag soup and the figures were whatever survived it. Both go
-  through one function now, and a test asserts the two produce identical text
-  for the same document.
-- **No Operating income line? Use EBIT.** NIKE never reports one — its
-  statement goes from gross profit and overhead to "Income before income
-  taxes", with operating profit only in a non-GAAP EBIT table at the foot of
-  the release. The prompt takes the total EBIT row as `op_income` and "EBIT
-  margin" as `op_margin`, marks both `adjusted`, and names the two lines that
-  are never substitutes: "Income before income taxes" is struck after interest
-  (650 against EBIT 635 in Q3 FY26) and "Gross margin" is a different line
-  (40.2% against EBIT margin 5.6%). The extractor took both before the rule
-  existed. It also says to quote the label line *and* the number line together,
-  because these tables flatten with the row label on one line and its figures
-  on the next.
-- **`--period YYYY-Qn` reads a comparative column.** A figure is sometimes
-  stated only in a *later* filing: SAP's Q2 2024 restructuring of −631 appears
-  in the Q2 2025 statement's comparative column and nowhere in the Q2 2024
-  release, because the line was not broken out at the time. The flag tells the
-  extraction which period to take, requires the comparative column to be named,
-  and forbids falling back to the document's own quarter. The alert's PRIMARY
-  SOURCE is then the filing that actually contains the figure — which is the
-  point: attributing it to a release that does not state it would be a
-  provenance fiction.
-- **A ticker declares how often it reports, and its periods may not overlap.**
-  `reporting_frequency: half_yearly` on a watchlist entry (default
-  `quarterly`) means the ticker stores `YYYY-H1`, `YYYY-H2` and `YYYY-FY`
-  periods instead of `YYYY-Qn`, and FRAMEWORK §4.2's windows — stated in
-  quarters because US names report quarterly — are counted in half-years,
-  converted by *time*: trailing 8 quarters → 4 half-years, trailing 4 → 2,
-  the YoY look-back is 2 periods, and "2+ consecutive quarters" is the same
-  six months, i.e. one half-year (so the run-length kills fire on a single
-  half-year observation; `rules.py` says so where it happens). The
-  **overlap guard** applies to every ticker: no two loaded periods may cover
-  the same month — `2025-FY` contains `2025-H1`, `2025-H1` contains
-  `2025-Q1` — and the guard keeps the *finest* resolution and never both.
-  In the loader an overlap is fatal and the message names the label to
-  remove; in `vss earnings` an extracted period is **admitted, displaces**
-  a loaded coarser period for the evaluation (the alert says what to
-  remove before pasting), or is **rejected** and not proposed when a finer
-  period is already loaded or the label kind does not match the ticker's
-  frequency. A re-read of an already-loaded period now displaces the
-  stored row instead of sitting beside it — appending it counted one SAP
-  guidance cut twice. Year-over-year comparators are found **by label**
-  (2026-H1 ↔ 2025-H1), so a gap or a mixed FY/H history yields CANNOT
-  EVALUATE rather than a comparison of unlike periods.
-- **`class_c_impact` is defined in the prompt**, with its sign convention. Ten
-  SAP extractions captured no restructuring line at all because the field was
-  listed but never explained. It is a quantified one-off stated on its own
-  line; the sign is its effect on reported operating profit, copied from the
-  statement — a charge negative (`−2,242`), a release positive (`+52`). It is
-  never inferred from the gap between reported and adjusted figures, because
-  that gap is a computation bundling other adjustments in with the one-off.
-- **A quarter may declare its source.** `source: xbrl` on a `quarters:` entry
-  exempts it from the op_margin reconciliation — and from that alone. The
-  reconciliation existed to establish which line `op_income` came from, which
-  `us-gaap:OperatingIncomeLoss` answers outright; XBRL has no margin tag, so
-  demanding one would force a computed figure into the record to satisfy a
-  checker. An `xbrl` entry that states a contradictory margin still fails, and
-  the band check and unit-mix guard apply regardless. `source: release`, or
-  blank, keeps every existing entry exactly as it was.
-- **One ticker, one unit.** A history mixing XBRL rows (whole units) with
-  release rows (millions) is out by 10⁶ while every per-row check passes,
-  because each row is internally consistent. A 1,000× or larger jump in
-  `revenue`, `receivables` or `inventory` between two quarters of one ticker
-  fails the load as a UNIT MIX. `op_income` is excluded — it crosses zero and
-  swings by orders of magnitude for real reasons.
-- **`op_income` without `op_margin` is UNRECONCILED**, and fails the load.
-  `op_margin` is what cross-checks `op_income`; without it nothing establishes
-  which line the operating income came from, which is how 1,416 (income before
-  taxes) was recorded where EBIT was 1,392. Record the margin the source
-  states, or leave `op_income` blank too — never compute one to satisfy the
-  check.
-- **Adjusted vs reported: take the reported one, and say which.** Lindab's Q4
-  2025 states an adjusted operating margin of 6.5% and a reported one of 3.1%.
-  Where a report gives both, the unadjusted figure is extracted; where it gives
-  only an adjusted one, that is taken and the run says so, because §4.2 was
-  written against the reported figure. Each figure carries its `measure`.
-- **Periods record `fiscal` or `calendar`.** Microsoft's fiscal Q4 2026 ended
-  30 June 2026; calendar Q4 2026 is October–December. The label alone does not
-  say which, so a period without a basis is flagged, and a watchlist mixing
-  bases within one ticker fails the run — quarter ordering would otherwise
-  break.
-
-**`--compare` reads the source twice.** Same text, same model, two calls; any
-field the two runs disagree on is set to null and both readings are shown. Two
-readings that disagree are not a figure, and a guess that survives because it
-was made first is worse than a blank — a blank says DATA MISSING, the guess
-says nothing at all. Values and claims are compared, not quotes: two runs may
-cite the same figure from the summary and from the statement and both be right.
-Where they agree on a number but name a different column or measure for it, the
-figure stands and the attribution is flagged. When they agree on everything the
-alert says so, and calls it corroboration rather than verification — both runs
-read the same text with the same model, and both can be wrong together.
-
-Alerts say `4.2 POSSIBLE TRIP - VERIFY AGAINST SOURCE`, never "sell", and the
-primary source URL is always the first fact in the alert.
-
-**PDFs are read, and the text is labelled as a reconstruction.** Half the
-holdings publish quarterly reports as PDF only, so `--url` and `--text-file`
-both accept one (pypdf, text layer only). A PDF is recognised by its content
-type, its magic bytes or a `.pdf` path — Lindab serves its interim reports from
-a Cision endpoint with no extension in the URL, and that is still a PDF. A PDF
-stores glyphs at coordinates, not rows, so every alert built on one carries a
-source warning saying its table rows were reconstructed. A PDF with no text
-layer — a scan — is refused rather than read as an empty release, as is one
-that needs a password. A permissions-encrypted PDF, which is most IR PDFs, is
-read normally — including AES-encrypted ones, which is why `requirements.txt`
-asks for `pypdf[crypto]`: SAP's quarterly statement is AES-encrypted and bare
-pypdf refuses it. Filings run long, so PDFs get their own size cap rather than
-the press-release one.
-
-**One host still needs a hand.** `sap.com` answers an automated request for its
-own quarterly statement with `403`, whatever user agent is sent. vss does not
-answer that by impersonating a browser; a `401`, `403` or `429` now says the
-host refused a robot and points at `--text-file`, which reads a
-browser-downloaded PDF the same way `--url` reads a fetched one. Lindab, whose
-reports come from a Cision endpoint, fetches fine.
-
-How well this works is a property of the file, not of the tool. A typeset
-report comes out clean — Lindab's interim report gives up
-`Net sales, SEK m 3,306 3,253 2 6,309 6,467 -2 12,696 12,854`, eight period
-columns on one row, and a 10-Q's statement pages read the same way. A results
-*slide deck* comes out as loose labels and half-numbers, and its figures are
-dropped. Pass the report, not the deck.
-
-The provenance rule does not soften for PDFs. When a table reconstructs badly
-the number comes away from its label, the quote is a bare label again, and the
-figure is dropped as `PROVENANCE UNVERIFIABLE`. Garbled input reaches the check
-rather than being repaired ahead of it: a repaired row is the tool's reading of
-the report, not the report.
-
-Whitespace inside a flattened row means two different things — `4 120` is one
-number in Stockholm and two columns in Omaha — so both readings are offered as
-candidates, joined only where a thousands separator could sit (before exactly
-three digits). That answers whether the quote *contains* the figure. *Which*
-column it sits in stays a separate question, answered by `period_column`, and a
-tabular figure without one is flagged `NOT RECORDED` whatever the file format.
-
-## XBRL: `vss xbrl`
-
-For a US filer, SEC publishes every tagged fact as JSON. No HTML to flatten, no
-PDF to reconstruct, no model in the loop.
-
-```bash
-export VSS_SEC_CONTACT='vss/1.0 (you@example.com)'    # required; see below
-.venv/bin/python -m vss xbrl --ticker NKE             # all 8 quarters, one call
-```
-
-**Provenance becomes stronger, not weaker.** Every figure arrives attached to
-the tag it was filed under, the context period it covers and the accession
-number of the filing that reported it — `us-gaap:RevenueFromContractWith
-CustomerExcludingAssessedTax [2025-12-01..2026-02-28] 10-Q 0000320187-26-000037
-filed 2026-04-01`. Nothing is quoted, summarised or inferred, so there is no
-sentence to verify and no column to name.
-
-**Everything else is unchanged.** DATA MISSING is still DATA MISSING: a field
-whose tags the filer does not use stays blank. NIKE tags no
-`OperatingIncomeLoss` — it publishes no operating income line — and this path
-will no more substitute `IncomeLossFromContinuingOperations…` or `GrossProfit`
-than the extraction prompt will. `op_margin` has no tag at all and is left
-blank rather than computed from `op_income ÷ revenue`. The reconciliation and
-band checks run on the proposed entries exactly as they do on extracted ones.
-
-**SEC's access policy is followed, not worked around.** They require every
-automated caller to declare a real contact address. `VSS_SEC_CONTACT` supplies
-it and the API is not called without it — vss neither invents one nor pretends
-to be a browser. (`www.sec.gov` refuses this host outright, whatever the agent;
-`data.sec.gov` is a different edge and answers normally.)
-
-**Where the operational settings come from (`vss/env.py`).** `VSS_SEC_CONTACT`,
-`NTFY_TOPIC` and `VSS_OPENROUTER_KEY` are read from **the environment first,
-then from `~/.config/vss/vss.env`** — the same file the systemd units already
-name in `EnvironmentFile=`. Until 2026-09-09 only systemd read it, so a session
-at a terminal was told the variables were unset and asked for them again every
-time; they were on disk the whole time. **The environment still wins**, so the
-file is a default and never an override, and it is never written, logged or
-printed. A missing or unreadable file means "unset", which is the state the
-caller already knows how to describe.
-
-**Two things the mapping handles that a naive one gets wrong.** SEC's `frame`
-field is calendar-based — it labels NIKE's September–November quarter
-`CY2024Q4` — so periods are derived from the filer's own year end (31 May)
-instead, giving fiscal `2025-Q2`. And tag preference is per *period*, not per
-company: NIKE left `InventoryNet` in 2011 for the finished-goods element, so a
-tag with data somewhere must not shadow a tag with data here.
-
-**Units differ from the press release** and are not rescaled: XBRL says
-`11,279,000,000` where the release says `11,279` million. Both are what their
-source states. Do not mix the two within one ticker's history — the report says
-so at the top, every time.
-
-The `cik:` watchlist key supplies the filer's CIK. It is MANUAL, because SEC's
-ticker→CIK file lives on `www.sec.gov`, which will not answer.
-
-### FRAMEWORK §4.2 coverage
-
-| Rule | Needs |
+| Exit code | Meaning |
 |---|---|
-| 4.2.1 revenue declining 2+ quarters (YoY) | `revenue_yoy` |
-| 4.2.2 op margin −150bps YoY, flat/declining revenue | `op_margin`, plus `class_c_impact` + `revenue` to exempt **to the extent it explains** |
-| 4.2.3 2+ guidance cuts in 4 quarters | `guidance_action` |
-| 4.2.4 3+ EPS misses in 8 quarters | `eps` + `eps_consensus` (manual only) |
-| 4.2.5 net debt/EBITDA > 3.5x or covenant proximity | `net_debt_ebitda`, `covenant_headroom` |
-| 4.2.6 CEO **and** CFO departure in 12 months | `exec_changes` |
-| 4.2.7 receivables/inventory > 1.5× revenue growth, 2+ quarters | `receivables`, `inventory` |
-| 4.3 soft flag: 3+ sequential declines | `revenue` |
+| `0` | the run completed. A ticker that errored is an ERROR row, not a failure |
+| `1` | coverage short: too few names were priced. The run does not reset the staleness clock and sends no healthcheck ping |
+| `2` | the watchlist is missing or malformed, or `--ticker` is not on it |
+| `3` | a `--dry-run` refused: a held name, or one with an MBP, has a close more than one session old |
+| `130` | interrupted |
 
-Every rule returns TRIP, NO_TRIP or **CANNOT_EVALUATE naming the field it
-lacked** — absent history is never silence. A YoY comparison that would mix
-constant-currency with reported figures refuses with BASIS MISMATCH rather than
-computing a number that means neither.
-
-The 4.3 sequential soft flag exists because YoY alone misses a name eroding
-quarter on quarter while lapping a weak base. It is reported separately and
-labelled, so it can never read as a hard kill.
-
----
-
-## Nordic reports: `vss nordic`
-
-Downloads the documents an issuer filed with its exchange, and records where
-each one came from. **It reads nothing out of them.** The figures come out by
-hand, into `config/manual/<TICKER>.yaml`, each carrying the page it was read
-from — between an automatic downloader and an automatic extractor lies the
-whole difference between "the tool fetched the report" and "the tool decided
-what the report says".
+### 2.2 Look at a company quickly
 
 ```bash
-# once per issuer: the service has no company directory, so the mapping is
-# established by search, confirmed by eye and stored.
-.venv/bin/python -m vss nordic --ticker PNDORA.CO --resolve "Pandora" --language en --write
-
-.venv/bin/python -m vss nordic --ticker PNDORA.CO                       # every release with a document
-.venv/bin/python -m vss nordic --ticker PNDORA.CO --reports             # report categories only
-.venv/bin/python -m vss nordic --ticker PNDORA.CO --download 1457989 --attachment 1 --period 2026-Q2
+.venv/bin/python tools/warren.py KO PEP CTSH         # any US filer, from SEC's tagged facts
+.venv/bin/python tools/rough_fv.py EVO.ST UMG.AS     # any listing Yahoo covers
 ```
 
-**`config/nordic_issuers.yaml` is the mapping**, resolved once and stored — a
-ticker is not re-resolved on every call, because resolution is a full-text
-search whose answer a human has to confirm. The watchlist calls `PNDORA.CO`
-"PANDORA"; the service calls it `Pandora A/S`. A search for "Pandora" on
-Copenhagen also returns Royal UNIBREW, Bang & Olufsen and — the market filter
-being loose once `freeText` is present — Boozt AB from Stockholm. Candidates
-are shown with hit counts; the owner picks. `--write` backs the file up first
-and never replaces an entry.
+Both print bear / base / bull per share and write nothing. `warren.py` adds
+the four quality tests (Q1-Q4) and the hard kills the tagged quarters can
+show. Both are **screens**: no normalisation of working capital, no deal
+programme, no cycle, no growth derived from the company's own history. A
+value from either is a reason to do the full read below, never a value to
+buy on. The master list marks them `[maskin]` and `[grov]` for that reason.
 
-**`--period` is MANUAL and required to download.** Nothing in the feed says
-which fiscal period a document covers: the category is a filing choice, the
-headline is prose, and the release date is when it was published. It uses the
-same labels as the watchlist's `quarters:` and `config/manual/<TICKER>.yaml`,
-so a document and the figures read out of it carry one label between them.
-(Only the *shape* is checked — a quarterly reporter still publishes an annual
-report, so `2025-FY` is right for PNDORA.CO.)
+### 2.3 Take a US company in
 
-**Four things the feed does that a naive client gets wrong**, all measured and
-all encoded (see `reference/FETCHER-SURVEY.md`):
-
-- **The category is the issuer's filing choice, not a statement about
-  content.** Pandora's H1 2026 report — *"Pandora delivers 3% organic growth
-  in Q2"*, 2026-08-12 — is filed under `Inside information`. A category
-  whitelist misses it, so `--reports` prints how many rows it hid and says
-  why. The default listing shows everything carrying a document.
-- **`cnscategory` takes one value and silently ignores several**, returning
-  the unfiltered feed — which reads as "every release is a report".
-  `fromDate`/`toDate` are accepted and ignored outright. Neither is ever sent;
-  filtering happens on rows you can see.
-- **`limit` caps at 200 and pagination is `start`, not `offset`.** A
-  listing shows one page; `--download` walks the whole feed until it
-  finds the id, bounded by the feed's own count and logging each page.
-  Backfilling eight periods means reaching reports several pages back —
-  Pandora's feed carries 1,027 releases — and guessing `--start` until
-  an id appears would make the one thing this exists for a manual search.
-- **One disclosure can carry several files and the first is not the report.**
-  Betsson's 2026 annual filing puts an ESEF/iXBRL package at index 0 and the
-  PDF at index 1; Pandora's attachment order varies between filings. Where
-  there is more than one, `--attachment N` is required and nothing is guessed.
-
-**`sources/manifest.json` is the provenance record** and is the one file in
-`sources/` that git tracks — the documents are large and re-downloadable from
-the URL each entry names. Per download: the URL, the disclosure id and message
-URL, the exchange's category, byte count, SHA-256, and when it was fetched. A
-file with **no** entry has `PROVENANCE NOT RECORDED` — a third state, not
-"secondary", and the `sources/` documents that predate this command are not
-back-filled with guesses. Re-downloading identical bytes is a skip; bytes that
-**differ** fail the run and name both digests rather than overwriting. A
-file on disk whose manifest entry is missing — deleted record, or a run
-that died between writing the file and writing the entry — has the entry
-written back rather than being left to read as unrecorded for ever.
-
-### Oslo: `.OL` goes to Euronext's NewsWeb, not to Nasdaq
-
-Oslo Børs is Euronext and is not on the Nasdaq service. `vss nordic`
-**dispatches on the suffix** — a `.OL` ticker is served by `vss/oslo.py`
-against **NewsWeb**, the Norwegian Officially Appointed Mechanism, so the
-document fetched is the one the issuer filed and not a copy of it on an IR
-page. Same command, same `sources/manifest.json`, same `--period` discipline.
+A US filer's figures come from SEC as tagged facts: no PDF, no model.
 
 ```bash
-.venv/bin/python -m vss nordic --ticker BOUV.OL --resolve "Bouvet" --write
-.venv/bin/python -m vss nordic --ticker BOUV.OL --reports
-.venv/bin/python -m vss nordic --ticker BOUV.OL --download 659260 --attachment 1 \
-    --period 2025-Q3 --language en
+# 1. the store: annual cash flow, capex, shares, net debt -> config/manual/CPRT.yaml
+.venv/bin/python -m vss xbrl --ticker CPRT --cik 900075 --annual --quote-currency USD
+.venv/bin/python -m vss xbrl --ticker CPRT --cik 900075 --annual --quote-currency USD --write
+
+# 2. the multi-year history the growth and quality rules read
+.venv/bin/python -m vss history --ticker CPRT --xbrl --cik 900075 --write
+
+# 3. may section 5 read the store? exit 0 yes, 1 refused (and it says why)
+.venv/bin/python -m vss manual --ticker CPRT
 ```
 
-**`config/oslo_issuers.yaml` is the mapping, and it is a SEPARATE file from
-`config/nordic_issuers.yaml` on purpose.** That file answers "is this name on
-the Nasdaq Nordic feed", which `vss refresh` asks in order to pick a route; an
-Oslo name in it would make that question answer yes about a service that has
-never heard of the company.
+Then, by hand, **register your growth view before any value is struck**:
+write `reference/growth-views/CPRT.md` in your own words, and enter the name
+on the watchlist as `INTAKE` with its `growth:` block ([3.2](#32-the-watchlist)).
+The order matters: a growth rate chosen after seeing what it implies is not
+a view. Then value it ([2.5](#25-value-a-company)).
 
-**Four things this feed does differently**, all measured 2026-09-08 and all
-encoded (`vss/oslo.py`'s docstring carries the measurements):
+`--quote-currency` is for a ticker that is *not* on the watchlist yet. The
+CIK is the filer's number at SEC; find it on SEC's company search.
 
-- **It has a company directory and Nasdaq's has none.** `POST
-  /v1/newsreader/issuers` returns every issuer — 1,622 rows — with its
-  `issuerSign`, `issuerId` and name. So `--resolve` here is a LOOKUP against
-  the exchange's own list rather than a full-text search over release bodies.
-  The owner still confirms and stores it.
-- **An issuer sign the service does not know is SILENTLY IGNORED**, and the
-  whole market's feed comes back under HTTP 200 — 601 rows from 250-odd
-  companies, looking exactly like this company's history. Every row's sign is
-  checked against the one asked for and a page carrying anybody else is
-  **refused**, never filtered down.
-- **There is no `start`, `offset` or `limit`; a window is the page.** It caps
-  at ~601 rows and says `overflow: true`. A longer history is a narrower
-  window, and the truncation is printed rather than swallowed.
-- **Every report is filed twice, in Norwegian and English, as two separate
-  messages, and no field says which is which.** So `--language` on an Oslo
-  download is a **manual label** — like `--period` — recorded in the manifest
-  as stated by the owner and not read off the feed. It is never a filter.
+### 2.4 Take a Nordic company in
 
-**Correcting a note in `sources/manifest.json`:** the NHY.OL entries of
-2026-08-30 say NewsWeb's attachment endpoint *"answers HTTP 400 to every
-automated request"*, and Norsk Hydro's reports were taken from hydro.com
-instead. Measured again on 2026-09-08, `api3.oslo.oslobors.no/v1/newsreader/
-attachment` answers **HTTP 200** and serves the PDF; the `obsvc` path on the
-`newsweb.oslobors.no` host — a different endpoint — returns an HTML page and
-is the likely subject of the old note. **The old entries are not rewritten:**
-they record what was measured on the day they were written.
-
-## Figures appendix: `vss appendix`
-
-Some Nordic issuers attach a spreadsheet of the numbers to every interim
-release — Pandora's runs to ten sheets and the consolidated statements quarter
-by quarter. **A cell is a number**, so this is not PDF extraction. But *which*
-cell answers which field is a judgement, and a close one: Pandora's balance
-sheet says `Cash` while its cash-flow statement says `Cash and cash
-equivalents, end of period`, and the two are different figures.
-
-So the mapping is a committed file, `config/manual/maps/<TICKER>.yaml`, one
-entry per schema field naming the sheet and the **row label** — with a `note:`
-wherever the choice is not obvious.
+There is no tagged-facts endpoint for most Nordic issuers, so the figures
+come out of the issuer's own reports. Three routes, best first.
 
 ```bash
-.venv/bin/python -m vss appendix --ticker PNDORA.CO     --xlsx sources/PNDORA.CO_2026-Q2_inside-information_2026-08-12_en_a0.xlsx
-# ... then --write to put it in config/manual/PNDORA.CO.yaml
-```
+# the documents: annual and interim reports as PDF, and the ESEF package
+.venv/bin/python tools/fetch_mfn.py EVO.ST --kinds annual,interim
+.venv/bin/python -m vss nordic --ticker EVO.ST --reports        # or the exchange feed
 
-**The label, never the index.** Nothing counts rows, so a row inserted next
-year breaks the run loudly instead of shifting every figure by one. Labels
-compare exactly after stripping surrounding whitespace and nothing else — this
-workbook appends footnote markers to some labels, and a marker appearing on a
-mapped label is a change that should stop the run. Where one label matches
-twice, `section:` (the heading of the period block) and `after:` (a label that
-occurs once, above) disambiguate; an anchor that is itself ambiguous is
-refused, and a label still matching twice stops the run naming every row.
-
-**Nothing is derived.** No row is summed with another, no missing line is
-inferred from its neighbours, nothing is rescaled. Pandora states `Finance
-income received` and `Finance costs paid` separately, so `net_interest_paid`
-stays absent. A `-` or a blank cell is `DATA MISSING`, never zero.
-
-**Periods are matched across sheets by label, not by column position** — and
-because `op_margin` comes from a different sheet than `revenue` and
-`operating_income`, `config.unit_problem`'s margin reconciliation then checks,
-every period, that the two sheets were paired to the same quarter. That is the
-strongest validation this path gets and it is free. The emitted file is parsed
-back through the manual loader *before* anything is written.
-
-**Every figure lands `UNVERIFIED`** and `origin: nordic-xlsx`, distinct from
-`manual` and from `xbrl`, carried through to `ranking.csv`. Section 5 still
-refuses until you have read each figure back. Writing **refuses when the file
-exists**, naming how many `VERIFIED` figures would have been lost; `--force`
-replaces it after a backup. Whether a re-run should *merge* is a rule question
-and not decided here.
-
-## Manual fundamentals: `vss manual`
-
-`vss xbrl` needs a CIK. **On the 2026-08-21 screener run 347 of the 533
-filter-1 candidates carry a foreign listing suffix**, and for most of a
-Stockholm or Copenhagen list there is no SEC endpoint at all — so the §5 chain
-has no primary-source input and the ranking key has only what the quote vendor
-returned. This is the third source: figures the owner read out of the
-company's own report and typed in.
-
-**Not every foreign name is one of them.** A foreign private issuer files a
-20-F and *is* on `data.sec.gov`: SAP.DE's A7 proxy was built from its 20-F
-XBRL and UNA.AS's from CIK 217410, accession `0000217410-26-000007`. **Try
-`vss xbrl --cik` first** — this path is for the remainder, the names that have
-no CIK to try. How many of the 347 that is has not been counted: SEC's
-ticker→CIK file lives on `www.sec.gov`, which refuses this host.
-
-```bash
-cp config/manual/TEMPLATE.yaml config/manual/PNDORA.CO.yaml   # then fill it in
-.venv/bin/python -m vss manual --ticker PNDORA.CO --asof 2026-08-24
-```
-
-**Every figure carries a page and a status.** `source` (the period's
-`document:` unless the figure names its own), `page`, and `UNVERIFIED` or
-`VERIFIED`. A value with no page fails the load, and a bare `revenue: 1234` is
-refused rather than read — it could carry neither.
-
-**The same three checks the SEC path gets**, plus a fourth that only a
-hand-entered file needs:
-
-- **unit** — `config.unit_problem`, the watchlist's own function: ratio fields
-  inside their bands, and `op_income ÷ revenue` reconciled against `op_margin`.
-  `source: xbrl`'s exemption from the reconciliation is **not** extended here:
-  a us-gaap tag says which line an operating income is, and a pair of eyes on
-  a PDF does not.
-- **one scale** — a stable money line jumping a round thousandfold between two
-  periods is a unit mix, not a business event.
-- **STALE** — on `fundamentals.MAX_REPORT_AGE_DAYS`, in the same sentence the
-  fetch uses, and measured **on the rows §5 actually reads**: a period entry
-  carrying only `net_ppe` must not make an old file read fresh (`ranking.py`
-  rule 5).
-- **one fiscal period per ratio** — every ratio §5 forms takes all its legs
-  from ONE period entry; a leg present in an earlier period is not borrowed.
-  Two periods are not one ratio.
-
-A leg that is in **no** period is `input missing` — reported, not refused,
-because absence is the ordinary third state. Only legs that exist and sit
-apart refuse. And the ranking key's own quality leg never refuses §5: gating
-on it would bar every bank, whose accounts present no gross profit by design.
-
-**Two blocks hold figures.** `periods:` holds one entry per fiscal period at
-the resolution the company reports. `annual:` holds what it publishes only once
-a year — diluted EPS, share counts, leverage ratios (FRAMEWORK-EDITS E15). The
-annual block is excluded from every trailing window: never summed, never
-combined with a period entry, and it never reaches the ranking key, which reads
-a trailing twelve months from `periods:` alone. Where a figure is in **both**,
-`periods:` wins and the annual entry is ignored — the load says which ones.
-
-**Section 5 refuses to run on an unverified figure** — the command exits 1 and
-says so. `UNVERIFIED` is not the same state as absent: an absent figure is
-`DATA MISSING` and has nothing to check, so an unverified one is named in the
-report with its period, its source and its page. The **ranking key is not
-gated on it**: it is a different consumer, it produces review work rather than
-a price, and it says `DATA MISSING` for itself.
-
-**Nothing here computes a fair value.** §5.1's three methods stay by hand in
-the per-name workbook. This decides only whether their inputs may be used.
-
-**Origin is stamped on every path.** `manual` here, `yfinance` on the vendor
-fetch; `ranking.csv` carries an `origin` column, and `source: manual` is a
-valid `quarters:` marker for a row the owner read themselves.
-
-## The queue: `vss queue`
-
-Every company that has been valued -- a full strike, a `tools/warren.py`
-screen or a rough value -- sits in `config/queue.yaml` with its bear / base /
-bull, and `vss queue` holds each one against its lines every weekday night
-(22:50, `deploy/vss-queue.timer`):
-
-| Zone | Meaning | Message |
-|---|---|---|
-| buy | at or under base x the tier cushion (E90) | `KÖPLINJE` |
-| look | no tier yet, and at or under base x 0.85 (strike) or x 0.75 (rough) -- "value it properly now", never "buy" | `TITTA` |
-| sell | a held name at a hand-set sell line or at its bull value | `SÄLJ` |
-| gate | a WATCH-GATED name whose event date has come | `SPÄRR` |
-| outlook | a new report that changed the outcome (below) | `UTSIKT` |
-
-**A change is said once.** A name that stays in its zone is not repeated
-the next night; it is said again only if it leaves and comes back. A gated
-name in its zone is shown in the report but not sent until the gate lifts --
-a hard kill is not a price, so no price may wake it. Headlines for each name
-are searched too, because some issuers publish outside the exchange feed
-(Zinzino's monthly sales go out on PR Newswire).
-
-**A report is read, not just noticed (since 2026-11-09).** When a name
-publishes a 10-Q / 10-K / 8-K results item or a Nordic report, the queue
-hands it to the outlook check:
-
-- `vss/reportread.py` fetches the document (EDGAR, or the Nasdaq Nordic /
-  Oslo feed PDF) into `data/autoread/` and runs `vss earnings` on it twice;
-  a name not on the watchlist is read through a one-entry scratch watchlist.
-- `vss/outlook.py` values the name again on its last four quarters (the
-  vendor's quarterly statements; annual for half-year reporters; leases as
-  debt; 3 % growth, r 9.5 %) and compares with its own previous reading,
-  kept in `data/outlook_state.json`. Until the vendor has the new quarter
-  the name is re-read every night, for at most 21 days.
-- `UTSIKT` is sent only when the value moved 10 % or more, the reading
-  found a 4.2 rule failed or guidance cut, or a headline names a profit
-  warning, a guidance change, a CEO or CFO leaving, a bid or a delisting.
-  Anything else is a line in the night's report ("läst: inget ändrat").
-
-**The master list.** After each run `tools/master_list.py` rebuilds
-`reports/HUVUDLISTA.md`: every company in the watchlist, the queue, the
-shadow book and the sifts, grouped as owned, candidates, watched, to review
-and no, with price, bear / base / bull, the kind of value, the reason and
-the next event. `.claude/settings.json` can run `tools/master_list.py
---short` as a SessionStart hook so a session opens with it.
-
-```bash
-python -m vss queue --no-notify          # tonight's table, nothing sent
-python tools/build_queue.py --write      # re-harvest values after a new strike
-python tools/master_list.py              # the master list (--short: the summary only)
-```
-
-`kind: strike` rows are harvested from the newest `reference/<T>-STRIKE-*.md`;
-`machine` and `rough` rows and the hand fields (`sell_at`, `look_at`, `note`,
-gate dates) are kept across rebuilds. Values are in the trading unit (a GBX
-listing's GBP strike is x100).
-
-## Nordic report PDFs: `tools/fetch_mfn.py`
-
-The report PDFs a broker's site shows for a Nordic company are the issuer's
-own releases, distributed through MFN or Cision. MFN carries both, is public,
-needs no login, and serves a JSON feed per issuer
-(`https://mfn.se/all/a/<slug>.json`) tagged `sub:report:annual`,
-`sub:report:interim` and `sub:report:interim:q4`.
-
-```bash
-python tools/fetch_mfn.py ZZ-B.ST EVO.ST --since 2015-01-01 --kinds annual
-python tools/fetch_mfn.py --queue --days 45      # the nightly job, 22:40 (deploy/vss-mfn.timer)
-```
-
-```bash
-python tools/fetch_mfn.py --queue --since 2015-01-01 --record-only   # manifest entries only, no download
-```
-
-Files land in `sources/` under the existing naming,
-`<TICKER>_<period>_<kind>_<date>_<lang>_a<n>.pdf`; a report another feed
-already put on disk is not fetched twice. **ESEF report packages** (the
-inline-XBRL annual report, served as `.xbri` or `.zip`) are taken too,
-recognised by their bytes (`PK` plus `META-INF/taxonomyPackage.xml`), never by
-their name, and saved as `.zip`.
-
-**Provenance.** Every file gets a `sources/manifest.json` entry in the same
-shape as `vss nordic`'s: URL, SHA-256, bytes, release time, declared vs actual
-content type, `downloaded_at`, `source: mfn`. A file already on disk without
-an entry is fetched again and recorded only if the bytes are identical
-(`recorded_after_the_fact`); if they differ, no entry is written and the run
-exits 1. The issuer's LEI is cached beside the mapping for the ESEF reader. The ticker -> issuer mapping is found by search
-and cached in `config/mfn_entities.yaml`. It writes nothing else: the PDFs are
-the input to a hand-read or a history, never figures by themselves. Two traps
-it is tested against: the Swedish *delårsrapport* contains *årsrapport*, and
-some issuers' annual reports carry no report tag at all.
-
-## ESEF pre-fill: `vss esef` and `vss manual --merge-draft`
-
-An EU-listed issuer files its annual report under ESEF as an inline-XBRL
-report package beside the PDF; `tools/fetch_mfn.py` saves it as `.zip` and
-records it in `sources/manifest.json`. `vss esef` reads every package for a
-ticker (`vss/esef.py`): `ifrs-full` facts only, no dimensional context
-(segment or scenario), the issuer's LEI checked against
-`config/mfn_entities.yaml` or nothing is read, extension concepts reported as
-"extension, not read". The facts go through the same IFRS map a 20-F filer
-does (`xbrl.IFRS_ANNUAL_FIELDS`, unchanged).
-
-```bash
-.venv/bin/python -m vss esef --ticker EVO.ST            # what the packages hold
-.venv/bin/python -m vss esef --ticker EVO.ST --draft    # config/manual/drafts/EVO.ST.esef-ixbrl.yaml
+# route A -- the annual report's own tagged facts (ESEF), into a DRAFT
+.venv/bin/python -m vss esef --ticker EVO.ST --draft
 .venv/bin/python -m vss manual --ticker EVO.ST --merge-draft --dry-run
 .venv/bin/python -m vss manual --ticker EVO.ST --merge-draft
-```
 
-**A pre-fill is a DRAFT, never the live store** (decision (a),
-`reference/HANDOFF-2026-11-07.md`): the ranking key is not gated on status, so
-an UNVERIFIED figure in the store would leak into it. Every drafted figure is
-UNVERIFIED and its page reads `ESEF <sha8> <concept> ctx <id> <period>,
-displayed '<text>', decimals <n>`. Not drafted: zeros (E25's `zero_basis` is a
-human claim), sums of captions, searched zeros, and every judgement field.
-`--merge-draft` adds what the store lacks, never overwrites a figure, prints a
-conflict side by side, refuses a different currency or money unit (no silent
-scaling), keeps every comment, validates the result and backs the old file up
-to `arkiv/config-bak/`. **E149:** `tools/quotecheck.py --apply` never verifies
-such a figure; quotecheck's output is an audit aid and only the owner flips
-the status.
-
-**E151, automatic confirmation.** `tools/cross_verify.py --all --apply` (nightly, after the MFN fetch) marks such a figure VERIFIED (`two_source`) only when a second, independent reading -- a model reading the PDF annual report, or a later report's comparative column -- prints the same digits. Any disagreement leaves it UNVERIFIED; the value is never changed; readings are cached in `data/cross-verify/`.
-
-**History from the packages (E144).** `vss history --ticker EVO.ST --esef
---write` builds `config/history/<T>.yaml` from the same packages (their
-comparatives reach one year further back) through an `ifrs-full` tag set that
-mirrors the us-gaap one. Where an issuer states its borrowings or its capital
-spend in its OWN extension concepts (Olvi, AcadeMedia), net debt or capex is
-withheld and the reason written into the file's source: the standard lines
-are then not the whole, and a nil is never assumed. Merged into an existing
-hand-read history, the hand rows keep their own unit and win where both
-speak. `tools/warren.py` stays US-only.
-
-## LLM pre-fill from PDF pages: `vss pdfdraft`
-
-For what ESEF does not reach -- First North issuers, interim reports. A
-deterministic locator picks the group's income statement, balance sheet and
-cash flow pages (headings in en, sv, fi, da, no; the parent company is passed
-over); a model reads only those, twice, and returns per field the value as
-printed, the row, the column header, the unit sentence and the page. Gates
-drop a field to DATA MISSING unless: both runs agree; the row is on that page
-and holds the value; the column header is on that page and names the target
-period (a quarter's span, never year-to-date; a balance-sheet line the period
-end); the unit sentence is on that page and agrees with the rest (the draft
-declares that unit, nothing is rescaled); revenue / operating income agree
-with a stated margin; no zero, and an outflow printed as one. Draft and run
-record land in `config/manual/drafts/`; merge as for ESEF with
-`--origin llm-pdf`. E149 applies.
-
-```bash
+# route B -- a model reads the statement pages twice, into a DRAFT (needs the model key)
 .venv/bin/python -m vss pdfdraft --ticker ZZ-B.ST --period 2026-Q2 \
-    --pdf sources/ZZ-B.ST_2026-Q2_interim-report-q1-and-q3_2026-08-25_en_a1.pdf --write
-.venv/bin/python -m vss manual --ticker ZZ-B.ST --merge-draft --origin llm-pdf --dry-run
+    --pdf sources/<the report>.pdf --write
+.venv/bin/python -m vss manual --ticker ZZ-B.ST --merge-draft --origin llm-pdf
+
+# route C -- the issuer's figures workbook (xlsx) through a committed cell map
+.venv/bin/python -m vss appendix --ticker PNDORA.CO --xlsx sources/<the workbook>.xlsx
 ```
 
-## Nordic screen and the EODHD backtest (your own data licence)
-
-These tools read a commercial vendor's data that you fetch yourself; none of
-it, and nothing computed from it, is in this repository (README, "What the
-backtests taught us").
+A draft is never the store: every drafted figure is `UNVERIFIED`, and
+section 5 refuses to value on an unverified figure. Verification is
+mechanical, not by eye:
 
 ```bash
-# key in ~/.config/eodhd/env (EODHD_API_KEY=..., chmod 600); the symbol list
-# (EODHD's exchange symbol lists, active and delisted) in data/eodhd/symbols.csv
-python tools/fetch_eodhd.py --check                 # quota and one test, nothing stored
-python tools/fetch_eodhd.py --budget 90000          # statements into data/eodhd/fundamentals/
-python tools/eodhd_pit.py --build                   # when each period became known
-python tools/nordic_screen.py --no-refresh          # value and rank active Nordic companies
-python -m tools.backtest.nordic                     # the Nordic backtest, 2010-2021
-python -m tools.backtest.confirm_nordic --dev       # its evaluation and random test
+.venv/bin/python tools/cross_verify.py EVO.ST --apply   # a second, independent reading agrees
+.venv/bin/python tools/quotecheck.py --apply EVO.ST     # a hand-read figure stands in its document
+.venv/bin/python -m vss manual --ticker EVO.ST          # exit 0: section 5 may run
 ```
 
-Prices for the backtests are read from `data/eodhd/eod/<SYMBOL>.csv.gz`
-(daily close, adjusted close, volume). Dates from 2022 on are locked behind
-`--confirm` and run once. `vss/withholding.py` shows the yearly cost of
-foreign dividend withholding in a Swedish ISK.
+Then the history (`vss history --ticker EVO.ST --esef --write`), the growth
+view and the watchlist entry as in [2.3](#23-take-a-us-company-in).
 
-## Screener: `vss screen`
+A first use of the exchange feed needs the issuer mapped once:
+`vss nordic --ticker PNDORA.CO --resolve "Pandora" --write`. A download
+needs the fiscal period stated by hand (`--period 2026-Q2`): nothing in the
+feed says which period a document covers.
 
-Phases 1 to 3, 5 and 6: it builds the universe, snapshots its prices, runs the
-exclusion list and the staleness gate (no drawdown band since E161, no
-12-month-return test since E168), fetches fundamentals for the survivors,
-applies a coarse quality filter, and lists what is left in a seeded random
-order with one fixed seed, the same every week (E167, 2026-11-09: attempt #24
-found that the ranking key did not sort returns; its legs are still shown in
-`ranking.csv` as information). It never writes to `config/watchlist.yaml`. The
-design and the plan for phases 4, 6 and 7 are in `reference/SCREENER.md`.
+### 2.5 Value a company
 
 ```bash
-python -m vss screen --universe-report
-python -m vss screen --snapshot-only --asof 2026-08-21
-python -m vss screen --filter1 --asof 2026-08-21
-python -m vss screen --fundamentals --asof 2026-08-21
-python -m vss screen --filter2 --asof 2026-08-21
-python -m vss screen --rank --asof 2026-08-21
-python -m vss screen --rank --write-pipeline --asof 2026-08-21
+.venv/bin/python -m vss strike --ticker CPRT --dry-run     # the table and the document, nothing written
+.venv/bin/python -m vss strike --ticker CPRT               # the run record and the strike document
 ```
 
-The screener produces **review work, never a purchase**. Its eventual output is
-three to five `PIPELINE` names carrying neither `mbp` nor `fv_base`, after
-which the FRAMEWORK section 5 chain is run by hand.
+`vss strike` needs a store that section 5 may read and a registered growth
+view. It prints bear, base and bull, the growth today's price implies, and
+which leg moved since the last strike. It writes
+`reference/run-records/<TICKER>-<stamp>.json` and
+`reference/<TICKER>-STRIKE-<stamp>.md`.
 
-`config/universe/` holds static, dated CSVs -- index membership is never
-fetched at runtime. Nine columns:
+**It never writes the watchlist.** `fv_base`, `fv_bull`, `tier`, `status`
+and the `run_record:` pointer are yours to enter, after reading the strike
+document. A value prints in the nightly report only when the entry names a
+run record that replays to it.
 
+Exit `2` means it refused, and nothing was written. The reasons: no store;
+no registered growth view; the store's events ledger (deals and other
+events since the accounts) is dated more than seven days ago -- search the
+company's press releases and filings again, then date it; or the section 5
+gate refuses. `--ignore-gate` strikes past the last of these and writes the
+refusal into the record.
+
+### 2.6 Review a company in a Claude Code session
+
+The review is where judgment is recorded. The machine prepares; you answer.
+
+```bash
+.venv/bin/python -m vss prepare --ticker NVR         # the night before: fetch, fill, compute, list what is open
+# in Claude Code:  /review NVR                       # one step at a time; your answers are recorded verbatim
+.venv/bin/python -m vss review --validate reference/reviews/NVR/<date>.yaml
+.venv/bin/python -m vss review --record reference/reviews/NVR/<date>.yaml
 ```
-ticker_yahoo, ticker_lokal, isin, namn, marknad, tier, listdatum, valuta, instrumenttyp
+
+`--record` appends your note to the watchlist entry and registers the growth
+view; it writes no status and no value. The full walk is
+[`manual/02-workflow.md`](manual/02-workflow.md), the commands in order
+[`manual/00-quick-ref.md`](manual/00-quick-ref.md), and the step list
+`config/review/SCHEMA.md`. `/granska` runs an independent review of the
+whole method and code, and changes nothing.
+
+### 2.7 Read a report when it comes out
+
+By hand, for one document:
+
+```bash
+.venv/bin/python -m vss earnings --ticker MSFT --url https://<the company's own release>
+.venv/bin/python -m vss earnings --ticker MSFT --text-file ./q4.pdf --compare
 ```
 
-A malformed row aborts the run, exactly as a malformed watchlist entry does.
-`ticker_yahoo`, `isin`, `namn`, `listdatum`, `valuta` and `instrumenttyp` may be
-empty; that is DATA MISSING and it is counted, not ignored.
+It extracts the stated figures with the sentence each came from, tests the
+hard kills, and prints an alert that says `VERIFY AGAINST SOURCE`, never
+"sell". Nothing is sent and nothing reaches `quarters:` -- the figures are
+proposed as a YAML block for you to enter. `--compare` reads the source
+twice and blanks any field the two readings disagree on. The source is
+always the company's own filing, never a news article. A host that refuses
+automated requests (it answers 403) is read from a browser-downloaded file
+with `--text-file`.
 
-Exclusions (ETF, fund, preference share, SPAC, trust, ADR) read `instrumenttyp`
--- the source list's own field -- and never the name string. The vocabulary and
-the policy for an unknown type live in `config/universe/instrument_types.yaml`.
-Tier floors live in `config/universe/floors.yaml`, and every monetary threshold
-carries its own currency because the universe spans some fifteen of them.
+Automatically, every night: `vss queue` finds each queue name's new report
+(SEC, or the Nordic / Oslo feed), reads it the same way twice, re-values the
+name on its last four quarters and sends `UTSIKT` only if the outcome
+changed ([3.4](#34-the-queue)). `vss watch` tells the phone when a
+*watched* name files a report, a guidance change or a profit warning.
 
-Every run writes `data/screener_snapshots/<ASOF>/snapshot.sqlite` holding raw
-daily OHLCV -- never computed metrics -- plus the universe, the rejections, the
-merges, the per-step tallies and a fetch status for every ticker. The manifest
-records the sha256 of each universe file, so a later replay can prove it is
-reading the same lists. `--asof` truncates the series, so re-running a Friday
-on the following Monday reproduces Friday.
+### 2.8 Screen for candidates
 
-Every ticker leaves the fetch with one of four statuses, and `THROTTLED` and
-`NO_DATA` are deliberately not merged: the first means retry later, the second
-means the symbol mapping is wrong. `STALE` is decided afterwards by
-`rules.stale_close_blocker`, the same gate `vss run` uses.
+```bash
+.venv/bin/python -m vss screen --weekly --no-notify      # the whole chain; never writes the watchlist
+```
 
-`--filter1` reads a stored snapshot and fetches nothing. Step 0 is
-`config/screener_exclusions.csv` -- names already owned or already decided,
-matched on `ticker_yahoo` exactly, never on name. Entries matching nothing are
-reported as inert, since an inert entry that reads as active is how an excluded
-name quietly comes back. Filter 1 is the staleness gate only: the 15-50 % dislocation band was
-removed by E161 (attempts #12, #21) and E127's "below a year ago" by E168
-(attempt #25); the drawdown stays on the row as information. Candidates land in
-`data/screener_runs/<ASOF>/filter1-candidates.csv` ordered by ticker, which is
-an order and not a ranking.
+or one step at a time, each reading what the previous one stored:
 
-`--fundamentals` fetches only the survivors of filter 1, one ticker at a time,
-and stores them beside the price snapshot. Status is recorded per ticker AND
-per field: a bank returns cash and debt but no EBITDA, and a ticker-level `OK`
-would hide the gap. `--filter2` then applies one coarse test -- positive free
-cash flow (the leverage limb went with E168, the revenue trend with E163) -- with the threshold in
-`config/screener_filter2.yaml` rather than in code, each citing its FRAMEWORK
-section.
+```bash
+.venv/bin/python -m vss screen --universe-report
+.venv/bin/python -m vss screen --snapshot-only --asof 2026-08-21
+.venv/bin/python -m vss screen --filter1 --asof 2026-08-21
+.venv/bin/python -m vss screen --fundamentals --asof 2026-08-21
+.venv/bin/python -m vss screen --filter2 --asof 2026-08-21
+.venv/bin/python -m vss screen --rank --asof 2026-08-21
+.venv/bin/python -m vss screen --rank --write-pipeline --dry-run --asof 2026-08-21
+```
 
-`--rank` then orders the names that passed by a seeded draw with one fixed
-seed (E167, 2026-11-09; `DRAW_SEED` in `vss/ranking.py`, fixed since
-171e1ee so a name keeps its place from week to week). The ranking key it
-used before -- E6's gross profitability and earnings yield, later E43's
-EBIT / assets and EBIT / EV -- did not sort returns by decile in either
-market (attempt #24); its legs are still computed and written to
-`ranking.csv` as information. The order is review work, not advice.
-The rest of this paragraph describes how the legs are computed. Names that cannot be
-ranked on the quality leg -- financials, property, and any name missing a line
--- are ranked on earnings yield alone in their own section, never interleaved.
-E6 replaced E5's Greenblatt ROIC because that denominator went to zero for
-asset-light businesses and its top thirteen placings were held by the thirteen
-names closest to the pole. Exchange rates are fetched once per run per pair and printed in
-the report; a London name quoted in GBp carries its enterprise value in GBP,
-and that scaling has its own tests.
+The chain: the universe lists, a price snapshot, the exclusion list and the
+staleness gate, fundamentals for the survivors, one coarse test (positive
+free cash flow), and what is left **in a seeded random order with one fixed
+seed**. The order is not a ranking: the key that used to order the list did
+not sort returns in the tests, so the list no longer pretends to know which
+name is best. Its two legs are still printed as information.
 
-`--write-pipeline` enters the top names as `PIPELINE` with no `mbp`, no
-`fv_base`, no `tier` and no stop. It backs the file up first, appends as text
-so the hand-written comments survive, re-parses afterwards and restores the
-backup if the file stopped loading, and never touches a ticker already there.
-Share classes of one company are collapsed before ranking on measured identity
--- one set of accounts means one company -- keeping the most traded listing.
+Only `--rank --write-pipeline` writes the watchlist: new `PIPELINE` entries
+with no value, no tier and no line, after a backup, never touching an
+existing entry. The output is review work, never a purchase.
 
-Both phase-3 reports carry a look-ahead banner: yfinance serves historical
-prices but only the LATEST fundamentals, so a replay pairs today's accounts
-with an older price and is not evidence of what a screener would have found
-that day.
+A comparison run on a scratch snapshot **must** set `--runs-root` as well
+as `--snapshot-root`, or it writes its ranking over the real one for that
+date.
 
-**RSI and SMA50 are fields, never filters.** Recomputed on the frozen SAP.DE fixture: on the
-2026-07-23 low SAP closed 128.32 with RSI 34.1, 10.9% below its SMA50; on the
-2026-07-27 purchase 151.28 with RSI 62.3, 5.0% above it. An SMA50 filter
-discards one of those two days whichever way it is pointed, and no RSI band
-catches both.
+### 2.9 Keep the queue
+
+`config/queue.yaml` holds every company that has been valued, with its bear
+/ base / bull and its lines.
+
+```bash
+.venv/bin/python tools/build_queue.py            # what a rebuild would change
+.venv/bin/python tools/build_queue.py --write    # after a new strike
+.venv/bin/python -m vss queue --dry-run          # tonight's table; no report, no state, nothing sent
+.venv/bin/python tools/master_list.py            # rebuild reports/HUVUDLISTA.md
+```
+
+`kind: strike` rows are harvested from the newest
+`reference/<TICKER>-STRIKE-*.md`. `machine` and `rough` rows (from
+`tools/warren.py` and `tools/rough_fv.py`) and the hand fields are yours and
+are kept across rebuilds. Values are in the trading unit: a London listing
+quoted in pence carries its value in pence.
+
+### 2.10 Record a sale, and read the record
+
+Add one item per executed transaction to the entry's `sales:` block
+([3.6](#36-sales-and-the-shadow-book)), then:
+
+```bash
+.venv/bin/python -m vss sales --reconcile <the broker's transaction export>.csv
+.venv/bin/python -m vss sales              # every closed position against the indices
+.venv/bin/python -m vss shadow             # every refusal against the indices
+```
+
+Reconcile first (E165): it matches every sell row of the export against the
+booked fills and exits `1` on any difference, so the record is not read on
+fills that were never checked. The reader expects Avanza's transaction
+export; another broker's file needs its columns mapped in
+`vss/sales_reconcile.py`. The shadow book reads
+`config/shadow_book.csv`, one row per company refused. Neither report is a
+signal; the shadow book is meant to be read once a year.
+
+### 2.11 Schedule it and reach your phone
+
+Install the timers as in [1.5](#15-run-it-every-night). Then:
+
+```bash
+systemctl --user list-timers 'vss*'            # what runs next
+systemctl --user start vss.service             # run the nightly now
+journalctl --user -u vss.service -n 50         # its last output
+systemctl --user disable --now vss.timer       # stop it
+```
+
+The nightly unit runs with `Persistent=true`, so a run missed while the
+machine was off happens at the next opportunity. It is sandboxed
+(`ProtectSystem=strict`, `ProtectHome=read-only`) with write access to
+`data/` and `reports/` only.
+
+**Messages.** Set `NTFY_TOPIC` to a long random [ntfy](https://ntfy.sh)
+topic name -- anyone who knows the name can read it -- and subscribe to it
+on the phone. Messages are outbound only; nothing ever reads from the topic.
+Unset is silence, not an error.
+
+**Silence must mean healthy.** Three things make a dead run visible:
+`vss checkin` every morning says when no completed run is on record or a
+timer is not enabled; the units name `vss-failure@.service`, which posts
+that a unit failed; and `HEALTHCHECK_URL`, if set, is pinged only after a run
+that succeeded, so an outside service notices when the machine itself is
+off.
+
+### 2.12 Open every session with the master list
+
+`reports/HUVUDLISTA.md` is every company looked at -- owned, candidates,
+watched, to review, no -- with price, values, the kind of value and the next
+event. `vss queue` rebuilds it every night. To have a Claude Code session
+open with the short version, add a SessionStart hook to
+`.claude/settings.json` (the file is not shipped; it is yours):
+
+```json
+{
+  "hooks": {
+    "SessionStart": [
+      {"hooks": [{"type": "command", "timeout": 60,
+                  "command": "cd \"$CLAUDE_PROJECT_DIR\" && .venv/bin/python tools/master_list.py --short"}]}
+    ]
+  }
+}
+```
+
+### 2.13 Check a rule change against every company
+
+```bash
+.venv/bin/python tools/rule_impact.py --save /tmp/before.json    # the code as it stands
+# ... change the rule ...
+.venv/bin/python tools/rule_impact.py --diff /tmp/before.json    # every name whose value or test moved
+```
+
+A ruling that loosens a test or raises a value is measured on every name,
+not only the one that asked for it (E155).
+
+### 2.14 The Nordic screen and the backtests
+
+These read a commercial vendor's data that you fetch under **your own
+licence**. None of it, and nothing computed from it, is in this repository.
+
+```bash
+# key in ~/.config/eodhd/env (EODHD_API_KEY=..., chmod 600); the vendor's
+# symbol lists (active and delisted) in data/eodhd/symbols.csv
+.venv/bin/python tools/fetch_eodhd.py --check            # quota and one test file, nothing stored
+.venv/bin/python tools/fetch_eodhd.py --budget 90000     # statements into data/eodhd/fundamentals/
+.venv/bin/python tools/eodhd_pit.py --build              # when each period became known
+.venv/bin/python tools/nordic_screen.py --no-refresh     # value and rank every active Nordic company
+.venv/bin/python -m tools.backtest.nordic                # the Nordic backtest
+```
+
+The backtest modules are listed in
+[REFERENCE.md, The backtests](REFERENCE.md#the-backtests). A test is
+registered in `reference/backtest/ATTEMPTS.md` before it runs; what the
+tests found is in the README and in
+[the book](the-method/index.html).
+
+### 2.15 Run the tests
+
+```bash
+.venv/bin/python tools/fetch_test_fixtures.py     # once: the price files the tests read
+.venv/bin/python -m pytest -q
+```
+
+The price fixtures are not shipped (the vendor's terms allow personal use,
+not redistribution); without them the tests that need them skip and say so.
+More in [3.7](#37-tests).
 
 ---
 
-### Point in time (HANDOFF C, 2026-11-07)
+## Part 3 -- Reference
 
-Prices are point-in-time; the vendor's fundamentals are not. Three things say
-so and start to fix it:
+### 3.1 Commands, flags, timers, variables, files, modules
 
-- **C0, REPLAY LOOK-AHEAD.** A `--rank` run whose snapshot is dated after
-  `--asof` opens with a block counting the series rows and fetches stamped
-  after asof; `ranking-manifest.json` carries `replay_look_ahead` and
-  `fundamentals_source`.
-- **C1, the SEC shadow** (`vss/sec_pit.py`). `--rank --sec-shadow`, and every
-  weekly screen, rebuilds each US survivor's ranking lines from SEC
-  companyfacts clipped to asof (cache `data/sec-cache/`) and runs the same
-  `extract_inputs` on them; `ranking.csv`'s last column `sec_check` says
-  where they agree. The ranking stays on the vendor until the owner decides.
-  Without a tagged discrete Q4 SEC cannot form a TTM, and none is derived:
-  the vendor's own figure at SEC's period is compared instead.
-- **C2, `fundamentals_fields_history`** in `data/vss.sqlite`: every vendor field
-  as fetched, append-only and never pruned, plus the VERIFIED manual and
-  `sec-xbrl` figures dated by their document's filing date
-  (`tools/seed_fields_history.py --write`; whole units by each file's own
-  declaration). `store.fields_known_at(db, ticker, asof)` reads it.
-- **C3, provenance on the row.** `ranking.csv` gains, appended at the end,
-  `fund_source`, `fund_visible_asof` (did that fetch exist on asof?) and
-  `fund_fetched_at` before `sec_check`; the manifest's `fundamentals_pit` sums
-  the run's standing up. The shadow's SEC rows go into the snapshot store's own
-  table `fundamentals_series_sec` with `filed`, `accession`, `taxonomy` and
-  `tag` (the vendor table's key would collide); it is made on the first
-  write, never on a read.
+All in **[`REFERENCE.md`](REFERENCE.md)**, generated from the code:
 
-## Health check: `vss doctor`
+- [every `vss` command](REFERENCE.md#the-vss-commands) with its flags, what
+  it reads, writes, calls and sends, its exit codes and the form of it that
+  changes nothing;
+- [every tool](REFERENCE.md#the-tools) under `tools/`;
+- [the timers](REFERENCE.md#timers), read off `deploy/`;
+- [the environment variables](REFERENCE.md#environment-variables);
+- [the files](REFERENCE.md#files) each command writes;
+- [the modules](REFERENCE.md#modules) under `vss/`.
 
-Read-only; exits 0, or 1 on any FAIL. Python version; that pypdf with
-cryptography (AES), lxml, openpyxl, exchange_calendars, requests, yaml and
-pandas import; that `VSS_SEC_CONTACT` is set and holds an address (shown
-masked); that `~/.config/vss/vss.env` is mode 600 and yours; ntfy (a warning
-only); `data/vss.sqlite`'s tables against the store's CREATE statements,
-opened read-only; that the newest snapshot and its fundamentals store read;
-`heartbeat.timer_lines()`; and that the units' `WorkingDirectory` is this
-checkout.
+### 3.2 The watchlist
 
-```bash
-.venv/bin/python -m vss doctor
-```
+`config/watchlist.yaml`: one entry per company under `tickers:`. **Every
+field is entered by hand**; the tool never computes, guesses, defaults or
+back-fills one. See `config/watchlist.example.yaml`.
 
-## Sales record: `vss sales`
+| Field | Required | Meaning |
+|---|---|---|
+| `ticker` | yes | the Yahoo symbol, e.g. `VOLV-B.ST`, `RHM.DE`, `MSFT` |
+| `name` | yes | display name |
+| `currency` | yes | the trading currency. `fv_base`, `fv_bull` and `stop_price` are in this currency; a London listing quoted in pence says `GBX` |
+| `status` | yes | one of the six below |
+| `cik` | no | the filer's number at SEC, for the US routes |
+| `reporting_frequency` | no | `quarterly` (default) or `half_yearly`: sets the period labels the name stores and the unit its kill windows are counted in |
+| `fv_base` | for a value | the base-case value per share. Printed only where `run_record` names a complete record that replays to it |
+| `fv_bull` | on `HELD` | the bull-case value; a HELD entry without one does not load |
+| `fv_void` | no | a reason, in words, why the value is void. While set, nothing reads `fv_base` as a value |
+| `tier` | for an MBP | `1`, `2` or `3`; sets the cushion. A hand field |
+| `run_record` | for a value | `reference/run-records/<TICKER>-<stamp>.json`, written by `vss strike` |
+| `growth` | for a strike | the pre-registered view: `base`, `bear`, `bull` (fractions), `view` (the file with your words), `registered` (the date) |
+| `mbp_basis` | no | `definition` and `struck`: under which MBP definition an older stored figure was struck, so it is marked where it prints |
+| `hurdle` | no | the hurdle rate frozen on a purchase: `rate`, `core_expected_return`, `premium`, `rate_as_of` -- all four or none |
+| `fx` | no | the exchange rate frozen with a verdict whose value was struck in another currency |
+| `dd_at_entry`, `peak_date` | no | the drawdown and the date of the 52-week high when the name was entered; both or neither |
+| `stop_price` | on `HELD` | there is no price stop (E162). A HELD entry writes `stop_price: none`; a **blank** field on a HELD name blocks it (`NO_STOP`). A number is kept as your own note and no rule reads it |
+| `catalyst_date` | no | `YYYY-MM-DD`, when the next dated event is due |
+| `catalyst_resolved` | no | the day you ingested its outcome. Once `catalyst_date` has passed, an empty one blocks the name |
+| `catalyst_event` | no | what the event is |
+| `quarters` | no | hand-entered quarterly figures the hard kills read. `eps_consensus` is manual only: it is never extracted |
+| `exec_changes` | no | CEO and CFO departures. Absent means "not recorded"; an empty list means "checked, none" |
+| `sales` | no | the fills of a closed or reduced position ([3.6](#36-sales-and-the-shadow-book)) |
+| `notes` | no | free text. No rule reads it |
 
-FRAMEWORK-EDITS B45. Every fill booked in a watchlist entry's `sales:`
-block, set against the last settled close and against OMXS30 (`^OMX`) and
-the S&P 500 (`^GSPC`) from the index's close on the sale date, plus fixed
-30/90/365-day marks once each has settled, and a by-rule table.
+**`mbp` is not a field.** It is computed -- the record's base value times
+the tier cushion, 0.85 / 0.75 / 0.65 for tier 1 / 2 / 3 -- and writing an
+`mbp:` key fails the run. It is information: it binds nothing.
 
-```bash
-.venv/bin/python -m vss sales              # writes reports/SALES-RECORD-<date>.md
-.venv/bin/python -m vss sales --dry-run    # print only
-```
+| Status | Meaning |
+|---|---|
+| `HELD` | owned |
+| `WATCH-PRICED` | passed, and is too expensive. A price line applies |
+| `WATCH-GATED` | failed something other than price. Re-entry needs a named information event, never a price |
+| `PIPELINE` | review work with a dated starting point |
+| `INTAKE` | read, not watched. It may carry `cik` and `growth`, and none of `tier`, `stop_price`, `dd_at_entry`, `peak_date`, `mbp_basis` |
+| `DROPPED` | refused, and kept as a record |
 
-One item per executed transaction:
+**Validation is strict and fatal to the whole run.** An unknown key, a bad
+tier, a non-numeric price, a duplicate ticker, a retired status (the bare
+`WATCH`), overlapping periods or a quarter whose operating income and margin
+do not reconcile stops everything, rather than skipping one entry. A
+silently dropped ticker is a worse failure than a crash.
+
+### 3.3 The store
+
+`config/manual/<TICKER>.yaml` holds the figures a valuation reads. Start
+from `config/manual/TEMPLATE.yaml`, or let a route in
+[2.3](#23-take-a-us-company-in) / [2.4](#24-take-a-nordic-company-in) fill
+it.
+
+- **Blocks.** `periods:` holds one entry per fiscal period at the resolution
+  the company reports. `annual:` holds what it publishes once a year.
+  `roll_forward:` holds the latest balance sheet for the bridge. Where a
+  figure is in both `periods:` and `annual:`, `periods:` wins and the load
+  says so.
+- **Every figure** carries `value`, a `source` (the period's `document:`
+  unless it names its own), a `page`, and a `status`. A bare `revenue: 1234`
+  is refused.
+- **Status.** `UNVERIFIED` or `VERIFIED`. Section 5 refuses to value on an
+  unverified figure. `verified_kind` says how: by hand, `machine_read_back`
+  (`tools/quotecheck.py`), or `two_source` (`tools/cross_verify.py`).
+- **Origin.** `manual`, `sec-xbrl`, `nordic-xlsx`, `esef-ixbrl`, `llm-pdf`.
+  A file may mix them; each figure says which it is.
+- **Drafts.** `config/manual/drafts/<TICKER>.<origin>.yaml` is a machine
+  pre-fill, never read as the store until merged with
+  `vss manual --merge-draft`, which adds what the store lacks and never
+  overwrites a figure.
+
+`vss manual --ticker X` runs four checks -- units, one scale, staleness, and
+every ratio's legs from one fiscal period -- and exits `1` when section 5
+may not read the file.
+
+### 3.4 The queue
+
+`config/queue.yaml`: `portfolio_sek` (the securities in the portfolio, for
+the size ceiling) and one row per valued company under `names:`.
+
+| Field | Meaning |
+|---|---|
+| `ticker`, `name`, `ccy` | the company and its trading currency |
+| `kind` | `strike` (the full valuation), `machine` (`tools/warren.py`) or `rough` (`tools/rough_fv.py`). Only a strike is a value to buy on |
+| `bear`, `base`, `bull` | value per share, in the trading unit |
+| `source` | the strike document or the tool run the values came from |
+| `status`, `tier` | from the watchlist, or `OFF-WATCHLIST` |
+| `gate_until`, `gate_event` | a gated name's date and the event that lifts it |
+| `sell_at` | hand-set sell lines: a list of `{price, action}` |
+| `look_at` | a hand-set revisit level; replaces base times the cushion |
+| `shares`, `entry` | a held position, for the size ceiling |
+| `exit_pending` | a sell decided and not yet carried out: `{since, why}` |
+| `override` | a rule the owner set aside for this name: `{rule, overrides, reason, standing, expires, since}`; printed beside the line it touches |
+| `base_cap`, `bear_cap`, `bull_cap` | a lower value a later ruling gives before the next strike |
+| `correction` | a value correction to be told once: `{since, text}` |
+| `note` | free text |
+
+Every night `vss queue` puts each name in one zone and compares it with the
+zone it was in the night before. **A change is said once.**
+
+| Message | When | Sent |
+|---|---|---|
+| `UNDER MBP` | a struck name with a tier, at or under base times the tier cushion. Information: a reading is needed before any order | on entering the zone |
+| `TITTA` (look) | a name with no tier, at or under base x 0.85 (a strike) or x 0.75 (machine, rough), or under its `look_at`. Means "value it properly now", never "buy" | on entering the zone |
+| `SÄLJ` (sell) | a held name at a hand-set sell line or at its bull value | on entering the zone |
+| `SPÄRR` (gate) | a gated name's event date has come | once |
+| `UTSIKT` (outlook) | a new report changed the outcome: the four-quarter value moved 10 % or more, the reading found a hard kill or a guidance cut, or a headline names a profit warning, a guidance change, a CEO or CFO leaving, a bid or a delisting | once per report or headline |
+| `RÄTTELSE` (correction) | a value in the queue was corrected | once |
+| `RAPPORTKONTROLL FELADE` | the nightly check for new reports failed for a name; it is searched again the next night from the same date | once per streak |
+| `STORLEK` (size) | a held position is above 6 % of the portfolio (E157) | weekly while it lasts |
+| `SÄLJ EJ UTFÖRD` | a decided sell (`exit_pending`) has not been carried out | weekly while it lasts |
+
+A gated name in a price zone is shown in the report and not sent until its
+gate lifts: what failed was not the price, so no price may wake it. A name
+whose value is void, whose bear case is at or below zero or above its base,
+or which is declared cyclical with no downturn in its history, gets no
+line. A report that was read and changed nothing is a line in
+`reports/QUEUE-<date>.md`, not a message.
+
+### 3.5 The nightly report
+
+**Metrics, per name.** Last close and its date, the 52-week high and low,
+the drawdown and the distance above the low, RSI(14), SMA50, SMA200 and the
+price against each, the 20-day average volume and today's ratio to it, and
+the distance to the MBP.
+
+- The 52-week high and low are the highest and lowest daily *close* in the
+  trailing 365 calendar days, not the intraday extreme. A series that does
+  not reach back 52 weeks plus five trading days gives `DATA MISSING`, never
+  a smaller number struck off a shorter window.
+- Drawdown is `(high - close) / high`, a positive fraction.
+- RSI(14) uses Wilder's smoothing and needs 15 closes; SMA50 and SMA200
+  need their full window. Fewer is `DATA MISSING`, never a partial estimate.
+- The volume ratio is today's volume over the mean of the *previous* 20
+  sessions.
+- RSI, the moving averages and the drawdown are **printed and decide
+  nothing**.
+
+**The staleness gate.** A name is BLOCKED, and gets no verdict, when any of
+these hold. All that apply are listed, not only the first.
+
+| Blocker | Condition |
+|---|---|
+| `NO_DATA` | the fetch failed and no cached data exists |
+| `STALE_DATA` | the newest close is more than **3 trading days** old on the name's own exchange -- or more than **1** for a `HELD` name or one with an MBP. The exchange's closed days are not counted |
+| `CATALYST_UNRESOLVED` | `catalyst_date` has passed and `catalyst_resolved` is empty |
+| `NO_STOP` | a `HELD` entry's `stop_price` is blank. Write `stop_price: none` |
+| `PRICE_CORRECTION` | the vendor restated a close across a level the name carries. The held close stands until you rule |
+| `CALENDAR_MISMATCH` | the vendor printed a close on a day the name's exchange calendar calls closed: the symbol is mapped to the wrong exchange |
+
+A blocked name that carries a level says `LEVEL NOT CHECKED`, with the last
+known close and its age, and is pushed to the phone once a night.
+
+**Verdicts,** for names that are not blocked. They are collected, not
+first-match-wins.
+
+| Verdict | Condition |
+|---|---|
+| `AT/BELOW MBP` | `close <= mbp`. Information since E168 |
+| `APPROACHING MBP` | `mbp < close <= mbp x 1.05` |
+| `DROPPED`, `INTAKE` | the name's status; it collects no other verdict |
+| `DATA MISSING` | a field the check needs is absent, or the price series failed its sanity check |
+| `NO ACTION` | nothing above fired |
+
+Boundaries are inclusive: exactly at the MBP is `AT/BELOW MBP`. A crossing
+that happened because the MBP moved, not the price, is marked as
+definition-caused and arms nothing.
+
+There is no `STOP BREACHED` and no `OUTSIDE DISLOCATION BAND`: the price
+stop went with E162 and the drawdown band with E161, each after a
+registered test. `Stop (note)` remains as a column and is a note.
+
+**History.** Each run appends one row per name to `run_metrics` in
+`data/vss.sqlite`: every metric, the manual inputs in force, the MBP, the
+blockers and the verdicts, and `ticker_filter` (empty for a full run). It is
+read back in two places: `vss strike` reads the tier in force for its
+before/after table, and the definition-crossing test compares tonight's MBP
+with the one the previous run recorded.
+
+### 3.6 Sales and the shadow book
+
+One item per executed transaction, in the entry's `sales:` block:
 
 ```yaml
     sales:
@@ -1105,448 +704,72 @@ One item per executed transaction:
         account: "ACCOUNT-A"
         rule: C4               # C1 | C2 | C3 | C4 | owner
         run_record: reference/run-records/SAP.DE-2026-08-26.json
-        proceeds_sek: 9841.22  # what landed, net of charges and FX -- not blended with the price return
+        proceeds_sek: 9841.22  # what landed, net of charges and exchange
         note: "..."
 ```
 
-## Shadow book: `vss shadow`
-
-FRAMEWORK-EDITS E114. `vss sales` measures the positions the framework
-SOLD; this measures the ones it never bought. Every `DROPPED`,
-`WATCH-GATED` and `INTAKE` verdict in `config/shadow_book.csv`, set
-against OMXS30 (`^OMX`, a PRICE index -- `^OMXS30GI` carries no history
-at the vendor) and the S&P 500 (`^SP500TR`, total return), both converted
-into the name's own quote currency, at 1, 3, 6 and 12 months from the
-verdict date.
-
-**Every comparison is a TOTAL return on both sides** (limit three, amended
-2026-09-09): the name's dividends are reinvested, and a name whose
-dividends the vendor does not record is DATA MISSING rather than a price
-return set against a total-return benchmark. The book STORES the
-unadjusted close, which never restates and is the recorded fact; the
-total return is DERIVED beside it from a series that does restate, and
-the report says so and re-reads every stored baseline against the vendor.
-The OMXS30 leg is the one remaining mismatch and is labelled a price
-index wherever it appears -- a stated substitution is honest, a silent
-one is not.
-
-**It is not a signal.** Nothing in it arms an alert, enters a name or
-reaches a valuation, and no other module imports it. E114 has it read
-once a year.
-
-```bash
-.venv/bin/python -m vss shadow             # writes reports/SHADOW-BOOK-<date>.md
-.venv/bin/python -m vss shadow --dry-run   # print only
-```
-
-One row per verdict, and exactly nine columns -- E114's six facts plus the
-two that say where the row came from:
+`config/shadow_book.csv`, one row per verdict, nine columns:
 
 ```csv
 ticker,verdict_date,verdict,standing,close,currency,fv_base,decided_by,source
 DECK,2026-08-24,WATCH-GATED,EXPIRY,92.08,USD,,"Gate 1's catalyst limb ...","config/watchlist.yaml note (WATCH 2026-08-24)"
 ```
 
-`verdict` is `DROPPED` | `WATCH-GATED` | `INTAKE`; `standing` is
-`STANDING` (holds until deliberately removed) | `EXPIRY` (re-read when a
-named event arrives) | `OPEN` (nothing decided yet, which is what E111's
-INTAKE means). **`close` is the SETTLED close on the verdict date and is
-never the nearest bar.** A verdict written on a **weekend** is re-dated
-to the last weekday on or before it and the row says which date it moved
-from and to (limit four); a **weekday** with no bar is left where it is
-and prints DATA MISSING, because an exchange holiday and a vendor gap
-look the same from here. `tools/backfill_shadow_book_2026_09_08.py` built
-the first book, applies the re-dating rule, and fills a blank on a re-run
-once the session settles.
+`verdict` is `DROPPED`, `WATCH-GATED` or `INTAKE`; `standing` is `STANDING`
+(holds until deliberately removed), `EXPIRY` (re-read when a named event
+arrives) or `OPEN`. `close` is the settled close on the verdict date, never
+the nearest bar; a verdict written on a weekend is dated to the last weekday
+on or before it.
 
-## The overview page: `vss overview`
-
-`reports/OVERVIEW.html` — **the state of the book on one page**, regenerated
-by the nightly run and by hand on demand. One file, no server, no framework,
-**no JavaScript at all**. It opens from disk with a `file://` URL and loads
-instantly, and it is built to be read on a phone.
-
-**A PAGE SCANNED IN TEN SECONDS, THEN READ INTO.** It answers three
-questions in order and puts everything else below them or behind a plain
-`<details>`:
-
-1. **Does anything need me today?** One block at the very top, in plain
-   sentences: *nothing*, or the two or three things that do — a maximum buy
-   price crossed, a stop breached, a holding with no stop, a dated event
-   inside the next seven days. **The list of kinds is closed**: a top line
-   that grew a fourth and a fifth category would be a second report. Beside
-   it, always, **what was checked** — *nothing needs you* and *nobody
-   looked* are the same silence otherwise. A level that could not be
-   checked (an MBP with no settled close) says so rather than passing as
-   held.
-2. **Where is everything against its value?** **One card per name**, in a
-   grid that reflows to one column on a phone — a table is for comparing
-   forty things, a card is for recognising one. Ticker and company small at
-   the top, **the price large**, fair value and the maximum buy price beside
-   it in smaller type, then two pictures:
-   * **a sparkline** — 52 weeks of settled closes as inline SVG, drawn from
-     the cache and never fetched, with the fair value as a dashed line and
-     the MBP as a dotted one. A level is drawn **only where it falls inside
-     the year's range**; one outside is said in words underneath instead,
-     because stretching the range to reach it would show a year of trading
-     as a flat smear (MUSA's fair value is a third of its 52-week low). A
-     series that is short or missing says so rather than drawing a lie.
-   * **the value track** — the price as a position between **half the fair
-     value and half again**, fair value dead centre, a short mark where the
-     MBP is struck. The scale never rescales per name, so the cards read
-     against each other; a price past either end sits **on** the end and
-     the card says which end.
-
-   **A picture never replaces a figure**: the close, the fair value, the
-   MBP and both distances are printed on every card, small but exact.
-3. **What is coming?** The unresolved `catalyst_date`s from today onward,
-   nearest first, with what each decides. A long note shows its first
-   sentence and folds the rest — **never truncated**, because an ellipsis
-   on a record is a record nobody can read.
-
-**Behind a click:** the full queue (single-action items first, the rest
-folded), the timeline (**the last ten of 230** — an archive is not a view),
-the shadow book, per-name document links, and anything that could not be
-read. Every disclosure's summary states the count, so nothing is hidden
-without saying how much.
-
-**TYPOGRAPHY DOES THE RANKING, AND SURFACES DO THE SEPARATING.** The number
-that matters is large and its label is small and muted; every figure is
-monospace with tabular numerals so digits line up down the grid. Things are
-told apart by background and space — **no card borders, no row rules, no
-visible table grid.** The one hairline on the page is above the footer,
-which is a boundary rather than a division, and a test enumerates every
-`border` declaration in the stylesheet and fails at a second.
-
-**GREEN AND RED ARE A MEASUREMENT OF DISTANCE, NEVER A VERDICT.** Green is
-at or below the level, red is far above it, neutral between — five bands
-whose boundaries are the framework's own (0% is the level; 5% is `rules`'
-APPROACHING band; then 25% and 75%). **It says how far, not whether to
-act.** It is applied to the distance figures, to the dot on the value track,
-and to the stretch of the sparkline that traded below fair value — and
-**never to the whole card**, because a green card reads as approval.
-
-**A CHEAP GATE-CLOSED NAME MUST NOT READ AS AN INVITATION.** A DROPPED or
-WATCH-GATED name's distance is drawn muted whatever the number says, and
-the card states the status in words beside it: *Distance shown muted:
-WATCH-GATED — re-entry is on a named information event, never on a price
-level.* Names E51 or E96 put outside the circle are muted on the same
-ground, recorded as an extension of it. The **shadow book is never toned**:
-its columns are returns since a verdict, not distances to a level, and a
-dropped name that rose is not green.
-
-**THE ACCENT AND THE DISTANCE SCALE NEVER TAKE EACH OTHER'S ROLE.** The
-accent is a **surface** — it fills the block at the top of the page and
-nothing else, and a test counts its uses in the stylesheet and fails at
-two. The distance scale is **ink**, colouring figures and marks on cards.
-A name can be green and need nothing (ACN is), and a name that needs the
-owner can be red (a breached stop would be). No `.attention` rule mentions
-a distance tone and no distance rule mentions the accent, and a test
-asserts both.
-
-**NO COLOUR ANYWHERE CARRIES MEANING ON ITS OWN.** Every toned figure keeps
-its sign and its number and carries its band as a title; every card states
-its band and its mute in words; the sparkline's two level lines are told
-apart by **dash pattern** and it carries an `aria-label` saying in words
-what the drawing says in shape; every refusal prints `DATA MISSING` with
-its reason. A red-green colourblind reader loses nothing.
-
-**READ-ONLY, AND THAT IS THE WHOLE DESIGN.** No form, no button, no request
-and no script — tests assert each is absent. Disclosure is
-`<details>`/`<summary>`, which the browser gives for free. Every decision
-this project makes is a dictated ruling in a session, and a page that could
-take one would be a second place decisions come from.
-
-**THE FOOTER SAYS WHEN AND FROM WHICH RUN**, so a stale page cannot read as
-current: when the page was generated, when the last **completed** nightly
-run finished and what it covered, and separately when the prices on the page
-were cached. The two are separate facts — a hand fetch moves the second
-without moving the first — and where the dead man's switch says the run has
-gone quiet, that line is in the footer too.
-
-**IT SHOWS THE STATE; THE DOCUMENTS CARRY THE EVIDENCE.** Per name it links
-the briefing, the reading, the strike document, the run record, the growth
-view and the store, and it **never summarises one** — a summary of a sourced
-document is a judgement without its sources. A test reads the briefings and
-asserts none of their prose appears on the page.
-
-**EVERY FIGURE IS READ AT GENERATION TIME AND NOTHING IS STORED TWICE.**
-`config/`, `reference/` and `data/` are the record; the page is a view of
-them and holds no state. It **never fetches** — prices come from the cache
-the nightly run writes, settled bars only.
-
-**A FIGURE THAT CANNOT BE READ PRINTS `DATA MISSING` AND KEEPS ITS ROW**,
-with the reason where the figure would have been. An absent row reads as
-*nothing to see*, and that is the failure mode the page exists to remove.
-
-**NO ARITHMETIC CROSSES A UNIT SEAM.** AUTO.L's `fv_base` is written in GBP
-to match its linked run record while its close is quoted in GBX, and the
-watchlist records that seam as OPEN. The first draft printed the distance
-between them as **+10,543%**. Where the two currencies are not the same code
-— or either is unstated — no distance and no position is struck, the seam is
-named, and nothing converts: a conversion needs a rate, a rate needs a date,
-and E24 freezes both onto the verdict rather than inventing them at render
-time.
-
-**IT NEVER CHOOSES.** Where several run records exist for a name and no
-entry names one — LII has a `2026-08-30` record and a `2026-08-30-e70`
-restrike of it — the value is `DATA MISSING` and both are linked. Which one
-governs is E39's question and a filename sort must not answer it.
-
-**WHAT IT WRITES:** `reports/OVERVIEW.html`, and nothing else, anywhere. A
-test takes a census of `config/`, `reference/`, `data/`, `vss/`, `tools/`
-and `tests/` either side of a real generation and asserts not one byte
-moved. The nightly run regenerates it after the report is on disk; a
-**scoped** (`--ticker`) run does not, and a failure there is logged at
-WARNING and never fails the run.
-
-`vss/overview.py` reads the record and produces the figures;
-`vss/render.py` is the HTML and the stylesheet, and nothing else imports it.
-
-## The watchlist
-
-One entry per ticker. All fields MANUAL. See
-`config/watchlist.example.yaml`.
-
-| Field | Required | Meaning |
-|---|---|---|
-| `ticker` | yes | yfinance symbol, e.g. `VOLV-B.ST`, `RHM.DE`, `MSFT` |
-| `name` | yes | display name |
-| `currency` | yes | trading currency, display only |
-| `hurdle` | no | E29's frozen hurdle rate on a purchase verdict — `rate`, `core_expected_return`, `premium`, `rate_as_of`, all four or none |
-| `status` | yes | `HELD` \| `WATCH-PRICED` \| `WATCH-GATED` \| `PIPELINE` \| `DROPPED` — the bare `WATCH` was split by FRAMEWORK-EDITS E27 and is rejected |
-| `reporting_frequency` | no | `quarterly` (default) \| `half_yearly` — sets the period labels the ticker stores and the unit its §4.2 windows are counted in |
-| `fv_base` | for MBP | base-case fair value |
-| `tier` | for MBP | `1` \| `2` \| `3` |
-| `stop_price` | yes* | *absent = BLOCKED if HELD, flagged otherwise* |
-| `catalyst_date` | no | `YYYY-MM-DD`, when the catalyst is/was due |
-| `catalyst_resolved` | no | `YYYY-MM-DD`, the day you ingested the outcome |
-| `catalyst_event` | no | what the catalyst is |
-| `notes` | no | free text, prose only — the gate never reads it |
-
-Validation is strict and always fatal to the whole run -- an unknown key, a
-bad tier, a non-numeric price or a duplicate ticker stops everything rather
-than silently skipping one entry. A silently dropped ticker is a worse
-failure than a crash.
-
----
-
-## Rules
-
-### Metrics computed per ticker
-
-Last close and its date, 52-week high, drawdown, RSI(14), SMA50, SMA200,
-price vs each SMA, 20-day average volume, today's volume ratio, and percent
-distance to both MBP and stop.
-
-- **52-week high** is the highest daily *close* in the trailing 365 calendar
-  days -- not the intraday high, which is jumpy and vendor-dependent.
-- **Drawdown** = `(high_52w - close) / high_52w`, a positive fraction.
-- **RSI(14)** uses Wilder's smoothing and needs at least 15 closes; fewer
-  returns `DATA MISSING`, never a partial estimate.
-- **SMA50/200** return `DATA MISSING` on insufficient history, never a
-  shorter-window substitute.
-- **Volume ratio** = today's volume over the mean of the *previous* 20
-  sessions (today is excluded from the denominator).
-- RSI is **reported only**. No verdict depends on it.
-
-### The staleness gate
-
-A ticker is BLOCKED when any of these hold:
-
-| Blocker | Condition |
-|---|---|
-| `NO_DATA` | fetch failed and no cached data exists |
-| `STALE_DATA` | newest close is older than **3 calendar days** |
-| `CATALYST_UNRESOLVED` | `catalyst_date` is in the past and `catalyst_resolved` is not set |
-| `NO_STOP` | `stop_price` is not set **and** the ticker is `HELD` |
-
-**A blocked ticker prints its blocker reasons and no verdict, ever.** All
-applicable blockers are listed, not just the first.
-
-The 3-day window is *calendar* days, as specified. A run on a Tuesday
-following a Monday market holiday will therefore block on Friday's close.
-That is the gate erring toward flagging, by design.
-
-### Verdicts
-
-For non-blocked tickers only. Verdicts are **collected, not first-match-wins**
--- every one that applies is reported.
-
-| Verdict | Condition |
-|---|---|
-| `AT/BELOW MBP` | `close <= mbp` (information since E168) |
-| `APPROACHING MBP` | `mbp < close <= mbp * 1.05` |
-| `DROPPED` / `INTAKE` | the name's status; it collects no other verdict |
-| `DATA MISSING` | a manual field the check needs is absent |
-| `NO ACTION` | nothing above fired |
-
-Boundaries are inclusive: exactly at MBP is `AT/BELOW MBP`.
-`AT/BELOW MBP` and `APPROACHING MBP` are mutually exclusive.
-
-**Removed:** `STOP BREACHED` and `NO STOP DEFINED` went with the price stop
-(E162, 2026-11-08, attempts #10 and #18), `OUTSIDE DISLOCATION BAND` with the
-band (E161, attempts #12 and #21). What remains of the stop is a blocker: an
-EMPTY `stop_price` on a `HELD` name blocks it (`NO_STOP`), because "no stop"
-must be written as the decision it is, `stop_price: none`.
-
-`DATA MISSING` is never `FAIL` and never `NO ACTION`. A missing input means
-the check could not be evaluated -- the tool never substitutes a default to
-avoid the state, and a check is never skipped silently. A missing field only
-suppresses the checks that need it.
-
-### Data availability
-
-Every fetch is cached under `data/cache/` as a CSV plus a JSON sidecar. When
-yfinance fails, the cached frame is used and the freshness line says
-**degraded**. Cached data still counts against the staleness gate -- the gate
-reads the newest close *date* out of the price series, never the cache file's
-fetch timestamp, so old data can never look fresh.
-
-A ticker that errors with no cache gets an `ERROR` row in the table and a
-`NO_DATA` blocker. It is never silently dropped.
-
-The freshness line leads with the **oldest** close across the watchlist, not
-the newest, so a single fresh ticker cannot make a mostly-stale watchlist read
-as current.
-
----
-
-## Scheduling (user-level systemd, 22:30 daily)
+### 3.7 Tests
 
 ```bash
-mkdir -p ~/.config/systemd/user
-cp ~/vss/deploy/vss.service ~/.config/systemd/user/
-cp ~/vss/deploy/vss.timer   ~/.config/systemd/user/
-systemctl --user daemon-reload
-systemctl --user enable --now vss.timer
-```
-
-So the timer fires when you are not logged in:
-
-```bash
-sudo loginctl enable-linger $USER
-```
-
-Check and inspect:
-
-```bash
-systemctl --user list-timers vss.timer     # next scheduled run
-systemctl --user start vss.service         # run once, now
-journalctl --user -u vss.service -n 50     # last run's output
-journalctl --user -t vss -f                # follow
-```
-
-Disable:
-
-```bash
-systemctl --user disable --now vss.timer
-```
-
-The other timers follow the same pattern (`cp deploy/<name>.{service,timer}`,
-then `enable --now`): `vss-screen.timer` (Saturdays 08:00),
-`vss-checkin.timer` (09:30 daily), `vss-mfn.timer` (22:40 daily),
-`vss-queue.timer` (weekdays 22:50). The morning check-in warns if any of them
-is not both enabled and active.
-
-The unit runs `python -m vss run` from `~/vss` with `Persistent=true`, so a
-run missed while the machine was off happens at the next opportunity rather
-than being skipped. It is sandboxed (`ProtectSystem=strict`,
-`ProtectHome=read-only`) with write access only to `data/` and `reports/`;
-this was verified with a real run, not just assumed.
-
----
-
-## Tests
-
-```bash
-cd ~/vss
 .venv/bin/python -m pytest -q
 ```
 
-`tests/fixtures/verdict-matrix/` holds an end-to-end verdict matrix: six
-tickers whose synthetic manual fields place each close on a specific side of a
-threshold, driving every verdict path at once. Its prices are frozen CSVs
-captured 2026-08-20 and read offline, so a market move can never break it --
-only a code change can. The fv_base and stop values in it are fabricated and
-must never be copied into a real watchlist.
+- `tests/fixtures/verdict-matrix/` drives every verdict path at once: six
+  tickers whose synthetic fields place each close on a chosen side of a
+  threshold, on frozen prices read offline. Its values are fabricated and
+  must never be copied into a real watchlist.
+- `tests/fixtures/earnings/berkshire-10q-2025-q2-excerpt.pdf` is three
+  pages of a real public filing: four period columns under a stacked header,
+  which is the hazard a statement page carries and an invented one does not.
+- The rules layer is tested at its boundaries: exactly at the MBP and at
+  MBP x 1.05, a blank and a `none` stop on a held name, a close one and
+  three sessions old across an exchange holiday, every missing field, a
+  blocked name never receiving a verdict.
+- Two tests enforce that `rules.py` imports nothing beyond the standard
+  library's value types and never reads the clock.
+- `tests/test_manual_reference.py` holds `REFERENCE.md` equal to the code;
+  `tests/test_review.py` does the same for `config/review/SCHEMA.md`.
 
-`tests/fixtures/earnings/berkshire-10q-2025-q2-excerpt.pdf` is the PDF path's
-fixture: pages 2, 4 and 32 of a real public SEC filing (Berkshire Hathaway's
-Form 10-Q for the quarter ended 30 June 2025). A real statement page carries a
-hazard an invented one does not -- four period columns under a two-line stacked
-header -- so the tests hold both halves of the provenance rule to it: the row
-evidences the figures it contains, and a figure taken from it without a named
-column is flagged. Two more shapes are pinned as strings observed live: an
-eight-column row from Lindab's interim report, and the loose labels and
-half-numbers a results slide deck extracts to.
-
-The rest covers every rule in the metrics, staleness-gate and verdict layers
-with fixture data, including the boundaries: exactly at MBP, exactly at the stop,
-drawdown at exactly 0.15 and 0.50, RSI at exactly 30 and exactly 70, every
-missing manual field, blocked tickers never receiving a verdict, and the
-cache round-trip across a daylight-saving change.
+Without the price fixtures (`tools/fetch_test_fixtures.py`) the tests that
+need them skip and say so. The screener's acceptance snapshot is vendor data
+that cannot be refetched; its tests stay skipped.
 
 ---
 
-## Layout
+## Part 4 -- Explanation
 
-```
-vss/
-  rules.py     verdict + blocker logic -- PURE, zero I/O, no clock access
-  metrics.py   numeric computations -- pure, pandas in, scalars out
-  config.py    watchlist loading and strict validation
-  fetch.py     yfinance + on-disk cache with outage fallback
-  source.py    primary-source retrieval: HTML and PDF to text
-  extract.py   LLM figure extraction + the provenance check
-  earnings.py  `vss earnings` -- extraction to 4.2 evaluation to alert
-  store.py     sqlite persistence of each run
-  report.py    markdown rendering
-  overview.py  `vss overview` -- the READ-ONLY page's figures, from the record
-  render.py    the overview page's HTML and stylesheet -- no other importer
-  runner.py    orchestration (all I/O lives here)
-  universe.py  screener: the static universe -- schema, exclusions, dedup
-  filters.py   screener: exclusion list, staleness gate, coarse quality
-  fx.py        screener: exchange rates, once per run per pair
-  ranking.py   screener: share-class collapse + the seeded draw (E167)
-  pipeline.py  screener: phase 6 -- the only module that writes the watchlist
-  fundamentals.py  screener: per-ticker fundamentals, two status layers
-  manual.py    hand-entered fundamentals: schema, four checks, the 5 gate
-  appendix.py  `vss appendix` -- an xlsx figures appendix through a cell map
-  nordic.py    `vss nordic` -- report downloads from the exchange feed
-  prices.py    screener: batched price retrieval, backoff, fetch statuses
-  snapshot.py  screener: per-run sqlite snapshot of raw OHLCV
-  screen.py    `vss screen` -- universe report and price snapshot
-  __main__.py  CLI
-tools/         build-time only: build_universe.py writes the universe CSVs
-config/        watchlist.yaml (yours, tracked) + the committed example
-config/manual/ TEMPLATE.yaml + one filled <TICKER>.yaml per hand-entered name
-config/manual/maps/  <TICKER>.yaml -- which cell of the appendix answers which field
-config/nordic_issuers.yaml  ticker -> the exchange feed's market/company key
-sources/       downloaded documents (gitignored) + manifest.json (tracked)
-config/universe/  static dated constituent lists + instrument-type and floor config
-config/screener_exclusions.csv  names the screener may never propose
-config/screener_filter2.yaml    filter 2 thresholds, each citing FRAMEWORK
-data/          price cache, yfinance cache, vss.sqlite   (gitignored)
-reports/       YYYY-MM-DD.md + OVERVIEW.html             (gitignored)
-deploy/        systemd user service + timer
-reference/     SPEC.md -- machine-facing rules, kept in sync with the code
-               SCREENER.md -- the screener's design and its phase plan
-tests/         pytest suite
-```
+**[`EXPLANATION.md`](EXPLANATION.md)** says why each part behaves as it
+does, and what was measured to make it so:
 
-`rules.py` holds the verdict logic as pure functions taking plain scalars and
-returning verdict objects, with `as_of` always passed in so no rule reads the
-clock. `metrics.py` is separate because its inputs are DataFrames rather than
-plain scalars; it is equally pure. Two tests enforce that `rules.py` imports
-nothing beyond stdlib value types and never calls `now()` or `today()`.
+1. [DATA MISSING is a result](EXPLANATION.md#1-data-missing-is-a-result)
+2. [What is computed and what is entered by hand](EXPLANATION.md#2-what-is-computed-and-what-is-entered-by-hand)
+3. [Reading a report](EXPLANATION.md#3-reading-a-report-vss-earnings) -- the provenance rule: a quote must contain the figure it claims to source
+4. [Tagged facts from SEC](EXPLANATION.md#4-tagged-facts-from-sec-vss-xbrl)
+5. [The Nordic feeds](EXPLANATION.md#5-the-nordic-feeds-vss-nordic) -- what each feed does that a naive client gets wrong
+6. [A figures appendix](EXPLANATION.md#6-a-figures-appendix-vss-appendix)
+7. [The store](EXPLANATION.md#7-the-store-vss-manual)
+8. [Drafts](EXPLANATION.md#8-drafts-report-pdfs-esef-packages-and-a-second-reading) -- why a machine's reading is never the store
+9. [The screener](EXPLANATION.md#9-the-screener), and what "point in time" means here
+10. [The queue and the outlook check](EXPLANATION.md#10-the-queue-and-the-outlook-check)
+11. [The shadow book](EXPLANATION.md#11-the-shadow-book)
+12. [The overview page](EXPLANATION.md#12-the-overview-page)
+13. [The staleness gate](EXPLANATION.md#13-the-staleness-gate)
+14. [Repository history](EXPLANATION.md#14-repository-history)
 
-## History
-
-Each run appends one row per ticker to `data/vss.sqlite` (table
-`run_metrics`): every computed metric, the manual inputs in force at the
-time, the resolved MBP, the blockers and verdicts that fired, and
-`ticker_filter` (NULL for a full run, the ticker for a `--ticker` run).
-Nothing reads it back yet -- it accumulates for later. New columns are added
-to an existing database by a migration on connect, so the file survives
-upgrades.
+The rules themselves are two pages: `reference/FRAMEWORK.md`. Each names its
+ruling in `reference/archive/`, where the full text and the reasons stay.
+The story of how the rules were tested, and why most of them were removed,
+is [the book](the-method/index.html).

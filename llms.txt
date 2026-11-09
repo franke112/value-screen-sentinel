@@ -1,0 +1,30 @@
+# vss (value-screen-sentinel)
+
+> A command-line tool that watches a hand-maintained list of companies:
+> it fetches prices, reads the companies' own reports, values a company
+> from the cash it makes, and sends a phone message only when something
+> changed. The tool measures; a person decides. Not financial advice.
+
+## Docs
+
+- [README](README.md): what it does, who it is for, what the tests found
+- [Setup](SETUP.md): install, settings, your own data
+- [Manual](docs/MANUAL.md): getting started, how-to tasks, reference
+- [Command reference](docs/REFERENCE.md): every command, flag, timer, environment variable and file; generated from the code
+- [Explanation](docs/EXPLANATION.md): why each part behaves as it does
+- [Changelog](docs/CHANGELOG.md): what changed and when
+- [Glossary](GLOSSARY.md): the terms
+
+## For agents
+
+- [AGENTS.md](AGENTS.md): which commands change nothing, which write, which reach the phone
+- [CLAUDE.md](CLAUDE.md): how a Claude Code session works here
+
+## Rules
+
+- [The framework](reference/FRAMEWORK.md): the investment rules, two pages
+- [What we tested](reference/backtest/WHAT-WE-TESTED.md): the tests and what they removed
+
+## Optional
+
+- [The book](docs/the-method/index.html): the method told as a story, English and Swedish

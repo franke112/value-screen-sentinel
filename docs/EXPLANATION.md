@@ -1,0 +1,1058 @@
+# vss -- why it behaves the way it does
+
+*The explanation part of [the manual](MANUAL.md). Each section says why a
+command behaves as it does and what was measured to make it so. Nothing here
+is needed to run the tool; all of it is needed to trust it. The commands and
+their flags are in [the reference](REFERENCE.md), which is generated from the
+code.*
+
+1. [DATA MISSING is a result](#1-data-missing-is-a-result)
+2. [What is computed and what is entered by hand](#2-what-is-computed-and-what-is-entered-by-hand)
+3. [Reading a report: `vss earnings`](#3-reading-a-report-vss-earnings)
+4. [Tagged facts from SEC: `vss xbrl`](#4-tagged-facts-from-sec-vss-xbrl)
+5. [The Nordic feeds: `vss nordic`](#5-the-nordic-feeds-vss-nordic)
+6. [A figures appendix: `vss appendix`](#6-a-figures-appendix-vss-appendix)
+7. [The store: `vss manual`](#7-the-store-vss-manual)
+8. [Drafts: report PDFs, ESEF packages and a second reading](#8-drafts-report-pdfs-esef-packages-and-a-second-reading)
+9. [The screener](#9-the-screener)
+10. [The queue and the outlook check](#10-the-queue-and-the-outlook-check)
+11. [The shadow book](#11-the-shadow-book)
+12. [The overview page](#12-the-overview-page)
+13. [The staleness gate](#13-the-staleness-gate)
+14. [Repository history](#14-repository-history)
+
+---
+
+## 1. DATA MISSING is a result
+
+The tool's defining rule: **stale or unresolved data produces a blocker,
+never a verdict.** It would rather say it cannot judge than judge on bad
+data.
+
+- A figure that is not there is not assumed, defaulted or substituted. It
+  prints `DATA MISSING` with the reason, and it keeps its row: an absent row
+  reads as *nothing to see*.
+- `DATA MISSING` is never `FAIL` and never `NO ACTION`. A missing input
+  means the check could not be evaluated; a check is never skipped silently,
+  and a missing field suppresses only the checks that need it.
+- A valuation with a missing leg does not print. Section 5 refuses, and the
+  refusal names the leg.
+- A derived figure inherits the weakest status of its parts: one UNVERIFIED
+  input makes the result unverified.
+
+The same rule is why every figure carries its source, its page and a status
+(`UNVERIFIED` or `VERIFIED`), why a model's reading is a *draft* and never
+the store, and why a notification that could not be sent is recorded as not
+sent. `reference/FRAMEWORK.md` section 1 is the rule; the sections below are
+what it cost to keep it.
+
+## 2. What is computed and what is entered by hand
+
+The nightly run (`vss run`) computes **market data only**: the close, the
+52-week high and low, the drawdown, RSI, two moving averages, volume. What a
+name is worth is not computed there. `fv_base`, `tier`, `status` and the
+notes are fields the owner writes in `config/watchlist.yaml`, after a
+valuation (`vss strike`) has printed its run record and a review has been
+recorded. No command writes `fv_base`, `tier`, `stop_price` or `status`.
+
+The one derived figure on the watchlist is `mbp`:
+
+```
+mbp = fv_base * tier_cushion           tier 1 = 0.85, tier 2 = 0.75, tier 3 = 0.65   (E90)
+```
+
+The older 0.80 / 0.70 / 0.60 multipliers (`MBP_TIER_MULTIPLIER`) are kept
+only for the three figures E32 retains, and are marked wherever they print.
+**MBP is information since E168 (2026-11-09):** a test found that a price at
+or under it did not separate returns, so it binds nothing, and the queue
+says `UNDER MBP`, never "buy".
+
+`mbp` is therefore **not** a watchlist field. Writing an `mbp:` key by hand
+fails the run with a provenance conflict. If `fv_base` or `tier` is absent,
+`mbp` is `DATA MISSING` and every MBP-dependent verdict reports `DATA
+MISSING` rather than a guess.
+
+## 3. Reading a report: `vss earnings`
+
+**Status changes the framing, never the rules.** §4.2 is read in two
+situations. On a `HELD` name it is thesis invalidation — the alert says `4.2
+POSSIBLE TRIP - VERIFY AGAINST SOURCE`. On a waiting candidate — `WATCH-PRICED`,
+`WATCH-GATED` or `PIPELINE` — it
+is the §4 Phase 2 VALIDATION gate that decides whether the name may become a
+position at all — the alert says `4.2 FAILS VALIDATION - VERIFY AGAINST
+SOURCE`, because there is no thesis to invalidate yet. Same rules, same
+figures, same arithmetic; what differs is what a trip *means*, and the alert
+states the status it read. Clearing §4.2 on a candidate is one gate of Phase 2,
+not a decision — the alert says that too.
+
+**You supply the URL.** vss has no news feed and never guesses at IR page
+layouts, so "primary source, never a news article" holds by construction. The
+daily report nags you instead: any HELD ticker whose `catalyst_date` has passed
+with `catalyst_resolved` empty gets an EARNINGS TO INGEST line with the exact
+command to run. Since 2026-11-09 the queue also fetches each name's new
+report from SEC's or the exchange's own feed and hands it to this same
+reader, twice (section 10). The rule is unchanged: a filing, never an
+article.
+
+**Shadow mode is ON by default** — every decision is logged to
+`earnings_runs` in sqlite and nothing is sent. The alert carries a SHADOW
+banner, and each row records its own `shadow` flag so history can never imply
+an alert went out when it did not. `--no-shadow` drops the banner.
+
+**What the LLM does and does not do.** It extracts stated figures and the
+verbatim sentence each came from, flags reported-vs-constant-currency and
+GAAP-vs-non-GAAP, and returns `null` for anything not stated. It never derives,
+estimates or reconciles a figure, never decides materiality, and never writes
+prose. Every §4.2 judgement is a pure function in `rules.py`.
+
+**The boundaries**, each enforced by a test:
+
+- `eps_consensus` is MANUAL ONLY. It is absent from the extraction schema; if a
+  model returns it anyway the value is discarded and the run marked uncertain.
+  Rule 4.2.4 reports CANNOT EVALUATE until you enter consensus yourself.
+- Extracted figures **never** reach `quarters:`. They are proposed as a YAML
+  block in the alert; you enter them. Same for `exec_changes` and
+  `catalyst_resolved`.
+- Any extraction failure, null figure, missing basis or model-flagged ambiguity
+  marks the run **EXTRACTION UNCERTAIN** and alerts anyway. It never degrades
+  silently.
+- **A quote must contain the figure it claims to source.** `"Inventories"` does
+  not evidence `1397`, and an allowance-for-doubtful-accounts sentence does not
+  evidence a receivables balance. A figure whose quote lacks the number is set
+  to null and reported as `PROVENANCE UNVERIFIABLE`. Magnitudes are never
+  reconciled — a quote saying "80.9 billion" does not support `80876`, because
+  inferring the scale would be deriving the figure. Table-sourced figures also
+  record `period_column`, the verbatim column heading read, since a balance
+  sheet carries more than one period column. An explicit scale word is honoured
+  as a unit conversion — `"$90.0 billion"` does support `90000` stated in
+  millions — but a *different* quantity still fails, so it never supports
+  `90007`.
+- **The quote must come from wherever the number was read.** A release states
+  the same figure twice, in a summary sentence and in a statement table, at
+  different precisions. Reporting the table's number while quoting the prose
+  cites two different sources. Read a table row → quote the row including the
+  number and name the column; read prose → report the prose's own precision
+  and quote the sentence. The prompt carries worked correct-and-wrong examples
+  of both.
+- **Negative claims need provenance too.** `guidance_action: none` is a claim
+  about the source. Without a quote it becomes null, not `"none"` — otherwise
+  it is indistinguishable from the model not looking.
+- **Ratios are fractions, on both sides.** An operating margin of 6.6 per cent
+  is `0.066`, never `6.6` — the rules layer multiplies by 10,000 for basis
+  points, so a percentage makes every §4.2 threshold wrong by 100×. The prompt
+  converts the quoted percentage; the loader rejects a ratio outside its band
+  (`rules.FRACTION_BANDS`) as a **hard error**, not a flag. A figure in the
+  wrong units is not a figure to evaluate. It is never silently rescaled: `6.6`
+  could be a misreported 6.6% or a real 660%, and picking one would be vss
+  deciding what the source said. The bands are asymmetric where the arithmetic
+  is — a margin cannot exceed 100%, but a pre-revenue name can lose many times
+  its revenue. Full contract in `reference/SPEC.md` §2.
+- **`op_income / revenue` must equal `op_margin`** to within 0.1pp, or the
+  watchlist fails to load. This is not arithmetic hygiene: it catches a quarter
+  assembled from two different *measures*, which is otherwise invisible once
+  the numbers are in the file. It is also the only check that catches a
+  negative percentage margin, since `-3.1` sits inside a band that must stay
+  open for genuine deep losses.
+- **A table row survives flattening as a row.** Two faults made the provenance
+  rule unsatisfiable from a real EDGAR statement table: cells were joined with
+  nothing between them (`1,3921,900`, in which 1,392 is not a number under any
+  reading), and a cell holding a `<div>` split the row across two lines, so the
+  label had no figure and the figures had no name. A `<tr>` is now one line,
+  cells separated by spaces.
+- **`--text-file` flattens markup, exactly as `--url` does.** The two paths had
+  diverged, so a saved EDGAR exhibit passed to `--text-file` reached the model
+  as 286KB of tag soup and the figures were whatever survived it. Both go
+  through one function now, and a test asserts the two produce identical text
+  for the same document.
+- **No Operating income line? Use EBIT.** NIKE never reports one — its
+  statement goes from gross profit and overhead to "Income before income
+  taxes", with operating profit only in a non-GAAP EBIT table at the foot of
+  the release. The prompt takes the total EBIT row as `op_income` and "EBIT
+  margin" as `op_margin`, marks both `adjusted`, and names the two lines that
+  are never substitutes: "Income before income taxes" is struck after interest
+  (650 against EBIT 635 in Q3 FY26) and "Gross margin" is a different line
+  (40.2% against EBIT margin 5.6%). The extractor took both before the rule
+  existed. It also says to quote the label line *and* the number line together,
+  because these tables flatten with the row label on one line and its figures
+  on the next.
+- **`--period YYYY-Qn` reads a comparative column.** A figure is sometimes
+  stated only in a *later* filing: SAP's Q2 2024 restructuring of −631 appears
+  in the Q2 2025 statement's comparative column and nowhere in the Q2 2024
+  release, because the line was not broken out at the time. The flag tells the
+  extraction which period to take, requires the comparative column to be named,
+  and forbids falling back to the document's own quarter. The alert's PRIMARY
+  SOURCE is then the filing that actually contains the figure — which is the
+  point: attributing it to a release that does not state it would be a
+  provenance fiction.
+- **A ticker declares how often it reports, and its periods may not overlap.**
+  `reporting_frequency: half_yearly` on a watchlist entry (default
+  `quarterly`) means the ticker stores `YYYY-H1`, `YYYY-H2` and `YYYY-FY`
+  periods instead of `YYYY-Qn`, and FRAMEWORK §4.2's windows — stated in
+  quarters because US names report quarterly — are counted in half-years,
+  converted by *time*: trailing 8 quarters → 4 half-years, trailing 4 → 2,
+  the YoY look-back is 2 periods, and "2+ consecutive quarters" is the same
+  six months, i.e. one half-year (so the run-length kills fire on a single
+  half-year observation; `rules.py` says so where it happens). The
+  **overlap guard** applies to every ticker: no two loaded periods may cover
+  the same month — `2025-FY` contains `2025-H1`, `2025-H1` contains
+  `2025-Q1` — and the guard keeps the *finest* resolution and never both.
+  In the loader an overlap is fatal and the message names the label to
+  remove; in `vss earnings` an extracted period is **admitted, displaces**
+  a loaded coarser period for the evaluation (the alert says what to
+  remove before pasting), or is **rejected** and not proposed when a finer
+  period is already loaded or the label kind does not match the ticker's
+  frequency. A re-read of an already-loaded period now displaces the
+  stored row instead of sitting beside it — appending it counted one SAP
+  guidance cut twice. Year-over-year comparators are found **by label**
+  (2026-H1 ↔ 2025-H1), so a gap or a mixed FY/H history yields CANNOT
+  EVALUATE rather than a comparison of unlike periods.
+- **`class_c_impact` is defined in the prompt**, with its sign convention. Ten
+  SAP extractions captured no restructuring line at all because the field was
+  listed but never explained. It is a quantified one-off stated on its own
+  line; the sign is its effect on reported operating profit, copied from the
+  statement — a charge negative (`−2,242`), a release positive (`+52`). It is
+  never inferred from the gap between reported and adjusted figures, because
+  that gap is a computation bundling other adjustments in with the one-off.
+- **A quarter may declare its source.** `source: xbrl` on a `quarters:` entry
+  exempts it from the op_margin reconciliation — and from that alone. The
+  reconciliation existed to establish which line `op_income` came from, which
+  `us-gaap:OperatingIncomeLoss` answers outright; XBRL has no margin tag, so
+  demanding one would force a computed figure into the record to satisfy a
+  checker. An `xbrl` entry that states a contradictory margin still fails, and
+  the band check and unit-mix guard apply regardless. `source: release`, or
+  blank, keeps every existing entry exactly as it was.
+- **One ticker, one unit.** A history mixing XBRL rows (whole units) with
+  release rows (millions) is out by 10⁶ while every per-row check passes,
+  because each row is internally consistent. A 1,000× or larger jump in
+  `revenue`, `receivables` or `inventory` between two quarters of one ticker
+  fails the load as a UNIT MIX. `op_income` is excluded — it crosses zero and
+  swings by orders of magnitude for real reasons.
+- **`op_income` without `op_margin` is UNRECONCILED**, and fails the load.
+  `op_margin` is what cross-checks `op_income`; without it nothing establishes
+  which line the operating income came from, which is how 1,416 (income before
+  taxes) was recorded where EBIT was 1,392. Record the margin the source
+  states, or leave `op_income` blank too — never compute one to satisfy the
+  check.
+- **Adjusted vs reported: take the reported one, and say which.** Lindab's Q4
+  2025 states an adjusted operating margin of 6.5% and a reported one of 3.1%.
+  Where a report gives both, the unadjusted figure is extracted; where it gives
+  only an adjusted one, that is taken and the run says so, because §4.2 was
+  written against the reported figure. Each figure carries its `measure`.
+- **Periods record `fiscal` or `calendar`.** Microsoft's fiscal Q4 2026 ended
+  30 June 2026; calendar Q4 2026 is October–December. The label alone does not
+  say which, so a period without a basis is flagged, and a watchlist mixing
+  bases within one ticker fails the run — quarter ordering would otherwise
+  break.
+
+**`--compare` reads the source twice.** Same text, same model, two calls; any
+field the two runs disagree on is set to null and both readings are shown. Two
+readings that disagree are not a figure, and a guess that survives because it
+was made first is worse than a blank — a blank says DATA MISSING, the guess
+says nothing at all. Values and claims are compared, not quotes: two runs may
+cite the same figure from the summary and from the statement and both be right.
+Where they agree on a number but name a different column or measure for it, the
+figure stands and the attribution is flagged. When they agree on everything the
+alert says so, and calls it corroboration rather than verification — both runs
+read the same text with the same model, and both can be wrong together.
+
+Alerts say `4.2 POSSIBLE TRIP - VERIFY AGAINST SOURCE`, never "sell", and the
+primary source URL is always the first fact in the alert.
+
+**PDFs are read, and the text is labelled as a reconstruction.** Half the
+holdings publish quarterly reports as PDF only, so `--url` and `--text-file`
+both accept one (pypdf, text layer only). A PDF is recognised by its content
+type, its magic bytes or a `.pdf` path — Lindab serves its interim reports from
+a Cision endpoint with no extension in the URL, and that is still a PDF. A PDF
+stores glyphs at coordinates, not rows, so every alert built on one carries a
+source warning saying its table rows were reconstructed. A PDF with no text
+layer — a scan — is refused rather than read as an empty release, as is one
+that needs a password. A permissions-encrypted PDF, which is most IR PDFs, is
+read normally — including AES-encrypted ones, which is why `requirements.txt`
+asks for `pypdf[crypto]`: SAP's quarterly statement is AES-encrypted and bare
+pypdf refuses it. Filings run long, so PDFs get their own size cap rather than
+the press-release one.
+
+**One host still needs a hand.** `sap.com` answers an automated request for its
+own quarterly statement with `403`, whatever user agent is sent. vss does not
+answer that by impersonating a browser; a `401`, `403` or `429` now says the
+host refused a robot and points at `--text-file`, which reads a
+browser-downloaded PDF the same way `--url` reads a fetched one. Lindab, whose
+reports come from a Cision endpoint, fetches fine.
+
+How well this works is a property of the file, not of the tool. A typeset
+report comes out clean — Lindab's interim report gives up
+`Net sales, SEK m 3,306 3,253 2 6,309 6,467 -2 12,696 12,854`, eight period
+columns on one row, and a 10-Q's statement pages read the same way. A results
+*slide deck* comes out as loose labels and half-numbers, and its figures are
+dropped. Pass the report, not the deck.
+
+The provenance rule does not soften for PDFs. When a table reconstructs badly
+the number comes away from its label, the quote is a bare label again, and the
+figure is dropped as `PROVENANCE UNVERIFIABLE`. Garbled input reaches the check
+rather than being repaired ahead of it: a repaired row is the tool's reading of
+the report, not the report.
+
+Whitespace inside a flattened row means two different things — `4 120` is one
+number in Stockholm and two columns in Omaha — so both readings are offered as
+candidates, joined only where a thousands separator could sit (before exactly
+three digits). That answers whether the quote *contains* the figure. *Which*
+column it sits in stays a separate question, answered by `period_column`, and a
+tabular figure without one is flagged `NOT RECORDED` whatever the file format.
+
+## 4. Tagged facts from SEC: `vss xbrl`
+
+For a US filer, SEC publishes every tagged fact as JSON. No HTML to flatten,
+no PDF to reconstruct, no model in the loop.
+
+**Provenance becomes stronger, not weaker.** Every figure arrives attached to
+the tag it was filed under, the context period it covers and the accession
+number of the filing that reported it — `us-gaap:RevenueFromContractWith
+CustomerExcludingAssessedTax [2025-12-01..2026-02-28] 10-Q 0000320187-26-000037
+filed 2026-04-01`. Nothing is quoted, summarised or inferred, so there is no
+sentence to verify and no column to name.
+
+**Everything else is unchanged.** DATA MISSING is still DATA MISSING: a field
+whose tags the filer does not use stays blank. NIKE tags no
+`OperatingIncomeLoss` — it publishes no operating income line — and this path
+will no more substitute `IncomeLossFromContinuingOperations…` or `GrossProfit`
+than the extraction prompt will. `op_margin` has no tag at all and is left
+blank rather than computed from `op_income ÷ revenue`. The reconciliation and
+band checks run on the proposed entries exactly as they do on extracted ones.
+
+**SEC's access policy is followed, not worked around.** They require every
+automated caller to declare a real contact address. `VSS_SEC_CONTACT` supplies
+it and the API is not called without it — vss neither invents one nor pretends
+to be a browser. (`www.sec.gov` refuses this host outright, whatever the agent;
+`data.sec.gov` is a different edge and answers normally.)
+
+**Where the operational settings come from (`vss/env.py`).** `VSS_SEC_CONTACT`,
+`NTFY_TOPIC` and `VSS_OPENROUTER_KEY` are read from **the environment first,
+then from `~/.config/vss/vss.env`** — the same file the systemd units already
+name in `EnvironmentFile=`. Until 2026-09-09 only systemd read it, so a session
+at a terminal was told the variables were unset and asked for them again every
+time; they were on disk the whole time. **The environment still wins**, so the
+file is a default and never an override, and it is never written, logged or
+printed. A missing or unreadable file means "unset", which is the state the
+caller already knows how to describe.
+
+**Two things the mapping handles that a naive one gets wrong.** SEC's `frame`
+field is calendar-based — it labels NIKE's September–November quarter
+`CY2024Q4` — so periods are derived from the filer's own year end (31 May)
+instead, giving fiscal `2025-Q2`. And tag preference is per *period*, not per
+company: NIKE left `InventoryNet` in 2011 for the finished-goods element, so a
+tag with data somewhere must not shadow a tag with data here.
+
+**Units differ from the press release** and are not rescaled: XBRL says
+`11,279,000,000` where the release says `11,279` million. Both are what their
+source states. Do not mix the two within one ticker's history — the report says
+so at the top, every time.
+
+The `cik:` watchlist key supplies the filer's CIK. It is MANUAL, because SEC's
+ticker→CIK file lives on `www.sec.gov`, which will not answer.
+
+### What the hard kills need
+
+Four kills are in force (`reference/FRAMEWORK.md` section 4). E163 removed
+4.2.1 (falling revenue), 4.2.2 (a compressed margin) and 4.2.7 (swelling
+receivables or inventory) after attempt #24; E168 removed 4.2.5's net debt /
+EBITDA leg and the 4.3 soft flag after attempt #25. What those read is still
+extracted and shown as information.
+
+| Rule | Needs |
+|---|---|
+| 4.2.3 2+ guidance cuts in 4 quarters | `guidance_action` |
+| 4.2.4 3+ EPS misses in 8 quarters | `eps` + `eps_consensus` (manual only) |
+| 4.2.5 covenant proximity | `covenant_headroom` |
+| 4.2.6 CEO **and** CFO departure in 12 months | `exec_changes` |
+
+Every rule returns TRIP, NO_TRIP or **CANNOT_EVALUATE naming the field it
+lacked** -- absent history is never silence. A year-over-year comparison
+that would mix constant-currency with reported figures refuses with BASIS
+MISMATCH rather than computing a number that means neither.
+
+## 5. The Nordic feeds: `vss nordic`
+
+Downloads the documents an issuer filed with its exchange, and records where
+each one came from. **It reads nothing out of them.** The figures come out by
+hand, into `config/manual/<TICKER>.yaml`, each carrying the page it was read
+from — between an automatic downloader and an automatic extractor lies the
+whole difference between "the tool fetched the report" and "the tool decided
+what the report says".
+
+**`config/nordic_issuers.yaml` is the mapping**, resolved once and stored — a
+ticker is not re-resolved on every call, because resolution is a full-text
+search whose answer a human has to confirm. The watchlist calls `PNDORA.CO`
+"PANDORA"; the service calls it `Pandora A/S`. A search for "Pandora" on
+Copenhagen also returns Royal UNIBREW, Bang & Olufsen and — the market filter
+being loose once `freeText` is present — Boozt AB from Stockholm. Candidates
+are shown with hit counts; the owner picks. `--write` backs the file up first
+and never replaces an entry.
+
+**`--period` is MANUAL and required to download.** Nothing in the feed says
+which fiscal period a document covers: the category is a filing choice, the
+headline is prose, and the release date is when it was published. It uses the
+same labels as the watchlist's `quarters:` and `config/manual/<TICKER>.yaml`,
+so a document and the figures read out of it carry one label between them.
+(Only the *shape* is checked — a quarterly reporter still publishes an annual
+report, so `2025-FY` is right for PNDORA.CO.)
+
+**Four things the feed does that a naive client gets wrong**, all measured and
+all encoded (see `reference/FETCHER-SURVEY.md`):
+
+- **The category is the issuer's filing choice, not a statement about
+  content.** Pandora's H1 2026 report — *"Pandora delivers 3% organic growth
+  in Q2"*, 2026-08-12 — is filed under `Inside information`. A category
+  whitelist misses it, so `--reports` prints how many rows it hid and says
+  why. The default listing shows everything carrying a document.
+- **`cnscategory` takes one value and silently ignores several**, returning
+  the unfiltered feed — which reads as "every release is a report".
+  `fromDate`/`toDate` are accepted and ignored outright. Neither is ever sent;
+  filtering happens on rows you can see.
+- **`limit` caps at 200 and pagination is `start`, not `offset`.** A
+  listing shows one page; `--download` walks the whole feed until it
+  finds the id, bounded by the feed's own count and logging each page.
+  Backfilling eight periods means reaching reports several pages back —
+  Pandora's feed carries 1,027 releases — and guessing `--start` until
+  an id appears would make the one thing this exists for a manual search.
+- **One disclosure can carry several files and the first is not the report.**
+  Betsson's 2026 annual filing puts an ESEF/iXBRL package at index 0 and the
+  PDF at index 1; Pandora's attachment order varies between filings. Where
+  there is more than one, `--attachment N` is required and nothing is guessed.
+
+**`sources/manifest.json` is the provenance record** and is the one file in
+`sources/` that git tracks — the documents are large and re-downloadable from
+the URL each entry names. Per download: the URL, the disclosure id and message
+URL, the exchange's category, byte count, SHA-256, and when it was fetched. A
+file with **no** entry has `PROVENANCE NOT RECORDED` — a third state, not
+"secondary", and the `sources/` documents that predate this command are not
+back-filled with guesses. Re-downloading identical bytes is a skip; bytes that
+**differ** fail the run and name both digests rather than overwriting. A
+file on disk whose manifest entry is missing — deleted record, or a run
+that died between writing the file and writing the entry — has the entry
+written back rather than being left to read as unrecorded for ever.
+
+### Oslo: `.OL` goes to Euronext's NewsWeb, not to Nasdaq
+
+Oslo Børs is Euronext and is not on the Nasdaq service. `vss nordic`
+**dispatches on the suffix** — a `.OL` ticker is served by `vss/oslo.py`
+against **NewsWeb**, the Norwegian Officially Appointed Mechanism, so the
+document fetched is the one the issuer filed and not a copy of it on an IR
+page. Same command, same `sources/manifest.json`, same `--period` discipline.
+
+```bash
+.venv/bin/python -m vss nordic --ticker BOUV.OL --resolve "Bouvet" --write
+.venv/bin/python -m vss nordic --ticker BOUV.OL --reports
+.venv/bin/python -m vss nordic --ticker BOUV.OL --download 659260 --attachment 1 \
+    --period 2025-Q3 --language en
+```
+
+**`config/oslo_issuers.yaml` is the mapping, and it is a SEPARATE file from
+`config/nordic_issuers.yaml` on purpose.** That file answers "is this name on
+the Nasdaq Nordic feed", which `vss refresh` asks in order to pick a route; an
+Oslo name in it would make that question answer yes about a service that has
+never heard of the company.
+
+**Four things this feed does differently**, all measured 2026-09-08 and all
+encoded (`vss/oslo.py`'s docstring carries the measurements):
+
+- **It has a company directory and Nasdaq's has none.** `POST
+  /v1/newsreader/issuers` returns every issuer — 1,622 rows — with its
+  `issuerSign`, `issuerId` and name. So `--resolve` here is a LOOKUP against
+  the exchange's own list rather than a full-text search over release bodies.
+  The owner still confirms and stores it.
+- **An issuer sign the service does not know is SILENTLY IGNORED**, and the
+  whole market's feed comes back under HTTP 200 — 601 rows from 250-odd
+  companies, looking exactly like this company's history. Every row's sign is
+  checked against the one asked for and a page carrying anybody else is
+  **refused**, never filtered down.
+- **There is no `start`, `offset` or `limit`; a window is the page.** It caps
+  at ~601 rows and says `overflow: true`. A longer history is a narrower
+  window, and the truncation is printed rather than swallowed.
+- **Every report is filed twice, in Norwegian and English, as two separate
+  messages, and no field says which is which.** So `--language` on an Oslo
+  download is a **manual label** — like `--period` — recorded in the manifest
+  as stated by the owner and not read off the feed. It is never a filter.
+
+**Correcting a note in `sources/manifest.json`:** the NHY.OL entries of
+2026-08-30 say NewsWeb's attachment endpoint *"answers HTTP 400 to every
+automated request"*, and Norsk Hydro's reports were taken from hydro.com
+instead. Measured again on 2026-09-08, `api3.oslo.oslobors.no/v1/newsreader/
+attachment` answers **HTTP 200** and serves the PDF; the `obsvc` path on the
+`newsweb.oslobors.no` host — a different endpoint — returns an HTML page and
+is the likely subject of the old note. **The old entries are not rewritten:**
+they record what was measured on the day they were written.
+
+## 6. A figures appendix: `vss appendix`
+
+Some Nordic issuers attach a spreadsheet of the numbers to every interim
+release — Pandora's runs to ten sheets and the consolidated statements quarter
+by quarter. **A cell is a number**, so this is not PDF extraction. But *which*
+cell answers which field is a judgement, and a close one: Pandora's balance
+sheet says `Cash` while its cash-flow statement says `Cash and cash
+equivalents, end of period`, and the two are different figures.
+
+So the mapping is a committed file, `config/manual/maps/<TICKER>.yaml`, one
+entry per schema field naming the sheet and the **row label** — with a `note:`
+wherever the choice is not obvious.
+
+**The label, never the index.** Nothing counts rows, so a row inserted next
+year breaks the run loudly instead of shifting every figure by one. Labels
+compare exactly after stripping surrounding whitespace and nothing else — this
+workbook appends footnote markers to some labels, and a marker appearing on a
+mapped label is a change that should stop the run. Where one label matches
+twice, `section:` (the heading of the period block) and `after:` (a label that
+occurs once, above) disambiguate; an anchor that is itself ambiguous is
+refused, and a label still matching twice stops the run naming every row.
+
+**Nothing is derived.** No row is summed with another, no missing line is
+inferred from its neighbours, nothing is rescaled. Pandora states `Finance
+income received` and `Finance costs paid` separately, so `net_interest_paid`
+stays absent. A `-` or a blank cell is `DATA MISSING`, never zero.
+
+**Periods are matched across sheets by label, not by column position** — and
+because `op_margin` comes from a different sheet than `revenue` and
+`operating_income`, `config.unit_problem`'s margin reconciliation then checks,
+every period, that the two sheets were paired to the same quarter. That is the
+strongest validation this path gets and it is free. The emitted file is parsed
+back through the manual loader *before* anything is written.
+
+**Every figure lands `UNVERIFIED`** and `origin: nordic-xlsx`, distinct from
+`manual` and from `xbrl`, carried through to `ranking.csv`. Section 5 still
+refuses until you have read each figure back. Writing **refuses when the file
+exists**, naming how many `VERIFIED` figures would have been lost; `--force`
+replaces it after a backup. Whether a re-run should *merge* is a rule question
+and not decided here.
+
+## 7. The store: `vss manual`
+
+`vss xbrl` needs a CIK. **On the 2026-08-21 screener run 347 of the 533
+filter-1 candidates carry a foreign listing suffix**, and for most of a
+Stockholm or Copenhagen list there is no SEC endpoint at all — so the §5 chain
+has no primary-source input and the ranking key has only what the quote vendor
+returned. This is the third source: figures the owner read out of the
+company's own report and typed in.
+
+**Not every foreign name is one of them.** A foreign private issuer files a
+20-F and *is* on `data.sec.gov`: SAP.DE's A7 proxy was built from its 20-F
+XBRL and UNA.AS's from CIK 217410, accession `0000217410-26-000007`. **Try
+`vss xbrl --cik` first** — this path is for the remainder, the names that have
+no CIK to try. How many of the 347 that is has not been counted: SEC's
+ticker→CIK file lives on `www.sec.gov`, which refuses this host.
+
+**Every figure carries a page and a status.** `source` (the period's
+`document:` unless the figure names its own), `page`, and `UNVERIFIED` or
+`VERIFIED`. A value with no page fails the load, and a bare `revenue: 1234` is
+refused rather than read — it could carry neither.
+
+**The same three checks the SEC path gets**, plus a fourth that only a
+hand-entered file needs:
+
+- **unit** — `config.unit_problem`, the watchlist's own function: ratio fields
+  inside their bands, and `op_income ÷ revenue` reconciled against `op_margin`.
+  `source: xbrl`'s exemption from the reconciliation is **not** extended here:
+  a us-gaap tag says which line an operating income is, and a pair of eyes on
+  a PDF does not.
+- **one scale** — a stable money line jumping a round thousandfold between two
+  periods is a unit mix, not a business event.
+- **STALE** — on `fundamentals.MAX_REPORT_AGE_DAYS`, in the same sentence the
+  fetch uses, and measured **on the rows §5 actually reads**: a period entry
+  carrying only `net_ppe` must not make an old file read fresh (`ranking.py`
+  rule 5).
+- **one fiscal period per ratio** — every ratio §5 forms takes all its legs
+  from ONE period entry; a leg present in an earlier period is not borrowed.
+  Two periods are not one ratio.
+
+A leg that is in **no** period is `input missing` — reported, not refused,
+because absence is the ordinary third state. Only legs that exist and sit
+apart refuse. And the ranking key's own quality leg never refuses §5: gating
+on it would bar every bank, whose accounts present no gross profit by design.
+
+**Two blocks hold figures.** `periods:` holds one entry per fiscal period at
+the resolution the company reports. `annual:` holds what it publishes only once
+a year — diluted EPS, share counts, leverage ratios (FRAMEWORK-EDITS E15). The
+annual block is excluded from every trailing window: never summed, never
+combined with a period entry, and it never reaches the ranking key, which reads
+a trailing twelve months from `periods:` alone. Where a figure is in **both**,
+`periods:` wins and the annual entry is ignored — the load says which ones.
+
+**Section 5 refuses to run on an unverified figure** — the command exits 1 and
+says so. `UNVERIFIED` is not the same state as absent: an absent figure is
+`DATA MISSING` and has nothing to check, so an unverified one is named in the
+report with its period, its source and its page. The **ranking key is not
+gated on it**: it is a different consumer, it produces review work rather than
+a price, and it says `DATA MISSING` for itself.
+
+**Nothing here computes a fair value.** §5.1's three methods stay by hand in
+the per-name workbook. This decides only whether their inputs may be used.
+
+**Origin is stamped on every path.** `manual` here, `yfinance` on the vendor
+fetch; `ranking.csv` carries an `origin` column, and `source: manual` is a
+valid `quarters:` marker for a row the owner read themselves.
+
+## 8. Drafts: report PDFs, ESEF packages and a second reading
+
+### Report PDFs from MFN: `tools/fetch_mfn.py`
+
+The report PDFs a broker's site shows for a Nordic company are the issuer's
+own releases, distributed through MFN or Cision. MFN carries both, is public,
+needs no login, and serves a JSON feed per issuer
+(`https://mfn.se/all/a/<slug>.json`) tagged `sub:report:annual`,
+`sub:report:interim` and `sub:report:interim:q4`.
+
+Files land in `sources/` under the existing naming,
+`<TICKER>_<period>_<kind>_<date>_<lang>_a<n>.pdf`; a report another feed
+already put on disk is not fetched twice. **ESEF report packages** (the
+inline-XBRL annual report, served as `.xbri` or `.zip`) are taken too,
+recognised by their bytes (`PK` plus `META-INF/taxonomyPackage.xml`), never by
+their name, and saved as `.zip`.
+
+**Provenance.** Every file gets a `sources/manifest.json` entry in the same
+shape as `vss nordic`'s: URL, SHA-256, bytes, release time, declared vs actual
+content type, `downloaded_at`, `source: mfn`. A file already on disk without
+an entry is fetched again and recorded only if the bytes are identical
+(`recorded_after_the_fact`); if they differ, no entry is written and the run
+exits 1. The issuer's LEI is cached beside the mapping for the ESEF reader. The ticker -> issuer mapping is found by search
+and cached in `config/mfn_entities.yaml`. It writes nothing else: the PDFs are
+the input to a hand-read or a history, never figures by themselves. Two traps
+it is tested against: the Swedish *delårsrapport* contains *årsrapport*, and
+some issuers' annual reports carry no report tag at all.
+
+### ESEF packages: `vss esef` and `vss manual --merge-draft`
+
+An EU-listed issuer files its annual report under ESEF as an inline-XBRL
+report package beside the PDF; `tools/fetch_mfn.py` saves it as `.zip` and
+records it in `sources/manifest.json`. `vss esef` reads every package for a
+ticker (`vss/esef.py`): `ifrs-full` facts only, no dimensional context
+(segment or scenario), the issuer's LEI checked against
+`config/mfn_entities.yaml` or nothing is read, extension concepts reported as
+"extension, not read". The facts go through the same IFRS map a 20-F filer
+does (`xbrl.IFRS_ANNUAL_FIELDS`, unchanged).
+
+**A pre-fill is a DRAFT, never the live store** (decision (a),
+`reference/HANDOFF-2026-11-07.md`): the ranking key is not gated on status, so
+an UNVERIFIED figure in the store would leak into it. Every drafted figure is
+UNVERIFIED and its page reads `ESEF <sha8> <concept> ctx <id> <period>,
+displayed '<text>', decimals <n>`. Not drafted: zeros (E25's `zero_basis` is a
+human claim), sums of captions, searched zeros, and every judgement field.
+`--merge-draft` adds what the store lacks, never overwrites a figure, prints a
+conflict side by side, refuses a different currency or money unit (no silent
+scaling), keeps every comment, validates the result and backs the old file up
+to `arkiv/config-bak/`. **E149:** `tools/quotecheck.py --apply` never verifies
+such a figure; quotecheck's output is an audit aid and only the owner flips
+the status.
+
+**E151, automatic confirmation.** `tools/cross_verify.py --all --apply` (nightly, after the MFN fetch) marks such a figure VERIFIED (`two_source`) only when a second, independent reading -- a model reading the PDF annual report, or a later report's comparative column -- prints the same digits. Any disagreement leaves it UNVERIFIED; the value is never changed; readings are cached in `data/cross-verify/`.
+
+**History from the packages (E144).** `vss history --ticker EVO.ST --esef
+--write` builds `config/history/<T>.yaml` from the same packages (their
+comparatives reach one year further back) through an `ifrs-full` tag set that
+mirrors the us-gaap one. Where an issuer states its borrowings or its capital
+spend in its OWN extension concepts (Olvi, AcadeMedia), net debt or capex is
+withheld and the reason written into the file's source: the standard lines
+are then not the whole, and a nil is never assumed. Merged into an existing
+hand-read history, the hand rows keep their own unit and win where both
+speak. `tools/warren.py` stays US-only.
+
+### A model reads the statement pages: `vss pdfdraft`
+
+For what ESEF does not reach -- First North issuers, interim reports. A
+deterministic locator picks the group's income statement, balance sheet and
+cash flow pages (headings in en, sv, fi, da, no; the parent company is passed
+over); a model reads only those, twice, and returns per field the value as
+printed, the row, the column header, the unit sentence and the page. Gates
+drop a field to DATA MISSING unless: both runs agree; the row is on that page
+and holds the value; the column header is on that page and names the target
+period (a quarter's span, never year-to-date; a balance-sheet line the period
+end); the unit sentence is on that page and agrees with the rest (the draft
+declares that unit, nothing is rescaled); revenue / operating income agree
+with a stated margin; no zero, and an outflow printed as one. Draft and run
+record land in `config/manual/drafts/`; merge as for ESEF with
+`--origin llm-pdf`. E149 applies.
+
+## 9. The screener
+
+Phases 1 to 3, 5 and 6: it builds the universe, snapshots its prices, runs the
+exclusion list and the staleness gate (no drawdown band since E161, no
+12-month-return test since E168), fetches fundamentals for the survivors,
+applies a coarse quality filter, and lists what is left in a seeded random
+order with one fixed seed, the same every week (E167, 2026-11-09: attempt #24
+found that the ranking key did not sort returns; its legs are still shown in
+`ranking.csv` as information). It writes `config/watchlist.yaml` only with
+`--rank --write-pipeline`, and then only new `PIPELINE` entries; the weekly
+run never does. The design is in `reference/SCREENER.md`.
+
+The screener produces **review work, never a purchase**. Its eventual output is
+three to five `PIPELINE` names carrying neither `mbp` nor `fv_base`, after
+which the FRAMEWORK section 5 chain is run by hand.
+
+`config/universe/` holds static, dated CSVs -- index membership is never
+fetched at runtime. Nine columns:
+
+```
+ticker_yahoo, ticker_lokal, isin, namn, marknad, tier, listdatum, valuta, instrumenttyp
+```
+
+A malformed row aborts the run, exactly as a malformed watchlist entry does.
+`ticker_yahoo`, `isin`, `namn`, `listdatum`, `valuta` and `instrumenttyp` may be
+empty; that is DATA MISSING and it is counted, not ignored.
+
+Exclusions (ETF, fund, preference share, SPAC, trust, ADR) read `instrumenttyp`
+-- the source list's own field -- and never the name string. The vocabulary and
+the policy for an unknown type live in `config/universe/instrument_types.yaml`.
+Tier floors live in `config/universe/floors.yaml`, and every monetary threshold
+carries its own currency because the universe spans some fifteen of them.
+
+Every run writes `data/screener_snapshots/<ASOF>/snapshot.sqlite` holding raw
+daily OHLCV -- never computed metrics -- plus the universe, the rejections, the
+merges, the per-step tallies and a fetch status for every ticker. The manifest
+records the sha256 of each universe file, so a later replay can prove it is
+reading the same lists. `--asof` truncates the series, so re-running a Friday
+on the following Monday reproduces Friday.
+
+Every ticker leaves the fetch with one of four statuses, and `THROTTLED` and
+`NO_DATA` are deliberately not merged: the first means retry later, the second
+means the symbol mapping is wrong. `STALE` is decided afterwards by
+`rules.stale_close_blocker`, the same gate `vss run` uses.
+
+`--filter1` reads a stored snapshot and fetches nothing. Step 0 is
+`config/screener_exclusions.csv` -- names already owned or already decided,
+matched on `ticker_yahoo` exactly, never on name. Entries matching nothing are
+reported as inert, since an inert entry that reads as active is how an excluded
+name quietly comes back. Filter 1 is the staleness gate only: the 15-50 % dislocation band was
+removed by E161 (attempts #12, #21) and E127's "below a year ago" by E168
+(attempt #25); the drawdown stays on the row as information. Candidates land in
+`data/screener_runs/<ASOF>/filter1-candidates.csv` ordered by ticker, which is
+an order and not a ranking.
+
+`--fundamentals` fetches only the survivors of filter 1, one ticker at a time,
+and stores them beside the price snapshot. Status is recorded per ticker AND
+per field: a bank returns cash and debt but no EBITDA, and a ticker-level `OK`
+would hide the gap. `--filter2` then applies one coarse test -- positive free
+cash flow (the leverage limb went with E168, the revenue trend with E163) -- with the threshold in
+`config/screener_filter2.yaml` rather than in code, each citing its FRAMEWORK
+section.
+
+`--rank` then orders the names that passed by a seeded draw with one fixed
+seed (E167, 2026-11-09; `DRAW_SEED` in `vss/ranking.py`, fixed since
+171e1ee so a name keeps its place from week to week). The ranking key it
+used before -- E6's gross profitability and earnings yield, later E43's
+EBIT / assets and EBIT / EV -- did not sort returns by decile in either
+market (attempt #24); its legs are still computed and written to
+`ranking.csv` as information. The order is review work, not advice.
+
+**How the two legs are formed (information only).** Names whose quality leg
+cannot be formed -- financials, property, and any name missing a line -- are
+listed in their own section on earnings yield alone, never interleaved with
+the others and never entered by `--write-pipeline`.
+E6 replaced E5's Greenblatt ROIC because that denominator went to zero for
+asset-light businesses and its top thirteen placings were held by the thirteen
+names closest to the pole. Exchange rates are fetched once per run per pair and printed in
+the report; a London name quoted in GBp carries its enterprise value in GBP,
+and that scaling has its own tests.
+
+`--write-pipeline` enters the top names as `PIPELINE` with no `mbp`, no
+`fv_base`, no `tier` and no stop. It backs the file up first, appends as text
+so the hand-written comments survive, re-parses afterwards and restores the
+backup if the file stopped loading, and never touches a ticker already there.
+Share classes of one company are collapsed before ranking on measured identity
+-- one set of accounts means one company -- keeping the most traded listing.
+
+Both phase-3 reports carry a look-ahead banner: yfinance serves historical
+prices but only the LATEST fundamentals, so a replay pairs today's accounts
+with an older price and is not evidence of what a screener would have found
+that day.
+
+**RSI and SMA50 are fields, never filters.** Recomputed on the frozen SAP.DE fixture: on the
+2026-07-23 low SAP closed 128.32 with RSI 34.1, 10.9% below its SMA50; on the
+2026-07-27 purchase 151.28 with RSI 62.3, 5.0% above it. An SMA50 filter
+discards one of those two days whichever way it is pointed, and no RSI band
+catches both.
+
+### Point in time
+
+Prices are point-in-time; the vendor's fundamentals are not. Three things say
+so and start to fix it:
+
+- **C0, REPLAY LOOK-AHEAD.** A `--rank` run whose snapshot is dated after
+  `--asof` opens with a block counting the series rows and fetches stamped
+  after asof; `ranking-manifest.json` carries `replay_look_ahead` and
+  `fundamentals_source`.
+- **C1, the SEC shadow** (`vss/sec_pit.py`). `--rank --sec-shadow`, and every
+  weekly screen, rebuilds each US survivor's ranking lines from SEC
+  companyfacts clipped to asof (cache `data/sec-cache/`) and runs the same
+  `extract_inputs` on them; `ranking.csv`'s last column `sec_check` says
+  where they agree. The ranking stays on the vendor until the owner decides.
+  Without a tagged discrete Q4 SEC cannot form a TTM, and none is derived:
+  the vendor's own figure at SEC's period is compared instead.
+- **C2, `fundamentals_fields_history`** in `data/vss.sqlite`: every vendor field
+  as fetched, append-only and never pruned, plus the VERIFIED manual and
+  `sec-xbrl` figures dated by their document's filing date
+  (`tools/seed_fields_history.py --write`; whole units by each file's own
+  declaration). `store.fields_known_at(db, ticker, asof)` reads it.
+- **C3, provenance on the row.** `ranking.csv` gains, appended at the end,
+  `fund_source`, `fund_visible_asof` (did that fetch exist on asof?) and
+  `fund_fetched_at` before `sec_check`; the manifest's `fundamentals_pit` sums
+  the run's standing up. The shadow's SEC rows go into the snapshot store's own
+  table `fundamentals_series_sec` with `filed`, `accession`, `taxonomy` and
+  `tag` (the vendor table's key would collide); it is made on the first
+  write, never on a read.
+
+## 10. The queue and the outlook check
+
+**A change is said once.** A name that stays in its zone is not repeated
+the next night; it is said again only if it leaves and comes back. A gated
+name in its zone is shown in the report but not sent until the gate lifts --
+a hard kill is not a price, so no price may wake it. Headlines for each name
+are searched too, because some issuers publish outside the exchange feed
+(Zinzino's monthly sales go out on PR Newswire).
+
+**A report is read, not just noticed (since 2026-11-09).** When a name
+publishes a 10-Q / 10-K / 8-K results item or a Nordic report, the queue
+hands it to the outlook check:
+
+- `vss/reportread.py` fetches the document (EDGAR, or the Nasdaq Nordic /
+  Oslo feed PDF) into `data/autoread/` and runs `vss earnings` on it twice;
+  a name not on the watchlist is read through a one-entry scratch watchlist.
+- `vss/outlook.py` values the name again on its last four quarters (the
+  vendor's quarterly statements; annual for half-year reporters; leases as
+  debt; 3 % growth, r 9.5 %) and compares with its own previous reading,
+  kept in `data/outlook_state.json`. Until the vendor has the new quarter
+  the name is re-read every night, for at most 21 days.
+- `UTSIKT` is sent only when the value moved 10 % or more, the reading
+  found a 4.2 rule failed or guidance cut, or a headline names a profit
+  warning, a guidance change, a CEO or CFO leaving, a bid or a delisting.
+  Anything else is a line in the night's report ("läst: inget ändrat").
+
+## 11. The shadow book
+
+E114. `vss sales` measures the positions the framework
+SOLD; this measures the ones it never bought. Every `DROPPED`,
+`WATCH-GATED` and `INTAKE` verdict in `config/shadow_book.csv`, set
+against OMXS30 (`^OMX`, a PRICE index -- `^OMXS30GI` carries no history
+at the vendor) and the S&P 500 (`^SP500TR`, total return), both converted
+into the name's own quote currency, at 1, 3, 6 and 12 months from the
+verdict date.
+
+**Every comparison is a TOTAL return on both sides** (limit three, amended
+2026-09-09): the name's dividends are reinvested, and a name whose
+dividends the vendor does not record is DATA MISSING rather than a price
+return set against a total-return benchmark. The book STORES the
+unadjusted close, which never restates and is the recorded fact; the
+total return is DERIVED beside it from a series that does restate, and
+the report says so and re-reads every stored baseline against the vendor.
+The OMXS30 leg is the one remaining mismatch and is labelled a price
+index wherever it appears -- a stated substitution is honest, a silent
+one is not.
+
+**It is not a signal.** Nothing in it arms an alert, enters a name or
+reaches a valuation, and no other module imports it. E114 has it read
+once a year.
+
+`verdict` is `DROPPED` | `WATCH-GATED` | `INTAKE`; `standing` is
+`STANDING` (holds until deliberately removed) | `EXPIRY` (re-read when a
+named event arrives) | `OPEN` (nothing decided yet, which is what E111's
+INTAKE means). **`close` is the SETTLED close on the verdict date and is
+never the nearest bar.** A verdict written on a **weekend** is re-dated
+to the last weekday on or before it and the row says which date it moved
+from and to (limit four); a **weekday** with no bar is left where it is
+and prints DATA MISSING, because an exchange holiday and a vendor gap
+look the same from here. The first book was built on 2026-09-08 by a
+one-off script that has since been removed; rows are added by hand, and a
+row still dated on a weekend prints DATA MISSING and says it has not been
+re-dated.
+
+## 12. The overview page
+
+`reports/OVERVIEW.html` — **the state of the book on one page**, regenerated
+by the nightly run and by hand on demand. One file, no server, no framework,
+**no JavaScript at all**. It opens from disk with a `file://` URL and loads
+instantly, and it is built to be read on a phone.
+
+**A PAGE SCANNED IN TEN SECONDS, THEN READ INTO.** It answers three
+questions in order and puts everything else below them or behind a plain
+`<details>`:
+
+1. **Does anything need me today?** One block at the very top, in plain
+   sentences: *nothing*, or the two or three things that do — a maximum buy
+   price crossed, a level that could not be checked, a dated event inside
+   the next seven days. (A breached stop and a holding without one were on
+   this list until E162 removed the price stop.) **The list of kinds is closed**: a top line
+   that grew a fourth and a fifth category would be a second report. Beside
+   it, always, **what was checked** — *nothing needs you* and *nobody
+   looked* are the same silence otherwise. A level that could not be
+   checked (an MBP with no settled close) says so rather than passing as
+   held.
+2. **Where is everything against its value?** **One card per name**, in a
+   grid that reflows to one column on a phone — a table is for comparing
+   forty things, a card is for recognising one. Ticker and company small at
+   the top, **the price large**, fair value and the maximum buy price beside
+   it in smaller type, then two pictures:
+   * **a sparkline** — 52 weeks of settled closes as inline SVG, drawn from
+     the cache and never fetched, with the fair value as a dashed line and
+     the MBP as a dotted one. A level is drawn **only where it falls inside
+     the year's range**; one outside is said in words underneath instead,
+     because stretching the range to reach it would show a year of trading
+     as a flat smear (MUSA's fair value is a third of its 52-week low). A
+     series that is short or missing says so rather than drawing a lie.
+   * **the value track** — the price as a position between **half the fair
+     value and half again**, fair value dead centre, a short mark where the
+     MBP is struck. The scale never rescales per name, so the cards read
+     against each other; a price past either end sits **on** the end and
+     the card says which end.
+
+   **A picture never replaces a figure**: the close, the fair value, the
+   MBP and both distances are printed on every card, small but exact.
+3. **What is coming?** The unresolved `catalyst_date`s from today onward,
+   nearest first, with what each decides. A long note shows its first
+   sentence and folds the rest — **never truncated**, because an ellipsis
+   on a record is a record nobody can read.
+
+**Behind a click:** the full queue (single-action items first, the rest
+folded), the timeline (**the last ten of 230** — an archive is not a view),
+the shadow book, per-name document links, and anything that could not be
+read. Every disclosure's summary states the count, so nothing is hidden
+without saying how much.
+
+**TYPOGRAPHY DOES THE RANKING, AND SURFACES DO THE SEPARATING.** The number
+that matters is large and its label is small and muted; every figure is
+monospace with tabular numerals so digits line up down the grid. Things are
+told apart by background and space — **no card borders, no row rules, no
+visible table grid.** The one hairline on the page is above the footer,
+which is a boundary rather than a division, and a test enumerates every
+`border` declaration in the stylesheet and fails at a second.
+
+**GREEN AND RED ARE A MEASUREMENT OF DISTANCE, NEVER A VERDICT.** Green is
+at or below the level, red is far above it, neutral between — five bands
+whose boundaries are the framework's own (0% is the level; 5% is `rules`'
+APPROACHING band; then 25% and 75%). **It says how far, not whether to
+act.** It is applied to the distance figures, to the dot on the value track,
+and to the stretch of the sparkline that traded below fair value — and
+**never to the whole card**, because a green card reads as approval.
+
+**A CHEAP GATE-CLOSED NAME MUST NOT READ AS AN INVITATION.** A DROPPED or
+WATCH-GATED name's distance is drawn muted whatever the number says, and
+the card states the status in words beside it: *Distance shown muted:
+WATCH-GATED — re-entry is on a named information event, never on a price
+level.* Names E51 or E96 put outside the circle are muted on the same
+ground, recorded as an extension of it. The **shadow book is never toned**:
+its columns are returns since a verdict, not distances to a level, and a
+dropped name that rose is not green.
+
+**THE ACCENT AND THE DISTANCE SCALE NEVER TAKE EACH OTHER'S ROLE.** The
+accent is a **surface** — it fills the block at the top of the page and
+nothing else, and a test counts its uses in the stylesheet and fails at
+two. The distance scale is **ink**, colouring figures and marks on cards.
+A name can be green and need nothing (ACN is), and a name that needs the
+owner can be red (one blocked on a stale close can be). No `.attention` rule mentions
+a distance tone and no distance rule mentions the accent, and a test
+asserts both.
+
+**NO COLOUR ANYWHERE CARRIES MEANING ON ITS OWN.** Every toned figure keeps
+its sign and its number and carries its band as a title; every card states
+its band and its mute in words; the sparkline's two level lines are told
+apart by **dash pattern** and it carries an `aria-label` saying in words
+what the drawing says in shape; every refusal prints `DATA MISSING` with
+its reason. A red-green colourblind reader loses nothing.
+
+**READ-ONLY, AND THAT IS THE WHOLE DESIGN.** No form, no button, no request
+and no script — tests assert each is absent. Disclosure is
+`<details>`/`<summary>`, which the browser gives for free. Every decision
+this project makes is a dictated ruling in a session, and a page that could
+take one would be a second place decisions come from.
+
+**THE FOOTER SAYS WHEN AND FROM WHICH RUN**, so a stale page cannot read as
+current: when the page was generated, when the last **completed** nightly
+run finished and what it covered, and separately when the prices on the page
+were cached. The two are separate facts — a hand fetch moves the second
+without moving the first — and where the dead man's switch says the run has
+gone quiet, that line is in the footer too.
+
+**IT SHOWS THE STATE; THE DOCUMENTS CARRY THE EVIDENCE.** Per name it links
+the briefing, the reading, the strike document, the run record, the growth
+view and the store, and it **never summarises one** — a summary of a sourced
+document is a judgement without its sources. A test reads the briefings and
+asserts none of their prose appears on the page.
+
+**EVERY FIGURE IS READ AT GENERATION TIME AND NOTHING IS STORED TWICE.**
+`config/`, `reference/` and `data/` are the record; the page is a view of
+them and holds no state. It **never fetches** — prices come from the cache
+the nightly run writes, settled bars only.
+
+**A FIGURE THAT CANNOT BE READ PRINTS `DATA MISSING` AND KEEPS ITS ROW**,
+with the reason where the figure would have been. An absent row reads as
+*nothing to see*, and that is the failure mode the page exists to remove.
+
+**NO ARITHMETIC CROSSES A UNIT SEAM.** AUTO.L's `fv_base` is written in GBP
+to match its linked run record while its close is quoted in GBX, and the
+watchlist records that seam as OPEN. The first draft printed the distance
+between them as **+10,543%**. Where the two currencies are not the same code
+— or either is unstated — no distance and no position is struck, the seam is
+named, and nothing converts: a conversion needs a rate, a rate needs a date,
+and E24 freezes both onto the verdict rather than inventing them at render
+time.
+
+**IT NEVER CHOOSES.** Where several run records exist for a name and no
+entry names one — LII has a `2026-08-30` record and a `2026-08-30-e70`
+restrike of it — the value is `DATA MISSING` and both are linked. Which one
+governs is E39's question and a filename sort must not answer it.
+
+**WHAT IT WRITES:** `reports/OVERVIEW.html`, and nothing else, anywhere. A
+test takes a census of `config/`, `reference/`, `data/`, `vss/`, `tools/`
+and `tests/` either side of a real generation and asserts not one byte
+moved. The nightly run regenerates it after the report is on disk; a
+**scoped** (`--ticker`) run does not, and a failure there is logged at
+WARNING and never fails the run.
+
+`vss/overview.py` reads the record and produces the figures;
+`vss/render.py` is the HTML and the stylesheet, and nothing else imports it.
+
+## 13. The staleness gate
+
+A close is judged by its age in **trading days on the name's own exchange**
+(`vss/calendars.py`), not calendar days. The limit was three calendar days
+until REVIEW-4 measured what that did: the Tuesday after US Memorial Day
+blocked on four days, the Tuesday after Easter on five, the Monday after
+Midsommar on four. The first trading day after a long weekend is precisely
+the day a check should run, so the exchange's own closed days are no longer
+counted against the feed. On an ordinary week nothing changed.
+
+**A name carrying a level is held to one session** (owner, 2026-09-19). A
+HELD name, or one with an MBP to compare a close with, is blocked when its
+newest close is more than ONE trading day old; every other name keeps
+three. The case that found it: the vendor had no row for one day and an
+empty close for the next on two names, one of them held, so both were
+served a two-day-old close as "live" and passed the three-session gate. A
+block is visible; a stale close is not. The block names the last known
+close, its date and age, and says in words that the level was NOT CHECKED.
+
+**A dry run refuses on the same judgement** (exit code 3, no report
+printed). A dry run is how a trigger is checked by hand, and a trigger
+check on a stale close is the one failure that loses money silently.
+
+**Cached data still counts.** The gate reads the newest close *date* out of
+the price series, never the cache file's fetch timestamp, so old data can
+never look fresh. The freshness line of the report leads with the **oldest**
+close across the watchlist, so a single fresh ticker cannot make a
+mostly-stale watchlist read as current.
+
+**A derived calendar can be wrong.** Where the vendor prints a close on a
+day the name's calendar calls closed, the suffix is mapped to the wrong
+exchange and the session count may under-state staleness: the name is
+blocked (`CALENDAR_MISMATCH`) until the mapping is fixed.
+
+## 14. Repository history
+
+The private repository's history was re-initialized on 2026-08-20 and starts
+from a single initial commit: the original history carried dated portfolio
+snapshots, and it was discarded rather than carried into any remote.
+`config/watchlist.yaml` is tracked since 2026-08-25, on the owner's
+decision: the verdict history belongs in git rather than only in backup
+files. It carries decisions -- status, `fv_base`, `tier`, notes and
+hand-entered figures -- and the fills of closed positions, not a running
+portfolio.
+
+This public copy is a mirror of the private repository: the program, the
+tests, the configuration and the records, with account numbers masked. No
+market data is shipped, and nothing computed from a licensed vendor's data
+(`SETUP.md`, section 3).
+
