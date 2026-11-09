@@ -123,6 +123,75 @@ def newest_known(facts: dict, day: date) -> tuple[str | None, str | None]:
     return best or (None, None)
 
 
+#: IFRS 16: lease principal is a FINANCING flow, so OCF - capex leaves rent
+#: out, and EODHD has no lease-payment line. The screen charges this share of
+#: the period's lease liability a year as extra capex and takes the lease
+#: liability out of debt (rent paid once, not twice). 0.35 is the low middle
+#: of fifteen issuers' own principal / liability, 2025 (0.18 Lundbeck - 0.63
+#: Proact, median 0.36; reference/screens/NORDIC-SIFT-2026-11-09.md). Before
+#: 2026-11-09 a name under LEASE_SHARE_MAX was valued as if it paid no rent:
+#: corrected by hand, nearly every service name's fv fell, some by more than
+#: half (figures in the private sift). A DATA rule
+#: (E164) and the screen's only: the backtest's translation is unchanged.
+LEASE_PAYMENT_RATE = 0.35
+#: a newest year (or last four quarters) whose capex is under this share of
+#: the three years before is a vendor gap, not a saving (Stillfront, Vitec, GN
+#: 2025: capitalised development dropped from the line, FCF doubled)
+CAPEX_GAP = 0.25
+
+
+def _years(d: dict, statement: str, freq: str) -> dict:
+    return ((d.get("Financials") or {}).get(statement) or {}).get(freq) or {}
+
+
+def capex_gap(d: dict) -> str | None:
+    """A refusal when the newest capex is a vendor gap; else None."""
+    cf_y, inc_y = _years(d, "Cash_Flow", "yearly"), _years(d, "Income_Statement", "yearly")
+    capex = {pe: abs(v) for pe, e in cf_y.items()
+             if isinstance(e, dict) and (v := N._num(e.get("capitalExpenditures"))) is not None}
+    ends = sorted(capex)
+    if len(ends) < 4:
+        return None
+
+    def check(newest: float, before: list[str], what: str) -> str | None:
+        mean = sum(capex[p] for p in before) / len(before)
+        rev = N._num((inc_y.get(before[-1]) or {}).get("totalRevenue")) or 0.0
+        if mean > 0.01 * rev and newest < CAPEX_GAP * mean:
+            return (f"capex fault: {what} capex {newest / mean:.0%} of the three years "
+                    f"before (vendor gap suspected)")
+        return None
+
+    hit = check(capex[ends[-1]], ends[-4:-1], ends[-1][:4])
+    if hit:
+        return hit
+    cf_q = _years(d, "Cash_Flow", "quarterly")
+    qs = sorted(pe for pe, e in cf_q.items()
+                if isinstance(e, dict) and N._num(e.get("capitalExpenditures")) is not None)[-4:]
+    if len(qs) == 4:
+        prior = [p for p in ends if p < qs[0]][-3:]
+        if len(prior) == 3:
+            return check(sum(abs(N._num(cf_q[q]["capitalExpenditures"])) for q in qs),
+                         prior, f"last four quarters to {qs[-1][:7]}")
+    return None
+
+
+def charge_leases(d: dict) -> None:
+    """IN PLACE: capex += LEASE_PAYMENT_RATE x the period's lease liability
+    (pro rata for a quarter); debt total -= the lease liability."""
+    for freq, months in (("yearly", 12), ("quarterly", 3)):
+        bs = _years(d, "Balance_Sheet", freq)
+        for pe, e in _years(d, "Cash_Flow", freq).items():
+            lease = N._num((bs.get(pe) or {}).get("capitalLeaseObligations"))
+            capex = N._num(e.get("capitalExpenditures")) if isinstance(e, dict) else None
+            if lease and capex is not None:
+                e["capitalExpenditures"] = str(abs(capex) + LEASE_PAYMENT_RATE * lease * months / 12)
+        for pe, b in bs.items():
+            total = N._num(b.get("shortLongTermDebtTotal")) if isinstance(b, dict) else None
+            lease = N._num(b.get("capitalLeaseObligations")) if isinstance(b, dict) else None
+            if total is not None and lease:
+                b["shortLongTermDebtTotal"] = str(max(0.0, total - lease))
+
+
 def value_all(day: date) -> list[dict]:
     names = [r for r in N.universe() if r["delisted"] != "True"]
     px = prices([r["symbol"] for r in names])
@@ -138,6 +207,8 @@ def value_all(day: date) -> list[dict]:
             g = d.get("General") or {}
             if N.excluded(g, sym):
                 continue
+            gap = capex_gap(d)          # before the lease charge, which would hide it
+            charge_leases(d)
             facts = N.facts_from_eodhd(sym, d)
             sh = N.shares_known(facts, day)          # EODHD counts are on today's basis
             cur = g.get("CurrencyCode") or r.get("Currency")
@@ -154,6 +225,8 @@ def value_all(day: date) -> list[dict]:
             heavy = N.lease_heavy(d, day)
             if heavy is not None:
                 row = {"status": f"leases {heavy:.0%} of assets: rent not in the data"}
+            elif gap:
+                row = {"status": gap}
             else:
                 try:
                     row = M.evaluate(facts, day, ticker=sym, cik=sym, sic=None, policy="latest")

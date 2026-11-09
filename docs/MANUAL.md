@@ -764,7 +764,7 @@ bull, and `vss queue` holds each one against its lines every weekday night
 | look | no tier yet, and at or under base x 0.85 (strike) or x 0.75 (rough) -- "value it properly now", never "buy" | `TITTA` |
 | sell | a held name at a hand-set sell line or at its bull value | `SÄLJ` |
 | gate | a WATCH-GATED name whose event date has come | `SPÄRR` |
-| report | a new 10-Q / 10-K / 8-K results item, or a Nordic report | `RAPPORT` |
+| outlook | a new report that changed the outcome (below) | `UTSIKT` |
 
 **A change is said once.** A name that stays in its zone is not repeated
 the next night; it is said again only if it leaves and comes back. A gated
@@ -773,9 +773,34 @@ a hard kill is not a price, so no price may wake it. Headlines for each name
 are searched too, because some issuers publish outside the exchange feed
 (Zinzino's monthly sales go out on PR Newswire).
 
+**A report is read, not just noticed (since 2026-11-09).** When a name
+publishes a 10-Q / 10-K / 8-K results item or a Nordic report, the queue
+hands it to the outlook check:
+
+- `vss/reportread.py` fetches the document (EDGAR, or the Nasdaq Nordic /
+  Oslo feed PDF) into `data/autoread/` and runs `vss earnings` on it twice;
+  a name not on the watchlist is read through a one-entry scratch watchlist.
+- `vss/outlook.py` values the name again on its last four quarters (the
+  vendor's quarterly statements; annual for half-year reporters; leases as
+  debt; 3 % growth, r 9.5 %) and compares with its own previous reading,
+  kept in `data/outlook_state.json`. Until the vendor has the new quarter
+  the name is re-read every night, for at most 21 days.
+- `UTSIKT` is sent only when the value moved 10 % or more, the reading
+  found a 4.2 rule failed or guidance cut, or a headline names a profit
+  warning, a guidance change, a CEO or CFO leaving, a bid or a delisting.
+  Anything else is a line in the night's report ("läst: inget ändrat").
+
+**The master list.** After each run `tools/master_list.py` rebuilds
+`reports/HUVUDLISTA.md`: every company in the watchlist, the queue, the
+shadow book and the sifts, grouped as owned, candidates, watched, to review
+and no, with price, bear / base / bull, the kind of value, the reason and
+the next event. `.claude/settings.json` can run `tools/master_list.py
+--short` as a SessionStart hook so a session opens with it.
+
 ```bash
 python -m vss queue --no-notify          # tonight's table, nothing sent
 python tools/build_queue.py --write      # re-harvest values after a new strike
+python tools/master_list.py              # the master list (--short: the summary only)
 ```
 
 `kind: strike` rows are harvested from the newest `reference/<T>-STRIKE-*.md`;

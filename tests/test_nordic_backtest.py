@@ -229,3 +229,45 @@ def test_a_quarter_starts_three_months_before_its_end():
                        ("2018-09-30", "2018-07-01"), ("2017-12-31", "2017-10-01"),
                        ("2019-02-28", "2018-12-01")):
         assert N.quarter_start(_d.fromisoformat(end)) == _d.fromisoformat(start)
+
+
+def _screen():
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
+    import nordic_screen as NS
+    return NS
+
+
+def _sfile(capex_by_year, revenue=1000.0, lease=None, total=None):
+    cf = {f"{y}-12-31": {"capitalExpenditures": str(-c)} for y, c in capex_by_year.items()}
+    inc = {f"{y}-12-31": {"totalRevenue": str(revenue)} for y in capex_by_year}
+    bs = {f"{y}-12-31": {"capitalLeaseObligations": None if lease is None else str(lease),
+                         "shortLongTermDebtTotal": None if total is None else str(total)}
+          for y in capex_by_year}
+    return {"Financials": {"Cash_Flow": {"yearly": cf, "quarterly": {}},
+                           "Income_Statement": {"yearly": inc, "quarterly": {}},
+                           "Balance_Sheet": {"yearly": bs, "quarterly": {}}}}
+
+
+def test_a_capex_that_vanishes_in_the_newest_year_is_a_vendor_gap_not_a_saving():
+    NS = _screen()
+    assert "capex fault" in NS.capex_gap(_sfile({2022: 400, 2023: 380, 2024: 410, 2025: 27}))
+    assert NS.capex_gap(_sfile({2022: 400, 2023: 380, 2024: 410, 2025: 300})) is None
+    # a company with almost no capex is not flagged for having less
+    assert NS.capex_gap(_sfile({2022: 3, 2023: 4, 2024: 3, 2025: 0.5})) is None
+
+
+def test_the_screen_charges_rent_once_capex_up_and_the_lease_out_of_debt():
+    NS = _screen()
+    d = _sfile({2025: 100}, lease=1000, total=3000)
+    NS.charge_leases(d)
+    capex = float(d["Financials"]["Cash_Flow"]["yearly"]["2025-12-31"]["capitalExpenditures"])
+    debt = float(d["Financials"]["Balance_Sheet"]["yearly"]["2025-12-31"]["shortLongTermDebtTotal"])
+    assert capex == 100 + NS.LEASE_PAYMENT_RATE * 1000
+    assert debt == 2000
+
+
+def test_an_empty_debt_total_is_read_from_its_parts_not_as_no_debt():
+    assert N.BALANCE["longTermDebt"] == "LongTermDebtNoncurrent"
+    assert N.BALANCE["shortTermDebt"] == "DebtCurrent"

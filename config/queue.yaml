@@ -81,11 +81,11 @@ names:
   tier: null
   stop: null
   base_cap: 71.14
+  base_cap_why: E166 rörelsekapital
   bear_cap: -18.44
   bull_cap: 98.94
-  base_cap_why: E166 rörelsekapital
-  base_cap_since: '2026-11-08'
   cap_binds_both_ways: true
+  base_cap_since: '2026-11-08'
 - ticker: AMAT
   kind: machine
   ccy: USD
@@ -107,11 +107,11 @@ names:
   stop: null
   name: A. O. Smith
   base_cap: 64.3
+  base_cap_why: E166 rörelsekapital
   bear_cap: 38.25
   bull_cap: 85.49
-  base_cap_why: E166 rörelsekapital
-  base_cap_since: '2026-11-08'
   cap_binds_both_ways: true
+  base_cap_since: '2026-11-08'
 - ticker: AUTO.L
   kind: strike
   ccy: GBX
@@ -163,8 +163,6 @@ names:
   base_cap_why: E166 rörelsekapital
   bear_cap: -8.55
   bull_cap: 219.18
-  base_cap_since: '2026-11-08'
-  cap_binds_both_ways: true
   correction:
     since: '2026-11-08'
     text: 'TITTA ÅTERKALLAD (raden i köns tabell; spärrad till 2027-04-27, aldrig skickad som meddelande).
@@ -172,6 +170,8 @@ names:
       nu rörelsekapital enligt E166 och E140.1(2). base 204,27 -> 168,50, titta-linje 173,63 -> 143,22;
       kurs 160,67 (2026-11-06) ligger nu över. reference/run-records/BKNG-2026-11-08-e166.json [beslutat
       av sessionen 2026-11-08: samma rättelse som ägaren bad om för NVR]'
+  cap_binds_both_ways: true
+  base_cap_since: '2026-11-08'
 - ticker: BOUV.OL
   kind: strike
   ccy: null
@@ -196,8 +196,8 @@ names:
   shares: 2
   exit_pending:
     since: '2026-10-27'
-    why: ägarens exit (146 av 148 sålda 10-27/28 till marknadspris); de 2 sista utan priskrav -- E145:s sälj vid
-      base är borta (E168), beslutet står som ägarens (E169)
+    why: ägarens exit (146 av 148 sålda 10-27/28 till marknadspris); de 2 sista utan priskrav -- E145:s
+      sälj vid base är borta (E168), beslutet står som ägarens (E169)
 - ticker: CPRT
   kind: strike
   ccy: USD
@@ -209,11 +209,11 @@ names:
   tier: null
   stop: null
   base_cap: 26.69
+  base_cap_why: E166 rörelsekapital
   bear_cap: 18.17
   bull_cap: 35.46
-  base_cap_why: E166 rörelsekapital
-  base_cap_since: '2026-11-08'
   cap_binds_both_ways: true
+  base_cap_since: '2026-11-08'
 - ticker: CROX
   kind: strike
   ccy: USD
@@ -225,11 +225,11 @@ names:
   tier: null
   stop: null
   base_cap: 170.97
+  base_cap_why: E166 rörelsekapital
   bear_cap: -18.94
   bull_cap: 248.9
-  base_cap_why: E166 rörelsekapital
-  base_cap_since: '2026-11-08'
   cap_binds_both_ways: true
+  base_cap_since: '2026-11-08'
 - ticker: CSCO
   kind: machine
   ccy: USD
@@ -298,19 +298,22 @@ names:
   base_cap_why: E166 rörelsekapital
   bear_cap: 81.61
   bull_cap: 174.93
-  base_cap_since: '2026-11-08'
   cap_binds_both_ways: true
+  base_cap_since: '2026-11-08'
 - ticker: EVO.ST
   kind: rough
   ccy: SEK
-  bear: 871.15
-  base: 1198.79
-  bull: 1658.93
-  source: tools/rough_fv.py 2026-11-05 (reference/AVANZA-ZERO-FV-2026-11-02.md)
-  status: OFF-WATCHLIST
-  note: 'under even the zero-growth bear; risks are regulation (UK), unregulated Asian revenue, growth
-    stalled in 2025. Next: a full E144 history and strike'
+  bear: 589.0
+  base: 992.0
+  bull: 1310.0
+  source: reference/reviews/EVO.ST/2026-11-09-review.md
+  status: WATCH
+  note: 'Review 2026-11-09: WATCH -- 1.17x, at the line not under it; bear 589 (regulation, Asia 36 %
+    unregulated, Europe -5 %). Look under ~840 or at the year-end report'
   name: Evolution AB
+  gate_until: '2027-02-04'
+  gate_event: Year-end report 2026
+  look_at: 843.0
 - ticker: GDDY
   kind: strike
   ccy: USD
@@ -324,11 +327,11 @@ names:
   gate_until: '2026-11-09'
   gate_event: Q3 2026 results
   base_cap: 92.72
+  base_cap_why: E166 rörelsekapital
   bear_cap: 34.42
   bull_cap: 151.9
-  base_cap_why: E166 rörelsekapital
-  base_cap_since: '2026-11-08'
   cap_binds_both_ways: true
+  base_cap_since: '2026-11-08'
 - ticker: GNTX
   kind: strike
   ccy: USD
@@ -340,11 +343,11 @@ names:
   tier: null
   stop: null
   base_cap: 27.08
+  base_cap_why: E166 rörelsekapital
   bear_cap: 15.49
   bull_cap: 29.25
-  base_cap_why: E166 rörelsekapital
-  base_cap_since: '2026-11-08'
   cap_binds_both_ways: true
+  base_cap_since: '2026-11-08'
 - ticker: HIAB.HE
   kind: rough
   ccy: EUR
@@ -377,11 +380,11 @@ names:
   gate_until: '2027-05-07'
   gate_event: Q3 FY2027 (tax season) -- condition 2 of the gate
   base_cap: 72.8
+  base_cap_why: E166 + B7 (FY2020 ett reparerat år, ej cyklisk)
   bear_cap: 35.86
   bull_cap: 96.61
-  base_cap_why: E166 + B7 (FY2020 ett reparerat år, ej cyklisk)
-  base_cap_since: '2026-11-08'
   cap_binds_both_ways: true
+  base_cap_since: '2026-11-08'
 - ticker: INGR
   kind: machine
   ccy: USD
@@ -444,11 +447,11 @@ names:
   stop: null
   name: Lennox International
   base_cap: 307.66
+  base_cap_why: E166 rörelsekapital
   bear_cap: 91.53
   bull_cap: 307.66
-  base_cap_why: E166 rörelsekapital
-  base_cap_since: '2026-11-08'
   cap_binds_both_ways: true
+  base_cap_since: '2026-11-08'
 - ticker: LOPE
   kind: strike
   ccy: USD
@@ -460,11 +463,11 @@ names:
   tier: null
   stop: null
   base_cap: 135.99
+  base_cap_why: E166 rörelsekapital
   bear_cap: 4.38
   bull_cap: 145.71
-  base_cap_why: E166 rörelsekapital
-  base_cap_since: '2026-11-08'
   cap_binds_both_ways: true
+  base_cap_since: '2026-11-08'
 - ticker: MC.PA
   kind: strike
   ccy: EUR
@@ -523,8 +526,8 @@ names:
   base_cap_why: E166 rörelsekapital
   bear_cap: 191.12
   bull_cap: 288.61
-  base_cap_since: '2026-11-08'
   cap_binds_both_ways: true
+  base_cap_since: '2026-11-08'
 - ticker: NTAP
   kind: machine
   ccy: USD
@@ -545,19 +548,19 @@ names:
   tier: null
   stop: null
   base_cap: 7193.71
+  base_cap_why: E166 rörelsekapital
   bear_cap: 4783.1
   bull_cap: 7193.71
-  base_cap_why: E166 rörelsekapital
-  base_cap_since: '2026-11-08'
-  cap_binds_both_ways: true
   correction:
     since: '2026-11-08'
     text: 'TITTA ÅTERKALLAD (raden i köns tabell; spärrad till 2027-01-28, aldrig skickad som meddelande).
       Rörelsekapitalet omklassat efter bolagets egen sektion i kassaflödesanalysen (E166): bolånerader
       (E140(1) klarläggande 2) och "Other, net" (under changes-rubriken). base 7 682,75 -> 7 193,71, titta-linje
       6 530,34 -> 6 114,65; kurs 6 298,29 (2026-11-06) ligger nu över. reference/run-records/NVR-2026-11-08-e166.json'
+  cap_binds_both_ways: true
   bear_missing: deklarerad cyklisk (husbyggare); historiken 2015-2025 saknar nedgång -- läs in 2006-2011
     för hand (B7)
+  base_cap_since: '2026-11-08'
 - ticker: OLED
   kind: machine
   ccy: USD
@@ -578,6 +581,19 @@ names:
   note: 'FCF 2-47m against EBIT 55-82m: a capex-heavy period; on EBIT it is near fair, on FCF dear'
   status: WATCH-GATED
   name: Olvi
+- ticker: PACT.ST
+  kind: rough
+  ccy: SEK
+  bear: 148.0
+  base: 189.0
+  bull: 248.0
+  source: reference/screens/NORDIC-SIFT-2026-11-09.md (issuer Q3 2026 figures, 2026-11-09)
+  status: OFF-WATCHLIST
+  name: Proact IT Group
+  note: 'Sift CANDIDATE: under the bear; part of the 2026 margin is the memory-price cycle. Store + strike
+    after the CMD'
+  gate_until: '2026-11-11'
+  gate_event: Capital Markets Day
 - ticker: PEP
   kind: strike
   ccy: null
@@ -593,18 +609,18 @@ names:
   base_cap_why: E166 rörelsekapital
   bear_cap: 42.66
   bull_cap: 71.82
-  base_cap_since: '2026-11-08'
   cap_binds_both_ways: true
+  base_cap_since: '2026-11-08'
 - ticker: PHM
-  kind: machine
+  kind: rough
   ccy: USD
-  bear: 140.15
-  base: 182.06
-  bull: 182.06
-  source: tools/warren.py 2026-11-05
-  note: 'passes Q1-Q4 after E148.1 (2015 repaired by 2018, 2013 best 852m); Q1 28.7%, Q3 0.2x. Homebuilder:
-    read CIRCLE-OF-COMPETENCE first'
-  status: PIPELINE
+  bear: 44.0
+  base: 77.0
+  bull: 115.0
+  source: reference/reviews/PHM/2026-11-09-review.md
+  note: 'Review 2026-11-09: NO -- on real FCF base 77 vs 132; gross margin 29 -> 24 %, orders falling;
+    outside the circle. Revisit under ~65'
+  status: DROPPED
   name: PulteGroup
 - ticker: PNDORA.CO
   kind: strike
@@ -676,6 +692,17 @@ names:
   status: WATCH-GATED
   tier: 1
   stop: null
+- ticker: SF.ST
+  kind: rough
+  ccy: SEK
+  bear: 4.42
+  base: 13.42
+  bull: 20.91
+  source: reference/reviews/SF.ST/2026-11-09-review.md
+  status: CANDIDATE
+  name: Stillfront
+  note: 'Review 2026-11-09: CANDIDATE, small (tier 3) -- decline slowing (organic -1 % Q3), refinanced
+    to 2028-30, earn-outs end 2027, new CEO 11-01; bear under price'
 - ticker: SFM
   kind: strike
   ccy: USD
@@ -689,11 +716,34 @@ names:
   gate_until: '2027-07-29'
   gate_event: Q2 2027 results
   base_cap: 76.15
+  base_cap_why: E166 rörelsekapital
   bear_cap: 37.33
   bull_cap: 76.15
-  base_cap_why: E166 rörelsekapital
-  base_cap_since: '2026-11-08'
   cap_binds_both_ways: true
+  base_cap_since: '2026-11-08'
+- ticker: SINCH.ST
+  kind: rough
+  ccy: SEK
+  bear: 17.3
+  base: 30.7
+  bull: 46.6
+  source: reference/reviews/SINCH.ST/2026-11-09-review.md
+  status: DROPPED
+  name: Sinch
+  note: 'Review 2026-11-09: NO -- the 2026 cash flow is working capital (75 % conversion vs 40-50 % over
+    time); base 30.7 vs 42'
+- ticker: STG.CO
+  kind: rough
+  ccy: DKK
+  bear: 64.7
+  base: 101.0
+  bull: 130.9
+  source: reference/screens/NORDIC-SIFT-2026-11-09.md (issuer Q3 2026 figures, 2026-11-09)
+  status: OFF-WATCHLIST
+  name: Scandinavian Tobacco Group
+  note: 'Sift CONDITIONAL: base at 0 %, bear -3 %; guided growth -2..+2 %'
+  gate_until: '2026-11-11'
+  gate_event: Q3 2026 report
 - ticker: TPR
   kind: strike
   ccy: null
@@ -716,11 +766,11 @@ names:
   tier: null
   stop: null
   base_cap: 608.43
+  base_cap_why: E166 rörelsekapital
   bear_cap: 82.07
   bull_cap: 608.43
-  base_cap_why: E166 rörelsekapital
-  base_cap_since: '2026-11-08'
   cap_binds_both_ways: true
+  base_cap_since: '2026-11-08'
 - ticker: UMG.AS
   kind: rough
   ccy: EUR

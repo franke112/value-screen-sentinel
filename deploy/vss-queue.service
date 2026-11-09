@@ -1,5 +1,5 @@
 [Unit]
-Description=vss -- the queue's watchman (vss queue): every valued name against its lines; ntfy on a change; writes reports/QUEUE-<date>.md and data/queue_state.json only
+Description=vss -- the queue: every valued name against its lines; new reports read (vss/reportread.py) and re-valued (vss/outlook.py); ntfy only when the outlook changes; writes reports/ and data/ only
 Documentation=file://%h/vss/vss/queue.py
 OnFailure=vss-failure@%n.service
 
@@ -11,7 +11,7 @@ EnvironmentFile=-%h/.config/vss/vss.env
 StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=vss-queue
-TimeoutStartSec=30min
+TimeoutStartSec=60min
 PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=read-only

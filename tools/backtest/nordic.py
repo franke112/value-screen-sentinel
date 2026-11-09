@@ -32,6 +32,11 @@ THE TRANSLATION (each a deliberate choice, named):
   and the lease liability is debt -- the opposite case to E117's US one;
   checked on ACAD.ST: total less leases = 2,656m, the borrowings its ESEF
   package tags;
+- EMPTY DEBT TOTAL: where `shortLongTermDebtTotal` is empty the parts
+  (`longTermDebt` + `shortTermDebt`) are read instead; before 2026-11-09 such
+  a company was valued as having no debt at all (Orkla 2025, whose own
+  report shows net debt of 14.2bn at year end). Found in the sift reference/screens/NORDIC-SIFT-2026-11-09.md;
+  the closed history (#1-#25) was run without it and is not re-run;
 - tax: the country's statutory rate (valuation.STATUTORY_TAX_RATE), not M3's
   US one;
 - acquisitions: EODHD gives no line, so every name reads as no acquirer (Q4
@@ -138,6 +143,11 @@ BALANCE = {"totalAssets": "Assets", "totalStockholderEquity": "StockholdersEquit
            "cash": "CashAndCashEquivalentsAtCarryingValue",
            "cashAndShortTermInvestments": "CashCashEquivalentsAndShortTermInvestments",
            "shortLongTermDebtTotal": "LongTermDebt", "goodWill": "Goodwill",
+           # the parts, for when the vendor leaves the total empty (2026-11-09:
+           # a large share of the screen names in 2025 and a smaller share of
+           # the older rows, mostly Oslo -- read as debt-free before; the engine uses these
+           # only where LongTermDebt is missing)
+           "longTermDebt": "LongTermDebtNoncurrent", "shortTermDebt": "DebtCurrent",
            "propertyPlantAndEquipmentNet": "PropertyPlantAndEquipmentNet",
            "noncontrollingInterestInConsolidatedEntity": "MinorityInterest"}
 POSITIVE = ("PaymentsToAcquirePropertyPlantAndEquipment", "InterestExpense", "ShareBasedCompensation")

@@ -56,12 +56,13 @@ def test_leaving_and_reentering_a_zone_is_said_again(tmp_path):
     assert len(again) == 1 and again[0].startswith("TITTA BBB")
 
 
-def test_a_dropped_name_gets_no_price_line_but_its_report_is_said(tmp_path):
+def test_a_dropped_name_gets_no_price_line_and_its_report_is_in_the_report(tmp_path):
     row = dict(NO_TIER, ticker="DDD", status="DROPPED")
-    seen, sent, _ = _run(tmp_path, [row], {"DDD": 10.0},
-                         reports={"DDD": ["2026-11-04 10-Q"]})
+    seen, sent, text = _run(tmp_path, [row], {"DDD": 10.0},
+                            reports={"DDD": ["2026-11-04 10-Q"]})
     assert seen[0].zone == "dropped"
-    assert sent == ["RAPPORT DDD: 2026-11-04 10-Q"]
+    assert sent == []                                  # owner 2026-11-09: only what changes the outcome
+    assert "RAPPORT 2026-11-04 10-Q" in text
 
 
 def test_a_gated_name_in_its_zone_is_not_sent_until_the_gate_lifts(tmp_path):
@@ -86,12 +87,22 @@ def test_a_held_name_sells_at_its_hand_line_and_at_bull(tmp_path):
     assert bull and bull[0].startswith("SÄLJ HHH 183.00 >= bull")
 
 
-def test_a_report_line_is_said_once(tmp_path):
+def test_a_report_alone_is_not_sent_but_a_report_that_moves_the_value_is_once(tmp_path):
     rep = {"AAA": ["2026-11-04 8-K item 2.02 (results)"]}
-    _, first, _ = _run(tmp_path, [STRIKE_T3], {"AAA": 90.0}, reports=rep)
-    _, second, _ = _run(tmp_path, [STRIKE_T3], {"AAA": 90.0}, reports=rep,
-                        asof=date(2026, 11, 6))
-    assert first == ["RAPPORT AAA: 2026-11-04 8-K item 2.02 (results)"] and second == []
+    _, first, text = _run(tmp_path, [STRIKE_T3], {"AAA": 90.0}, reports=rep)
+    assert first == [] and "RAPPORT 2026-11-04 8-K item 2.02 (results)" in text
+    readings = iter([{"period": "2026-06-30", "base": 100.0}, {"period": "2026-09-30", "base": 80.0},
+                     {"period": "2026-09-30", "base": 80.0}])
+    sent: list[list[str]] = []
+    qp = _queue(tmp_path, [STRIKE_T3])
+    for d, rp in ((date(2026, 11, 3), []), (date(2026, 11, 5), rep["AAA"]), (date(2026, 11, 6), rep["AAA"])):
+        Q.run_queue(asof=d, queue_path=qp, state_path=tmp_path / "s2.json", report_dir=tmp_path,
+                    price=lambda t: ("2026-11-04", 90.0), reports=lambda r, s, u, rp=rp: rp,
+                    headlines=None, poster=lambda lines, title=None: sent.append(list(lines)) or "ok",
+                    outlook_read=lambda t: next(readings), outlook_path=tmp_path / "o.json")
+    assert sent[0] == []                                           # the baseline
+    assert len(sent[1]) == 1 and sent[1][0].startswith("UTSIKT AAA: värdet på fyra kvartal 100.00 -> 80.00 (-20%)")
+    assert sent[2] == []                                           # said once
 
 
 def test_no_price_is_no_zone_and_no_alert(tmp_path):
@@ -307,4 +318,18 @@ def test_a_failed_report_check_is_said_once_and_its_window_is_searched_again(tmp
     assert asked[1] == asked[2] == asked[0]          # the failed nights did not move it
     assert len([ln for ln in sent[0] if ln.startswith("RAPPORTKONTROLL FELADE AAA")]) == 1
     assert sent[1] == []                              # the same failure is not repeated
-    assert sent[2] == ["RAPPORT AAA: 2026-11-05 10-Q"]
+    assert sent[2] == []                              # the report itself is not news
+
+
+def test_a_pending_sell_does_not_overwrite_the_window_of_the_names_after_it(tmp_path):
+    """2026-11-09: the exit reminder reused `since`, and the next new name's
+    first report window became a string (TypeError on the real queue)."""
+    held = {"ticker": "HHH", "kind": "strike", "ccy": "SEK", "base": 50.0, "tier": 3, "status": "HELD",
+            "exit_pending": {"since": "2026-10-27", "why": "owner's exit"}}
+    st = tmp_path / "state.json"
+    st.write_text('{"_last_run": "2026-11-01"}')
+    seen, _, _ = Q.run_queue(asof=date(2026, 11, 5), queue_path=_queue(tmp_path, [held, NO_TIER]),
+                             state_path=st, report_dir=tmp_path,
+                             price=lambda t: ("2026-11-04", 60.0), reports=lambda r, s, u: [],
+                             headlines=None, poster=lambda lines, title=None: "ok")
+    assert [s.row.ticker for s in seen] == ["HHH", "BBB"]

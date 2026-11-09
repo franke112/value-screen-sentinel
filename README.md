@@ -34,14 +34,17 @@ Coca-Cola is a fine business at three times what the method thinks it is
 worth, so the answer is **wait**. That is the most common answer, and on
 purpose.
 
-Every company you have valued sits in a queue. One message reaches your
-phone, and only when something changes (the messages are in Swedish: *titta*
-is "look", *rapport* is "report"):
+Every company you have valued sits in a queue. When one of them publishes a
+report, the report is fetched and read that night and the company is valued
+again. A message reaches your phone only when something changes the outcome
+(the messages are in Swedish: *titta* is "look", *utsikt* is "outlook"):
 
 ```
 TITTA DHI 152.28 <= 156.86 (0.83x base 184.54, strike) -- value it properly now
-RAPPORT GNTX: 2026-11-06 10-Q
+UTSIKT GNTX: värdet på fyra kvartal 27.10 -> 23.80 (-12%) efter kvartalet till 2026-09-30 -- läs rapporten
 ```
+
+*(The second line is an illustration of the format, not a real reading.)*
 
 ## Try it in five minutes
 
@@ -83,11 +86,46 @@ watchlist and queue, phone alerts and the nightly timers.
    beside it as information; as a rule for dropping names they did not
    hold in our tests, so they no longer decide.
 4. **Queue.** Every valued company is held against its value every night.
-   You get one message when the price comes near or under it, a ban lifts or a
-   report comes in. The buy-price cushion is shown, never binding.
+   You get one message when the price comes near or under it, a ban lifts,
+   or a new report changes the outlook (next section). A report that changes
+   nothing is a line in the night's report, not a message. The buy-price
+   cushion is shown, never binding.
 5. **You decide.** The machine writes no verdict, no fair value and no buy
    price on its own. A person does that, in a session, with the reasons
    written down.
+
+## Every night, without you
+
+Since November 2026 the queue does the first reading of every new report on
+its own:
+
+1. **It finds the report.** SEC EDGAR for US filers (10-Q, 10-K, 8-K item
+   2.02), the Nasdaq Nordic and Oslo feeds for Nordic issuers, the vendor's
+   report date elsewhere.
+2. **It reads it.** The document is fetched and read twice by a model
+   ([`vss/reportread.py`](vss/reportread.py), through `vss earnings`). A
+   figure the two readings disagree on is dropped, and every figure kept
+   carries the sentence it came from. The rules' hard kills are checked on
+   what was read.
+3. **It values the company again** on its last four quarters
+   ([`vss/outlook.py`](vss/outlook.py)) and compares with its own reading
+   before the report, so a bias in the method cancels and what is left is
+   what the report changed.
+4. **It tells you only if the outcome changed**: the value moved 10 % or
+   more, a hard kill fired, guidance was cut, or a headline says profit
+   warning, guidance change, CEO or CFO leaving, a bid or a delisting.
+   Otherwise: "read: nothing changed", in the report.
+
+All of it lands in **the master list**, `reports/HUVUDLISTA.md`, rebuilt every
+night ([`tools/master_list.py`](tools/master_list.py)): every company ever
+looked at, in five groups (owned, candidates, watched, to review, no), each
+with its price, bear, base and bull, the kind of value it is, why it is in
+that group and its next event. A Claude Code session opens with the short
+version of it, so it is the first thing you see.
+
+None of this decides. A machine reading is a flag to read the report, and
+the value it computes is a screen; a buy still needs a full valuation and a
+person.
 
 ## Four habits it enforces
 

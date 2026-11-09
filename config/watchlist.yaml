@@ -1839,7 +1839,7 @@ tickers:
                    # title: PULTEGROUP INC/MI/}
     name: PulteGroup, Inc.
     currency: USD
-    status: PIPELINE
+    status: DROPPED      # 2026-11-09 review (E141, session): on real FCF base 77 vs 132, outside the circle -- reference/reviews/PHM/2026-11-09-review.md. Was PIPELINE
     # E12: GATE 1 IS FROZEN AT THIS READING and is not re-read. Struck on
     #   the settled close of 117.26 (2026-09-18), the run of 2026-09-20.
     #   The drawdown is UNROUNDED, and its reference peak is named beside

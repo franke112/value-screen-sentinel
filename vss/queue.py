@@ -39,6 +39,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass, field
@@ -323,6 +324,7 @@ class Seen:
     headlines: list[str]
     gate_due: bool
     lines: list[str] = field(default_factory=list)   # what goes to ntfy
+    outlook: list[str] = field(default_factory=list)  # the outlook check's notes, report only
 
 
 def _fmt(x) -> str:
@@ -456,8 +458,19 @@ def run_queue(*, asof: date, notify: bool = True, only: list[str] | None = None,
               report_dir: Path = REPORT_DIR,
               price: Callable = last_close, reports: Callable = reports_since,
               headlines: Callable = news, poster: Callable | None = None,
-              save: bool = True, voids: dict[str, str] | None = None
+              save: bool = True, voids: dict[str, str] | None = None,
+              outlook_read: Callable | None = None, outlook_path: Path | None = None,
+              report_reader: Callable | None = None
               ) -> tuple[list[Seen], str, str]:
+    # The outlook check (vss/outlook.py) runs on the real queue only, or when a
+    # test hands it a reader: a report is news only if it changes the outcome.
+    from . import outlook as OL
+    if outlook_read is None and queue_path == QUEUE_PATH:
+        outlook_read = OL.reading
+    if report_reader is None and queue_path == QUEUE_PATH:
+        from .reportread import read_latest as report_reader
+    outlook_path = outlook_path or (OL.STATE_PATH if queue_path == QUEUE_PATH else None)
+    ostate = OL.load_state(outlook_path) if outlook_path else {}
     rows = apply_voids(load_queue(queue_path), _voids() if voids is None else voids)
     if only:
         rows = [r for r in rows if r.ticker in only]
@@ -512,11 +525,16 @@ def run_queue(*, asof: date, notify: bool = True, only: list[str] | None = None,
         if due and not prev.get("gate_told"):
             s.lines.append(f"SPÄRR {r.ticker}: {r.gate_until} har passerat -- läs "
                            f"{r.gate_event or 'händelsen'}; kurs {_fmt(p)}, base {_fmt(r.base)} ({z})")
-        # a report, said once per line
+        # a report: read and re-valued by the outlook check; sent ONLY if it
+        # changes the outcome (owner 2026-11-09), else a line in the report
         told = set(prev.get("reports", []))
-        for line in rep:
-            if line not in told:
-                s.lines.append(f"RAPPORT {r.ticker}: {line}")
+        new_rep = [line for line in rep if line not in told]
+        if outlook_read is not None:
+            alerts, notes = OL.check(r.ticker, asof=asof, new_reports=new_rep, headlines=hl,
+                                     state=ostate, read=outlook_read, report_reader=report_reader,
+                                     name=r.name or "", ccy=r.ccy or "")
+            s.lines += alerts
+            s.outlook += notes
         # a failed check, said once per streak (it is retried every night)
         if failed and not prev.get("check_failed_told"):
             s.lines.append(f"RAPPORTKONTROLL FELADE {r.ticker}: {failed[0][1:-1]} "
@@ -528,9 +546,9 @@ def run_queue(*, asof: date, notify: bool = True, only: list[str] | None = None,
             s.lines.append(over)
             size_told = asof.isoformat()
         if r.status == "HELD" and r.exit_pending and _due(exit_told, asof):
-            since = str(r.exit_pending.get("since", "?"))
-            age = ((asof - date.fromisoformat(since)).days if since[:4].isdigit() else None)
-            s.lines.append(f"SÄLJ EJ UTFÖRD {r.ticker}: beslutad {since}"
+            decided = str(r.exit_pending.get("since", "?"))   # not `since`: the run's window
+            age = ((asof - date.fromisoformat(decided)).days if decided[:4].isdigit() else None)
+            s.lines.append(f"SÄLJ EJ UTFÖRD {r.ticker}: beslutad {decided}"
                            + (f" ({age} dagar)" if age is not None else "")
                            + f" -- {r.exit_pending.get('why', '')}".rstrip(" -"))
             exit_told = asof.isoformat()
@@ -552,9 +570,27 @@ def run_queue(*, asof: date, notify: bool = True, only: list[str] | None = None,
             state["_last_run"] = asof.isoformat()
         state_path.parent.mkdir(parents=True, exist_ok=True)
         state_path.write_text(json.dumps(state, indent=1, ensure_ascii=False))
+        if outlook_path:
+            OL.save_state(ostate, outlook_path)
         report_dir.mkdir(parents=True, exist_ok=True)
         (report_dir / f"QUEUE-{asof.isoformat()}.md").write_text(text, encoding="utf-8")
+        if not only and report_dir == REPORT_DIR:
+            _rebuild_master_list()
     return out, text, sent
+
+
+def _rebuild_master_list() -> None:
+    """reports/HUVUDLISTA.md, the morning-paper list (tools/master_list.py),
+    rebuilt on the closes just saved. A failure there never fails the queue."""
+    try:
+        import importlib.util
+        path = Path(__file__).resolve().parents[1] / "tools" / "master_list.py"
+        spec = importlib.util.spec_from_file_location("master_list", path)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        mod.build(write=True)
+    except Exception as exc:  # noqa: BLE001 -- the list is a view; the queue's alerts matter more
+        print(f"master list not rebuilt: {type(exc).__name__}: {exc}", file=sys.stderr)
 
 
 def render(asof: date, seen: list[Seen], sent: str) -> str:
@@ -602,9 +638,10 @@ def render(asof: date, seen: list[Seen], sent: str) -> str:
                      f"{_fmt(sv['fv_minus'])} | {_fmt(sv['fv_plus'])} | {_pct(sv['implied'])} | {_pct(sv['rate'])} |")
     lines += ["", "## Rapporter och rubriker", ""]
     for s in seen:
-        if s.reports or s.headlines:
+        if s.reports or s.headlines or s.outlook:
             lines.append(f"### {s.row.ticker}" + (f" -- {s.row.name}" if s.row.name else ""))
-            lines += [f"- RAPPORT {x}" for x in s.reports] + [f"- {x}" for x in s.headlines] + [""]
+            lines += ([f"- RAPPORT {x}" for x in s.reports] + [f"- UTSIKT {x}" for x in s.outlook]
+                      + [f"- {x}" for x in s.headlines] + [""])
     lines += ["", "*Kön skriver ingenting annat än den här filen och data/queue_state.json. "
               "UNDER MBP är information (E168, försök #25: kudden skilde inte avkastningen) "
               "och kräver en läsning innan order; TITTA betyder att "

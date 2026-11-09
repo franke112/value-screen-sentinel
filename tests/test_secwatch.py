@@ -66,7 +66,18 @@ def _run(tmp_path, filings, **kw):
         sent["lines"] = list(lines)
         return f"sent {len(lines)}"
 
-    wl = kw.pop("watchlist_path", REPO / "config" / "watchlist.yaml")
+    wl = kw.pop("watchlist_path", None)
+    if wl is None:
+        # the live watchlist with PHM WATCHED, whatever its live status (it
+        # was DROPPED in the review of 2026-11-09; these tests are about the
+        # SEC arm, not about PHM)
+        import re as _re
+        text = (REPO / "config" / "watchlist.yaml").read_text()
+        i = text.index("  - ticker: PHM\n")
+        j = text.index("    status:", i)
+        k = text.index("\n", j)
+        wl = tmp_path / "watchlist.yaml"
+        wl.write_text(text[:j] + "    status: PIPELINE" + text[k:])
     code, report = SW.run_secwatch(
         watchlist_path=wl, state_path=state, poster=poster, now=STAMP,
         fetch=lambda cik: filings, **kw)
@@ -125,7 +136,7 @@ def test_it_keeps_its_own_namespace_and_leaves_the_nordic_cursor_alone(tmp_path)
                     fetch=lambda cik: [TENQ])
     saved = json.loads(state.read_text())
     assert saved["seen"]["LIAB.ST"]["last_id"] == 999     # untouched
-    assert "PHM" in saved["sec"]                          # its own namespace
+    assert saved["sec"] and "LIAB.ST" not in saved["sec"]   # its own namespace (any SEC name; PHM was dropped 2026-11-09)
 
 
 # --- notify only ---------------------------------------------------------
